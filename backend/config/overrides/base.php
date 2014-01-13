@@ -6,10 +6,14 @@ return [
     // So our relative path aliases will resolve against the `/backend` subdirectory and not nonexistent `/protected`
     'basePath' => 'backend',
     'import' => [
-	'application.components.*',
+	    'application.components.*',
         'application.controllers.*',
         'application.controllers.actions.*',
-        'common.actions.*'
+
+        'common.actions.*',
+        'common.models.*',
+
+        'application.models.*'
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules

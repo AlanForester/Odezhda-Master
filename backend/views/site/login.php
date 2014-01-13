@@ -32,9 +32,9 @@ echo CHtml::errorSummary($model, null, null, array('class' => 'alert alert-error
 
 	<p class="note">Fields with <span class="required">*</span> are required.</p>
 
-	<?= $form->textFieldRow($model, 'username', array('class'=>'span3'));?>
-	<?= $form->passwordFieldRow($model, 'password', array('class'=>'span3'));?>
-	<?= $form->checkBoxRow($model, 'rememberMe');?>
+	<?= $form->textField($model, 'username', array('class'=>'span3'));?>
+	<?= $form->passwordField($model, 'password', array('class'=>'span3'));?>
+	<?= $form->checkBox($model, 'rememberMe');?>
 
 	<?php if ($model->isCaptchaRequired()): ?>
 		<?php $this->widget('CCaptcha'); ?>
