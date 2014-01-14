@@ -3,12 +3,14 @@
  * @var BackendController $this
  * @var BackendLoginForm $model
  */
+Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
+
 
 $this->pageTitle = Yii::app()->name . ' - Login';
 $this->breadcrumbs = ['Login'];
 ?>
 
-<p>Please fill out the following form with your login credentials:</p>
+<!--<p>Please fill out the following form with your login credentials:</p>-->
 
 <!-- Login Form BEGIN -->
 <div class="form">
@@ -18,9 +20,9 @@ $this->breadcrumbs = ['Login'];
 $form = $this->beginWidget(
 	'bootstrap.widgets.TbActiveForm',
 	array(
-		'id' => 'login-form',
+		'id' => 'loginForm',
 		'enableClientValidation' => true,
-		'htmlOptions' => ['class' => 'well'],
+		'htmlOptions' => ['class' => 'well offset4'],
 		'clientOptions' => array(
 			'validateOnSubmit'=>true,
 		),
@@ -30,21 +32,20 @@ $form = $this->beginWidget(
 echo CHtml::errorSummary($model, null, null, array('class' => 'alert alert-error'));
 ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+<!--	<p class="lead">Log In Here</p>-->
+    <legend>Авторизация</legend>
 
-	<?= $form->textField($model, 'username', array('class'=>'span3'));?>
-	<?= $form->passwordField($model, 'password', array('class'=>'span3'));?>
-	<?= $form->checkBox($model, 'rememberMe');?>
+    <?= $form->textField($model, 'username', array('class'=>'span3', 'placeholder'=>'Логин', 'prepend'=>TbHtml::icon(TbHtml::ICON_USER), 'size'=>'60'));?>
+	<?= $form->passwordField($model, 'password', array('class'=>'span3', 'placeholder'=>'Пароль', 'prepend'=>TbHtml::icon(TbHtml::ICON_LOCK)));?>
 
 	<?php if ($model->isCaptchaRequired()): ?>
 		<?php $this->widget('CCaptcha'); ?>
 		<?= $form->textField($model, 'verifyCode'); ?>
 	<?php endif; ?>
 
-	<div class="form-actions">
-		<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit','type'=>'primary','label'=>'Submit', 'icon'=>'ok'));?>
-		<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'reset','label'=>'Reset'));?>
-	</div>
+<!--	<div class="form-actions">-->
+		<?php $this->widget('bootstrap.widgets.TbButton', array('id'=>'logInButton', 'buttonType'=>'submit','type'=>'primary','label'=>'Вход', 'icon'=>'ok'));?>
+<!--	</div>-->
 
 <?php $this->endWidget(); ?>
 

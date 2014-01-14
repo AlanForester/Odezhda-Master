@@ -13,6 +13,8 @@ return [
         'common.actions.*',
         'common.models.*',
 
+
+        'common.models.legacy.*',
         'application.models.*'
     ],
     'controllerMap' => [

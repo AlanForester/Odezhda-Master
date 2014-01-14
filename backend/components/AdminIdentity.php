@@ -50,7 +50,7 @@ class AdminIdentity extends CUserIdentity
     {
         return User::model()->find(
             [
-                'condition' => 'username=:username',
+                    'condition' => 'username=:username',
                 'params' => [':username' => $this->username]
             ]
         );
