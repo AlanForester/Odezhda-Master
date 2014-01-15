@@ -61,9 +61,9 @@ class BackendLoginForm extends CFormModel
     {
 		return array(
 			array('password, username', 'required'),
-			array('verifyCode', 'validateCaptcha'),
+//			array('verifyCode', 'validateCaptcha'),
 			array('password', 'authenticate'),
-			array('rememberMe', 'boolean'),
+//			array('rememberMe', 'boolean'),
 		);
 	}
 

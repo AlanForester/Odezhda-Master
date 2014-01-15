@@ -34,15 +34,19 @@ class AdminIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::authenticate($this->username, $this->password);
-        //$user = $this->findUser();
-        if ($user == 0)
-            return $this->failureBecauseUserNotFound();
 
-        if ($user == 1)
+        if (is_object($user)) {
+            $this->makeAuthenticated($user);
+        } else {
+            //$user = $this->findUser();
+            if ($user == 0)
+                return $this->failureBecauseUserNotFound();
+
+            if ($user == 1)
 //        if (!$user->verifyPassword($this->password))
-            return $this->failureBecausePasswordInvalid();
+                return $this->failureBecausePasswordInvalid();
+        }
 
-        $this->makeAuthenticated($user);
 
         return $this->isAuthenticated;
     }

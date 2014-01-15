@@ -27,7 +27,7 @@ class PasswordLoginAction extends CAction
         $this->respondIfAjaxRequest($request, $model);
 
         $formData = $request->getPost(get_class($model), false);
-        ;
+
         if ($formData)
         {
             $model->attributes = $formData;

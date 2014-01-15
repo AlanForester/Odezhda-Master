@@ -52,7 +52,7 @@ class User
         return [
             'id' => $user->admin_id,
             'username' => $user->admin_email_address,
-            'validation_key' => $user->validation_key
+            'validation_key' => ''//$user->validation_key
         ];
     }
 
