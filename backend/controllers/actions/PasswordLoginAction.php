@@ -16,6 +16,7 @@ class PasswordLoginAction extends CAction
      */
     public function run()
     {
+
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
 
@@ -26,10 +27,11 @@ class PasswordLoginAction extends CAction
         $this->respondIfAjaxRequest($request, $model);
 
         $formData = $request->getPost(get_class($model), false);
-
+        ;
         if ($formData)
         {
             $model->attributes = $formData;
+
             if ($model->validate(array('username', 'password', 'verifyCode')) && $model->login())
                 $this->controller->redirect($user->returnUrl);
         }

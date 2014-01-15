@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Authentication information about the admin user registered in our database.
  *
@@ -9,51 +10,54 @@
  */
 class AdminIdentity extends CUserIdentity
 {
-	/** @var integer ID of logged user */
-	private $id;
+    /** @var integer ID of logged user */
+    private $id;
 
-	/**
+    /**
      * Getter method for `id` property.
      *
-	 * @return integer Internal database ID of the user, null if not set
-	 */
-	public function getId()
+     * @return integer Internal database ID of the user, null if not set
+     */
+    public function getId()
     {
-		return $this->id;
-	}
+        return $this->id;
+    }
 
-	/**
-	 * Given that the `username` and `password` properties of this object is set,
+    /**
+     * Given that the `username` and `password` properties of this object is set,
      * tries to authenticate the user using the User model.
      *
      * On successful authentication fills in its `id` and `username` properties from the User model.
      *
-	 * @return boolean Whether we have such a user in database and password is correct or not.
-	 */
-	public function authenticate()
+     * @return boolean Whether we have such a user in database and password is correct or not.
+     */
+    public function authenticate()
     {
-        $user = $this->findUser();
-        if (!$user)
+        $user = User::authenticate($this->username, $this->password);
+        //$user = $this->findUser();
+        if ($user == 0)
             return $this->failureBecauseUserNotFound();
 
-        if (!$user->verifyPassword($this->password))
+        if ($user == 1)
+//        if (!$user->verifyPassword($this->password))
             return $this->failureBecausePasswordInvalid();
 
         $this->makeAuthenticated($user);
 
-		return $this->isAuthenticated;
-	}
+        return $this->isAuthenticated;
+    }
 
 
     /** @return User */
     private function findUser()
     {
-        return User::model()->find(
-            [
-                    'condition' => 'username=:username',
-                'params' => [':username' => $this->username]
-            ]
-        );
+        return User::find($this->username);
+//        return User::model()->find(
+//            [
+//                    'condition' => 'username=:username',
+//                'params' => [':username' => $this->username]
+//            ]
+//        );
     }
 
     private function failureBecauseUserNotFound()
@@ -71,10 +75,15 @@ class AdminIdentity extends CUserIdentity
     /** @param User $user */
     private function makeAuthenticated($user)
     {
-        $user->regenerateValidationKey();
-        $this->id = $user->id;
-        $this->username = $user->username;
-        $this->setState('vkey', $user->validation_key);
+//        $user->regenerateValidationKey();
+//        $this->id = User::getUserId($user);
+//        $this->username = User::getUserName($user);
+//        $this->setState('vkey', $user->validation_key);
+
+        $data = User::makeAuthenticated($user);
+        $this->id = $data['id'];
+        $this->username = $data['username'];
+        $this->setState('vkey', $data['validation_key']);
         $this->errorCode = self::ERROR_NONE;
     }
 }
