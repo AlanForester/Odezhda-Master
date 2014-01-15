@@ -77,11 +77,38 @@ class LegacyUser extends CActiveRecord
 //		);
 //	}
 
-    public function verifyPassword($password)
+    public function verifyPassword($originPassword)
     {
+        //echo($this->admin_password);exit;
+        if ($this->val_not_null($originPassword) && $this->val_not_null($this->admin_password)) {
+            // split apart the hash / salt
+            $stack = explode(':', $this->admin_password);
+
+            if (sizeof($stack) != 2) return false;
+
+            if (md5($stack[1] . $originPassword) == $stack[0]) {
+                return true;
+            }
+        }
+
+        return false;
 
     }
-
+    public function val_not_null($value) {
+        if (is_array($value)) {
+            if (sizeof($value) > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if ( (is_string($value) || is_int($value)) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
     /**
      * Validation rules for model attributes.
      *

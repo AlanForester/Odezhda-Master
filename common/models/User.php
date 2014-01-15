@@ -8,6 +8,11 @@ class User
         return LegacyUser::model()->findByAttributes($attributes);
     }
 
+    /**
+     * Поиск пользователя по имени
+     * @param string $username имя пользователя (username)
+     * @return LegacyUser
+     */
     public static function find($username)
     {
         return LegacyUser::model()->find(

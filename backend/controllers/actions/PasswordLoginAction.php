@@ -32,7 +32,7 @@ class PasswordLoginAction extends CAction
         {
             $model->attributes = $formData;
 
-            if ($model->validate(array('username', 'password', 'verifyCode')) && $model->login())
+            if ($model->validate(array('username', 'password')) && $model->login())
                 $this->controller->redirect($user->returnUrl);
         }
 

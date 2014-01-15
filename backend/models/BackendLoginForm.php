@@ -97,8 +97,8 @@ class BackendLoginForm extends CFormModel
         if ($this->_identity->authenticate())
             return;
 
-        if ($this->user !== null and $this->user->login_attempts < 100)
-            $this->user->saveAttributes(array('login_attempts' => $this->user->login_attempts + 1));
+//        if ($this->user !== null and $this->user->login_attempts < 100)
+//            $this->user->saveAttributes(array('login_attempts' => $this->user->login_attempts + 1));
 
         $this->addError('username', Yii::t('errors', 'Incorrect username and/or password.'));
         $this->addError('password', Yii::t('errors', 'Incorrect username and/or password.'));
@@ -158,7 +158,7 @@ class BackendLoginForm extends CFormModel
 	 */
 	public function isCaptchaRequired()
     {
-		return ($user = $this->user) !== null && $user->login_attempts >= self::MAX_LOGIN_ATTEMPTS;
+		return false;//return ($user = $this->user) !== null && $user->login_attempts >= self::MAX_LOGIN_ATTEMPTS;
 	}
 
 }
