@@ -33,7 +33,7 @@
                 'links' => $this->breadcrumbs,
             )
         ); ?>
-    <?php endif?>s
+    <?php endif?>
 
 	<div class="row">
 

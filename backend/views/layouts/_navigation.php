@@ -11,13 +11,21 @@ $this->widget(
         //'type' => 'inverse',
 	'color' => TbHtml::NAVBAR_COLOR_INVERSE,
         'brandLabel' => 'Cpanel',
-        'brandUrl' => '/',
+        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
+        //'display' => null,
         'collapse' => true,
         'items' => array(
             array(
                 'class' => 'bootstrap.widgets.TbNav',
                 'items' => array(
-                    array('label' => 'Главная', 'url' => array('/site/index')),
+                    array(
+                        'label' => 'Система',
+                        'url' => '#',
+                        'items'=> array(
+                            array('label' => 'Пользователи', 'url' => array('/users/index')),
+                            array('label' => 'Настройки', 'url' => array('/config/index')),
+                        )
+                    ),
 //                    array(
 //                        'label' => 'Login',
 //                        'url' => array('/site/login'),
@@ -27,8 +35,6 @@ $this->widget(
                         'label' => 'Разделы',
                         'url' => '#',
                         'items'=> array(
-                            array('label' => 'Пользователи', 'url' => array('/users/index')),
-                            array('label' => 'Настройки', 'url' => array('/config/index')),
                             array('label' => 'Каталог', 'url' => array('/catalog/index')),
                             array('label' => 'Статьи', 'url' => array('/articles/index')),
                             array('label' => 'Информационные страницы', 'url' => array('/articles/index')),
@@ -47,9 +53,13 @@ $this->widget(
                         )
                     ),
                     array(
-                        'label' => 'Logout (' . Yii::app()->user->name . ')',
-                        'url' => array('/site/logout'),
-                        'visible' => !Yii::app()->user->isGuest
+                        'label' => Yii::app()->user->name ,
+                        'url' => '#',
+                        'class'=>'offset6',
+                        'items'=> array(
+                            array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
+                            array('label' => 'Выход', 'url' => array('/site/logout')),
+                        )
                     ),
 //                    array(
 //                        'label' => 'Users list',
