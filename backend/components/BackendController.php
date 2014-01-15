@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class for the controllers in backend entry point of application.
  *
@@ -9,11 +10,11 @@
  */
 abstract class BackendController extends CController
 {
-	/** @var array This will be pasted into breadcrumbs widget in layout */
-	public $breadcrumbs = array();
+    /** @var array This will be pasted into breadcrumbs widget in layout */
+    public $breadcrumbs = array();
 
-	/** @var array This will be pasted into menu widget in sidebar portlet in two-column layout */
-	public $menu = array();
+    /** @var array This will be pasted into menu widget in sidebar portlet in two-column layout */
+    public $menu = array();
 
     /**
      * Additional behavior associated with different routes in the controller.
@@ -40,9 +41,9 @@ abstract class BackendController extends CController
     public function accessRules()
     {
         return [
-            ['allow', 'users' => ['@'] ],
-			['deny'],
-		];
+            ['allow', 'users' => ['@']],
+            ['deny'],
+        ];
     }
 
     /**
@@ -63,12 +64,12 @@ abstract class BackendController extends CController
     private function registerAssets()
     {
         $publisher = Yii::app()->assetManager;
-        $libraries = $publisher->publish(ROOT_DIR.'/common/packages');
-	Yii::app()->bootstrap->register();
+        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
+        Yii::app()->bootstrap->register();
         // NOTE that due to limitations of CClientScript.registerPackage
         // we cannot specify the javascript files to be registered before closing </body> tag.
         // So our only option until Yii 2 is to open up the package and manually register everything in it.
 
-        $backend = $publisher->publish(ROOT_DIR.'/backend/packages');
+        $backend = $publisher->publish(ROOT_DIR . '/backend/packages');
     }
 }

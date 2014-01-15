@@ -36,6 +36,7 @@ class PasswordLoginAction extends CAction
                 $this->controller->redirect($user->returnUrl);
         }
 
+        $this->controller->layout = '//layouts/blank';
         $this->controller->render('login', compact('model'));
     }
 
@@ -62,6 +63,6 @@ class PasswordLoginAction extends CAction
     private function redirectAwayAlreadyAuthenticatedUsers($user)
     {
         if (!$user->isGuest)
-            $this->controller->redirect('/');
+            $this->controller->redirect(Yii::app()->request->baseUrl);
     }
 } 

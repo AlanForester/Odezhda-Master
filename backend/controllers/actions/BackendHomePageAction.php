@@ -13,6 +13,12 @@ class BackendHomePageAction extends CAction
      */
     public function run()
     {
+        $user = Yii::app()->user;
+        if ($user->isGuest){
+            $this->controller->redirect(Yii::app()->request->baseUrl.'/site/login');
+        }
+
+        $this->controller->layout = '//layouts/main';
         $this->controller->render('index');
     }
 } 

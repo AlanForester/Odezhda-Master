@@ -20,9 +20,20 @@
 </head>
 
 <body>
+<!-- NAVIGATION BEGIN -->
+<?php $this->renderPartial('//layouts/_navigation');?>
+<!-- NAVIGATION END -->
 
 <!-- CONTENT WRAPPER BEGIN -->
 <div class="container">
+    <?php if (isset($this->breadcrumbs)): ?>
+        <?php $this->widget(
+            'bootstrap.widgets.TbBreadcrumb',
+            array(
+                'links' => $this->breadcrumbs,
+            )
+        ); ?>
+    <?php endif?>
 
 	<div class="row">
 
@@ -31,9 +42,18 @@
         <!-- CONTENT END -->
 
     </div>
+
+    <div class="row">
+        <hr/>
+		<footer>
+			Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
+			All Rights Reserved.<br/>
+			<?= Yii::powered(); ?>
+		</footer>
+	</div>
+
 </div>
 <!-- CONTENT WRAPPER END -->
-
 
 </body>
 </html>

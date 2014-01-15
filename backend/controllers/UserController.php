@@ -16,7 +16,7 @@ class UserController extends BackendController
      *
      * @var string Layout used for rendering views
      */
-	public $layout = '//layouts/column2';
+	public $layout = '//layouts/blank';
 
     /**
      * Additional behavior associated with different routes in the controller.
