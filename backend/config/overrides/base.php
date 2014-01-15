@@ -19,7 +19,9 @@ return [
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules
-        'site' => 'BackendSiteController'
+        'site' => 'BackendSiteController',
+        'users' => 'UserController'
+
     ],
     'components' => [
         // Backend uses the YiiBooster package for its UI
@@ -30,6 +32,8 @@ return [
         'urlManager' => [
             // Some sane usability rules
             'rules' => [
+                //'<action:\w+>' => 'site/<action>',
+
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

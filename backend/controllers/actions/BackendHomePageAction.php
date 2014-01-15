@@ -18,7 +18,7 @@ class BackendHomePageAction extends CAction
             $this->controller->redirect(Yii::app()->request->baseUrl.'/site/login');
         }
 
-        $this->controller->layout = '//layouts/main';
+        //$this->controller->layout = '//layouts/main';
         $this->controller->render('index');
     }
 } 

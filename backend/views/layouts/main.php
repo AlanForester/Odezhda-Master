@@ -33,7 +33,7 @@
                 'links' => $this->breadcrumbs,
             )
         ); ?>
-    <?php endif?>
+    <?php endif?>s
 
 	<div class="row">
 
@@ -43,14 +43,14 @@
 
     </div>
 
-    <div class="row">
-        <hr/>
-		<footer>
-			Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-			All Rights Reserved.<br/>
-			<?= Yii::powered(); ?>
-		</footer>
-	</div>
+<!--    <div class="row">-->
+<!--        <hr/>-->
+<!--		<footer>-->
+<!--			Copyright &copy; --><?php //echo date('Y'); ?><!-- by My Company.<br/>-->
+<!--			All Rights Reserved.<br/>-->
+<!--			--><?//= Yii::powered(); ?>
+<!--		</footer>-->
+<!--	</div>-->
 
 </div>
 <!-- CONTENT WRAPPER END -->
