@@ -16,6 +16,8 @@ abstract class BackendController extends CController
     /** @var array This will be pasted into menu widget in sidebar portlet in two-column layout */
     public $menu = array();
 
+    public $assets_backend = null;
+
     /**
      * Additional behavior associated with different routes in the controller.
      *
@@ -87,11 +89,6 @@ abstract class BackendController extends CController
         // we cannot specify the javascript files to be registered before closing </body> tag.
         // So our only option until Yii 2 is to open up the package and manually register everything in it.
 
-        $backend = $publisher->publish(ROOT_DIR . '/backend/packages');
+        $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
     }
-
-//    public function run($actionID)
-//    {
-//        echo($actionID);exit;
-//    }
 }

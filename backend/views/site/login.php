@@ -5,7 +5,8 @@
  */
 
 
-Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend.'/login.css');
+//Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
 $this->pageTitle = 'Login';
 $this->breadcrumbs = ['Login'];
 ?>
