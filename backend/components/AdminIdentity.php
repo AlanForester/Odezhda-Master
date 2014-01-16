@@ -33,7 +33,7 @@ class AdminIdentity extends CUserIdentity
      */
     public function authenticate()
     {
-        $user = User::authenticate($this->username, $this->password);
+        $user = UserLayer::authenticate($this->username, $this->password);
 
         if (is_object($user)) {
             $this->makeAuthenticated($user);
@@ -55,7 +55,7 @@ class AdminIdentity extends CUserIdentity
     /** @return User */
     private function findUser()
     {
-        return User::find($this->username);
+        return UserLayer::find($this->username);
 //        return User::model()->find(
 //            [
 //                    'condition' => 'username=:username',
@@ -84,7 +84,7 @@ class AdminIdentity extends CUserIdentity
 //        $this->username = User::getUserName($user);
 //        $this->setState('vkey', $user->validation_key);
 
-        $data = User::makeAuthenticated($user);
+        $data = UserLayer::makeAuthenticated($user);
         $this->id = $data['id'];
         $this->username = $data['username'];
         $this->setState('vkey', $data['validation_key']);

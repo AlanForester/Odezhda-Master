@@ -81,7 +81,7 @@ class UserController extends BackendController
 	 */
 	public function actionCreate()
 	{
-		$model=new User;
+		$model=new UserLayer;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -146,7 +146,7 @@ class UserController extends BackendController
 	 */
 	public function actionAdmin()
 	{
-		$model=new User('search');
+		$model=new UserLayer('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['User']))
 			$model->attributes=$_GET['User'];
@@ -163,7 +163,7 @@ class UserController extends BackendController
 	 */
 	public function loadModel($id)
 	{
-		$model=User::model()->findByPk($id);
+		$model=UserLayer::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;

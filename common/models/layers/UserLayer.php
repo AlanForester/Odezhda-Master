@@ -1,6 +1,6 @@
 <?php
 
-class User
+class UserLayer
 {
 
     public static function findByAttributes($attributes)
