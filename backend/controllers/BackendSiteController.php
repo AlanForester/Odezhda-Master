@@ -8,6 +8,9 @@
  */
 class BackendSiteController extends BackendController
 {
+
+    private $_pageTitle = 'CPanel';
+
 	/**
      * The actions defined in separate action classes and bound to this class by IDs.
      *

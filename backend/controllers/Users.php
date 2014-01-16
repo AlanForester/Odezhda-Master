@@ -5,8 +5,15 @@
  */
 class Users extends BackendController
 {
+
+//    private $pageTitle = 'Users1';
+
+//    public $val;
+
     public function actionIndex()
     {
-        echo(123);
+        $val='fdgdfgdfsgd';
+//        $this->render('index');
+        $this->render('index', compact('val'));
     }
 }
