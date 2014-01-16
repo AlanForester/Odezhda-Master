@@ -21,6 +21,7 @@ $this->widget(
                     array(
                         'label' => 'Система',
                         'url' => '#',
+                        'class'=>'divider-vertical',
                         'items'=> array(
                             array('label' => 'Пользователи', 'url' => array('/users/index')),
                             array('label' => 'Настройки', 'url' => array('/config/index')),
@@ -34,6 +35,7 @@ $this->widget(
                     array(
                         'label' => 'Разделы',
                         'url' => '#',
+                        'class'=>'divider-vertical',
                         'items'=> array(
                             array('label' => 'Каталог', 'url' => array('/catalog/index')),
                             array('label' => 'Статьи', 'url' => array('/articles/index')),
@@ -55,7 +57,7 @@ $this->widget(
                     array(
                         'label' => Yii::app()->user->name ,
                         'url' => '#',
-                        'class'=>'offset6',
+                        'class'=>'offset6 pull-right',
                         'items'=> array(
                             array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
                             array('label' => 'Выход', 'url' => array('/site/logout')),

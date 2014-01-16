@@ -23,7 +23,7 @@ return [
             'class'=>'BackendSiteController',
             'pageTitle'=>'Cpanel'
         ),
-        'users' => 'UsersController'
+        'users' => 'Users'
 
     ],
     'components' => [
