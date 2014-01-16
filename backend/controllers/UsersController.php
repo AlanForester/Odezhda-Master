@@ -24,10 +24,12 @@ class UsersController extends BackendController
 //                'allow',
 //                'role' => ['administrator']
 //            ],
+
+            // todo: после прикручивания системы прав, включить управление по ролям
             // запрещаем все для всех
             [
                 'deny',
-                'users' => ['*'],
+                'users' => ['?'],
             ],
         );
     }
