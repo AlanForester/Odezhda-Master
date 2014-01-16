@@ -40,10 +40,27 @@ abstract class BackendController extends CController
      */
     public function accessRules()
     {
-        return [
-            ['allow', 'users' => ['@']],
-            ['deny'],
-        ];
+        return array(
+            // разрешаем все для группы админов
+//            [
+//                'allow',
+//                'role' => ['administrator']
+//            ],
+
+            // todo: после прикручивания системы прав, включить управление по ролям
+            // запрещаем все для неавторизированных
+            [
+                'deny',
+                'users' => ['?'],
+            ],
+        );
+    }
+
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
     }
 
     /**

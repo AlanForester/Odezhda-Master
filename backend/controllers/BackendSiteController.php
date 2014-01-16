@@ -47,7 +47,7 @@ class BackendSiteController extends BackendController
 	{
         return array_merge(
             [
-                [ 'allow', 'actions' => ['index', 'login', 'logout', 'captcha', 'error'] ]
+                [ 'allow', 'actions' => ['login'/*, 'logout', 'captcha', 'error'*/] ]
             ],
             parent::accessRules()
         );
