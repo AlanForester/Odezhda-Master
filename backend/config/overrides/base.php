@@ -23,7 +23,7 @@ return [
             'class'=>'BackendSiteController',
             'pageTitle'=>'Cpanel'
         ),
-        'users' => 'Users'
+        'users' => 'UsersController'
 
     ],
     'components' => [
@@ -32,7 +32,11 @@ return [
             // Installing our own error page.
             'errorAction' => 'site/error'
         ),
+        'authManager'=>array(
+            'class'=>'CDbAuthManager'
+        ),
         'urlManager' => [
+
             // Some sane usability rules
             'rules' => [
                 //'<action:\w+>' => 'site/<action>',

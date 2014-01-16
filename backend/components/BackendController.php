@@ -72,4 +72,9 @@ abstract class BackendController extends CController
 
         $backend = $publisher->publish(ROOT_DIR . '/backend/packages');
     }
+
+//    public function run($actionID)
+//    {
+//        echo($actionID);exit;
+//    }
 }

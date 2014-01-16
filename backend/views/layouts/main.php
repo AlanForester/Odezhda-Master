@@ -24,6 +24,7 @@
 <?php $this->renderPartial('//layouts/_navigation');?>
 <!-- NAVIGATION END -->
 
+
 <!-- CONTENT WRAPPER BEGIN -->
 <div class="container">
     <?php if (isset($this->breadcrumbs)): ?>
@@ -38,6 +39,7 @@
 	<div class="row">
 
         <!-- CONTENT BEGIN -->
+        <div style="margin-top: 50px;"></div>
 		<?= $content; ?>
         <!-- CONTENT END -->
 
