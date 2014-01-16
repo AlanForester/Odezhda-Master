@@ -3,10 +3,10 @@
  * @var BackendController $this
  * @var BackendLoginForm $model
  */
+
+
 Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
-
-
-$this->pageTitle = Yii::app()->name . ' - Login';
+$this->pageTitle = 'Login';
 $this->breadcrumbs = ['Login'];
 ?>
 

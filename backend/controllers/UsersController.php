@@ -12,7 +12,12 @@ class UsersController extends BackendController
 
     public function actionIndex()
     {
-        $val = 'fdgdfgdfsgd';
-        $this->render('index', compact('val'));
+        $model = new UsersModel();
+        $users=UsersModel::model()->findAll();
+        print_r($users[0]->attributes['admin_lastname']);
+
+        //$val = 'fdgdfgdfsgd';
+        //$this->render('index', compact('val'));
+
     }
 }

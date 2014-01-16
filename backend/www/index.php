@@ -13,6 +13,7 @@ require __DIR__.'/../../common/bootstrap.php';
 Yii::setPathOfAlias('backend', ROOT_DIR .'/backend');
 Yii::setPathOfAlias('www', ROOT_DIR . '/backend/www');
 
+
 # As we are using BootstrapFilter to include Booster, we have to define 'bootstrap' alias ourselves
 # Note that we are binding to Composer-installed version of YiiBooster
 #Yii::setPathOfAlias('bootstrap', ROOT_DIR . '/vendor/clevertech/yii-booster/src');

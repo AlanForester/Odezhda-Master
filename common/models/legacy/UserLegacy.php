@@ -27,7 +27,7 @@
  *
  * @package YiiBoilerplate\Models
  */
-class LegacyUser extends CActiveRecord
+class UserLegacy extends CActiveRecord
 {
     /** @var string Field to hold a new password when user updates it. */
     public $newPassword;

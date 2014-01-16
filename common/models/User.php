@@ -5,17 +5,17 @@ class User
 
     public static function findByAttributes($attributes)
     {
-        return LegacyUser::model()->findByAttributes($attributes);
+        return UserLegacy::model()->findByAttributes($attributes);
     }
 
     /**
      * Поиск пользователя по имени
      * @param string $username имя пользователя (username)
-     * @return LegacyUser
+     * @return UserLegacy
      */
     public static function find($username)
     {
-        return LegacyUser::model()->find(
+        return UserLegacy::model()->find(
             [
                 'condition' => 'admin_email_address=:username',
                 'params' => [':username' => $username]

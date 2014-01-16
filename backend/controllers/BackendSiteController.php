@@ -8,7 +8,7 @@
  */
 class BackendSiteController extends BackendController
 {
-
+    public $defaultAction = 'index';
     private $_pageTitle = 'CPanel';
 
 	/**

@@ -4,7 +4,7 @@
  *
  * @var BackendController $this
  */
-
+Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(

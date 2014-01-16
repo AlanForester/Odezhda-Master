@@ -3,6 +3,8 @@
  * Base config overrides for backend application
  */
 return [
+
+    'defaultController'=>'site',
     // So our relative path aliases will resolve against the `/backend` subdirectory and not nonexistent `/protected`
     'basePath' => 'backend',
     'import' => [
@@ -12,10 +14,10 @@ return [
 
         'common.actions.*',
         'common.models.*',
-
-
         'common.models.legacy.*',
-        'application.models.*'
+
+        'application.models.*',
+        'application.models.legacy.*',
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules
