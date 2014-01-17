@@ -45,7 +45,7 @@ echo CHtml::errorSummary($model, null, null, array('class' => 'alert alert-error
 	<?php endif; ?>
 
 <!--	<div class="form-actions">-->
-		<?php $this->widget('bootstrap.widgets.TbButton', array('id'=>'logInButton', 'buttonType'=>'submit','type'=>'primary','label'=>'Вход', 'icon'=>'ok'));?>
+		<?php $this->widget('backend.widgets.bootstrap.TbButton', array('id'=>'logInButton', 'buttonType'=>'submit','type'=>'primary','label'=>'Вход', 'icon'=>'ok'));?>
 <!--	</div>-->
 
 <?php $this->endWidget(); ?>
