@@ -83,7 +83,7 @@ abstract class BackendController extends CController
     private function registerAssets()
     {
         $publisher = Yii::app()->assetManager;
-        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
+//        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
         // NOTE that due to limitations of CClientScript.registerPackage
         // we cannot specify the javascript files to be registered before closing </body> tag.

@@ -4,15 +4,15 @@
  *
  * @var BackendController $this
  */
-Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
+//Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
 $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(
         //'type' => 'inverse',
 	'color' => TbHtml::NAVBAR_COLOR_INVERSE,
         'brandLabel' => 'Cpanel',
-        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
-        //'display' => null,
+//        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
+//        'display' => null,
         'collapse' => true,
         'items' => array(
             array(

@@ -7,8 +7,8 @@
 
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend.'/login.css');
 //Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
-$this->pageTitle = 'Login';
-$this->breadcrumbs = ['Login'];
+$this->pageTitle = 'Вход';
+//$this->breadcrumbs = ['Login'];
 ?>
 
 <!--<p>Please fill out the following form with your login credentials:</p>-->
