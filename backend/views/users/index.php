@@ -6,10 +6,11 @@
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',
     'dataProvider'=>$this->gridDataProvider,
-    //'itemsCssClass' => 'table-bordered items',
+    'itemsCssClass' => 'table-bordered items',
     'fixedHeader' => true,
     'responsiveTable' => true,
     'type' => 'striped bordered',
+    'headerOffset' => 40, // 40px is the height of the main navigation at bootstrap
     'columns'=>array(
         [
             'header' => 'Id',
@@ -33,6 +34,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'editable'=>[
                 'placement' => 'right',
                 'url'=>Yii::app()->createUrl("/users/update"),
+                'source'   => $this->createUrl('users/update'),
             ]
         ],
         [
@@ -43,7 +45,8 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
-                'placement' => 'right'
+                'placement' => 'right',
+                'url'=>Yii::app()->createUrl("/users/update"),
             ]
         ],
         [
@@ -54,7 +57,8 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
-                'placement' => 'right'
+                'placement' => 'right',
+                'url'=>Yii::app()->createUrl("/users/update"),
             ]
         ],
         [
