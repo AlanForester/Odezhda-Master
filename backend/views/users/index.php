@@ -31,7 +31,8 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
-            'placement' => 'right'
+                'placement' => 'right',
+                'url'=>Yii::app()->createUrl("/users/update"),
             ]
         ],
         [
