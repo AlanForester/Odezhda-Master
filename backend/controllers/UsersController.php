@@ -26,17 +26,12 @@ class UsersController extends BackendController
 
     public function actionUpdate()
     {
-//        $model = new UsersModel();
-//        $users=$model->getAllUsers();
-//
-//        $this->render('index');
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['newValue'] = Yii::app()->request->getPost('value');
-        //print_r($params);exizzzzzt;
         $model = new UsersModel();
         if (!$model->changeUserField($params))
-            throw new CHttpException(400, Yii::t('err', 'Bad request!'));
+            throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));
         //echo CJSON::encode(array('success' => false,'msg'=>'test'));
         //new CException();
 //        Yii::app()->end();

@@ -18,17 +18,16 @@ class UsersModel
     public function getAllUsers(){
         if (!$this->allUsers){
             $this->allUsers=UsersLayer::usersList();
-//            $list=UsersLayer::usersList();
-//            foreach ($list as $val)
-//                //$val->attributes['primaryKey'] = 'admin_id';
-//                $this->allUsers[]=$val->attributes;
         }
         return $this->allUsers;
     }
+
+    /**
+     * @param array $params смотри описание changeField()
+     * @return bool успешно ли произошла запись
+     */
     public function changeUserField($params=[]){
-        if (!empty($params))
+
             return UsersLayer::changeField($params);
-        else
-            throw new CHttpException(400, Yii::t('err', 'No parameters for updating!'));
     }
 }

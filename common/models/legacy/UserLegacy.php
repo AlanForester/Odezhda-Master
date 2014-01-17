@@ -121,7 +121,7 @@ class UserLegacy extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email', 'email'),
+            //array('email', 'email'),
             array('username, email', 'unique'),
             array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
             array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
