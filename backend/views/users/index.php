@@ -13,13 +13,13 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'columns'=>array(
         [
             'header' => 'Id',
-            'name'=>'admin_id',
+            'name'=>'id',
             'headerHtmlOptions' => array('style' => 'width: 30px; text-align: center;'),
             'htmlOptions' => array('style' => 'width: 30px; text-align: center;'),
         ],
         [
             'header' => 'Group_id',
-            'name'=>'admin_groups_id',
+            'name'=>'groups_id',
             'headerHtmlOptions' => array('style' => 'width: 50px; text-align: center;'),
             'htmlOptions' => array('style' => 'width: 50px; text-align: center;'),
         ],
@@ -27,7 +27,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'type' => 'text',
             'header' => 'Имя',
-            'name' => 'admin_firstname',
+            'name' => 'firstname',
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
@@ -39,7 +39,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'type' => 'text',
             'header' => 'Фамилия',
-            'name' => 'admin_lastname',
+            'name' => 'lastname',
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
@@ -50,7 +50,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'type' => 'text',
             'header' => 'E-mail',
-            'name' => 'admin_email_address',
+            'name' => 'email_address',
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
@@ -59,20 +59,18 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
         ],
         [
             'header' => 'Log_date',
-            'name'=>'admin_logdate',
+            'name'=>'logdate',
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
         ],
-        array(
+        [
 //            'header' => 'Редактировать',
             'htmlOptions' => array('width'=>'50px'),
-
             'class'=>'bootstrap.widgets.TbButtonColumn',
-            'viewButtonUrl'=>'Yii::app()->createUrl("/users/show", array("id"=>$data["admin_id"]))',
-            'updateButtonUrl'=>'Yii::app()->createUrl("/users/edit", array("id"=>$data["admin_id"]))',
-            'deleteButtonUrl'=>'Yii::app()->createUrl("/users/delete", array("id"=>$data["admin_id"]))',
-
-        )
+            'viewButtonUrl'=>'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
+            'updateButtonUrl'=>'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
+            'deleteButtonUrl'=>'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+        ]
     ),
 ));
 
