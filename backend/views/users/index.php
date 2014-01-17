@@ -34,7 +34,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'editable'=>[
                 'placement' => 'right',
                 'url'=>Yii::app()->createUrl("/users/update"),
-                'source'   => $this->createUrl('users/update'),
+                //'source'   => $this->createUrl('users/update'),
             ]
         ],
         [

@@ -33,6 +33,7 @@ class UsersController extends BackendController
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['newValue'] = Yii::app()->request->getPost('value');
+        //print_r($params);exizzzzzt;
         $model = new UsersModel();
         if (!$model->changeUserField($params))
             throw new CHttpException(400, Yii::t('err', 'Bad request!'));

@@ -25,4 +25,10 @@ class UsersModel
         }
         return $this->allUsers;
     }
+    public function changeUserField($params=[]){
+        if (!empty($params))
+            return UsersLayer::changeField($params);
+        else
+            throw new CHttpException(400, Yii::t('err', 'No parameters for updating!'));
+    }
 }

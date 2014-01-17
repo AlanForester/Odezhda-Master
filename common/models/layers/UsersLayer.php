@@ -20,10 +20,23 @@ class UsersLayer
         'admin_right_access' => 'right_access',
     ];
 
-    private static function fieldMapConvert($row){
-        foreach (self::$field_map as $k=>$v){
-            $row[$v] = $row[$k];
-            unset($row[$k]);
+    /**
+     * @param $row массив соответствий
+     * @param bool $reverse конвертировать в прямую или обратную сторону(по умолчанию -  прямую)
+     * @return mixed конвертированный по ключам массив
+     */
+    private static function fieldMapConvert($row,$reverse=false){
+        if (!$reverse){
+            foreach (self::$field_map as $k=>$v){
+                $row[$v] = $row[$k];
+                unset($row[$k]);
+            }
+        }
+        else {
+            foreach (self::$field_map as $k=>$v){
+                $row[$k] = $row[$v];
+                unset($row[$v]);
+            }
         }
 
         return $row;
@@ -38,5 +51,25 @@ class UsersLayer
         }
 
         return $result;
+    }
+
+    public static function changeField($params)
+    {
+        $convertField=array_search($params['field'],self::$field_map);
+        //echo($convertField);exit;
+        if (!empty($params['id']) && $convertField && !empty($params['newValue'])){
+//            $find=UserLegacy::model()->findByPk($params['id']);
+//            //$find=UserLegacy::model()->find("admin_id = :admin_id", array("admin_id" => $params['id'] ));
+//            $find->{$convertField}=$params['newValue'];
+//            //print_r($find);exit;
+//            if($find->save())
+//                return true;
+//            else
+//                return false;
+            UserLegacy::model()->updateAll([$convertField => $params['newValue']],"admin_id = :admin_id", array("admin_id" => $params['id'] ));
+            return true;
+        }
+        else
+            return false;
     }
 }

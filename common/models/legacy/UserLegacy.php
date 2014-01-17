@@ -35,7 +35,7 @@ class UserLegacy extends CActiveRecord
     /** @var string Password confirmation. Is used only in validation on login. */
     public $passwordConfirm;
 
-//    public $primaryKey='admin_id';
+    public $primaryKey='admin_id';
 //    public $validation_key;
 
     /**
