@@ -39,8 +39,17 @@ return [
             'errorAction' => 'site/error'
         ),
         'authManager'=>array(
-            'class'=>'CDbAuthManager'
+            //'class'=>'CDbAuthManager' //old login type
+            // New login form
+            'class' => 'PhpAuthManager',
+            // Default role.
+            'defaultRoles' => array('guest'),
         ),
+        'user'=>array(
+            // enable cookie-based authentication
+            'allowAutoLogin'=>true,
+            'class'=>'WebAdmin', //added
+	),
         'urlManager' => [
 
             // Some sane usability rules

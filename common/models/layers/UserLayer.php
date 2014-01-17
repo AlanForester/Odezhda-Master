@@ -2,6 +2,10 @@
 
 class UserLayer
 {
+    public static function findByPk($id, $params)
+    {
+        return UserLegacy::model()->findByPk($id, $params);
+    }
 
     public static function findByAttributes($attributes)
     {
