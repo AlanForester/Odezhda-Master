@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<h1>Users</h1>
+<h1>Пользователи</h1>
 <?php
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',
@@ -13,7 +13,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'columns'=>array(
         [
             'header' => 'Id',
-            'name'=>'admin_groups_id',
+            'name'=>'admin_id',
             'headerHtmlOptions' => array('style' => 'width: 30px; text-align: center;'),
             'htmlOptions' => array('style' => 'width: 30px; text-align: center;'),
         ],
@@ -63,10 +63,15 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'text-align: center;'),
         ],
         array(
-            'class'=>'bootstrap.widgets.TbButtonColumn',
-            'htmlOptions'=>array('style'=>'width: 50px'),
+//            'header' => 'Редактировать',
+            'htmlOptions' => array('width'=>'50px'),
 
-        ),
+            'class'=>'bootstrap.widgets.TbButtonColumn',
+            'viewButtonUrl'=>'Yii::app()->createUrl("/users/show", array("id"=>$data["admin_id"]))',
+            'updateButtonUrl'=>'Yii::app()->createUrl("/users/edit", array("id"=>$data["admin_id"]))',
+            'deleteButtonUrl'=>'Yii::app()->createUrl("/users/delete", array("id"=>$data["admin_id"]))',
+
+        )
     ),
 ));
 

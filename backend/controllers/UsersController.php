@@ -24,6 +24,7 @@ class UsersController extends BackendController
         //$this->gridDataProvider = new CArrayDataProvider($users);
         $this->gridDataProvider=new CArrayDataProvider($users, array(
             'keyField'=>'admin_id',
+
             'sort'=>array(
                 'attributes'=>array(
                     'admin_id', 'username', 'email',

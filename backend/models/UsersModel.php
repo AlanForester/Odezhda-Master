@@ -18,7 +18,10 @@ class UsersModel
     public function getAllUsers(){
         if (!$this->allUsers){
             $list=UsersLayer::usersList();
+//            echo '<pre>';
+//            print_r($list);
             foreach ($list as $val)
+                //$val->attributes['primaryKey'] = 'admin_id';
                 $this->allUsers[]=$val->attributes;
         }
         return $this->allUsers;
