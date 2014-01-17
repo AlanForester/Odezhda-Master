@@ -1,0 +1,17 @@
+#loginForm {
+    position: absolute;
+    top: 50%;
+    margin-top: -95px;
+    width: 300px;
+}
+#logInButton {
+    display: block;
+    float: right;
+}
+#BackendLoginForm_password {
+    width: 260px;
+}
+
+#BackendLoginForm_username {
+    width: 260px;
+}
