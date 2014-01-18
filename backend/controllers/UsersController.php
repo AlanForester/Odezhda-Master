@@ -51,7 +51,7 @@ class UsersController extends BackendController
         $user=$model->getUser($id);
         //$model = new BackendLoginForm();
         if ($user){
-            $this->render('editUserCard', compact('model','user'));
+            $this->render('edit', compact('model','user'));
         }
         else
             throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));

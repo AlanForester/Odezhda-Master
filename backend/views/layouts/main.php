@@ -35,24 +35,26 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 <!--TITLE AND BUTTONS-->
 <div class="container">
     <div class="row-fluid">
-        <div class="span6">
+        <div class="span7">
             <h1 class="pull-left"><?= $this->pageTitle ?></h1>
         </div>
-        <div class="span6 pull-right" style="text-align:right;line-height:60px">
+        <div class="span5 pull-right button-block" style="text-align:right;line-height:60px">
             <?php
             if (count($this->pageButton)>0){
-            $this->widget(
-                'backend.widgets.bootstrap.TbButtonGroup',
-                [
-                    'buttons'=>$this->pageButton
-                ]
-                //$this->pageButton
-            );
-            }
+//            $this->widget(
+//                'backend.widgets.bootstrap.TbButtonGroup',
+//                [
+//                    'buttons'=>$this->pageButton
+//                ]
+//            );
 
-//            foreach ($this->pageButton as $button) {
-//                echo TbHtml::button($button['label'], $button['htmlOptions']);
-//            }
+                echo join('',$this->pageButton);
+//                foreach ($this->pageButton as $button) {
+//                    echo TbHtml::linkButton($button['label'], $button['htmlOptions']);
+////                    echo TbHtml::btn(self::BUTTON_TYPE_LINK, $label, $htmlOptions)
+//                }
+
+            }
             ?>
         </div>
     </div>

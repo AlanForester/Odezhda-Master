@@ -1,15 +1,15 @@
 <?php
 $this->pageButton = [
-    [
-        'label'=>'Добавить',
-        'icon'=>TbHtml::ICON_PLUS_SIGN,
-        'buttonType'=>'link',
-        'url'=>'/users/add',
-        'type'=>'success',
-        'htmlOptions'=>[
+    TbHtml::linkButton(
+        'Добавить',
+        [
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+            'icon'=>TbHtml::ICON_PLUS,
+//            'buttonType'=>'link',
+            'url'=>Yii::app()->createUrl("/users/add"),
+            'type'=>'success',
         ]
-    ]
+    ),
 ]
 ?>
 <!--<h1>Пользователи</h1>-->

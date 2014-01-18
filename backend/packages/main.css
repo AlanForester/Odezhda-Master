@@ -1,3 +1,7 @@
 .pager-block .pagination{
     margin: 0;
 }
+
+.button-block .btn {
+    margin-left:5px;
+}

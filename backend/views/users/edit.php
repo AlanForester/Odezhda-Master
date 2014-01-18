@@ -1,38 +1,37 @@
 <?php
 $this->pageTitle='Редактирование ['.$user['email_address'].']';
 $this->pageButton = [
-    [
-        'label'=>'Сохранить',
-        'icon'=>TbHtml::ICON_OK_SIGN,
-        'buttonType'=>'link',
-        'url'=>'/users/add',
-        'type'=>'success',
-        'htmlOptions'=>[
+    TbHtml::submitButton(
+        'Сохранить',
+        [
+            'icon'=>TbHtml::ICON_OK,
+            'buttonType'=>'link',
+            'url'=>'/users/add',
+//            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
         ]
-    ],
+    ),
 
-
-    [
-        'label'=>'Применить',
-        'icon'=>TbHtml::ICON_PLUS_SIGN,
-        'buttonType'=>'link',
-        'url'=>'/users/add',
-        'type'=>'primary',
-        'htmlOptions'=>[
+    TbHtml::submitButton(
+        'Применить',
+        [
+            'icon'=>TbHtml::ICON_OK,
+            'buttonType'=>'link',
+            'url'=>'/users/add',
+//            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
             'color' => TbHtml::BUTTON_COLOR_PRIMARY,
         ]
-    ],
-    [
-        'label'=>'Отмена',
-        'icon'=>TbHtml::ICON_REMOVE_SIGN,
-        'buttonType'=>'link',
-        'url'=>'/users/add',
-        'type'=>'danger',
-        'htmlOptions'=>[
+    ),
+    TbHtml::linkButton(
+        'Отмена',
+        [
+            'icon'=>TbHtml::ICON_REMOVE,
+            'buttonType'=>'link',
+            'url'=>Yii::app()->createUrl("/users/index"),
+//            'type'=>TbHtml::BUTTON_TYPE_LINK,
             'color' => TbHtml::BUTTON_COLOR_DANGER,
         ]
-    ]
+    ),
 ];
 ?>
 
