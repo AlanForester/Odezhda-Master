@@ -48,7 +48,8 @@ class UsersController extends BackendController
     public function actionEdit($id)
     {
         $model = new UsersModel();
-        $user=$model->getUser($id);
+        $model->attributes=$model->getUser($id);
+        print_r($model->attributes);print_r($model->getUser($id));exit;
         //$model = new BackendLoginForm();
         if ($user){
             $this->render('edit', compact('model','user'));

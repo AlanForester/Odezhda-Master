@@ -1,4 +1,5 @@
 <?php
+//print_r($model);exit;
 $this->pageTitle='Редактирование ['.$user['email_address'].']';
 $this->pageButton = [
     TbHtml::submitButton(
