@@ -9,7 +9,7 @@
 class BackendSiteController extends BackendController
 {
     public $defaultAction = 'index';
-    private $_pageTitle = 'CPanel';
+    public $pageTitle = 'CPanel';
 
 	/**
      * The actions defined in separate action classes and bound to this class by IDs.

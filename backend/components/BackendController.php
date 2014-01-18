@@ -18,6 +18,9 @@ abstract class BackendController extends CController
 
     public $assets_backend = null;
 
+    public $pageTitle = '';
+    public $pageButton = [];
+
     /**
      * Additional behavior associated with different routes in the controller.
      *

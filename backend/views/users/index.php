@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<h1>Пользователи</h1>
+<!--<h1>Пользователи</h1>-->
 <?php
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',
@@ -11,6 +11,20 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'responsiveTable' => true,
     'type' => 'striped bordered',
     'headerOffset' => 40, // 40px is the height of the main navigation at bootstrap
+    'template'=>'<div class="table-block">{items}</div>
+      <div class="row pager-block">
+          <div class="span6 pull-right">{summary}</div>
+          <div class="span6 pull-left">{pager}</div>
+      </div>',
+//    'summaryText' => '
+//      <ul>
+//          <li>Показывать по:</li>
+//          <li class="active"><a href="#">10</a></li>
+//          <li><a href="#">25</a></li>
+//          <li><a href="#">50</a></li>
+//          <li>Всего: {count}</li>
+//      </ul>
+//    ',
     'columns'=>array(
         [
             'header' => 'Id',

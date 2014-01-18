@@ -10,6 +10,20 @@ class UsersController extends BackendController
      */
     public $gridDataProvider;
 
+    public $pageTitle = 'Пользователи';
+    public $pageButton = [
+        [
+            'label'=>'Добавить',
+            'icon'=>TbHtml::ICON_PLUS_SIGN,
+            'buttonType'=>'link',
+            'url'=>'/users/add',
+            'type'=>'success',
+            'htmlOptions'=>[
+                'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+            ]
+        ]
+    ];
+
     public function actionIndex()
     {
         $model = new UsersModel();
