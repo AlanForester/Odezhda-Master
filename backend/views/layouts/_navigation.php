@@ -9,11 +9,16 @@ $this->widget(
     'bootstrap.widgets.TbNavbar',
     array(
         //'type' => 'inverse',
-	'color' => TbHtml::NAVBAR_COLOR_INVERSE,
+        //        'class'=>'container-fluid',
+        'color' => TbHtml::NAVBAR_COLOR_INVERSE,
         'brandLabel' => 'Cpanel',
-//        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
-//        'display' => null,
+        //        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
+        //        'display' => null,
+       'fluid'=>true,
         'collapse' => true,
+//        'htmlOptions'=>[
+//            'class'=>'container-fluid'
+//        ],
         'items' => array(
             array(
                 'class' => 'bootstrap.widgets.TbNav',
@@ -21,25 +26,27 @@ $this->widget(
                     array(
                         'label' => 'Система',
                         'url' => '#',
-                        'class'=>'divider-vertical',
-                        'items'=> array(
-                            array('label' => 'Пользователи', 'url' => array('/users/index')),
+                        //                        'class'=>'divider-vertical',
+                        'items' => array(
+                            array(
+//                                'class' => 'bootstrap.widgets.TbNav',
+                                'label' => 'Пользователи',
+                                'url' => array('/users/index'),
+                                'items' => [[
+                                    'label' => 'Добавить пользователя',
+                                    'url' => array('/users/add'),
+                                ]]
+                            ),
                             array('label' => 'Группы пользователей', 'url' => array('/groups/index')),
                             TbHtml::menuDivider(),
-//                            array('label' => '-', 'url' =>null),
                             array('label' => 'Настройки', 'url' => array('/config/index')),
                         )
                     ),
-//                    array(
-//                        'label' => 'Login',
-//                        'url' => array('/site/login'),
-//                        'visible' => Yii::app()->user->isGuest
-//                    ),
                     array(
                         'label' => 'Разделы',
                         'url' => '#',
-                        'class'=>'divider-vertical',
-                        'items'=> array(
+                        'class' => 'divider-vertical',
+                        'items' => array(
                             array('label' => 'Каталог', 'url' => array('/catalog/index')),
                             array('label' => 'Статьи', 'url' => array('/articles/index')),
                             array('label' => 'Информационные страницы', 'url' => array('/articles/index')),
@@ -57,23 +64,41 @@ $this->widget(
                             array('label' => 'Инструменты', 'url' => array('/articles/index')),
                         )
                     ),
+//                    array(
+//                        'label' => Yii::app()->user->name,
+//                        'url' => '#',
+//                        'class' => 'pull-right nav',
+//                        'items' => array(
+//                            array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
+//                            TbHtml::menuDivider(),
+//                            array('label' => 'Выход', 'url' => array('/site/logout')),
+//                        )
+//                    ),
+                    //                    array(
+                    //                        'label' => 'Users list',
+                    //                        'url' => array('/user'),
+                    //                        'visible' => !Yii::app()->user->isGuest
+                    //                    )
+                ),
+            ),
+            [
+                'class' => 'bootstrap.widgets.TbNav',
+                'htmlOptions'=>[
+                    'class' => 'pull-right nav',
+                ],
+                'items' => array(
                     array(
-                        'label' => Yii::app()->user->name ,
+                        'label' => Yii::app()->user->name,
                         'url' => '#',
-                        'class'=>'offset6 pull-right',
-                        'items'=> array(
+//                        'class' => 'pull-right nav',
+                        'items' => array(
                             array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
                             TbHtml::menuDivider(),
                             array('label' => 'Выход', 'url' => array('/site/logout')),
                         )
                     ),
-//                    array(
-//                        'label' => 'Users list',
-//                        'url' => array('/user'),
-//                        'visible' => !Yii::app()->user->isGuest
-//                    )
-                ),
-            ),
+                )
+            ]
         ),
     )
 );

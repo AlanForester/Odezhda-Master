@@ -39,7 +39,6 @@ $this->pageButton = [
 $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
 ));?>
-
 <fieldset>
     <?php echo $form->textFieldControlGroup($model, 'id', array('value'=>$user['id'],'disabled' => true)); ?>
     <?php echo $form->textFieldControlGroup($model, 'Группа', array('value'=>$user['groups_id'])); ?>

@@ -30,15 +30,24 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 <?php $this->renderPartial('//layouts/_navigation'); ?>
 <!-- NAVIGATION END -->
 
-<div style="margin-top: 50px;"></div>
+<!--<div style="margin-top: 50px;"></div>-->
+
+<header class="header">
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="span12">
+                    <h1 class="page-title"><?= $this->pageTitle ?></h1>
+            </div>
+        </div>
+    </div>
+</header>
 
 <!--TITLE AND BUTTONS-->
-<div class="container">
+<div class="container-fluid">
     <div class="row-fluid">
-        <div class="span7">
-            <h1 class="pull-left"><?= $this->pageTitle ?></h1>
-        </div>
-        <div class="span5 pull-right button-block" style="text-align:right;line-height:60px">
+
+        <div class="span12 pull-right button-block" style="text-align:right;line-height:60px">
             <?php
             if (count($this->pageButton)>0){
 //            $this->widget(
@@ -61,7 +70,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 </div>
 
 <!-- CONTENT WRAPPER BEGIN -->
-<div class="container">
+<div class="container-fluid">
 
     <!-- BREADCRUMBS-->
     <?php if (isset($this->breadcrumbs)): ?>
