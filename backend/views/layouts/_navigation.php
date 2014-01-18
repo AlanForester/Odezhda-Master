@@ -24,6 +24,9 @@ $this->widget(
                         'class'=>'divider-vertical',
                         'items'=> array(
                             array('label' => 'Пользователи', 'url' => array('/users/index')),
+                            array('label' => 'Группы пользователей', 'url' => array('/groups/index')),
+                            TbHtml::menuDivider(),
+//                            array('label' => '-', 'url' =>null),
                             array('label' => 'Настройки', 'url' => array('/config/index')),
                         )
                     ),
@@ -60,6 +63,7 @@ $this->widget(
                         'class'=>'offset6 pull-right',
                         'items'=> array(
                             array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
+                            TbHtml::menuDivider(),
                             array('label' => 'Выход', 'url' => array('/site/logout')),
                         )
                     ),
