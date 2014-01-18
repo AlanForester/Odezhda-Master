@@ -48,11 +48,10 @@ class UsersController extends BackendController
     public function actionEdit($id)
     {
         $model = new UsersModel();
-        $model->attributes=$model->getUser($id);
-        print_r($model->attributes);print_r($model->getUser($id));exit;
-        //$model = new BackendLoginForm();
+        $user=$model->getUser($id);
         if ($user){
-            $this->render('edit', compact('model','user'));
+            $model->setAttributes($model->getUser($id),false);
+            $this->render('edit', compact('model'));
         }
         else
             throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));
