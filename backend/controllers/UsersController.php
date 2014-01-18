@@ -24,6 +24,9 @@ class UsersController extends BackendController
 
     }
 
+    /**
+     * Метод для редактирования одного поля пользователя
+     */
     public function actionUpdate()
     {
         $params['field'] = Yii::app()->request->getPost('name');
@@ -35,5 +38,19 @@ class UsersController extends BackendController
         //echo CJSON::encode(array('success' => false,'msg'=>'test'));
         //new CException();
 //        Yii::app()->end();
+    }
+
+    public function actionEdit($id)
+    {
+        $model = new UsersModel();
+        $user=$model->getUser($id);
+        //$model = new BackendLoginForm();
+        if ($user){
+            $this->render('editUserCard', compact('model','user'));
+        }
+        else
+            throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));
+        //print_r($user);exit;
+        //$this->render('index');
     }
 }

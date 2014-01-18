@@ -76,4 +76,18 @@ class UsersLayer
         else
             return false;
     }
+
+    public static function getUserById($userId) {
+        if (!empty($userId)){
+            $result=UserLegacy::model()->findByPk($userId);
+            if ($result){
+                $result=self::fieldMapConvert($result->attributes);
+                return $result;
+            }
+            else
+                return false;
+            }
+        else
+            return false;
+    }
 }
