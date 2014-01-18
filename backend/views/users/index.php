@@ -1,5 +1,16 @@
 <?php
-
+$this->pageButton = [
+    [
+        'label'=>'Добавить',
+        'icon'=>TbHtml::ICON_PLUS_SIGN,
+        'buttonType'=>'link',
+        'url'=>'/users/add',
+        'type'=>'success',
+        'htmlOptions'=>[
+            'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+        ]
+    ]
+]
 ?>
 <!--<h1>Пользователи</h1>-->
 <?php
