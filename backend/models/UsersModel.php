@@ -12,10 +12,13 @@ class UsersModel extends CFormModel
     public $firstname;
     public $lastname;
     public $email_address;
+    public $password;
     public $created;
     public $modified;
     public $logdate;
     public $lognum;
+    public $cat_access;
+    public $right_access;
 
     /**
      * @var array массив всех пользователей.
@@ -41,7 +44,10 @@ class UsersModel extends CFormModel
         return UsersLayer::changeField($params);
     }
 
-    public static function getUser($id) {
+    public function getUser($id) {
+        //print_r(UsersLayer::getUserById($id));print_r($this->attributes);exit;
+//        $this->attributes=UsersLayer::getUserById($id);
+//        print_r($this->attributes);exit;
         return UsersLayer::getUserById($id);
     }
 }
