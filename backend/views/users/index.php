@@ -19,7 +19,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'width: 30px; text-align: center;'),
         ],
         [
-            'header' => 'Group_id',
+            'header' => 'Группа',
             'name'=>'groups_id',
             'headerHtmlOptions' => array('style' => 'width: 50px; text-align: center;'),
             'htmlOptions' => array('style' => 'width: 50px; text-align: center;'),
@@ -62,7 +62,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             ]
         ],
         [
-            'header' => 'Log_date',
+            'header' => 'Последний визит',
             'name'=>'logdate',
             'headerHtmlOptions' => array('style' => 'text-align: center;'),
             'htmlOptions' => array('style' => 'text-align: center;'),
