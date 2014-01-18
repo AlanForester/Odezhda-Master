@@ -7,89 +7,127 @@
 //Yii::app()->getClientScript()->registerCssFile(Yii::app()->request->baseUrl.'/adminlogin.css');
 $this->widget(
     'bootstrap.widgets.TbNavbar',
-    array(
-        //'type' => 'inverse',
-        //        'class'=>'container-fluid',
+    [
         'color' => TbHtml::NAVBAR_COLOR_INVERSE,
         'brandLabel' => 'Cpanel',
         //        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
         //        'display' => null,
         'fluid' => true,
         'collapse' => true,
-        //        'htmlOptions'=>[
-        //            'class'=>'container-fluid'
-        //        ],
-        'items' => array(
-            array(
+        'items' => [
+            [
                 'class' => 'bootstrap.widgets.TbNav',
-                'items' => array(
-                    array(
+                'items' => [
+                    [
                         'label' => 'Система',
                         'url' => '#',
-                        //                        'class'=>'divider-vertical',
-                        'items' => array(
-                            array(
-//                                                                'class' => 'bootstrap.widgets.TbNav',
+                        'items' => [
+                            [
                                 'label' => 'Пользователи',
-//                                'htmlOptions'=>[
-//                                    'data-toggle'=>'dropdown-toggle',
-//                                ],
-                                'url' => array('/users/index'),
-//                                'items' => [
-//                                    [
-//                                        'label' => 'Добавить пользователя',
-//                                        'url' => array('/users/add'),
-//                                        'activateParents'=>true
-//                                    ]
-//                                ]
-                            ),
-                            array('label' => 'Группы пользователей', 'url' => array('/groups/index')),
+                                'url' => ['/users/index'],
+                            ],
+                            [
+                                'label' => 'Группы пользователей',
+                                'url' => ['/groups/index']
+                            ],
                             TbHtml::menuDivider(),
-                            array('label' => 'Настройки', 'url' => array('/config/index')),
-                        )
-                    ),
-                    array(
+                            [
+                                'label' => 'Настройки',
+                                'url' => ['/config/index']
+                            ],
+                        ]
+                    ],
+                    [
                         'label' => 'Разделы',
                         'url' => '#',
-//                        'class' => 'divider-vertical',
-                        'items' => array(
-                            array('label' => 'Каталог', 'url' => array('/catalog/index')),
-                            array('label' => 'Статьи', 'url' => array('/articles/index')),
-                            array('label' => 'Информационные страницы', 'url' => array('/articles/index')),
-                            array('label' => 'Бухгалтерия', 'url' => array('/articles/index')),
-                            array('label' => 'Новости', 'url' => array('/articles/index')),
-                            array('label' => 'FAQ', 'url' => array('/articles/index')),
-                            array('label' => 'Модули', 'url' => array('/articles/index')),
-                            array('label' => 'Сертификаты, купоны', 'url' => array('/articles/index')),
-                            array('label' => 'Клиенты', 'url' => array('/articles/index')),
-                            array('label' => 'Опросы', 'url' => array('/articles/index')),
-                            array('label' => 'Партнеры', 'url' => array('/articles/index')),
-                            array('label' => 'Места, налоги', 'url' => array('/articles/index')),
-                            array('label' => 'Ссылки', 'url' => array('/articles/index')),
-                            array('label' => 'Отчеты', 'url' => array('/articles/index')),
-                            array('label' => 'Инструменты', 'url' => array('/articles/index')),
-                        )
-                    )
-                ),
-            ),
+                        'items' => [
+                            [
+                                'label' => 'Каталог',
+                                'url' => ['/catalog/index']
+                            ],
+                            [
+                                'label' => 'Статьи',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Информационные страницы',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Бухгалтерия',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Новости',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'FAQ',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Модули',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Сертификаты, купоны',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Клиенты',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Опросы',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Партнеры',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Места, налоги',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Ссылки',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Отчеты',
+                                'url' => ['/articles/index']
+                            ],
+                            [
+                                'label' => 'Инструменты',
+                                'url' => ['/articles/index']
+                            ],
+                        ]
+                    ]
+                ],
+            ],
             [
                 'class' => 'bootstrap.widgets.TbNav',
                 'htmlOptions' => [
                     'class' => 'pull-right nav',
                 ],
-                'items' => array(
-                    array(
+                'items' => [
+                    [
                         'label' => Yii::app()->user->name,
                         'url' => '#',
-                        //                        'class' => 'pull-right nav',
-                        'items' => array(
-                            array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
+                        'items' => [
+                            [
+                                'label' => 'Учетная запись',
+                                'url' => ['/catalog/index']
+                            ],
                             TbHtml::menuDivider(),
-                            array('label' => 'Выход', 'url' => array('/site/logout')),
-                        )
-                    ),
-                )
+                            [
+                                'label' => 'Выход',
+                                'url' => ['/site/logout']
+                            ],
+                        ]
+                    ],
+                ]
             ]
-        ),
-    )
+        ],
+    ]
 );
