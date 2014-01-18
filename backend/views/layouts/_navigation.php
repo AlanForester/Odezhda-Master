@@ -14,11 +14,11 @@ $this->widget(
         'brandLabel' => 'Cpanel',
         //        'brandUrl' => Yii::app()->request->baseUrl.'/site/index',
         //        'display' => null,
-       'fluid'=>true,
+        'fluid' => true,
         'collapse' => true,
-//        'htmlOptions'=>[
-//            'class'=>'container-fluid'
-//        ],
+        //        'htmlOptions'=>[
+        //            'class'=>'container-fluid'
+        //        ],
         'items' => array(
             array(
                 'class' => 'bootstrap.widgets.TbNav',
@@ -29,13 +29,19 @@ $this->widget(
                         //                        'class'=>'divider-vertical',
                         'items' => array(
                             array(
-//                                'class' => 'bootstrap.widgets.TbNav',
+//                                                                'class' => 'bootstrap.widgets.TbNav',
                                 'label' => 'Пользователи',
+//                                'htmlOptions'=>[
+//                                    'data-toggle'=>'dropdown-toggle',
+//                                ],
                                 'url' => array('/users/index'),
-                                'items' => [[
-                                    'label' => 'Добавить пользователя',
-                                    'url' => array('/users/add'),
-                                ]]
+//                                'items' => [
+//                                    [
+//                                        'label' => 'Добавить пользователя',
+//                                        'url' => array('/users/add'),
+//                                        'activateParents'=>true
+//                                    ]
+//                                ]
                             ),
                             array('label' => 'Группы пользователей', 'url' => array('/groups/index')),
                             TbHtml::menuDivider(),
@@ -45,7 +51,7 @@ $this->widget(
                     array(
                         'label' => 'Разделы',
                         'url' => '#',
-                        'class' => 'divider-vertical',
+//                        'class' => 'divider-vertical',
                         'items' => array(
                             array('label' => 'Каталог', 'url' => array('/catalog/index')),
                             array('label' => 'Статьи', 'url' => array('/articles/index')),
@@ -63,34 +69,19 @@ $this->widget(
                             array('label' => 'Отчеты', 'url' => array('/articles/index')),
                             array('label' => 'Инструменты', 'url' => array('/articles/index')),
                         )
-                    ),
-//                    array(
-//                        'label' => Yii::app()->user->name,
-//                        'url' => '#',
-//                        'class' => 'pull-right nav',
-//                        'items' => array(
-//                            array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
-//                            TbHtml::menuDivider(),
-//                            array('label' => 'Выход', 'url' => array('/site/logout')),
-//                        )
-//                    ),
-                    //                    array(
-                    //                        'label' => 'Users list',
-                    //                        'url' => array('/user'),
-                    //                        'visible' => !Yii::app()->user->isGuest
-                    //                    )
+                    )
                 ),
             ),
             [
                 'class' => 'bootstrap.widgets.TbNav',
-                'htmlOptions'=>[
+                'htmlOptions' => [
                     'class' => 'pull-right nav',
                 ],
                 'items' => array(
                     array(
                         'label' => Yii::app()->user->name,
                         'url' => '#',
-//                        'class' => 'pull-right nav',
+                        //                        'class' => 'pull-right nav',
                         'items' => array(
                             array('label' => 'Учетная запись', 'url' => array('/catalog/index')),
                             TbHtml::menuDivider(),

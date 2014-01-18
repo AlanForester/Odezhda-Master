@@ -5,13 +5,14 @@
  * @var string $message
  */
 
-$this->pageTitle=Yii::app()->name . ' - Error';
-$this->breadcrumbs=array(
-	'Error',
-);
+$this->pageTitle='Ошибка';
+//$this->pageTitle=Yii::app()->name . ' - Ошибка';
+//$this->breadcrumbs=array(
+//	'Error',
+//);
 ?>
 
-<h2>Error <?= $code; ?></h2>
+<h2><?= $code; ?></h2>
 
 <div class="error">
 <?= CHtml::encode($message); ?>

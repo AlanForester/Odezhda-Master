@@ -3,7 +3,7 @@
  * Base config overrides for backend application
  */
 return [
-
+//    'name'=>'Cpanel',
     'defaultController'=>'site',
     // So our relative path aliases will resolve against the `/backend` subdirectory and not nonexistent `/protected`
     'basePath' => 'backend',
