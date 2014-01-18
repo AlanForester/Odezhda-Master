@@ -17,7 +17,7 @@
 </fieldset>
 
 <?php echo TbHtml::formActions(array(
-    TbHtml::submitButton('Submit', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
+    TbHtml::submitButton('Сохранить изменения', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)),
     TbHtml::resetButton('Reset'),
 )); ?>
 
