@@ -30,8 +30,7 @@ $this->pageButton = [
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
             'icon' => TbHtml::ICON_PLUS,
             'url' => Yii::app()->createUrl("/users/add"),
-            'type' => 'success',
-            'class'=>'btn-sm'
+            'type' => 'success'
         ]
     ),
     TbHtml::htmlButton(
@@ -130,75 +129,89 @@ $this->pageButton = [
                         'icon' => TbHtml::ICON_REMOVE,
                         'title' => 'Очистить',
                         'rel' => 'tooltip',
-                        'onClick'=>'js: (function(){
+                        'onClick' => 'js: (function(){
                             $("#text_search").val("");
                         })()'
                     ]
                 )
         ]
     );
-
-
-    echo TbHtml::dropDownList(
-        'order[count]',
-        '',
-        [
-            '5',
-            '10',
-            '15',
-            '20',
-            '25',
-            '30',
-            '50',
-            '100',
-            'Все',
-        ],
-        [
-            'class' => 'pull-right',
-            'style' => 'width:50px;margin-left:5px;',
-            'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-        ]
-    );
-
-    echo TbHtml::dropDownList(
-        'order[direct]',
-        '',
-        [
-            'Порядок отображения',
-            'По убыванию',
-            'По возрастанию',
-        ],
-        [
-            'class' => 'pull-right',
-            'style' => 'width:150px;margin-left:5px;',
-            'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-        ]
-    );
-
-    echo TbHtml::dropDownList(
-        'order[field]',
-        '',
-        [
-            'Имя',
-            'Фамилия',
-            'E-Mail',
-            'Группа',
-            'Последний визит',
-            'ID',
-        ],
-        [
-            'class' => 'pull-right',
-            'style' => 'width:150px;margin-left:5px;',
-            'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-        ]
-    );
     ?>
+    <div class="btn-group pull-right">
+
+        <div class="btn-group">
+        <?php
+        echo TbHtml::dropDownList(
+            'order[field]',
+            '',
+            [
+                'Имя',
+                'Фамилия',
+                'E-Mail',
+                'Группа',
+                'Последний визит',
+                'ID',
+            ],
+            [
+                'class' => 'pull-right',
+                'style' => 'width:150px;margin-left:5px;',
+                'onChange' => 'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
+            ]
+        );
+
+        ?>
+        </div>
+
+        <div class="btn-group">
+        <?php
+        echo TbHtml::dropDownList(
+            'order[direct]',
+            '',
+            [
+                'Порядок отображения',
+                'По убыванию',
+                'По возрастанию',
+            ],
+            [
+                'class' => 'pull-right',
+                'style' => 'width:150px;margin-left:5px;',
+                'onChange' => 'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
+            ]
+        );
+        ?>
+        </div>
+
+        <div class="btn-group">
+        <?php
+        echo TbHtml::dropDownList(
+            'order[count]',
+            '',
+            [
+                '5',
+                '10',
+                '15',
+                '20',
+                '25',
+                '30',
+                '50',
+                '100',
+                'Все',
+            ],
+            [
+                'class' => 'pull-right',
+                'style' => 'width:50px;margin-left:5px;',
+                'onChange' => 'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
+            ]
+        );
+        ?>
+        </div>
+    </div>
 </div>
 
 <?php
@@ -206,7 +219,7 @@ $this->widget(
     'yiiwheels.widgets.grid.WhGridView',
     array(
         'id' => 'usersgrid',
-//        'CssClass'=>'dataTables_wrapper',
+        //        'CssClass'=>'dataTables_wrapper',
         'dataProvider' => $this->gridDataProvider,
         'itemsCssClass' => 'table-bordered items',
         //    'filter'=>$this->model,
@@ -214,8 +227,8 @@ $this->widget(
         'responsiveTable' => true,
         'type' => 'striped bordered',
         'headerOffset' => 106,
-        'htmlOptions'=>[
-            'class'=>'grid-view dataTables_wrapper'
+        'htmlOptions' => [
+            'class' => 'grid-view dataTables_wrapper'
         ],
         'template' => '<div class="table-block">{items}</div>
       <div class="row pager-block">
@@ -229,12 +242,12 @@ $this->widget(
                 'selectableRows' => 2,
                 'checkBoxHtmlOptions' => [
                     'name' => 'userids[]',
-//                    'template'=>'123'
+                    //                    'template'=>'123'
                 ],
-//                'htmlOptions'=>[
-//                    'template'=>'123'
-//                ],
-                'headerTemplate'=>'<label>{item}<span class="lbl"></span></label>',
+                //                'htmlOptions'=>[
+                //                    'template'=>'123'
+                //                ],
+                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
                 //                'checkBoxHtmlOptions'=>[
                 //                    'label'=>'1',
                 //                ],
@@ -334,14 +347,14 @@ $this->widget(
             [
                 'header' => 'Действие',
                 'htmlOptions' => [
-                    'class'=>'action-buttons bigger-130'
+                    'class' => 'action-buttons bigger-130'
                     //                    'width' => '50px'
                 ],
-                'deleteButtonOptions'=>[
-                    'class'=>'red'
+                'deleteButtonOptions' => [
+                    'class' => 'red'
                 ],
-                'updateButtonOptions'=>[
-                    'class'=>'green'
+                'updateButtonOptions' => [
+                    'class' => 'green'
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
                 'viewButtonUrl' => 'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',

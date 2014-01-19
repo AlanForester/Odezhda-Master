@@ -25,10 +25,12 @@ $this->widget(
                             [
                                 'label' => 'Пользователи',
                                 'url' => ['/users/index'],
+//                                'icon'=>TbHtml::ICON_USER
                             ],
                             [
                                 'label' => 'Группы пользователей',
-                                'url' => ['/groups/index']
+                                'url' => ['/groups/index'],
+//                                'icon'=>'icon-group'
                             ],
                             TbHtml::menuDivider(),
                             [

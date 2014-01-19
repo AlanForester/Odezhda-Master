@@ -94,6 +94,10 @@ body .navbar-fixed-top {
     max-width: 100% !important;
 }
 
+.btn-group + .btn-group {
+    margin-left: 5px;
+}
+
 @media (max-width: 767px) {
     .header {
         margin-left: -20px;

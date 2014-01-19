@@ -115,6 +115,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     </div>
 </header>
 
+<?php if (count($this->pageButton) > 0) {?>
 <div class="subhead-collapse collapse">
     <div class="subhead">
         <!--TITLE AND BUTTONS-->
@@ -124,15 +125,16 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 
                 <div class="span12 pull-right button-block" style="text-align:right;line-height:60px">
                     <?php
-                    if (count($this->pageButton) > 0) {
+                    //if (count($this->pageButton) > 0) {
                         echo join('', $this->pageButton);
-                    }
+                    //}
                     ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php } ?>
 
 <!-- CONTENT WRAPPER BEGIN -->
 <div class="container-fluid">
@@ -147,9 +149,11 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
         ); ?>
     <?php endif ?>
 
+<!--    <div class="page-header">-->
+<!--        <h1 class="page-title">--><?php //echo $this->pageTitle ?><!--</h1>-->
+<!--    </div>-->
+
     <?php
-
-
     $this->widget(
         'bootstrap.widgets.TbAlert',
         array(
