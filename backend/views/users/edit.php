@@ -58,7 +58,7 @@ $this->pageButton = [
     <fieldset>
         <legend>Учетная запись</legend>
         <?php
-        echo $form->hiddenField($model, 'id', ['value' => $model->groups_id]);
+        echo $form->hiddenField($model, 'id', ['value' => $model->id]);
         echo $form->textFieldControlGroup($model, 'groups_id', ['value' => $model->groups_id, 'label' => 'Группа']);
         echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
         echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
