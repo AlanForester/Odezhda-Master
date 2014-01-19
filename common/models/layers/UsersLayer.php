@@ -86,8 +86,11 @@ class UsersLayer
         $convertFields=self::fieldMapConvert($params,true);
         if (!empty($params) && !empty($convertFields['admin_id'])){
             $find=UserLegacy::model()->findByPk($params['id']);
+
             if (empty($convertFields['admin_password']))
                 unset ($convertFields['admin_password']);
+            else
+                $convertFields['admin_password']=$find->encrypt_password($convertFields['admin_password']);
             $find->setAttributes($convertFields,false);
             //print_r($find);exit;
             //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)

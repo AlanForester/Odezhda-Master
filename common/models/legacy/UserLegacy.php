@@ -77,7 +77,7 @@ class UserLegacy extends CActiveRecord
 //			)
 //		);
 //	}
-
+//----------Функции из старой системы
     public function verifyPassword($originPassword)
     {
         //echo($this->admin_password);exit;
@@ -110,6 +110,40 @@ class UserLegacy extends CActiveRecord
             }
         }
     }
+    // Return a random value
+    public function tep_rand($min = null, $max = null) {
+        static $seeded;
+
+        if (!$seeded) {
+            mt_srand((double)microtime()*1000000);
+            $seeded = true;
+        }
+
+        if (isset($min) && isset($max)) {
+            if ($min >= $max) {
+                return $min;
+            } else {
+                return mt_rand($min, $max);
+            }
+        } else {
+            return mt_rand();
+        }
+    }
+
+    public function encrypt_password($plain) {
+        $password = '';
+
+        for ($i=0; $i<10; $i++) {
+            $password .= $this->tep_rand();
+        }
+
+        $salt = substr(md5($password), 0, 2);
+
+        $password = md5($salt . $plain) . ':' . $salt;
+
+        return $password;
+    }
+//--------------------------------------
     /**
      * Validation rules for model attributes.
      *
