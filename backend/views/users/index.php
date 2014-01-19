@@ -11,7 +11,8 @@ $this->pageButton = [
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
             'icon' => TbHtml::ICON_PLUS,
             'url' => Yii::app()->createUrl("/users/add"),
-            'type' => 'success'
+            'type' => 'success',
+            'class'=>'btn-small'
         ]
     ),
     TbHtml::htmlButton(
@@ -19,6 +20,7 @@ $this->pageButton = [
         [
             'icon' => TbHtml::ICON_REMOVE,
             'url' => '#',
+            'class'=>'btn-small',
             'onClick' => 'js: (function(){
                 var cb = $("input[name=\'userids[]\']:checked");
                 if (cb.length==0){
@@ -34,6 +36,7 @@ $this->pageButton = [
         [
             'icon' => TbHtml::ICON_TASKS,
             'url' => '#',
+            'class'=>'btn-small',
             'onClick' => 'js: (function(){
                 var cb = $("input[name=\'userids[]\']:checked");
                 if (cb.length==0){

@@ -10,6 +10,7 @@ $this->pageButton = [
             'url' => '#', //'/users/add',
             //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+            'class'=>'btn-small',
             'onClick' => 'js: (function(){
                     $("input[name=\'form_action\']").val("save");
                     $("#yw0").submit();
@@ -25,6 +26,7 @@ $this->pageButton = [
             'url' => '#',
             //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
             'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+            'class'=>'btn-small',
             'onClick' => 'js: (function(){
                     $("input[name=\'form_action\']").val("apply");
                     $("#yw0").submit();
@@ -38,6 +40,7 @@ $this->pageButton = [
             'buttonType' => 'link',
             'url' => Yii::app()->createUrl("/users/index"),
             //            'type'=>TbHtml::BUTTON_TYPE_LINK,
+            'class'=>'btn-small',
             'color' => TbHtml::BUTTON_COLOR_DANGER,
         ]
     ),
