@@ -52,7 +52,7 @@ $this->pageButton = [
         <?=
         TbHtml::dropDownList(
             'filter_groups',
-            '',
+            $criteria['filter_groups'],
             $this->groups,
             [
                 //                'data-placeholder'=>'- По группе -',
@@ -76,7 +76,7 @@ $this->pageButton = [
         <?=
         TbHtml::dropDownList(
             'filter_created',
-            '',
+            $criteria['filter_created'],
             [
                 '0' => '- По дате регистрации -',
                 'today' => 'сегодня',
@@ -119,6 +119,7 @@ $this->pageButton = [
             'rel' => 'tooltip',
             'title' => 'Поиск по текстовым полям',
             'placeholder' => 'Поиск',
+            'value' => $criteria['text_search'],
             'append' =>
                 TbHtml::button(
                     '',
@@ -167,7 +168,7 @@ $this->pageButton = [
             <?php
             echo TbHtml::dropDownList(
                 'order_field',
-                '',
+                $criteria['order_field'],
                 [
                     'firstname' => 'Имя',
                     'lastname' => 'Фамилия',
@@ -199,7 +200,7 @@ $this->pageButton = [
             <?php
             echo TbHtml::dropDownList(
                 'order_direct',
-                '',
+                $criteria['order_direct'],
                 [
                     '' => 'Порядок отображения',
                     'down' => 'По убыванию',
@@ -241,7 +242,7 @@ $this->pageButton = [
                     'all' => 'Все',
                 ],
                 [
-//                    'value'=>$page_size,
+                    //                    'value'=>$page_size,
                     'class' => 'pull-right',
                     'style' => 'width:70px;margin-left:5px;',
                     'onChange' => 'js: (function(){

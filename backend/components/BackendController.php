@@ -8,8 +8,7 @@
  *
  * @package YiiBoilerplate\Backend
  */
-abstract class BackendController extends CController
-{
+abstract class BackendController extends CController {
     /** @var array This will be pasted into breadcrumbs widget in layout */
     public $breadcrumbs = array();
 
@@ -43,14 +42,13 @@ abstract class BackendController extends CController
      *
      * @return array
      */
-    public function accessRules()
-    {
+    public function accessRules() {
         return array(
             // разрешаем все для группы админов
-//            [
-//                'allow',
-//                'role' => ['administrator']
-//            ],
+            //            [
+            //                'allow',
+            //                'role' => ['administrator']
+            //            ],
 
             // todo: после прикручивания системы прав, включить управление по ролям
             // запрещаем все для неавторизированных
@@ -61,8 +59,7 @@ abstract class BackendController extends CController
         );
     }
 
-    public function filters()
-    {
+    public function filters() {
         return array(
             'accessControl',
         );
@@ -76,24 +73,27 @@ abstract class BackendController extends CController
      * @param string $view
      * @return bool
      */
-    protected function beforeRender($view)
-    {
+    protected function beforeRender($view) {
         $result = parent::beforeRender($view);
         $this->registerAssets();
         return $result;
     }
 
-    private function registerAssets()
-    {
+    private function registerAssets() {
         $publisher = Yii::app()->assetManager;
-//        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
+        //        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
 
         $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
 
     }
 
-    public function rgisterTemplateAssets(){
+    /**
+     * Регистрация стилей и сркиптов для темы оформления. Данную функцию следует вызывать в нужном layoyt'е,
+     * т.е. требуется перекрывать многие стили bootstrap'а
+     */
+    public function rgisterTemplateAssets() {
+        // === СТИЛИ ===
         // файлы темы ace
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/font-awesome.min.css');
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace.min.css');
@@ -102,7 +102,7 @@ abstract class BackendController extends CController
         // форма и элементы
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
 
-        // скрипты
+        // === СКРИПТЫ ===
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/chosen.jquery.min.js');
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace-elements.min.js');
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');

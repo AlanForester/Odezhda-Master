@@ -19,18 +19,36 @@ class UsersController extends BackendController {
         return;
     }
 
+    /**
+     * Получить параметр из сессии или запроса. Запрос имеет более высокий приоритет перед данными
+     * из сессии. Полученный параметр будет перезаписн в пользовательские данные
+     * @param string $param имя параметра
+     * @param null $default [опционально] значение по умолчанию
+     * @return mixed найденное и записанное значение
+     */
+    private function userStateParam($param, $default = null) {
+        $data = Yii::app()->request->getParam(
+            $param,
+            Yii::app()->user->getState($param, $default)
+        );
+
+        Yii::app()->user->setState($param, $data);
+        return $data;
+    }
+
     public function actionIndex() {
         $criteria = [
-            'text_search' => Yii::app()->request->getParam('text_search'),
-            'filter_groups' => Yii::app()->request->getParam('filter_groups'),
-            'filter_created' => Yii::app()->request->getParam('filter_created'),
-            'order_field' => Yii::app()->request->getParam('order_field'),
-            'order_direct' => Yii::app()->request->getParam('order_direct')
+            'text_search' => $this->userStateParam('text_search'),
+            'filter_groups' => $this->userStateParam('filter_groups'),
+            'filter_created' => $this->userStateParam('filter_created'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct')
         ];
 
         // пагинация
-        $page_size = Yii::app()->request->getParam('page_size', Yii::app()->user->getState('page_size', CPagination::DEFAULT_PAGE_SIZE));
-        Yii::app()->user->setState('page_size', $page_size);
+        //        $page_size = Yii::app()->request->getParam('page_size', Yii::app()->user->getState('page_size', CPagination::DEFAULT_PAGE_SIZE));
+        //        Yii::app()->user->setState('page_size', $page_size);
+        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
         $this->model = new UsersModel();
@@ -48,7 +66,7 @@ class UsersController extends BackendController {
             $this->groups[$g['id']] = $g['name'];
         }
 
-        $this->render('index', ['page_size' => $page_size]);
+        $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
 
     /**

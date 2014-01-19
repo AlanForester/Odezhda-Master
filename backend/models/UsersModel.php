@@ -63,25 +63,25 @@ class UsersModel extends CFormModel {
 
             // поле и направление сортировки
 //            $order_field = UsersLayer::getFieldName('firstname', false);
-            $order_direct = '';
+            $order_direct = null;
             $order_field = UsersLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'firstname', false);
 
             if (isset($data['order_direct'])) {
                 switch ($data['order_direct']) {
                     case 'up':
-                        $order_direct = 'ASC';
+                        $order_direct = ' ASC';
                         break;
                     case 'down':
-                        $order_direct = 'DESC';
+                        $order_direct = ' DESC';
                         break;
                 }
             }
 
             $this->allUsers = UsersLayer::usersList(
                 [
-                    'condition' => join(' ADN ', $condition),
+                    'condition' => join(' AND ', $condition),
                     'params' => $params,
-                    'order' => $order_field . ($order_direct ? ' ' . $order_direct : '')
+                    'order' => $order_field . ($order_direct ? : '')
                 ]
             );
         }
