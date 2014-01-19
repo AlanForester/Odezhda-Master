@@ -43,8 +43,11 @@ $this->pageButton = [
     ),
 ];
 ?>
-
+<div class="span6">
 <?php
+/**
+ * @var TbActiveForm $form
+ */
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm',
     array(
@@ -52,47 +55,71 @@ $form = $this->beginWidget(
     )
 );?>
     <fieldset>
+        <legend>Учетная запись</legend>
         <?php
         //   if (!empty($model->id))
-        echo $form->textFieldControlGroup($model, 'id', array('value' => $model->id, 'disabled' => true));
+//        echo $form->textFieldControlGroup($model, 'id', array('value' => $model->id, 'disabled' => true));
         ?>
         <?php
         // if (!empty($model->groups_id))
-        echo $form->textFieldControlGroup($model, 'Группа', array('value' => $model->groups_id));
+        echo $form->textFieldControlGroup($model, 'group', array('value' => $model->groups_id,'label'=>'Группа'));
         ?>
         <?php
         //   if (!empty($model->firstname))
-        echo $form->textFieldControlGroup($model, 'Имя', array('value' => $model->firstname));
+        echo $form->textFieldControlGroup($model, 'firstname', array('value' => $model->firstname,'label'=>'Имя'));
         ?>
         <?php
         //if (!empty($model->lastname))
-        echo $form->textFieldControlGroup($model, 'Фамилия', array('value' => $model->lastname));
+        echo $form->textFieldControlGroup($model, 'lastname', array('value' => $model->lastname,'label'=>'Фамилия'));
         ?>
         <?php
         //  if (!empty($model->email_address))
-        echo $form->textFieldControlGroup($model, 'Email', array('value' => $model->email_address));
+        echo $form->textFieldControlGroup($model, 'email_address', array('value' => $model->email_address,'label'=>'Email'));
         ?>
         <?php
-        if (!empty($model->created))
-            echo $form->textFieldControlGroup($model, 'Дата создания', array('value' => $model->created, 'disabled' => true));
+        echo $form->passwordFieldControlGroup($model, 'new_password', array('value' => '','label'=>'Новый пароль'));
+        //if (!empty($model->created))
+//            echo $form->textFieldControlGroup($model, 'Дата создания', array('value' => $model->created, 'disabled' => true));
         ?>
         <?php
-        if (!empty($model->modified))
-            echo $form->textFieldControlGroup($model, 'Дата изменения', array('value' => $model->modified, 'disabled' => true));
+//        if (!empty($model->modified))
+//            echo $form->textFieldControlGroup($model, 'Дата изменения', array('value' => $model->modified, 'disabled' => true));
         ?>
         <?php
-        if (!empty($model->logdate))
-            echo $form->textFieldControlGroup($model, 'Последний визит', array('value' => $model->logdate, 'disabled' => true));
+//        if (!empty($model->logdate))
+//            echo $form->textFieldControlGroup($model, 'Последний визит', array('value' => $model->logdate, 'disabled' => true));
         ?>
         <?php
-        if (!empty($model->lognum))
-            echo $form->textFieldControlGroup($model, 'Количество авторизаций', array('value' => $model->lognum, 'disabled' => true));
+
         ?>
 
     </fieldset>
     <input type="hidden" name="form_action" value="save">
 <?php $this->endWidget(); ?>
+</div>
 
+<div class="span6">
+    <fieldset>
+        <legend>Дополнительная информация</legend>
+    <?php
+    $this->widget(
+        'yiiwheels.widgets.detail.WhDetailView',
+        array(
+            'data' => $model,
+            'attributes' => array(
+                array('name' => 'id', 'label' => 'ID'),
+                array('name' => 'lognum', 'label' => 'Кол-во авторизаций'),
+                array('name' => 'logdate', 'label' => 'Последний визит'),
+                array('name' => 'modified', 'label' => 'Изменен'),
+                array('name' => 'created', 'label' => 'Создан'),
+            ),
+        ));
+
+//    if (!empty($model->lognum))
+//        echo $form->label($model, 'Количество авторизаций', array('value' => $model->lognum, 'disabled' => true));
+    ?>
+    </fieldset>
+</div>
 
 <?php
 //$form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
