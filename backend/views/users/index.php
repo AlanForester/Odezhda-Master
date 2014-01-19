@@ -44,10 +44,18 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'width: 30px; text-align: center;'),
         ],
         [
+            'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'header' => 'Группа',
             'name'=>'groups_id',
-            'headerHtmlOptions' => array('style' => 'width: 50px; text-align: center;'),
-            'htmlOptions' => array('style' => 'width: 50px; text-align: center;'),
+            'headerHtmlOptions' => array('style' => 'width: 100px; text-align: center;'),
+            'htmlOptions' => array('style' => 'width: 100px; text-align: center;'),
+            'editable'=>[
+                'type'=>'select',
+                'placement' => 'right',
+                'emptytext'=>'не задано',
+                'url'=>Yii::app()->createUrl("/users/update"),
+                'source'   => $this->createUrl('groups/list'),
+            ]
         ],
         [
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -58,6 +66,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
                 'placement' => 'right',
+                'emptytext'=>'не задано',
                 'url'=>Yii::app()->createUrl("/users/update"),
                 //'source'   => $this->createUrl('users/update'),
             ]
@@ -71,6 +80,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
                 'placement' => 'right',
+                'emptytext'=>'не задано',
                 'url'=>Yii::app()->createUrl("/users/update"),
             ]
         ],
@@ -83,6 +93,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'htmlOptions' => array('style' => 'text-align: center;'),
             'editable'=>[
                 'placement' => 'right',
+                'emptytext'=>'не задано',
                 'url'=>Yii::app()->createUrl("/users/update"),
             ]
         ],
