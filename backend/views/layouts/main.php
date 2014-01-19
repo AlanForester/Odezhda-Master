@@ -44,10 +44,14 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <script type="text/javascript">
         $(function () {
             // select
-            $(".chzn-select").chosen();
+//            $(".chzn-select").chosen();
+            $('select').chosen({
+                disable_search_threshold : 10,
+                allow_single_deselect : true
+            });
 
             // tooltip
-            $("[rel='tooltip']").tooltip();
+            $("[rel='tooltip'],.hasTooltip").tooltip({"container": false});
 
             // checkbox
 //            $('table input:checkbox').each(function(){
