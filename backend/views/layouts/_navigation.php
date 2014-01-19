@@ -97,15 +97,21 @@ $this->widget(
                                 'url' => ['/articles/index']
                             ],
                             [
-                                'label' => 'Опросы',
-                                'url' => ['/articles/index']
-                            ],
-                            [
                                 'label' => 'Партнеры',
                                 'url' => ['/articles/index']
                             ],
                             [
                                 'label' => 'Места, налоги',
+                                'url' => ['/articles/index']
+                            ]
+                        ]
+                    ],
+                    [
+                        'label' => 'Разное',
+                        'url' => '#',
+                        'items' => [
+                            [
+                                'label' => 'Опросы',
                                 'url' => ['/articles/index']
                             ],
                             [

@@ -283,6 +283,7 @@ $this->widget(
         'htmlOptions' => [
             'class' => 'grid-view dataTables_wrapper'
         ],
+        // pager - сделать tooltip на кнопки
         'template' => '<div class="table-block">{items}</div>
       <div class="row pager-block">
           <div class="span6 pull-right">{summary}</div>
