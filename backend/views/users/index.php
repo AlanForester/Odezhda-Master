@@ -76,6 +76,7 @@ $this->pageButton = [
             [
                 //                'data-placeholder'=>'- По группе -',
                 'class' => 'chzn-select',
+                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
                     alert("Фильтр еще не реализован");
                 })()'
@@ -99,6 +100,7 @@ $this->pageButton = [
             ],
             [
                 'class' => 'chzn-select',
+                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
                     alert("Фильтр еще не реализован");
                 })()'
