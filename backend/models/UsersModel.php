@@ -58,11 +58,47 @@ class UsersModel extends CFormModel {
 
             // фильтр по дате создания
             if (!empty($data['filter_created'])) {
-                // прпускаем
+                $range = $data['filter_created'];
+                $date_start = new DateTime();
+                $date_now = new DateTime();
+
+                switch ($range) {
+                    case 'past_week':
+                        $date_start->modify('-7 day');
+                        break;
+
+                    case 'past_1month':
+                        $date_start->modify('-1 month');
+                        break;
+
+                    case 'past_3month':
+                        $date_start->modify('-3 month');
+                        break;
+
+                    case 'past_6month':
+                        $date_start->modify('-6 month');
+                        break;
+
+                    case 'post_year':
+                    case 'past_year':
+                        $date_start->modify('-1 year');
+                        break;
+
+                    case 'today':
+                        break;
+                }
+
+                if ($range == 'post_year') {
+                    $condition[]= UsersLayer::getFieldName('created', false).' < :date_start';
+                } else {
+                    $condition[]= '('.UsersLayer::getFieldName('created', false).' >= :date_start AND '.UsersLayer::getFieldName('created', false).' <= :date_now)';
+                    $params[':date_now'] = $date_now->format('Y-m-d');
+                }
+
+                $params[':date_start'] = $date_start->format('Y-m-d');
             }
 
             // поле и направление сортировки
-//            $order_field = UsersLayer::getFieldName('firstname', false);
             $order_direct = null;
             $order_field = UsersLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'firstname', false);
 
