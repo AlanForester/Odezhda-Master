@@ -5,9 +5,38 @@ $this->pageButton = [
         [
             'color' => TbHtml::BUTTON_COLOR_SUCCESS,
             'icon'=>TbHtml::ICON_PLUS,
-//            'buttonType'=>'link',
             'url'=>Yii::app()->createUrl("/users/add"),
             'type'=>'success',
+        ]
+    ),
+    TbHtml::htmlButton(
+        'Удалить',
+        [
+            'icon'=>TbHtml::ICON_REMOVE,
+            'url'=>'#',
+            'onClick'=>'js: (function(){
+                var cb = $("input[name=\'userids[]\']:checked");
+                if (cb.length==0){
+                    alert("Ввыберите минимум один обьект в списке");
+                }else{
+                    alert("Пакетное удаление еще не реализовано");
+                }
+            })()'
+        ]
+    ),
+    TbHtml::htmlButton(
+        'Пакетная обработка',
+        [
+            'icon'=>TbHtml::ICON_TASKS,
+            'url'=>'#',
+            'onClick'=>'js: (function(){
+                var cb = $("input[name=\'userids[]\']:checked");
+                if (cb.length==0){
+                    alert("Ввыберите минимум один обьект в списке");
+                }else{
+                    alert("Пакетная обработка еще не реализована");
+                }
+            })()'
         ]
     ),
 ]
@@ -17,6 +46,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',
     'dataProvider'=>$this->gridDataProvider,
     'itemsCssClass' => 'table-bordered items',
+//    'filter'=>$this->model,
     'fixedHeader' => true,
     'responsiveTable' => true,
     'type' => 'striped bordered',
@@ -28,6 +58,15 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
       </div>',
     'summaryText' => 'Отображение записей {start}-{end} из {count}',
     'columns'=>array(
+        array(
+            'class' => 'CCheckBoxColumn',
+            'selectableRows' => 2,
+            'checkBoxHtmlOptions' => array(
+                'name' => 'userids[]',
+            ),
+            'value'=>'$data["id"]',
+            'checked'=>null,
+        ),
         [
             'header' => 'Id',
             'name'=>'id',

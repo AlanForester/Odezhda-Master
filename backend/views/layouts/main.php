@@ -25,7 +25,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <title><?= CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body data-offset="87" data-target=".subhead" data-spy="scroll">
 <!-- NAVIGATION BEGIN -->
 <?php $this->renderPartial('//layouts/_navigation'); ?>
 <!-- NAVIGATION END -->
@@ -43,6 +43,8 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     </div>
 </header>
 
+<div class="subhead-collapse collapse">
+    <div class="subhead">
 <!--TITLE AND BUTTONS-->
 <div class="container-fluid">
     <div class="row-fluid">
@@ -67,6 +69,8 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
             ?>
         </div>
     </div>
+</div>
+        </div>
 </div>
 
 <!-- CONTENT WRAPPER BEGIN -->

@@ -11,14 +11,13 @@ class UsersController extends BackendController
     public $gridDataProvider;
 
     public $pageTitle = 'Пользователи';
-    public $pageButton = [
-
-    ];
+    public $pageButton = [];
+    public $model;
 
     public function actionIndex()
     {
-        $model = new UsersModel();
-        $users=$model->getAllUsers();
+        $this->model = new UsersModel();
+        $users=$this->model->getAllUsers();
         $this->gridDataProvider=new CArrayDataProvider($users, array(
             'keyField'=>'id',
             'pagination'=>array(
