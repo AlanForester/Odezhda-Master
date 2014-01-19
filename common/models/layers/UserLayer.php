@@ -39,7 +39,6 @@ class UserLayer
         if (!$user)
             return 0;
         //$this->failureBecauseUserNotFound();
-
         if (!$user->verifyPassword($password))
             return 1;
         //$this->failureBecausePasswordInvalid();
