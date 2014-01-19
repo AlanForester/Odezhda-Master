@@ -28,14 +28,18 @@ class UsersLayer
     private static function fieldMapConvert($row,$reverse=false){
         if (!$reverse){
             foreach (self::$field_map as $k=>$v){
-                $row[$v] = $row[$k];
-                unset($row[$k]);
+                if(isset ($row[$k])){
+                    $row[$v] = $row[$k];
+                    unset($row[$k]);
+                }
             }
         }
         else {
             foreach (self::$field_map as $k=>$v){
-                $row[$k] = $row[$v];
-                unset($row[$v]);
+                if(isset ($row[$v])){
+                    $row[$k] = $row[$v];
+                    unset($row[$v]);
+                }
             }
         }
 
@@ -77,23 +81,20 @@ class UsersLayer
             return false;
     }
 
-    public static function changeUser($params)
+    public static function changeUser($params=[])
     {
-        //print_r($params);exit;
-        //$convertFields=array_search($params['field'],self::$field_map);
-        $convertFields[]=self::fieldMapConvert($params,true);
-        print_r($convertFields);exit;
-        if (!empty($params['id']) && $convertField && !empty($params['newValue'])){
+        $convertFields=self::fieldMapConvert($params,true);
+        if (!empty($params) && !empty($convertFields['admin_id'])){
             $find=UserLegacy::model()->findByPk($params['id']);
-            //$find=UserLegacy::model()->find("admin_id = :admin_id", array("admin_id" => $params['id'] ));
-            $find->{$convertField}=$params['newValue'];
+            if (empty($convertFields['admin_password']))
+                unset ($convertFields['admin_password']);
+            $find->setAttributes($convertFields,false);
+            //print_r($find);exit;
             //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)
-            if($find->save(true,[$convertField])) //$find->save(false) : false запрещает валидацию
+            if($find->save(false)) //$find->save(false) : false запрещает валидацию
                 return true;
             else
                 return false;
-//          UserLegacy::model()->updateAll([$convertField => $params['newValue']],"admin_id = :admin_id", array("admin_id" => $params['id'] ));
-//          return true;
         }
         else
             return false;
