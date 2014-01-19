@@ -21,7 +21,7 @@
 //Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace-elements.min.js');
 //Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');
 
-
+$this->rgisterTemplateAssets();
 
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.css');
 ?>

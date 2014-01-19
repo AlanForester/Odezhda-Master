@@ -1,26 +1,7 @@
 <?php
 //Yii::app()->user->setFlash(
 //    TbHtml::ALERT_COLOR_WARNING,
-//    '<h4>Внимание!</h4>
-//    Не до конца реализован весь функционал на данной странице.<br /><br />
-//    <b>Работает:</b>
-//    <ul>
-//        <li>Быстрое редактирование, включая запись в бд</li>
-//        <li>Переход в карточку управления пользователем</li>
-//        <li>Пагинация</li>
-//        <li>Кнопки в карточке редактирования</li>
-//        <li>Загрузка списка групп, где это необходимо</li>
-//        <li>Реакция всех элементов на странице. То, что не реализовано - с заглушкой</li>
-//    </ul>
-//    <br />
-//    <b>НЕ Работает:</b>
-//    <ul>
-//        <li>сохранения пользователя из карточки</li>
-//        <li>фильтры</li>
-//        <li>сортировка и кол-во отображаемых записей</li>
-//        <li>удаление и пакетные операции</li>
-//    </ul>
-//    '
+//    '<h4>Внимание!</h4>'
 //);
 
 $this->pageButton = [
@@ -70,15 +51,23 @@ $this->pageButton = [
         <h4 class="page-header">Фильтр:</h4>
         <?=
         TbHtml::dropDownList(
-            'filter[groups]',
+            'filter_groups',
             '',
-            array_merge(['- По группе -'], $this->groups),
+            $this->groups,
             [
                 //                'data-placeholder'=>'- По группе -',
                 'class' => 'chzn-select',
-//                'style'=>'width: 200px',
+                //                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
-                    alert("Фильтр еще не реализован");
+                    //alert("Фильтр еще не реализован");
+                    $.fn.yiiGridView.update(
+                        "usersgrid",
+                        {
+                            data:{
+                                filter_groups:$("#filter_groups").val()
+                            }
+                        }
+                    )
                 })()'
             ]
         );
@@ -86,23 +75,31 @@ $this->pageButton = [
         <hr class="hr-condensed">
         <?=
         TbHtml::dropDownList(
-            'filter[created]',
+            'filter_created',
             '',
             [
-                '- По дате регистрации -',
-                'сегодня',
-                'за прошлую неделю',
-                'за прошлый месяц',
-                'последние 3 месяца',
-                'последние 6 месяцев',
-                'за прошлый год',
-                'больше года назад',
+                '0' => '- По дате регистрации -',
+                'today' => 'сегодня',
+                'past_week' => 'за прошлую неделю',
+                'past_1month' => 'за прошлый месяц',
+                'past_3month' => 'последние 3 месяца',
+                'past_6month' => 'последние 6 месяцев',
+                'past_year' => 'за прошлый год',
+                'post_year' => 'больше года назад',
             ],
             [
                 'class' => 'chzn-select',
-//                'style'=>'width: 200px',
+                //                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
-                    alert("Фильтр еще не реализован");
+                    //alert("Фильтр еще не реализован");
+                    $.fn.yiiGridView.update(
+                        "usersgrid",
+                        {
+                            data:{
+                                filter_created:$("#filter_created").val()
+                            }
+                        }
+                    )
                 })()'
             ]
         );
@@ -123,7 +120,24 @@ $this->pageButton = [
             'title' => 'Поиск по текстовым полям',
             'placeholder' => 'Поиск',
             'append' =>
-                TbHtml::button('', ['icon' => TbHtml::ICON_SEARCH, 'title' => 'Искать', 'rel' => 'tooltip']) .
+                TbHtml::button(
+                    '',
+                    [
+                        'icon' => TbHtml::ICON_SEARCH,
+                        'title' => 'Искать',
+                        'rel' => 'tooltip',
+                        'onClick' => 'js: (function(){
+                            $.fn.yiiGridView.update(
+                                "usersgrid",
+                                {
+                                    data:{
+                                        text_search:$("#text_search").val()
+                                    }
+                                }
+                            )
+                        })()'
+                    ]
+                ) .
                 ' ' .
                 TbHtml::button(
                     '',
@@ -132,6 +146,14 @@ $this->pageButton = [
                         'title' => 'Очистить',
                         'rel' => 'tooltip',
                         'onClick' => 'js: (function(){
+                            $.fn.yiiGridView.update(
+                                "usersgrid",
+                                {
+                                    data:{
+                                        text_search:""
+                                    }
+                                }
+                            )
                             $("#text_search").val("");
                         })()'
                     ]
@@ -142,81 +164,106 @@ $this->pageButton = [
     <div class="btn-group pull-right">
 
         <div class="btn-group">
-        <?php
-        echo TbHtml::dropDownList(
-            'order[field]',
-            '',
-            [
-                'Имя',
-                'Фамилия',
-                'E-Mail',
-                'Группа',
-                'Последний визит',
-                'ID',
-            ],
-            [
-                'class' => 'pull-right',
-                'style' => 'width:150px;margin-left:5px;',
-                'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-            ]
-        );
+            <?php
+            echo TbHtml::dropDownList(
+                'order_field',
+                '',
+                [
+                    'firstname' => 'Имя',
+                    'lastname' => 'Фамилия',
+                    'email' => 'E-Mail',
+                    'group_id' => 'Группа',
+                    'logdate' => 'Последний визит',
+                    'id' => 'ID',
+                ],
+                [
+                    'class' => 'pull-right',
+                    'style' => 'width:150px;margin-left:5px;',
+                    'onChange' => 'js: (function(){
+                        $.fn.yiiGridView.update(
+                            "usersgrid",
+                            {
+                                data:{
+                                    order_field:$("#order_field").val()
+                                }
+                            }
+                        )
+                    })()'
+                ]
+            );
 
-        ?>
+            ?>
         </div>
 
         <div class="btn-group">
-        <?php
-        echo TbHtml::dropDownList(
-            'order[direct]',
-            '',
-            [
-                'Порядок отображения',
-                'По убыванию',
-                'По возрастанию',
-            ],
-            [
-                'class' => 'pull-right',
-                'style' => 'width:200px;margin-left:5px;',
-                'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-            ]
-        );
-        ?>
+            <?php
+            echo TbHtml::dropDownList(
+                'order_direct',
+                '',
+                [
+                    '' => 'Порядок отображения',
+                    'down' => 'По убыванию',
+                    'up' => 'По возрастанию',
+                ],
+                [
+                    'class' => 'pull-right',
+                    'style' => 'width:200px;margin-left:5px;',
+                    'onChange' => 'js: (function(){
+                        $.fn.yiiGridView.update(
+                            "usersgrid",
+                            {
+                                data:{
+                                    order_direct:$("#order_direct").val()
+                                }
+                            }
+                        )
+                    })()'
+                ]
+            );
+            ?>
         </div>
 
         <div class="btn-group">
-        <?php
-        echo TbHtml::dropDownList(
-            'order[count]',
-            '',
-            [
-                '5',
-                '10',
-                '15',
-                '20',
-                '25',
-                '30',
-                '50',
-                '100',
-                'Все',
-            ],
-            [
-                'class' => 'pull-right',
-                'style' => 'width:50px;margin-left:5px;',
-                'onChange' => 'js: (function(){
-                    alert("Сортировка еще не реализован");
-                })()'
-            ]
-        );
-        ?>
+            <?php
+
+            echo TbHtml::dropDownList(
+                'page_size',
+                $page_size,
+                [
+                    '5' => '5',
+                    '10' => '10',
+                    '15' => '15',
+                    '20' => '20',
+                    '25' => '25',
+                    '30' => '30',
+                    '50' => '50',
+                    '100' => '100',
+                    'all' => 'Все',
+                ],
+                [
+//                    'value'=>$page_size,
+                    'class' => 'pull-right',
+                    'style' => 'width:70px;margin-left:5px;',
+                    'onChange' => 'js: (function(){
+                        $.fn.yiiGridView.update(
+                            "usersgrid",
+                            {
+                                data:{
+                                    page_size:$("#page_size").val()
+                                }
+                            }
+                        )
+                    })()'
+                ]
+            );
+            ?>
         </div>
     </div>
 </div>
 
 <?php
+
+// todo: создать виджет с предопределенными параметрами таблицы
 $this->widget(
     'yiiwheels.widgets.grid.WhGridView',
     array(
@@ -243,16 +290,10 @@ $this->widget(
                 'class' => 'backend.widgets.ace.CheckBoxColumn',
                 'selectableRows' => 2,
                 'checkBoxHtmlOptions' => [
-                    'name' => 'userids[]',
-                    //                    'template'=>'123'
+                    'name' => 'userids[]'
                 ],
-                //                'htmlOptions'=>[
-                //                    'template'=>'123'
-                //                ],
+                // todo: перенести в виджет
                 'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
-                //                'checkBoxHtmlOptions'=>[
-                //                    'label'=>'1',
-                //                ],
                 'value' => '$data["id"]',
                 'checked' => null,
             ],
@@ -295,7 +336,7 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'E-mail',
-                'name' => 'email_address',
+                'name' => 'email',
                 'headerHtmlOptions' => [
                     //                    'style' => 'text-align: center;'
                 ],
@@ -311,7 +352,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'header' => 'Группа',
-                'name' => 'groups_id',
+                'name' => 'group_id',
                 'headerHtmlOptions' => [
                     //                    'style' => 'width: 200px; text-align: center;'
                 ],

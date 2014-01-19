@@ -91,6 +91,9 @@ abstract class BackendController extends CController
 
         $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
 
+    }
+
+    public function rgisterTemplateAssets(){
         // файлы темы ace
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/font-awesome.min.css');
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace.min.css');

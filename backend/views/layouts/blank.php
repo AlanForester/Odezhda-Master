@@ -23,6 +23,8 @@
 //
 //
 //
+$this->rgisterTemplateAssets();
+
 //Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.css');
 ?>
 <!DOCTYPE html>

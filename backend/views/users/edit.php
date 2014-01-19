@@ -1,6 +1,6 @@
 <?php
 //print_r($model);exit;
-$this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email_address . ']';
+$this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email . ']';
 $this->pageButton = [
     TbHtml::htmlButton(
         'Сохранить',
@@ -59,10 +59,10 @@ $this->pageButton = [
         <legend>Учетная запись</legend>
         <?php
         echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-        echo $form->textFieldControlGroup($model, 'groups_id', ['value' => $model->groups_id, 'label' => 'Группа']);
+        echo $form->textFieldControlGroup($model, 'group_id', ['value' => $model->group_id, 'label' => 'Группа']);
         echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
         echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
-        echo $form->textFieldControlGroup($model, 'email_address', ['value' => $model->email_address, 'label' => 'Email']);
+        echo $form->textFieldControlGroup($model, 'email', ['value' => $model->email, 'label' => 'Email']);
         echo $form->passwordFieldControlGroup($model, 'password', ['autocomplete'=>'off', 'value' => '', 'label' => 'Новый пароль']);
         ?>
 
