@@ -41,6 +41,26 @@ $this->pageButton = [
     ),
 ]
 ?>
+<div>
+    <?php
+        echo TbHtml::textField(
+            'appendedInputButtons',
+            '',
+            [
+//                'class'=>'tooltip',
+                'rel'=>'tooltip',
+                'title'=>'Поиск по текстовым полям',
+                'placeholder'=>'Поиск',
+                'append' =>
+                    TbHtml::button('',['icon'=>TbHtml::ICON_SEARCH,'title'=>'Искать','rel'=>'tooltip']) .
+                    ' ' .
+                    TbHtml::button('',['icon'=>TbHtml::ICON_REMOVE,'title'=>'Очистить','rel'=>'tooltip'])
+                , 'span' => 2
+            ]
+        );
+    ?>
+</div>
+
 <?php
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',
