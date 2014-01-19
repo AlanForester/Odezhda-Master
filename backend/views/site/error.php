@@ -14,12 +14,12 @@ $this->pageTitle = 'Ошибка';
 
 
 
-<div class="error">
-    <div class="span6">
+<div id="error_wrapper" class="error">
+    <div class="offset3 span6">
         <h2><?= $code; ?></h2>
         <?= CHtml::encode($message); ?>
-    </div>
-    <div class="span6">
+<!--    </div>-->
+<!--    <div class="span6">-->
         <img src="<?= $this->assets_backend . '/images/minions.jpg'; ?>">
     </div>
 </div>
