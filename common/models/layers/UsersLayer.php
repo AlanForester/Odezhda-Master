@@ -113,6 +113,24 @@ class UsersLayer {
             return false;
     }
 
+    public static function addUser($params = []) {
+        $convertFields = self::fieldMapConvert($params, true);
+        if (!empty($params)) {
+            $newUser=new UserLegacy;
+            $convertFields['admin_password'] = $newUser->encrypt_password($convertFields['admin_password']);
+            $newUser->admin_created=new CDbExpression('NOW()');
+            $newUser->admin_modified=new CDbExpression('NOW()');
+            $newUser->setAttributes($convertFields, false);
+            //print_r($newUser);exit;
+            //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)
+            if ($newUser->save(false)) //$find->save(false) : false запрещает валидацию
+                return true;
+            else
+                return false;
+        } else
+            return false;
+    }
+
     public static function getUserById($userId) {
         if (!empty($userId)) {
             $result = UserLegacy::model()->findByPk($userId);

@@ -120,4 +120,36 @@ class UsersController extends BackendController {
             );
         }
     }
+
+    private function add($formData){
+        $model = new UsersModel();
+        if (!$model->addUser($formData)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Пользователь добавлен'
+            );
+        }
+    }
+
+    public function actionAdd()
+    {
+        $form_action = Yii::app()->request->getPost('form_action');
+        if (!empty($form_action)) {
+            if ($form_action == 'save') {
+                $this->add($_POST['UsersModel']);
+                $this->redirect(Yii::app()->createUrl('users/index'));
+                return;
+            } else {
+                $this->add($_POST['UsersModel']);
+                $this->redirect(Yii::app()->request->urlReferrer);
+                return;
+            }
+        }
+
+        $model = new UsersModel();
+        $this->render('edit', compact('model'));
+
+    }
 }

@@ -1,6 +1,10 @@
 <?php
 //print_r($model);exit;
-$this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email . ']';
+if(!empty($model->id))
+    $this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email . ']';
+else
+    $this->pageTitle = 'Менеджер пользователей: добавление';
+
 $this->pageButton = [
     TbHtml::htmlButton(
         'Сохранить',
@@ -74,6 +78,10 @@ $this->pageButton = [
     <?php $this->endWidget(); ?>
 </div>
 
+<?php
+if(!empty($model->id))
+{
+?>
 <div class="span6">
     <fieldset>
         <legend>Дополнительная информация</legend>
@@ -94,3 +102,5 @@ $this->pageButton = [
         ?>
     </fieldset>
 </div>
+<?php
+}
