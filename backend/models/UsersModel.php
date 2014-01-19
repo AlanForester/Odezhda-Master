@@ -44,6 +44,10 @@ class UsersModel extends CFormModel
         return UsersLayer::changeField($params);
     }
 
+    public function changeUser($params=[]){
+        return UsersLayer::changeUser($params);
+    }
+
     public function getUser($id) {
         //print_r(UsersLayer::getUserById($id));print_r($this->attributes);exit;
 //        $this->attributes=UsersLayer::getUserById($id);
