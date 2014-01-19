@@ -88,10 +88,20 @@ abstract class BackendController extends CController
         $publisher = Yii::app()->assetManager;
 //        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
-        // NOTE that due to limitations of CClientScript.registerPackage
-        // we cannot specify the javascript files to be registered before closing </body> tag.
-        // So our only option until Yii 2 is to open up the package and manually register everything in it.
 
         $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
+
+        // файлы темы ace
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/font-awesome.min.css');
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace.min.css');
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-responsive.min.css');
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-skins.min.css');
+        // форма и элементы
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
+
+        // скрипты
+        Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/chosen.jquery.min.js');
+        Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace-elements.min.js');
+        Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');
     }
 }

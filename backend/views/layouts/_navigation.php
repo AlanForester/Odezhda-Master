@@ -116,15 +116,25 @@ $this->widget(
                     [
                         'label' => Yii::app()->user->name,
                         'url' => '#',
+                        'menuOptions'=>[
+                            'class'=>'user-menu'
+                        ],
                         'items' => [
                             [
                                 'label' => 'Учетная запись',
-                                'url' => ['/catalog/index']
+                                'url' => ['/catalog/index'],
+                                'icon'=>'icon-user'
+                            ],
+                            [
+                                'label' => 'Настройки',
+                                'url' => ['/catalog/index'],
+                                'icon'=>'icon-cog'
                             ],
                             TbHtml::menuDivider(),
                             [
                                 'label' => 'Выход',
-                                'url' => ['/site/logout']
+                                'url' => ['/site/logout'],
+                                'icon'=>'icon-off'
                             ],
                         ]
                     ],

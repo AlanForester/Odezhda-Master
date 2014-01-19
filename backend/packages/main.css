@@ -34,7 +34,8 @@ body {
 }
 
 .header {
-    background-color: #F5F5F5;
+    background-color: #72A4B9;
+    /*background-color: #F5F5F5;*/
     /*background-color: #184A7D;*/
     /*background-image: linear-gradient(to bottom, #17568C, #1A3867);*/
     background-repeat: repeat-x;
@@ -45,8 +46,8 @@ body {
 }
 
 .page-title {
-    color: #393939;
-    /*color: #FFFFFF;*/
+    /*color: #393939;*/
+    color: #FFFFFF;
     font-size: 20px;
     font-weight: normal;
     line-height: 36px;

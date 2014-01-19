@@ -1,6 +1,6 @@
 <?php
 //print_r($model);exit;
-$this->pageTitle = 'Редактирование [' . $model->email_address . ']';
+$this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email_address . ']';
 $this->pageButton = [
     TbHtml::htmlButton(
         'Сохранить',

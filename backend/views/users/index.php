@@ -76,7 +76,7 @@ $this->pageButton = [
             [
                 //                'data-placeholder'=>'- По группе -',
                 'class' => 'chzn-select',
-                'style'=>'width: 200px',
+//                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
                     alert("Фильтр еще не реализован");
                 })()'
@@ -100,7 +100,7 @@ $this->pageButton = [
             ],
             [
                 'class' => 'chzn-select',
-                'style'=>'width: 200px',
+//                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
                     alert("Фильтр еще не реализован");
                 })()'
@@ -178,7 +178,7 @@ $this->pageButton = [
             ],
             [
                 'class' => 'pull-right',
-                'style' => 'width:150px;margin-left:5px;',
+                'style' => 'width:200px;margin-left:5px;',
                 'onChange' => 'js: (function(){
                     alert("Сортировка еще не реализован");
                 })()'
@@ -240,7 +240,7 @@ $this->widget(
         'summaryText' => 'Отображение записей {start}-{end} из {count}',
         'columns' => array(
             [
-                'class' => 'CCheckBoxColumn',
+                'class' => 'backend.widgets.ace.CheckBoxColumn',
                 'selectableRows' => 2,
                 'checkBoxHtmlOptions' => [
                     'name' => 'userids[]',

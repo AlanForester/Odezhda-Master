@@ -10,7 +10,7 @@ class UsersController extends BackendController
      */
     public $gridDataProvider;
 
-    public $pageTitle = 'Пользователи';
+    public $pageTitle = 'Менеджер пользователей: список';
     public $pageButton = [];
     public $model;
     public $groups=[];
