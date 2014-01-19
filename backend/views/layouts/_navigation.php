@@ -23,30 +23,37 @@ $this->widget(
                         'url' => '#',
                         'items' => [
                             [
+                                'label' => 'Панель управления',
+                                'url' => ['/site/index'],
+                            ],
+                            TbHtml::menuDivider(),
+                            [
                                 'label' => 'Пользователи',
                                 'url' => ['/users/index'],
-//                                'icon'=>TbHtml::ICON_USER
                             ],
                             [
                                 'label' => 'Группы пользователей',
                                 'url' => ['/groups/index'],
-//                                'icon'=>'icon-group'
+                            ],
+                            [
+                                'label' => 'Уровни доступа',
+                                'url' => ['/rules/index'],
                             ],
                             TbHtml::menuDivider(),
                             [
-                                'label' => 'Настройки',
+                                'label' => 'Общие параметры',
                                 'url' => ['/config/index']
                             ],
+                            [
+                                'label' => 'Информация о системе',
+                                'url' => ['/config/index']
+                            ]
                         ]
                     ],
                     [
-                        'label' => 'Разделы',
+                        'label' => 'Материалы',
                         'url' => '#',
-                        'items' => [
-                            [
-                                'label' => 'Каталог',
-                                'url' => ['/catalog/index']
-                            ],
+                        'items'=>[
                             [
                                 'label' => 'Статьи',
                                 'url' => ['/articles/index']
@@ -56,15 +63,25 @@ $this->widget(
                                 'url' => ['/articles/index']
                             ],
                             [
-                                'label' => 'Бухгалтерия',
-                                'url' => ['/articles/index']
-                            ],
-                            [
                                 'label' => 'Новости',
                                 'url' => ['/articles/index']
                             ],
                             [
                                 'label' => 'FAQ',
+                                'url' => ['/articles/index']
+                            ],
+                        ]
+                    ],
+                    [
+                        'label' => 'Магазин',
+                        'url' => '#',
+                        'items' => [
+                            [
+                                'label' => 'Каталог',
+                                'url' => ['/catalog/index']
+                            ],
+                            [
+                                'label' => 'Бухгалтерия',
                                 'url' => ['/articles/index']
                             ],
                             [

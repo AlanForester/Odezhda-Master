@@ -391,14 +391,20 @@ $this->widget(
             [
                 'header' => 'Действие',
                 'htmlOptions' => [
-                    'class' => 'action-buttons bigger-130'
-                    //                    'width' => '50px'
+                    'class' => 'action-buttons',
+                    'width' => '50px'
                 ],
                 'deleteButtonOptions' => [
-                    'class' => 'red'
+                    'class' => 'red bigger-130',
+                    'title'=>'Удалить',
                 ],
                 'updateButtonOptions' => [
-                    'class' => 'green'
+                    'class' => 'green bigger-130',
+                    'title'=>'Изменить',
+                ],
+                'viewButtonOptions' => [
+                    'class' => 'bigger-130',
+                    'title'=>'Просмотр',
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
                 'viewButtonUrl' => 'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
