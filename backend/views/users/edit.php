@@ -47,6 +47,7 @@ $this->pageButton = [
     <?php
     /**
      * @var TbActiveForm $form
+     * @var UsersController $this
      */
     $form = $this->beginWidget(
         'bootstrap.widgets.TbActiveForm',
