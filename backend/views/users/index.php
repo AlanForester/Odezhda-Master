@@ -31,6 +31,7 @@ $this->pageButton = [
             'icon' => TbHtml::ICON_PLUS,
             'url' => Yii::app()->createUrl("/users/add"),
             'type' => 'success',
+            'class'=>'btn-sm'
         ]
     ),
     TbHtml::htmlButton(
