@@ -11,9 +11,8 @@ class UsersController extends BackendController
     public $gridDataProvider;
 
     public $pageTitle = 'Пользователи';
-    public $pageButton = [
-
-    ];
+    public $pageButton = [];
+    public $model;
 
     private function error($msg='Something wrong in your request!') {
         throw new CHttpException(400, Yii::t('err', $msg));
@@ -22,8 +21,8 @@ class UsersController extends BackendController
 
     public function actionIndex()
     {
-        $model = new UsersModel();
-        $users=$model->getAllUsers();
+        $this->model = new UsersModel();
+        $users=$this->model->getAllUsers();
         $this->gridDataProvider=new CArrayDataProvider($users, array(
             'keyField'=>'id',
             'pagination'=>array(

@@ -22,7 +22,7 @@ $this->pageButton = [
         [
             'icon' => TbHtml::ICON_OK,
             'buttonType' => 'link',
-            'url' => '/users/add',
+            'url' => '#',
             //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
             'color' => TbHtml::BUTTON_COLOR_PRIMARY,
             'onClick' => 'js: (function(){
@@ -46,9 +46,10 @@ $this->pageButton = [
 
 <?php
 $form = $this->beginWidget(
-    'bootstrap.widgets.TbActiveForm', array(
-                                        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
-                                    )
+    'bootstrap.widgets.TbActiveForm',
+    array(
+        'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
+    )
 );?>
     <fieldset>
         <?php

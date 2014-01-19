@@ -1,5 +1,14 @@
 body {
-    padding-top:60px;
+    padding-top:40px;
+}
+
+body {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 0;
 }
 
 .pager-block .pagination{
@@ -8,4 +17,34 @@ body {
 
 .button-block .btn {
     margin-left:5px;
+}
+
+.subhead {
+    background: -moz-linear-gradient(center top , #FFFFFF 0%, #EDEDED 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #D3D3D3;
+    color: #0C192E;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+
+.subhead-collapse.collapse {
+    height: auto;
+    overflow: visible;
+}
+
+.header {
+    background-color: #184A7D;
+    background-image: linear-gradient(to bottom, #17568C, #1A3867);
+    background-repeat: repeat-x;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 5px;
+}
+
+.page-title {
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 36px;
+    margin: 0;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
