@@ -12,7 +12,6 @@ $this->pageButton = [
     ),
 ]
 ?>
-<!--<h1>Пользователи</h1>-->
 <?php
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'id'=>'usersgrid',

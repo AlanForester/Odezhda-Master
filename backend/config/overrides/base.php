@@ -28,7 +28,6 @@ return [
         'site' => 'BackendSiteController',
         'users' => 'UsersController',
         'groups' => 'GroupsController',
-
     ],
     'components' => [
         // Backend uses the YiiBooster package for its UI

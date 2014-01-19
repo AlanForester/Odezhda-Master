@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Users
+ * Class GroupsController управление группами пользователей
  */
 class GroupsController extends BackendController {
     /**
