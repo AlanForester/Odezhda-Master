@@ -80,6 +80,16 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
         ); ?>
     <?php endif ?>
 
+    <?php
+
+
+    $this->widget(
+        'bootstrap.widgets.TbAlert',
+        array(
+            'block'=>true,
+        ));
+    ?>
+
     <!-- CONTENT-->
     <div class="row-fluid">
         <div class="span12">
