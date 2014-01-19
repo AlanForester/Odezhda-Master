@@ -62,7 +62,7 @@ $this->pageButton = [
         echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
         echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
         echo $form->textFieldControlGroup($model, 'email_address', ['value' => $model->email_address, 'label' => 'Email']);
-        echo $form->passwordFieldControlGroup($model, 'new_password', ['value' => '', 'label' => 'Новый пароль']);
+        echo $form->passwordFieldControlGroup($model, 'new_password', ['autocomplete'=>'off', 'value' => '', 'label' => 'Новый пароль']);
         ?>
 
     </fieldset>
