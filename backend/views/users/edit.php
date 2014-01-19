@@ -57,11 +57,11 @@ $this->pageButton = [
     <fieldset>
         <legend>Учетная запись</legend>
         <?php
-        echo $form->textFieldControlGroup($model, 'group', array('value' => $model->groups_id, 'label' => 'Группа'));
-        echo $form->textFieldControlGroup($model, 'firstname', array('value' => $model->firstname, 'label' => 'Имя'));
-        echo $form->textFieldControlGroup($model, 'lastname', array('value' => $model->lastname, 'label' => 'Фамилия'));
-        echo $form->textFieldControlGroup($model, 'email_address', array('value' => $model->email_address, 'label' => 'Email'));
-        echo $form->passwordFieldControlGroup($model, 'new_password', array('value' => '', 'label' => 'Новый пароль'));
+        echo $form->textFieldControlGroup($model, 'group', ['value' => $model->groups_id, 'label' => 'Группа']);
+        echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
+        echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
+        echo $form->textFieldControlGroup($model, 'email_address', ['value' => $model->email_address, 'label' => 'Email']);
+        echo $form->passwordFieldControlGroup($model, 'new_password', ['value' => '', 'label' => 'Новый пароль']);
         ?>
 
     </fieldset>
@@ -75,16 +75,16 @@ $this->pageButton = [
         <?php
         $this->widget(
             'yiiwheels.widgets.detail.WhDetailView',
-            array(
+            [
                 'data' => $model,
-                'attributes' => array(
-                    array('name' => 'id', 'label' => 'ID'),
-                    array('name' => 'lognum', 'label' => 'Кол-во авторизаций'),
-                    array('name' => 'logdate', 'label' => 'Последний визит'),
-                    array('name' => 'modified', 'label' => 'Изменен'),
-                    array('name' => 'created', 'label' => 'Создан'),
-                ),
-            )
+                'attributes' => [
+                    ['name' => 'id', 'label' => 'ID'],
+                    ['name' => 'lognum', 'label' => 'Кол-во авторизаций'],
+                    ['name' => 'logdate', 'label' => 'Последний визит'],
+                    ['name' => 'modified', 'label' => 'Изменен'],
+                    ['name' => 'created', 'label' => 'Создан'],
+                ],
+            ]
         );
         ?>
     </fieldset>
