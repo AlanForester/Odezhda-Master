@@ -43,7 +43,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
         <div class="row-fluid">
 
             <div class="span12">
-                    <h1 class="page-title"><?= $this->pageTitle ?></h1>
+                <h1 class="page-title"><?= $this->pageTitle ?></h1>
             </div>
         </div>
     </div>
@@ -51,32 +51,20 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 
 <div class="subhead-collapse collapse">
     <div class="subhead">
-<!--TITLE AND BUTTONS-->
-<div class="container-fluid">
-    <div class="row-fluid">
+        <!--TITLE AND BUTTONS-->
+        <div class="container-fluid">
+            <div class="row-fluid">
 
-        <div class="span12 pull-right button-block" style="text-align:right;line-height:60px">
-            <?php
-            if (count($this->pageButton)>0){
-//            $this->widget(
-//                'backend.widgets.bootstrap.TbButtonGroup',
-//                [
-//                    'buttons'=>$this->pageButton
-//                ]
-//            );
-
-                echo join('',$this->pageButton);
-//                foreach ($this->pageButton as $button) {
-//                    echo TbHtml::linkButton($button['label'], $button['htmlOptions']);
-////                    echo TbHtml::btn(self::BUTTON_TYPE_LINK, $label, $htmlOptions)
-//                }
-
-            }
-            ?>
+                <div class="span12 pull-right button-block" style="text-align:right;line-height:60px">
+                    <?php
+                    if (count($this->pageButton) > 0) {
+                        echo join('', $this->pageButton);
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-        </div>
 </div>
 
 <!-- CONTENT WRAPPER BEGIN -->
@@ -93,7 +81,11 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <?php endif ?>
 
     <!-- CONTENT-->
-    <?= $content; ?>
+    <div class="row-fluid">
+        <div class="span12">
+            <?= $content; ?>
+        </div>
+    </div>
 
 
 </div>
