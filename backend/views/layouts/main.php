@@ -89,5 +89,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 </div>
 <!-- CONTENT WRAPPER END -->
 
+<?php //$this->renderPartial('//layouts/_footer'); ?>
+
 </body>
 </html>

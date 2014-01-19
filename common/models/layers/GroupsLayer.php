@@ -13,8 +13,10 @@ class GroupsLayer {
      * @param $row массив соответствий
      * @param bool $reverse конвертировать в прямую или обратную сторону(по умолчанию -  прямую)
      * @return mixed конвертированный по ключам массив
+     *
      */
     private static function fieldMapConvert($row, $reverse = false) {
+        // todo: вынести в наследуемый класс для прослоек функцию
         if (!$reverse) {
             foreach (self::$field_map as $k => $v) {
                 $row[$v] = $row[$k];
@@ -32,7 +34,7 @@ class GroupsLayer {
 
     public static function getList() {
         $result = [];
-        $list = UserLegacy::model()->findall();
+        $list = GroupLegacy::model()->findall();
         foreach ($list as $val) {
             $result[] = self::fieldMapConvert($val->attributes);
         }

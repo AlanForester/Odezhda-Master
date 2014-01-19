@@ -26,15 +26,7 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
           <div class="span6 pull-right">{summary}</div>
           <div class="span6 pull-left">{pager}</div>
       </div>',
-//    'summaryText' => '
-//      <ul>
-//          <li>Показывать по:</li>
-//          <li class="active"><a href="#">10</a></li>
-//          <li><a href="#">25</a></li>
-//          <li><a href="#">50</a></li>
-//          <li>Всего: {count}</li>
-//      </ul>
-//    ',
+    'summaryText' => 'Отображение записей {start}-{end} из {count}',
     'columns'=>array(
         [
             'header' => 'Id',
@@ -44,25 +36,11 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
         ],
         [
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-            'header' => 'Группа',
-            'name'=>'groups_id',
-            'headerHtmlOptions' => array('style' => 'width: 100px; text-align: center;'),
-            'htmlOptions' => array('style' => 'width: 100px; text-align: center;'),
-            'editable'=>[
-                'type'=>'select',
-                'placement' => 'right',
-                'emptytext'=>'не задано',
-                'url'=>Yii::app()->createUrl("/users/update"),
-                'source'   => $this->createUrl('groups/list'),
-            ]
-        ],
-        [
-            'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'type' => 'text',
             'header' => 'Имя',
             'name' => 'firstname',
-            'headerHtmlOptions' => array('style' => 'text-align: center;'),
-            'htmlOptions' => array('style' => 'text-align: center;'),
+            'headerHtmlOptions' => array('style' => 'text-align: left;'),
+            'htmlOptions' => array('style' => 'text-align: left;'),
             'editable'=>[
                 'placement' => 'right',
                 'emptytext'=>'не задано',
@@ -75,8 +53,8 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'type' => 'text',
             'header' => 'Фамилия',
             'name' => 'lastname',
-            'headerHtmlOptions' => array('style' => 'text-align: center;'),
-            'htmlOptions' => array('style' => 'text-align: center;'),
+            'headerHtmlOptions' => array('style' => 'text-align: left;'),
+            'htmlOptions' => array('style' => 'text-align: left;'),
             'editable'=>[
                 'placement' => 'right',
                 'emptytext'=>'не задано',
@@ -94,6 +72,20 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
                 'placement' => 'right',
                 'emptytext'=>'не задано',
                 'url'=>Yii::app()->createUrl("/users/update"),
+            ]
+        ],
+        [
+            'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+            'header' => 'Группа',
+            'name'=>'groups_id',
+            'headerHtmlOptions' => array('style' => 'width: 200px; text-align: center;'),
+            'htmlOptions' => array('style' => 'width: 200px; text-align: center;'),
+            'editable'=>[
+                'type'=>'select',
+                'placement' => 'right',
+                'emptytext'=>'не задано',
+                'url'=>Yii::app()->createUrl("/users/update"),
+                'source'   => $this->createUrl('groups/list'),
             ]
         ],
         [
