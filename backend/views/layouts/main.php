@@ -27,6 +27,32 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <script type="text/javascript">
         $(function () {
             $("[rel='tooltip']").tooltip();
+
+            // fix sub nav on scroll
+            var $win = $(window),
+                $nav = $('.subhead'),
+                navTop = $('.subhead').length && $('.subhead').offset().top - 40,
+                isFixed = 0;
+
+            processScroll();
+
+            // hack sad times - holdover until rewrite for 2.1
+            $nav.on('click', function (){
+                if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
+            });
+
+            $win.on('scroll', processScroll);
+
+            function processScroll(){
+                var i, scrollTop = $win.scrollTop();
+                if (scrollTop >= navTop && !isFixed){
+                    isFixed = 1;
+                    $nav.addClass('subhead-fixed');
+                } else if (scrollTop <= navTop && isFixed){
+                    isFixed = 0;
+                    $nav.removeClass('subhead-fixed');
+                }
+            }
         });
     </script>
 </head>
@@ -53,6 +79,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <div class="subhead">
         <!--TITLE AND BUTTONS-->
         <div class="container-fluid">
+
             <div class="row-fluid">
 
                 <div class="span12 pull-right button-block" style="text-align:right;line-height:60px">

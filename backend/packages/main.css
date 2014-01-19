@@ -57,3 +57,68 @@ hr.hr-condensed {
     margin: 2px 0 10px;
     padding-bottom: 5px;
 }
+
+body .navbar,
+body .navbar-fixed-top {
+    margin-bottom: 0;
+}
+
+.subhead-fixed {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 30px;
+    width: 100%;
+    z-index: 100;
+}
+
+.grid-view .table .button-column {
+    /*min-width: 50px;*/
+    text-align: left;
+}
+
+@media (max-width: 767px) {
+    .header {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+
+    html {
+        height: 100%;
+    }
+    body {
+        height: 100%;
+    }
+
+    .subhead {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .page-title {
+        text-align: center;
+    }
+    /*.navbar-search.pull-right {*/
+        /*float: none;*/
+        /*text-align: center;*/
+    /*}*/
+    .subhead-fixed {
+        position: static;
+        width: auto;
+    }
+    .container-fluid {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .grid-view .table .checkbox-column {
+        width: auto;
+    }
+}
+
+@media (max-width: 738px) {
+    body {
+        padding-top: 0;
+    }
+}
