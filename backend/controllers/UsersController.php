@@ -14,6 +14,11 @@ class UsersController extends BackendController
     public $pageButton = [];
     public $model;
 
+    private function error($msg='Something wrong in your request!') {
+        throw new CHttpException(400, Yii::t('err', $msg));
+        return;
+    }
+
     public function actionIndex()
     {
         $this->model = new UsersModel();
@@ -38,7 +43,7 @@ class UsersController extends BackendController
         $params['newValue'] = Yii::app()->request->getPost('value');
         $model = new UsersModel();
         if (!$model->changeUserField($params))
-            throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));
+            $this->error();
         //echo CJSON::encode(array('success' => false,'msg'=>'test'));
         //new CException();
 //        Yii::app()->end();
@@ -46,15 +51,26 @@ class UsersController extends BackendController
 
     public function actionEdit($id)
     {
+        //print_r($_POST);exit;
+        if(!empty($_POST['form_action']) && $_POST['form_action']=='save'){
+            $this->save($_POST['UsersModel']);
+            return;
+        }
         $model = new UsersModel();
         $user=$model->getUser($id);
         if ($user){
-            $model->setAttributes($model->getUser($id),false);
+            $model->setAttributes($user,false);
             $this->render('edit', compact('model'));
         }
         else
-            throw new CHttpException(400, Yii::t('err', 'Something wrong in your request!'));
+            $this->error();
         //print_r($user);exit;
         //$this->render('index');
+    }
+
+    private  function save($formData) {
+        $model = new UsersModel();
+        if (!$model->changeUser($formData))
+            $this->error();
     }
 }
