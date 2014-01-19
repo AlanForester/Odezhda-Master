@@ -7,6 +7,22 @@
  * @var string $content
  */
 
+// тема
+// основные стили
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/font-awesome.min.css');
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace.min.css');
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-responsive.min.css');
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-skins.min.css');
+// форма и элементы
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
+
+// скрипты
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/chosen.jquery.min.js');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace-elements.min.js');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');
+
+
+
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.css');
 ?>
 <!DOCTYPE html>
@@ -24,14 +40,34 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title><?= CHtml::encode($this->pageTitle); ?></title>
 
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
         $(function () {
+            // select
+            $(".chzn-select").chosen();
+
+            // tooltip
             $("[rel='tooltip']").tooltip();
+
+            // checkbox
+//            $('table input:checkbox').each(function(){
+//                var parent_html = $(this).parent().html();
+//                $(this).parent().html('<label>'+parent_html+'<span class="lbl"></span></label>');
+//            });
+            $('table th input:checkbox').on('click' , function(){
+                var that = this;
+                $(this).closest('table').find('tr > td:first-child input:checkbox')
+                    .each(function(){
+                        this.checked = that.checked;
+                        $(this).closest('tr').toggleClass('selected');
+                    });
+
+            });
 
             // fix sub nav on scroll
             var $win = $(window),
                 $nav = $('.subhead'),
-                navTop = $('.subhead').length && $('.subhead').offset().top - 40,
+                navTop = $('.subhead').length && $('.subhead').offset().top - 45,
                 isFixed = 0;
 
             processScroll();

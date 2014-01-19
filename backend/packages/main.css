@@ -1,5 +1,5 @@
 body {
-    padding-top:40px;
+    padding-top:45px;
 }
 
 body {
@@ -20,7 +20,8 @@ body {
 }
 
 .subhead {
-    background: -moz-linear-gradient(center top , #FFFFFF 0%, #EDEDED 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    /*background: -moz-linear-gradient(center top , #FFFFFF 0%, #EDEDED 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);*/
+    background: #F3F3F3;
     border-bottom: 1px solid #D3D3D3;
     color: #0C192E;
     margin-bottom: 10px;
@@ -33,20 +34,24 @@ body {
 }
 
 .header {
-    background-color: #184A7D;
-    background-image: linear-gradient(to bottom, #17568C, #1A3867);
+    background-color: #F5F5F5;
+    /*background-color: #184A7D;*/
+    /*background-image: linear-gradient(to bottom, #17568C, #1A3867);*/
     background-repeat: repeat-x;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    /*border-top: 1px solid rgba(255, 255, 255, 0.2);*/
+    border-bottom: 1px solid #E5E5E5;
     padding: 5px;
+    margin: 0;
 }
 
 .page-title {
-    color: #FFFFFF;
+    color: #393939;
+    /*color: #FFFFFF;*/
     font-size: 20px;
     font-weight: normal;
     line-height: 36px;
     margin: 0;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    /*text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);*/
 }
 
 hr.hr-condensed {
@@ -66,7 +71,7 @@ body .navbar-fixed-top {
 .subhead-fixed {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: fixed;
-    top: 30px;
+    top: 45px;
     width: 100%;
     z-index: 100;
 }
@@ -74,6 +79,10 @@ body .navbar-fixed-top {
 .grid-view .table .button-column {
     /*min-width: 50px;*/
     text-align: left;
+}
+
+#error_wrapper {
+    text-align: center;
 }
 
 @media (max-width: 767px) {
@@ -108,8 +117,8 @@ body .navbar-fixed-top {
         width: auto;
     }
     .container-fluid {
-        padding-left: 0;
-        padding-right: 0;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 
     .grid-view .table .checkbox-column {
@@ -121,4 +130,9 @@ body .navbar-fixed-top {
     body {
         padding-top: 0;
     }
+}
+
+/*ACE*/
+input[type="checkbox"] + .lbl, input[type="radio"] + .lbl {
+    z-index: 0;
 }
