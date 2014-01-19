@@ -44,12 +44,39 @@ $this->pageButton = [
 <div class="span2">
     <div id="sidebar">
         <h4 class="page-header">Фильтр:</h4>
-        <?php
-        echo TbHtml::dropDownList('dropDown', '', array('- По группе -'));
+        <?=
+        TbHtml::dropDownList(
+            'dropDown',
+            '',
+            array_merge(['- По группе -'], $this->groups),
+            [
+                'onChange'=>'js: (function(){
+                    alert("Фильтр еще не реализован");
+                })()'
+            ]
+        );
         ?>
         <hr class="hr-condensed">
-        <?php
-        echo TbHtml::dropDownList('dropDown', '', array('- По дате регистрации -'));
+        <?=
+        TbHtml::dropDownList(
+            'dropDown',
+            '',
+            [
+                '- По дате регистрации -',
+                'сегодня',
+                'за прошлую неделю',
+                'за прошлый месяц',
+                'последние 3 месяца',
+                'последние 6 месяцев',
+                'за прошлый год',
+                'больше года назад',
+            ],
+            [
+                'onChange'=>'js: (function(){
+                    alert("Фильтр еще не реализован");
+                })()'
+            ]
+        );
         ?>
         <hr class="hr-condensed">
     </div>
@@ -70,7 +97,70 @@ $this->pageButton = [
                     TbHtml::button('', ['icon' => TbHtml::ICON_SEARCH, 'title' => 'Искать', 'rel' => 'tooltip']) .
                     ' ' .
                     TbHtml::button('', ['icon' => TbHtml::ICON_REMOVE, 'title' => 'Очистить', 'rel' => 'tooltip'])
+            ]
+        );
 
+
+
+
+
+        echo TbHtml::dropDownList(
+            'dropDown',
+            '',
+            [
+                '5',
+                '10',
+                '15',
+                '20',
+                '25',
+                '30',
+                '50',
+                '100',
+                'Все',
+            ],
+            [
+                'class'=>'pull-right',
+                'style'=>'width:50px;margin-left:5px;',
+                'onChange'=>'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
+            ]
+        );
+
+        echo TbHtml::dropDownList(
+            'dropDown',
+            '',
+            [
+                'Порядок отображения',
+                'По убыванию',
+                'По возрастанию',
+            ],
+            [
+                'class'=>'pull-right',
+                'style'=>'width:150px;margin-left:5px;',
+                'onChange'=>'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
+            ]
+        );
+
+        echo TbHtml::dropDownList(
+            'dropDown',
+            '',
+            [
+                'Имя',
+                'Фамилия',
+                'E-Mail',
+                'Группа',
+                'Последний визит',
+                'ID',
+            ],
+            [
+                'class'=>'pull-right',
+                'style'=>'width:150px;margin-left:5px;',
+                'onChange'=>'js: (function(){
+                    alert("Сортировка еще не реализован");
+                })()'
             ]
         );
         ?>
@@ -95,28 +185,26 @@ $this->pageButton = [
       </div>',
             'summaryText' => 'Отображение записей {start}-{end} из {count}',
             'columns' => array(
-                array(
+                [
                     'class' => 'CCheckBoxColumn',
                     'selectableRows' => 2,
-                    'checkBoxHtmlOptions' => array(
+                    'checkBoxHtmlOptions' => [
                         'name' => 'userids[]',
-                    ),
+                    ],
                     'value' => '$data["id"]',
                     'checked' => null,
-                ),
-                [
-                    'header' => 'Id',
-                    'name' => 'id',
-                    'headerHtmlOptions' => array('style' => 'width: 30px; text-align: center;'),
-                    'htmlOptions' => array('style' => 'width: 30px; text-align: center;'),
                 ],
                 [
                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                     'type' => 'text',
                     'header' => 'Имя',
                     'name' => 'firstname',
-                    'headerHtmlOptions' => array('style' => 'text-align: left;'),
-                    'htmlOptions' => array('style' => 'text-align: left;'),
+                    'headerHtmlOptions' => [
+                        'style' => 'text-align: left;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'text-align: left;'
+                    ],
                     'editable' => [
                         'placement' => 'right',
                         'emptytext' => 'не задано',
@@ -129,8 +217,12 @@ $this->pageButton = [
                     'type' => 'text',
                     'header' => 'Фамилия',
                     'name' => 'lastname',
-                    'headerHtmlOptions' => array('style' => 'text-align: left;'),
-                    'htmlOptions' => array('style' => 'text-align: left;'),
+                    'headerHtmlOptions' => [
+                        'style' => 'text-align: left;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'text-align: left;'
+                    ],
                     'editable' => [
                         'placement' => 'right',
                         'emptytext' => 'не задано',
@@ -142,8 +234,12 @@ $this->pageButton = [
                     'type' => 'text',
                     'header' => 'E-mail',
                     'name' => 'email_address',
-                    'headerHtmlOptions' => array('style' => 'text-align: center;'),
-                    'htmlOptions' => array('style' => 'text-align: center;'),
+                    'headerHtmlOptions' => [
+                        'style' => 'text-align: center;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'text-align: center;'
+                    ],
                     'editable' => [
                         'placement' => 'right',
                         'emptytext' => 'не задано',
@@ -154,8 +250,12 @@ $this->pageButton = [
                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                     'header' => 'Группа',
                     'name' => 'groups_id',
-                    'headerHtmlOptions' => array('style' => 'width: 200px; text-align: center;'),
-                    'htmlOptions' => array('style' => 'width: 200px; text-align: center;'),
+                    'headerHtmlOptions' => [
+                        'style' => 'width: 200px; text-align: center;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'width: 200px; text-align: center;'
+                    ],
                     'editable' => [
                         'type' => 'select',
                         'placement' => 'right',
@@ -167,12 +267,28 @@ $this->pageButton = [
                 [
                     'header' => 'Последний визит',
                     'name' => 'logdate',
-                    'headerHtmlOptions' => array('style' => 'text-align: center;'),
-                    'htmlOptions' => array('style' => 'text-align: center;'),
+                    'headerHtmlOptions' => [
+                        'style' => 'text-align: center;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'text-align: center;'
+                    ],
+                ],
+                [
+                    'header' => 'Id',
+                    'name' => 'id',
+                    'headerHtmlOptions' => [
+                        'style' => 'width: 30px; text-align: center;'
+                    ],
+                    'htmlOptions' => [
+                        'style' => 'width: 30px; text-align: center;'
+                    ],
                 ],
                 [
                     //            'header' => 'Редактировать',
-                    'htmlOptions' => array('width' => '50px'),
+                    'htmlOptions' => [
+                        'width' => '50px'
+                    ],
                     'class' => 'bootstrap.widgets.TbButtonColumn',
                     'viewButtonUrl' => 'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
                     'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',

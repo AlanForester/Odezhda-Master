@@ -13,6 +13,7 @@ class UsersController extends BackendController
     public $pageTitle = 'Пользователи';
     public $pageButton = [];
     public $model;
+    public $groups=[];
 
     private function error($msg='Something wrong in your request!') {
         throw new CHttpException(400, Yii::t('err', $msg));
@@ -29,6 +30,13 @@ class UsersController extends BackendController
                 'pageSize'=>15,
             ),
         ));
+
+        $groups_model = new GroupsModel();
+        foreach ($groups_model->getList() as $g){
+            $this->groups[$g['id']]=$g['name'];
+        }
+
+
         $this->render('index');
 
     }
