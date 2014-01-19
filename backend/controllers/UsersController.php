@@ -60,10 +60,19 @@ class UsersController extends BackendController
     public function actionEdit($id)
     {
         //print_r($_POST);exit;
-        if(!empty($_POST['form_action']) && $_POST['form_action']=='save'){
-            $this->save($_POST['UsersModel']);
-            return;
+        if (!empty($_POST['form_action'])){
+            if($_POST['form_action']=='save'){
+                $this->save($_POST['UsersModel']);
+                $this->redirect( Yii::app()->createUrl('users/index'));
+                return;
+            }
+            else{
+                $this->save($_POST['UsersModel']);
+                $this->redirect(Yii::app()->request->urlReferrer);
+                return;
+            }
         }
+
         $model = new UsersModel();
         $user=$model->getUser($id);
         if ($user){
