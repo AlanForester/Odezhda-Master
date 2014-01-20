@@ -107,7 +107,7 @@ class UsersLayer {
         $id = isset($data['id']) ? $data['id'] : null;
 
         // модель пользователя
-        $user = self::getUser($id);
+        $user = self::getUser($id,'create');
         if (!$user) {
             return false;
         }
@@ -130,16 +130,22 @@ class UsersLayer {
         }
 
         // новый пользователь или новый пароль
-        if (!$id || isset($data['password'])) {
+        if (!$id || !empty($data['password'])) {
             $data['password'] = $user->encrypt_password($data['password']);
         }
+        else {
+            unset ($data['password']);
+        }
+
+
+
         $data['modified'] = new CDbExpression('NOW()');
 
         // задаем значения, получаем реальные имена полей
         $user->setAttributes(self::fieldMapConvert($data, true), false);
 
         // сохраняем и переворачиваем в виртуальные данные
-        return ($user->save(false) ? self::fieldMapConvert($user->attributes) : false);
+        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
     public static function delete($id) {
@@ -154,9 +160,10 @@ class UsersLayer {
     /**
      * Модель пользователя
      * @param int $id [опционально] id пользователя. если не указан, вернет массив пустых данных
+     * @param string $scenario [опционально] сценарий пользователя
      * @return UserLegacy
      */
-    public static function getUser($id = null) {
-        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy);
+    public static function getUser($id = null,$scenario = null) {
+        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
     }
 }

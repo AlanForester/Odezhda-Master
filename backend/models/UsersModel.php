@@ -29,6 +29,14 @@ class UsersModel extends CFormModel {
      * @param array $data массив данных из которых будет создан массив для CDbCriteria
      * @return array задает возвращает массив всех пользователей
      */
+
+    public function rules()
+    {
+        return array(
+            array('password, email', 'required'),
+        );
+    }
+
     public function getList($data) {
         if (!$this->allUsers) {
 

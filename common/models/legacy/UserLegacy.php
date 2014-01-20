@@ -4,24 +4,18 @@
  * This is the model class for table "{{user}}".
  *
  * The followings are the available columns in table '{{user}}':
- * @property integer $id
- * @property string $password
- * @property string $salt
- * @property string $email
- * @property string $username
- * @property string $login_ip
- * @property integer $login_attempts
- * @property integer $login_time
- * @property string $validation_key
- * @property string $password_strategy
- * @property boolean $requires_new_password
- * @property integer $create_id
- * @property integer $create_time
- * @property integer $update_id
- * @property integer $update_time
- * @property integer $delete_id
- * @property integer $delete_time
- * @property integer $status
+ * @property integer $admin_id
+ * @property integer $admin_groups_id
+ * @property string $admin_firstname
+ * @property string $admin_lastname
+ * @property string $admin_email_address
+ * @property string $admin_password
+ * @property integer $admin_created
+ * @property integer $admin_modified
+ * @property integer $admin_logdate
+ * @property integer $admin_lognum
+ * @property string $admin_cat_access
+ * @property string $admin_right_access
  *
  * @!method bool verifyPassword
  *
@@ -155,15 +149,16 @@ class UserLegacy extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            //array('email', 'email'),
-            array('username, email', 'unique'),
-            array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
-            array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
-            array('email, password, salt', 'length', 'max' => 255),
-            array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
-            // The following rule is used by search().
+            array('admin_email_address', 'email'),
+            array('admin_email_address', 'unique'),
+            array('admin_email_address, admin_password', 'required', 'on'=>'create'),
+           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
+           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
+           // array('email, password, salt', 'length', 'max' => 255),
+          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
+         //   // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, username, email', 'safe', 'on' => 'search'),
+         //   array('id, username, email', 'safe', 'on' => 'search'),
         );
     }
 
