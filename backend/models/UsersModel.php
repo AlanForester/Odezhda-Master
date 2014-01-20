@@ -33,7 +33,7 @@ class UsersModel extends CFormModel {
     public function rules()
     {
         return array(
-            array('password, email', 'required'),
+            array('password, email', 'required', 'on'=>'add'),
         );
     }
 
@@ -157,8 +157,8 @@ class UsersModel extends CFormModel {
      * @param int $id id пользователя
      * @return UserLegacy
      */
-    public function getUser($id) {
-        return UsersLayer::getUser($id);
+    public function getUser($id, $scenario) {
+        return UsersLayer::getUser($id, $scenario);
     }
 
     /**
@@ -166,8 +166,8 @@ class UsersModel extends CFormModel {
      * @param int $id id пользователя
      * @return bool|array массив или false
      */
-    public function getUserData($id) {
-        $user = self::getUser($id);
+    public function getUserData($id, $scenario) {
+        $user = self::getUser($id, $scenario);
         return ($user ? UsersLayer::fieldMapConvert($user->attributes) : false);
     }
 

@@ -107,7 +107,7 @@ class UsersLayer {
         $id = isset($data['id']) ? $data['id'] : null;
 
         // модель пользователя
-        $user = self::getUser($id,'create');
+        $user = self::getUser($id,'add');
         if (!$user) {
             return false;
         }
@@ -122,22 +122,21 @@ class UsersLayer {
             }
 
             // проверяем на уникальность email
-            if (UserLayer::find($data['email'])){
-                return false;
-            }
+//            if (UserLayer::find($data['email'])){
+//                return false;
+//            }
 
             $data['created'] = new CDbExpression('NOW()');
         }
 
+        //$validPassField=(!$id && !empty($data['password']));
         // новый пользователь или новый пароль
-        if (!$id || !empty($data['password'])) {
+        if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
             $data['password'] = $user->encrypt_password($data['password']);
         }
         else {
             unset ($data['password']);
         }
-
-
 
         $data['modified'] = new CDbExpression('NOW()');
 

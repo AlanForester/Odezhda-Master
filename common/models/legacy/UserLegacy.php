@@ -151,7 +151,8 @@ class UserLegacy extends CActiveRecord
         return array(
             array('admin_email_address', 'email'),
             array('admin_email_address', 'unique'),
-            array('admin_email_address, admin_password', 'required', 'on'=>'create'),
+            array('admin_email_address, admin_password', 'required', 'on'=>'add'),
+
            // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
            // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
            // array('email, password, salt', 'length', 'max' => 255),

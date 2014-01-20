@@ -82,11 +82,11 @@ class UsersController extends BackendController {
         }
     }
 
-    public function actionEdit($id) {
+    public function actionEdit($id, $scenario='edit') {
         $form_action = Yii::app()->request->getPost('form_action');
 
         if (!empty($form_action)) {
-            $saved = $this->save($_POST['UsersModel']);
+            $saved = $this->save($_POST['UsersModel'], $scenario);
 
             if (!$saved) {
                 $this->redirect(Yii::app()->request->urlReferrer);
@@ -109,9 +109,9 @@ class UsersController extends BackendController {
             $groups[$g['id']] = $g['name'];
         }
 
-        $model = new UsersModel();
+        $model = new UsersModel($scenario);
 
-        $user = $model->getUserData($id);
+        $user = $model->getUserData($id, $scenario);
         if ($user) {
             $model->setAttributes($user, false);
         } else
@@ -120,33 +120,42 @@ class UsersController extends BackendController {
         $this->render('edit', compact('model', 'groups'));
     }
 
-    private function save($formData) {
-        $model = new UsersModel();
+    private function save($formData, $scenario) {
+        $model = new UsersModel($scenario);
         $id = $formData['id'];
 
-        // отправляем в модель данные
-        $result = $model->save($formData);
-        if (!$result) {
-            //$this->error();
+        //if($model->validate()){
+            // отправляем в модель данные
+            $result = $model->save($formData);
+            if (!$result) {
+                //$this->error();
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+                );
+
+                return $result;
+            }
+
+            // выкидываем сообщение
             Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_ERROR,
-                'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+                TbHtml::ALERT_COLOR_INFO,
+                'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
             );
 
             return $result;
-        }
-
-        // выкидываем сообщение
-        Yii::app()->user->setFlash(
-            TbHtml::ALERT_COLOR_INFO,
-            'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
-        );
-
-        return $result;
+//        }
+//        else{
+//            Yii::app()->user->setFlash(
+//                TbHtml::ALERT_COLOR_ERROR,
+//                'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+//            );
+//            return false;
+//        }
     }
 
     public function actionAdd() {
-        $this->actionEdit(null);
+        $this->actionEdit(null, 'add');
     }
 
     public function actionDelete($id) {
