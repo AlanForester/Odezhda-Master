@@ -132,17 +132,14 @@ class UsersLayer {
         // сохраняем и переворачиваем в виртуальные данные
         return ($user->save(false) ? self::fieldMapConvert($user->attributes) : false);
     }
-    public static function deleteUser($id) {
-        if(!empty($id)){
-            $user=UserLegacy::model()->findByPk($id);
-            if($user->delete()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
+
+    public static function delete($id) {
+        $user = self::getUser($id);
+        if ($user){
+            return $user->delete();
         }
+
+        return false;
     }
 
     /**

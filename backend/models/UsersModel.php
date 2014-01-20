@@ -162,4 +162,8 @@ class UsersModel extends CFormModel {
         $user = self::getUser($id);
         return ($user ? UsersLayer::fieldMapConvert($user->attributes) : false);
     }
+
+    public function delete($id) {
+        return UsersLayer::delete($id);
+    }
 }

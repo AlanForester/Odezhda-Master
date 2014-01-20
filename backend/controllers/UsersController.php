@@ -16,7 +16,6 @@ class UsersController extends BackendController {
 
     private function error($msg = 'Something wrong in your request!') {
         throw new CHttpException(400, Yii::t('err', $msg));
-        return;
     }
 
     /**
@@ -140,7 +139,8 @@ class UsersController extends BackendController {
 
     public function actionDelete($id){
         $model = new UsersModel();
-        if (!$model->deleteUser($id)) {
+
+        if (!$model->delete($id)) {
             $this->error();
         } else {
             Yii::app()->user->setFlash(
