@@ -100,11 +100,18 @@ class UsersController extends BackendController {
             }
         }
 
+        $groups_model = new GroupsModel();
+//        $this->groups[''] = '- По группе -';
+        $groups = [];
+        foreach ($groups_model->getList() as $g) {
+            $groups[$g['id']] = $g['name'];
+        }
+
         $model = new UsersModel();
         $user = $model->getUser($id);
         if ($user) {
             $model->setAttributes($user, false);
-            $this->render('edit', compact('model'));
+            $this->render('edit', compact('model','groups'));
         } else
             $this->error();
     }
