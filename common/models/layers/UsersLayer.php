@@ -24,10 +24,10 @@ class UsersLayer {
      * @param bool $reverse конвертировать в прямую (old=>new) или обратную(new=>old) сторону(по умолчанию -  прямую)
      * @return mixed конвертированный по ключам массив
      */
-    private static function fieldMapConvert($row, $reverse = false) {
+    public static function fieldMapConvert($row, $reverse = false) {
         if (!$reverse) {
             foreach (self::$field_map as $k => $v) {
-                if (isset ($row[$k])) {
+                if (array_key_exists($k, $row)) {
                     $row[$v] = $row[$k];
                     unset($row[$k]);
                 }
@@ -53,14 +53,14 @@ class UsersLayer {
     public static function getFieldName($field, $direct = true) {
         if ($direct) {
             // old => new
-            return (isset(self::$field_map[$field]) ? self::$field_map[$field] : $field);
+            return (array_key_exists($field, self::$field_map) ? self::$field_map[$field] : $field);
         } else {
             // new => old
             return (array_search($field, self::$field_map) ? : $field);
         }
     }
 
-    public static function usersList($data) {
+    public static function getList($data) {
         $result = [];
 
         $list = UserLegacy::model()->findall(new CDbCriteria($data));
@@ -72,75 +72,73 @@ class UsersLayer {
     }
 
     /**
-     * @param $params массив данных по изменяемому полю бд. ключи: id - первичный ключ,field - название изменяемого поля,
+     * Обновление значения параметра пользователя
+     * @param array $data массив данных для изменяемому полю бд. ключи: id - первичный ключ,field - название изменяемого поля,
      * newValue - новое значение поля
      * @return bool
      */
-    public static function changeField($params) {
-        $convertField = array_search($params['field'], self::$field_map);
-        if (!empty($params['id']) && $convertField && !empty($params['newValue'])) {
-            $find = UserLegacy::model()->findByPk($params['id']);
-            //$find=UserLegacy::model()->find("admin_id = :admin_id", array("admin_id" => $params['id'] ));
-            $find->{$convertField} = $params['newValue'];
-            //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)qq
-            if ($find->save(true, [$convertField])) //$find->save(false) : false запрещает валидацию
-                return true;
-            else
-                return false;
-            //          UserLegacy::model()->updateAll([$convertField => $params['newValue']],"admin_id = :admin_id", array("admin_id" => $params['id'] ));
-            //          return true;
-        } else
-            return false;
+    public static function updateField($data) {
+        // реальное имя поля
+        $field = self::getFieldName($data['field'], false);
+        $user_id = (!empty($data['id']) ? $data['id'] : false);
+        $value = (!empty($data['newValue']) ? $data['newValue'] : false);
+
+        // все все данные верны, сохраняем
+        if ($user_id && $field && $value) {
+            $user = self::getUser($user_id);
+            $user->{$field} = $value;
+
+            return $user->save(true, [$field]);
+        }
+
+        return false;
     }
 
-    public static function changeUser($params = []) {
-        $convertFields = self::fieldMapConvert($params, true);
-        if (!empty($params) && !empty($convertFields['admin_id'])) {
-            $find = UserLegacy::model()->findByPk($params['id']);
+    /**
+     * Создание или обновление пользователя на основе данных из формы
+     * @param array $data исходные данные из формы
+     * @return bool|array массив данных пользователя или false
+     */
+    public static function save($data) {
+        $id = isset($data['id']) ? $data['id'] : null;
 
-            if (empty($convertFields['admin_password']))
-                unset ($convertFields['admin_password']);
-            else
-                $convertFields['admin_password'] = $find->encrypt_password($convertFields['admin_password']);
-            $find->admin_modified=new CDbExpression('NOW()');
-            $find->setAttributes($convertFields, false);
-            //print_r($find);exit;
-            //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)
-            if ($find->save(false)) //$find->save(false) : false запрещает валидацию
-                return true;
-            else
-                return false;
-        } else
+        // модель пользователя
+        $user = self::getUser($id);
+        if (!$user) {
             return false;
+        }
+
+        if ($id) {
+            // обновление пользователя
+
+        } else {
+            // если есть пустой id в параметрах - удаяем
+            if (array_key_exists('id', $data)) {
+                unset($data['id']);
+            }
+
+            $data['created'] = new CDbExpression('NOW()');
+        }
+
+        // новый пользователь или новый пароль
+        if (!$id || isset($data['password'])) {
+            $data['password'] = $user->encrypt_password($data['password']);
+        }
+        $data['modified'] = new CDbExpression('NOW()');
+
+        // задаем значения, получаем реальные имена полей
+        $user->setAttributes(self::fieldMapConvert($data, true), false);
+
+        // сохраняем и переворачиваем в виртуальные данные
+        return ($user->save(false) ? self::fieldMapConvert($user->attributes) : false);
     }
 
-    public static function addUser($params = []) {
-        $convertFields = self::fieldMapConvert($params, true);
-        if (!empty($params)) {
-            $newUser=new UserLegacy;
-            $convertFields['admin_password'] = $newUser->encrypt_password($convertFields['admin_password']);
-            $newUser->admin_created=new CDbExpression('NOW()');
-            $newUser->admin_modified=new CDbExpression('NOW()');
-            $newUser->setAttributes($convertFields, false);
-            //print_r($newUser);exit;
-            //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)
-            if ($newUser->save(false)) //$find->save(false) : false запрещает валидацию
-                return true;
-            else
-                return false;
-        } else
-            return false;
-    }
-
-    public static function getUserById($userId) {
-        if (!empty($userId)) {
-            $result = UserLegacy::model()->findByPk($userId);
-            if ($result) {
-                $result = self::fieldMapConvert($result->attributes);
-                return $result;
-            } else
-                return false;
-        } else
-            return false;
+    /**
+     * Модель пользователя
+     * @param int $id [опционально] id пользователя. если не указан, вернет массив пустых данных
+     * @return UserLegacy
+     */
+    public static function getUser($id = null) {
+        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy);
     }
 }

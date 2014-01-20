@@ -32,6 +32,7 @@ class UsersModel extends CFormModel {
     public function getList($data) {
         if (!$this->allUsers) {
 
+            // todo: переместить все в прослойку
             $condition = [];
             $params = [];
 
@@ -90,9 +91,9 @@ class UsersModel extends CFormModel {
                 }
 
                 if ($range == 'post_year') {
-                    $condition[]= UsersLayer::getFieldName('created', false).' < :date_start';
+                    $condition[] = UsersLayer::getFieldName('created', false) . ' < :date_start';
                 } else {
-                    $condition[]= '('.UsersLayer::getFieldName('created', false).' >= :date_start AND '.UsersLayer::getFieldName('created', false).' <= :date_now)';
+                    $condition[] = '(' . UsersLayer::getFieldName('created', false) . ' >= :date_start AND ' . UsersLayer::getFieldName('created', false) . ' <= :date_now)';
                     $params[':date_now'] = $date_now->format('Y-m-d');
                 }
 
@@ -114,7 +115,7 @@ class UsersModel extends CFormModel {
                 }
             }
 
-            $this->allUsers = UsersLayer::usersList(
+            $this->allUsers = UsersLayer::getList(
                 [
                     'condition' => join(' AND ', $condition),
                     'params' => $params,
@@ -126,25 +127,39 @@ class UsersModel extends CFormModel {
     }
 
     /**
-     * @param array $params смотри описание changeField()
+     * Сохарение или создание нового пользователь
+     * @param array $data исходные данные
+     * @return bool|array массив данных пользователя или false
+     */
+    public function save($data) {
+        return UsersLayer::save($data);
+    }
+
+    /**
+     * Обновление параметра пользователя
+     * @param array $params смотри описание updateField()
      * @return bool успешно ли произошла запись
      */
-    public function changeUserField($params = []) {
-        return UsersLayer::changeField($params);
+    public function updateField($params = []) {
+        return UsersLayer::updateField($params);
     }
 
-    public function changeUser($params = []) {
-        return UsersLayer::changeUser($params);
-    }
-
-    public function addUser($params = []) {
-        return UsersLayer::addUser($params);
-    }
-
+    /**
+     * АР модель пользователя на основе id
+     * @param ist $id id пользователя
+     * @return UserLegacy
+     */
     public function getUser($id) {
-        //print_r(UsersLayer::getUserById($id));print_r($this->attributes);exit;
-        //        $this->attributes=UsersLayer::getUserById($id);
-        //        print_r($this->attributes);exit;
-        return UsersLayer::getUserById($id);
+        return UsersLayer::getUser($id);
+    }
+
+    /**
+     * Данные пользователя в виде массива
+     * @param int $id id пользователя
+     * @return bool|array массив или false
+     */
+    public function getUserData($id) {
+        $user = self::getUser($id);
+        return ($user ? UsersLayer::fieldMapConvert($user->attributes) : false);
     }
 }

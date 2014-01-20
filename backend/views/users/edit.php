@@ -1,9 +1,6 @@
 <?php
-//print_r($model);exit;
-if(!empty($model->id))
-    $this->pageTitle = 'Менеджер пользователей: редактирование [' . $model->email . ']';
-else
-    $this->pageTitle = 'Менеджер пользователей: добавление';
+
+$this->pageTitle = 'Менеджер пользователей: '.($model->id?'редактирование [' . $model->email . ']':'новый пользователь');
 
 $this->pageButton = [
     TbHtml::htmlButton(
@@ -66,7 +63,7 @@ $this->pageButton = [
         <legend>Учетная запись</legend>
         <?php
         echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-        echo $form->dropDownListControlGroup($model, 'group_id', ['value' => $model->group_id, 'label' => 'Группа']);
+        echo $form->dropDownListControlGroup($model, 'group_id',$groups, ['value' => $model->group_id, 'label' => 'Группа']);
         echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
         echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
         echo $form->textFieldControlGroup($model, 'email', ['value' => $model->email, 'label' => 'Email']);

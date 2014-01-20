@@ -16,10 +16,14 @@ $this->pageTitle = 'Ошибка';
 
 <div id="error_wrapper" class="error">
     <div class="offset3 span6">
-        <h2><?= $code; ?></h2>
-        <?= CHtml::encode($message); ?>
+        <div class="row">
+            <h2><?= $code; ?></h2>
+            <?= CHtml::encode($message); ?>
+        </div>
 <!--    </div>-->
 <!--    <div class="span6">-->
-        <img src="<?= $this->assets_backend . '/images/minions.jpg'; ?>">
+        <div class="row">
+            <img src="<?= $this->assets_backend . '/images/minions.jpg'; ?>">
+        </div>
     </div>
 </div>

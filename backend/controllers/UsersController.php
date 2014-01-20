@@ -76,87 +76,65 @@ class UsersController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['newValue'] = Yii::app()->request->getPost('value');
+
         $model = new UsersModel();
-        if (!$model->changeUserField($params))
+        if (!$model->updateField($params)) {
             $this->error();
-
-
-        //echo CJSON::encode(array('success' => false,'msg'=>'test'));
-        //new CException();
-        //        Yii::app()->end();
+        }
     }
 
     public function actionEdit($id) {
         $form_action = Yii::app()->request->getPost('form_action');
+
         if (!empty($form_action)) {
+            $saved = $this->save($_POST['UsersModel']);
+
             if ($form_action == 'save') {
-                $this->save($_POST['UsersModel']);
-                $this->redirect(Yii::app()->createUrl('users/index'));
+                $this->redirect(['index']);
                 return;
             } else {
-                $this->save($_POST['UsersModel']);
-                $this->redirect(Yii::app()->request->urlReferrer);
+                $this->redirect(['edit', 'id' => $saved['id']]);
                 return;
             }
         }
 
         $groups_model = new GroupsModel();
-//        $this->groups[''] = '- По группе -';
         $groups = [];
         foreach ($groups_model->getList() as $g) {
             $groups[$g['id']] = $g['name'];
         }
 
         $model = new UsersModel();
-        $user = $model->getUser($id);
+
+        $user = $model->getUserData($id);
         if ($user) {
             $model->setAttributes($user, false);
-            $this->render('edit', compact('model','groups'));
         } else
             $this->error();
+
+        $this->render('edit', compact('model', 'groups'));
     }
 
     private function save($formData) {
         $model = new UsersModel();
-        if (!$model->changeUser($formData)) {
+        $id = $formData['id'];
+
+        // отправляем в модель данные
+        $result = $model->save($formData);
+        if (!$result) {
             $this->error();
-        } else {
-            Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_INFO,
-                'Пользователь сохранен'
-            );
         }
+
+        // выкидываем сообщение
+        Yii::app()->user->setFlash(
+            TbHtml::ALERT_COLOR_INFO,
+            'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+        );
+
+        return $result;
     }
 
-    private function add($formData){
-        $model = new UsersModel();
-        if (!$model->addUser($formData)) {
-            $this->error();
-        } else {
-            Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_INFO,
-                'Пользователь добавлен'
-            );
-        }
-    }
-
-    public function actionAdd()
-    {
-        $form_action = Yii::app()->request->getPost('form_action');
-        if (!empty($form_action)) {
-            if ($form_action == 'save') {
-                $this->add($_POST['UsersModel']);
-                $this->redirect(Yii::app()->createUrl('users/index'));
-                return;
-            } else {
-                $this->add($_POST['UsersModel']);
-                $this->redirect(Yii::app()->createUrl('users/edit/'.$id));
-                return;
-            }
-        }
-
-        $model = new UsersModel();
-        $this->render('edit', compact('model'));
-
+    public function actionAdd() {
+        $this->actionEdit(null);
     }
 }
