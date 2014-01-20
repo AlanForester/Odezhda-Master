@@ -23,10 +23,24 @@ $this->pageButton = [
             'class'=>'btn-small',
             'onClick' => 'js: (function(){
                 var cb = $("input[name=\'userids[]\']:checked");
+                var ids = [];
+
                 if (cb.length==0){
                     alert("Ввыберите минимум один обьект в списке");
                 }else{
-                    alert("Пакетное удаление еще не реализовано");
+                    cb.each(function(){
+                        ids.push($(this).val());
+                    });
+                    $.fn.yiiGridView.update(
+                        "usersgrid",
+                        {
+                            url:"'.Yii::app()->createUrl("/users/mass").'",
+                            data:{
+                                mass_action:"delete",
+                                ids:ids
+                            }
+                        }
+                    )
                 }
             })()'
         ]
@@ -62,7 +76,6 @@ $this->pageButton = [
                 'class' => 'chzn-select',
                 //                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
-                    //alert("Фильтр еще не реализован");
                     $.fn.yiiGridView.update(
                         "usersgrid",
                         {
