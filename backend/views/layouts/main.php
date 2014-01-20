@@ -43,11 +43,16 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <script type="text/javascript">
         $(function () {
-            // select
-//            $(".chzn-select").chosen();
+            // todo: перенсти все в отдельный скрипт (файл)
+
             $('select').chosen({
                 disable_search_threshold : 10,
                 allow_single_deselect : true
+            });
+
+            // диалоговые окна
+            bootbox.setDefaults({
+                locale: "ru"
             });
 
             // tooltip
