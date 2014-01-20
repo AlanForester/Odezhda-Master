@@ -143,7 +143,7 @@ class UsersController extends BackendController {
                 return;
             } else {
                 $this->add($_POST['UsersModel']);
-                $this->redirect(Yii::app()->request->urlReferrer);
+                $this->redirect(Yii::app()->createUrl('users/edit/'.$id));
                 return;
             }
         }

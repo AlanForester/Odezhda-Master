@@ -102,6 +102,7 @@ class UsersLayer {
                 unset ($convertFields['admin_password']);
             else
                 $convertFields['admin_password'] = $find->encrypt_password($convertFields['admin_password']);
+            $find->admin_modified=new CDbExpression('NOW()');
             $find->setAttributes($convertFields, false);
             //print_r($find);exit;
             //todo изменить AR под свою таблицу (иначе необходимо запрещать валидацию в save)

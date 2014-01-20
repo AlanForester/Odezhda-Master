@@ -66,7 +66,7 @@ $this->pageButton = [
         <legend>Учетная запись</legend>
         <?php
         echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-        echo $form->textFieldControlGroup($model, 'group_id', ['value' => $model->group_id, 'label' => 'Группа']);
+        echo $form->dropDownListControlGroup($model, 'group_id', ['value' => $model->group_id, 'label' => 'Группа']);
         echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
         echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
         echo $form->textFieldControlGroup($model, 'email', ['value' => $model->email, 'label' => 'Email']);
