@@ -86,6 +86,7 @@ abstract class BackendController extends CController {
 
         $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
 
+
     }
 
     /**
@@ -105,6 +106,7 @@ abstract class BackendController extends CController {
 
 
         // === СКРИПТЫ ===
+        Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/bootbox.min.js');
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/chosen.jquery.min.js');
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace-elements.min.js');
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');

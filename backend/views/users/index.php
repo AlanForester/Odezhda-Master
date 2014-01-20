@@ -26,21 +26,28 @@ $this->pageButton = [
                 var ids = [];
 
                 if (cb.length==0){
-                    alert("Ввыберите минимум один обьект в списке");
+                    bootbox.alert("Ввыберите минимум один обьект в списке");
                 }else{
-                    cb.each(function(){
-                        ids.push($(this).val());
-                    });
-                    $.fn.yiiGridView.update(
-                        "usersgrid",
-                        {
-                            url:"'.Yii::app()->createUrl("/users/mass").'",
-                            data:{
-                                mass_action:"delete",
-                                ids:ids
+                    bootbox.confirm(
+                        "Вы уверены, что хотите удалить выбраные пункты?",
+                        function(options){
+                            if (options){
+                                cb.each(function(){
+                                    ids.push($(this).val());
+                                });
+                                $.fn.yiiGridView.update(
+                                    "usersgrid",
+                                    {
+                                        url:"'.Yii::app()->createUrl("/users/mass").'",
+                                        data:{
+                                            mass_action:"delete",
+                                            ids:ids
+                                        }
+                                    }
+                                )
                             }
                         }
-                    )
+                    );
                 }
             })()'
         ]
@@ -54,9 +61,9 @@ $this->pageButton = [
             'onClick' => 'js: (function(){
                 var cb = $("input[name=\'userids[]\']:checked");
                 if (cb.length==0){
-                    alert("Ввыберите минимум один обьект в списке");
+                    bootbox.alert("Ввыберите минимум один обьект в списке");
                 }else{
-                    alert("Пакетная обработка еще не реализована");
+                    bootbox.alert("Пакетная обработка еще не реализована");
                 }
             })()'
         ]
@@ -105,9 +112,7 @@ $this->pageButton = [
             ],
             [
                 'class' => 'chzn-select',
-                //                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
-                    //alert("Фильтр еще не реализован");
                     $.fn.yiiGridView.update(
                         "usersgrid",
                         {

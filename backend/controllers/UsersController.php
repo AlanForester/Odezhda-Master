@@ -160,5 +160,7 @@ class UsersController extends BackendController {
                 }
                 break;
         }
+
+        $this->actionIndex();
     }
 }
