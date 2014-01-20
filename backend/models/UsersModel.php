@@ -146,7 +146,7 @@ class UsersModel extends CFormModel {
 
     /**
      * АР модель пользователя на основе id
-     * @param ist $id id пользователя
+     * @param int $id id пользователя
      * @return UserLegacy
      */
     public function getUser($id) {
