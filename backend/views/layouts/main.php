@@ -70,13 +70,12 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
                         this.checked = that.checked;
                         $(this).closest('tr').toggleClass('selected');
                     });
-
             });
 
             // fix sub nav on scroll
             var $win = $(window),
                 $nav = $('.subhead'),
-                navTop = $('.subhead').length && $('.subhead').offset().top - 45,
+                navTop = $('.subhead').length && $('.subhead').offset().top - 63,
                 isFixed = 0;
 
             processScroll();
