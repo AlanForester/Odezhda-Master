@@ -33,7 +33,7 @@ class UsersModel extends CFormModel {
     public function rules()
     {
         return array(
-            array('password, email', 'required', 'on'=>'add'),
+            array('password, email', 'required', 'on'=>'add', 'message'=>'Некорректный E-mail'),
         );
     }
 
@@ -140,6 +140,7 @@ class UsersModel extends CFormModel {
      * @return bool|array массив данных пользователя или false
      */
     public function save($data) {
+        $this->addError('password','Incorrect username or password.');
         return UsersLayer::save($data);
     }
 

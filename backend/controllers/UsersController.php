@@ -127,11 +127,13 @@ class UsersController extends BackendController {
         //if($model->validate()){
             // отправляем в модель данные
             $result = $model->save($formData);
+           // print_r($model->getErrors($model->email));exit;
             if (!$result) {
                 //$this->error();
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+
                 );
 
                 return $result;

@@ -106,6 +106,8 @@ class UsersLayer {
         // модель пользователя
         $user = self::getUser($id,'add');
         if (!$user) {
+
+
             return false;
         }
 
@@ -130,6 +132,7 @@ class UsersLayer {
         // новый пользователь или новый пароль
         if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
             $data['password'] = $user->encrypt_password($data['password']);
+
         }
         else {
             unset ($data['password']);
