@@ -428,9 +428,12 @@ $this->widget(
                 'viewButtonOptions' => [
                     'class' => 'bigger-130',
                     'title'=>'Просмотр',
+                    'onClick'=>'js: (function(){
+                        bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
+                    })()'
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
-                'viewButtonUrl' => 'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
+                'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
                 'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
                 'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
             ]
