@@ -20,6 +20,8 @@ abstract class BackendController extends CController {
     public $pageTitle = '';
     public $pageButton = [];
 
+    public $isAjax = false;
+
     /**
      * Additional behavior associated with different routes in the controller.
      *
@@ -32,6 +34,13 @@ abstract class BackendController extends CController {
      *
      * @return array
      */
+
+    public function run($aid) {
+        // тестовое решение
+        $this->isAjax = (Yii::app()->request->getParam('ajax') ? true : false);
+        $this->layout = ($this->isAjax ? '_content' : 'main');
+        parent::run($aid);
+    }
 
     /**
      * Rules for CAccessControlFilter.
@@ -85,8 +94,6 @@ abstract class BackendController extends CController {
         Yii::app()->bootstrap->register();
 
         $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
-
-
     }
 
     /**

@@ -88,12 +88,18 @@ class UsersController extends BackendController {
         if (!empty($form_action)) {
             $saved = $this->save($_POST['UsersModel']);
 
-            if ($form_action == 'save') {
-                $this->redirect(['index']);
-                return;
+            if (!$saved) {
+                $this->redirect(Yii::app()->request->urlReferrer);
             } else {
-                $this->redirect(['edit', 'id' => $saved['id']]);
-                return;
+
+                if ($form_action == 'save') {
+                    $this->redirect(['index']);
+                    return;
+                } else {
+                    $this->redirect(['edit', 'id' => $saved['id']]);
+                    return;
+                }
+
             }
         }
 
@@ -121,7 +127,13 @@ class UsersController extends BackendController {
         // отправляем в модель данные
         $result = $model->save($formData);
         if (!$result) {
-            $this->error();
+            //$this->error();
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_ERROR,
+                'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+            );
+
+            return $result;
         }
 
         // выкидываем сообщение
@@ -137,7 +149,7 @@ class UsersController extends BackendController {
         $this->actionEdit(null);
     }
 
-    public function actionDelete($id){
+    public function actionDelete($id) {
         $model = new UsersModel();
 
         if (!$model->delete($id)) {
@@ -150,12 +162,12 @@ class UsersController extends BackendController {
         }
     }
 
-    public function actionMass(){
+    public function actionMass() {
         $mass_action = Yii::app()->request->getParam('mass_action');
         $ids = array_unique(Yii::app()->request->getParam('ids'));
-        switch ($mass_action){
+        switch ($mass_action) {
             case 'delete':
-                foreach ($ids as $id){
+                foreach ($ids as $id) {
                     $this->actionDelete($id);
                 }
                 break;

@@ -142,39 +142,7 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 <?php } ?>
 
 <!-- CONTENT WRAPPER BEGIN -->
-<div class="container-fluid">
-
-    <!-- BREADCRUMBS-->
-    <?php if (isset($this->breadcrumbs)): ?>
-        <?php $this->widget(
-            'bootstrap.widgets.TbBreadcrumb',
-            array(
-                'links' => $this->breadcrumbs,
-            )
-        ); ?>
-    <?php endif ?>
-
-<!--    <div class="page-header">-->
-<!--        <h1 class="page-title">--><?php //echo $this->pageTitle ?><!--</h1>-->
-<!--    </div>-->
-
-    <?php
-    $this->widget(
-        'bootstrap.widgets.TbAlert',
-        array(
-            'block'=>true,
-        ));
-    ?>
-
-    <!-- CONTENT-->
-    <div class="row-fluid">
-        <div class="span12">
-            <?= $content; ?>
-        </div>
-    </div>
-
-
-</div>
+<?php $this->renderPartial('//layouts/_content',compact('content')); ?>
 <!-- CONTENT WRAPPER END -->
 
 <?php //$this->renderPartial('//layouts/_footer'); ?>

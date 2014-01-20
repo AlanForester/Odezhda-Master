@@ -1,5 +1,7 @@
 <?php
 
+// todo: исправить путаницу. по факту есть 2 похожих класса для 1 пользователя и для списка. Разделить методы по правильным
+// todo: реализовать хранение сообщения/статуса ошибки
 class UsersLayer {
     /**
      * @var array (поле БД => требуемое поле для модели)
@@ -98,6 +100,8 @@ class UsersLayer {
      * Создание или обновление пользователя на основе данных из формы
      * @param array $data исходные данные из формы
      * @return bool|array массив данных пользователя или false
+     *
+     * todo: вся эта функция должна стать частью UserLayer. Или перенести функционл из того класса сюда
      */
     public static function save($data) {
         $id = isset($data['id']) ? $data['id'] : null;
@@ -115,6 +119,11 @@ class UsersLayer {
             // если есть пустой id в параметрах - удаяем
             if (array_key_exists('id', $data)) {
                 unset($data['id']);
+            }
+
+            // проверяем на уникальность email
+            if (UserLayer::find($data['email'])){
+                return false;
             }
 
             $data['created'] = new CDbExpression('NOW()');

@@ -433,6 +433,8 @@ $this->widget(
                     })()'
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
+                'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+
                 'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
                 'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
                 'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
