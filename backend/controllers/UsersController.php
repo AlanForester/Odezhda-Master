@@ -137,4 +137,16 @@ class UsersController extends BackendController {
     public function actionAdd() {
         $this->actionEdit(null);
     }
+
+    public function actionDelete($id){
+        $model = new UsersModel();
+        if (!$model->deleteUser($id)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Пользователь удален'
+            );
+        }
+    }
 }
