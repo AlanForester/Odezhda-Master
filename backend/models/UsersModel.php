@@ -85,6 +85,7 @@ class UsersModel extends CFormModel {
                         break;
 
                     case 'today':
+                        $date_now->modify('+1 day');
                         break;
                 }
 

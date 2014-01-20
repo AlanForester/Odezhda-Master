@@ -283,6 +283,7 @@ $this->widget(
         'htmlOptions' => [
             'class' => 'grid-view dataTables_wrapper'
         ],
+        'emptyText'=>'Нет данных для отображения',
         // pager - сделать tooltip на кнопки
         'template' => '<div class="table-block">{items}</div>
       <div class="row pager-block">

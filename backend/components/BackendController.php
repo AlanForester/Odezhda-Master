@@ -94,13 +94,15 @@ abstract class BackendController extends CController {
      */
     public function rgisterTemplateAssets() {
         // === СТИЛИ ===
+        // форма и элементы
+        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
+
         // файлы темы ace
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/font-awesome.min.css');
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace.min.css');
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-responsive.min.css');
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/ace-skins.min.css');
-        // форма и элементы
-        Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
+
 
         // === СКРИПТЫ ===
         Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/chosen.jquery.min.js');
