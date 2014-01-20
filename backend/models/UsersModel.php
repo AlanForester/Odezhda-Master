@@ -141,6 +141,10 @@ class UsersModel extends CFormModel {
         return UsersLayer::addUser($params);
     }
 
+    public function deleteUser($id) {
+        return UsersLayer::deleteUser($id);
+    }
+
     public function getUser($id) {
         //print_r(UsersLayer::getUserById($id));print_r($this->attributes);exit;
         //        $this->attributes=UsersLayer::getUserById($id);

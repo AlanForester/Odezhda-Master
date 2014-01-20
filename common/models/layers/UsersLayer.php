@@ -131,6 +131,18 @@ class UsersLayer {
         } else
             return false;
     }
+    public static function deleteUser($id) {
+        if(!empty($id)){
+            $user=UserLegacy::model()->findByPk($id);
+            if($user->delete()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     public static function getUserById($userId) {
         if (!empty($userId)) {
