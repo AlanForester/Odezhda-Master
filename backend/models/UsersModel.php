@@ -30,12 +30,31 @@ class UsersModel extends CFormModel {
      * @return array задает возвращает массив всех пользователей
      */
 
+//    public function rules()
+//    {
+//        return array(
+//            array('password, email', 'required', 'on'=>'add', 'message'=>'Некорректный E-mail'),
+//        );
+//    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'email' => Yii::t('labels', 'E-mail'),
+            'password' => Yii::t('labels', 'Пароль'),
+        );
+    }
+
     public function rules()
     {
         return array(
-            array('password, email', 'required', 'on'=>'add', 'message'=>'Некорректный E-mail'),
+            array('email', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
+            array('email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
+            array('email', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле E-mail являются обязательными!')),
+            array('password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле пароль являются обязательными!')),
         );
     }
+
 
     public function getList($data) {
         if (!$this->allUsers) {
@@ -140,7 +159,7 @@ class UsersModel extends CFormModel {
      * @return bool|array массив данных пользователя или false
      */
     public function save($data) {
-        $this->addError('password','Incorrect username or password.');
+//        $this->addError('password','Incorrect username or password.');
         return UsersLayer::save($data);
     }
 

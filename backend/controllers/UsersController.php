@@ -82,7 +82,7 @@ class UsersController extends BackendController {
         }
     }
 
-    public function actionEdit($id, $scenario='edit') {
+    public function actionEdit($id, $scenario = 'edit') {
         $form_action = Yii::app()->request->getPost('form_action');
 
         if (!empty($form_action)) {
@@ -124,28 +124,37 @@ class UsersController extends BackendController {
         $model = new UsersModel($scenario);
         $id = $formData['id'];
 
-        //if($model->validate()){
-            // отправляем в модель данные
-            $result = $model->save($formData);
-           // print_r($model->getErrors($model->email));exit;
-            if (!$result) {
-                //$this->error();
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
+        $model->setAttributes($formData);
 
-                );
-
-                return $result;
-            }
-
-            // выкидываем сообщение
+        if (!$model->validate()) {
             Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_INFO,
-                'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                TbHtml::ALERT_COLOR_ERROR,
+                CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя! ')
+            );
+            return false;
+        }
+
+        // отправляем в модель данные
+        $result = $model->save($formData);
+        // print_r($model->getErrors($model->email));exit;
+        if (!$result) {
+            //$this->error();
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_ERROR,
+                'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя!'
+
             );
 
             return $result;
+        }
+
+        // выкидываем сообщение
+        Yii::app()->user->setFlash(
+            TbHtml::ALERT_COLOR_INFO,
+            'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+        );
+
+        return $result;
 //        }
 //        else{
 //            Yii::app()->user->setFlash(

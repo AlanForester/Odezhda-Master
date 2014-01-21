@@ -8,7 +8,8 @@
  *
  * @package YiiBoilerplate\Backend
  */
-abstract class BackendController extends CController {
+abstract class BackendController extends CController
+{
     /** @var array This will be pasted into breadcrumbs widget in layout */
     public $breadcrumbs = array();
 
@@ -35,7 +36,8 @@ abstract class BackendController extends CController {
      * @return array
      */
 
-    public function run($aid) {
+    public function run($aid)
+    {
         // тестовое решение
         $this->isAjax = (Yii::app()->request->getParam('ajax') ? true : false);
         $this->layout = ($this->isAjax ? '_content' : 'main');
@@ -51,7 +53,8 @@ abstract class BackendController extends CController {
      *
      * @return array
      */
-    public function accessRules() {
+    public function accessRules()
+    {
         return array(
             // разрешаем все для группы админов
             //            [
@@ -68,7 +71,8 @@ abstract class BackendController extends CController {
         );
     }
 
-    public function filters() {
+    public function filters()
+    {
         return array(
             'accessControl',
         );
@@ -82,13 +86,15 @@ abstract class BackendController extends CController {
      * @param string $view
      * @return bool
      */
-    protected function beforeRender($view) {
+    protected function beforeRender($view)
+    {
         $result = parent::beforeRender($view);
         $this->registerAssets();
         return $result;
     }
 
-    private function registerAssets() {
+    private function registerAssets()
+    {
         $publisher = Yii::app()->assetManager;
         //        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
@@ -100,7 +106,8 @@ abstract class BackendController extends CController {
      * Регистрация стилей и сркиптов для темы оформления. Данную функцию следует вызывать в нужном layoyt'е,
      * т.е. требуется перекрывать многие стили bootstrap'а
      */
-    public function rgisterTemplateAssets() {
+    public function rgisterTemplateAssets()
+    {
         // === СТИЛИ ===
         // форма и элементы
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
