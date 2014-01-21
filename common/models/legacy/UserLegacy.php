@@ -151,7 +151,9 @@ class UserLegacy extends CActiveRecord
         return array(
             array('admin_email_address', 'email','message' => Yii::t('validation', "Некорректный E-mail")),
             array('admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")),
-            array('admin_email_address', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'E-mail является обязательным')),
+            array('admin_email_address', 'required', 'message'=>Yii::t('validation', 'E-mail является обязательным')),
+            array('admin_firstname', 'required', 'message'=>Yii::t('validation', 'Имя является обязательным')),
+            array('admin_groups_id', 'required', 'message'=>Yii::t('validation', 'Группа является обязательной')),
             array('admin_password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
 
            // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
