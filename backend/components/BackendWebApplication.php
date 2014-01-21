@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Overridden CWebApplication instance for any stuff related only to backend entry point.
  *
@@ -7,7 +8,6 @@
  *
  * @package YiiBoilerplate\Backend
  */
-class BackendWebApplication extends WebApplication
-{
+class BackendWebApplication extends WebApplication {
 
 } 

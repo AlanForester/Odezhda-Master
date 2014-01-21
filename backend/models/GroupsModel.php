@@ -24,19 +24,4 @@ class GroupsModel extends CFormModel {
         }
         return $this->list;
     }
-
-    /**
-     * @param array $params смотри описание changeField()
-     * @return bool успешно ли произошла запись
-     */
-//    public function changeUserField($params = []) {
-//        return UsersLayer::changeField($params);
-//    }
-
-//    public function getUser($id) {
-//        //print_r(UsersLayer::getUserById($id));print_r($this->attributes);exit;
-//        //        $this->attributes=UsersLayer::getUserById($id);
-//        //        print_r($this->attributes);exit;
-//        return UsersLayer::getUserById($id);
-//    }
 }

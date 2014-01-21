@@ -45,8 +45,6 @@ class UsersController extends BackendController {
         ];
 
         // пагинация
-        //        $page_size = Yii::app()->request->getParam('page_size', Yii::app()->user->getState('page_size', CPagination::DEFAULT_PAGE_SIZE));
-        //        Yii::app()->user->setState('page_size', $page_size);
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
@@ -94,9 +92,10 @@ class UsersController extends BackendController {
         $model = new UsersModel($scenario);
 
         if (!empty($form_action)) {
-            $model->setAttributes($_POST['UsersModel'],false);
+            $model->setAttributes($_POST['UsersModel'], false);
             // отправляем в модель данные
             $result = $model->save($_POST['UsersModel']);
+
             if (!$result) {
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
@@ -105,9 +104,8 @@ class UsersController extends BackendController {
                 //$this->redirect(Yii::app()->request->urlReferrer);
                 $this->render('edit', compact('model', 'groups'));
                 return;
-            }
-            else {
-            // выкидываем сообщение
+            } else {
+                // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
                     'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
