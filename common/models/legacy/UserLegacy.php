@@ -149,9 +149,10 @@ class UserLegacy extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('admin_email_address', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
-            array('admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
-            array('admin_email_address, admin_password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поля E-mail пароль являются обязательными!')),
+            array('admin_email_address', 'email','message' => Yii::t('validation', "Некорректный E-mail")),
+            array('admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")),
+            array('admin_email_address', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'E-mail является обязательным')),
+            array('admin_password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
 
            // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
            // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),

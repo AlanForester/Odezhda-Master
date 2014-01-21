@@ -122,17 +122,18 @@ class UsersController extends BackendController {
 
     private function save($formData, $scenario) {
         $model = new UsersModel($scenario);
+        //$this->performAjaxValidation($model);
         $id = $formData['id'];
 
-        $model->setAttributes($formData);
+//        $model->setAttributes($formData);
 
-        if (!$model->validate()) {
-            Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_ERROR,
-                CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя! ')
-            );
-            return false;
-        }
+//        if (!$model->validate($formData)) {
+//            Yii::app()->user->setFlash(
+//                TbHtml::ALERT_COLOR_ERROR,
+//                CHtml::errorSummary($model, 'vlid Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя! ')
+//            );
+//            return false;
+//        }
 
         // отправляем в модель данные
         $result = $model->save($formData);
@@ -141,8 +142,8 @@ class UsersController extends BackendController {
             //$this->error();
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_ERROR,
-                'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя!'
-
+//                'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя!'
+                CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
             );
 
             return $result;

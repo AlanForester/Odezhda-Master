@@ -20,6 +20,8 @@ class UsersLayer {
         'admin_right_access' => 'right_access',
     ];
 
+    private static $errors = [];
+
     /**
      * @param $row массив полей, которые нужно пропустить через карту
      * @param bool $reverse конвертировать в прямую (old=>new) или обратную(new=>old) сторону(по умолчанию -  прямую)
@@ -104,7 +106,7 @@ class UsersLayer {
         $id = isset($data['id']) ? $data['id'] : null;
 
         // модель пользователя
-        $user = self::getUser($id,'add');
+        $user = self::getUser($id, 'add');
         if (!$user) {
 
 
@@ -133,8 +135,7 @@ class UsersLayer {
         if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
             $data['password'] = $user->encrypt_password($data['password']);
 
-        }
-        else {
+        } else {
             unset ($data['password']);
         }
 
@@ -143,13 +144,19 @@ class UsersLayer {
         // задаем значения, получаем реальные имена полей
         $user->setAttributes(self::fieldMapConvert($data, true), false);
 
+        if (!$user->save()){
+            self::$errors = $user->getErrors();
+            return false;
+        }
+
+        return self::fieldMapConvert($user->attributes);
         // сохраняем и переворачиваем в виртуальные данные
-        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
+//        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
     public static function delete($id) {
         $user = self::getUser($id);
-        if ($user){
+        if ($user) {
             return $user->delete();
         }
 
@@ -162,17 +169,15 @@ class UsersLayer {
      * @param string $scenario [опционально] сценарий пользователя
      * @return UserLegacy
      */
-    public static function getUser($id = null,$scenario = null) {
+    public static function getUser($id = null, $scenario = null) {
         return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
     }
 
-    public static function findByPk($id, $params)
-    {
+    public static function findByPk($id, $params) {
         return UserLegacy::model()->findByPk($id, $params);
     }
 
-    public static function findByAttributes($attributes)
-    {
+    public static function findByAttributes($attributes) {
         return UserLegacy::model()->findByAttributes($attributes);
     }
 
@@ -181,8 +186,7 @@ class UsersLayer {
      * @param string $username имя пользователя (username)
      * @return UserLegacy
      */
-    public static function find($username)
-    {
+    public static function find($username) {
         return UserLegacy::model()->find(
             [
                 'condition' => 'admin_email_address=:username',
@@ -197,8 +201,7 @@ class UsersLayer {
      * @param string $password пароль
      * @return int 0 - пользователь не найден, 1 - не правильный пароль, AR- найденный пользователь
      */
-    public static function authenticate($username, $password)
-    {
+    public static function authenticate($username, $password) {
         $user = self::find($username);
         if (!$user)
             return 0;
@@ -213,8 +216,7 @@ class UsersLayer {
         //return $this->isAuthenticated;
     }
 
-    public static function makeAuthenticated($user)
-    {
+    public static function makeAuthenticated($user) {
         $user->regenerateValidationKey();
 //        $this->id = User::getUserId($user);
 //        $this->username = User::getUserName($user);
@@ -228,13 +230,35 @@ class UsersLayer {
         ];
     }
 
-    public static function getUserName($model)
-    {
+    public static function getUserName($model) {
         return $model->admin_email_address;
     }
 
-    public static function getUserId($model)
-    {
+    public static function getUserId($model) {
         return $model->admin_id;
+    }
+
+    public static function validate($attributes = null, $clearErrors = true) {
+//        $model = self::getUser();
+//        $model->setAttributes(self::fieldMapConvert($attributes, true));
+        return UserLegacy::model()->validate($attributes,$clearErrors);
+//        return UserLegacy::validate($attributes,$clearErrors);
+    }
+
+    public static function getErrors($attributes = null){
+//        print_r(UserLegacy::model());exit;
+//        return UserLegacy::model()->getErrors($attributes);
+        return self::$errors;
+    }
+
+    /**
+     * данные для валидации для внешнего использования
+     */
+    public static function rules(){
+        $rules = UserLegacy::model()->rules();
+        foreach ($rules as &$r){
+            $r[0] = self::getFieldName($r[0]);
+        }
+        return $rules;
     }
 }

@@ -37,8 +37,7 @@ class UsersModel extends CFormModel {
 //        );
 //    }
 
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return array(
             'email' => Yii::t('labels', 'E-mail'),
             'password' => Yii::t('labels', 'Пароль'),
@@ -47,13 +46,23 @@ class UsersModel extends CFormModel {
 
     public function rules()
     {
-        return array(
-            array('email', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
-            array('email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
-            array('email', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле E-mail являются обязательными!')),
-            array('password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле пароль являются обязательными!')),
-        );
+        return UsersLayer::rules();
+//        return [
+//            array('email', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
+//            array('email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
+//            array('email', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле E-mail являются обязательными!')),
+//            array('password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле пароль являются обязательными!')),
+//        ];
     }
+
+    public function validate($attributes=null, $clearErrors=true) {
+        return UsersLayer::validate($attributes,$clearErrors);
+    }
+
+    public function getErrors($attributes=null){
+        return UsersLayer::getErrors($attributes);
+    }
+
 
 
     public function getList($data) {
