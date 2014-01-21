@@ -94,9 +94,7 @@ class UsersController extends BackendController {
         $model = new UsersModel($scenario);
 
         if (!empty($form_action)) {
-            //print_r($_POST['UsersModel']);exit;
             $model->setAttributes($_POST['UsersModel'],false);
-            //print_r($model);exit;
             // отправляем в модель данные
             $result = $model->save($_POST['UsersModel']);
             if (!$result) {
@@ -123,7 +121,6 @@ class UsersController extends BackendController {
                 }
             }
         }
-
 
         $user = $model->getUserData($id, $scenario);
         if ($user) {
