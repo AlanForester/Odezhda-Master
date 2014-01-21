@@ -34,19 +34,23 @@ $this->widget(
                             [
                                 'label' => 'Группы пользователей',
                                 'url' => ['/groups/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Уровни доступа',
                                 'url' => ['/rules/index'],
+                                'disabled'=>true
                             ],
                             TbHtml::menuDivider(),
                             [
                                 'label' => 'Общие параметры',
-                                'url' => ['/config/index']
+                                'url' => ['/config/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Информация о системе',
-                                'url' => ['/config/index']
+                                'url' => ['/config/index'],
+                                'disabled'=>true
                             ]
                         ]
                     ],
@@ -56,19 +60,23 @@ $this->widget(
                         'items'=>[
                             [
                                 'label' => 'Статьи',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Информационные страницы',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Новости',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'FAQ',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                         ]
                     ],
@@ -86,27 +94,33 @@ $this->widget(
                             ],
                             [
                                 'label' => 'Бухгалтерия',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Модули',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Сертификаты, купоны',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Клиенты',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Партнеры',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Места, налоги',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ]
                         ]
                     ],
@@ -116,19 +130,23 @@ $this->widget(
                         'items' => [
                             [
                                 'label' => 'Опросы',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Ссылки',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Отчеты',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Инструменты',
-                                'url' => ['/articles/index']
+                                'url' => ['/articles/index'],
+                                'disabled'=>true
                             ],
                         ]
                     ]
@@ -150,12 +168,14 @@ $this->widget(
                             [
                                 'label' => 'Учетная запись',
                                 'url' => ['/catalog/index'],
-                                'icon'=>'icon-user'
+                                'icon'=>'icon-user',
+                                'disabled'=>true
                             ],
                             [
                                 'label' => 'Настройки',
                                 'url' => ['/catalog/index'],
-                                'icon'=>'icon-cog'
+                                'icon'=>'icon-cog',
+                                'disabled'=>true
                             ],
                             TbHtml::menuDivider(),
                             [

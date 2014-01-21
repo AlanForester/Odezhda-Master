@@ -8,8 +8,7 @@
  *
  * @package YiiBoilerplate\Backend
  */
-class BackendLoginForm extends CFormModel
-{
+class BackendLoginForm extends CFormModel {
     /**
      * Max number of allowed failed login attempts before we show captcha.
      *
@@ -22,75 +21,70 @@ class BackendLoginForm extends CFormModel
      *
      * @var string
      */
-	public $username;
+    public $username;
 
     /**
      * User password
      *
      * @var string
      */
-	public $password;
+    public $password;
 
     /**
      * Whether to login user for some amount of time or until end of session.
      *
      * @var bool
      */
-	public $rememberMe;
+    public $rememberMe;
 
     /**
      * Captcha code
      *
      * @var string
      */
-	public $verifyCode;
+    public $verifyCode;
 
     /** @var CUserIdentity */
-	private $_identity;
+    private $_identity;
 
     /** @var User */
-	private $_user = null;
+    private $_user = null;
 
-	/**
-	 * Validation rules
+    /**
+     * Validation rules
      *
      * @see CModel::rules()
      *
-	 * @return array
-	 */
-	public function rules()
-    {
-		return array(
-			array('password, username', 'required'),
-//			array('verifyCode', 'validateCaptcha'),
-			array('password', 'authenticate'),
-//			array('rememberMe', 'boolean'),
-		);
-	}
+     * @return array
+     */
+    public function rules() {
+        return array(
+            array('password, username', 'required'),
+            array('password', 'authenticate'),
+        );
+    }
 
-	/**
-	 * Returns attribute labels
+    /**
+     * Returns attribute labels
      *
      * @see CModel::attributeLabels()
      *
-	 * @return array
-	 */
-	public function attributeLabels()
-    {
-		return array(
-			'username' => Yii::t('labels', 'Username or e-mail'),
-			'rememberMe' => Yii::t('labels', 'Remember me next time'),
-		);
-	}
+     * @return array
+     */
+    public function attributeLabels() {
+        return array(
+            'username' => Yii::t('labels', 'Username or e-mail'),
+            'rememberMe' => Yii::t('labels', 'Remember me next time'),
+        );
+    }
 
-	/**
-	 * Inline validator for password field.
+    /**
+     * Inline validator for password field.
      *
-	 * @param string
+     * @param string
      * @param array
-	 */
-	public function authenticate($attribute, $params)
-    {
+     */
+    public function authenticate($attribute, $params) {
         if ($this->hasErrors())
             return;
 
@@ -98,69 +92,64 @@ class BackendLoginForm extends CFormModel
         if ($this->_identity->authenticate())
             return;
 
-//        if ($this->user !== null and $this->user->login_attempts < 100)
-//            $this->user->saveAttributes(array('login_attempts' => $this->user->login_attempts + 1));
+        //        if ($this->user !== null and $this->user->login_attempts < 100)
+        //            $this->user->saveAttributes(array('login_attempts' => $this->user->login_attempts + 1));
 
         $this->addError('username', Yii::t('errors', 'Incorrect username and/or password.'));
         $this->addError('password', Yii::t('errors', 'Incorrect username and/or password.'));
-	}
+    }
 
-	/**
-	 * Inline validator for captcha code
+    /**
+     * Inline validator for captcha code
      *
-	 * @param string
-	 * @param array
-	 */
-	public function validateCaptcha($attribute, $params)
-    {
-		if ($this->isCaptchaRequired())
-			CValidator::createValidator('captcha', $this, $attribute, $params)->validate($this);
-	}
+     * @param string
+     * @param array
+     */
+    public function validateCaptcha($attribute, $params) {
+        if ($this->isCaptchaRequired())
+            CValidator::createValidator('captcha', $this, $attribute, $params)->validate($this);
+    }
 
-	/**
-	 * Login
+    /**
+     * Login
      *
-	 * @return bool
-	 */
-	public function login()
-    {
-		if ($this->_identity === null) {
-			$this->_identity = new AdminIdentity($this->username, $this->password);
-			$this->_identity->authenticate();
-		}
+     * @return bool
+     */
+    public function login() {
+        if ($this->_identity === null) {
+            $this->_identity = new AdminIdentity($this->username, $this->password);
+            $this->_identity->authenticate();
+        }
 
-		if ($this->_identity->isAuthenticated)
-        {
-			$duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
-			Yii::app()->user->login($this->_identity, $duration);
-			return true;
-		}
+        if ($this->_identity->isAuthenticated) {
+            $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
+            Yii::app()->user->login($this->_identity, $duration);
+            return true;
+        }
 
         return false;
-	}
+    }
 
-	/**
+    /**
      * Caching getter for user model associated with given username.
      *
-	 * @return User
-	 */
-	public function getUser()
-    {
-		if ($this->_user === null)
+     * @return User
+     */
+    public function getUser() {
+        if ($this->_user === null)
             // todo: завернуть через прослойку
-			$this->_user = UsersLayer::findByAttributes(['admin_email_address' => $this->username]);
-//			$this->_user = User::model()->findByAttributes(['username' => $this->username]);
+            $this->_user = UsersLayer::findByAttributes(['admin_email_address' => $this->username]);
+        //			$this->_user = User::model()->findByAttributes(['username' => $this->username]);
 
-		return $this->_user;
-	}
+        return $this->_user;
+    }
 
-	/**
-	 * Returns whether it requires captcha or not
-	 * @return bool
-	 */
-	public function isCaptchaRequired()
-    {
-		return false;//return ($user = $this->user) !== null && $user->login_attempts >= self::MAX_LOGIN_ATTEMPTS;
-	}
+    /**
+     * Returns whether it requires captcha or not
+     * @return bool
+     */
+    public function isCaptchaRequired() {
+        return false; //return ($user = $this->user) !== null && $user->login_attempts >= self::MAX_LOGIN_ATTEMPTS;
+    }
 
 }

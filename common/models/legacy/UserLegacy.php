@@ -21,24 +21,22 @@
  *
  * @package YiiBoilerplate\Models
  */
-class UserLegacy extends CActiveRecord
-{
+class UserLegacy extends CActiveRecord {
     /** @var string Field to hold a new password when user updates it. */
     public $newPassword;
 
     /** @var string Password confirmation. Is used only in validation on login. */
     public $passwordConfirm;
 
-    public $primaryKey='admin_id';
-//    public $validation_key;
+    public $primaryKey = 'admin_id';
+    //    public $validation_key;
 
     /**
      * Name of the database table associated with this ActiveRecord
      *
      * @return string
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'admin';
     }
 
@@ -52,28 +50,27 @@ class UserLegacy extends CActiveRecord
      *
      * @return array Configuration for the behavior classes.
      */
-//	public function behaviors()
-//	{
-//		Yii::import('common.extensions.behaviors.password.*');
-//		return array(
-//			// Password behavior strategy
-//			"APasswordBehavior" => array(
-//				"class" => "APasswordBehavior",
-//				"defaultStrategyName" => "legacy",
-//                "passwordAttribute"=>"admin_password",
-//				"strategies" => array(
-//					"legacy" => array(
-//						"class" => "ALegacyPasswordStrategy"
-////						"workFactor" => 14,
-////						"minLength" => 8
-//					)
-//				),
-//			)
-//		);
-//	}
-//----------Функции из старой системы
-    public function verifyPassword($originPassword)
-    {
+    //	public function behaviors()
+    //	{
+    //		Yii::import('common.extensions.behaviors.password.*');
+    //		return array(
+    //			// Password behavior strategy
+    //			"APasswordBehavior" => array(
+    //				"class" => "APasswordBehavior",
+    //				"defaultStrategyName" => "legacy",
+    //                "passwordAttribute"=>"admin_password",
+    //				"strategies" => array(
+    //					"legacy" => array(
+    //						"class" => "ALegacyPasswordStrategy"
+    ////						"workFactor" => 14,
+    ////						"minLength" => 8
+    //					)
+    //				),
+    //			)
+    //		);
+    //	}
+    //----------Функции из старой системы
+    public function verifyPassword($originPassword) {
         //echo($this->admin_password);exit;
         if ($this->val_not_null($originPassword) && $this->val_not_null($this->admin_password)) {
             // split apart the hash / salt
@@ -89,6 +86,7 @@ class UserLegacy extends CActiveRecord
         return false;
 
     }
+
     public function val_not_null($value) {
         if (is_array($value)) {
             if (sizeof($value) > 0) {
@@ -97,19 +95,20 @@ class UserLegacy extends CActiveRecord
                 return false;
             }
         } else {
-            if ( (is_string($value) || is_int($value)) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
+            if ((is_string($value) || is_int($value)) && ($value != '') && ($value != 'NULL') && (strlen(trim($value)) > 0)) {
                 return true;
             } else {
                 return false;
             }
         }
     }
+
     // Return a random value
     public function tep_rand($min = null, $max = null) {
         static $seeded;
 
         if (!$seeded) {
-            mt_srand((double)microtime()*1000000);
+            mt_srand((double)microtime() * 1000000);
             $seeded = true;
         }
 
@@ -127,7 +126,7 @@ class UserLegacy extends CActiveRecord
     public function encrypt_password($plain) {
         $password = '';
 
-        for ($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $password .= $this->tep_rand();
         }
 
@@ -137,33 +136,24 @@ class UserLegacy extends CActiveRecord
 
         return $password;
     }
-//--------------------------------------
+    //--------------------------------------
     /**
      * Validation rules for model attributes.
      *
      * @see http://www.yiiframework.com/wiki/56/
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            array('admin_email_address', 'email','message' => Yii::t('validation', "Некорректный E-mail")),
-            array('admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")),
-            array('admin_email_address', 'required', 'message'=>Yii::t('validation', 'E-mail является обязательным')),
-            array('admin_firstname', 'required', 'message'=>Yii::t('validation', 'Имя является обязательным')),
-            array('admin_groups_id', 'required', 'message'=>Yii::t('validation', 'Группа является обязательной')),
-            array('admin_password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-
-           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
-           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
-           // array('email, password, salt', 'length', 'max' => 255),
-          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
-         //   // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-         //   array('id, username, email', 'safe', 'on' => 'search'),
-        );
+        return [
+            ['admin_email_address', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
+            ['admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
+            ['admin_email_address', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
+            ['admin_firstname', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')],
+            ['admin_groups_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
+            ['admin_password', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')]
+        ];
     }
 
     /**
@@ -171,24 +161,22 @@ class UserLegacy extends CActiveRecord
      *
      * @return array
      */
-    public function attributeLabels()
-    {
-        return array(
+    public function attributeLabels() {
+        return [
             'id' => 'ID',
             'username' => Yii::t('labels', 'Username'),
             'password' => Yii::t('labels', 'Password'),
             'newPassword' => Yii::t('labels', 'Password'),
             'passwordConfirm' => Yii::t('labels', 'Confirm password'),
             'email' => Yii::t('labels', 'Email'),
-        );
+        ];
     }
 
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         $PARTIAL = true;
 
         $criteria = new CDbCriteria;
@@ -202,8 +190,7 @@ class UserLegacy extends CActiveRecord
     /**
      * Generates a new validation key (additional security for cookie)
      */
-    public function regenerateValidationKey()
-    {
+    public function regenerateValidationKey() {
         $validation_key = md5(mt_rand() . mt_rand() . mt_rand());
         //$this->saveAttributes(compact('validation_key'));
     }
@@ -215,8 +202,7 @@ class UserLegacy extends CActiveRecord
      * @param string $className
      * @return User the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 

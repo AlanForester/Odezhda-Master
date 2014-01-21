@@ -83,8 +83,8 @@ class UsersLayer {
     public static function updateField($data) {
         // реальное имя поля
         $field = self::getFieldName($data['field'], false);
-        $user_id = (!empty($data['id']) ? $data['id'] : false);
-        $value = (!empty($data['newValue']) ? $data['newValue'] : false);
+        $user_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
+        $value = TbArray::getValue('newValue', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
 
         // все все данные верны, сохраняем
         if ($user_id && $field && $value) {
@@ -103,7 +103,7 @@ class UsersLayer {
      * @return bool|array массив данных пользователя или false
      */
     public static function save($data) {
-        $id = isset($data['id']) ? $data['id'] : null;
+        $id = TbArray::getValue('id', $data); //isset($data['id']) ? $data['id'] : null;
 
         // модель пользователя
         $user = self::getUser($id, 'add');
@@ -123,9 +123,9 @@ class UsersLayer {
             }
 
             // проверяем на уникальность email
-//            if (UserLayer::find($data['email'])){
-//                return false;
-//            }
+            //            if (UserLayer::find($data['email'])){
+            //                return false;
+            //            }
 
             $data['created'] = new CDbExpression('NOW()');
         }
@@ -144,14 +144,14 @@ class UsersLayer {
         // задаем значения, получаем реальные имена полей
         $user->setAttributes(self::fieldMapConvert($data, true), false);
 
-        if (!$user->save()){
+        if (!$user->save()) {
             self::$errors = $user->getErrors();
             return false;
         }
 
         return self::fieldMapConvert($user->attributes);
         // сохраняем и переворачиваем в виртуальные данные
-//        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
+        //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
     public static function delete($id) {
@@ -218,10 +218,10 @@ class UsersLayer {
 
     public static function makeAuthenticated($user) {
         $user->regenerateValidationKey();
-//        $this->id = User::getUserId($user);
-//        $this->username = User::getUserName($user);
-//        $this->setState('vkey', $user->validation_key);
-//        $this->errorCode = self::ERROR_NONE;
+        //        $this->id = User::getUserId($user);
+        //        $this->username = User::getUserName($user);
+        //        $this->setState('vkey', $user->validation_key);
+        //        $this->errorCode = self::ERROR_NONE;
 
         return [
             'id' => $user->admin_id,
@@ -239,25 +239,32 @@ class UsersLayer {
     }
 
     public static function validate($attributes = null, $clearErrors = true) {
-//        $model = self::getUser();
-//        $model->setAttributes(self::fieldMapConvert($attributes, true));
-        return UserLegacy::model()->validate($attributes,$clearErrors);
-//        return UserLegacy::validate($attributes,$clearErrors);
+        //        $model = self::getUser();
+        //        $model->setAttributes(self::fieldMapConvert($attributes, true));
+        return UserLegacy::model()->validate($attributes, $clearErrors);
+        //        return UserLegacy::validate($attributes,$clearErrors);
     }
 
-    public static function getErrors($attributes = null){
-//        print_r(UserLegacy::model());exit;
-//        return UserLegacy::model()->getErrors($attributes);
+    public static function getErrors($attributes = null) {
+        //        print_r(UserLegacy::model());exit;
+        //        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
     }
 
     /**
      * данные для валидации для внешнего использования
      */
-    public static function rules(){
+    public static function rules() {
         $rules = UserLegacy::model()->rules();
-        foreach ($rules as &$r){
-            $r[0] = join(',' , array_map( function($el){ return self::getFieldName(trim($el));} , explode(',',$r[0])  ));
+        foreach ($rules as &$r) {
+            $r[0] = join(
+                ',',
+                array_map(
+                    function ($el) {
+                        return self::getFieldName(trim($el));
+                    }, explode(',', $r[0])
+                )
+            );
         }
         return $rules;
     }

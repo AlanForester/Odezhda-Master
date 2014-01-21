@@ -25,18 +25,6 @@ class UsersModel extends CFormModel {
      */
     private $allUsers = [];
 
-    /**
-     * @param array $data массив данных из которых будет создан массив для CDbCriteria
-     * @return array задает возвращает массив всех пользователей
-     */
-
-//    public function rules()
-//    {
-//        return array(
-//            array('password, email', 'required', 'on'=>'add', 'message'=>'Некорректный E-mail'),
-//        );
-//    }
-
     public function attributeLabels() {
         return array(
             'email' => Yii::t('labels', 'E-mail'),
@@ -44,25 +32,17 @@ class UsersModel extends CFormModel {
         );
     }
 
-    public function rules()
-    {
+    public function rules() {
         return UsersLayer::rules();
-//        return [
-//            array('email', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
-//            array('email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
-//            array('email', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле E-mail являются обязательными!')),
-//            array('password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле пароль являются обязательными!')),
-//        ];
     }
 
-    public function validate($attributes=null, $clearErrors=true) {
-        return UsersLayer::validate($attributes,$clearErrors);
+    public function validate($attributes = null, $clearErrors = true) {
+        return UsersLayer::validate($attributes, $clearErrors);
     }
 
-    public function getErrors($attributes=null){
+    public function getErrors($attributes = null) {
         return UsersLayer::getErrors($attributes);
     }
-
 
 
     public function getList($data) {
@@ -168,7 +148,6 @@ class UsersModel extends CFormModel {
      * @return bool|array массив данных пользователя или false
      */
     public function save($data) {
-//        $this->addError('password','Incorrect username or password.');
         return UsersLayer::save($data);
     }
 
@@ -184,6 +163,7 @@ class UsersModel extends CFormModel {
     /**
      * АР модель пользователя на основе id
      * @param int $id id пользователя
+     * @param string $scenario сценарий для правил
      * @return UserLegacy
      */
     public function getUser($id, $scenario) {
@@ -193,6 +173,7 @@ class UsersModel extends CFormModel {
     /**
      * Данные пользователя в виде массива
      * @param int $id id пользователя
+     * @param string $scenario сценарий для правил
      * @return bool|array массив или false
      */
     public function getUserData($id, $scenario) {

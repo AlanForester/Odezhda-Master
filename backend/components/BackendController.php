@@ -8,10 +8,9 @@
  *
  * @package YiiBoilerplate\Backend
  */
-abstract class BackendController extends CController
-{
+abstract class BackendController extends CController {
     /** @var array This will be pasted into breadcrumbs widget in layout */
-    public $breadcrumbs = array();
+    public $breadcrumbs = [];
 
     /** @var array This will be pasted into menu widget in sidebar portlet in two-column layout */
     public $menu = array();
@@ -23,21 +22,7 @@ abstract class BackendController extends CController
 
     public $isAjax = false;
 
-    /**
-     * Additional behavior associated with different routes in the controller.
-     *
-     * This is base class for all backend controllers, so we apply CAccessControlFilter
-     * and on all actions except `actionDelete` we make the YiiBooster library to be available.
-     *
-     * @see http://www.yiiframework.com/doc/api/1.1/CController#filters-detail
-     * @see http://www.yiiframework.com/doc/api/1.1/CAccesControlFilter
-     * @see http://yii-booster.clevertech.biz/getting-started.html#initialization
-     *
-     * @return array
-     */
-
-    public function run($aid)
-    {
+    public function run($aid) {
         // тестовое решение
         $this->isAjax = (Yii::app()->request->getParam('ajax') ? true : false);
         $this->layout = ($this->isAjax ? '_content' : 'main');
@@ -53,9 +38,8 @@ abstract class BackendController extends CController
      *
      * @return array
      */
-    public function accessRules()
-    {
-        return array(
+    public function accessRules() {
+        return [
             // разрешаем все для группы админов
             //            [
             //                'allow',
@@ -68,14 +52,13 @@ abstract class BackendController extends CController
                 'deny',
                 'users' => ['?'],
             ],
-        );
+        ];
     }
 
-    public function filters()
-    {
-        return array(
+    public function filters() {
+        return [
             'accessControl',
-        );
+        ];
     }
 
     /**
@@ -86,15 +69,13 @@ abstract class BackendController extends CController
      * @param string $view
      * @return bool
      */
-    protected function beforeRender($view)
-    {
+    protected function beforeRender($view) {
         $result = parent::beforeRender($view);
         $this->registerAssets();
         return $result;
     }
 
-    private function registerAssets()
-    {
+    private function registerAssets() {
         $publisher = Yii::app()->assetManager;
         //        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
@@ -106,8 +87,7 @@ abstract class BackendController extends CController
      * Регистрация стилей и сркиптов для темы оформления. Данную функцию следует вызывать в нужном layoyt'е,
      * т.е. требуется перекрывать многие стили bootstrap'а
      */
-    public function rgisterTemplateAssets()
-    {
+    public function rgisterTemplateAssets() {
         // === СТИЛИ ===
         // форма и элементы
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
