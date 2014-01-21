@@ -85,24 +85,6 @@ class UsersController extends BackendController {
     public function actionEdit($id, $scenario = 'edit') {
         $form_action = Yii::app()->request->getPost('form_action');
 
-        if (!empty($form_action)) {
-            $saved = $this->save($_POST['UsersModel'], $scenario);
-
-            if (!$saved) {
-                $this->redirect(Yii::app()->request->urlReferrer);
-            } else {
-
-                if ($form_action == 'save') {
-                    $this->redirect(['index']);
-                    return;
-                } else {
-                    $this->redirect(['edit', 'id' => $saved['id']]);
-                    return;
-                }
-
-            }
-        }
-
         $groups_model = new GroupsModel();
         $groups = [];
         foreach ($groups_model->getList() as $g) {
@@ -111,6 +93,38 @@ class UsersController extends BackendController {
 
         $model = new UsersModel($scenario);
 
+        if (!empty($form_action)) {
+            //print_r($_POST['UsersModel']);exit;
+            $model->setAttributes($_POST['UsersModel'],false);
+            //print_r($model);exit;
+            // отправляем в модель данные
+            $result = $model->save($_POST['UsersModel']);
+            if (!$result) {
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                );
+                //$this->redirect(Yii::app()->request->urlReferrer);
+                $this->render('edit', compact('model', 'groups'));
+                return;
+            }
+            else {
+            // выкидываем сообщение
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_INFO,
+                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                );
+                if ($form_action == 'save') {
+                    $this->redirect(['index']);
+                    return;
+                } else {
+                    $this->redirect(['edit', 'id' => $id]);
+                    return;
+                }
+            }
+        }
+
+
         $user = $model->getUserData($id, $scenario);
         if ($user) {
             $model->setAttributes($user, false);
@@ -118,51 +132,6 @@ class UsersController extends BackendController {
             $this->error();
 
         $this->render('edit', compact('model', 'groups'));
-    }
-
-    private function save($formData, $scenario) {
-        $model = new UsersModel($scenario);
-        //$this->performAjaxValidation($model);
-        $id = $formData['id'];
-
-//        $model->setAttributes($formData);
-
-//        if (!$model->validate($formData)) {
-//            Yii::app()->user->setFlash(
-//                TbHtml::ALERT_COLOR_ERROR,
-//                CHtml::errorSummary($model, 'vlid Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя! ')
-//            );
-//            return false;
-//        }
-
-        // отправляем в модель данные
-        $result = $model->save($formData);
-        // print_r($model->getErrors($model->email));exit;
-        if (!$result) {
-            //$this->error();
-            Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_ERROR,
-                CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
-            );
-
-            return $result;
-        }
-
-        // выкидываем сообщение
-        Yii::app()->user->setFlash(
-            TbHtml::ALERT_COLOR_INFO,
-            'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
-        );
-
-        return $result;
-//        }
-//        else{
-//            Yii::app()->user->setFlash(
-//                TbHtml::ALERT_COLOR_ERROR,
-//                'Ошибка ' . ($id ? 'сохранения' : 'добавления') .' пользователя!'
-//            );
-//            return false;
-//        }
     }
 
     public function actionAdd() {

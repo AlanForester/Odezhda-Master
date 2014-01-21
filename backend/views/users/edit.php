@@ -58,7 +58,7 @@ $this->pageButton = [
             [
                 'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
                 //'enableAjaxValidation' => true,
-               'enableClientValidation' => true,
+                'enableClientValidation' => true,
                 'clientOptions' => [
                     'validateOnSubmit' => true,
 //                    'afterValidate' => 'js: function(form,data,hasError)
@@ -77,7 +77,7 @@ $this->pageButton = [
 //                                                });
 //                                            }
 //                                        }'
-        ]
+                 ]
         ]
 
     );?>
