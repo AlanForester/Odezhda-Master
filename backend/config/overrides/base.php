@@ -30,6 +30,7 @@ return [
         'site' => 'BackendSiteController',
         'users' => 'UsersController',
         'groups' => 'GroupsController',
+        'categories' => 'ShopCategoriesController',
     ],
     'components' => [
         // Backend uses the YiiBooster package for its UI

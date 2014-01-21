@@ -83,8 +83,6 @@ class UsersController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $form_action = Yii::app()->request->getPost('form_action');
-
         $groups_model = new GroupsModel();
         $groups = [];
         foreach ($groups_model->getList() as $g) {
@@ -93,6 +91,7 @@ class UsersController extends BackendController {
 
         $model = new UsersModel($scenario);
 
+        $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             $model->setAttributes($_POST['UsersModel'],false);
             // отправляем в модель данные
