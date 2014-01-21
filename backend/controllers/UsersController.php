@@ -142,7 +142,6 @@ class UsersController extends BackendController {
             //$this->error();
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_ERROR,
-//                'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя!'
                 CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
             );
 

@@ -257,7 +257,7 @@ class UsersLayer {
     public static function rules(){
         $rules = UserLegacy::model()->rules();
         foreach ($rules as &$r){
-            $r[0] = self::getFieldName($r[0]);
+            $r[0] = join(',' , array_map( function($el){ return self::getFieldName(trim($el));} , explode(',',$r[0])  ));
         }
         return $rules;
     }
