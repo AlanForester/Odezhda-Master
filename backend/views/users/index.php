@@ -1,9 +1,4 @@
 <?php
-//Yii::app()->user->setFlash(
-//    TbHtml::ALERT_COLOR_WARNING,
-//    '<h4>Внимание!</h4>'
-//);
-
 $this->pageButton = [
     TbHtml::linkButton(
         'Добавить',
