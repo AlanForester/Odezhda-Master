@@ -51,7 +51,7 @@ class GroupsModel extends CFormModel {
                 }
             }
 
-            $this->allGroups = GroupsLayer::getList(
+            $this->allGroups = GroupsLayer::getListAndParams(
                 [
                     'condition' => join(' AND ', $condition),
                     'params' => $params,

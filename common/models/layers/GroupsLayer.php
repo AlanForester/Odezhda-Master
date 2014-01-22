@@ -53,4 +53,15 @@ class GroupsLayer {
     }
 
 
+    public static function getListAndParams($data) {
+        $result = [];
+        $list = GroupLegacy::model()->findall(new CDbCriteria($data));
+        foreach ($list as $val) {
+            $result[] = self::fieldMapConvert($val->attributes);
+        }
+
+        return $result;
+    }
+
+
 }

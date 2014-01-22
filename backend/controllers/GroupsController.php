@@ -13,16 +13,6 @@ class GroupsController extends BackendController {
     public $pageButton = [];
     public $model;
 
-    private function userStateParam($param, $default = null) {
-        $data = Yii::app()->request->getParam(
-            $param,
-            Yii::app()->user->getState($param, $default)
-        );
-
-        Yii::app()->user->setState($param, $data);
-        return $data;
-    }
-
     public function actionIndex() {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),

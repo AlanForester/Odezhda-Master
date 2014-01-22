@@ -68,12 +68,8 @@ $this->pageButton = [
                 'order_field',
                 $criteria['order_field'],
                 [
-                    'firstname' => 'Имя',
-                    'lastname' => 'Фамилия',
-                    'email' => 'E-Mail',
-                    'group_id' => 'Группа',
-                    'logdate' => 'Последний визит',
-                    'id' => 'ID',
+                    'name' => 'Название',
+                    'id' => 'ID'
                 ],
                 [
                     'class' => 'pull-right',
@@ -100,7 +96,7 @@ $this->pageButton = [
                 'order_direct',
                 $criteria['order_direct'],
                 [
-                    '' => 'Порядок отображения',
+
                     'down' => 'По убыванию',
                     'up' => 'По возрастанию',
                 ],

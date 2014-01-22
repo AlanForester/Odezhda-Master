@@ -25,15 +25,15 @@ class UsersController extends BackendController {
      * @param null $default [опционально] значение по умолчанию
      * @return mixed найденное и записанное значение
      */
-    private function userStateParam($param, $default = null) {
-        $data = Yii::app()->request->getParam(
-            $param,
-            Yii::app()->user->getState($param, $default)
-        );
-
-        Yii::app()->user->setState($param, $data);
-        return $data;
-    }
+//    private function userStateParam($param, $default = null) {
+//        $data = Yii::app()->request->getParam(
+//            $param,
+//            Yii::app()->user->getState($param, $default)
+//        );
+//
+//        Yii::app()->user->setState($param, $data);
+//        return $data;
+//    }
 
     public function actionIndex() {
         $criteria = [
