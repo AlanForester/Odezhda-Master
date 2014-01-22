@@ -98,6 +98,19 @@ body .navbar-fixed-top {
     margin-left: 5px;
 }
 
+#sidebar .nav .active a{
+    background-color: #111111;
+    color: #FFFFFF;
+}
+
+#sidebar .nav > li > a {
+    font-size: 13px;
+    margin-bottom: 1px;
+    margin-top: 1px;
+    padding-left: 11px;
+    padding-right: 11px;
+}
+
 @media (max-width: 767px) {
     .header {
         margin-left: -20px;

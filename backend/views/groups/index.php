@@ -5,8 +5,38 @@ $this->pageButton = [
     BackendPageButtons::mass("/groups/mass")
 ]
 ?>
+<div class="span2">
+    <div id="sidebar">
+        <h4 class="page-header">Подразделы:</h4>
 
-<div class="span12">
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbNav',
+            [
+                'items' => [
+                    [
+                        'label' => 'Пользователи',
+                        'url' => Yii::app()->createUrl('/users/index'),
+
+                    ],
+                    [
+                        'label' => 'Группы',
+                        'url' => Yii::app()->createUrl('/groups/index'),
+                        'active' => true
+                    ],
+                    [
+                        'label' => 'Права доступа',
+                        'url' => Yii::app()->createUrl('/roles/index'),
+                        'disabled' => true
+                    ],
+                ],
+            ]
+        );
+        ?>
+    </div>
+</div>
+
+<div class="span10">
 <div>
     <?php
     echo TbHtml::textField(
@@ -174,7 +204,7 @@ $this->widget(
         'htmlOptions' => [
             'class' => 'grid-view dataTables_wrapper'
         ],
-        'emptyText'=>'Нет данных для отображения',
+        'emptyText' => 'Нет данных для отображения',
         // pager - сделать tooltip на кнопки
         'template' => '<div class="table-block">{items}</div>
       <div class="row pager-block">
@@ -230,23 +260,23 @@ $this->widget(
                 ],
                 'deleteButtonOptions' => [
                     'class' => 'red bigger-130',
-                    'title'=>'Удалить',
+                    'title' => 'Удалить',
                 ],
                 'updateButtonOptions' => [
                     'class' => 'green bigger-130',
-                    'title'=>'Изменить',
+                    'title' => 'Изменить',
                 ],
                 'viewButtonOptions' => [
                     'class' => 'bigger-130',
-                    'title'=>'Просмотр',
-                    'onClick'=>'js: (function(){
+                    'title' => 'Просмотр',
+                    'onClick' => 'js: (function(){
                         bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
                     })()'
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
-                'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
-                'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
+                'viewButtonUrl' => null, //'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
                 'updateButtonUrl' => 'Yii::app()->createUrl("/groups/edit", array("id"=>$data["id"]))',
                 'deleteButtonUrl' => 'Yii::app()->createUrl("/groups/delete", array("id"=>$data["id"]))',
             ]

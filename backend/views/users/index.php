@@ -7,6 +7,35 @@ $this->pageButton = [
 ?>
 <div class="span2">
     <div id="sidebar">
+        <h4 class="page-header">Подразделы:</h4>
+
+        <?php
+        $this->widget(
+            'bootstrap.widgets.TbNav',
+            [
+                'items' => [
+                    [
+                        'label' => 'Пользователи',
+                        'url' => Yii::app()->createUrl('/users/index'),
+                        'active' => true
+                    ],
+                    [
+                        'label' => 'Группы',
+                        'url' => Yii::app()->createUrl('/groups/index'),
+
+                    ],
+                    [
+                        'label' => 'Права доступа',
+                        'url' => Yii::app()->createUrl('/roles/index'),
+                        'disabled' => true
+                    ],
+                ],
+            ]
+        );
+        ?>
+
+        <hr class="hr-condensed">
+
         <h4 class="page-header">Фильтр:</h4>
         <?=
         TbHtml::dropDownList(
@@ -16,7 +45,6 @@ $this->pageButton = [
             [
                 //                'data-placeholder'=>'- По группе -',
                 'class' => 'chzn-select',
-                //                'style'=>'width: 200px',
                 'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "usersgrid",
@@ -226,7 +254,7 @@ $this->widget(
     array(
         'id' => 'usersgrid',
         //        'CssClass'=>'dataTables_wrapper',
-            'dataProvider' => $this->gridDataProvider,
+        'dataProvider' => $this->gridDataProvider,
         'itemsCssClass' => 'table-bordered items',
         //    'filter'=>$this->model,
         'fixedHeader' => true,
@@ -236,7 +264,7 @@ $this->widget(
         'htmlOptions' => [
             'class' => 'grid-view dataTables_wrapper'
         ],
-        'emptyText'=>'Нет данных для отображения',
+        'emptyText' => 'Нет данных для отображения',
         // pager - сделать tooltip на кнопки
         'template' => '<div class="table-block">{items}</div>
       <div class="row pager-block">
@@ -354,23 +382,23 @@ $this->widget(
                 ],
                 'deleteButtonOptions' => [
                     'class' => 'red bigger-130',
-                    'title'=>'Удалить',
+                    'title' => 'Удалить',
                 ],
                 'updateButtonOptions' => [
                     'class' => 'green bigger-130',
-                    'title'=>'Изменить',
+                    'title' => 'Изменить',
                 ],
                 'viewButtonOptions' => [
                     'class' => 'bigger-130',
-                    'title'=>'Просмотр',
-                    'onClick'=>'js: (function(){
+                    'title' => 'Просмотр',
+                    'onClick' => 'js: (function(){
                         bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
                     })()'
                 ],
                 'class' => 'bootstrap.widgets.TbButtonColumn',
-                'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
-                'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
+                'viewButtonUrl' => null, //'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
                 'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
                 'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
             ]
