@@ -182,8 +182,8 @@ class ShopCategoriesLayer {
 
 
     public static function delete($id) {
-        self::getCategoriesByParentId($id);
         $parent = self::getCategory($id);
+        //print_r($parent);exit;
         if (!($parent && $parent->delete())) {
             return false;
         } else {
