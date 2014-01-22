@@ -211,6 +211,11 @@ class ShopCategoriesModel extends CFormModel {
         return ($user ? ShopCategoriesLayer::fieldMapConvert($user->attributes) : false);
     }
 
+    /**
+     * Удаляет категорию и все вложенные категории
+     * @param $id удаляемой категории
+     * @return bool результат удаления (true/false)
+     */
     public function delete($id) {
         return ShopCategoriesLayer::delete($id);
     }

@@ -180,13 +180,36 @@ class ShopCategoriesLayer {
 //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
+
     public static function delete($id) {
-        $user = self::getUser($id);
-        if ($user) {
-            return $user->delete();
+        self::getCategoriesByParentId($id);
+        $parent = self::getCategory($id);
+        if (!($parent && $parent->delete())) {
+            return ;
+        }
+        $children=self::findByParentId($id);
+        foreach($children as $val){
+            $child=self::getCategory($val['id']);
+            if ($child) {
+                return $child->delete();
+            }
         }
 
         return false;
+    }
+
+    /**
+     * Массив моделей категорий
+     * @param int $id id родительской категори
+     * @return ShopCategoriesLegacy
+     */
+    public static function getCategoriesByParentId($id) {
+        $children=self::findByParentId($id);
+        foreach($children as $val){
+            $child=self::getCategory($val['id']);
+        }
+        //print_r($children);exit;
+        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     /**
