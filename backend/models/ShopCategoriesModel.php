@@ -193,22 +193,22 @@ class ShopCategoriesModel extends CFormModel {
     }
 
     /**
-     * АР модель пользователя на основе id
-     * @param int $id id пользователя
+     * АР модель категории на основе id
+     * @param int $id id категории
      * @return UserLegacy
      */
-    public function getUser($id, $scenario) {
-        return ShopCategoriesLayer::getUser($id, $scenario);
+    public function getCategory($id, $scenario) {
+        return ShopCategoriesLayer::getCategory($id, $scenario);
     }
 
     /**
-     * Данные пользователя в виде массива
-     * @param int $id id пользователя
+     * Данные категории в виде массива
+     * @param int $id id категории
      * @return bool|array массив или false
      */
-    public function getUserData($id, $scenario) {
-        $user = self::ShopCategoriesLayer($id, $scenario);
-        return ($user ? ShopCategoriesLayer::fieldMapConvert($user->attributes) : false);
+    public function getCategoryData($id, $scenario) {
+        $category = self::getCategory($id, $scenario);
+        return ($category ? ShopCategoriesLayer::fieldMapConvert($category->attributes) : false);
     }
 
     /**

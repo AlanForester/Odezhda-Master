@@ -25,15 +25,15 @@ class ShopCategoriesController extends BackendController {
      * @param null $default [опционально] значение по умолчанию
      * @return mixed найденное и записанное значение
      */
-    private function userStateParam($param, $default = null) {
-        $data = Yii::app()->request->getParam(
-            $param,
-            Yii::app()->user->getState($param, $default)
-        );
-
-        Yii::app()->user->setState($param, $data);
-        return $data;
-    }
+//    private function userStateParam($param, $default = null) {
+//        $data = Yii::app()->request->getParam(
+//            $param,
+//            Yii::app()->user->getState($param, $default)
+//        );
+//
+//        Yii::app()->user->setState($param, $data);
+//        return $data;
+//    }
 
     public function actionIndex($id=0) {
 //        $criteria = [
@@ -84,58 +84,58 @@ class ShopCategoriesController extends BackendController {
 //        }
 //    }
 //
-//    public function actionEdit($id, $scenario = 'edit') {
+    public function actionEdit($id, $scenario = 'edit') {
 //        $groups_model = new GroupsModel();
 //        $groups = [];
 //        foreach ($groups_model->getList() as $g) {
 //            $groups[$g['id']] = $g['name'];
 //        }
-//
-//        $model = new UsersModel($scenario);
-//
-//        $form_action = Yii::app()->request->getPost('form_action');
-//        if (!empty($form_action)) {
-//            $model->setAttributes($_POST['UsersModel'],false);
-//            // отправляем в модель данные
-//            $result = $model->save($_POST['UsersModel']);
-//            if (!$result) {
-//                Yii::app()->user->setFlash(
-//                    TbHtml::ALERT_COLOR_ERROR,
-//                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
-//                );
-//                //$this->redirect(Yii::app()->request->urlReferrer);
-//                $this->render('edit', compact('model', 'groups'));
-//                return;
-//            }
-//            else {
-//            // выкидываем сообщение
-//                Yii::app()->user->setFlash(
-//                    TbHtml::ALERT_COLOR_INFO,
-//                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
-//                );
-//                if ($form_action == 'save') {
-//                    $this->redirect(['index']);
-//                    return;
-//                } else {
-//                    $this->redirect(['edit', 'id' => $id]);
-//                    return;
-//                }
-//            }
-//        }
-//
-//        $user = $model->getUserData($id, $scenario);
-//        if ($user) {
-//            $model->setAttributes($user, false);
-//        } else
-//            $this->error();
-//
-//        $this->render('edit', compact('model', 'groups'));
-//    }
 
-//    public function actionAdd() {
-//        $this->actionEdit(null, 'add');
-//    }
-//
+        $model = new ShopCategoriesModel($scenario);
+
+        $form_action = Yii::app()->request->getPost('form_action');
+        if (!empty($form_action)) {
+            $model->setAttributes($_POST['UsersModel'],false);
+            // отправляем в модель данные
+            $result = $model->save($_POST['UsersModel']);
+            if (!$result) {
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                );
+                //$this->redirect(Yii::app()->request->urlReferrer);
+                $this->render('edit', compact('model', 'groups'));
+                return;
+            }
+            else {
+            // выкидываем сообщение
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_INFO,
+                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                );
+                if ($form_action == 'save') {
+                    $this->redirect(['index']);
+                    return;
+                } else {
+                    $this->redirect(['edit', 'id' => $id]);
+                    return;
+                }
+            }
+        }
+
+        $user = $model->getCategoryData($id, $scenario);
+        if ($user) {
+            $model->setAttributes($user, false);
+        } else
+            $this->error();
+
+        $this->render('edit', compact('model', 'groups'));
+    }
+
+    public function actionAdd() {
+        $this->actionEdit(null, 'add');
+    }
+
     public function actionDelete($id) {
         $model = new ShopCategoriesModel();
 
@@ -144,7 +144,7 @@ class ShopCategoriesController extends BackendController {
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Пользователь удален'
+                'Выбранная категория и все ее дочерние категории удалены'
             );
         }
     }
