@@ -14,9 +14,9 @@ class ShopCategoriesController extends BackendController {
     public $model;
     public $groups = [];
 
-    private function error($msg = 'Something wrong in your request!') {
-        throw new CHttpException(400, Yii::t('err', $msg));
-    }
+//    private function error($msg = 'Something wrong in your request!') {
+//        throw new CHttpException(400, Yii::t('err', $msg));
+//    }
 
     /**
      * Получить параметр из сессии или запроса. Запрос имеет более высокий приоритет перед данными

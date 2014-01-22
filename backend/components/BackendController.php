@@ -48,6 +48,10 @@ abstract class BackendController extends CController {
         return $data;
     }
 
+    protected function error($msg = 'Ошибка в запросе, проверьте правильность ссылки') {
+        throw new CHttpException(400, Yii::t('err', $msg));
+    }
+
     /**
      * Rules for CAccessControlFilter.
      *

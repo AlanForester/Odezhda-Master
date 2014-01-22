@@ -13,9 +13,9 @@ class GroupsController extends BackendController {
     public $pageButton = [];
     public $model;
 
-    private function error($msg = 'Something wrong in your request!') {
-        throw new CHttpException(400, Yii::t('err', $msg));
-    }
+//    private function error($msg = 'Something wrong in your request!') {
+//        throw new CHttpException(400, Yii::t('err', $msg));
+//    }
 
     public function actionIndex() {
         $criteria = [
