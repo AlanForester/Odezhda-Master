@@ -1,6 +1,6 @@
 <?php
 
-class LayerModel {
+abstract class LayerModel {
 
     /**
      * @var array (поле БД => требуемое поле для модели)

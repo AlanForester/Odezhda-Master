@@ -18,6 +18,8 @@ return [
         'common.models.*',
         'common.models.legacy.*',
         'common.models.layers.*',
+        'common.helpers.*',
+        'bootstrap.helpers.*'
 //        'common.helpers.*',
     ],
     //    'aliases' => array(
