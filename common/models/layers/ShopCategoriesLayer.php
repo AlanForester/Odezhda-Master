@@ -185,31 +185,17 @@ class ShopCategoriesLayer {
         self::getCategoriesByParentId($id);
         $parent = self::getCategory($id);
         if (!($parent && $parent->delete())) {
-            return ;
-        }
-        $children=self::findByParentId($id);
-        foreach($children as $val){
-            $child=self::getCategory($val['id']);
-            if ($child) {
-                return $child->delete();
+            return false;
+        } else {
+            $children=self::findByParentId($id);
+            foreach($children as $val){
+                $child=self::getCategory($val['id']);
+                if (!($child && $child->delete())) {
+                    return false;
+                }
             }
+            return true;
         }
-
-        return false;
-    }
-
-    /**
-     * Массив моделей категорий
-     * @param int $id id родительской категори
-     * @return ShopCategoriesLegacy
-     */
-    public static function getCategoriesByParentId($id) {
-        $children=self::findByParentId($id);
-        foreach($children as $val){
-            $child=self::getCategory($val['id']);
-        }
-        //print_r($children);exit;
-        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     /**
@@ -219,7 +205,7 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
+        return ($id ? ShopCategoriesLegacy::model()->with('description')->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     public static function findByPk($id, $params) {
