@@ -1,6 +1,6 @@
 <?php
 
-class BackendList extends CWidget {
+class Grid extends CWidget {
 
     /**
      * Кнопки управления для контроллера

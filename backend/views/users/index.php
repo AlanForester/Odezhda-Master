@@ -1,68 +1,8 @@
 <?php
 $this->pageButton = [
-    TbHtml::linkButton(
-        'Добавить',
-        [
-            'color' => TbHtml::BUTTON_COLOR_SUCCESS,
-            'icon' => TbHtml::ICON_PLUS,
-            'url' => Yii::app()->createUrl("/users/add"),
-            'type' => 'success',
-            'class'=>'btn-small'
-        ]
-    ),
-    TbHtml::htmlButton(
-        'Удалить',
-        [
-            'icon' => TbHtml::ICON_REMOVE,
-            'url' => '#',
-            'class'=>'btn-small',
-            'onClick' => 'js: (function(){
-                var cb = $("input[name=\'userids[]\']:checked");
-                var ids = [];
-
-                if (cb.length==0){
-                    bootbox.alert("Ввыберите минимум один обьект в списке");
-                }else{
-                    bootbox.confirm(
-                        "Вы уверены, что хотите удалить выбраные пункты?",
-                        function(options){
-                            if (options){
-                                cb.each(function(){
-                                    ids.push($(this).val());
-                                });
-                                $.fn.yiiGridView.update(
-                                    "usersgrid",
-                                    {
-                                        url:"'.Yii::app()->createUrl("/users/mass").'",
-                                        data:{
-                                            mass_action:"delete",
-                                            ids:ids
-                                        }
-                                    }
-                                )
-                            }
-                        }
-                    );
-                }
-            })()'
-        ]
-    ),
-    TbHtml::htmlButton(
-        'Пакетная обработка',
-        [
-            'icon' => TbHtml::ICON_TASKS,
-            'url' => '#',
-            'class'=>'btn-small',
-            'onClick' => 'js: (function(){
-                var cb = $("input[name=\'userids[]\']:checked");
-                if (cb.length==0){
-                    bootbox.alert("Ввыберите минимум один обьект в списке");
-                }else{
-                    bootbox.alert("Пакетная обработка еще не реализована");
-                }
-            })()'
-        ]
-    ),
+    BackendPageButtons::addButton("/users/add"),
+    BackendPageButtons::removeButton("/users/mass"),
+    BackendPageButtons::massButton("/users/mass")
 ]
 ?>
 <div class="span2">
@@ -309,7 +249,7 @@ $this->widget(
                 'class' => 'backend.widgets.ace.CheckBoxColumn',
                 'selectableRows' => 2,
                 'checkBoxHtmlOptions' => [
-                    'name' => 'userids[]'
+                    'name' => 'gridids[]'
                 ],
                 // todo: перенести в виджет
                 'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',

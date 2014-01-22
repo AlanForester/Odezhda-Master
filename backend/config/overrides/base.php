@@ -11,16 +11,14 @@ return [
         'application.components.*',
         'application.controllers.*',
         'application.controllers.actions.*',
+        'application.models.*',
+        'application.helpers.*',
 
         'common.actions.*',
         'common.models.*',
         'common.models.legacy.*',
         'common.models.layers.*',
-
-        'application.models.*',
-        //        'common.helpers.*',
-
-        //'application.models.legacy.*',
+//        'common.helpers.*',
     ],
     //    'aliases' => array(
     //        'backend.bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap')
