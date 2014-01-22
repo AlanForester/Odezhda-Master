@@ -62,6 +62,7 @@ class ShopCategoriesLegacy extends CActiveRecord
 
     protected function afterDelete() {
         parent::afterDelete();
+        //print_r($this->categories_id);exit;
         ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id'=> $this->categories_id));
     }
 
