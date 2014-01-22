@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование' : 'новый пользователь');
+$this->pageTitle = 'Группы пользователей: ' . ($model->id ? 'редактирование' : 'новая группа');
 
 $this->pageButton = [
     BackendPageButtons::save(),

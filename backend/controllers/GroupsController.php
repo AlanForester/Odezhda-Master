@@ -9,7 +9,7 @@ class GroupsController extends BackendController {
      */
     public $gridDataProvider;
 
-    public $pageTitle = 'Группы пользователей';
+    public $pageTitle = 'Группы пользователей: список';
     public $pageButton = [];
     public $model;
 
@@ -71,7 +71,7 @@ class GroupsController extends BackendController {
             if (!$result) {
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' группы')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
                 $this->render('edit', compact('model', 'groups'));
@@ -80,7 +80,7 @@ class GroupsController extends BackendController {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                    'Группа ' . ($id ? 'сохранена' : 'добавлена')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
@@ -114,7 +114,7 @@ class GroupsController extends BackendController {
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Пользователь удален'
+                'Группа удалена'
             );
         }
     }
