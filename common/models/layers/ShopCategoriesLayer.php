@@ -66,8 +66,8 @@ class ShopCategoriesLayer {
     }
 
     /**
-     * Ищем по id записи в связанных таблицах бд
-     * @param $id категории
+     * Ищем по id родительской категории записи в связанных таблицах бд
+     * @param $id родительской категории
      * @return array массив данных из связанных табиц
      */
     public static function findByParentId($id){

@@ -1,4 +1,11 @@
 <?php
+$this->pageButton = [
+    BackendPageButtons::add("/categories/add"),
+    BackendPageButtons::remove("/categories/mass"),
+    BackendPageButtons::mass("/categories/mass")
+]
+?>
+<?php
 //Yii::app()->getComponent('yiiwheels')->registerAssetJs('bootbox.min.js');
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     'type' => 'striped bordered',
@@ -15,6 +22,24 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
 //}'
         ],
      //Person::getGridColumns()
+        [
+            'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+            'type' => 'text',
+            'header' => 'Название',
+            'name' => 'name',
+            'headerHtmlOptions' => [
+                //                    'style' => 'text-align: left;'
+            ],
+            'htmlOptions' => [
+                //                    'style' => 'text-align: left;'
+            ],
+            'editable' => [
+                'placement' => 'right',
+                'emptytext' => 'не задано',
+                'url' => Yii::app()->createUrl("/categories/update"),
+                //'source'   => $this->createUrl('users/update'),
+            ]
+        ],
         [
             'header' => 'Id',
             'name' => 'id',
@@ -50,8 +75,8 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
             'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
             'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
-            'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
-            'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+            'updateButtonUrl' => 'Yii::app()->createUrl("/categories/edit", array("id"=>$data["id"]))',
+            'deleteButtonUrl' => 'Yii::app()->createUrl("/categories/delete", array("id"=>$data["id"]))',
         ]
     )
     )
