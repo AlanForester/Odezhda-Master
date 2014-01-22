@@ -65,11 +65,17 @@ class ShopCategoriesLayer {
         }
     }
 
+    /**
+     * Ищем по id родительской категории записи в связанных таблицах бд
+     * @param $id родительской категории
+     * @return array массив данных из связанных табиц
+     */
     public static function findByParentId($id){
         $result = [];
-        $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
+        $list = ShopCategoriesLegacy::model()->with('description')->findAllByAttributes(array('parent_id' => $id));
+        //print_r($list);exit;
         foreach ($list as $val) {
-            $result[] = self::fieldMapConvert($val->attributes);
+            $result[] = array_merge(self::fieldMapConvert($val->attributes), self::fieldMapConvert($val->description->attributes));
         }
         return $result;
     }
@@ -174,13 +180,36 @@ class ShopCategoriesLayer {
 //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
+
     public static function delete($id) {
-        $user = self::getUser($id);
-        if ($user) {
-            return $user->delete();
+        self::getCategoriesByParentId($id);
+        $parent = self::getCategory($id);
+        if (!($parent && $parent->delete())) {
+            return ;
+        }
+        $children=self::findByParentId($id);
+        foreach($children as $val){
+            $child=self::getCategory($val['id']);
+            if ($child) {
+                return $child->delete();
+            }
         }
 
         return false;
+    }
+
+    /**
+     * Массив моделей категорий
+     * @param int $id id родительской категори
+     * @return ShopCategoriesLegacy
+     */
+    public static function getCategoriesByParentId($id) {
+        $children=self::findByParentId($id);
+        foreach($children as $val){
+            $child=self::getCategory($val['id']);
+        }
+        //print_r($children);exit;
+        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     /**

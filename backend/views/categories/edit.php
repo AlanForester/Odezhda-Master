@@ -3,9 +3,48 @@
 $this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование [' . $model->email . ']' : 'новый пользователь');
 
 $this->pageButton = [
-    BackendPageButtons::save(),
-    BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/users/index")
+    TbHtml::htmlButton(
+        'Сохранить',
+        [
+            'icon' => TbHtml::ICON_PENCIL,
+            'buttonType' => 'link',
+            'url' => '#', //'/users/add',
+            //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
+            'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+            'class' => 'btn-small',
+            'onClick' => 'js: (function(){
+                    $("input[name=\'form_action\']").val("save");
+                    $("#yw0").submit();
+                })()'
+        ]
+    ),
+
+    TbHtml::htmlButton(
+        'Применить',
+        [
+            'icon' => TbHtml::ICON_OK,
+            'buttonType' => 'link',
+            'url' => '#',
+            //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
+            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+            'class' => 'btn-small',
+            'onClick' => 'js: (function(){
+                    $("input[name=\'form_action\']").val("apply");
+                    $("#yw0").submit();
+                })()'
+        ]
+    ),
+    TbHtml::linkButton(
+        'Отмена',
+        [
+            'icon' => TbHtml::ICON_REMOVE,
+            'buttonType' => 'link',
+            'url' => Yii::app()->createUrl("/users/index"),
+            //            'type'=>TbHtml::BUTTON_TYPE_LINK,
+            'class' => 'btn-small',
+            'color' => TbHtml::BUTTON_COLOR_DANGER,
+        ]
+    ),
 ];
 ?>
     <div class="span6">

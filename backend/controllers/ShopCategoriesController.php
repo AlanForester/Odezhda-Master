@@ -136,18 +136,18 @@ class ShopCategoriesController extends BackendController {
 //        $this->actionEdit(null, 'add');
 //    }
 //
-//    public function actionDelete($id) {
-//        $model = new UsersModel();
-//
-//        if (!$model->delete($id)) {
-//            $this->error();
-//        } else {
-//            Yii::app()->user->setFlash(
-//                TbHtml::ALERT_COLOR_INFO,
-//                'Пользователь удален'
-//            );
-//        }
-//    }
+    public function actionDelete($id) {
+        $model = new ShopCategoriesModel();
+
+        if (!$model->delete($id)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Пользователь удален'
+            );
+        }
+    }
 
 //    public function actionMass() {
 //        $mass_action = Yii::app()->request->getParam('mass_action');
