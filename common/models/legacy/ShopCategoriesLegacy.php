@@ -18,6 +18,25 @@
  */
 class ShopCategoriesLegacy extends CActiveRecord
 {
+    public $categories_id;
+    public $parent_id;
+    public $categories_image;
+    public $sort_order;
+    public $date_added;
+    public $last_modified;
+    public $categories_status;
+    public $default_manufacturers;
+    public $markup;
+    public $xml_flag;
+
+    public $language_id;
+    public $categories_name;
+    public $categories_heading_title;
+    public $categories_description;
+    public $categories_meta_title;
+    public $categories_meta_description;
+    public $categories_meta_keywords;
+
     public $primaryKey='categories_id';
 
     /**
@@ -38,6 +57,12 @@ class ShopCategoriesLegacy extends CActiveRecord
         return array(
             'description'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
         );
+    }
+
+
+    protected function afterDelete() {
+        parent::afterDelete();
+        ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id'=> $this->categories_id));
     }
 
     /**
