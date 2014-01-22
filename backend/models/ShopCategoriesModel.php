@@ -71,103 +71,106 @@ class ShopCategoriesModel extends CFormModel {
     }
 
 
+//    public function getList($data=null) {
+//        if (!$this->allCategories) {
+//
+//            // todo: переместить все в прослойку
+//            $condition = [];
+//            $params = [];
+//
+//            // фильтр по тексту
+//            if (!empty($data['text_search'])) {
+//                $condition[] = '(' . join(
+//                        ' OR ',
+//                        [
+//                            ShopCategoriesLayer::getFieldName('firstname', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
+//                        ]
+//                    ) . ')';
+//
+//                $params[':text'] = '%' . $data['text_search'] . '%';
+//            }
+//
+//            // фильтр по группе
+//            if (!empty($data['filter_groups'])) {
+//                $condition[] = ShopCategoriesLayer::getFieldName('group_id', false) . '=:group';
+//                $params[':group'] = $data['filter_groups'];
+//            }
+//
+//            // фильтр по дате создания
+//            if (!empty($data['filter_created'])) {
+//                $range = $data['filter_created'];
+//                $date_start = new DateTime();
+//                $date_now = new DateTime();
+//
+//                switch ($range) {
+//                    case 'past_week':
+//                        $date_start->modify('-7 day');
+//                        break;
+//
+//                    case 'past_1month':
+//                        $date_start->modify('-1 month');
+//                        break;
+//
+//                    case 'past_3month':
+//                        $date_start->modify('-3 month');
+//                        break;
+//
+//                    case 'past_6month':
+//                        $date_start->modify('-6 month');
+//                        break;
+//
+//                    case 'post_year':
+//                    case 'past_year':
+//                        $date_start->modify('-1 year');
+//                        break;
+//
+//                    case 'today':
+//                        $date_now->modify('+1 day');
+//                        break;
+//                }
+//
+//                if ($range == 'post_year') {
+//                    $condition[] = ShopCategoriesLayer::getFieldName('created', false) . ' < :date_start';
+//                } else {
+//                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('created', false) . ' >= :date_start AND ' . UsersLayer::getFieldName('created', false) . ' <= :date_now)';
+//                    $params[':date_now'] = $date_now->format('Y-m-d');
+//                }
+//
+//                $params[':date_start'] = $date_start->format('Y-m-d');
+//            }
+//
+//            // поле и направление сортировки
+//            $order_direct = null;
+//            $order_field = ShopCategoriesLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'firstname', false);
+//
+//            if (isset($data['order_direct'])) {
+//                switch ($data['order_direct']) {
+//                    case 'up':
+//                        $order_direct = ' ASC';
+//                        break;
+//                    case 'down':
+//                        $order_direct = ' DESC';
+//                        break;
+//                }
+//            }
+//
+////            $this->allCategories = ShopCategoriesLayer::getList(
+////                [
+////                    'condition' => join(' AND ', $condition),
+////                    'params' => $params,
+////                    'order' => $order_field . ($order_direct ? : '')
+////                ]
+////            );
+//            $this->allCategories = ShopCategoriesLayer::getList();
+//        }
+//        return $this->allCategories;
+//    }
 
-    public function getList($data=null) {
-        if (!$this->allCategories) {
-
-            // todo: переместить все в прослойку
-            $condition = [];
-            $params = [];
-
-            // фильтр по тексту
-            if (!empty($data['text_search'])) {
-                $condition[] = '(' . join(
-                        ' OR ',
-                        [
-                            ShopCategoriesLayer::getFieldName('firstname', false) . ' LIKE :text',
-                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
-                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
-                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
-                        ]
-                    ) . ')';
-
-                $params[':text'] = '%' . $data['text_search'] . '%';
-            }
-
-            // фильтр по группе
-            if (!empty($data['filter_groups'])) {
-                $condition[] = ShopCategoriesLayer::getFieldName('group_id', false) . '=:group';
-                $params[':group'] = $data['filter_groups'];
-            }
-
-            // фильтр по дате создания
-            if (!empty($data['filter_created'])) {
-                $range = $data['filter_created'];
-                $date_start = new DateTime();
-                $date_now = new DateTime();
-
-                switch ($range) {
-                    case 'past_week':
-                        $date_start->modify('-7 day');
-                        break;
-
-                    case 'past_1month':
-                        $date_start->modify('-1 month');
-                        break;
-
-                    case 'past_3month':
-                        $date_start->modify('-3 month');
-                        break;
-
-                    case 'past_6month':
-                        $date_start->modify('-6 month');
-                        break;
-
-                    case 'post_year':
-                    case 'past_year':
-                        $date_start->modify('-1 year');
-                        break;
-
-                    case 'today':
-                        $date_now->modify('+1 day');
-                        break;
-                }
-
-                if ($range == 'post_year') {
-                    $condition[] = ShopCategoriesLayer::getFieldName('created', false) . ' < :date_start';
-                } else {
-                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('created', false) . ' >= :date_start AND ' . UsersLayer::getFieldName('created', false) . ' <= :date_now)';
-                    $params[':date_now'] = $date_now->format('Y-m-d');
-                }
-
-                $params[':date_start'] = $date_start->format('Y-m-d');
-            }
-
-            // поле и направление сортировки
-            $order_direct = null;
-            $order_field = ShopCategoriesLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'firstname', false);
-
-            if (isset($data['order_direct'])) {
-                switch ($data['order_direct']) {
-                    case 'up':
-                        $order_direct = ' ASC';
-                        break;
-                    case 'down':
-                        $order_direct = ' DESC';
-                        break;
-                }
-            }
-
-//            $this->allCategories = ShopCategoriesLayer::getList(
-//                [
-//                    'condition' => join(' AND ', $condition),
-//                    'params' => $params,
-//                    'order' => $order_field . ($order_direct ? : '')
-//                ]
-//            );
-            $this->allCategories = ShopCategoriesLayer::getList();
-        }
-        return $this->allCategories;
+    public function findByParentId ($id){
+        return ShopCategoriesLayer::findByParentId($id);
     }
 
     /**

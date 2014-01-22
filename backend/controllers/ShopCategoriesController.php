@@ -35,7 +35,7 @@ class ShopCategoriesController extends BackendController {
         return $data;
     }
 
-    public function actionIndex() {
+    public function actionIndex($id=0) {
 //        $criteria = [
 //            'text_search' => $this->userStateParam('text_search'),
 //            'filter_groups' => $this->userStateParam('filter_groups'),
@@ -46,17 +46,19 @@ class ShopCategoriesController extends BackendController {
         // пагинация
         //        $page_size = Yii::app()->request->getParam('page_size', Yii::app()->user->getState('page_size', CPagination::DEFAULT_PAGE_SIZE));
         //        Yii::app()->user->setState('page_size', $page_size);
-        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+        //$page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
-        $this->model = new ShopCategoriesModel();
-        $categories = $this->model->getList();//$users = $this->model->getList($criteria);
+        $model = new ShopCategoriesModel();
+        $categories = $model->findByParentId($id);//$users = $this->model->getList($criteria);
         $this->gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($categories) : $page_size),
+                'pageSize'=>50,
+               // 'pageSize' => ($page_size == 'all' ? count($categories) : $page_size),
             ],
         ]);
+        //print_r($categories);exit;
 
 //        $groups_model = new GroupsModel();
 //        $this->groups[''] = '- По группе -';

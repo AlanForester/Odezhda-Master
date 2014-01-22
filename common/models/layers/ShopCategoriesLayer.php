@@ -65,6 +65,17 @@ class ShopCategoriesLayer {
         }
     }
 
+    public static function findByParentId($id){
+        $result = [];
+        $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
+        foreach ($list as $val) {
+            $result[] = self::fieldMapConvert($val->attributes);
+        }
+        return $result;
+    }
+
+
+
     public static function getList($data=null) {
         $result = [];
 
