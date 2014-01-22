@@ -65,11 +65,17 @@ class ShopCategoriesLayer {
         }
     }
 
+    /**
+     * Ищем по id записи в связанных таблицах бд
+     * @param $id категории
+     * @return array массив данных из связанных табиц
+     */
     public static function findByParentId($id){
         $result = [];
-        $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
+        $list = ShopCategoriesLegacy::model()->with('description')->findAllByAttributes(array('parent_id' => $id));
+        //print_r($list);exit;
         foreach ($list as $val) {
-            $result[] = self::fieldMapConvert($val->attributes);
+            $result[] = array_merge(self::fieldMapConvert($val->attributes), self::fieldMapConvert($val->description->attributes));
         }
         return $result;
     }

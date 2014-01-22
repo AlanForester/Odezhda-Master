@@ -30,6 +30,17 @@ class ShopCategoriesLegacy extends CActiveRecord
     }
 
     /**
+     * Связь с таблицей categories_description
+     * @return array
+     */
+    public function relations()
+    {
+        return array(
+            'description'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
+        );
+    }
+
+    /**
      * Behaviors associated with this ActiveRecord.
      *
      * We are using the APasswordBehavior because it allows neat things
