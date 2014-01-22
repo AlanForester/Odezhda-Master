@@ -1,8 +1,8 @@
 <?php
 $this->pageButton = [
-    BackendPageButtons::add("/users/add"),
-    BackendPageButtons::remove("/users/mass"),
-    BackendPageButtons::mass("/users/mass")
+    BackendPageButtons::add("/groups/add"),
+    BackendPageButtons::remove("/groups/mass"),
+    BackendPageButtons::mass("/groups/mass")
 ]
 ?>
 
@@ -208,25 +208,18 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
+                    'url' => Yii::app()->createUrl("/groups/update"),
                     //'source'   => $this->createUrl('users/update'),
                 ]
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Фамилия',
+                'header' => 'ID',
                 'name' => 'id',
                 'headerHtmlOptions' => [
                     //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
                     //                    'style' => 'text-align: left;'
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
                 ]
             ],
             [
@@ -254,8 +247,8 @@ $this->widget(
                 'afterDelete'=>'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
                 'viewButtonUrl' => null,//'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
-                'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
-                'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+                'updateButtonUrl' => 'Yii::app()->createUrl("/groups/edit", array("id"=>$data["id"]))',
+                'deleteButtonUrl' => 'Yii::app()->createUrl("/groups/delete", array("id"=>$data["id"]))',
             ]
         ),
     )

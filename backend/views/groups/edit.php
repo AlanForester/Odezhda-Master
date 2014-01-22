@@ -1,11 +1,11 @@
 <?php
 
-$this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование [' . $model->email . ']' : 'новый пользователь');
+$this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование' : 'новый пользователь');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/users/index")
+    BackendPageButtons::cancel("/groups/index")
 ];
 ?>
     <div class="span6">
@@ -46,11 +46,8 @@ $this->pageButton = [
             <legend>Учетная запись</legend>
             <?php
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-            echo $form->dropDownListControlGroup($model, 'group_id', $groups, ['value' => $model->group_id, 'label' => 'Группа']);
-            echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
-            echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
-            echo $form->textFieldControlGroup($model, 'email', ['value' => $model->email, 'label' => 'Email']);
-            echo $form->passwordFieldControlGroup($model, 'password', ['autocomplete' => 'off', 'value' => '', 'label' => 'Новый пароль']);
+            echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
+
             ?>
 
         </fieldset>
@@ -70,11 +67,7 @@ if (!empty($model->id)) {
                 [
                     'data' => $model,
                     'attributes' => [
-                        ['name' => 'id', 'label' => 'ID'],
-                        ['name' => 'lognum', 'label' => 'Кол-во авторизаций'],
-                        ['name' => 'logdate', 'label' => 'Последний визит'],
-                        ['name' => 'modified', 'label' => 'Изменен'],
-                        ['name' => 'created', 'label' => 'Создан'],
+                        ['name' => 'id', 'label' => 'ID']
                     ],
                 ]
             );

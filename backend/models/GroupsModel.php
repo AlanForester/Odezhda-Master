@@ -38,7 +38,10 @@ class GroupsModel extends CFormModel {
 
             // поле и направление сортировки
             $order_direct = null;
+
             $order_field = GroupsLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'name', false);
+ /*           echo $data['order_field'];
+            exit;*/
 
             if (isset($data['order_direct'])) {
                 switch ($data['order_direct']) {
@@ -66,12 +69,6 @@ class GroupsModel extends CFormModel {
 
 
 
-
-
-
-
-
-
     /**
      * @return array задает возвращает массив всех групп пользователей
      */
@@ -81,4 +78,39 @@ class GroupsModel extends CFormModel {
         }
         return $this->list;
     }
+
+
+    public function getGroup($id, $scenario) {
+        return GroupsLayer::getGroup($id, $scenario);
+    }
+
+    public function getGroupData($id, $scenario) {
+        $group = self::getGroup($id, $scenario);
+        return ($group ? GroupsLayer::fieldMapConvert($group->attributes) : false);
+    }
+
+    public function save($data) {
+        return GroupsLayer::save($data);
+    }
+
+    public function rules() {
+        return GroupsLayer::rules();
+    }
+
+    public function validate($attributes = null, $clearErrors = true) {
+        return GroupsLayer::validate($attributes, $clearErrors);
+    }
+
+    public function getErrors($attributes = null) {
+        return GroupsLayer::getErrors($attributes);
+    }
+
+    public function delete($id) {
+        return GroupsLayer::delete($id);
+    }
+
+    public function updateField($params = []) {
+        return GroupsLayer::updateField($params);
+    }
+
 }

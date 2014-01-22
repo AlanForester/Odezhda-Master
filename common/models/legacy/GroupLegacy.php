@@ -36,5 +36,14 @@ class GroupLegacy extends CActiveRecord
     {
         return parent::model($className);
     }
+    public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return [
+            ['admin_groups_name', 'unique', 'message' => Yii::t('validation', "Не должно быть групп с одинаковым именем.")],
+            ['admin_groups_name', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')]
+
+        ];
+    }
 
 }

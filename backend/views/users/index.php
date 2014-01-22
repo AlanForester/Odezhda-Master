@@ -226,7 +226,7 @@ $this->widget(
     array(
         'id' => 'usersgrid',
         //        'CssClass'=>'dataTables_wrapper',
-        'dataProvider' => $this->gridDataProvider,
+            'dataProvider' => $this->gridDataProvider,
         'itemsCssClass' => 'table-bordered items',
         //    'filter'=>$this->model,
         'fixedHeader' => true,

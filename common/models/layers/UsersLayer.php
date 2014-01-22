@@ -20,6 +20,7 @@ class UsersLayer {
         'admin_right_access' => 'right_access',
     ];
 
+//<<<<<<< Updated upstream
     protected static $errors = [];
 
     /**
@@ -66,6 +67,8 @@ class UsersLayer {
         }
     }
 
+//=======
+//>>>>>>> Stashed changes
     public static function getList($data) {
         $result = [];
 

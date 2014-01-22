@@ -9,7 +9,7 @@ abstract class LayerModel {
 
     protected static $errors = [];
 
-    abstract static function getModel();
+    //abstract static function getModel();
 
     /**
      * @param $row массив полей, которые нужно пропустить через карту
@@ -54,15 +54,15 @@ abstract class LayerModel {
             return (array_search($field, self::$field_map) ? : $field);
         }
     }
-
-    public static function getList($data) {
-        $result = [];
-
-        $list = self::getModel()->findall(new CDbCriteria($data));
-        foreach ($list as $val) {
-            $result[] = self::fieldMapConvert($val->attributes);
-        }
-
-        return $result;
-    }
+//
+//    public static function getList($data) {
+//        $result = [];
+//
+//        $list = self::getModel()->findall(new CDbCriteria($data));
+//        foreach ($list as $val) {
+//            $result[] = self::fieldMapConvert($val->attributes);
+//        }
+//
+//        return $result;
+//    }
 }
