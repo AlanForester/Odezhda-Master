@@ -48,7 +48,6 @@ class UsersModel extends CFormModel {
     public function getList($data) {
         if (!$this->allUsers) {
 
-            // todo: переместить все в прослойку
             $condition = [];
             $params = [];
 
