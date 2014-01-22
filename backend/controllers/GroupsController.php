@@ -13,13 +13,37 @@ class GroupsController extends BackendController {
     public $pageButton = [];
     public $model;
 
+    private function userStateParam($param, $default = null) {
+        $data = Yii::app()->request->getParam(
+            $param,
+            Yii::app()->user->getState($param, $default)
+        );
+
+        Yii::app()->user->setState($param, $data);
+        return $data;
+    }
+
     public function actionIndex() {
+        $criteria = [
+            'text_search' => $this->userStateParam('text_search'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct')
+        ];
+
+        // пагинация
+        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+
+        // получение данных
         $this->model = new GroupsModel();
-        $list = $this->model->getList();
-//        echo '<pre>';
-//        print_r( $list);
-//        echo '</pre>';
-        $this->render('index');
+        $groups = $this->model->getListAndParams($criteria);
+        $this->gridDataProvider = new CArrayDataProvider($groups, [
+            'keyField' => 'id',
+            'pagination' => [
+                'pageSize' => ($page_size == 'all' ? count($groups) : $page_size),
+            ],
+        ]);
+
+        $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
 
 

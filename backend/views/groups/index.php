@@ -5,66 +5,8 @@ $this->pageButton = [
     BackendPageButtons::mass("/users/mass")
 ]
 ?>
-<div class="span2">
-    <div id="sidebar">
-        <h4 class="page-header">Фильтр:</h4>
-        <?=
-        TbHtml::dropDownList(
-            'filter_groups',
-                $criteria['filter_groups'],
-            $this->groups,
-            [
-                //                'data-placeholder'=>'- По группе -',
-                'class' => 'chzn-select',
-                //                'style'=>'width: 200px',
-                'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "usersgrid",
-                        {
-                            data:{
-                                filter_groups:$("#filter_groups").val()
-                            }
-                        }
-                    )
-                })()'
-            ]
-        );
-        ?>
-        <hr class="hr-condensed">
-        <?=
-        TbHtml::dropDownList(
-            'filter_created',
-            $criteria['filter_created'],
-            [
-                '0' => '- По дате регистрации -',
-                'today' => 'сегодня',
-                'past_week' => 'за прошлую неделю',
-                'past_1month' => 'за прошлый месяц',
-                'past_3month' => 'последние 3 месяца',
-                'past_6month' => 'последние 6 месяцев',
-                'past_year' => 'за прошлый год',
-                'post_year' => 'больше года назад',
-            ],
-            [
-                'class' => 'chzn-select',
-                'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "usersgrid",
-                        {
-                            data:{
-                                filter_created:$("#filter_created").val()
-                            }
-                        }
-                    )
-                })()'
-            ]
-        );
-        ?>
-        <hr class="hr-condensed">
-    </div>
-</div>
 
-<div class="span10">
+<div class="span12">
 <div>
     <?php
     echo TbHtml::textField(
@@ -259,8 +201,8 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'Имя',
-                'name' => 'firstname',
+                'header' => 'Название',
+                'name' => 'name',
                 'headerHtmlOptions' => [
                     //                    'style' => 'text-align: left;'
                 ],
@@ -278,73 +220,18 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Фамилия',
-                'name' => 'lastname',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'E-mail',
-                'name' => 'email',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'header' => 'Группа',
-                'name' => 'group_id',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'width: 200px; text-align: center;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'width: 200px; text-align: center;'
-                ],
-                'editable' => [
-                    'type' => 'select',
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                    'source' => $this->createUrl('groups/list'),
-                ]
-            ],
-            [
-                'header' => 'Последний визит',
-                'name' => 'logdate',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-            ],
-            [
-                'header' => 'Id',
                 'name' => 'id',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'width: 30px; text-align: center;'
+                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'width: 30px; text-align: center;'
+                    //                    'style' => 'text-align: left;'
                 ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/users/update"),
+                ]
             ],
             [
                 'header' => 'Действие',
