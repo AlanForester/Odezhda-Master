@@ -31,18 +31,20 @@ abstract class BackendController extends CController {
 
     /**
      * Получить параметр из сессии или запроса. Запрос имеет более высокий приоритет перед данными
-     * из сессии. Полученный параметр будет перезаписн в пользовательские данные
+     * из сессии. Полученный параметр будет перезаписн в пользовательские данные.
+     * Для параметра в сессии добавляется имя текущего класса
      * @param string $param имя параметра
      * @param null $default [опционально] значение по умолчанию
      * @return mixed найденное и записанное значение
      */
     public function userStateParam($param, $default = null) {
+        $s_key = get_called_class().'.'.$param;
         $data = Yii::app()->request->getParam(
             $param,
-            Yii::app()->user->getState($param, $default)
+            Yii::app()->user->getState($s_key, $default)
         );
 
-        Yii::app()->user->setState($param, $data);
+        Yii::app()->user->setState($s_key, $data);
         return $data;
     }
 
