@@ -85,6 +85,10 @@ $this->widget(
                         'url' => '#',
                         'items' => [
                             [
+                                'label' => 'Категории',
+                                'url' => ['/categories/index']
+                            ],
+                            [
                                 'label' => 'Каталог',
                                 'url' => ['/catalog/index']
                             ],
