@@ -16,9 +16,10 @@ class GroupsController extends BackendController {
     public function actionIndex() {
         $this->model = new GroupsModel();
         $list = $this->model->getList();
-        echo '<pre>';
-        print_r( $list);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r( $list);
+//        echo '</pre>';
+        $this->render('index');
     }
 
 
