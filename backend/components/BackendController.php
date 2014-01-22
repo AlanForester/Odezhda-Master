@@ -87,7 +87,7 @@ abstract class BackendController extends CController {
      * Регистрация стилей и сркиптов для темы оформления. Данную функцию следует вызывать в нужном layoyt'е,
      * т.е. требуется перекрывать многие стили bootstrap'а
      */
-    public function rgisterTemplateAssets() {
+    public function registerTemplateAssets() {
         // === СТИЛИ ===
         // форма и элементы
         Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/theme/css/chosen.css');
