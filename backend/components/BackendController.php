@@ -30,6 +30,23 @@ abstract class BackendController extends CController {
     }
 
     /**
+     * Получить параметр из сессии или запроса. Запрос имеет более высокий приоритет перед данными
+     * из сессии. Полученный параметр будет перезаписн в пользовательские данные
+     * @param string $param имя параметра
+     * @param null $default [опционально] значение по умолчанию
+     * @return mixed найденное и записанное значение
+     */
+    private function userStateParam($param, $default = null) {
+        $data = Yii::app()->request->getParam(
+            $param,
+            Yii::app()->user->getState($param, $default)
+        );
+
+        Yii::app()->user->setState($param, $data);
+        return $data;
+    }
+
+    /**
      * Rules for CAccessControlFilter.
      *
      * We allow all actions to logged in users and disable everything for others.

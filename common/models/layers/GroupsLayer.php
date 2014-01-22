@@ -32,6 +32,16 @@ class GroupsLayer {
         return $row;
     }
 
+    public static function getFieldName($field, $direct = true) {
+        if ($direct) {
+            // old => new
+            return (array_key_exists($field, self::$field_map) ? self::$field_map[$field] : $field);
+        } else {
+            // new => old
+            return (array_search($field, self::$field_map) ? : $field);
+        }
+    }
+
     public static function getList() {
         $result = [];
         $list = GroupLegacy::model()->findall();
@@ -41,4 +51,17 @@ class GroupsLayer {
 
         return $result;
     }
+
+
+    public static function getListAndParams($data) {
+        $result = [];
+        $list = GroupLegacy::model()->findall(new CDbCriteria($data));
+        foreach ($list as $val) {
+            $result[] = self::fieldMapConvert($val->attributes);
+        }
+
+        return $result;
+    }
+
+
 }
