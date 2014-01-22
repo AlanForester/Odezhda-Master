@@ -36,7 +36,7 @@ abstract class BackendController extends CController {
      * @param null $default [опционально] значение по умолчанию
      * @return mixed найденное и записанное значение
      */
-    private function userStateParam($param, $default = null) {
+    public function userStateParam($param, $default = null) {
         $data = Yii::app()->request->getParam(
             $param,
             Yii::app()->user->getState($param, $default)

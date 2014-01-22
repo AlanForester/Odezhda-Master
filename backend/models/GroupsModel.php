@@ -29,7 +29,7 @@ class GroupsModel extends CFormModel {
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
-                        ' OR ',   UsersLayer::getFieldName('name', false) . ' LIKE :text'
+                        ' OR ',  [ GroupsLayer::getFieldName('name', false) . ' LIKE :text']
 
                     ) . ')';
 
