@@ -2,7 +2,7 @@
 
 class BackendPageButtons {
 
-    public static function addButton($url = '', $option = [], $title = 'Добавить') {
+    public static function add($url = '', $option = [], $title = 'Добавить') {
         return
             TbHtml::linkButton(
                   $title,
@@ -19,7 +19,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function removeButton($url = '', $option = [], $title = 'Удалить') {
+    public static function remove($url = '', $option = [], $title = 'Удалить') {
         return
             TbHtml::htmlButton(
                   $title,
@@ -63,7 +63,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function massButton($url = '', $option = [], $title = 'Пакетная обработка') {
+    public static function mass($url = '', $option = [], $title = 'Пакетная обработка') {
         return
             TbHtml::htmlButton(
                   $title,
@@ -85,7 +85,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function saveButton($option = [], $title = 'Сохранить') {
+    public static function save($option = [], $title = 'Сохранить') {
         return
             TbHtml::htmlButton(
                   $title,
@@ -100,6 +100,44 @@ class BackendPageButtons {
                     $("input[name=\'form_action\']").val("save");
                     $("#yw0").submit();
                 })()'
+                              ], $option
+                  )
+            );
+    }
+
+    public static function apply($option = [], $title = 'Применить') {
+        return
+            TbHtml::htmlButton(
+                  $title,
+                  array_merge([
+                                  'icon' => TbHtml::ICON_OK,
+                                  'buttonType' => 'link',
+                                  'url' => '#',
+                                  //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
+                                  'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+                                  'class' => 'btn-small',
+                                  'onClick' => 'js: (function(){
+                                        $("input[name=\'form_action\']").val("apply");
+                                        $("#yw0").submit();
+                                    })()'
+                              ], $option
+                  )
+            );
+
+    }
+
+    public static function cancel($url = '', $option = [], $title = 'Отмена') {
+        return
+            TbHtml::linkButton(
+                  $title,
+                  array_merge([
+                                  'icon' => TbHtml::ICON_REMOVE,
+                                  'buttonType' => 'link',
+                                  'url' => Yii::app()
+                                              ->createUrl($url),
+                                  //            'type'=>TbHtml::BUTTON_TYPE_LINK,
+                                  'class' => 'btn-small',
+                                  'color' => TbHtml::BUTTON_COLOR_DANGER,
                               ], $option
                   )
             );

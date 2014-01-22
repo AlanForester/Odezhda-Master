@@ -1,8 +1,8 @@
 <?php
 $this->pageButton = [
-    BackendPageButtons::addButton("/users/add"),
-    BackendPageButtons::removeButton("/users/mass"),
-    BackendPageButtons::massButton("/users/mass")
+    BackendPageButtons::add("/users/add"),
+    BackendPageButtons::remove("/users/mass"),
+    BackendPageButtons::mass("/users/mass")
 ]
 ?>
 <div class="span2">
