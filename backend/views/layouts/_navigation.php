@@ -33,8 +33,7 @@ $this->widget(
                             ],
                             [
                                 'label' => 'Группы пользователей',
-                                'url' => ['/groups/index'],
-                                'disabled'=>true
+                                'url' => ['/groups/index']
                             ],
                             [
                                 'label' => 'Уровни доступа',

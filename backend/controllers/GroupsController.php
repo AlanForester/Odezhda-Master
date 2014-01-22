@@ -11,6 +11,17 @@ class GroupsController extends BackendController {
 
     public $pageTitle = 'Группы пользователей';
     public $pageButton = [];
+    public $model;
+
+    public function actionIndex() {
+        $this->model = new GroupsModel();
+        $list = $this->model->getList();
+        echo '<pre>';
+        print_r( $list);
+        echo '</pre>';
+    }
+
+
 
     public function actionList() {
         $model = new GroupsModel();
