@@ -249,7 +249,7 @@ class ShopCategoriesLayer {
      * данные для валидации для внешнего использования
      */
     public static function rules(){
-        $rules = ShopCategoriesLayer::model()->rules();
+        $rules = ShopCategoriesLegacy::model()->rules();
         foreach ($rules as &$r){
             $r[0] = join(',' , array_map( function($el){ return self::getFieldName(trim($el));} , explode(',',$r[0])  ));
         }
