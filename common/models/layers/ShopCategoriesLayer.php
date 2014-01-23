@@ -154,16 +154,14 @@ class ShopCategoriesLayer {
 
         // задаем значения, получаем реальные имена полей
         $category->setAttributes(self::fieldMapConvert($data, true), false);
-        //print_r($category);exit;
 
         if (!$category->save()){
             self::$errors = $category->getErrors();
             return false;
         }
-print_r($category);exit;
-        return self::fieldMapConvert($category->attributes);
-        // сохраняем и переворачиваем в виртуальные данные
-//        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
+
+        return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
+
     }
 
 

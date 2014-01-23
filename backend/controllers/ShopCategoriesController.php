@@ -96,6 +96,7 @@ class ShopCategoriesController extends BackendController {
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             $model->setAttributes($_POST['ShopCategoriesModel'],false);
+            // print_r($model);exit;
             // отправляем в модель данные
             $result = $model->save($_POST['ShopCategoriesModel']);
             if (!$result) {
@@ -111,7 +112,7 @@ class ShopCategoriesController extends BackendController {
             // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                    'Категория ' . ($id ? 'сохранена' : 'добавлена')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
