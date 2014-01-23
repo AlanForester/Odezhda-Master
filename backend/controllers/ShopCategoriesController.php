@@ -123,10 +123,10 @@ class ShopCategoriesController extends BackendController {
             }
         }
 
-        $user = $model->getCategoryData($id, $scenario);
-        print_r($user);exit;
-        if ($user) {
-            $model->setAttributes($user, false);
+        $category = $model->getCategoryData($id, $scenario);
+        print_r($category);exit;
+        if ($category) {
+            $model->setAttributes($category, false);
         } else
             $this->error();
 

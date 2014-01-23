@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование [' . $model->email . ']' : 'новый пользователь');
+$this->pageTitle = 'Менеджер категорий: ' . ($model->id ? 'редактирование [' . $model->name . ']' : 'новая категория');
 
 $this->pageButton = [
     TbHtml::htmlButton(
