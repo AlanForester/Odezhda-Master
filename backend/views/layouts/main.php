@@ -75,14 +75,14 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
             // fix sub nav on scroll
             var $win = $(window),
                 $nav = $('.subhead'),
-                navTop = $('.subhead').length && $('.subhead').offset().top - 63,
+                navTop = $('.subhead').length && $('.subhead').offset().top-45,
                 isFixed = 0;
 
             processScroll();
 
             // hack sad times - holdover until rewrite for 2.1
             $nav.on('click', function (){
-                if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 47) }, 10)
+                if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 61) }, 10)
             });
 
             $win.on('scroll', processScroll);

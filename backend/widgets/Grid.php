@@ -3,13 +3,6 @@
 class Grid extends CWidget {
 
     /**
-     * Кнопки управления для контроллера
-     * @var array
-     */
-    //    public $buttons = [];
-    //public $pageButton = [];
-
-    /**
      * Элементы фильтра
      * @var array
      */
@@ -64,9 +57,6 @@ class Grid extends CWidget {
     //    public $controller;
 
     public function init() {
-        //        if ($this->controller){
-        //            $this->controller->pageButton = $this->pageButton;
-        //        }
 
     }
 
@@ -75,6 +65,7 @@ class Grid extends CWidget {
         // определеяем, нужно ли показывать 2 колонки
         $twoColumn = ($this->submenu || $this->filter);
 
+        // левая колонка с фильтром и под-меню
         if ($twoColumn) {
             echo '
             <div class="span2">
@@ -82,6 +73,7 @@ class Grid extends CWidget {
             </div>';
         }
 
+        // основная колонка
         echo '
             <div class="span' . ($twoColumn ? '10' : '12') . '">
                 <div>' . $this->renderTop() . $this->renderGrid() . '</div>
@@ -89,6 +81,10 @@ class Grid extends CWidget {
         ';
     }
 
+    /**
+     * Генерация html кода под-меню
+     * @return null|string
+     */
     public function renderSubmenu() {
         if ($this->submenu) {
             return
@@ -108,6 +104,10 @@ class Grid extends CWidget {
         return null;
     }
 
+    /**
+     * Генерация html кода фильтров
+     * @return null|string
+     */
     public function renderFilter() {
         if ($this->filter) {
             return '<h4 class="page-header">Фильтр:</h4>' . join($this->hrTemplate, $this->filter);
@@ -116,6 +116,10 @@ class Grid extends CWidget {
         return null;
     }
 
+    /**
+     * Генерация html кода
+     * @return string
+     */
     public function renderTop() {
         return
             TbHtml::textField(

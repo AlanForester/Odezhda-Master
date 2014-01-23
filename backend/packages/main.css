@@ -29,7 +29,8 @@ body {
 }
 
 .subhead-collapse.collapse {
-    height: auto;
+    /*height: auto;*/
+    height: 71px;
     overflow: visible;
 }
 
