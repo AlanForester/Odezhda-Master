@@ -131,11 +131,10 @@ class ShopCategoriesLayer {
     public static function save($data) {
         $id = isset($data['id']) ? $data['id'] : null;
 
-        // модель пользователя
-        $user = self::getCategory($id, 'add');
-        if (!$user) {
+        // модель категории
+        $category = self::getCategory($id, 'add');
 
-
+        if (!$category) {
             return false;
         }
 
@@ -148,34 +147,21 @@ class ShopCategoriesLayer {
                 unset($data['id']);
             }
 
-            // проверяем на уникальность email
-//            if (UserLayer::find($data['email'])){
-//                return false;
-//            }
-
             $data['created'] = new CDbExpression('NOW()');
-        }
-
-        //$validPassField=(!$id && !empty($data['password']));
-        // новый пользователь или новый пароль
-        if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
-            $data['password'] = $user->encrypt_password($data['password']);
-
-        } else {
-            unset ($data['password']);
         }
 
         $data['modified'] = new CDbExpression('NOW()');
 
         // задаем значения, получаем реальные имена полей
-        $user->setAttributes(self::fieldMapConvert($data, true), false);
+        $category->setAttributes(self::fieldMapConvert($data, true), false);
+        //print_r($category);exit;
 
-        if (!$user->save()){
-            self::$errors = $user->getErrors();
+        if (!$category->save()){
+            self::$errors = $category->getErrors();
             return false;
         }
-
-        return self::fieldMapConvert($user->attributes);
+print_r($category);exit;
+        return self::fieldMapConvert($category->attributes);
         // сохраняем и переворачиваем в виртуальные данные
 //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }

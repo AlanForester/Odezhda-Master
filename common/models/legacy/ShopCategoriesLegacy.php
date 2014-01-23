@@ -66,6 +66,25 @@ class ShopCategoriesLegacy extends CActiveRecord
         ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id'=> $this->categories_id));
     }
 
+    protected function afterSave() {
+        parent::afterSave();
+        $id = $this->categories_id;
+        //echo($id);exit;
+        $description=($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id'=>$id)));
+        $description->attributes=$this->description->attributes;
+       //print_r($description->attributes);exit;
+//        $description->categories_id = $this->categories_id;
+//        $description->language_id = $this->language_id;
+//        $description->categories_name = $this->categories_name;
+//        $description->categories_heading_title = $this->categories_heading_title;
+//        $description->categories_description = $this->categories_description;
+//        $description->categories_meta_title = $this->categories_meta_title;
+//        $description->categories_meta_description = $this->categories_meta_description;
+//        $description->categories_meta_keywords = $this->categories_meta_keywords;
+        //print_r($description);exit;
+        $description->save();
+    }
+
     /**
      * Behaviors associated with this ActiveRecord.
      *

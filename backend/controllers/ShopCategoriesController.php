@@ -95,13 +95,13 @@ class ShopCategoriesController extends BackendController {
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
-            $model->setAttributes($_POST['UsersModel'],false);
+            $model->setAttributes($_POST['ShopCategoriesModel'],false);
             // отправляем в модель данные
-            $result = $model->save($_POST['UsersModel']);
+            $result = $model->save($_POST['ShopCategoriesModel']);
             if (!$result) {
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' категории')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
                 $this->render('edit', compact('model', 'groups'));
