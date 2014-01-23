@@ -73,8 +73,9 @@ class ShopCategoriesLayer {
     public static function findByParentId($id){
         $result = [];
         $list = ShopCategoriesLegacy::model()->with('description')->findAllByAttributes(array('parent_id' => $id));
-        //print_r($list);exit;
+//        print_r($list);exit;
         foreach ($list as $val) {
+            //print_r($val->description);
             $result[] = array_merge(self::fieldMapConvert($val->attributes), self::fieldMapConvert($val->description->attributes));
         }
         return $result;
@@ -154,12 +155,12 @@ class ShopCategoriesLayer {
 
 
         // задаем значения, получаем реальные имена полей
-        $category->setAttributes(self::fieldMapConvert($data, true), false);
-        if($id){
-            $category->setRelatedAttributes(self::fieldMapConvert($data, true), false);
-        }
+        $category->Attrs(self::fieldMapConvert($data, true));
+//        if($id){
+//            $category->setRelatedAttributes(self::fieldMapConvert($data, true), false);
+//        }
 //        print_r(self::fieldMapConvert($data, true));exit;
-//        print_r($category);exit;
+        print_r($category);exit;
 
 //        $category->categories_status = 1;
 

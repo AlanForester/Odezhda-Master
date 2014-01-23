@@ -22,16 +22,16 @@ class ShopCategoriesLegacy extends CActiveRecord {
     public $categories_image;
     public $sort_order;
     public $date_added;
-    public $last_modified;
+    public $last_modified=52;
     public $categories_status;
     public $default_manufacturers;
     public $markup;
     public $xml_flag;
 
     public $language_id;
-    public $categories_name;
-    public $categories_heading_title;
-    public $categories_description;
+    public $categories_name=5;
+    public $categories_heading_title=4;
+    public $categories_description='';
     public $categories_meta_title;
     public $categories_meta_description;
     public $categories_meta_keywords;
@@ -54,6 +54,17 @@ class ShopCategoriesLegacy extends CActiveRecord {
         return array(
             'description' => array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
         );
+    }
+
+    public function Attrs ($data){
+        if(!is_array($data))
+            return;
+        //$attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
+//        print_r($data);exit;
+        foreach($data as $name=>$value)
+        {
+                $this->$name=$value;
+        }
     }
 
 
