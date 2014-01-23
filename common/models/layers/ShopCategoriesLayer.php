@@ -152,8 +152,12 @@ class ShopCategoriesLayer {
 
         $data['modified'] = new CDbExpression('NOW()');
 
+
         // задаем значения, получаем реальные имена полей
         $category->setAttributes(self::fieldMapConvert($data, true), false);
+        if($id){
+            $category->setRelatedAttributes(self::fieldMapConvert($data, true), false);
+        }
 //        print_r(self::fieldMapConvert($data, true));exit;
 //        print_r($category);exit;
 

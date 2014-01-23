@@ -179,7 +179,6 @@ class ShopCategoriesModel extends CFormModel {
      * @return bool|array массив данных пользователя или false
      */
     public function save($data) {
-//        $this->addError('password','Incorrect username or password.');
         return ShopCategoriesLayer::save($data);
     }
 

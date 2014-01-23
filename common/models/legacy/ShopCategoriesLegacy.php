@@ -67,6 +67,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
         parent::afterSave();
         $id = $this->categories_id;
         $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
+        //print_r($description);exit;
         $description->setAttributes($this->description->attributes, false);
         $description->save();
     }
@@ -76,17 +77,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
      * @param array $values
      * @param bool $safeOnly
      */
-    public function setAttributes($values, $safeOnly = true) {
-        if (!is_array($values))
-            return;
-        $attributes = array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
-        foreach ($values as $name => $value) {
-            if (isset($attributes[$name]))
-                $this->$name = $value;
-            elseif ($safeOnly)
-                $this->onUnsafeAttribute($name, $value);
-        }
-
+    public function setRelatedAttributes($values, $safeOnly = true) {
         foreach ($this->relations() as $key => $val) {
             $this->{$key}->setAttributes($values, false);
         }
