@@ -24,7 +24,7 @@ class ShopCategoriesLegacy extends CActiveRecord
     public $sort_order;
     public $date_added;
     public $last_modified;
-    public $categories_status;
+//    public $categories_status;
     public $default_manufacturers;
     public $markup;
     public $xml_flag;
@@ -81,6 +81,7 @@ class ShopCategoriesLegacy extends CActiveRecord
      */
     public function setAttributes($values,$safeOnly=true){
         parent::setAttributes($values,$safeOnly=true);
+
         foreach ($this->relations() as $key=>$val){
             $this->{$key}->setAttributes($values, false);
         }

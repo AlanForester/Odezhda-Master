@@ -147,13 +147,17 @@ class ShopCategoriesLayer {
                 unset($data['id']);
             }
 
-            $data['created'] = new CDbExpression('NOW()');
+            $data['added'] = new CDbExpression('NOW()');
         }
 
         $data['modified'] = new CDbExpression('NOW()');
 
         // задаем значения, получаем реальные имена полей
         $category->setAttributes(self::fieldMapConvert($data, true), false);
+//        print_r(self::fieldMapConvert($data, true));exit;
+//        print_r($category);exit;
+
+//        $category->categories_status = 1;
 
         if (!$category->save()){
             self::$errors = $category->getErrors();

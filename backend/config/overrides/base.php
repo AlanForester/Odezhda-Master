@@ -20,7 +20,7 @@ return [
         'common.models.layers.*',
         'common.helpers.*',
 
-        'bootstrap.helpers.*'
+        'bootstrap.helpers.*',
 //        'common.helpers.*',
     ],
     //    'aliases' => array(

@@ -84,18 +84,20 @@ $this->pageButton = [
         <fieldset>
             <legend>Категория</legend>
             <?php
+
+//            CVarDumper::dump($model);
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             //echo $form->dropDownListControlGroup($model, 'parent_id', $groups, ['value' => $model->parent_id, 'label' => 'Родительская категория']);
             echo $form->dropDownListControlGroup($model, 'parent_id', [], ['value' => $model->parent_id, 'label' => 'Родительская категория']);
-            echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
+            echo $form->textFieldControlGroup($model, 'name', [ 'label' => 'Название']);
             echo $form->textFieldControlGroup($model, 'image', ['value' => $model->image, 'label' => 'Изображение']);
             echo $form->textFieldControlGroup($model, 'language_id', ['value' => $model->language_id, 'label' => 'Язык']);
-            echo $form->textAreaControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание категории','span' => 8, 'rows' => 5]);
+            echo $form->textAreaControlGroup($model, 'description', ['label' => 'Описание категории','span' => 8, 'rows' => 5]);
             echo $form->textFieldControlGroup($model, 'title', ['value' => $model->heading_title, 'label' => 'Title']);
             echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $model->meta_title, 'label' => 'Meta title']);
             echo $form->textFieldControlGroup($model, 'meta_description', ['value' => $model->meta_description, 'label' => 'Meta description']);
             echo $form->textFieldControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords, 'label' => 'Meta keywords']);
-            echo $form->dropDownListControlGroup($model, 'status', [1=>"Да", 0=>"Нет"], ['value' => $model->status, 'label' => 'Родительская категория']);
+            echo $form->dropDownListControlGroup($model, 'status', [1=>"Да", 0=>"Нет"], [ 'label' => 'Статус']);
             echo $form->dropDownListControlGroup($model, 'xml_flag', [1=>"Да", 0=>"Нет"], ['value' => $model->xml_flag, 'label' => 'XML флаг']);
             echo $form->textFieldControlGroup($model, 'markup', ['value' => $model->markup, 'label' => 'Markup']);
             ?>
