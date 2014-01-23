@@ -133,7 +133,7 @@ class ShopCategoriesLayer {
 
         // модель категории
         $category = self::getCategory($id, 'add');
-
+//print_r($category);exit;
         if (!$category) {
             return false;
         }
@@ -154,7 +154,6 @@ class ShopCategoriesLayer {
 
         // задаем значения, получаем реальные имена полей
         $category->setAttributes(self::fieldMapConvert($data, true), false);
-        print_r($category);exit;
 
         if (!$category->save()){
             self::$errors = $category->getErrors();

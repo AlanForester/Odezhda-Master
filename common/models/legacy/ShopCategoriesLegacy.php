@@ -85,11 +85,16 @@ class ShopCategoriesLegacy extends CActiveRecord
         $description->save();
     }
 
+    /**
+     * Вызываем методы setAttributes для каждого из совмещенных таблиц AR
+     * @param array $values
+     * @param bool $safeOnly
+     */
     public function setAttributes($values,$safeOnly=true){
 
         parent::setAttributes($values,$safeOnly=true);
-        $this->description->attributes=$values;
-        print_r($this->description->attributes);exit;
+        print_r($this->relations());exit;
+        $this->description->setAttributes($values, false);
     }
 
     /**
