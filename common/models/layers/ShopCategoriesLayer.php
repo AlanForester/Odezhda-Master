@@ -133,7 +133,7 @@ class ShopCategoriesLayer {
 
         // модель категории
         $category = self::getCategory($id, 'add');
-//print_r($category);exit;
+
         if (!$category) {
             return false;
         }
@@ -159,11 +159,9 @@ class ShopCategoriesLayer {
             self::$errors = $category->getErrors();
             return false;
         }
-//print_r($category->attributes);exit;
+
         return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-//self::fieldMapConvert($category->attributes);
-        // сохраняем и переворачиваем в виртуальные данные
-//        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
+
     }
 
 

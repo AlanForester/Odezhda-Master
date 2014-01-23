@@ -69,19 +69,8 @@ class ShopCategoriesLegacy extends CActiveRecord
     protected function afterSave() {
         parent::afterSave();
         $id = $this->categories_id;
-        //echo($id);exit;
         $description=($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id'=>$id)));
-        $description->attributes=$this->description->attributes;
-       print_r($this);exit;
-//        $description->categories_id = $this->categories_id;
-//        $description->language_id = $this->language_id;
-//        $description->categories_name = $this->categories_name;
-//        $description->categories_heading_title = $this->categories_heading_title;
-//        $description->categories_description = $this->categories_description;
-//        $description->categories_meta_title = $this->categories_meta_title;
-//        $description->categories_meta_description = $this->categories_meta_description;
-//        $description->categories_meta_keywords = $this->categories_meta_keywords;
-        //print_r($description);exit;
+        $description->setAttributes($this->description->attributes, false);
         $description->save();
     }
 
@@ -91,10 +80,10 @@ class ShopCategoriesLegacy extends CActiveRecord
      * @param bool $safeOnly
      */
     public function setAttributes($values,$safeOnly=true){
-
         parent::setAttributes($values,$safeOnly=true);
-        print_r($this->relations());exit;
-        $this->description->setAttributes($values, false);
+        foreach ($this->relations() as $key=>$val){
+            $this->{$key}->setAttributes($values, false);
+        }
     }
 
     /**
