@@ -8,7 +8,7 @@
 =
  *
  */
-class CatalogLegacy extends CActiveRecord
+class CatalogDescriptionLegacy extends CActiveRecord
 {
     public $products_id;
 
@@ -21,7 +21,7 @@ class CatalogLegacy extends CActiveRecord
      */
     public function tableName()
     {
-        return 'products';
+        return 'products_description';
     }
 
 
@@ -29,10 +29,11 @@ class CatalogLegacy extends CActiveRecord
     {
         return parent::model($className);
     }
+
     public function relations()
     {
         return array(
-            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+            'description_c'=>array(self::HAS_ONE, 'CatalogLegacy', 'products_id'),
         );
     }
 }

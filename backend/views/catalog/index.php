@@ -222,6 +222,42 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
+                'header' => 'Название',
+                'name' => 'name',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    //'source'   => $this->createUrl('users/update'),
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Описание',
+                'name' => 'description',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    //'source'   => $this->createUrl('users/update'),
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
                 'header' => 'Цена (руб.)',
                 'name' => 'price',
                 'headerHtmlOptions' => [
