@@ -93,7 +93,7 @@ $this->pageButton = [
             echo $form->textFieldControlGroup($model, 'image', ['value' => $model->image, 'label' => 'Изображение']);
             echo $form->textFieldControlGroup($model, 'language_id', ['value' => $model->language_id, 'label' => 'Язык']);
             echo $form->textAreaControlGroup($model, 'description', ['label' => 'Описание категории','span' => 8, 'rows' => 5]);
-            echo $form->textFieldControlGroup($model, 'title', ['value' => $model->heading_title, 'label' => 'Title']);
+            echo $form->textFieldControlGroup($model, 'heading_title', ['value' => $model->heading_title, 'label' => 'Title']);
             echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $model->meta_title, 'label' => 'Meta title']);
             echo $form->textFieldControlGroup($model, 'meta_description', ['value' => $model->meta_description, 'label' => 'Meta description']);
             echo $form->textFieldControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords, 'label' => 'Meta keywords']);

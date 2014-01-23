@@ -195,9 +195,7 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        $a=new ShopCategoriesLegacy($scenario);
-        $b=$a->description;
-        print_r($a);exit;
+        return ($id ? ShopCategoriesLegacy::model()->with('description')->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     public static function findByPk($id, $params) {
