@@ -154,7 +154,7 @@ class ShopCategoriesLayer {
 
         // задаем значения, получаем реальные имена полей
         $category->setAttributes(self::fieldMapConvert($data, true), false);
-        //print_r($category);exit;
+        print_r($category);exit;
 
         if (!$category->save()){
             self::$errors = $category->getErrors();

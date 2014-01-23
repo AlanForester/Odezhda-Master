@@ -72,7 +72,7 @@ class ShopCategoriesLegacy extends CActiveRecord
         //echo($id);exit;
         $description=($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id'=>$id)));
         $description->attributes=$this->description->attributes;
-       //print_r($description->attributes);exit;
+       print_r($this);exit;
 //        $description->categories_id = $this->categories_id;
 //        $description->language_id = $this->language_id;
 //        $description->categories_name = $this->categories_name;
@@ -83,6 +83,13 @@ class ShopCategoriesLegacy extends CActiveRecord
 //        $description->categories_meta_keywords = $this->categories_meta_keywords;
         //print_r($description);exit;
         $description->save();
+    }
+
+    public function setAttributes($values,$safeOnly=true){
+
+        parent::setAttributes($values,$safeOnly=true);
+        $this->description->attributes=$values;
+        print_r($this->description->attributes);exit;
     }
 
     /**
