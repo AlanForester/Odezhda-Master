@@ -208,7 +208,7 @@ class ShopCategoriesModel extends CFormModel {
      */
     public function getCategoryData($id, $scenario) {
         $category = self::getCategory($id, $scenario);
-        //print_r($category->description);exit;
+        //print_r($category);exit;
         return ($category ? array_merge(ShopCategoriesLayer::fieldMapConvert($category->attributes), ShopCategoriesLayer::fieldMapConvert($category->description->attributes)) : false);
     }
     /**

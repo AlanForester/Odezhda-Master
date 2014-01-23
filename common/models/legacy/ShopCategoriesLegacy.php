@@ -16,8 +16,7 @@
  * @property boolean $xml_flag
  *
  */
-class ShopCategoriesLegacy extends CActiveRecord
-{
+class ShopCategoriesLegacy extends CActiveRecord {
     public $categories_id;
     public $parent_id;
     public $categories_image;
@@ -37,14 +36,13 @@ class ShopCategoriesLegacy extends CActiveRecord
     public $categories_meta_description;
     public $categories_meta_keywords;
 
-    public $primaryKey='categories_id';
+    public $primaryKey = 'categories_id';
 
     /**
      * Name of the database table associated with this ActiveRecord
      * @return string
      */
-    public function tableName()
-    {
+    public function tableName() {
         return 'categories';
     }
 
@@ -52,10 +50,9 @@ class ShopCategoriesLegacy extends CActiveRecord
      * Связь с таблицей categories_description
      * @return array
      */
-    public function relations()
-    {
+    public function relations() {
         return array(
-            'description'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
+            'description' => array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
         );
     }
 
@@ -63,13 +60,13 @@ class ShopCategoriesLegacy extends CActiveRecord
     protected function afterDelete() {
         parent::afterDelete();
         //print_r($this->categories_id);exit;
-        ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id'=> $this->categories_id));
+        ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id' => $this->categories_id));
     }
 
     protected function afterSave() {
         parent::afterSave();
         $id = $this->categories_id;
-        $description=($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id'=>$id)));
+        $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
         $description->setAttributes($this->description->attributes, false);
         $description->save();
     }
@@ -79,19 +76,18 @@ class ShopCategoriesLegacy extends CActiveRecord
      * @param array $values
      * @param bool $safeOnly
      */
-    public function setAttributes($values,$safeOnly=true){
-        if(!is_array($values))
+    public function setAttributes($values, $safeOnly = true) {
+        if (!is_array($values))
             return;
-        $attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
-        foreach($values as $name=>$value)
-        {
-            if(isset($attributes[$name]))
-                $this->$name=$value;
-            elseif($safeOnly)
-                $this->onUnsafeAttribute($name,$value);
+        $attributes = array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
+        foreach ($values as $name => $value) {
+            if (isset($attributes[$name]))
+                $this->$name = $value;
+            elseif ($safeOnly)
+                $this->onUnsafeAttribute($name, $value);
         }
 
-        foreach ($this->relations() as $key=>$val){
+        foreach ($this->relations() as $key => $val) {
             $this->{$key}->setAttributes($values, false);
         }
     }
@@ -174,8 +170,7 @@ class ShopCategoriesLegacy extends CActiveRecord
      * Retrieves a list of models based on the current search/filter conditions.
      * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
      */
-    public function search()
-    {
+    public function search() {
         $PARTIAL = true;
 
         $criteria = new CDbCriteria;
@@ -193,8 +188,7 @@ class ShopCategoriesLegacy extends CActiveRecord
      * @param string $className
      * @return User the static model class
      */
-    public static function model($className = __CLASS__)
-    {
+    public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
