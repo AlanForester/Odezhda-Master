@@ -1,14 +1,13 @@
 <?php
 
 /**
- * Class GroupsModel - работа с группамми пользователей
+ * Class CatalogModel - работа с группамми пользователей
  *
  */
-class ShopProductsModel extends CFormModel {
+class CatalogModel extends CFormModel {
+
 
     public $id;
-    public $name;
-    public $description;
     public $price;
 
     /**
@@ -16,14 +15,14 @@ class ShopProductsModel extends CFormModel {
      * Значение каждого элемента массива - массив с атрибутами пользователя(поля из БД)
      */
     private $list = [];
-    private $allGroups = [];
+    private $allCatalog = [];
 
 
 
 
 
     public function getListAndParams($data) {
-        if (!$this->allGroups) {
+        if (!$this->allCatalog) {
 
             $condition = [];
             $params = [];
@@ -31,7 +30,7 @@ class ShopProductsModel extends CFormModel {
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
-                        ' OR ',  [ GroupsLayer::getFieldName('name', false) . ' LIKE :text']
+                        ' OR ',  [ CatalogLayer::getFieldName('price', false) . ' LIKE :text']
 
                     ) . ')';
 
@@ -41,7 +40,7 @@ class ShopProductsModel extends CFormModel {
             // поле и направление сортировки
             $order_direct = null;
 
-            $order_field = GroupsLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'name', false);
+            $order_field = CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'id', false);
  /*           echo $data['order_field'];
             exit;*/
 
@@ -56,15 +55,16 @@ class ShopProductsModel extends CFormModel {
                 }
             }
 
-            $this->allGroups = GroupsLayer::getListAndParams(
+            $this->allCatalog = CatalogLayer::getListAndParams(
                 [
                     'condition' => join(' AND ', $condition),
                     'params' => $params,
                     'order' => $order_field . ($order_direct ? : '')
                 ]
             );
+
         }
-        return $this->allGroups;
+        return $this->allCatalog;
     }
 
 
@@ -76,43 +76,43 @@ class ShopProductsModel extends CFormModel {
      */
     public function getList() {
         if (!$this->list) {
-            $this->list = GroupsLayer::getList();
+            $this->list = CatalogLayer::getList();
         }
         return $this->list;
     }
 
 
-    public function getGroup($id, $scenario) {
-        return GroupsLayer::getGroup($id, $scenario);
+    public function getCatalog($id, $scenario) {
+        return CatalogLayer::getCatalog($id, $scenario);
     }
 
-    public function getGroupData($id, $scenario) {
-        $group = self::getGroup($id, $scenario);
-        return ($group ? GroupsLayer::fieldMapConvert($group->attributes) : false);
+    public function getCatalogData($id, $scenario) {
+        $Catalog = self::getCatalog($id, $scenario);
+        return ($Catalog ? CatalogLayer::fieldMapConvert($Catalog->attributes) : false);
     }
 
     public function save($data) {
-        return GroupsLayer::save($data);
+        return CatalogLayer::save($data);
     }
 
     public function rules() {
-        return GroupsLayer::rules();
+        return CatalogLayer::rules();
     }
 
     public function validate($attributes = null, $clearErrors = true) {
-        return GroupsLayer::validate($attributes, $clearErrors);
+        return CatalogLayer::validate($attributes, $clearErrors);
     }
 
     public function getErrors($attributes = null) {
-        return GroupsLayer::getErrors($attributes);
+        return CatalogLayer::getErrors($attributes);
     }
 
     public function delete($id) {
-        return GroupsLayer::delete($id);
+        return CatalogLayer::delete($id);
     }
 
     public function updateField($params = []) {
-        return GroupsLayer::updateField($params);
+        return CatalogLayer::updateField($params);
     }
 
 }

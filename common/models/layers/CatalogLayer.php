@@ -1,12 +1,12 @@
 <?php
 
-class ShopProductsLayer {
+class CatalogLayer {
     /**
      * @var array (поле БД => требуемое поле для модели)
      */
     private static $field_map = [
-        'admin_groups_id' => 'id',
-        'admin_groups_name' => 'name',
+        'products_id' => 'id',
+        'products_price' => 'price'
     ];
 
     public static $errors = [];
@@ -49,7 +49,7 @@ class ShopProductsLayer {
 
     public static function getList() {
         $result = [];
-        $list = GroupLegacy::model()->findall();
+        $list = CatalogLegacy::model()->findall();
         foreach ($list as $val) {
             $result[] = self::fieldMapConvert($val->attributes);
         }
@@ -60,7 +60,12 @@ class ShopProductsLayer {
 
     public static function getListAndParams($data) {
         $result = [];
-        $list = GroupLegacy::model()->findall(new CDbCriteria($data));
+//        print_r($data);
+//        exit;
+        $c = new CDbCriteria($data);
+        $c->limit = 100;
+        $list = CatalogLegacy::model()->findall($c);
+
         foreach ($list as $val) {
             $result[] = self::fieldMapConvert($val->attributes);
         }
@@ -68,8 +73,8 @@ class ShopProductsLayer {
         return $result;
     }
 
-    public static function getGroup($id = null, $scenario = null) {
-        return ($id ? GroupLegacy::model()->findByPk($id) : new GroupLegacy($scenario));
+    public static function getCatalog($id = null, $scenario = null) {
+        return ($id ? CatalogLegacy::model()->findByPk($id) : new CatalogLegacy($scenario));
     }
 
     public static function save($data) {
@@ -78,8 +83,8 @@ class ShopProductsLayer {
         $id=isset($data['id']) ? $data['id'] : null;
         //$id=$data['id'];
         // модель группы
-        $group = self::getGroup($id, 'add');
-        if (!$group) {
+        $Catalog = self::getCatalog($id, 'add');
+        if (!$Catalog) {
             return false;
         }
 
@@ -98,17 +103,17 @@ class ShopProductsLayer {
 
 
         // задаем значения, получаем реальные имена полей
-        $group->setAttributes(self::fieldMapConvert($data, true), false);
+        $Catalog->setAttributes(self::fieldMapConvert($data, true), false);
 
 
 
-        if (!$group->save()) {
-            self::$errors = $group->getErrors();
+        if (!$Catalog->save()) {
+            self::$errors = $Catalog->getErrors();
             return false;
         }
 
 
-        return self::fieldMapConvert($group->attributes);
+        return self::fieldMapConvert($Catalog->attributes);
         // сохраняем и переворачиваем в виртуальные данные
         //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
@@ -118,7 +123,7 @@ class ShopProductsLayer {
     public static function validate($attributes = null, $clearErrors = true) {
         //        $model = self::getUser();
         //        $model->setAttributes(self::fieldMapConvert($attributes, true));
-        return GroupLegacy::model()
+        return CatalogLegacy::model()
             ->validate($attributes, $clearErrors);
         //        return UserLegacy::validate($attributes,$clearErrors);
     }
@@ -133,7 +138,7 @@ class ShopProductsLayer {
      * данные для валидации для внешнего использования
      */
     public static function rules() {
-        $rules = GroupLegacy::model()
+        $rules = CatalogLegacy::model()
             ->rules();
         foreach ($rules as &$r) {
             $r[0] = join(
@@ -150,9 +155,9 @@ class ShopProductsLayer {
     }
 
     public static function delete($id) {
-        $group = self::getGroup($id);
-        if ($group) {
-            return $group->delete();
+        $Catalog = self::getCatalog($id);
+        if ($Catalog) {
+            return $Catalog->delete();
         }
 
         return false;
@@ -169,15 +174,15 @@ class ShopProductsLayer {
     public static function updateField($data) {
         // реальное имя поля
         $field = self::getFieldName($data['field'], false);
-        $group_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
+        $Catalog_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
         $value = TbArray::getValue('newValue', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
 
         // все все данные верны, сохраняем
-        if ($group_id && $field && $value) {
-            $group = self::getGroup($group_id);
-            $group->{$field} = $value;
+        if ($Catalog_id && $field && $value) {
+            $Catalog = self::getCatalog($Catalog_id);
+            $Catalog->{$field} = $value;
 
-            return $group->save(true, [$field]);
+            return $Catalog->save(true, [$field]);
         }
 
         return false;

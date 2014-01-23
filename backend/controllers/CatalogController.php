@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class GroupsController управление группами пользователей
+ * Class CatalogController управление группами пользователей
  */
-class ShopProductsController extends BackendController {
+class CatalogController extends BackendController {
     /**
      * @var
      */
@@ -28,12 +28,12 @@ class ShopProductsController extends BackendController {
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
-        $this->model = new GroupsModel();
-        $groups = $this->model->getListAndParams($criteria);
-        $this->gridDataProvider = new CArrayDataProvider($groups, [
+        $this->model = new CatalogModel();
+        $Catalog = $this->model->getListAndParams($criteria);
+        $this->gridDataProvider = new CArrayDataProvider($Catalog, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($groups) : $page_size),
+                'pageSize' => ($page_size == 'all' ? count($Catalog) : $page_size),
             ],
         ]);
 
@@ -43,10 +43,10 @@ class ShopProductsController extends BackendController {
 
 
     public function actionList() {
-        $model = new GroupsModel();
+        $model = new CatalogModel();
         $result = [];
         $list = $model->getList();
-
+        exit;
         if ($list) {
             foreach ($model->getList() as $g) {
                 $result[$g['id']] = $g['name'];
@@ -60,13 +60,13 @@ class ShopProductsController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit') {
 
-        $model = new GroupsModel($scenario);
+        $model = new CatalogModel($scenario);
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
-            $model->setAttributes($_POST['GroupsModel'], false);
+            $model->setAttributes($_POST['CatalogModel'], false);
             // отправляем в модель данные
-            $result = $model->save($_POST['GroupsModel']);
+            $result = $model->save($_POST['CatalogModel']);
 
             if (!$result) {
                 Yii::app()->user->setFlash(
@@ -74,7 +74,7 @@ class ShopProductsController extends BackendController {
                     CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' группы')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
-                $this->render('edit', compact('model', 'groups'));
+                $this->render('edit', compact('model', 'Catalog'));
                 return;
             } else {
                 // выкидываем сообщение
@@ -92,13 +92,13 @@ class ShopProductsController extends BackendController {
             }
         }
 
-        $group = $model->getGroupData($id, $scenario);
-        if ($group) {
-            $model->setAttributes($group, false);
+        $Catalog = $model->getCatalogData($id, $scenario);
+        if ($Catalog) {
+            $model->setAttributes($Catalog, false);
         } else
             $this->error();
 
-        $this->render('edit', compact('model', 'groups'));
+        $this->render('edit', compact('model', 'Catalog'));
     }
 
     public function actionAdd() {
@@ -107,7 +107,7 @@ class ShopProductsController extends BackendController {
 
 
     public function actionDelete($id) {
-        $model = new GroupsModel();
+        $model = new CatalogModel();
 
         if (!$model->delete($id)) {
             $this->error();
@@ -141,7 +141,7 @@ class ShopProductsController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['newValue'] = Yii::app()->request->getPost('value');
 
-        $model = new GroupsModel();
+        $model = new CatalogModel();
         if (!$model->updateField($params)) {
             $this->error();
         }
