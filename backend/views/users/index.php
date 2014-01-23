@@ -1,9 +1,99 @@
 <?php
+
 $this->pageButton = [
     BackendPageButtons::add("/users/add"),
     BackendPageButtons::remove("/users/mass"),
     BackendPageButtons::mass("/users/mass")
-]
+];
+
+//$this->widget(
+//    'backend.widgets.Grid',
+//    [
+//        'submenu' => [
+//            [
+//                'label' => 'Пользователи',
+//                'url' => Yii::app()->createUrl('/users/index'),
+//                'active' => true
+//            ],
+//            [
+//                'label' => 'Группы',
+//                'url' => Yii::app()->createUrl('/groups/index'),
+//
+//            ],
+//            [
+//                'label' => 'Права доступа',
+//                'url' => Yii::app()->createUrl('/roles/index'),
+//                'disabled' => true
+//            ],
+//        ],
+//
+//        'filter' => [
+//            // фильтр по группе
+//            TbHtml::dropDownList(
+//                'filter_groups',
+//                $criteria['filter_groups'],
+//                $this->groups,
+//                [
+//                    'onChange' => 'js: (function(){
+//                    $.fn.yiiGridView.update(
+//                        "usersgrid",
+//                        {
+//                            data:{
+//                                filter_groups:$("#filter_groups").val()
+//                            }
+//                        }
+//                    )
+//                })()'
+//                ]
+//            ),
+//
+//            // фильтр по дате регистрации
+//            TbHtml::dropDownList(
+//                'filter_created',
+//                $criteria['filter_created'],
+//                [
+//                    '0' => '- По дате регистрации -',
+//                    'today' => 'сегодня',
+//                    'past_week' => 'за прошлую неделю',
+//                    'past_1month' => 'за прошлый месяц',
+//                    'past_3month' => 'последние 3 месяца',
+//                    'past_6month' => 'последние 6 месяцев',
+//                    'past_year' => 'за прошлый год',
+//                    'post_year' => 'больше года назад',
+//                ],
+//                [
+//                    'onChange' => 'js: (function(){
+//                    $.fn.yiiGridView.update(
+//                        "usersgrid",
+//                        {
+//                            data:{
+//                                filter_created:$("#filter_created").val()
+//                            }
+//                        }
+//                    )
+//                })()'
+//                ]
+//            )
+//        ],
+//
+//        'order' => [
+//            'active' => $criteria['order_field'],
+//            'fields' => [
+//                'firstname' => 'Имя',
+//                'lastname' => 'Фамилия',
+//                'email' => 'E-Mail',
+//                'group_id' => 'Группа',
+//                'logdate' => 'Последний визит',
+//                'id' => 'ID',
+//            ],
+//            'direct' => $criteria['order_direct']
+//        ],
+//
+//        'pageSize' => $page_size,
+//
+//        'textSearch'=> $criteria['text_search']
+//    ]
+//);
 ?>
 <div class="span2">
     <div id="sidebar">
@@ -44,7 +134,7 @@ $this->pageButton = [
             $this->groups,
             [
                 //                'data-placeholder'=>'- По группе -',
-                'class' => 'chzn-select',
+                //                'class' => 'chzn-select',
                 'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "usersgrid",
@@ -74,7 +164,7 @@ $this->pageButton = [
                 'post_year' => 'больше года назад',
             ],
             [
-                'class' => 'chzn-select',
+                //                'class' => 'chzn-select',
                 'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "usersgrid",
@@ -248,7 +338,6 @@ $this->pageButton = [
 
 <?php
 
-// todo: создать виджет с предопределенными параметрами таблицы
 $this->widget(
     'yiiwheels.widgets.grid.WhGridView',
     array(
