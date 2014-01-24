@@ -8,12 +8,13 @@
 =
  *
  */
-class CatalogDescriptionLegacy extends CActiveRecord
+class CatalogToCategoryLegacy extends CActiveRecord
 {
     public $products_id;
 
 
     public $primaryKey='products_id';
+
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -21,7 +22,7 @@ class CatalogDescriptionLegacy extends CActiveRecord
      */
     public function tableName()
     {
-        return 'products_description';
+        return 'products_to_categories';
     }
 
 
@@ -29,11 +30,10 @@ class CatalogDescriptionLegacy extends CActiveRecord
     {
         return parent::model($className);
     }
-
-//    public function relations()
-//    {
-//        return array(
-//            'description_c'=>array(self::HAS_ONE, 'CatalogLegacy', 'products_id')
-//        );
-//    }
+    public function relations()
+    {
+        return array(
+            'catalog_category'=>array(self::MANY_MANY, 'CatalogToCategory', 'products_id'),
+        );
+    }
 }

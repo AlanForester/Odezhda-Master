@@ -33,6 +33,7 @@ class CatalogLegacy extends CActiveRecord
     {
         return array(
             'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+//            'categories'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
         );
     }
 }

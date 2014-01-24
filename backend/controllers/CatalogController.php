@@ -21,7 +21,8 @@ class CatalogController extends BackendController {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
             'order_field' => $this->userStateParam('order_field'),
-            'order_direct' => $this->userStateParam('order_direct')
+            'order_direct' => $this->userStateParam('order_direct'),
+            'filter_groups' => $this->userStateParam('filter_category')
         ];
 
         // пагинация
@@ -37,6 +38,12 @@ class CatalogController extends BackendController {
             ],
         ]);
 
+//        $groups_model = new GroupsModel();
+//        $this->groups[''] = '- По группе -';
+//        foreach ($groups_model->getList() as $g) {
+//            $this->groups[$g['id']] = $g['name'];
+//        }
+
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
 
@@ -46,7 +53,7 @@ class CatalogController extends BackendController {
         $model = new CatalogModel();
         $result = [];
         $list = $model->getList();
-        exit;
+
         if ($list) {
             foreach ($model->getList() as $g) {
                 $result[$g['id']] = $g['name'];
