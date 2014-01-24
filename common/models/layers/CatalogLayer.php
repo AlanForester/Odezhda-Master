@@ -90,8 +90,8 @@ class CatalogLayer {
         $id=isset($data['id']) ? $data['id'] : null;
         //$id=$data['id'];
         // модель группы
-        $Catalog = self::getCatalog($id, 'add');
-        if (!$Catalog) {
+        $catalog = self::getCatalog($id, 'add');
+        if (!$catalog) {
             return false;
         }
 
@@ -106,21 +106,18 @@ class CatalogLayer {
 
         }
 
-
-
-
         // задаем значения, получаем реальные имена полей
-        $Catalog->setAttributes(self::fieldMapConvert($data, true), false);
+        //$catalog->setAttributes(self::fieldMapConvert($data, true), false);
+        $catalog->setAllData(self::fieldMapConvert($data, true), false);
 
 
-
-        if (!$Catalog->save()) {
-            self::$errors = $Catalog->getErrors();
+        if (!$catalog->save()) {
+            self::$errors = $catalog->getErrors();
             return false;
         }
 
 
-        return self::fieldMapConvert($Catalog->attributes);
+        return self::fieldMapConvert($catalog->attributes);
         // сохраняем и переворачиваем в виртуальные данные
         //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }

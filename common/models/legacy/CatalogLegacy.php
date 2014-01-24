@@ -68,22 +68,15 @@ class CatalogLegacy extends CActiveRecord
                 $r_model->save();
             }
         }
-//        if(!empty($this->_allData)){
-//            $id = $this->categories_id;
-//
-//            //$is_new = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id));
-//            if (!$description = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id))){
-//                $description = new ShopCategoriesDescriptionLegacy();
-//            }
-//
-////            $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
-//            $this->_allData['categories_id'] = $id;
-////            print_r($this->isNewRecord);exit;
-//            if($description){
-//                $description->setAttributes($this->_allData, false);
-//                $description->save();
-//            }
-//        }
+
+        // обновляем все зависимые таблицы, типа категорий
+        /*
+         * здесь мы делаем: удаляем из всех таблиц, типа  products_to_categories
+         * все записи, у которых значение products_id = $id
+         * DELETE FROM products_to_categories WHERE products_id = $id
+         *
+         * и по новой вставляем все наши связи с категориями данного продукта
+         */
     }
 
     /**
