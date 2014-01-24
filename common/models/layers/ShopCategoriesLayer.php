@@ -70,34 +70,25 @@ class ShopCategoriesLayer {
      * @param $id родительской категории
      * @return array массив данных из связанных табиц
      */
-    public static function findByParentId($id){
+    public static function findByParentId($id) {
         $result = [];
-        $list = ShopCategoriesLegacy::model()->with('description')->findAllByAttributes(array('parent_id' => $id));
-        //$list_descriptions
-//      print_r($list[0]->categories_name);
-//        exit;
+        $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
         foreach ($list as $val) {
-            if ($val->description){
-            echo $val->categories_name.': ';
-                print_r($val->description->attributes);
-
-            //$result[] = array_merge(self::fieldMapConvert($val->attributes), self::fieldMapConvert($val->description->attributes));
-            }
-        }exit;
+            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+        }
         return $result;
     }
 
 
-
-    public static function getList($data=null) {
+    public static function getList($data = null) {
         $result = [];
 
-        if ($data){
+        if ($data) {
             $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));
             foreach ($list as $val) {
                 $result[] = self::fieldMapConvert($val->attributes);
             }
-        } else{
+        } else {
             $list = ShopCategoriesLegacy::model()->findall();
             foreach ($list as $val) {
                 $result[] = self::fieldMapConvert($val->attributes);
@@ -162,8 +153,8 @@ class ShopCategoriesLayer {
 
         $data = self::fieldMapConvert($data, true);
         // задаем значения, получаем реальные имена полей
-        $category->setAttributes($data,false);
-        $category->setRelatedAttributes($data,false);
+        $category->setAttributes($data, false);
+        $category->setRelatedAttributes($data, false);
 //        $category->Attrs($data);
 //        ->setAllData($data);
 //        if($id){
@@ -176,7 +167,7 @@ class ShopCategoriesLayer {
 
 //        $category->alldata = self::fieldMapConvert($data, true);
 
-        if (!$category->save()){
+        if (!$category->save()) {
             self::$errors = $category->getErrors();
             return false;
         }
@@ -192,10 +183,10 @@ class ShopCategoriesLayer {
         if (!($parent && $parent->delete())) {
             return false;
         } else {
-            $children=self::findByParentId($id);
+            $children = self::findByParentId($id);
 
-            foreach($children as $val){
-                $child=self::getCategory($val['id']);
+            foreach ($children as $val) {
+                $child = self::getCategory($val['id']);
                 //print_r($child);exit;
                 if (!($child && $child->delete())) {
                     return false;
@@ -212,7 +203,7 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        if ($id){
+        if ($id) {
             return ShopCategoriesLegacy::model()->with('description')->findByPk($id);
         }
 
@@ -255,7 +246,7 @@ class ShopCategoriesLayer {
 ////        return UserLegacy::validate($attributes,$clearErrors);
 //    }
 //
-    public static function getErrors($attributes = null){
+    public static function getErrors($attributes = null) {
 //        print_r(UserLegacy::model());exit;
 //        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
@@ -264,10 +255,12 @@ class ShopCategoriesLayer {
     /**
      * данные для валидации для внешнего использования
      */
-    public static function rules(){
+    public static function rules() {
         $rules = ShopCategoriesLegacy::model()->rules();
-        foreach ($rules as &$r){
-            $r[0] = join(',' , array_map( function($el){ return self::getFieldName(trim($el));} , explode(',',$r[0])  ));
+        foreach ($rules as &$r) {
+            $r[0] = join(',', array_map(function ($el) {
+                return self::getFieldName(trim($el));
+            }, explode(',', $r[0])));
         }
         return $rules;
     }
