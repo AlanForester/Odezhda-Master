@@ -39,7 +39,7 @@ $this->pageButton = [
         [
             'icon' => TbHtml::ICON_REMOVE,
             'buttonType' => 'link',
-            'url' => Yii::app()->createUrl("/users/index"),
+            'url' => Yii::app()->createUrl("/categories/index"),
             //            'type'=>TbHtml::BUTTON_TYPE_LINK,
             'class' => 'btn-small',
             'color' => TbHtml::BUTTON_COLOR_DANGER,

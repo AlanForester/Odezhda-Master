@@ -84,9 +84,11 @@ class ShopCategoriesLegacy extends CActiveRecord {
             $id = $this->categories_id;
             //проверяем, новая ли запись
             if (!($description = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', [':categories_id' => $id]))){
+                print_r($description);exit;
                 $description = new ShopCategoriesDescriptionLegacy();
             }
 //            $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
+            print_r($description);exit;
             $this->_allData['categories_id'] = $id;
             $description->setAttributes($this->_allData, false);
             $description->save();
