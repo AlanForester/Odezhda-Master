@@ -82,19 +82,14 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //        }
         if(!empty($this->_allData)){
             $id = $this->categories_id;
-
-            //$is_new = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id));
-            if (!$description = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id))){
+            //проверяем, новая ли запись
+            if (!($description = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', [':categories_id' => $id]))){
                 $description = new ShopCategoriesDescriptionLegacy();
             }
-
 //            $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
             $this->_allData['categories_id'] = $id;
-//            print_r($this->isNewRecord);exit;
-            if($description){
-                $description->setAttributes($this->_allData, false);
-                $description->save();
-            }
+            $description->setAttributes($this->_allData, false);
+            $description->save();
         }
     }
 
