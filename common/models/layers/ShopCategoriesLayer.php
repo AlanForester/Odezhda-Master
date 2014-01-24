@@ -172,8 +172,8 @@ class ShopCategoriesLayer {
             return false;
         }
 
-        return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-
+        //return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
+        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []));
     }
 
 
