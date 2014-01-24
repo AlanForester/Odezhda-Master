@@ -68,31 +68,12 @@ class ShopCategoriesLegacy extends CActiveRecord {
     {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
-        return array(
-            //array('categories_id', 'required','message' => Yii::t('validation', "Родительская категория является обязательным полем")),
-            array('sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")),
-            array('xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')),
-            array('sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')),
-           // array('default_manufacturers', 'required', 'message'=>Yii::t('validation', 'Имя является обязательным')),
-            //array('categories_status', 'numerical', 'message'=>Yii::t('validation', 'Группа является обязательной')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-
-
-//
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+        return [
+            ['sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
+            ['xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
+            ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
+//            array('language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')),
+//            array('language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')),
 
            // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
            // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
@@ -101,7 +82,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
          //   // The following rule is used by search().
             // Please remove those attributes that should not be searched.
          //   array('id, username, email', 'safe', 'on' => 'search'),
-        );
+        ];
     }
 
 
