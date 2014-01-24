@@ -58,12 +58,13 @@ class ShopCategoriesLegacy extends CActiveRecord {
         ];
     }
 
-    public function setAllData($data) {
+
+    public function setAllData($data,$safe = true) {
         if(!is_array($data))
             return;
+        $this->setAttributes($data,$safe);
         $this->_allData=$data;
     }
-
 
     protected function afterDelete() {
         parent::afterDelete();
@@ -76,39 +77,30 @@ class ShopCategoriesLegacy extends CActiveRecord {
      */
     protected function afterSave() {
         parent::afterSave();
-//        foreach($this->relations() as $k=>$v){
-////            $this->getActiveFinder($k);
-//            $this->{$k}->save();
-//        }
         if(!empty($this->_allData)){
-            $id = $this->categories_id;
-            //проверяем, новая ли запись
-            if (!($description = ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', [':categories_id' => $id]))){
-                print_r($description);exit;
-                $description = new ShopCategoriesDescriptionLegacy();
-            }
-//            $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
-            print_r($description);exit;
-            $this->_allData['categories_id'] = $id;
-            $description->setAttributes($this->_allData, false);
-            $description->save();
-        }
-    }
+            $id = $this->_allData['categories_id'] = $this->categories_id;
+            foreach($this->relations() as $value){
+                // имя класса АР
+                $r_class = $value[1];
+                $r_relation_id = $value[2];
 
-    /**
-     * Вызываем методы setAttributes для каждого из совмещенных таблиц AR
-     * @param array $values
-     * @param bool $safeOnly
-     */
-    public function setRelatedAttributes($values, $safeOnly = true) {
-        foreach ($this->relations() as $key => $val) {
-            //$rel = $this->getRelated($key);
-            //$rel->setAttributes($values, $safeOnly);
-//            $this->{$key}->setAttributes($values, false);
-//            if (!isset($this->{$key})){
-//                $this->{$key}= new
-//            }
-//            $this->_re
+                if (!$r_model = parent::model($r_class)->find($r_relation_id.'=:id', [':id' => $id])){
+                    // пример как делали раньше
+    //                $description = new ShopCategoriesDescriptionLegacy();
+
+                    // todo: может быть проблемой! (после проверки, удалить заметку и комментарий)
+                    // если выкидывает ошибку или странно сохраняет - переписать под
+                    // создание нового экземпляра класса АР
+
+    //                $r_model = parent::model($r_class);
+                    $r_model = new $r_class('add');
+                }
+
+                if ($r_model){
+                    $r_model->setAttributes($this->_allData, false);
+                    $r_model->save();
+                }
+            }
         }
     }
 

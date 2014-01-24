@@ -151,9 +151,9 @@ class ShopCategoriesLayer {
         $data = self::fieldMapConvert($data, true);
 
         //заполняем промежуточный массив данных, пришедших из формы
-        $category->setAllData($data);
+        $category->setAllData($data, false);
         // задаем значения, получаем реальные имена полей
-        $category->setAttributes($data, false);
+        //$category->setAttributes($data, false);
 //        $category->setRelatedAttributes();
 //        $category->Attrs($data);
 //        ->setAllData($data);
