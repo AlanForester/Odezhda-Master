@@ -17,14 +17,14 @@
  */
 class ShopCategoriesDescriptionLegacy extends CActiveRecord
 {
-    public $categories_id;
-    public $language_id;
-    public $categories_name;
-    public $categories_heading_title;
-    public $categories_description;
-    public $categories_meta_title;
-    public $categories_meta_description;
-    public $categories_meta_keywords;
+//    public $categories_id;
+//    public $language_id;
+//    public $categories_name;
+//    public $categories_heading_title;
+//    public $categories_description;
+//    public $categories_meta_title;
+//    public $categories_meta_description;
+//    public $categories_meta_keywords;
 
     public $primaryKey='categories_id';
 
