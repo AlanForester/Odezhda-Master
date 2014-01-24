@@ -71,22 +71,22 @@ class ShopCategoriesLegacy extends CActiveRecord {
         ShopCategoriesDescriptionLegacy::model()->deleteAll('categories_id=:id', array(':id' => $this->categories_id));
     }
 
+    /**
+     * Перекрываем встроенный метод АР для сохранения всех связанных таблиц (в данном случае categories_description)
+     */
     protected function afterSave() {
         parent::afterSave();
-
-        foreach($this->relations() as $k=>$v){
-//            $this->getActiveFinder($k);
-            $this->{$k}->save();
+//        foreach($this->relations() as $k=>$v){
+////            $this->getActiveFinder($k);
+//            $this->{$k}->save();
+//        }
+        if(!empty($this->_allData)){
+            $id = $this->categories_id;
+            $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
+            $this->_allData['categories_id'] = $id;
+            $description->setAttributes($this->_allData, false);
+            $description->save();
         }
-
-//        $id = $this->categories_id;
-//        $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
-        //print_r($description);exit;
-
-//        $this->_alldata['categories_id'] = $id;
-
-//        $description->setAttributes($this->_alldata, false);
-//        $description->save();
     }
 
     /**

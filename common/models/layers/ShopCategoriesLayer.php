@@ -150,9 +150,11 @@ class ShopCategoriesLayer {
         //переконвертированнные конечные данные, готовые для записи в AR
         $data = self::fieldMapConvert($data, true);
 
+        //заполняем промежуточный массив данных, пришедших из формы
+        $category->setAllData($data);
         // задаем значения, получаем реальные имена полей
         $category->setAttributes($data, false);
-        $category->setRelatedAttributes($data, false);
+//        $category->setRelatedAttributes();
 //        $category->Attrs($data);
 //        ->setAllData($data);
 //        if($id){
