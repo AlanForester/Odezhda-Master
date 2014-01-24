@@ -208,8 +208,11 @@ class ShopCategoriesModel extends CFormModel {
     public function getCategoryData($id, $scenario) {
         $category = self::getCategory($id, $scenario);
         //print_r($category->with('description'));exit;
-        return ($category ? ($id ? array_merge(ShopCategoriesLayer::fieldMapConvert($category->attributes), ShopCategoriesLayer::fieldMapConvert($category->description->attributes)) : ShopCategoriesLayer::fieldMapConvert($category->attributes)) : false);
+        //return ($category ? ($id ? array_merge(ShopCategoriesLayer::fieldMapConvert($category->attributes), ShopCategoriesLayer::fieldMapConvert($category->description->attributes)) : ShopCategoriesLayer::fieldMapConvert($category->attributes)) : false);
+        return ($category ? ($id ? array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : [])) : ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : false);
     }
+
+//array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
     /**
      * Удаляет категорию и все вложенные категории
      * @param $id удаляемой категории

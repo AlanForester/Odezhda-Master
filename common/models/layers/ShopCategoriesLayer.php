@@ -135,7 +135,6 @@ class ShopCategoriesLayer {
         if (!$category) {
             return false;
         }
-
         if ($id) {
             // обновление пользователя
 
@@ -144,14 +143,13 @@ class ShopCategoriesLayer {
             if (array_key_exists('id', $data)) {
                 unset($data['id']);
             }
-
             $data['added'] = new CDbExpression('NOW()');
         }
-
         $data['modified'] = new CDbExpression('NOW()');
 
-
+        //переконвертированнные конечные данные, готовые для записи в AR
         $data = self::fieldMapConvert($data, true);
+
         // задаем значения, получаем реальные имена полей
         $category->setAttributes($data, false);
         $category->setRelatedAttributes($data, false);
@@ -203,18 +201,7 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        if ($id) {
-            return ShopCategoriesLegacy::model()->with('description')->findByPk($id);
-        }
-
-        $model = new ShopCategoriesLegacy($scenario);
-
-        $model->attachBehaviors($model->behaviors());
-        $model->with('description');
-
-        return $model;
-
-//        return ($id ? ShopCategoriesLegacy::model()->with('description')->findByPk($id) : new ShopCategoriesLegacy($scenario));
+        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     public static function findByPk($id, $params) {

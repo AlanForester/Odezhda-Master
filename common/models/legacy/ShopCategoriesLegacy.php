@@ -38,7 +38,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
 
     public $primaryKey = 'categories_id';
 
-    protected $_alldata = [];
+    protected $_allData = [];
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -58,15 +58,10 @@ class ShopCategoriesLegacy extends CActiveRecord {
         ];
     }
 
-    public function attrs ($data){
+    public function setAllData($data) {
         if(!is_array($data))
             return;
-        //$attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
-//        print_r($data);exit;
-        foreach($data as $name=>$value)
-        {
-                $this->$name=$value;
-        }
+        $this->_allData=$data;
     }
 
 
@@ -109,11 +104,6 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //            }
 //            $this->_re
         }
-    }
-
-    public function setAllData($values){
-//        parent::setAttributes($values,$safeOnly);
-        $this->_alldata = $values;
     }
 
     /**

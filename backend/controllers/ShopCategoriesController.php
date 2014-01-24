@@ -96,7 +96,7 @@ class ShopCategoriesController extends BackendController {
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             $model->setAttributes($_POST['ShopCategoriesModel'],false);
-            // print_r($model);exit;
+//             print_r($model);exit;
             // отправляем в модель данные
             $result = $model->save($_POST['ShopCategoriesModel']);
             if (!$result) {
@@ -125,7 +125,7 @@ class ShopCategoriesController extends BackendController {
         }
 
         $category = $model->getCategoryData($id, $scenario);
-        //print_r($category);exit;
+//        print_r($category);exit;
         if ($category) {
             $model->setAttributes($category, false);
         } else
