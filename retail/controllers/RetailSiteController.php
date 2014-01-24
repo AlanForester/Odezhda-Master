@@ -23,5 +23,9 @@ class RetailSiteController extends RetailController {
             )
         );
     }
+    
+    public function actionKarta() {
+        $this->render("/site/karta");
+    }
 
 }

@@ -1,0 +1,38 @@
+.box-modal {
+	position: relative;
+	width: 825px;
+	height:700px;
+	padding: 30px;
+	background: #00A9E2;
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
+	border-radius: 6px;
+}
+
+.box-modal.modal-reg {
+	position: relative;
+	width: 825px;
+	height:700px;
+	padding: 30px;
+	background: #F39A22;
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
+	border-radius: 6px;
+}
+
+.box-modal.modal-cart {
+	position: relative;
+	width: 825px;
+	height:780px;
+	padding: 10px 30px 10px 30px;
+	background: #fff;
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
+	border-radius: 6px;
+}
+
+.box-modal_close { position: absolute; right: -60px; top: -70px; font-size: 36px; line-height: 60px; color: #999; cursor: pointer; width:60px; height:60px; color:#000; background:#F39A22; border-radius:50px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif; }
+.box-modal_close:hover { color: #fff; }
+
+.box-modal_close.arcticmodal-close.modal-reg { position: absolute; right: -60px; top: -70px; font-size: 36px; line-height: 60px; color: #999; cursor: pointer; width:60px; height:60px; color:#fff; background:#00A9E2; border-radius:120px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif; }
+.box-modal_close.arcticmodal-close.modal-reg:hover { color: #000; }
+
+.box-modal_close.arcticmodal-close.modal-cart { position: absolute; right: -60px; top: -70px; font-size: 36px; line-height: 60px; color: #999; cursor: pointer; width:60px; height:60px; color:#fff; background:#00A9E2; border-radius:120px; text-align:center; font-weight:bold; font-family:Arial, Helvetica, sans-serif; }
+.box-modal_close.arcticmodal-close.modal-cart:hover { color: #000; }

@@ -30,10 +30,10 @@ class CatalogDescriptionLegacy extends CActiveRecord
         return parent::model($className);
     }
 
-    public function relations()
-    {
-        return array(
-            'description_c'=>array(self::HAS_ONE, 'CatalogLegacy', 'products_id'),
-        );
-    }
+//    public function relations()
+//    {
+//        return array(
+//            'description_c'=>array(self::HAS_ONE, 'CatalogLegacy', 'products_id')
+//        );
+//    }
 }
