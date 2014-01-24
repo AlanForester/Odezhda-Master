@@ -38,6 +38,8 @@ class ShopCategoriesLegacy extends CActiveRecord {
 
     public $primaryKey = 'categories_id';
 
+    protected $_alldata = [];
+
     /**
      * Name of the database table associated with this ActiveRecord
      * @return string
@@ -51,12 +53,12 @@ class ShopCategoriesLegacy extends CActiveRecord {
      * @return array
      */
     public function relations() {
-        return array(
-            'description' => array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
-        );
+        return [
+            'description' => [self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'],
+        ];
     }
 
-    public function Attrs ($data){
+    public function attrs ($data){
         if(!is_array($data))
             return;
         //$attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
@@ -76,11 +78,20 @@ class ShopCategoriesLegacy extends CActiveRecord {
 
     protected function afterSave() {
         parent::afterSave();
-        $id = $this->categories_id;
-        $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
+
+        foreach($this->relations() as $k=>$v){
+//            $this->getActiveFinder($k);
+            $this->{$k}->save();
+        }
+
+//        $id = $this->categories_id;
+//        $description = ($this->isNewRecord ? new ShopCategoriesDescriptionLegacy() : ShopCategoriesDescriptionLegacy::model()->find('categories_id=:categories_id', array(':categories_id' => $id)));
         //print_r($description);exit;
-        $description->setAttributes($this->description->attributes, false);
-        $description->save();
+
+//        $this->_alldata['categories_id'] = $id;
+
+//        $description->setAttributes($this->_alldata, false);
+//        $description->save();
     }
 
     /**
@@ -90,8 +101,19 @@ class ShopCategoriesLegacy extends CActiveRecord {
      */
     public function setRelatedAttributes($values, $safeOnly = true) {
         foreach ($this->relations() as $key => $val) {
-            $this->{$key}->setAttributes($values, false);
+            //$rel = $this->getRelated($key);
+            //$rel->setAttributes($values, $safeOnly);
+//            $this->{$key}->setAttributes($values, false);
+//            if (!isset($this->{$key})){
+//                $this->{$key}= new
+//            }
+            $this->_re
         }
+    }
+
+    public function setAllData($values){
+//        parent::setAttributes($values,$safeOnly);
+        $this->_alldata = $values;
     }
 
     /**

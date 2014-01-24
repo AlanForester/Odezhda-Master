@@ -154,15 +154,21 @@ class ShopCategoriesLayer {
         $data['modified'] = new CDbExpression('NOW()');
 
 
+        $data = self::fieldMapConvert($data, true);
         // задаем значения, получаем реальные имена полей
-        $category->Attrs(self::fieldMapConvert($data, true));
+        $category->setAttributes($data,false);
+        $category->setRelatedAttributes($data,false);
+//        $category->Attrs($data);
+//        ->setAllData($data);
 //        if($id){
 //            $category->setRelatedAttributes(self::fieldMapConvert($data, true), false);
 //        }
 //        print_r(self::fieldMapConvert($data, true));exit;
-        print_r($category);exit;
+//        print_r($category);exit;
 
 //        $category->categories_status = 1;
+
+//        $category->alldata = self::fieldMapConvert($data, true);
 
         if (!$category->save()){
             self::$errors = $category->getErrors();
@@ -200,7 +206,18 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        return ($id ? ShopCategoriesLegacy::model()->with('description')->findByPk($id) : new ShopCategoriesLegacy($scenario));
+        if ($id){
+            return ShopCategoriesLegacy::model()->with('description')->findByPk($id);
+        }
+
+        $model = new ShopCategoriesLegacy($scenario);
+
+        $model->attachBehaviors($model->behaviors());
+        $model->with('description');
+
+        return $model;
+
+//        return ($id ? ShopCategoriesLegacy::model()->with('description')->findByPk($id) : new ShopCategoriesLegacy($scenario));
     }
 
     public static function findByPk($id, $params) {
