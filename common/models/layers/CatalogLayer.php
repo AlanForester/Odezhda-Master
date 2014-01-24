@@ -9,6 +9,7 @@ class CatalogLayer {
         'products_price' => 'price',
             'products_name' => 'name',
             'products_description' => 'description'
+
     ];
 
     public static $errors = [];
@@ -61,15 +62,13 @@ class CatalogLayer {
 
 
     public static function getListAndParams($data) {
-        $result = [];
+//        $result = [];
 //        print_r($data);
 //        exit;
         $criteria = new CDbCriteria();
         $criteria->limit = 1000;
         $list = CatalogLegacy::model()->with('description')->findall($criteria);
-//        echo '<pre>';
-//       print_r($list);
-//       exit;
+
         foreach ($list as $val) {
                 $result[] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes);
         }
@@ -81,8 +80,8 @@ class CatalogLayer {
         return $result;
     }
 
-    public static function getCatalog($id = null, $scenario = null) {
-        return ($id ? CatalogLegacy::model()->findByPk($id) : new CatalogLegacy($scenario));
+    public static function getCatalogDescription($id = null, $scenario = null) {
+        return ($id ? CatalogDescriptionLegacy::model()->findByPk($id) : new CatalogDescriptionLegacy($scenario));
     }
 
     public static function save($data) {
@@ -185,9 +184,16 @@ class CatalogLayer {
         $Catalog_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
         $value = TbArray::getValue('newValue', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
 
+
         // все все данные верны, сохраняем
         if ($Catalog_id && $field && $value) {
-            $Catalog = self::getCatalog($Catalog_id);
+            $Catalog = self::getCatalogDescription($Catalog_id);
+
+            echo '<pre>';
+            print_r($Catalog);
+            exit;
+
+
             $Catalog->{$field} = $value;
 
             return $Catalog->save(true, [$field]);
