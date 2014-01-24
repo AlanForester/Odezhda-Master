@@ -236,8 +236,6 @@ class ShopCategoriesLayer {
 //    }
 //
     public static function getErrors($attributes = null) {
-//        print_r(UserLegacy::model());exit;
-//        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
     }
 

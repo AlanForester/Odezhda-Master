@@ -58,6 +58,52 @@ class ShopCategoriesLegacy extends CActiveRecord {
         ];
     }
 
+    /**
+     * Validation rules for model attributes.
+     *
+     * @see http://www.yiiframework.com/wiki/56/
+     * @return array
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            //array('categories_id', 'required','message' => Yii::t('validation', "Родительская категория является обязательным полем")),
+            array('sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")),
+            array('xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')),
+            array('sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')),
+           // array('default_manufacturers', 'required', 'message'=>Yii::t('validation', 'Имя является обязательным')),
+            //array('categories_status', 'numerical', 'message'=>Yii::t('validation', 'Группа является обязательной')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+
+
+//
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+//            array('markup', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
+
+           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
+           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
+           // array('email, password, salt', 'length', 'max' => 255),
+          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
+         //   // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+         //   array('id, username, email', 'safe', 'on' => 'search'),
+        );
+    }
+
 
     public function setAllData($data,$safe = true) {
         if(!is_array($data))
@@ -133,33 +179,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //			)
 //		);
 //	}
-    /**
-     * Validation rules for model attributes.
-     *
-     * @see http://www.yiiframework.com/wiki/56/
-     * @return array
-     */
-//    public function rules()
-//    {
-//        // NOTE: you should only define rules for those attributes that
-//        // will receive user inputs.
-//        return array(
-//            array('admin_email_address', 'email','message' => Yii::t('validation', "Некорректный E-mail")),
-//            array('admin_email_address', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")),
-//            array('admin_email_address', 'required', 'message'=>Yii::t('validation', 'E-mail является обязательным')),
-//            array('admin_firstname', 'required', 'message'=>Yii::t('validation', 'Имя является обязательным')),
-//            array('admin_groups_id', 'required', 'message'=>Yii::t('validation', 'Группа является обязательной')),
-//            array('admin_password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Пароль является обязательным')),
-//
-//           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
-//           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
-//           // array('email, password, salt', 'length', 'max' => 255),
-//          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
-//         //   // The following rule is used by search().
-//            // Please remove those attributes that should not be searched.
-//         //   array('id, username, email', 'safe', 'on' => 'search'),
-//        );
-//    }
+
 
     /**
      * Customized attribute labels (attr=>label)

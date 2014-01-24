@@ -46,20 +46,13 @@ class ShopCategoriesModel extends CFormModel {
 
     public function attributeLabels() {
         return array(
-            'email' => Yii::t('labels', 'E-mail'),
-            'password' => Yii::t('labels', 'Пароль'),
+            'name' => Yii::t('labels', 'Название'),
+            'parent_id' => Yii::t('labels', 'Родительская категория'),
         );
     }
 
-    public function rules()
-    {
+    public function rules() {
         return ShopCategoriesLayer::rules();
-//        return [
-//            array('email', 'email','message' => Yii::t('validation', "Некорректный E-mail!")),
-//            array('email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным!")),
-//            array('email', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле E-mail являются обязательными!')),
-//            array('password', 'required', 'on'=>'add', 'message'=>Yii::t('validation', 'Поле пароль являются обязательными!')),
-//        ];
     }
 
     public function validate($attributes=null, $clearErrors=true) {
