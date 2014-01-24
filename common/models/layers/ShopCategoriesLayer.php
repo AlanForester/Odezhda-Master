@@ -131,6 +131,7 @@ class ShopCategoriesLayer {
 
         // модель категории
         $category = self::getCategory($id, 'add');
+        $category->description = new ShopCategoriesDescriptionLegacy();
 
         if (!$category) {
             return false;
@@ -150,8 +151,19 @@ class ShopCategoriesLayer {
         //переконвертированнные конечные данные, готовые для записи в AR
         $data = self::fieldMapConvert($data, true);
 
+        $category->setAttributes($data, false);
+        $category->description->setAttributes($data, false);
+
+
+        //$category->withRelated->save(true,array('category'));
+        //print_r($category);exit;
+
         //заполняем промежуточный массив данных, пришедших из формы
-        $category->setAllData($data, false);
+        //$category->setAllData($data, false);
+
+
+
+
         // задаем значения, получаем реальные имена полей
         //$category->setAttributes($data, false);
 //        $category->setRelatedAttributes();
@@ -167,7 +179,7 @@ class ShopCategoriesLayer {
 
 //        $category->alldata = self::fieldMapConvert($data, true);
 
-        if (!$category->save()) {
+        if (!$category->withRelated->save(true,array('description'))) {
             self::$errors = $category->getErrors();
             return false;
         }

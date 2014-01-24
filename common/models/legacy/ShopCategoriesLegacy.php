@@ -22,16 +22,16 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //    public $categories_image;
 //    public $sort_order;
 //    public $date_added;
-//    public $last_modified=52;
+//    public $last_modified;
 //    public $categories_status;
 //    public $default_manufacturers;
 //    public $markup;
 //    public $xml_flag;
 //
 //    public $language_id;
-//    public $categories_name=5;
-//    public $categories_heading_title=4;
-//    public $categories_description='';
+//    public $categories_name;
+//    public $categories_heading_title;
+//    public $categories_description;
 //    public $categories_meta_title;
 //    public $categories_meta_description;
 //    public $categories_meta_keywords;
@@ -64,33 +64,39 @@ class ShopCategoriesLegacy extends CActiveRecord {
      * @see http://www.yiiframework.com/wiki/56/
      * @return array
      */
-    public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return [
-            ['sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
-            ['xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
-            ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
-//            array('language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')),
-//            array('language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')),
-
-           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
-           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
-           // array('email, password, salt', 'length', 'max' => 255),
-          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
-         //   // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-         //   array('id, username, email', 'safe', 'on' => 'search'),
-        ];
-    }
+//    public function rules()
+//    {
+//        // NOTE: you should only define rules for those attributes that
+//        // will receive user inputs.
+//        return [
+//            ['sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
+//            ['xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
+//            ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
+//            ['categories_name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
+////            array('language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')),
+////            array('language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')),
+//
+//           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
+//           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
+//           // array('email, password, salt', 'length', 'max' => 255),
+//          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
+//         //   // The following rule is used by search().
+//            // Please remove those attributes that should not be searched.
+//         //   array('id, username, email', 'safe', 'on' => 'search'),
+//        ];
+//    }
 
 
     public function setAllData($data,$safe = true) {
         if(!is_array($data))
             return;
+        foreach ($data as $k=>$v)
+        {
+            $this->{$k}=$v;
+        }
         $this->setAttributes($data,$safe);
         $this->_allData=$data;
+        //print_r($this); exit;
     }
 
     protected function afterDelete() {
@@ -125,11 +131,27 @@ class ShopCategoriesLegacy extends CActiveRecord {
 
                 if ($r_model){
                     $r_model->setAttributes($this->_allData, false);
+//                    print_r($r_model);exit;
                     $r_model->save();
                 }
             }
         }
     }
+
+    public function behaviors()
+    {
+        return array(
+            'withRelated'=>array(
+                'class'=>'application.extensions.behaviors.WithRelatedBehavior',
+            ),
+        );
+    }
+
+//    public function validate($attributes=null, $clearErrors=true){
+//        parent::validate($attributes, $clearErrors);
+//        $this->description->
+//    }
+
 
     /**
      * Behaviors associated with this ActiveRecord.
