@@ -40,6 +40,19 @@ class CatalogLayer {
     }
 
 
+
+    public static function getCatalog($id = null, $scenario = null) {
+
+        return ($id ? CatalogLegacy::model()->with('description')->findByPk($id) : new CatalogLegacy($scenario));
+
+//        echo '<pre>';
+//        $catalog_data=CatalogLegacy::model()->with('description')->findByPk($id);
+//        $catalog_data->attributes=$catalog_data->description->attribute;
+//        print_r($catalog_data->description->attributes);
+//        exit;
+    }
+
+
     public static function getFieldName($field, $direct = true) {
         if ($direct) {
             // old => new
@@ -80,9 +93,6 @@ class CatalogLayer {
         return $result;
     }
 
-    public static function getCatalogDescription($id = null, $scenario = null) {
-        return ($id ? CatalogDescriptionLegacy::model()->findByPk($id) : new CatalogDescriptionLegacy($scenario));
-    }
 
     public static function save($data) {
 
@@ -105,9 +115,11 @@ class CatalogLayer {
             }
 
         }
-
+//        print_r($data);
+//        exit;
         // задаем значения, получаем реальные имена полей
         //$catalog->setAttributes(self::fieldMapConvert($data, true), false);
+
         $catalog->setAllData(self::fieldMapConvert($data, true), false);
 
 
@@ -181,19 +193,28 @@ class CatalogLayer {
         $Catalog_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
         $value = TbArray::getValue('newValue', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
 
-
+        $data_params=['id'=>$Catalog_id,$data['field']=>$value];
         // все все данные верны, сохраняем
         if ($Catalog_id && $field && $value) {
-            $Catalog = self::getCatalogDescription($Catalog_id);
+            $catalog = self::getCatalog($Catalog_id);
 
-            echo '<pre>';
-            print_r($Catalog);
-            exit;
+//            echo '<pre>';
+//            print_r($data_params);
+//            exit;
 
 
-            $Catalog->{$field} = $value;
+            //$catalog->{$field} = $value;
 
-            return $Catalog->save(true, [$field]);
+//            return $Catalog->save(true, [$field]);
+           $catalog->setAllData(self::fieldMapConvert(  $data_params, true), false);
+
+            if (!$catalog->save()) {
+                self::$errors = $catalog->getErrors();
+                return false;
+            }
+
+
+            return self::fieldMapConvert($catalog->attributes);
         }
 
         return false;
