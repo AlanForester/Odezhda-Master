@@ -9,6 +9,8 @@ class CatalogModel extends CFormModel {
 
     public $id;
     public $price;
+    public $name;
+    public $description;
 
     /**
      * @var array массив всех пользователей.
@@ -30,7 +32,7 @@ class CatalogModel extends CFormModel {
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
-                        ' OR ',  [ CatalogLayer::getFieldName('price', false) . ' LIKE :text']
+                        ' OR ',  [ CatalogLayer::getFieldName('id', false) . ' LIKE :text']
 
                     ) . ')';
 
@@ -88,7 +90,9 @@ class CatalogModel extends CFormModel {
 
     public function getCatalogData($id, $scenario) {
         $Catalog = self::getCatalog($id, $scenario);
-        return ($Catalog ? CatalogLayer::fieldMapConvert($Catalog->attributes) : false);
+
+        $result = $Catalog->attributes + $Catalog->description->attributes;
+        return ($Catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 
     public function save($data) {

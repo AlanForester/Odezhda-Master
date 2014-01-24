@@ -1,11 +1,11 @@
 <?php
 
-$this->pageTitle = 'Группы пользователей: ' . ($model->id ? 'редактирование' : 'новая группа');
+$this->pageTitle = 'Товар: ' . ($model->id ? 'редактирование' : 'новая группа');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/groups/index")
+    BackendPageButtons::cancel("/catalog/index")
 ];
 ?>
     <div class="span6">
@@ -47,6 +47,8 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
+            echo $form->textFieldControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
+            echo $form->textFieldControlGroup($model, 'price', ['value' => $model->price, 'label' => 'Цена, руб.']);
 
             ?>
 

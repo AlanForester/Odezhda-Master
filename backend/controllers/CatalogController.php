@@ -100,10 +100,12 @@ class CatalogController extends BackendController {
         }
 
         $Catalog = $model->getCatalogData($id, $scenario);
+
         if ($Catalog) {
             $model->setAttributes($Catalog, false);
         } else
             $this->error();
+
 
         $this->render('edit', compact('model', 'Catalog'));
     }
