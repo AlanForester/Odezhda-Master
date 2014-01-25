@@ -5,6 +5,36 @@ $this->pageButton = [
     BackendPageButtons::mass("/categories/mass")
 ]
 ?>
+
+    <div class="span2">
+        <div id="sidebar">
+            <h4 class="page-header">Подразделы:</h4>
+
+            <?php
+            $this->widget(
+                'bootstrap.widgets.TbNav',
+                [
+                    'items' => [
+                        [
+                            'label' => 'Категории',
+                            'url' => Yii::app()->createUrl('/categories/index'),
+                            'active' => true
+
+                        ],
+                        [
+                            'label' => 'Каталог',
+                            'url' => Yii::app()->createUrl('/catalog/index'),
+
+                        ]
+                    ],
+                ]
+            );
+            ?>
+        </div>
+    </div>
+
+    <div class="span10">
+
 <?php
 //Yii::app()->getComponent('yiiwheels')->registerAssetJs('bootbox.min.js');
 $this->widget('yiiwheels.widgets.grid.WhGridView', array(
@@ -82,3 +112,4 @@ $this->widget('yiiwheels.widgets.grid.WhGridView', array(
     )
 );
 ?>
+    </div>
