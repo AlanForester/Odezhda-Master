@@ -1,141 +1,42 @@
 <?php
 
+// кнопки страницы
 $this->pageButton = [
     BackendPageButtons::add("/users/add"),
     BackendPageButtons::remove("/users/mass"),
     BackendPageButtons::mass("/users/mass")
 ];
 
-//$this->widget(
-//    'backend.widgets.Grid',
-//    [
-//        'submenu' => [
-//            [
-//                'label' => 'Пользователи',
-//                'url' => Yii::app()->createUrl('/users/index'),
-//                'active' => true
-//            ],
-//            [
-//                'label' => 'Группы',
-//                'url' => Yii::app()->createUrl('/groups/index'),
-//
-//            ],
-//            [
-//                'label' => 'Права доступа',
-//                'url' => Yii::app()->createUrl('/roles/index'),
-//                'disabled' => true
-//            ],
-//        ],
-//
-//        'filter' => [
-//            // фильтр по группе
-//            TbHtml::dropDownList(
-//                'filter_groups',
-//                $criteria['filter_groups'],
-//                $this->groups,
-//                [
-//                    'onChange' => 'js: (function(){
-//                    $.fn.yiiGridView.update(
-//                        "usersgrid",
-//                        {
-//                            data:{
-//                                filter_groups:$("#filter_groups").val()
-//                            }
-//                        }
-//                    )
-//                })()'
-//                ]
-//            ),
-//
-//            // фильтр по дате регистрации
-//            TbHtml::dropDownList(
-//                'filter_created',
-//                $criteria['filter_created'],
-//                [
-//                    '0' => '- По дате регистрации -',
-//                    'today' => 'сегодня',
-//                    'past_week' => 'за прошлую неделю',
-//                    'past_1month' => 'за прошлый месяц',
-//                    'past_3month' => 'последние 3 месяца',
-//                    'past_6month' => 'последние 6 месяцев',
-//                    'past_year' => 'за прошлый год',
-//                    'post_year' => 'больше года назад',
-//                ],
-//                [
-//                    'onChange' => 'js: (function(){
-//                    $.fn.yiiGridView.update(
-//                        "usersgrid",
-//                        {
-//                            data:{
-//                                filter_created:$("#filter_created").val()
-//                            }
-//                        }
-//                    )
-//                })()'
-//                ]
-//            )
-//        ],
-//
-//        'order' => [
-//            'active' => $criteria['order_field'],
-//            'fields' => [
-//                'firstname' => 'Имя',
-//                'lastname' => 'Фамилия',
-//                'email' => 'E-Mail',
-//                'group_id' => 'Группа',
-//                'logdate' => 'Последний визит',
-//                'id' => 'ID',
-//            ],
-//            'direct' => $criteria['order_direct']
-//        ],
-//
-//        'pageSize' => $page_size,
-//
-//        'textSearch'=> $criteria['text_search']
-//    ]
-//);
-?>
-<div class="span2">
-    <div id="sidebar">
-        <h4 class="page-header">Подразделы:</h4>
-
-        <?php
-        $this->widget(
-            'bootstrap.widgets.TbNav',
+// таблица
+$this->widget(
+    'backend.widgets.Grid',
+    [
+        'submenu' => [
             [
-                'items' => [
-                    [
-                        'label' => 'Пользователи',
-                        'url' => Yii::app()->createUrl('/users/index'),
-                        'active' => true
-                    ],
-                    [
-                        'label' => 'Группы',
-                        'url' => Yii::app()->createUrl('/groups/index'),
-
-                    ],
-                    [
-                        'label' => 'Права доступа',
-                        'url' => Yii::app()->createUrl('/roles/index'),
-                        'disabled' => true
-                    ],
-                ],
-            ]
-        );
-        ?>
-
-        <hr class="hr-condensed">
-
-        <h4 class="page-header">Фильтр:</h4>
-        <?=
-        TbHtml::dropDownList(
-            'filter_groups',
-            $criteria['filter_groups'],
-            $this->groups,
+                'label' => 'Пользователи',
+                'url' => ['/users/index'],
+                //                'active' => true
+            ],
             [
-                //                'data-placeholder'=>'- По группе -',
-                //                'class' => 'chzn-select',
-                'onChange' => 'js: (function(){
+                'label' => 'Группы',
+                'url' => ['/groups/index'],
+
+            ],
+            [
+                'label' => 'Права доступа',
+                'url' => ['/roles/index'],
+                'disabled' => true
+            ],
+        ],
+
+        'filter' => [
+            // фильтр по группе
+            TbHtml::dropDownList(
+                'filter_groups',
+                $criteria['filter_groups'],
+                $this->groups,
+                [
+                    'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "usersgrid",
                         {
@@ -145,27 +46,25 @@ $this->pageButton = [
                         }
                     )
                 })()'
-            ]
-        );
-        ?>
-        <hr class="hr-condensed">
-        <?=
-        TbHtml::dropDownList(
-            'filter_created',
-            $criteria['filter_created'],
-            [
-                '0' => '- По дате регистрации -',
-                'today' => 'сегодня',
-                'past_week' => 'за прошлую неделю',
-                'past_1month' => 'за прошлый месяц',
-                'past_3month' => 'последние 3 месяца',
-                'past_6month' => 'последние 6 месяцев',
-                'past_year' => 'за прошлый год',
-                'post_year' => 'больше года назад',
-            ],
-            [
-                //                'class' => 'chzn-select',
-                'onChange' => 'js: (function(){
+                ]
+            ),
+
+            // фильтр по дате регистрации
+            TbHtml::dropDownList(
+                'filter_created',
+                $criteria['filter_created'],
+                [
+                    '0' => '- По дате регистрации -',
+                    'today' => 'сегодня',
+                    'past_week' => 'за прошлую неделю',
+                    'past_1month' => 'за прошлый месяц',
+                    'past_3month' => 'последние 3 месяца',
+                    'past_6month' => 'последние 6 месяцев',
+                    'past_year' => 'за прошлый год',
+                    'post_year' => 'больше года назад',
+                ],
+                [
+                    'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "usersgrid",
                         {
@@ -175,204 +74,30 @@ $this->pageButton = [
                         }
                     )
                 })()'
-            ]
-        );
-        ?>
-        <hr class="hr-condensed">
-    </div>
-</div>
-
-<div class="span10">
-<div>
-    <?php
-    echo TbHtml::textField(
-        'text_search',
-        '',
-        [
-            //                'class'=>'tooltip',
-            'rel' => 'tooltip',
-            'title' => 'Поиск по текстовым полям',
-            'placeholder' => 'Поиск',
-            'value' => $criteria['text_search'],
-            'append' =>
-                TbHtml::button(
-                    '',
-                    [
-                        'icon' => TbHtml::ICON_SEARCH,
-                        'title' => 'Искать',
-                        'rel' => 'tooltip',
-                        'onClick' => 'js: (function(){
-                            $.fn.yiiGridView.update(
-                                "usersgrid",
-                                {
-                                    data:{
-                                        text_search:$("#text_search").val()
-                                    }
-                                }
-                            )
-                        })()'
-                    ]
-                ) .
-                ' ' .
-                TbHtml::button(
-                    '',
-                    [
-                        'icon' => TbHtml::ICON_REMOVE,
-                        'title' => 'Очистить',
-                        'rel' => 'tooltip',
-                        'onClick' => 'js: (function(){
-                            $.fn.yiiGridView.update(
-                                "usersgrid",
-                                {
-                                    data:{
-                                        text_search:""
-                                    }
-                                }
-                            )
-                            $("#text_search").val("");
-                        })()'
-                    ]
-                )
-        ]
-    );
-    ?>
-    <div class="btn-group pull-right">
-
-        <div class="btn-group">
-            <?php
-            echo TbHtml::dropDownList(
-                'order_field',
-                $criteria['order_field'],
-                [
-                    'firstname' => 'Имя',
-                    'lastname' => 'Фамилия',
-                    'email' => 'E-Mail',
-                    'group_id' => 'Группа',
-                    'logdate' => 'Последний визит',
-                    'id' => 'ID',
-                ],
-                [
-                    'class' => 'pull-right',
-                    'style' => 'width:150px;margin-left:5px;',
-                    'onChange' => 'js: (function(){
-                        $.fn.yiiGridView.update(
-                            "usersgrid",
-                            {
-                                data:{
-                                    order_field:$("#order_field").val()
-                                }
-                            }
-                        )
-                    })()'
                 ]
-            );
-
-            ?>
-        </div>
-
-        <div class="btn-group">
-            <?php
-            echo TbHtml::dropDownList(
-                'order_direct',
-                $criteria['order_direct'],
-                [
-                    '' => 'Порядок отображения',
-                    'down' => 'По убыванию',
-                    'up' => 'По возрастанию',
-                ],
-                [
-                    'class' => 'pull-right',
-                    'style' => 'width:200px;margin-left:5px;',
-                    'onChange' => 'js: (function(){
-                        $.fn.yiiGridView.update(
-                            "usersgrid",
-                            {
-                                data:{
-                                    order_direct:$("#order_direct").val()
-                                }
-                            }
-                        )
-                    })()'
-                ]
-            );
-            ?>
-        </div>
-
-        <div class="btn-group">
-            <?php
-
-            echo TbHtml::dropDownList(
-                'page_size',
-                $page_size,
-                [
-                    '5' => '5',
-                    '10' => '10',
-                    '15' => '15',
-                    '20' => '20',
-                    '25' => '25',
-                    '30' => '30',
-                    '50' => '50',
-                    '100' => '100',
-                    'all' => 'Все',
-                ],
-                [
-                    //                    'value'=>$page_size,
-                    'class' => 'pull-right',
-                    'style' => 'width:70px;margin-left:5px;',
-                    'onChange' => 'js: (function(){
-                        $.fn.yiiGridView.update(
-                            "usersgrid",
-                            {
-                                data:{
-                                    page_size:$("#page_size").val()
-                                }
-                            }
-                        )
-                    })()'
-                ]
-            );
-            ?>
-        </div>
-    </div>
-</div>
-
-<?php
-
-$this->widget(
-    'yiiwheels.widgets.grid.WhGridView',
-    array(
-        'id' => 'usersgrid',
-        //        'CssClass'=>'dataTables_wrapper',
-        'dataProvider' => $this->gridDataProvider,
-        'itemsCssClass' => 'table-bordered items',
-        //    'filter'=>$this->model,
-        'fixedHeader' => true,
-        'responsiveTable' => true,
-        'type' => 'striped bordered',
-        'headerOffset' => 106,
-        'htmlOptions' => [
-            'class' => 'grid-view dataTables_wrapper'
+            )
         ],
-        'emptyText' => 'Нет данных для отображения',
-        // pager - сделать tooltip на кнопки
-        'template' => '<div class="table-block">{items}</div>
-      <div class="row pager-block">
-          <div class="span6 pull-right">{summary}</div>
-          <div class="span6 pull-left">{pager}</div>
-      </div>',
-        'summaryText' => 'Отображение записей {start}-{end} из {count}',
-        'columns' => array(
-            [
-                'class' => 'backend.widgets.ace.CheckBoxColumn',
-                'selectableRows' => 2,
-                'checkBoxHtmlOptions' => [
-                    'name' => 'gridids[]'
-                ],
-                // todo: перенести в виджет
-                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
-                'value' => '$data["id"]',
-                'checked' => null,
+
+        'order' => [
+            'active' => $criteria['order_field'],
+            'fields' => [
+                'firstname' => 'Имя',
+                'lastname' => 'Фамилия',
+                'email' => 'E-Mail',
+                'group_id' => 'Группа',
+                'logdate' => 'Последний визит',
+                'id' => 'ID',
             ],
+            'direct' => $criteria['order_direct']
+        ],
+
+        'pageSize' => $page_size,
+
+        'textSearch' => $criteria['text_search'],
+
+        'dataProvider'=>$this->gridDataProvider,
+
+        'gridColumns' => [
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
@@ -463,36 +188,11 @@ $this->widget(
                     //                    'style' => 'width: 30px; text-align: center;'
                 ],
             ],
-            [
-                'header' => 'Действие',
-                'htmlOptions' => [
-                    'class' => 'action-buttons',
-                    'width' => '50px'
-                ],
-                'deleteButtonOptions' => [
-                    'class' => 'red bigger-130',
-                    'title' => 'Удалить',
-                ],
-                'updateButtonOptions' => [
-                    'class' => 'green bigger-130',
-                    'title' => 'Изменить',
-                ],
-                'viewButtonOptions' => [
-                    'class' => 'bigger-130',
-                    'title' => 'Просмотр',
-                    'onClick' => 'js: (function(){
-                        bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
-                    })()'
-                ],
-                'class' => 'bootstrap.widgets.TbButtonColumn',
-                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+        ],
 
-                'viewButtonUrl' => null, //'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
-                'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
-                'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
-            ]
-        ),
-    )
+        'gridButtonsUrl' => [
+            'edit' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+        ]
+    ]
 );
-?>
-</div>

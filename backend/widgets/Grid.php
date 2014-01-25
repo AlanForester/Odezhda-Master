@@ -32,11 +32,7 @@ class Grid extends CWidget {
      * Параметры сортировки
      * @var array
      */
-    public $order = [
-        'active' => '',
-        'fields' => [],
-        'direct' => '',
-    ];
+    public $order = [];
 
     /**
      * Выбранный вариант кол-во записей на странице
@@ -51,13 +47,50 @@ class Grid extends CWidget {
     public $dataProvider = null;
 
     /**
+     * Колонки таблицы
+     * @var array
+     */
+    public $gridColumns = [];
+
+    /**
+     * PHP код для создания ссылки кнопок. Поддерживаются ключи: <b>show, edit, delete</b> <br>
+     * Пример содержимого для одной кнопки: 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))'
+     * @var array
+     */
+    public $gridButtonsUrl = [];
+
+    /**
+     * PHP код, отвечающий для получения идентификатора данных из дата-провайдера для записи
+     * @var string
+     */
+    public $gridIdData = '$data["id"]';
+
+    /**
      * Контроллер страницы
      * @var
      */
     //    public $controller;
 
     public function init() {
+        // todo: сделать перепроверку собственных обязательных свойств
 
+        // ключи для всех кнопок всегда должны существоать
+        $this->gridButtonsUrl = array_merge(
+            [
+                'show' => null,
+                'edit' => null,
+                'delete' => null
+            ], $this->gridButtonsUrl
+        );
+
+        // ключи всех параметров сортировки должны существовать
+        $this->order = array_merge(
+            [
+                'active' => '',
+                'fields' => [],
+                'direct' => '',
+            ], $this->order
+        );
     }
 
     public function run() {
@@ -82,11 +115,40 @@ class Grid extends CWidget {
     }
 
     /**
+     * Проверка, является ли текущий пункт под-раздела тактивным
+     * @param array $item данные пункта меню
+     * @param string $route текущий запрос из контроллера
+     * @return bool
+     */
+    protected function isItemActive($item, $route) {
+        if (isset($item['url']) && is_array($item['url']) && !strcasecmp(trim($item['url'][0], '/'), $route)) {
+
+            unset($item['url']['#']);
+            if (count($item['url']) > 1) {
+                foreach (array_splice($item['url'], 1) as $name => $value) {
+                    if (!isset($_GET[$name]) || $_GET[$name] != $value) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Генерация html кода под-меню
      * @return null|string
      */
     public function renderSubmenu() {
         if ($this->submenu) {
+            $route = $this->controller->getRoute();
+
+            // определяем текущий активный пункт
+            foreach ($this->submenu as $n => $item) {
+                $this->submenu[$n]['active'] = $this->isItemActive($item, $route);
+            }
+
             return
                 '<h4 class="page-header">Подразделы:</h4>' .
 
@@ -260,9 +322,11 @@ class Grid extends CWidget {
 
 
     public function renderGrid() {
+
+        //        return false;
         return $this->widget(
             'yiiwheels.widgets.grid.WhGridView',
-            array(
+            [
                 'id' => 'whgrid',
                 //        'CssClass'=>'dataTables_wrapper',
                 'dataProvider' => $this->dataProvider,
@@ -286,126 +350,55 @@ class Grid extends CWidget {
                     </div>
                 ',
                 'summaryText' => 'Отображение записей {start}-{end} из {count}',
-                'columns' => array(
+                'columns' => array_merge(
                     [
-                        'class' => 'backend.widgets.ace.CheckBoxColumn',
-                        'selectableRows' => 2,
-                        'checkBoxHtmlOptions' => [
-                            'name' => 'gridids[]'
-                        ],
-                        // todo: перенести в виджет
-                        'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
-                        'value' => '$data["id"]',
-                        'checked' => null,
-                    ],
-                    [
-                        'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                        'type' => 'text',
-                        'header' => 'Имя',
-                        'name' => 'firstname',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                        'editable' => [
-                            'placement' => 'right',
-                            'emptytext' => 'не задано',
-                            'url' => Yii::app()->createUrl("/users/update"),
-                            //'source'   => $this->createUrl('users/update'),
+                        [
+                            'class' => 'backend.widgets.ace.CheckBoxColumn',
+                            'selectableRows' => 2,
+                            'checkBoxHtmlOptions' => [
+                                'name' => 'gridids[]'
+                            ],
+                            // todo: перенести в виджет
+                            'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
+                            'value' => $this->gridIdData,
+                            'checked' => null,
                         ]
                     ],
+
+                    $this->gridColumns,
+
                     [
-                        'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                        'type' => 'text',
-                        'header' => 'Фамилия',
-                        'name' => 'lastname',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                        'editable' => [
-                            'placement' => 'right',
-                            'emptytext' => 'не задано',
-                            'url' => Yii::app()->createUrl("/users/update"),
-                        ]
-                    ],
-                    [
-                        'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                        'type' => 'text',
-                        'header' => 'E-mail',
-                        'name' => 'email',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                        'editable' => [
-                            'placement' => 'right',
-                            'emptytext' => 'не задано',
-                            'url' => Yii::app()->createUrl("/users/update"),
-                        ]
-                    ],
-                    [
-                        'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                        'header' => 'Группа',
-                        'name' => 'group_id',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                        'editable' => [
-                            'type' => 'select',
-                            'placement' => 'right',
-                            'emptytext' => 'не задано',
-                            'url' => Yii::app()->createUrl("/users/update"),
-                            'source' => $this->createUrl('groups/list'),
-                        ]
-                    ],
-                    [
-                        'header' => 'Последний визит',
-                        'name' => 'logdate',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                    ],
-                    [
-                        'header' => 'Id',
-                        'name' => 'id',
-                        'headerHtmlOptions' => [
-                        ],
-                        'htmlOptions' => [
-                        ],
-                    ],
-                    [
-                        'header' => 'Действие',
-                        'htmlOptions' => [
-                            'class' => 'action-buttons',
-                            'width' => '50px'
-                        ],
-                        'deleteButtonOptions' => [
-                            'class' => 'red bigger-130',
-                            'title' => 'Удалить',
-                        ],
-                        'updateButtonOptions' => [
-                            'class' => 'green bigger-130',
-                            'title' => 'Изменить',
-                        ],
-                        'viewButtonOptions' => [
-                            'class' => 'bigger-130',
-                            'title' => 'Просмотр',
-                            'onClick' => 'js: (function(){
+                        [
+                            'header' => 'Действие',
+                            'htmlOptions' => [
+                                'class' => 'action-buttons',
+                                'width' => '50px'
+                            ],
+                            'deleteButtonOptions' => [
+                                'class' => 'red bigger-130',
+                                'title' => 'Удалить',
+                            ],
+                            'updateButtonOptions' => [
+                                'class' => 'green bigger-130',
+                                'title' => 'Изменить',
+                            ],
+                            'viewButtonOptions' => [
+                                'class' => 'bigger-130',
+                                'title' => 'Просмотр',
+                                'onClick' => 'js: (function(){
                                 bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
                             })()'
-                        ],
-                        'class' => 'bootstrap.widgets.TbButtonColumn',
-                        'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                            ],
+                            'class' => 'bootstrap.widgets.TbButtonColumn',
+                            'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
-                        'viewButtonUrl' => null, //'Yii::app()->createUrl("/users/show", array("id"=>$data["id"]))',
-                        'updateButtonUrl' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
-                        'deleteButtonUrl' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+                            'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                            'updateButtonUrl' => $this->gridButtonsUrl['edit'],
+                            'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
+                        ]
                     ]
-                ),
-            ),
+                )
+            ],
             true
         );
     }
