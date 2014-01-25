@@ -11,23 +11,7 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => [
-            [
-                'label' => 'Пользователи',
-                'url' => ['/users/index'],
-                //                'active' => true
-            ],
-            [
-                'label' => 'Группы',
-                'url' => ['/groups/index'],
-
-            ],
-            [
-                'label' => 'Права доступа',
-                'url' => ['/roles/index'],
-                'disabled' => true
-            ],
-        ],
+        'submenu' => BackendSubMenu::users(),
 
         'filter' => [
             // фильтр по группе
