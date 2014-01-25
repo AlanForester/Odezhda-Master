@@ -112,6 +112,10 @@ body .navbar-fixed-top {
     padding-right: 11px;
 }
 
+#dashboard {
+    margin-top: 2em;
+}
+
 @media (max-width: 767px) {
     .header {
         margin-left: -20px;

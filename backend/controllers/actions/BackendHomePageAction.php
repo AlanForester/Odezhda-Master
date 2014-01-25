@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Controller action representing the act of home page rendering on backend.
  *
@@ -6,19 +7,34 @@
  *
  * @package YiiBoilerplate\Backend
  */
-class BackendHomePageAction extends CAction
-{
+class BackendHomePageAction extends CAction {
     /**
      * We render the homepage as a controller action here.
      */
-    public function run()
-    {
-//        $user = Yii::app()->user;
-//        if ($user->isGuest){
-//            $this->controller->redirect(Yii::app()->request->baseUrl.'/site/login');
-//        }
+    public function run() {
+        //        $user = Yii::app()->user;
+        //        if ($user->isGuest){
+        //            $this->controller->redirect(Yii::app()->request->baseUrl.'/site/login');
+        //        }
 
         //$this->controller->layout = '//layouts/main';
-        $this->controller->render('index');
+        $usersDataProvider = '';
+
+        $usersModel = new UsersModel();
+        $users = $usersModel->getList(
+            [
+                'order_field'=>'created',
+                'order_direct'=>'down',
+                'criteria' => ['limit' => 10]
+            ]
+        );
+        $usersDataProvider = new CArrayDataProvider($users, [
+            'keyField' => 'id',
+//            'pagination' => [
+//                'pageSize' => 10,
+//            ],
+        ]);
+
+        $this->controller->render('index', compact('usersDataProvider'));
     }
 } 

@@ -45,7 +45,7 @@ class UsersModel extends CFormModel {
     }
 
 
-    public function getList($data) {
+    public function getList($data = []) {
         if (!$this->allUsers) {
 
             $condition = [];
@@ -130,13 +130,19 @@ class UsersModel extends CFormModel {
                 }
             }
 
-            $this->allUsers = UsersLayer::getList(
-                [
-                    'condition' => join(' AND ', $condition),
-                    'params' => $params,
-                    'order' => $order_field . ($order_direct ? : '')
-                ]
-            );
+            $criteria = [
+                'condition' => join(' AND ', $condition),
+                'params' => $params,
+                'order' => $order_field . ($order_direct ? : '')
+            ];
+
+            // разрешаем перезаписать любые параметры критерии
+            if (isset($data['criteria'])) {
+                $criteria = array_merge($criteria,$data['criteria']);
+            }
+
+
+            $this->allUsers = UsersLayer::getList($criteria);
         }
         return $this->allUsers;
     }

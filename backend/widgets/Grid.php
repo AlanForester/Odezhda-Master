@@ -240,7 +240,7 @@ class Grid extends CWidget {
             TbHtml::dropDownList(
                 'order_field',
                 $this->order['active'],
-                $this->order['fields'],
+                array_merge([''=>'- Поле -'],$this->order['fields']),
                 [
                     'class' => 'pull-right',
                     'style' => 'width:150px;margin-left:5px;',
@@ -263,7 +263,8 @@ class Grid extends CWidget {
                 'order_direct',
                 $this->order['direct'],
                 [
-                    '' => 'Порядок отображения',
+                    '' => '- Направление -',
+//                    '' => 'Порядок отображения',
                     'down' => 'По убыванию',
                     'up' => 'По возрастанию',
                 ],

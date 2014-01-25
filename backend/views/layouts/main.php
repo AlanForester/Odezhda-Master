@@ -82,7 +82,8 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.cs
 
             // hack sad times - holdover until rewrite for 2.1
             $nav.on('click', function (){
-                if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 61) }, 10)
+                //if (!isFixed) setTimeout(function () {  $win.scrollTop($win.scrollTop() - 61) }, 10)
+                $win.scrollTop(0);
             });
 
             $win.on('scroll', processScroll);
