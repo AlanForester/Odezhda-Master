@@ -54,7 +54,7 @@ class ShopCategoriesController extends BackendController {
         $this->gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize'=>50,
+                'pageSize'=>100,
                // 'pageSize' => ($page_size == 'all' ? count($categories) : $page_size),
             ],
         ]);
@@ -99,6 +99,7 @@ class ShopCategoriesController extends BackendController {
 //             print_r($model);exit;
             // отправляем в модель данные
             $result = $model->save($_POST['ShopCategoriesModel']);
+
             if (!$result) {
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
@@ -118,7 +119,7 @@ class ShopCategoriesController extends BackendController {
                     $this->redirect(['index']);
                     return;
                 } else {
-                    $this->redirect(['edit', 'id' => $id]);
+                    $this->redirect(['edit', 'id' => $result['id']]);
                     return;
                 }
             }

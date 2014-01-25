@@ -131,7 +131,7 @@ class ShopCategoriesLayer {
 
         // модель категории
         $category = self::getCategory($id, 'add');
-        $category->description = new ShopCategoriesDescriptionLegacy();
+        //$category->description = new ShopCategoriesDescriptionLegacy();
 
         if (!$category) {
             return false;
@@ -153,8 +153,8 @@ class ShopCategoriesLayer {
 
         $category->setAttributes($data, false);
         $category->description->setAttributes($data, false);
-
-
+        //todo перепроверять на одинаковые id
+        //print_r($category);exit;
         //$category->withRelated->save(true,array('category'));
         //print_r($category);exit;
 
@@ -215,7 +215,16 @@ class ShopCategoriesLayer {
      * @return ShopCategoriesLegacy
      */
     public static function getCategory($id = null, $scenario = null) {
-        return ($id ? ShopCategoriesLegacy::model()->findByPk($id) : new ShopCategoriesLegacy($scenario));
+        if ($id){
+            $category = ShopCategoriesLegacy::model()->with('description')->findByPk($id);
+            if (empty ($category->description)){
+                $category->description = new ShopCategoriesDescriptionLegacy();
+            }
+        } else {
+            $category = new ShopCategoriesLegacy($scenario);
+            $category->description = new ShopCategoriesDescriptionLegacy();
+        }
+        return $category;
     }
 
     public static function findByPk($id, $params) {

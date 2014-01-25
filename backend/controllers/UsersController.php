@@ -113,7 +113,7 @@ class UsersController extends BackendController {
                     $this->redirect(['index']);
                     return;
                 } else {
-                    $this->redirect(['edit', 'id' => $id]);
+                    $this->redirect(['edit', 'id' => $result['id']]);
                     return;
                 }
             }
