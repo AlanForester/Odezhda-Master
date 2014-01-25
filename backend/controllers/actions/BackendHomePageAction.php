@@ -25,7 +25,7 @@ class BackendHomePageAction extends CAction {
             [
                 'order_field'=>'created',
                 'order_direct'=>'down',
-                'criteria' => ['limit' => 10]
+                'criteria' => ['limit' => 5]
             ]
         );
         $usersDataProvider = new CArrayDataProvider($users, [
