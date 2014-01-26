@@ -153,14 +153,13 @@ class ShopCategoriesLayer {
 
         //todo перепроверять на одинаковые id
 
-
         if (!$category->withRelated->save(true,array('description'))) {
             self::$errors = $category->getErrors();
             return false;
         }
-
+//        print_r($category->getAttributes());exit;
         //return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-        return array_merge(self::fieldMapConvert(($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []), $category->getAttributes()));
+        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []));
     }
 
 
@@ -251,7 +250,8 @@ class ShopCategoriesLayer {
      * данные для валидации для внешнего использования
      */
     public static function rules() {
-        $rules = ShopCategoriesLegacy::model()->rules();
+        $rules = array_merge(ShopCategoriesDescriptionLegacy::model()->rules(), ShopCategoriesLegacy::model()->rules());
+//        print_r($rules);exit;
         foreach ($rules as &$r) {
             $r[0] = join(',', array_map(function ($el) {
                 return self::getFieldName(trim($el));

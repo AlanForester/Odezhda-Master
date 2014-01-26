@@ -17,10 +17,10 @@ $form = $this->beginWidget(
     [
         'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         //'enableAjaxValidation' => true,
-        'enableClientValidation' => true,
-        'clientOptions' => [
-            'validateOnSubmit' => true,
-        ]
+//        'enableClientValidation' => true,
+//        'clientOptions' => [
+//            'validateOnSubmit' => true,
+//        ]
     ]
 
 );

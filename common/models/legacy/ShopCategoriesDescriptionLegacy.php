@@ -48,14 +48,14 @@ class ShopCategoriesDescriptionLegacy extends CActiveRecord
         );
     }
 
-//    public function rules()
-//    {
-//        return [
-//            ['language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')],
-//            ['language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')],
-////            ['categories_name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
-//        ];
-//    }
+    public function rules()
+    {
+        return [
+            ['language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')],
+            ['language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')],
+            ['categories_name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
+        ];
+    }
     /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.

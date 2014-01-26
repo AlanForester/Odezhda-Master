@@ -37,6 +37,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //    public $categories_meta_keywords;
 
     public $primaryKey = 'categories_id';
+    private $__errors=array();	// attribute name => array of errors
 
     protected $_allData = [];
 
@@ -74,6 +75,21 @@ class ShopCategoriesLegacy extends CActiveRecord {
         }
 
     }
+    public function getErrors($attribute=null) {
+//        if($attribute===null)
+//            return $this->_errors;
+//        else
+//            return isset($this->_errors[$attribute]) ? $this->_errors[$attribute] : array();
+//
+        $this->__errors=parent::getErrors($attribute);
+        $relations=$this->relations();
+        if (!empty($relations)){
+            foreach($relations as $r_name => $r_value){
+                $this->__errors=$this->{$r_name}->getErrors($attribute);
+            }
+        }
+        return ($this->__errors);
+    }
 
     /**
      * Validation rules for model attributes.
@@ -81,40 +97,42 @@ class ShopCategoriesLegacy extends CActiveRecord {
      * @see http://www.yiiframework.com/wiki/56/
      * @return array
      */
-//    public function rules()
-//    {
-//        // NOTE: you should only define rules for those attributes that
-//        // will receive user inputs.
-//        return [
-//            ['sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
-//            ['xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
-//            ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
-//            ['categories_name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
-////            array('language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')),
-////            array('language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')),
-//
-//           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
-//           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
-//           // array('email, password, salt', 'length', 'max' => 255),
-//          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
-//         //   // The following rule is used by search().
-//            // Please remove those attributes that should not be searched.
-//         //   array('id, username, email', 'safe', 'on' => 'search'),
-//        ];
-//    }
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return [
+            ['sort_order, parent_id, markup, default_manufacturers', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
+            ['xml_flag, categories_status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
+            ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
+            //['categories_name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
+//            array('language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')),
+//            array('language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')),
 
-
-    public function setAllData($data,$safe = true) {
-        if(!is_array($data))
-            return;
-        foreach ($data as $k=>$v)
-        {
-            $this->{$k}=$v;
-        }
-        $this->setAttributes($data,$safe);
-        $this->_allData=$data;
-        //print_r($this); exit;
+           // array('passwordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => Yii::t('validation', "Passwords don't match")),
+           // array('newPassword, password_strategy ', 'length', 'max' => 50, 'min' => 8),
+           // array('email, password, salt', 'length', 'max' => 255),
+          //  array('requires_new_password, login_attempts', 'numerical', 'integerOnly' => true),
+         //   // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+         //   array('id, username, email', 'safe', 'on' => 'search'),
+        ];
     }
+
+
+
+//
+//    public function setAllData($data,$safe = true) {
+//        if(!is_array($data))
+//            return;
+//        foreach ($data as $k=>$v)
+//        {
+//            $this->{$k}=$v;
+//        }
+//        $this->setAttributes($data,$safe);
+//        $this->_allData=$data;
+//        //print_r($this); exit;
+//    }
 
     protected function afterDelete() {
         parent::afterDelete();
@@ -168,38 +186,6 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //        parent::validate($attributes, $clearErrors);
 //        $this->description->
 //    }
-
-
-    /**
-     * Behaviors associated with this ActiveRecord.
-     *
-     * We are using the APasswordBehavior because it allows neat things
-     * like changing the password hashing methods without rebuilding the whole user database.
-     *
-     * @see https://github.com/phpnode/YiiPassword
-     *
-     * @return array Configuration for the behavior classes.
-     */
-//	public function behaviors()
-//	{
-//		Yii::import('common.extensions.behaviors.password.*');
-//		return array(
-//			// Password behavior strategy
-//			"APasswordBehavior" => array(
-//				"class" => "APasswordBehavior",
-//				"defaultStrategyName" => "legacy",
-//                "passwordAttribute"=>"admin_password",
-//				"strategies" => array(
-//					"legacy" => array(
-//						"class" => "ALegacyPasswordStrategy"
-////						"workFactor" => 14,
-////						"minLength" => 8
-//					)
-//				),
-//			)
-//		);
-//	}
-
 
     /**
      * Customized attribute labels (attr=>label)
