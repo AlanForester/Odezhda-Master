@@ -366,7 +366,7 @@ class Grid extends CWidget {
                         <div class="span6 pull-left">{pager}</div>
                     </div>
                 ',
-                    'summaryText' => 'Отображение записей {start}-{end} из {count}',
+                    'summaryText' => 'Отображено записей {start}-{end} из {count}',
                     'columns' => array_merge(
                         [
                             [
