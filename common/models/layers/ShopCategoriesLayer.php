@@ -160,7 +160,7 @@ class ShopCategoriesLayer {
         }
 
         //return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []));
+        return array_merge(self::fieldMapConvert(($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []), $category->getAttributes()));
     }
 
 
