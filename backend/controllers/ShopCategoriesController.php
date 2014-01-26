@@ -100,6 +100,7 @@ class ShopCategoriesController extends BackendController {
         }
 
         $category = $model->getCategoryData($id, $scenario);
+//        print_r($category);exit;
         //        print_r($category);exit;
         if ($category) {
             $model->setAttributes($category, false);
