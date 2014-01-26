@@ -24,7 +24,7 @@ class CatalogController extends BackendController {
             'order_direct' => $this->userStateParam('order_direct'),
             'filter_groups' => $this->userStateParam('filter_category')
         ];
-//        print_r($criteria);
+
         // пагинация
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
@@ -38,10 +38,10 @@ class CatalogController extends BackendController {
             ],
         ]);
 
-//        $groups_model = new GroupsModel();
-//        $this->groups[''] = '- По группе -';
-//        foreach ($groups_model->getList() as $g) {
-//            $this->groups[$g['id']] = $g['name'];
+//        $categories_model = new ShopCategoriesModel();
+//        $this->categories[''] = '- По категории -';
+//        foreach ($categories_model->getList() as $g) {
+//            $this->categories[$g['id']] = $g['name'];
 //        }
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
@@ -123,7 +123,7 @@ class CatalogController extends BackendController {
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Товар удален'
+                'Продукт удален'
             );
         }
     }
