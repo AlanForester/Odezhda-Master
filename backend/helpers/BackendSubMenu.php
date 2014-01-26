@@ -29,4 +29,23 @@ class BackendSubMenu {
             ];
     }
 
+    /**
+     * Разделы магазина
+     * @return array
+     */
+    public static function shop() {
+        return
+            [
+                [
+                    'label' => 'Категории',
+                    'url' => Yii::app()->createUrl('/categories/index'),
+
+                ],
+                [
+                    'label' => 'Каталог',
+                    'url' => Yii::app()->createUrl('/catalog/index')
+                ]
+            ];
+    }
+
 }

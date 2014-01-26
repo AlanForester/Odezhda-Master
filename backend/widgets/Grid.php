@@ -94,6 +94,10 @@ class Grid extends CWidget {
     }
 
     public function run() {
+        if ($this->controller->isAjax){
+            echo $this->renderGrid();
+            return;
+        }
 
         // определеяем, нужно ли показывать 2 колонки
         $twoColumn = ($this->submenu || $this->filter);
