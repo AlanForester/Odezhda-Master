@@ -22,22 +22,6 @@ $this->pageButton = [
                 'enableClientValidation' => true,
                 'clientOptions' => [
                     'validateOnSubmit' => true,
-//                    'afterValidate' => 'js: function(form,data,hasError)
-//                                        {
-//                                            if(!hasError)
-//                                            {
-//                                                $.ajax(
-//                                                {
-//                                                    "type":"POST",
-//                                                    "url":"' . CHtml::normalizeUrl(array("site/subscribe")) . '",
-//                                                    "data":form.serialize(),
-//                                                    "success":function(data)
-//                                                    {
-//                                                        $("#success").html("Вы подписаны на обновления.");
-//                                                    },
-//                                                });
-//                                            }
-//                                        }'
                  ]
         ]
 
