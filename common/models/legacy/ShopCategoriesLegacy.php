@@ -59,6 +59,23 @@ class ShopCategoriesLegacy extends CActiveRecord {
     }
 
     /**
+     * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР
+     * @param array $values массив данных для установки
+     * @param bool $safeOnly только безопасные атрибуты
+     */
+    public function setAttributes($values,$safeOnly=true)
+    {
+        parent::setAttributes($values, $safeOnly);
+        $relations=$this->relations();
+        if (!empty($relations)){
+            foreach($relations as $r_name => $r_value){
+                $this->{$r_name}->setAttributes($values,$safeOnly);
+            }
+        }
+
+    }
+
+    /**
      * Validation rules for model attributes.
      *
      * @see http://www.yiiframework.com/wiki/56/
@@ -142,7 +159,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
     {
         return array(
             'withRelated'=>array(
-                'class'=>'application.extensions.behaviors.WithRelatedBehavior',
+                'class'=>'common.extensions.behaviors.WithRelatedBehavior',
             ),
         );
     }
