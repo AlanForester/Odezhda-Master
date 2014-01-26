@@ -355,7 +355,9 @@ class Grid extends CWidget {
                     'htmlOptions' => [
                         'class' => 'grid-view dataTables_wrapper'
                     ],
-                    'selectableRows' => 0,
+
+                    'selectableRows' => 2, // если 0 или 1 - чекбоксы перестают работать
+
                     'emptyText' => 'Нет данных для отображения',
 
                     // todo: pager - сделать tooltip на кнопки
@@ -365,7 +367,7 @@ class Grid extends CWidget {
                         <div class="span6 pull-right">{summary}</div>
                         <div class="span6 pull-left">{pager}</div>
                     </div>
-                ',
+                    ',
                     'summaryText' => 'Отображено записей {start}-{end} из {count}',
                     'columns' => array_merge(
                         [
