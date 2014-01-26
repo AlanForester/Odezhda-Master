@@ -136,10 +136,8 @@ class ShopCategoriesLayer {
         if (!$category) {
             return false;
         }
-        if ($id) {
-            // обновление пользователя
+        if (! $id) { // добавление пользователя
 
-        } else {
             // если есть пустой id в параметрах - удаяем
             if (array_key_exists('id', $data)) {
                 unset($data['id']);
@@ -150,34 +148,11 @@ class ShopCategoriesLayer {
 
         //переконвертированнные конечные данные, готовые для записи в AR
         $data = self::fieldMapConvert($data, true);
-
+        //записываем данные во все связанные АР
         $category->setAttributes($data, false);
-        $category->description->setAttributes($data, false);
+
         //todo перепроверять на одинаковые id
-        //print_r($category);exit;
-        //$category->withRelated->save(true,array('category'));
-        //print_r($category);exit;
 
-        //заполняем промежуточный массив данных, пришедших из формы
-        //$category->setAllData($data, false);
-
-
-
-
-        // задаем значения, получаем реальные имена полей
-        //$category->setAttributes($data, false);
-//        $category->setRelatedAttributes();
-//        $category->Attrs($data);
-//        ->setAllData($data);
-//        if($id){
-//            $category->setRelatedAttributes(self::fieldMapConvert($data, true), false);
-//        }
-//        print_r(self::fieldMapConvert($data, true));exit;
-//        print_r($category);exit;
-
-//        $category->categories_status = 1;
-
-//        $category->alldata = self::fieldMapConvert($data, true);
 
         if (!$category->withRelated->save(true,array('description'))) {
             self::$errors = $category->getErrors();
@@ -238,32 +213,6 @@ class ShopCategoriesLayer {
         }
         return $category;
     }
-
-
-//foreach($this->relations() as $value){
-//    // имя класса АР
-//$r_class = $value[1];
-//$r_relation_id = $value[2];
-//
-//if (!$r_model = parent::model($r_class)->find($r_relation_id.'=:id', [':id' => $id])){
-//    // пример как делали раньше
-//    //                $description = new ShopCategoriesDescriptionLegacy();
-//
-//    // todo: может быть проблемой! (после проверки, удалить заметку и комментарий)
-//    // если выкидывает ошибку или странно сохраняет - переписать под
-//    // создание нового экземпляра класса АР
-//
-//    //                $r_model = parent::model($r_class);
-//$r_model = new $r_class('add');
-//}
-//
-//if ($r_model){
-//    $r_model->setAttributes($this->_allData, false);
-////                    print_r($r_model);exit;
-//    $r_model->save();
-//}
-//}
-
 
     public static function findByPk($id, $params) {
         return ShopCategoriesLegacy::model()->findByPk($id, $params);
