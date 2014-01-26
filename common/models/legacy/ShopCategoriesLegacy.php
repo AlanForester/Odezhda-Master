@@ -159,35 +159,35 @@ class ShopCategoriesLegacy extends CActiveRecord {
     /**
      * Перекрываем встроенный метод АР для сохранения всех связанных таблиц (в данном случае categories_description)
      */
-    protected function afterSave() {
-        parent::afterSave();
-        if(!empty($this->_allData)){
-            $id = $this->_allData['categories_id'] = $this->categories_id;
-            foreach($this->relations() as $value){
-                // имя класса АР
-                $r_class = $value[1];
-                $r_relation_id = $value[2];
-
-                if (!$r_model = parent::model($r_class)->find($r_relation_id.'=:id', [':id' => $id])){
-                    // пример как делали раньше
-    //                $description = new ShopCategoriesDescriptionLegacy();
-
-                    // todo: может быть проблемой! (после проверки, удалить заметку и комментарий)
-                    // если выкидывает ошибку или странно сохраняет - переписать под
-                    // создание нового экземпляра класса АР
-
-    //                $r_model = parent::model($r_class);
-                    $r_model = new $r_class('add');
-                }
-
-                if ($r_model){
-                    $r_model->setAttributes($this->_allData, false);
-//                    print_r($r_model);exit;
-                    $r_model->save();
-                }
-            }
-        }
-    }
+//    protected function afterSave() {
+//        parent::afterSave();
+//        if(!empty($this->_allData)){
+//            $id = $this->_allData['categories_id'] = $this->categories_id;
+//            foreach($this->relations() as $value){
+//                // имя класса АР
+//                $r_class = $value[1];
+//                $r_relation_id = $value[2];
+//
+//                if (!$r_model = parent::model($r_class)->find($r_relation_id.'=:id', [':id' => $id])){
+//                    // пример как делали раньше
+//    //                $description = new ShopCategoriesDescriptionLegacy();
+//
+//                    // todo: может быть проблемой! (после проверки, удалить заметку и комментарий)
+//                    // если выкидывает ошибку или странно сохраняет - переписать под
+//                    // создание нового экземпляра класса АР
+//
+//    //                $r_model = parent::model($r_class);
+//                    $r_model = new $r_class('add');
+//                }
+//
+//                if ($r_model){
+//                    $r_model->setAttributes($this->_allData, false);
+////                    print_r($r_model);exit;
+//                    $r_model->save();
+//                }
+//            }
+//        }
+//    }
 
     public function behaviors()
     {

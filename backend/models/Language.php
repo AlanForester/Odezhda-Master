@@ -1,7 +1,10 @@
 <?php
 
 class Language extends CActiveRecord {
+
     public $primaryKey = 'languages_id';
+
+    public $list=[];
     /**
      * Name of the database table associated with this ActiveRecord
      *
@@ -19,6 +22,18 @@ class Language extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function getList() {
+        if (!$this->list) {
+            $languages = $this->findAll();
+            foreach ($languages as $val) {
+                $this->list[] = $val->attributes;
+            }
+
+        }
+//        print_r($this->list);exit;
+        return $this->list;
     }
 
 }

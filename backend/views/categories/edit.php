@@ -39,7 +39,8 @@ $form = $this->beginWidget(
             echo $form->textFieldControlGroup($model, 'heading_title', ['value' => $model->heading_title, 'label' => 'Заголовок']);
 
             echo $form->textFieldControlGroup($model, 'image', ['value' => $model->image, 'label' => 'Изображение']);
-            echo $form->textFieldControlGroup($model, 'language_id', ['value' => $model->language_id, 'label' => 'Язык']);
+            //echo $form->textFieldControlGroup($model, 'language_id', ['value' => $model->language_id, 'label' => 'Язык']);
+            echo $form->dropDownListControlGroup($model, 'language_id', $languages, ['value' => $model->language_id, 'label' => 'Язык']);
 
             echo $form->dropDownListControlGroup($model, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Статус']);
             echo $form->dropDownListControlGroup($model, 'xml_flag', [1 => "Да", 0 => "Нет"], ['value' => $model->xml_flag, 'label' => 'XML флаг']);
