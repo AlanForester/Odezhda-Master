@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Товар: ' . ($model->id ? 'редактирование' : 'новая группа');
+$this->pageTitle = 'Управление товарами: ' . ($model->id ? 'редактирование' : 'создать товар');
 
 $this->pageButton = [
     BackendPageButtons::save(),
@@ -43,7 +43,7 @@ $this->pageButton = [
 
     );?>
         <fieldset>
-            <legend>Учетная запись</legend>
+            <legend>Товар</legend>
             <?php
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
