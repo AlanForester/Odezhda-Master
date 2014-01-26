@@ -32,7 +32,9 @@ class CatalogModel extends CFormModel {
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
-                        ' OR ',  [ CatalogLayer::getFieldName('id', false) . ' LIKE :text']
+                        ' OR ',  [ CatalogLayer::getFieldName('id', false) . ' LIKE :text',
+                         CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                         CatalogLayer::getFieldName('description', false) . ' LIKE :text']
 
                     ) . ')';
 
@@ -91,7 +93,16 @@ class CatalogModel extends CFormModel {
     public function getCatalogData($id, $scenario) {
         $Catalog = self::getCatalog($id, $scenario);
 
-        $result = $Catalog->attributes + $Catalog->description->attributes;
+        if($scenario=='edit'){
+            $result = $Catalog->attributes + $Catalog->description->attributes;
+        }
+        else{
+            $result = $Catalog->attributes;
+        }
+
+//            echo '<pre>';
+//            print_r($result);
+//            exit;
         return ($Catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 

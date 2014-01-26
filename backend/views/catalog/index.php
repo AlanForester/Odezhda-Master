@@ -24,6 +24,7 @@ $this->widget(
 //                'group_id' => 'Группа',
 //                'logdate' => 'Последний визит',
                 'id' => 'ID',
+                'name' => 'Название'
             ],
             'direct' => $criteria['order_direct']
         ],
