@@ -75,14 +75,6 @@ class ShopCategoriesLegacy extends CActiveRecord {
     }
 
     public function setAttribute($name,$value) {
-//        if(property_exists($this,$name))
-//            $this->$name=$value;
-//        elseif(isset($this->getMetaData()->columns[$name]))
-//            $this->_attributes[$name]=$value;
-//        else
-//            return false;
-//        return true;
-
         if (parent::setAttribute($name,$value)){
             return true;
         } else {
