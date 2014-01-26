@@ -226,6 +226,60 @@ $this->pageTitle = 'Панель управления';
                 <div class="widget-body-inner" style="display: block;">
                     <div class="widget-main no-padding">
 
+                        <?php
+                        $this->widget(
+                            'yiiwheels.widgets.grid.WhGridView',
+                            [
+                                'id' => 'wh_users_grid',
+                                //        'CssClass'=>'dataTables_wrapper',
+                                'dataProvider' => $productsDataProvider,
+                                'itemsCssClass' => 'table-bordered items',
+                                //                                'fixedHeader' => true,
+                                'responsiveTable' => true,
+                                'template' => '{items}',
+                                'type' => 'striped bordered',
+                                'htmlOptions' => [
+                                    'class' => 'grid-view dataTables_wrapper'
+                                ],
+                                'emptyText' => 'Нет данных для отображения',
+
+                                'columns' => [
+                                    [
+                                        'type' => 'text',
+                                        'header' => '<i class="icon-caret-right blue"></i>Название',
+                                        'name' => 'name',
+
+                                        //                                        'headerOptions'=>[
+                                        //                                            'icon'=>'icon-time'
+                                        //                                        ]
+                                    ],
+                                    [
+                                        'type' => 'text',
+                                        'header' => '<i class="icon-caret-right blue"></i>Цена',
+                                        'name' => 'price',
+                                    ],
+//                                    [
+//                                        'type' => 'text',
+//                                        'header' => '<i class="icon-caret-right blue"></i>E-mail',
+//                                        'name' => 'email',
+//                                    ],
+                                    //                                    [
+                                    //                                        'header' => 'Группа',
+                                    //                                        'name' => 'group_id',
+                                    //                                    ],
+                                    //                                    [
+                                    //                                        'header' => 'Последний визит',
+                                    //                                        'name' => 'logdate',
+                                    //                                    ],
+                                    [
+                                        'header' => 'Id',
+                                        'name' => 'id',
+                                    ],
+                                ]
+                            ]
+                        )
+                        ?>
+
 
                     </div>
                     <!-- /widget-main -->
