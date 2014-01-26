@@ -405,7 +405,7 @@ class Grid extends CWidget {
                                     'class' => 'bigger-130',
                                     'title' => 'Просмотр',
                                     'onClick' => 'js: (function(){
-                                bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
+                                bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
                             })()'
                                 ],
                                 'class' => 'bootstrap.widgets.TbButtonColumn',

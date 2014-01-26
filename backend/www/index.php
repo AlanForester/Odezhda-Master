@@ -1,9 +1,6 @@
 <?php
 /**
  * Entry point script for backend.
- *
- * @author: antonio ramirez <antonio@clevertech.biz>
- * @author: mark safronov <hijarian@gmail.com>
  */
 
 # Loading project default init code for all entry points.
@@ -26,5 +23,3 @@ Yii::createApplication(
     'BackendWebApplication',
     ROOT_DIR.'/backend/config/main.php'
 )->run();
-
-//olegblud test 2
