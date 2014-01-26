@@ -177,11 +177,11 @@ class ShopCategoriesModel extends CFormModel {
 
     /**
      * Обновление параметра пользователя
-     * @param array $params смотри описание updateField()
+     * @param array $params смотри описание updateField() ShopCategoriesLayer
      * @return bool успешно ли произошла запись
      */
-    public function updateField($params = []) {
-        return ShopCategoriesLayer::updateField($params);
+    public function updateField($params=[]) {
+        return ($params ? ShopCategoriesLayer::updateField($params) : false);
     }
 
     /**

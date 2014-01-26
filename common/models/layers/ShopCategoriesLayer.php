@@ -109,15 +109,14 @@ class ShopCategoriesLayer {
     public static function updateField($data) {
         // реальное имя поля
         $field = self::getFieldName($data['field'], false);
-        $user_id = (!empty($data['id']) ? $data['id'] : false);
+        $id = (!empty($data['id']) ? $data['id'] : false);
         $value = (!empty($data['newValue']) ? $data['newValue'] : false);
 
         // все все данные верны, сохраняем
-        if ($user_id && $field && $value) {
-            $user = self::getCategory($user_id);
-            $user->{$field} = $value;
-
-            return $user->save(true, [$field]);
+        if ($id && $field && $value) {
+            $category = self::getCategory($id);
+            return ($category->setAttribute($field,$value) ? $category->withRelated->save(true, ['description']) : false);
+//            return $category->withRelated->save(true, [$field]);
         }
 
         return false;
@@ -155,7 +154,7 @@ class ShopCategoriesLayer {
 
         //todo перепроверять на одинаковые id
 
-        if (!$category->withRelated->save(true,array('description'))) {
+        if (!$category->withRelated->save(true,['description'])) {
             self::$errors = $category->getErrors();
             return false;
         }
@@ -193,6 +192,7 @@ class ShopCategoriesLayer {
     public static function getCategory($id = null, $scenario = null) {
         if ($id){
             $category = ShopCategoriesLegacy::model()->findByPk($id);
+            //print_r($category->description);exit;
             $relations=$category->relations();
             if (!empty($relations)){
                 foreach($relations as $r_name => $r_value){

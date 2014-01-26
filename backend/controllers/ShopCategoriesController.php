@@ -48,17 +48,17 @@ class ShopCategoriesController extends BackendController {
     /**
      * Метод для редактирования одного поля пользователя
      */
-    //    public function actionUpdate() {
-    //        $params['field'] = Yii::app()->request->getPost('name');
-    //        $params['id'] = Yii::app()->request->getPost('pk');
-    //        $params['newValue'] = Yii::app()->request->getPost('value');
-    //
-    //        $model = new UsersModel();
-    //        if (!$model->updateField($params)) {
-    //            $this->error();
-    //        }
-    //    }
-    //
+        public function actionUpdate() {
+            $params['field'] = Yii::app()->request->getPost('name');
+            $params['id'] = Yii::app()->request->getPost('pk');
+            $params['newValue'] = Yii::app()->request->getPost('value');
+
+            $model = new ShopCategoriesModel();
+            if (!$model->updateField($params)) {
+                $this->error();
+            }
+        }
+
     public function actionEdit($id, $scenario = 'edit') {
         //        $groups_model = new GroupsModel();
         //        $groups = [];

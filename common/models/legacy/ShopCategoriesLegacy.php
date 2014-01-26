@@ -64,8 +64,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
      * @param array $values массив данных для установки
      * @param bool $safeOnly только безопасные атрибуты
      */
-    public function setAttributes($values,$safeOnly=true)
-    {
+    public function setAttributes($values,$safeOnly=true) {
         parent::setAttributes($values, $safeOnly);
         $relations=$this->relations();
         if (!empty($relations)){
@@ -73,8 +72,33 @@ class ShopCategoriesLegacy extends CActiveRecord {
                 $this->{$r_name}->setAttributes($values,$safeOnly);
             }
         }
-
     }
+
+    public function setAttribute($name,$value) {
+//        if(property_exists($this,$name))
+//            $this->$name=$value;
+//        elseif(isset($this->getMetaData()->columns[$name]))
+//            $this->_attributes[$name]=$value;
+//        else
+//            return false;
+//        return true;
+
+        if (parent::setAttribute($name,$value)){
+            return true;
+        } else {
+            $relations=$this->relations();
+            if (!empty($relations)){
+                foreach($relations as $r_name => $r_value){
+                    if ($this->{$r_name}->setAttribute($name,$value)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
     public function getErrors($attribute=null) {
 //        if($attribute===null)
 //            return $this->_errors;
