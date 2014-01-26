@@ -86,12 +86,14 @@ class ShopCategoriesLayer {
         if ($data) {
             $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));
             foreach ($list as $val) {
-                $result[] = self::fieldMapConvert($val->attributes);
+               /**/ $result[] = self::fieldMapConvert($val->attributes);
+                $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
             }
         } else {
             $list = ShopCategoriesLegacy::model()->findall();
             foreach ($list as $val) {
-                $result[] = self::fieldMapConvert($val->attributes);
+//                $result[] = self::fieldMapConvert($val->attributes);
+                    $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
             }
         }
 

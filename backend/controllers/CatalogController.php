@@ -38,11 +38,11 @@ class CatalogController extends BackendController {
             ],
         ]);
 
-        $categories_model = new ShopCategoriesModel();
-        $this->categories[''] = '- По категории -';
-        foreach ($categories_model->getList() as $g) {
-            $this->categories[$g['id']] = $g['name'];
-        }
+//        $categories_model = new ShopCategoriesModel();
+//        $this->categories[''] = '- По категории -';
+//        foreach ($categories_model->getList() as $g) {
+//            $this->categories[$g['id']] = $g['name'];
+//        }
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
