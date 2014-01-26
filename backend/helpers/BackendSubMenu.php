@@ -38,12 +38,12 @@ class BackendSubMenu {
             [
                 [
                     'label' => 'Категории',
-                    'url' => Yii::app()->createUrl('/categories/index'),
+                    'url' => ['/categories/index'],
 
                 ],
                 [
                     'label' => 'Каталог',
-                    'url' => Yii::app()->createUrl('/catalog/index')
+                    'url' => ['/catalog/index']
                 ]
             ];
     }

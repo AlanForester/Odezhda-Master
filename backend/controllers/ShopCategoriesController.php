@@ -15,6 +15,13 @@ class ShopCategoriesController extends BackendController {
     public $groups = [];
 
     public function actionIndex($id = 0) {
+        $criteria = [
+            'text_search' => $this->userStateParam('text_search'),
+//            'filter_groups' => $this->userStateParam('filter_groups'),
+//            'filter_created' => $this->userStateParam('filter_created'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct')
+        ];
 
         // получение данных
         $model = new ShopCategoriesModel();
@@ -28,12 +35,14 @@ class ShopCategoriesController extends BackendController {
 
 //        print_r($this->layout);exit;
 
+        $vars = compact('id','criteria');
+
         if ($this->isAjax){
-            $this->renderPartial('index');
+            $this->renderPartial('index',$vars);
             Yii::app()->end();
         }
 
-        $this->render('index');
+        $this->render('index',$vars);
     }
 
     /**

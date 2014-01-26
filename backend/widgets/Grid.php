@@ -66,6 +66,12 @@ class Grid extends CWidget {
     public $gridIdData = '$data["id"]';
 
     /**
+     * Опции для виджета таблицы
+     * @var array
+     */
+    public $gridOptions = [];
+
+    /**
      * Контроллер страницы
      * @var
      */
@@ -94,7 +100,7 @@ class Grid extends CWidget {
     }
 
     public function run() {
-        if ($this->controller->isAjax){
+        if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
         }
@@ -247,7 +253,7 @@ class Grid extends CWidget {
             TbHtml::dropDownList(
                 'order_field',
                 $this->order['active'],
-                array_merge([''=>'- Поле -'],$this->order['fields']),
+                array_merge(['' => '- Поле -'], $this->order['fields']),
                 [
                     'class' => 'pull-right',
                     'style' => 'width:150px;margin-left:5px;',
@@ -271,7 +277,7 @@ class Grid extends CWidget {
                 $this->order['direct'],
                 [
                     '' => '- Направление -',
-//                    '' => 'Порядок отображения',
+                    //                    '' => 'Порядок отображения',
                     'down' => 'По убыванию',
                     'up' => 'По возрастанию',
                 ],
@@ -334,79 +340,83 @@ class Grid extends CWidget {
         //        return false;
         return $this->widget(
             'yiiwheels.widgets.grid.WhGridView',
-            [
-                'id' => 'whgrid',
-                //        'CssClass'=>'dataTables_wrapper',
-                'dataProvider' => $this->dataProvider,
-                'itemsCssClass' => 'table-bordered items',
-                //    'filter'=>$this->model,
-                'fixedHeader' => true,
-                'responsiveTable' => true,
-                'type' => 'striped bordered',
-                'headerOffset' => 106,
-                'htmlOptions' => [
-                    'class' => 'grid-view dataTables_wrapper'
-                ],
-                'emptyText' => 'Нет данных для отображения',
+            array_merge(
+                $this->gridOptions,
+                [
+                    'id' => 'whgrid',
+                    //        'CssClass'=>'dataTables_wrapper',
+                    'dataProvider' => $this->dataProvider,
+                    'itemsCssClass' => 'table-bordered items',
+                    //    'filter'=>$this->model,
+                    'fixedHeader' => true,
+                    'responsiveTable' => true,
+                    'type' => 'striped bordered',
+                    'headerOffset' => 106,
+                    'htmlOptions' => [
+                        'class' => 'grid-view dataTables_wrapper'
+                    ],
+                    'selectableRows' => 0,
+                    'emptyText' => 'Нет данных для отображения',
 
-                // todo: pager - сделать tooltip на кнопки
-                'template' => '
+                    // todo: pager - сделать tooltip на кнопки
+                    'template' => '
                     <div class="table-block">{items}</div>
                     <div class="row pager-block">
                         <div class="span6 pull-right">{summary}</div>
                         <div class="span6 pull-left">{pager}</div>
                     </div>
                 ',
-                'summaryText' => 'Отображение записей {start}-{end} из {count}',
-                'columns' => array_merge(
-                    [
+                    'summaryText' => 'Отображение записей {start}-{end} из {count}',
+                    'columns' => array_merge(
                         [
-                            'class' => 'backend.widgets.ace.CheckBoxColumn',
-                            'selectableRows' => 2,
-                            'checkBoxHtmlOptions' => [
-                                'name' => 'gridids[]'
-                            ],
-                            // todo: перенести в виджет
-                            'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
-                            'value' => $this->gridIdData,
-                            'checked' => null,
-                        ]
-                    ],
+                            [
+                                'class' => 'backend.widgets.ace.CheckBoxColumn',
 
-                    $this->gridColumns,
+                                'checkBoxHtmlOptions' => [
+                                    'name' => 'gridids[]'
+                                ],
+                                // todo: перенести в виджет
+                                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
+                                'value' => $this->gridIdData,
+                                'checked' => null,
+                            ]
+                        ],
 
-                    [
+                        $this->gridColumns,
+
                         [
-                            'header' => 'Действие',
-                            'htmlOptions' => [
-                                'class' => 'action-buttons',
-                                'width' => '50px'
-                            ],
-                            'deleteButtonOptions' => [
-                                'class' => 'red bigger-130',
-                                'title' => 'Удалить',
-                            ],
-                            'updateButtonOptions' => [
-                                'class' => 'green bigger-130',
-                                'title' => 'Изменить',
-                            ],
-                            'viewButtonOptions' => [
-                                'class' => 'bigger-130',
-                                'title' => 'Просмотр',
-                                'onClick' => 'js: (function(){
+                            [
+                                'header' => 'Действие',
+                                'htmlOptions' => [
+                                    'class' => 'action-buttons',
+                                    'width' => '50px'
+                                ],
+                                'deleteButtonOptions' => [
+                                    'class' => 'red bigger-130',
+                                    'title' => 'Удалить',
+                                ],
+                                'updateButtonOptions' => [
+                                    'class' => 'green bigger-130',
+                                    'title' => 'Изменить',
+                                ],
+                                'viewButtonOptions' => [
+                                    'class' => 'bigger-130',
+                                    'title' => 'Просмотр',
+                                    'onClick' => 'js: (function(){
                                 bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации пользователя, без возможности редактирования");
                             })()'
-                            ],
-                            'class' => 'bootstrap.widgets.TbButtonColumn',
-                            'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                                ],
+                                'class' => 'bootstrap.widgets.TbButtonColumn',
+                                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
-                            'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
-                            'updateButtonUrl' => $this->gridButtonsUrl['edit'],
-                            'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
+                                'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                                'updateButtonUrl' => $this->gridButtonsUrl['edit'],
+                                'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
+                            ]
                         ]
-                    ]
-                )
-            ],
+                    )
+                ]
+            ),
             true
         );
     }

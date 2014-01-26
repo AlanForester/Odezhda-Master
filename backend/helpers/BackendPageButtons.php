@@ -43,7 +43,7 @@ class BackendPageButtons {
                                                 ids.push($(this).val());
                                             });
                                             $.fn.yiiGridView.update(
-                                                "usersgrid",
+                                                "whgrid",
                                                 {
                                                     url:"' . Yii::app()->createUrl($url) . '",
                                                     data:{
