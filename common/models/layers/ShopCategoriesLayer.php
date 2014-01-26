@@ -216,16 +216,54 @@ class ShopCategoriesLayer {
      */
     public static function getCategory($id = null, $scenario = null) {
         if ($id){
-            $category = ShopCategoriesLegacy::model()->with('description')->findByPk($id);
-            if (empty ($category->description)){
-                $category->description = new ShopCategoriesDescriptionLegacy();
+            $category = ShopCategoriesLegacy::model()->findByPk($id);
+            $relations=$category->relations();
+            if (!empty($relations)){
+                foreach($relations as $r_name => $r_value){
+                    if (empty ($category->{$r_name})){
+                        $category->{$r_name} = new ShopCategoriesDescriptionLegacy();
+                    }
+                }
             }
+
         } else {
             $category = new ShopCategoriesLegacy($scenario);
-            $category->description = new ShopCategoriesDescriptionLegacy();
+            $relations=$category->relations();
+            if (!empty($relations)){
+                foreach($relations as $r_name => $r_value){
+                    $r_class = $r_value[1];
+                    $category->{$r_name} = new $r_class();
+                }
+            }
         }
         return $category;
     }
+
+
+//foreach($this->relations() as $value){
+//    // имя класса АР
+//$r_class = $value[1];
+//$r_relation_id = $value[2];
+//
+//if (!$r_model = parent::model($r_class)->find($r_relation_id.'=:id', [':id' => $id])){
+//    // пример как делали раньше
+//    //                $description = new ShopCategoriesDescriptionLegacy();
+//
+//    // todo: может быть проблемой! (после проверки, удалить заметку и комментарий)
+//    // если выкидывает ошибку или странно сохраняет - переписать под
+//    // создание нового экземпляра класса АР
+//
+//    //                $r_model = parent::model($r_class);
+//$r_model = new $r_class('add');
+//}
+//
+//if ($r_model){
+//    $r_model->setAttributes($this->_allData, false);
+////                    print_r($r_model);exit;
+//    $r_model->save();
+//}
+//}
+
 
     public static function findByPk($id, $params) {
         return ShopCategoriesLegacy::model()->findByPk($id, $params);
