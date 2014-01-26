@@ -33,8 +33,8 @@ class CatalogModel extends CFormModel {
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
                         ' OR ',  [ CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                         CatalogLayer::getFieldName('name', false) . ' LIKE :text',
-                         CatalogLayer::getFieldName('description', false) . ' LIKE :text']
+                            CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                            CatalogLayer::getFieldName('description', false) . ' LIKE :text']
 
                     ) . ')';
 
@@ -93,7 +93,7 @@ class CatalogModel extends CFormModel {
     public function getCatalogData($id, $scenario) {
         $Catalog = self::getCatalog($id, $scenario);
 
-        if($scenario=='edit'){
+        if($scenario!='add'){
             $result = $Catalog->attributes + $Catalog->description->attributes;
         }
         else{

@@ -36,7 +36,7 @@ class CatalogLegacy extends CActiveRecord
     public function relations()
     {
         return array(
-            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id')
 //            'categories'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
         );
     }
@@ -77,8 +77,17 @@ class CatalogLegacy extends CActiveRecord
          *
          * и по новой вставляем все наши связи с категориями данного продукта
          */
+        //        $command = Yii::app()->db->createCommand();
+        //        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
     }
 
+    protected function afterDelete() {
+        $id = $this->_allData['products_id'] = $this->products_id;
+
+
+        $command = Yii::app()->db->createCommand();
+        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
+    }
     /**
      * Закидываем все параметры для сохранения, как для основной таблицы, так и для связанных
      * @param array $data массив данных

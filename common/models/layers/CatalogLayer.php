@@ -82,6 +82,8 @@ class CatalogLayer {
         $criteria->limit = 1000;
         $list = CatalogLegacy::model()->with('description')->findall($criteria);
 
+//        print_r($list);
+//        exit;
         foreach ($list as $val) {
                 $result[] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes);
         }
@@ -170,13 +172,42 @@ class CatalogLayer {
         return $rules;
     }
 
-    public static function delete($id) {
-        $Catalog = self::getCatalog($id);
-        if ($Catalog) {
-            return $Catalog->delete();
-        }
+//    public static function delete($id) {
+//        $Catalog = self::getCatalog($id);
+//        if ($Catalog) {
+//            return $Catalog->delete();
+//        }
+//
+//        return false;
+//    }
 
-        return false;
+    public static function findByParentId($id) {
+        $result = [];
+        $list = CatalogLegacy::model()->findAllByAttributes(array('products_id' => $id));
+        foreach ($list as $val) {
+            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+        }
+        return $result;
+    }
+
+
+    public static function delete($id) {
+        $parent = self::getCatalog($id);
+        //print_r($parent);exit;
+        if (!($parent && $parent->delete())) {
+            return false;
+        } else {
+            $children = self::findByParentId($id);
+
+            foreach ($children as $val) {
+                $child = self::getCatalog($val['id']);
+                //print_r($child);exit;
+                if (!($child && $child->delete())) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     /**

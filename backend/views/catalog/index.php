@@ -12,7 +12,24 @@ $this->widget(
         'submenu' => BackendSubMenu::shop(),
 
         'filter' => [
-
+            // фильтр по категории
+            TbHtml::dropDownList(
+                'filter_groups',
+                $criteria['filter_groups'],
+                $this->categories,
+                [
+                    'onChange' => 'js: (function(){
+                    $.fn.yiiGridView.update(
+                        "usersgrid",
+                        {
+                            data:{
+                                filter_groups:$("#filter_groups").val()
+                            }
+                        }
+                    )
+                })()'
+                ]
+            )
         ],
 
         'order' => [
