@@ -20,21 +20,29 @@ class BackendHomePageAction extends CAction {
         //$this->controller->layout = '//layouts/main';
         $usersDataProvider = '';
 
+        // список пользовалетей
         $usersModel = new UsersModel();
         $users = $usersModel->getList(
             [
-                'order_field'=>'created',
-                'order_direct'=>'down',
+                'order_field' => 'created',
+                'order_direct' => 'down',
                 'criteria' => ['limit' => 5]
             ]
         );
-        $usersDataProvider = new CArrayDataProvider($users, [
-            'keyField' => 'id',
-//            'pagination' => [
-//                'pageSize' => 10,
-//            ],
-        ]);
+        $usersDataProvider = new CArrayDataProvider($users);
 
-        $this->controller->render('index', compact('usersDataProvider'));
+        // список товаров
+        $productsModel = new CatalogModel();
+        // todo: не работает лимит
+        $products = $productsModel->getListAndParams(
+            [
+                'order_field' => 'created',
+                'order_direct' => 'down',
+                'criteria' => ['limit' => 5]
+            ]
+        );
+        $productsDataProvider = new CArrayDataProvider($products);
+
+        $this->controller->render('index', compact('usersDataProvider', 'productsDataProvider'));
     }
 } 
