@@ -24,7 +24,7 @@ class CatalogController extends BackendController {
             'order_direct' => $this->userStateParam('order_direct'),
             'filter_groups' => $this->userStateParam('filter_category')
         ];
-
+//        print_r($criteria);
         // пагинация
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
@@ -78,7 +78,7 @@ class CatalogController extends BackendController {
             if (!$result) {
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' группы')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' товара')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
                 $this->render('edit', compact('model', 'Catalog'));
@@ -87,7 +87,7 @@ class CatalogController extends BackendController {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Группа ' . ($id ? 'сохранена' : 'добавлена')
+                    'Товар ' . ($id ? 'сохранен' : 'добавлен')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
@@ -123,7 +123,7 @@ class CatalogController extends BackendController {
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Группа удалена'
+                'Товар удален'
             );
         }
     }
