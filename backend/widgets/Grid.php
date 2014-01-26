@@ -102,7 +102,7 @@ class Grid extends CWidget {
         if ($twoColumn) {
             echo '
             <div class="span2">
-                <div id="sidebar">' . $this->renderSubmenu() . $this->renderFilter() . '</div>
+                <div id="sidebar" class="sidebar">' . $this->renderSubmenu() . $this->renderFilter() . '</div>
             </div>';
         }
 
@@ -155,6 +155,9 @@ class Grid extends CWidget {
                 $this->widget(
                     'bootstrap.widgets.TbNav',
                     [
+                        'htmlOptions' => [
+                            'class' => 'nav-list nav',
+                        ],
                         'items' => $this->submenu
                     ],
                     true

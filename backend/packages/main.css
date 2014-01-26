@@ -100,8 +100,8 @@ body .navbar-fixed-top {
 }
 
 #sidebar .nav .active a{
-    background-color: #111111;
-    color: #FFFFFF;
+    /*background-color: #111111;*/
+    /*color: #FFFFFF;*/
 }
 
 #sidebar .nav > li > a {
@@ -175,4 +175,28 @@ body .navbar-fixed-top {
 /*ACE*/
 input[type="checkbox"] + .lbl, input[type="radio"] + .lbl {
     z-index: 0;
+}
+
+.sidebar:before {
+    background-color: #F2F2F2;
+    border-right: 0;
+    bottom: 0;
+    content: "";
+    display: block;
+    position: static;
+    top: 0;
+    width: auto;
+    z-index: -1;
+}
+.sidebar {
+    background-color: transparent;
+    border-right: 0;
+    bottom: 0;
+    position: static;
+    top: 0;
+    width: auto;
+}
+
+.sidebar .nav-list > li {
+    border-color: transparent;
 }
