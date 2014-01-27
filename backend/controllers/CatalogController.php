@@ -69,6 +69,12 @@ class CatalogController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit') {
 
+        $categories_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+        foreach ($categories_model->getList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
+
         $model = new CatalogModel($scenario);
 
         $form_action = Yii::app()->request->getPost('form_action');
