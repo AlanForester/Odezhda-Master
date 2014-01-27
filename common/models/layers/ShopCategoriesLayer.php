@@ -89,7 +89,8 @@ class ShopCategoriesLayer {
             }
         }
         $result=self::buildTree($result);
-        print_r($result);exit;
+        $result=self::flatTree(['data'=>$result]);
+        $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
@@ -120,9 +121,8 @@ class ShopCategoriesLayer {
     // на вход нужно подать результат функции buildTree.
     // внутри каждого пункта обязательно должно присутствовать поле name
     // вернет массив, где дерево будет выстроено графически, а не вложенностью
-    //    static function flatTree($data,$show_root=true,$root_name="Top",$level_prx=".   ",$level_sfx="|_", $children_name="children",$level=0){
     public static function flatTree($params = null) {
-        $config = libObj::apply(
+        $config = (object)array_merge(
             [
                 'data' => [],
                 'show_root' => true,
@@ -130,7 +130,7 @@ class ShopCategoriesLayer {
                 'level_sfx' => '|_',
                 'children_name' => 'children',
                 'level' => 0,
-                'root_name' => 'Верх'
+                'root_name' => 'Корень'
             ],
             $params
         );
@@ -142,6 +142,7 @@ class ShopCategoriesLayer {
             $config->level++;
         }
         foreach ($config->data as $item) {
+            $item = (object)$item;
             if ($config->level != 0) {
                 $text = '';
                 for ($i = 0; $i < $config->level; $i++) {
@@ -152,8 +153,8 @@ class ShopCategoriesLayer {
             $result[] = $item;
             if (isset($item->$children_name) && $item->$children_name != null) {
                 $tmp = self::flatTree(
-                    libObj::apply(
-                        $config,
+                    array_merge(
+                        (array)$config,
                         [
                             'data' => $item->$children_name,
                             'show_root' => false,
@@ -171,12 +172,11 @@ class ShopCategoriesLayer {
         }
 
         if ($config->show_root == true) {
-            $top = obj(
+            $top =
                 [
                     'name' => $config->root_name,
                     'id' => 0
-                ]
-            );
+                ];
 
             array_unshift($result, $top);
         }

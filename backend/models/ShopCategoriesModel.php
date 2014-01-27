@@ -69,7 +69,6 @@ class ShopCategoriesModel extends CFormModel {
         if (!$this->list) {
             $this->list = ShopCategoriesLayer::getList();
         }
-        print_r($this->list);exit;
         return $this->list;
     }
 
