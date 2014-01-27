@@ -78,10 +78,11 @@ class CatalogLayer {
 //        $result = [];
 //        print_r($data);
 //        exit;
-        $criteria = new CDbCriteria();
+        $criteria = new CDbCriteria($data);
         $criteria->limit = 1000;
         $list = CatalogLegacy::model()->with('description')->findall($criteria);
 
+//        echo '<pre>';
 //        print_r($list);
 //        exit;
         foreach ($list as $val) {

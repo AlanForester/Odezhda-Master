@@ -24,6 +24,7 @@ class CatalogModel extends CFormModel {
 
 
     public function getListAndParams($data) {
+
         if (!$this->allCatalog) {
 
             $condition = [];
@@ -32,19 +33,22 @@ class CatalogModel extends CFormModel {
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
-                        ' OR ',  [ CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                            CatalogLayer::getFieldName('name', false) . ' LIKE :text',
-                            CatalogLayer::getFieldName('description', false) . ' LIKE :text']
+                        ' OR ',  [
+                           't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
+                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
+                            ]
 
-                    ) . ')';
+                                 ) . ')';
 
                 $params[':text'] = '%' . $data['text_search'] . '%';
             }
-
+//       print_r($condition);
+//        exit;
             // поле и направление сортировки
             $order_direct = null;
 
-            $order_field = CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'id', false);
+            $order_field = CatalogLayer::getFieldName(!empty($data['order_field']) ? 't.'.$data['order_field'] : '`t.`'.'product_id', false);
  /*           echo $data['order_field'];
             exit;*/
 
@@ -58,6 +62,7 @@ class CatalogModel extends CFormModel {
                         break;
                 }
             }
+
 
             $this->allCatalog = CatalogLayer::getListAndParams(
                 [
