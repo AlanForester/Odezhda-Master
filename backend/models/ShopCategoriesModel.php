@@ -97,9 +97,9 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedParams[':text'] = '%' . $data['text_search'] . '%';
             }
 
-//            print_r($data);exit;
+
             // фильтр по родительской категории
-            if (!empty($data['filter_categories'])) {
+            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {
                 $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
                 $params[':category'] = $data['filter_categories'];
             }
@@ -161,7 +161,6 @@ class ShopCategoriesModel extends CFormModel {
                         break;
                 }
             }
-
             $criteria = [
                 'condition' => join(' AND ', $condition),
                 'params' => $params,
