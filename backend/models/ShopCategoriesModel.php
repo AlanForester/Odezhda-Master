@@ -65,9 +65,9 @@ class ShopCategoriesModel extends CFormModel {
         return ShopCategoriesLayer::getErrors($attributes);
     }
 
-    public function getList() {
+    public function getCategoriesList() {
         if (!$this->list) {
-            $this->list = ShopCategoriesLayer::getList();
+            $this->list = ShopCategoriesLayer::getCategoriesList();
         }
         return $this->list;
     }
@@ -170,7 +170,7 @@ class ShopCategoriesModel extends CFormModel {
 //        return $this->allCategories;
 //    }
 
-    public function findByParentId ($id){
+    public function findByParentId ($id, $data = []){
         return ShopCategoriesLayer::findByParentId($id);
     }
 

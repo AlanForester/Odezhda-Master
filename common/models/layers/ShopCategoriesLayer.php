@@ -80,7 +80,7 @@ class ShopCategoriesLayer {
         return $result;
     }
 
-    public static function getList($id=0) {
+    public static function getCategoriesList($id=0) {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findall();
         foreach ($list as $val) {

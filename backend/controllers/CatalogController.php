@@ -41,7 +41,7 @@ class CatalogController extends BackendController {
 
        $categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
-        foreach ($categories_model->getList() as $g) {
+        foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
        }
     //        echo "<pre>";
