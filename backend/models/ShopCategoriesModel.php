@@ -169,7 +169,7 @@ class ShopCategoriesModel extends CFormModel {
             $relatedCriteria = [
                 'condition' => join(' AND ', $relatedCondition),
                 'params' => $relatedParams,
-                'order' => $order_field . ($order_direct ? : '')
+                'order' => 'description.'.$order_field . ($order_direct ? : '')
             ];
 
             // разрешаем перезаписать любые параметры критерии
