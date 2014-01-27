@@ -40,9 +40,9 @@ class CatalogController extends BackendController {
         ]);
 
        $categories_model = new ShopCategoriesModel();
-        $this->categories[''] = '- По категории -';
-        foreach ($categories_model->getCategoriesList() as $g) {
-            $this->categories[$g['id']] = $g['name'];
+       $this->categories[''] = '- По категории -';
+       foreach ($categories_model->getList() as $g) {
+           $this->categories[$g['id']] = $g['name'];
        }
 
 
@@ -68,6 +68,12 @@ class CatalogController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
+
+        $categories_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+        foreach ($categories_model->getList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
 
         $model = new CatalogModel($scenario);
 

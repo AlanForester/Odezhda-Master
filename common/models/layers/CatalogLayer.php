@@ -8,7 +8,10 @@ class CatalogLayer {
         'products_id' => 'id',
         'products_price' => 'price',
             'products_name' => 'name',
-            'products_description' => 'description'
+            'products_description' => 'description',
+
+            'categories_name' =>'category'
+
     ];
 
     public static $errors = [];
@@ -74,15 +77,21 @@ class CatalogLayer {
 
 
     public static function getListAndParams($data) {
+        $result = [];
 
+//        print_r($data);
+//        exit;
         $criteria = new CDbCriteria($data);
         $criteria->limit = 1000;
-        $list = CatalogLegacy::model()->with('description')->findall($criteria);
+        $list = CatalogLegacy::model()->with('category_to_catalog')->with('categories_description')->with('description')->findall($criteria);
+//          echo '<pre>';
+//          print_r($list);
+//          exit;
+        foreach ($list as $key => $val) {
+                $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
 
-
-        foreach ($list as $val) {
-                $result[] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes);
         }
+
 //        foreach ($list->description->attributes as $val) {
 //            $result[] = self::fieldMapConvert($val->attributes);
 //        }
@@ -176,18 +185,9 @@ class CatalogLayer {
 //        return false;
 //    }
 
-    public static function findByParentId($id) {
-        $result = [];
-        $list = CatalogLegacy::model()->findAllByAttributes(array('products_id' => $id));
-        foreach ($list as $val) {
-            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
-        }
-        return $result;
-    }
-
 
     public static function delete($id) {
-        $parent = self::getCatalog($id);
+        $parent = self::getCategory($id);
         //print_r($parent);exit;
         if (!($parent && $parent->delete())) {
             return false;
@@ -195,7 +195,7 @@ class CatalogLayer {
             $children = self::findByParentId($id);
 
             foreach ($children as $val) {
-                $child = self::getCatalog($val['id']);
+                $child = self::getCategory($val['id']);
                 //print_r($child);exit;
                 if (!($child && $child->delete())) {
                     return false;

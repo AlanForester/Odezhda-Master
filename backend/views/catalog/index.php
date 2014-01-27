@@ -20,7 +20,7 @@ $this->widget(
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
-                        "usersgrid",
+                        "whgrid",
                         {
                             data:{
                                 filter_groups:$("#filter_groups").val()
@@ -93,7 +93,7 @@ $this->widget(
 //                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Категории',
-                'name' => 'categories_name',
+                'name' => 'category',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

@@ -35,9 +35,15 @@ class CatalogLegacy extends CActiveRecord
     }
     public function relations()
     {
+//        return array(
+//            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+//            'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id'),
+//            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'CatalogToCategoriesLegacy')
+//        );
         return array(
-            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id')
-//            'categories'=>array(self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'),
+            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+            'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id'),
+            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog')
         );
     }
 
@@ -68,6 +74,7 @@ class CatalogLegacy extends CActiveRecord
                 $r_model->save();
             }
         }
+
 
         // обновляем все зависимые таблицы, типа категорий
         /*
@@ -100,4 +107,14 @@ class CatalogLegacy extends CActiveRecord
         $this->setAttributes($data,$safe);
         $this->_allData=$data;
     }
+
+//    public function behaviors()
+//    {
+//        return array(
+//            'withRelated'=>array(
+//                'class'=>'common.extensions.behaviors.WithRelatedBehavior',
+//            ),
+//        );
+//    }
+
 }
