@@ -28,7 +28,8 @@ class ShopCategoriesController extends BackendController {
 
         // получение данных
         $model = new ShopCategoriesModel();
-        $categories = $model->findByParentId($id, $criteria);
+        //$categories = $model->findByParentId($id, $criteria);
+        $categories = $model->getList($criteria);
         $this->gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
             //            'pagination' => [

@@ -94,6 +94,18 @@ class ShopCategoriesLayer {
         return $result;
     }
 
+    public static function getList($data, $relatedData) {
+        $result = [];
+        //$data=array_merge($data, ['with'=>['description'=>$relatedData]]);//[['with'=>['description'=>['order'=>'description.categories_id DESC']]]'with'=>['description'=>['order'=>'description.categories_id DESC']]]
+//        print_r(new CDbCriteria($data));exit;
+        $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));//new CDbCriteria($data)
+        foreach ($list as $val) {
+            $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+        }
+
+        return $result;
+    }
+
     // в функцию нужно прислать массив и указать имя поля, по которому будет определяться
     // поле сортировки. В ответ получим массив, где вложенные записи будут в поле $children_name
     public static function buildTree($data = null,$root=0) {

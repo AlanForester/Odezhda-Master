@@ -37,7 +37,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
 //    public $categories_meta_keywords;
 
     public $primaryKey = 'categories_id';
-    private $__errors=array();	// attribute name => array of errors
+    private $__errors=[];	// attribute name => array of errors
 
     protected $_allData = [];
 
