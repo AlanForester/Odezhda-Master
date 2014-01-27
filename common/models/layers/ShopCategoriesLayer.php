@@ -126,8 +126,8 @@ class ShopCategoriesLayer {
             [
                 'data' => [],
                 'show_root' => true,
-                'level_prx' => '.   ',
-                'level_sfx' => '|_',
+                'level_prx' => '|__',
+                'level_sfx' => '_',
                 'children_name' => 'children',
                 'level' => 0,
                 'root_name' => 'Корень'
@@ -279,7 +279,6 @@ class ShopCategoriesLayer {
 
             foreach ($children as $val) {
                 $child = self::getCategory($val['id']);
-                //print_r($child);exit;
                 if (!($child && $child->delete())) {
                     return false;
                 }
