@@ -76,10 +76,11 @@ class ShopCategoriesLayer {
         foreach ($list as $val) {
             $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
         }
+//        print_r($result);exit;
         return $result;
     }
 
-    public static function getList() {
+    public static function getList($id=0) {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findall();
         foreach ($list as $val) {
@@ -87,9 +88,102 @@ class ShopCategoriesLayer {
                 $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->description->getAttributes(['categories_name'])));
             }
         }
-//        print_r($result);exit;
+        $result=self::buildTree($result);
+        print_r($result);exit;
         return $result;
     }
+
+    // в функцию нужно прислать массив и указать имя поля, по которому будет определяться
+    // поле сортировки. В ответ получим массив, где вложенные записи будут в поле $children_name
+    public static function buildTree($data = null,$root=0) {
+        $result = [];
+        if (count($data) > 0) {
+            $id_name = 'id';
+            $field_name = 'parent_id';
+            $children_name = 'children';
+
+            foreach ($data as $d) {
+                if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
+                    $d[$children_name] = self::buildTree($data,$d[$id_name]);
+
+                    if (count($d[$children_name]) == 0) {
+                        unset($d[$children_name]);
+                    }
+                    // при желании, можно в конфиге принимать обьект, значения которого будут добавляться в каждый элемент
+                    $result[] = $d;
+                }
+            }
+        }
+        return $result;
+    }
+
+    // на вход нужно подать результат функции buildTree.
+    // внутри каждого пункта обязательно должно присутствовать поле name
+    // вернет массив, где дерево будет выстроено графически, а не вложенностью
+    //    static function flatTree($data,$show_root=true,$root_name="Top",$level_prx=".   ",$level_sfx="|_", $children_name="children",$level=0){
+    public static function flatTree($params = null) {
+        $config = libObj::apply(
+            [
+                'data' => [],
+                'show_root' => true,
+                'level_prx' => '.   ',
+                'level_sfx' => '|_',
+                'children_name' => 'children',
+                'level' => 0,
+                'root_name' => 'Верх'
+            ],
+            $params
+        );
+
+        $children_name = $config->children_name;
+        $result = [];
+
+        if ($config->show_root == true) {
+            $config->level++;
+        }
+        foreach ($config->data as $item) {
+            if ($config->level != 0) {
+                $text = '';
+                for ($i = 0; $i < $config->level; $i++) {
+                    $text .= $config->level_prx;
+                }
+                $item->name = $text . $config->level_sfx . $item->name;
+            }
+            $result[] = $item;
+            if (isset($item->$children_name) && $item->$children_name != null) {
+                $tmp = self::flatTree(
+                    libObj::apply(
+                        $config,
+                        [
+                            'data' => $item->$children_name,
+                            'show_root' => false,
+                            'level' => $config->level + 1
+                        ]
+                    )
+                );
+
+                foreach ($tmp as $t) {
+                    $result[] = $t;
+                }
+                // чтобы массив не был гиганским
+                unset($item->$children_name);
+            }
+        }
+
+        if ($config->show_root == true) {
+            $top = obj(
+                [
+                    'name' => $config->root_name,
+                    'id' => 0
+                ]
+            );
+
+            array_unshift($result, $top);
+        }
+
+        return $result;
+    }
+
 
 //    public static function getList($data = null) {
 //        $result = [];
