@@ -50,6 +50,10 @@ $this->pageButton = [
             echo $form->textFieldControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
             echo $form->textFieldControlGroup($model, 'price', ['value' => $model->price, 'label' => 'Цена, руб.']);
 
+            echo $form->dropDownListControlGroup($model,'category',['0'=>'test','1'=>'test'],[
+                'multiple'=>'multiple',
+                'size'=>'10'
+            ])
             ?>
 
         </fieldset>
