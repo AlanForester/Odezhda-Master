@@ -114,12 +114,22 @@ $this->widget(
                 ]
             ],
             [
-                'header' => 'Подкатегорий',
-                'name' => 'id',
+                'header' => 'Родительская категория',
+                'name' => 'parent_id',
                 'headerHtmlOptions' => [
                     'width' => '50px'
                 ],
                 'htmlOptions' => [
+                ],
+            ],
+            [
+                'header' => 'Дата добавления',
+                'name' => 'added',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: center;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: center;'
                 ],
             ],
             [
