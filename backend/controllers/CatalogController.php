@@ -44,9 +44,7 @@ class CatalogController extends BackendController {
        foreach ($categories_model->getList() as $g) {
            $this->categories[$g['id']] = $g['name'];
        }
-//        echo "<pre>";
-//        print_r($categories_model->getList());
-//        exit;
+
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }

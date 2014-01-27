@@ -80,7 +80,7 @@ class ShopCategoriesLayer {
         return $result;
     }
 
-    public static function getList($id=0) {
+    public static function getCategoriesList($id=0) {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findall();
         foreach ($list as $val) {
@@ -91,6 +91,18 @@ class ShopCategoriesLayer {
         $result=self::buildTree($result);
         $result=self::flatTree(['data'=>$result]);
         $result = array_map(function($el){return (array)$el;},$result);
+        return $result;
+    }
+
+    public static function getList($data, $relatedData) {
+        $result = [];
+        //$data=array_merge($data, ['with'=>['description'=>$relatedData]]);//[['with'=>['description'=>['order'=>'description.categories_id DESC']]]'with'=>['description'=>['order'=>'description.categories_id DESC']]]
+//        print_r(new CDbCriteria($data));exit;
+        $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));//new CDbCriteria($data)
+        foreach ($list as $val) {
+            $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+        }
+
         return $result;
     }
 

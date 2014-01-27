@@ -22,7 +22,7 @@ $this->widget(
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
-                        "usersgrid",
+                        "whgrid",
                         {
                             data:{
                                 filter_groups:$("#filter_groups").val()
@@ -50,7 +50,7 @@ $this->widget(
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
-                        "usersgrid",
+                        "whgrid",
                         {
                             data:{
                                 filter_created:$("#filter_created").val()
