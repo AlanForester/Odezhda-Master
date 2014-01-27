@@ -23,7 +23,7 @@ class CatalogController extends BackendController {
             'text_search' => $this->userStateParam('text_search'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
-            'filter_groups' => $this->userStateParam('filter_category')
+            'filter_category' => $this->userStateParam('filter_category')
         ];
 
         // пагинация

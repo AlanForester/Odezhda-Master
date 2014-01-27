@@ -69,12 +69,26 @@ class CatalogModel extends CFormModel {
                 $order_direct = ' ASC';
             }
 
+            // фильтр по группе
+//            echo $data['filter_category'];
+            if (!empty($data['filter_category'])) {
+                $condition1[] = '`category_to_catalog`.`categories_id`' . '=:categories_id';
+                $params1[':categories_id'] = $data['filter_category'];
+            }
+
+
+
+
 
             $this->allCatalog = CatalogLayer::getListAndParams(
                 [
                     'condition' => join(' AND ', $condition),
                     'params' => $params,
                     'order' => $order_field . ($order_direct ? : '')
+                ],
+                [
+                    'condition' => join(' AND ', $condition1),
+                    'params' => $params1
                 ]
             );
 

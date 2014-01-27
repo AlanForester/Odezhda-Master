@@ -53,7 +53,7 @@ $this->pageButton = [
                 echo $form->dropDownListControlGroup($model,'category',$this->categories,[
                 'multiple'=>'multiple',
                 'size'=>'10',
-                'label' => 'Категории'
+                    'label' => 'Категории'
             ])
             ?>
 

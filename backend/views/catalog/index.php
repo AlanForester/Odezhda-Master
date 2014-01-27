@@ -14,8 +14,8 @@ $this->widget(
         'filter' => [
             // фильтр по категории
             TbHtml::dropDownList(
-                'filter_groups',
-                $criteria['filter_groups'],
+                'filter_category',
+                $criteria['filter_category'],
                 $this->categories,
                 [
                     'onChange' => 'js: (function(){
@@ -23,7 +23,7 @@ $this->widget(
                         "whgrid",
                         {
                             data:{
-                                filter_groups:$("#filter_groups").val()
+                                filter_category:$("#filter_category").val()
                             }
                         }
                     )
