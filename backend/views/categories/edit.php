@@ -34,7 +34,7 @@ $form = $this->beginWidget(
 
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             //echo $form->dropDownListControlGroup($model, 'parent_id', $groups, ['value' => $model->parent_id, 'label' => 'Родительская категория']);
-            echo $form->dropDownListControlGroup($model, 'parent_id', [], ['value' => $model->parent_id, 'label' => 'Родительская категория']);
+            echo $form->dropDownListControlGroup($model, 'parent_id', $parentCategories, ['value' => $model->parent_id, 'label' => 'Родительская категория']);
             echo $form->textFieldControlGroup($model, 'name', ['label' => 'Название']);
             echo $form->textFieldControlGroup($model, 'heading_title', ['value' => $model->heading_title, 'label' => 'Заголовок']);
 

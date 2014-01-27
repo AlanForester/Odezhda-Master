@@ -60,11 +60,17 @@ class ShopCategoriesController extends BackendController {
         }
 
     public function actionEdit($id, $scenario = 'edit') {
-                $language_model = new Language();
-                $languages = [];
-                foreach ($language_model->getList() as $l) {
-                    $languages[$l['languages_id']] = $l['name'];
-                }
+        $language_model = new Language();
+        $languages = [];
+        foreach ($language_model->getList() as $l) {
+            $languages[$l['languages_id']] = $l['name'];
+        }
+
+        $parentCategories_model = new ShopCategoriesModel();
+        $parentCategories = [];
+        foreach ($parentCategories_model->getList() as $p) {
+            $parentCategories[$p['id']] = $p['name'];
+        }
 
         $model = new ShopCategoriesModel($scenario);
 
@@ -81,7 +87,7 @@ class ShopCategoriesController extends BackendController {
                     CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' категории')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
-                $this->render('edit', compact('model', 'languages'));
+                $this->render('edit', compact('model', 'languages', 'parentCategories'));
                 return;
             } else {
                 // выкидываем сообщение
@@ -104,7 +110,7 @@ class ShopCategoriesController extends BackendController {
             $model->setAttributes($category, false);
         } else
             $this->error();
-        $this->render('edit', compact('model', 'languages'));
+        $this->render('edit', compact('model', 'languages','parentCategories'));
     }
 
     public function actionAdd() {

@@ -79,26 +79,37 @@ class ShopCategoriesLayer {
         return $result;
     }
 
-
-    public static function getList($data = null) {
+    public static function getList() {
         $result = [];
-
-        if ($data) {
-            $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));
-            foreach ($list as $val) {
-               /**/ $result[] = self::fieldMapConvert($val->attributes);
-                $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
-            }
-        } else {
-            $list = ShopCategoriesLegacy::model()->findall();
-            foreach ($list as $val) {
-//                $result[] = self::fieldMapConvert($val->attributes);
-                    $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+        $list = ShopCategoriesLegacy::model()->findall();
+        foreach ($list as $val) {
+            if ($val->description){
+                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->description->getAttributes(['categories_name'])));
             }
         }
-
+//        print_r($result);exit;
         return $result;
     }
+
+//    public static function getList($data = null) {
+//        $result = [];
+//
+//        if ($data) {
+//            $list = ShopCategoriesLegacy::model()->findall(new CDbCriteria($data));
+//            foreach ($list as $val) {
+//               /**/ $result[] = self::fieldMapConvert($val->attributes);
+//                $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+//            }
+//        } else {
+//            $list = ShopCategoriesLegacy::model()->findall();
+//            foreach ($list as $val) {
+////                $result[] = self::fieldMapConvert($val->attributes);
+//                    $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+//            }
+//        }
+//
+//        return $result;
+//    }
 
     /**
      * Обновление значения параметра пользователя
@@ -206,6 +217,7 @@ class ShopCategoriesLayer {
             $category = new ShopCategoriesLegacy($scenario);
             $relations=$category->relations();
             if (!empty($relations)){
+
                 foreach($relations as $r_name => $r_value){
                     $r_class = $r_value[1];
                     $category->{$r_name} = new $r_class();

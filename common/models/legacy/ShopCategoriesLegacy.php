@@ -79,7 +79,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
             return true;
         } else {
             $relations=$this->relations();
-            if (!empty($relations)){
+            if (!empty($relations) && !array_key_exists($name, $relations)){ //вторая проверка нужна(если нет - ошибка при добавлении getCategory в прослойке)
                 foreach($relations as $r_name => $r_value){
                     if ($this->{$r_name}->setAttribute($name,$value)){
                         return true;

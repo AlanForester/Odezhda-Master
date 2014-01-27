@@ -25,6 +25,8 @@ class ShopCategoriesModel extends CFormModel {
     public $meta_description;
     public $meta_keywords;
 
+    public $list=[];
+
 
     /**
      * @var array массив всех категорий.
@@ -63,6 +65,12 @@ class ShopCategoriesModel extends CFormModel {
         return ShopCategoriesLayer::getErrors($attributes);
     }
 
+    public function getList() {
+        if (!$this->list) {
+            $this->list = ShopCategoriesLayer::getList();
+        }
+        return $this->list;
+    }
 
 //    public function getList($data=null) {
 //        if (!$this->allCategories) {
