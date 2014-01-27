@@ -34,9 +34,9 @@ class CatalogModel extends CFormModel {
             if (!empty($data['text_search'])) {
                 $condition[] = '(' . join(
                         ' OR ',  [
-                           't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
-                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
+                           '`description`.`'.CatalogLayer::getFieldName('id', false) . '` LIKE :text',
+                            '`description`.`'.CatalogLayer::getFieldName('name', false) . '` LIKE :text',
+                            '`description`.`'.CatalogLayer::getFieldName('description', false) . '` LIKE :text'
                             ]
 
                                  ) . ')';
@@ -48,9 +48,10 @@ class CatalogModel extends CFormModel {
             // поле и направление сортировки
             $order_direct = null;
 
-            $order_field = CatalogLayer::getFieldName(!empty($data['order_field']) ? 't.'.$data['order_field'] : '`t.`'.'product_id', false);
+            $order_field = '`description`.`'.CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'product_id', false).'`';
  /*           echo $data['order_field'];
             exit;*/
+            //$order_field=null;
 
             if (isset($data['order_direct'])) {
                 switch ($data['order_direct']) {
