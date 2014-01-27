@@ -126,8 +126,8 @@ class ShopCategoriesLayer {
             [
                 'data' => [],
                 'show_root' => true,
-                'level_prx' => '.   ',
-                'level_sfx' => '|_',
+                'level_prx' => '|__',
+                'level_sfx' => '_',
                 'children_name' => 'children',
                 'level' => 0,
                 'root_name' => 'Корень'
