@@ -9,7 +9,6 @@ class CatalogLayer {
         'products_price' => 'price',
             'products_name' => 'name',
             'products_description' => 'description'
-
     ];
 
     public static $errors = [];
@@ -75,20 +74,15 @@ class CatalogLayer {
 
 
     public static function getListAndParams($data) {
-//        $result = [];
-//        print_r($data);
-//        exit;
+
         $criteria = new CDbCriteria($data);
         $criteria->limit = 1000;
         $list = CatalogLegacy::model()->with('description')->findall($criteria);
 
-//        echo '<pre>';
-//        print_r($list);
-//        exit;
+
         foreach ($list as $val) {
                 $result[] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes);
         }
-
 //        foreach ($list->description->attributes as $val) {
 //            $result[] = self::fieldMapConvert($val->attributes);
 //        }
