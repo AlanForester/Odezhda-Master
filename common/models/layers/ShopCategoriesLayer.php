@@ -279,7 +279,6 @@ class ShopCategoriesLayer {
 
             foreach ($children as $val) {
                 $child = self::getCategory($val['id']);
-                //print_r($child);exit;
                 if (!($child && $child->delete())) {
                     return false;
                 }
