@@ -96,8 +96,8 @@ class ShopCategoriesLayer {
 
     public static function getList($data, $relatedData) {
         $result = [];
-//        print_r($data);exit;
-        //$data=array_merge($data, ['with'=>['description'=>$relatedData]]);//[['with'=>['description'=>['order'=>'description.categories_id DESC']]]'with'=>['description'=>['order'=>'description.categories_id DESC']]]
+//        print_r($relatedData);exit;
+        $data=array_merge($data, ['with'=>['description'=>$relatedData]]);//[['with'=>['description'=>['order'=>'description.categories_id DESC']]]'with'=>['description'=>['order'=>'description.categories_id DESC']]]
 //        print_r(new CDbCriteria($data));exit;
         $list = ShopCategoriesLegacy::model()->findAll(new CDbCriteria($data));//new CDbCriteria($data)
         foreach ($list as $val) {

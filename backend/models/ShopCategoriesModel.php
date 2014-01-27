@@ -99,7 +99,7 @@ class ShopCategoriesModel extends CFormModel {
 
 
             // фильтр по родительской категории
-            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {
+            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
                 $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
                 $params[':category'] = $data['filter_categories'];
             }
