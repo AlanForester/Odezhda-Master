@@ -126,8 +126,8 @@ class ShopCategoriesLayer {
         // все все данные верны, сохраняем
         if ($id && $field && $value) {
             $category = self::getCategory($id);
-            return ($category->setAttribute($field,$value) ? $category->withRelated->save(true, ['description']) : false);
-//            return $category->withRelated->save(true, [$field]);
+            $category->setAttributes([$field=>$value],false);
+            return $category->withRelated->save(true, ['description']);
         }
 
         return false;
