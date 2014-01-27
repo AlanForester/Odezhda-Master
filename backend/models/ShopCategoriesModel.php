@@ -74,7 +74,7 @@ class ShopCategoriesModel extends CFormModel {
 
     public function getList($data=null) {
         if (!$this->allCategories) {
-
+//            print_r($data);exit;
             // todo: переместить все в прослойку
             $condition = [];
             $params = [];
@@ -97,7 +97,8 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedParams[':text'] = '%' . $data['text_search'] . '%';
             }
 
-            // фильтр по группе
+//            print_r($data);exit;
+            // фильтр по родительской категории
             if (!empty($data['filter_categories'])) {
                 $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
                 $params[':category'] = $data['filter_categories'];
@@ -137,9 +138,9 @@ class ShopCategoriesModel extends CFormModel {
                 }
 
                 if ($range == 'post_year') {
-                    $condition[] = ShopCategoriesLayer::getFieldName('created', false) . ' < :date_start';
+                    $condition[] = ShopCategoriesLayer::getFieldName('added', false) . ' < :date_start';
                 } else {
-                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('created', false) . ' >= :date_start AND ' . UsersLayer::getFieldName('created', false) . ' <= :date_now)';
+                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('added', false) . ' >= :date_start AND ' . ShopCategoriesLayer::getFieldName('added', false) . ' <= :date_now)';
                     $params[':date_now'] = $date_now->format('Y-m-d');
                 }
 
@@ -164,12 +165,12 @@ class ShopCategoriesModel extends CFormModel {
             $criteria = [
                 'condition' => join(' AND ', $condition),
                 'params' => $params,
-                'order' => $order_field . ($order_direct ? : '')
             ];
 
             $relatedCriteria = [
                 'condition' => join(' AND ', $relatedCondition),
                 'params' => $relatedParams,
+                'order' => $order_field . ($order_direct ? : '')
             ];
 
             // разрешаем перезаписать любые параметры критерии
