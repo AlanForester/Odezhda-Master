@@ -366,8 +366,7 @@ class ShopCategoriesLayer {
         $field = self::getFieldName($data['field'], false);
         $id = (!empty($data['id']) ? $data['id'] : false);
         $value = (!empty($data['newValue']) ? $data['newValue'] : false);
-
-        // все все данные верны, сохраняем
+        // все данные верны, сохраняем
         if ($id && $field && $value) {
             $category = self::getCategory($id);
             $category->setAttributes([$field=>$value],false);
