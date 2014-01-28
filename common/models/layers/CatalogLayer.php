@@ -41,6 +41,24 @@ class CatalogLayer {
     }
 
 
+    public static function getListAndParams($data) {
+        $result = [];
+        print_r($data);
+        exit;
+        $criteria_data=array_merge(['with'=>['categories_description']=>$data['categories_description']]);
+
+        $criteria = new CDbCriteria($criteria_data);
+//       $criteria->limit=10;
+        $list = CatalogLegacy::model()->findall($criteria);
+//        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();
+
+        foreach ($list as $key => $val) {
+            $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
+        }
+
+        return $result;
+    }
+
 
 //    public static function getCatalog($id = null, $scenario = null) {
 //
@@ -103,35 +121,6 @@ class CatalogLayer {
     }
 
 
-    public static function getListAndParams($data,$data1) {
-        $result = [];
-
-//      $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
-        $data=array_merge( ['with'=>['categories_description'=>$data1]]);
-       // $data=array_merge( ['with'=>['categories_description'=>$data1,'category_to_catalog'=>[],'description'=>[]]]);
-//                     print_r($data);exit;
-        $criteria = new CDbCriteria($data);
-       // $criteria->limit = 1000;
-//        echo '<pre>';
-//        print_r($criteria);
-//        exit;
-
-        $list = CatalogLegacy::model()->findall($criteria);
-//        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();
-//        $list = CatalogLegacy::model()->with('category_to_catalog','categories_description')->findall($criteria);
-//          echo '<pre>';
-//          print_r($list);
-//          exit;
-        foreach ($list as $key => $val) {
-                $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
-        }
-
-//        foreach ($list->description->attributes as $val) {
-//            $result[] = self::fieldMapConvert($val->attributes);
-//        }
-
-        return $result;
-    }
 
 
     public static function save($data) {

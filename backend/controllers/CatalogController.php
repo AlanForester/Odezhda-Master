@@ -29,13 +29,36 @@ class CatalogController extends BackendController {
         // пагинация
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
+
         // получение данных
         $this->model = new CatalogModel();
-        $Catalog = $this->model->getListAndParams($criteria);
-        $this->gridDataProvider = new CArrayDataProvider($Catalog, [
+        $catalog = $this->model->getListAndParams($criteria);
+
+/*
+        $this->gridDataProvider=new CActiveDataProvider('WorksCategoryUsersLinks',
+            array(
+                'criteria'=>array(
+                    'condition'=>'t.uid=1',
+                    'with'=>array('fileDetails','file','userDetails','categoryName'),
+                    'together'=>true,
+                    'group'=>'t.fid',
+                ),
+                'pagination'=>array(
+                    'pageSize'=>10,
+                    'pageVar'=>'page',
+                ),
+
+            ));
+
+        echo '<pre>';
+        print_r($catalog);
+        exit;
+*/
+
+        $this->gridDataProvider = new CArrayDataProvider($catalog, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($Catalog) : $page_size),
+                'pageSize' => ($page_size == 'all' ? count($catalog) : $page_size),
             ],
         ]);
 
