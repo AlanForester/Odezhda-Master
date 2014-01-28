@@ -4,29 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>LAPANA</title>
 
-    <link href="/css/reset.css" rel="stylesheet" />
-    <link href="/css/flick/jquery-ui-1.10.3.custom.css" rel="stylesheet" />
-    <link href="/css/style.css" rel="stylesheet" />
-    <link href="/css/main.css" rel="stylesheet" />
-
-    <!-- JQUERY -->
-    <script src="/js/slider/jquery.js"></script>
-    <script src="/js/jquery-ui-1.10.3.custom.min.js"></script>
-
-    <!-- PARALAX SLIDER -->
-    <script src="/js/slider/jquery.themepunch.plugins.min.js"></script>
-    <script src="/js/slider/jquery.themepunch.revolution.min.js"></script>
-
-    <!-- MODAL -->
-    <script src="/js/modal/jquery.arcticmodal-0.3.min.js"></script>
-    <link rel="stylesheet" href="/js/modal/jquery.arcticmodal-0.3.css">
-    <link rel="stylesheet" href="/js/modal/themes/simple.css">
-
-
-
-    <link href="/js/slider/captions.css" rel="stylesheet" />
-    <link href="/js/slider/settings.css" rel="stylesheet" />
-    <link href="/js/slider/style.css" rel="stylesheet" />
     <script>
         jQuery(document).ready(function() {
             jQuery('.banner').revolution(
@@ -58,8 +35,6 @@
                     fullWidth:"off"
                 });
         });
-    </script>
-    <script type="text/javascript">
         $(function() {
             if ($.browser.msie && $.browser.version.substr(0,1)<7)
             {
@@ -74,11 +49,7 @@
 
 <!-- Only for karta -->
 
-    <link href="/css/karta.css" rel="stylesheet" />
-
     <!-- KARTA SLIDER -->
-    <script src="/js/karta-slider/jquery.jqzoom-core-pack.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="/js/karta-slider/jquery.jqzoom.css" type="text/css">
     <script type="text/javascript">
         $(document).ready(function() {
             $('.jqzoom').jqzoom({
@@ -117,7 +88,6 @@
 
 <!--  Only for catalog  -->
 
-    <link href="/css/catalog.css" rel="stylesheet" />
 
     <!-- SUBMENU -->
 
@@ -137,7 +107,7 @@
     <!-- ACCORDION -->
 
     <script>
-        $(function() {
+        $(document).ready(function() {
             $( "#accordion" ).accordion({
                 heightStyle: "content"
             });
@@ -711,6 +681,240 @@
     <div class="box-modal modal-reg" id="exampleModal5">
         <div class="box-modal_close arcticmodal-close modal-reg">X</div>
     </div>
+</div>
+
+<div class="g-hidden">
+<div class="box-modal more-goods" id="exampleModalmore-goods">
+<div class="box-modal_close arcticmodal-close modal-reg">X</div>
+<script type="text/javascript" src="/js/slider-clothes/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="/js/slider-clothes/jcarousel.responsive.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/slider-clothes/jcarousel.responsive.css">
+<div class="jcarousel-wrapper">
+<div class="jcarousel">
+<ul>
+<li class="goods-list">
+    <div class="karta-wrap">
+        <div class="karta-box">
+            <div class="tovar-slider">
+                <div class="clearfix" id="content">
+
+                    <div class="clearfix" >
+                        <ul id="thumblist" class="clearfix" >
+                            <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '//tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix">
+                        <a href="/images/tovar1-big-b.png" class="jqzoom" rel='gal1'  title="triumph" >
+                            <img src="/images/tovar1-big.png"  title="triumph" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tovar-info goods">
+            <p>Футболка</p>
+            <span>Артикул 75388308</span>
+            <div class="color">
+                <span>ВЫБЕРИТЕ ЦВЕТ</span>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+            </div>
+            <div class="razmer">
+                <div class="title">
+                    <span>РАЗМЕРЫ</span>
+                    <a href="#">Таблица размеров</a>
+                </div>
+                <a href="#" class="razmer-one">45</a>
+                <a href="#" class="razmer-one">56</a>
+                <a href="#" class="razmer-one">41</a>
+                <a href="#" class="razmer-one-del">48</a>
+                <a href="#" class="razmer-one">32</a>
+                <a href="#" class="razmer-one">39</a>
+            </div>
+            <div class="tovar-more-info">
+
+                <script type="text/javascript" src="/js/tabs/withoutPlugin.js"></script>
+                <script type="text/javascript" src="/js/tabs/organictabs.jquery.js"></script>
+                <link href="/js/tabs/style.css" rel="stylesheet" type="text/css" />
+                <script>
+                    $(function() {
+
+                        $("#example-one").organicTabs();
+
+                        $("#example-two").organicTabs({
+                            "speed": 200
+                        });
+
+                    });
+                </script>
+                <div id="example-one">
+
+                    <ul class="nav">
+                        <li class="nav-one"><a href="#featured" class="current">ОПИСАНИЕ</a></li>
+                        <li class="nav-two"><a href="#core">ДОСТАВКА</a></li>
+                    </ul>
+
+                    <div class="list-wrap">
+
+                        <ul id="featured">
+                            <p>СОСТАВ:   шелк 100%;</p>
+                            <p>СТРАНА ПРОИЗВОДСТВА:   Китай </p>
+                            <p>ОБХВАТ ГРУДИ:   110см</p>
+                            <p>ДЛИНА ИЗДЕЛИЯ:   80см</p>
+                        </ul>
+
+                        <ul id="core" class="hide">
+                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom title close to the jQZoom Window.
+                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
+                        </ul>
+                    </div> <!-- END List Wrap -->
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="soc-btn"><img src="/images/vk.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/facebook.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/twitter.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/google.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/odnoklassniki.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/youtube.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/photo.png" alt="" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-price">
+        <div class="price-main">
+                                        <span>
+                                            1200 руб.
+                                        </span>
+            <small>1500 руб.</small>
+        </div>
+        <div class="btn">
+            <button class="basket">В КОРЗИНУ</button>
+            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>
+        </div>
+    </div>
+</li>
+<li class="goods-list">
+    <div class="karta-wrap">
+        <div class="karta-box">
+            <div class="tovar-slider">
+                <div class="clearfix" id="content">
+
+                    <div class="clearfix" >
+                        <ul id="thumblist" class="clearfix" >
+                            <li><a class="zoomThumbActive" href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                            <li><a href='javascript:void(0);' rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img src='/images/tovar1.png' alt=""></a></li>
+                        </ul>
+                    </div>
+                    <div class="clearfix">
+                        <a href="/images/tovar1-big-b.png" class="jqzoom" rel='gal1'  title="triumph" >
+                            <img src="/images/tovar1-big.png"  title="triumph" alt="">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tovar-info goods">
+            <p>Футболка</p>
+            <span>Артикул 75388308</span>
+            <div class="color">
+                <span>ВЫБЕРИТЕ ЦВЕТ</span>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+            </div>
+            <div class="razmer">
+                <div class="title">
+                    <span>РАЗМЕРЫ</span>
+                    <a href="#">Таблица размеров</a>
+                </div>
+                <a href="#" class="razmer-one">45</a>
+                <a href="#" class="razmer-one">56</a>
+                <a href="#" class="razmer-one">41</a>
+                <a href="#" class="razmer-one-del">48</a>
+                <a href="#" class="razmer-one">32</a>
+                <a href="#" class="razmer-one">39</a>
+            </div>
+            <div class="tovar-more-info">
+
+                <script type="text/javascript" src="/js/tabs/withoutPlugin.js"></script>
+                <script type="text/javascript" src="/js/tabs/organictabs.jquery.js"></script>
+                <link href="/js/tabs/style.css" rel="stylesheet" type="text/css" />
+                <script>
+                    $(function() {
+
+                        $("#example-one").organicTabs();
+
+                        $("#example-two").organicTabs({
+                            "speed": 200
+                        });
+
+                    });
+                </script>
+                <div id="example-one">
+
+                    <ul class="nav">
+                        <li class="nav-one"><a href="#featured" class="current">ОПИСАНИЕ</a></li>
+                        <li class="nav-two"><a href="#core">ДОСТАВКА</a></li>
+                    </ul>
+
+                    <div class="list-wrap">
+
+                        <ul id="featured">
+                            <p>СОСТАВ:   шелк 100%;</p>
+                            <p>СТРАНА ПРОИЗВОДСТВА:   Китай </p>
+                            <p>ОБХВАТ ГРУДИ:   110см</p>
+                            <p>ДЛИНА ИЗДЕЛИЯ:   80см</p>
+                        </ul>
+
+                        <ul id="core" class="hide">
+                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom title close to the jQZoom Window.
+                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
+                        </ul>
+                    </div> <!-- END List Wrap -->
+                </div>
+            </div>
+            <div class="footer-social">
+                <a href="#" class="soc-btn"><img src="/images/vk.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/facebook.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/twitter.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/google.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/odnoklassniki.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/youtube.png" alt="" /></a>
+                <a href="#" class="soc-btn"><img src="/images/photo.png" alt="" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-price">
+        <div class="price-main">
+                                        <span>
+                                            1200 руб.
+                                        </span>
+            <small>1500 руб.</small>
+        </div>
+        <div class="btn">
+            <button class="basket">В КОРЗИНУ</button>
+            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>
+        </div>
+    </div>
+</li>
+</ul>
+</div>
+
+<a href="#" class="jcarousel-control-prev"></a>
+<a href="#" class="jcarousel-control-next"></a>
+</div>
+</div>
 </div>
 
 <script>

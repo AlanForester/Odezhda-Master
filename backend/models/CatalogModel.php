@@ -28,33 +28,48 @@ class CatalogModel extends CFormModel {
 
         if (!$this->allCatalog) {
 
-            $condition = [];
-            $params = [];
+            $condition = ['main'=>[],'description'=>[],'category_to_catalog'=>[],'categories_description'=>[]];
+            $params = ['main'=>[],'description'=>[],'category_to_catalog'=>[],'categories_description'=>[]];
+
 
             // фильтр по тексту
             if (!empty($data['text_search'])) {
-
-                $condition[] = '(' . join(
+            //    по основной таблице
+                $condition['main'][] = '(' . join(
                         ' OR ',  [
-                             '`description`.`'.CatalogLayer::getFieldName('id', false) . '` LIKE :text',
-                            '`t`.`'.CatalogLayer::getFieldName('price', false) . '` LIKE :text',
-                            '`description`.`'.CatalogLayer::getFieldName('name', false) . '` LIKE :text',
-                            '`description`.`'.CatalogLayer::getFieldName('description', false) . '` LIKE :text'
+                             't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
+                             't.'.CatalogLayer::getFieldName('price', false) . ' LIKE :text'
                             ]
 
-                                 ) . ')';
+                             ) . ')';
 
-                $params[':text'] = '%' . $data['text_search'] . '%';
+                $params['main'][':text'] = '%' . $data['text_search'] . '%';
+
+
+                $condition['description'][] = '(' . join(
+                        ' OR ',  [
+                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
+                             ]
+
+                    ) . ')';
+
+                $params['description'][':text'] = '%' . $data['text_search'] . '%';
             }
-//       print_r($condition);
-//        exit;
+
+
+
+
+
+
             // поле и направление сортировки
             $order_direct = null;
+            $order_field = 't.'.CatalogLayer::getFieldName('id', false);
 
-            $order_field = '`description`.`'.CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'products_id', false).'`';
- /*           echo $data['order_field'];
-            exit;*/
-            //$order_field=null;
+            if(!empty($data['order_field'])){
+                $order_field = CatalogLayer::getFieldName($data['order_field'], false);
+              }
+
 
             if (isset($data['order_direct'])) {
                 switch ($data['order_direct']) {
@@ -65,31 +80,34 @@ class CatalogModel extends CFormModel {
                         $order_direct = ' DESC';
                         break;
                 }
-            }else{
-                $order_direct = ' ASC';
-            }
+                }else{
+                    $order_direct = ' ASC';
+                }
+
 
             // фильтр по группе
-//            echo $data['filter_category'];
             if (!empty($data['filter_category'])) {
-                $condition1[] = '`category_to_catalog`.`categories_id`' . '=:categories_id';
-                $params1[':categories_id'] = $data['filter_category'];
+                $condition['categories_description'][] = 'categories_description.categories_id' . '=:categories_id';
+                $params['categories_description'][':categories_id'] = $data['filter_category'];
             }
 
-
-
-
-
             $this->allCatalog = CatalogLayer::getListAndParams(
-                [
-                    'condition' => join(' AND ', $condition),
-                    'params' => $params,
+                //Основные
+               ['main'=> [
+                    'condition' => join(' AND ', $condition['main']),
+                    'params' => $params['main'],
                     'order' => $order_field . ($order_direct ? : '')
                 ],
-                [
-                    'condition' => join(' AND ', $condition1),
-                    'params' => $params1
-                ]
+                //Описание
+                   'description'=> [
+                    'condition' => join(' AND ', $condition['description']),
+                    'params' => $params['description']
+                ],
+                //Категории
+               'categories_description'=> [
+                    'condition' => join(' AND ', $condition['categories_description']),
+                    'params' => $params['categories_description']
+                ]]
             );
 
         }
@@ -116,19 +134,20 @@ class CatalogModel extends CFormModel {
     }
 
     public function getCatalogData($id, $scenario) {
-        $Catalog = self::getCatalog($id, $scenario);
+        $catalog = self::getCatalog($id, $scenario);
 
         if($scenario!='add'){
-            $result = $Catalog->attributes + $Catalog->description->attributes;
+            $result = $catalog->attributes + $catalog->description->attributes +$catalog->categories_description[0]->attributes ;
+            // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
         }
         else{
-            $result = $Catalog->attributes;
+            $result = $catalog->attributes;
         }
 
 //            echo '<pre>';
 //            print_r($result);
 //            exit;
-        return ($Catalog ? CatalogLayer::fieldMapConvert($result) : false);
+        return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 
     public function save($data) {

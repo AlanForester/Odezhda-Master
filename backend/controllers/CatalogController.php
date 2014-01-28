@@ -29,19 +29,42 @@ class CatalogController extends BackendController {
         // пагинация
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
+
         // получение данных
         $this->model = new CatalogModel();
-        $Catalog = $this->model->getListAndParams($criteria);
-        $this->gridDataProvider = new CArrayDataProvider($Catalog, [
+        $catalog = $this->model->getListAndParams($criteria);
+
+/*
+        $this->gridDataProvider=new CActiveDataProvider('WorksCategoryUsersLinks',
+            array(
+                'criteria'=>array(
+                    'condition'=>'t.uid=1',
+                    'with'=>array('fileDetails','file','userDetails','categoryName'),
+                    'together'=>true,
+                    'group'=>'t.fid',
+                ),
+                'pagination'=>array(
+                    'pageSize'=>10,
+                    'pageVar'=>'page',
+                ),
+
+            ));
+
+        echo '<pre>';
+        print_r($catalog);
+        exit;
+*/
+
+        $this->gridDataProvider = new CArrayDataProvider($catalog, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($Catalog) : $page_size),
+                'pageSize' => ($page_size == 'all' ? count($catalog) : $page_size),
             ],
         ]);
 
        $categories_model = new ShopCategoriesModel();
        $this->categories[''] = '- По категории -';
-       foreach ($categories_model->getList() as $g) {
+       foreach ($categories_model->getCategoriesList() as $g) {
            $this->categories[$g['id']] = $g['name'];
        }
 
@@ -71,7 +94,7 @@ class CatalogController extends BackendController {
 
         $categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
-        foreach ($categories_model->getList() as $g) {
+        foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
         }
 
@@ -107,12 +130,17 @@ class CatalogController extends BackendController {
             }
         }
 
-        $Catalog = $model->getCatalogData($id, $scenario);
+        $catalog = $model->getCatalogData($id, $scenario);
 
-        if ($Catalog) {
-            $model->setAttributes($Catalog, false);
+//        print_r($catalog);
+//        exit;
+
+        if ($catalog) {
+            $model->setAttributes($catalog, false);
         } else
             $this->error();
+
+
 
 
         $this->render('edit', compact('model', 'Catalog'));

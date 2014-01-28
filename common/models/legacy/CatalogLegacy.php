@@ -91,9 +91,10 @@ class CatalogLegacy extends CActiveRecord
     protected function afterDelete() {
         $id = $this->_allData['products_id'] = $this->products_id;
 
-
-        $command = Yii::app()->db->createCommand();
-        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
+        CatalogDescriptionLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
+        CatalogToCategorLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
+//        $command = Yii::app()->db->createCommand();
+//        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
     }
     /**
      * Закидываем все параметры для сохранения, как для основной таблицы, так и для связанных

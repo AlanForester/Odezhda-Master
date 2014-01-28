@@ -24,8 +24,8 @@ class RetailSiteController extends RetailController {
         );
     }
     
-    public function actionKarta() {
-        $this->render("/site/karta");
+    public function actionProduct() {
+        $this->render("/site/product");
     }
 
     public function actionCatalog()

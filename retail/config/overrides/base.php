@@ -21,16 +21,68 @@ return [
             // Installing our own error page.
             'errorAction' => 'site/error'
         ],
-        'clientScript' => array(
-            'scriptMap' => array(
+        'clientScript' => [
+            'scriptMap' => [
                 'bootstrap-responsive.css' => false,
                 'yiistrap.css' => false,
                 'bootstrap.css' => false,
                 'bootstrap.min.js' => false,
                 'bootstrap-yii.css' => false,
-                'jquery.js' => false,
-            )
-        ),
+            ],
+            'packages' => [
+                'core' => [
+                    'baseUrl' => '/',
+                    'js' => [
+                        //Slider
+                        'js/slider/jquery.themepunch.plugins.min.js',
+                        'js/slider/jquery.themepunch.revolution.min.js',
+
+                        // Modal
+                        'js/modal/jquery.arcticmodal-0.3.min.js',
+                    ],
+                    'css' => [
+                        'css/reset.css',
+                        'css/flick/jquery-ui-1.10.3.custom.css',
+                        'css/style.css',
+
+                        // Slider
+                        'js/slider/captions.css',
+                        'js/slider/settings.css',
+                        'js/slider/style.css',
+
+                        // Modal
+                        'js/modal/jquery.arcticmodal-0.3.css',
+                        'js/modal/themes/simple.css',
+                    ],
+                    'depends' => ['jquery', 'jquery.ui']
+                ],
+                'index' => [
+                    'baseUrl' => '/',
+                    'css' => [
+                        'css/main.css',
+                    ],
+                    'depends' => ['core'],
+                ],
+                'catalog' => [
+                    'baseUrl' => '/',
+                    'css' => [
+                        'css/catalog.css',
+                    ],
+                    'depends' => ['core', 'product']
+                ],
+                'product' => [
+                    'baseUrl' => '/',
+                    'js' => [
+                        'js/karta-slider/jquery.jqzoom-core-pack.js',
+                    ],
+                    'css' => [
+                        'css/karta.css',
+                        'js/karta-slider/jquery.jqzoom.css',
+                    ],
+                    'depends' => ['core']
+                ],
+            ]
+        ],
         'urlManager' => [
             // Some sane usability rules
             'rules' => [

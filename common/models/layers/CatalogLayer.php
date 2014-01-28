@@ -41,6 +41,23 @@ class CatalogLayer {
     }
 
 
+    public static function getListAndParams($data) {
+        $result = [];
+
+        $criteria_data=array_merge($data['main'],['with'=>['description'=>$data['description'],'categories_description'=>$data['categories_description']]]);
+        //print_r($data);exit;
+        $criteria = new CDbCriteria($criteria_data);
+//       $criteria->limit=10;
+        $list = CatalogLegacy::model()->findall($criteria);
+//        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();
+
+        foreach ($list as $key => $val) {
+            $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
+        }
+
+        return $result;
+    }
+
 
 //    public static function getCatalog($id = null, $scenario = null) {
 //
@@ -103,29 +120,6 @@ class CatalogLayer {
     }
 
 
-    public static function getListAndParams($data,$data1) {
-        $result = [];
-
-//      $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
-        $data=array_merge($data, ['with'=>['categories_description','category_to_catalog','description'=>$data]]);
-//        print_r($data);exit;
-        $criteria = new CDbCriteria($data);
-        $criteria->limit = 100;
-        $list = CatalogLegacy::model()->findall($criteria);
-//        $list = CatalogLegacy::model()->with('category_to_catalog','categories_description')->findall($criteria);
-//          echo '<pre>';
-//         print_r($list);
-//       exit;
-        foreach ($list as $key => $val) {
-                $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
-        }
-
-//        foreach ($list->description->attributes as $val) {
-//            $result[] = self::fieldMapConvert($val->attributes);
-//        }
-
-        return $result;
-    }
 
 
     public static function save($data) {
@@ -204,34 +198,34 @@ class CatalogLayer {
         return $rules;
     }
 
-//    public static function delete($id) {
-//        $Catalog = self::getCatalog($id);
-//        if ($Catalog) {
-//            return $Catalog->delete();
-//        }
-//
-//        return false;
-//    }
-
-
     public static function delete($id) {
-        $parent = self::getCatalog($id);
-        //print_r($parent);exit;
-        if (!($parent && $parent->delete())) {
-            return false;
-        } else {
-            $children = self::findByParentId($id);
-
-            foreach ($children as $val) {
-                $child = self::getCatalog($val['id']);
-                //print_r($child);exit;
-                if (!($child && $child->delete())) {
-                    return false;
-                }
-            }
-            return true;
+        $Catalog = self::getCatalog($id);
+        if ($Catalog) {
+            return $Catalog->delete();
         }
+
+        return false;
     }
+
+
+//    public static function delete($id) {
+//        $parent = self::getCatalog($id);
+//        //print_r($parent);exit;
+//        if (!($parent && $parent->delete())) {
+//            return false;
+//        } else {
+//            $children = self::findByParentId($id);
+//
+//            foreach ($children as $val) {
+//                $child = self::getCatalog($val['id']);
+//                //print_r($child);exit;
+//                if (!($child && $child->delete())) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//    }
 
     /**
      * Обновление значения параметра пользователя
