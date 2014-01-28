@@ -106,7 +106,7 @@
             <ul>
                 <!-- THE 1 SLIDE -->
                 <li data-transition="turnoff" data-slotamount="1" data-masterspeed="300" >
-                    <img src="images/slides/girl.png" alt="" />
+                    <img src="/images/slides/girl.png" alt="" />
 
                     <div class="caption large_text fade"
                          data-x="509"
@@ -129,7 +129,7 @@
                          data-y="50"
                          data-speed="300"
                          data-start="2000"
-                         data-easing="easeOutBack"  ><img src="images/slides/blue-cirkle.png" alt="Image 7"></div>
+                         data-easing="easeOutBack"  ><img src="/images/slides/blue-cirkle.png" alt="Image 7"></div>
 
                     <div class="caption very_large_black_text randomrotate"
                          data-x="470"
@@ -156,9 +156,9 @@
                 </li>
 
                 <!-- THE 2 SLIDE -->
-                <li data-transition="slideleft" data-slotamount="1" data-masterspeed="300" data-thumb="images/slides/thumb5.jpg">
+                <li data-transition="slideleft" data-slotamount="1" data-masterspeed="300" data-thumb="/images/slides/thumb5.jpg">
 
-                    <img src="images/slides/slide4.jpg" >
+                    <img src="/images/slides/slide4.jpg" >
 
                     <div class="caption large_text sft"
                          data-x="50"
@@ -186,27 +186,27 @@
                          data-y="192"
                          data-speed="300"
                          data-start="1400"
-                         data-easing="easeOutExpo"  ><img src="images/slides/imac.png" alt="Image 4"></div>
+                         data-easing="easeOutExpo"  ><img src="/images/slides/imac.png" alt="Image 4"></div>
 
                     <div class="caption lfl"
                          data-x="253"
                          data-y="282"
                          data-speed="300"
                          data-start="1500"
-                         data-easing="easeOutExpo"  ><img src="images/slides/ipad.png" alt="Image 5"></div>
+                         data-easing="easeOutExpo"  ><img src="/images/slides/ipad.png" alt="Image 5"></div>
 
                     <div class="caption lfl"
                          data-x="322"
                          data-y="313"
                          data-speed="300"
                          data-start="1600"
-                         data-easing="easeOutExpo"  ><img src="images/slides/iphone.png" alt="Image 6"></div>
+                         data-easing="easeOutExpo"  ><img src="/images/slides/iphone.png" alt="Image 6"></div>
                 </li>
 
 
                 <!-- THE 3 SLIDE -->
-                <li data-transition="flyin" data-slotamount="1" data-masterspeed="300" data-thumb="images/slides/thumb6.jpg">
-                    <img src="images/slides/slide51.jpg" >
+                <li data-transition="flyin" data-slotamount="1" data-masterspeed="300" data-thumb="/images/slides/thumb6.jpg">
+                    <img src="/images/slides/slide51.jpg" >
 
                     <div class="caption large_text sfl"
                          data-x="38"
@@ -228,7 +228,7 @@
                          data-speed="800"
                          data-start="1600"
 
-                         data-easing="easeOutExpo"  ><img src="images/slides/TP_logo.png" alt="Image 4"></div>
+                         data-easing="easeOutExpo"  ><img src="/images/slides/TP_logo.png" alt="Image 4"></div>
                 </li>
             </ul>
 
@@ -239,7 +239,7 @@
 </div>
 <div class="tovar-day">
     <p>товар дня</p>
-    <img src="images/tovar-day.png" alt="Товар дня">
+    <img src="/images/tovar-day.png" alt="Товар дня">
     <a href="#">Кофта (75382936)</a>
     <span>350р</span>
     <h5>390р</h5>
@@ -289,57 +289,57 @@
         <div id="fragment_holder">
             <div id="fragment-1" class="fragment displayed_tab_content">
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -351,57 +351,57 @@
             </div>
             <div id="fragment-4" class="fragment">
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
                 <div class="tab-var">
-                    <img src="images/kofta.png" alt="" />
+                    <img src="/images/kofta.png" alt="" />
                     <a href="#">Кофта (75382936)</a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
-                        <a href="#">Вся одежда<img src="images/var-img-more.png" alt="" /></a>
+                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -414,7 +414,7 @@
             <h6>ПОДПИШИТЕСЬ НА РАССЫЛКУ И ВЫ ПЕРВЫМИ БУДЕТЕ В КУРСЕ САМЫХ ВЫГОДНЫХ ПРЕДЛОЖЕНИЙ.</h6>
             <input type="text" placeholder="Имя" />
             <input type="text" placeholder="E-mail" />
-            <button>Отправить<img src="images/var-img-more.png" alt="" /></button>
+            <button>Отправить<img src="/images/var-img-more.png" alt="" /></button>
         </div>
     </div>
 
@@ -422,31 +422,31 @@
 </div>
 
 <div class="skidki one">
-    <a href="#"><img src="images/skidka1.jpg" alt="" /></a>
+    <a href="#"><img src="/images/skidka1.jpg" alt="" /></a>
 </div>
 <div class="skidki two">
-    <a href="#"><img src="images/skidka2.jpg" alt="" /></a>
+    <a href="#"><img src="/images/skidka2.jpg" alt="" /></a>
 </div>
 <div class="skidki three">
-    <a href="#"><img src="images/skidka3.jpg" alt="" /></a>
+    <a href="#"><img src="/images/skidka3.jpg" alt="" /></a>
 </div>
 
 <div class="lookbook">
     <h2>Хочу как в Лукбуке</h2>
-    <a href="#" class="lookbook-lap">ВСЕ ЛУКБУКИ LAPANA.RU<img src="images/var-img-more.png" alt="" /></a>
-    <a href="#" class="lookbook-user">ЛУКБУКИ ПОКУПАТЕЛЕЙ<img src="images/var-img-more.png" alt="" /></a>
+    <a href="#" class="lookbook-lap">ВСЕ ЛУКБУКИ LAPANA.RU<img src="/images/var-img-more.png" alt="" /></a>
+    <a href="#" class="lookbook-user">ЛУКБУКИ ПОКУПАТЕЛЕЙ<img src="/images/var-img-more.png" alt="" /></a>
 </div>
 
 <div class="slider-clothes">
-    <script type="text/javascript" src="js/slider-clothes/jquery.jcarousel.min.js"></script>
-    <script type="text/javascript" src="js/slider-clothes/jcarousel.responsive.js"></script>
-    <link rel="stylesheet" type="text/css" href="js/slider-clothes/jcarousel.responsive.css">
+    <script type="text/javascript" src="/js/slider-clothes/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="/js/slider-clothes/jcarousel.responsive.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/slider-clothes/jcarousel.responsive.css">
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl1.png" alt="Image 1">
+                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 1">
                     </a>
                     <div class="slider-info-box">
                         <p>Пальто (12345) – 1500р</p>
@@ -458,27 +458,27 @@
                 </li>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl2.png" alt="Image 2">
+                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 2">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl3.png" alt="Image 3">
+                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 3">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl1.png" alt="Image 4">
+                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 4">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl2.png" alt="Image 5">
+                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 5">
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <img src="js/slider-clothes/img/sl3.png" alt="Image 6">
+                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 6">
                     </a>
                 </li>
             </ul>
@@ -491,7 +491,7 @@
 
 <div class="social-box">
     <p>Давайте дружить!</p>
-    <img src="images/social-box.png" alt="" />
+    <img src="/images/social-box.png" alt="" />
 </div>
 
 </div>
