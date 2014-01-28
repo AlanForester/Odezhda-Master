@@ -87,7 +87,7 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedCondition[] = '(' . join(
                         ' OR ',
                         [
-                            'description.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
+                            'rel_description.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
@@ -169,7 +169,7 @@ class ShopCategoriesModel extends CFormModel {
             $relatedCriteria = [
                 'condition' => join(' AND ', $relatedCondition),
                 'params' => $relatedParams,
-                'order' => 'description.'.$order_field . ($order_direct ? : '')
+                'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
             ];
 
             // разрешаем перезаписать любые параметры критерии
