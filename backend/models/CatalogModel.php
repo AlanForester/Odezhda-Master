@@ -29,7 +29,9 @@ class CatalogModel extends CFormModel {
         if (!$this->allCatalog) {
 
             $condition = [];
+            $condition1 = [];
             $params = [];
+            $params1 = [];
 
             // фильтр по тексту
             if (!empty($data['text_search'])) {
@@ -52,6 +54,13 @@ class CatalogModel extends CFormModel {
             $order_direct = null;
 
             $order_field = '`description`.`'.CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'products_id', false).'`';
+
+            if(!empty($data['order_field'])){
+                $order_field = CatalogLayer::getFieldName($data['order_field'], false);
+              }
+            else{
+                $order_field = '`t`.`'.CatalogLayer::getFieldName('id', false).'`';
+            }
  /*           echo $data['order_field'];
             exit;*/
             //$order_field=null;
@@ -72,7 +81,7 @@ class CatalogModel extends CFormModel {
             // фильтр по группе
 //            echo $data['filter_category'];
             if (!empty($data['filter_category'])) {
-                $condition1[] = '`category_to_catalog`.`categories_id`' . '=:categories_id';
+                $condition1[] = 'categories_description.categories_id' . '=:categories_id';
                 $params1[':categories_id'] = $data['filter_category'];
             }
 
