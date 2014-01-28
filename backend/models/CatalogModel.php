@@ -138,7 +138,7 @@ class CatalogModel extends CFormModel {
 
         if($scenario!='add'){
             $result = $catalog->attributes + $catalog->description->attributes +$catalog->categories_description[0]->attributes ;
-            //Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
+            // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
         }
         else{
             $result = $catalog->attributes;
