@@ -117,12 +117,11 @@ $this->widget(
                 'header' => 'Родительская категория',
                 'name' => 'parent_id',
                 'headerHtmlOptions' => [
-                    'width' => '50px'
+                    'width' => '200px'
                 ],
                 'htmlOptions' => [
                 ],
             ],
-
             [
                 'header' => 'Id',
                 'name' => 'id',
