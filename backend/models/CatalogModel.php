@@ -134,19 +134,20 @@ class CatalogModel extends CFormModel {
     }
 
     public function getCatalogData($id, $scenario) {
-        $Catalog = self::getCatalog($id, $scenario);
+        $catalog = self::getCatalog($id, $scenario);
 
         if($scenario!='add'){
-            $result = $Catalog->attributes + $Catalog->description->attributes;
+            $result = $catalog->attributes + $catalog->description->attributes +$catalog->categories_description[0]->attributes ;
+            //Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
         }
         else{
-            $result = $Catalog->attributes;
+            $result = $catalog->attributes;
         }
 
 //            echo '<pre>';
 //            print_r($result);
 //            exit;
-        return ($Catalog ? CatalogLayer::fieldMapConvert($result) : false);
+        return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 
     public function save($data) {

@@ -45,7 +45,7 @@ class CatalogLayer {
         $result = [];
 
         $criteria_data=array_merge($data['main'],['with'=>['description'=>$data['description'],'categories_description'=>$data['categories_description']]]);
-
+        //print_r($data);exit;
         $criteria = new CDbCriteria($criteria_data);
 //       $criteria->limit=10;
         $list = CatalogLegacy::model()->findall($criteria);
@@ -198,34 +198,34 @@ class CatalogLayer {
         return $rules;
     }
 
-//    public static function delete($id) {
-//        $Catalog = self::getCatalog($id);
-//        if ($Catalog) {
-//            return $Catalog->delete();
-//        }
-//
-//        return false;
-//    }
-
-
     public static function delete($id) {
-        $parent = self::getCatalog($id);
-        //print_r($parent);exit;
-        if (!($parent && $parent->delete())) {
-            return false;
-        } else {
-            $children = self::findByParentId($id);
-
-            foreach ($children as $val) {
-                $child = self::getCatalog($val['id']);
-                //print_r($child);exit;
-                if (!($child && $child->delete())) {
-                    return false;
-                }
-            }
-            return true;
+        $Catalog = self::getCatalog($id);
+        if ($Catalog) {
+            return $Catalog->delete();
         }
+
+        return false;
     }
+
+
+//    public static function delete($id) {
+//        $parent = self::getCatalog($id);
+//        //print_r($parent);exit;
+//        if (!($parent && $parent->delete())) {
+//            return false;
+//        } else {
+//            $children = self::findByParentId($id);
+//
+//            foreach ($children as $val) {
+//                $child = self::getCatalog($val['id']);
+//                //print_r($child);exit;
+//                if (!($child && $child->delete())) {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//    }
 
     /**
      * Обновление значения параметра пользователя

@@ -130,12 +130,17 @@ class CatalogController extends BackendController {
             }
         }
 
-        $Catalog = $model->getCatalogData($id, $scenario);
+        $catalog = $model->getCatalogData($id, $scenario);
 
-        if ($Catalog) {
-            $model->setAttributes($Catalog, false);
+//        print_r($catalog);
+//        exit;
+
+        if ($catalog) {
+            $model->setAttributes($catalog, false);
         } else
             $this->error();
+
+
 
 
         $this->render('edit', compact('model', 'Catalog'));
