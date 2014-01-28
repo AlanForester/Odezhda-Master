@@ -89,7 +89,8 @@ class ShopCategoriesLayer {
             }
         }
 
-        $result=self::buildTree($result);print_r($result);exit;
+        $result=self::buildTree($result);
+//        print_r($result);exit;
         $result=self::flatTree(['data'=>$result]);
         $result = array_map(function($el){return (array)$el;},$result);
         return $result;
@@ -145,8 +146,8 @@ class ShopCategoriesLayer {
             [
                 'data' => [],
                 'show_root' => true,
-                'level_prx' => '|__',
-                'level_sfx' => '_',
+                'level_prx' => '|_',
+                'level_sfx' => '',
                 'children_name' => 'children',
                 'level' => 0,
                 'root_name' => 'Корень'

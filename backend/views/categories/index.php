@@ -32,32 +32,32 @@ $this->widget(
             ),
 
             // фильтр по дате регистрации
-            TbHtml::dropDownList(
-                'filter_created',
-                $criteria['filter_created'],
-                [
-                    '0' => '- По дате добавления -',
-                    'today' => 'сегодня',
-                    'past_week' => 'за прошлую неделю',
-                    'past_1month' => 'за прошлый месяц',
-                    'past_3month' => 'последние 3 месяца',
-                    'past_6month' => 'последние 6 месяцев',
-                    'past_year' => 'за прошлый год',
-                    'post_year' => 'больше года назад',
-                ],
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_created:$("#filter_created").val()
-                            }
-                        }
-                    )
-                })()'
-                ]
-            )
+//            TbHtml::dropDownList(
+//                'filter_created',
+//                $criteria['filter_created'],
+//                [
+//                    '0' => '- По дате добавления -',
+//                    'today' => 'сегодня',
+//                    'past_week' => 'за прошлую неделю',
+//                    'past_1month' => 'за прошлый месяц',
+//                    'past_3month' => 'последние 3 месяца',
+//                    'past_6month' => 'последние 6 месяцев',
+//                    'past_year' => 'за прошлый год',
+//                    'post_year' => 'больше года назад',
+//                ],
+//                [
+//                    'onChange' => 'js: (function(){
+//                    $.fn.yiiGridView.update(
+//                        "whgrid",
+//                        {
+//                            data:{
+//                                filter_created:$("#filter_created").val()
+//                            }
+//                        }
+//                    )
+//                })()'
+//                ]
+//            )
         ],
 
 
@@ -122,16 +122,7 @@ $this->widget(
                 'htmlOptions' => [
                 ],
             ],
-            [
-                'header' => 'Дата добавления',
-                'name' => 'added',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'text-align: center;'
-                ],
-            ],
+
             [
                 'header' => 'Id',
                 'name' => 'id',
