@@ -18,7 +18,7 @@ class ShopCategoriesController extends BackendController {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
             'filter_categories' => $this->userStateParam('filter_categories'),
-            'filter_created' => $this->userStateParam('filter_created'),
+//            'filter_created' => $this->userStateParam('filter_created'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct')
         ];
