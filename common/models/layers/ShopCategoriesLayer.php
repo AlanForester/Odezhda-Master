@@ -88,7 +88,8 @@ class ShopCategoriesLayer {
                 $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->description->getAttributes(['categories_name'])));
             }
         }
-        $result=self::buildTree($result);
+
+        $result=self::buildTree($result);print_r($result);exit;
         $result=self::flatTree(['data'=>$result]);
         $result = array_map(function($el){return (array)$el;},$result);
         return $result;
@@ -109,22 +110,29 @@ class ShopCategoriesLayer {
 
     // в функцию нужно прислать массив и указать имя поля, по которому будет определяться
     // поле сортировки. В ответ получим массив, где вложенные записи будут в поле $children_name
-    public static function buildTree($data = null,$root=0) {
+    public static function buildTree($data = null,$root=0, $deep=0) {
         $result = [];
         if (count($data) > 0) {
             $id_name = 'id';
             $field_name = 'parent_id';
             $children_name = 'children';
+            $max_deep=2;
 
             foreach ($data as $d) {
-                if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
-                    $d[$children_name] = self::buildTree($data,$d[$id_name]);
+                if ($deep<=$max_deep){
+                    if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
+                        $deep++;
+                        $d[$children_name] = self::buildTree($data,$d[$id_name],$deep);
 
-                    if (count($d[$children_name]) == 0) {
-                        unset($d[$children_name]);
+                        if (count($d[$children_name]) == 0) {
+                            unset($d[$children_name]);
+                        }
+                        // при желании, можно в конфиге принимать обьект, значения которого будут добавляться в каждый элемент
+                        $result[] = $d;
                     }
-                    // при желании, можно в конфиге принимать обьект, значения которого будут добавляться в каждый элемент
-                    $result[] = $d;
+                }
+                else {
+                    $deep--;
                 }
             }
         }
