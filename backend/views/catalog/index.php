@@ -14,16 +14,16 @@ $this->widget(
         'filter' => [
             // фильтр по категории
             TbHtml::dropDownList(
-                'filter_groups',
-                $criteria['filter_groups'],
+                'filter_category',
+                $criteria['filter_category'],
                 $this->categories,
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
-                        "usersgrid",
+                        "whgrid",
                         {
                             data:{
-                                filter_groups:$("#filter_groups").val()
+                                filter_category:$("#filter_category").val()
                             }
                         }
                     )
@@ -93,7 +93,7 @@ $this->widget(
 //                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Категории',
-                'name' => 'categories_name',
+                'name' => 'category',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

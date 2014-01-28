@@ -8,7 +8,9 @@ class CatalogLayer {
         'products_id' => 'id',
         'products_price' => 'price',
             'products_name' => 'name',
-            'products_description' => 'description'
+            'products_description' => 'description',
+            'categories_name' =>'category'
+
     ];
 
     public static $errors = [];
@@ -40,16 +42,44 @@ class CatalogLayer {
 
 
 
+//    public static function getCatalog($id = null, $scenario = null) {
+//
+//        return ($id ? CatalogLegacy::model()->with('description')->findByPk($id) : new CatalogLegacy($scenario));
+//
+////        echo '<pre>';
+////        $catalog_data=CatalogLegacy::model()->with('description')->findByPk($id);
+////        $catalog_data->attributes=$catalog_data->description->attribute;
+////        print_r($catalog_data->description->attributes);
+////        exit;
+//    }
+
     public static function getCatalog($id = null, $scenario = null) {
+        if ($id){
+            $catalog = CatalogLegacy::model()->findByPk($id);
+            //print_r($category->description);exit;
+            $relations=$catalog->relations();
+            if (!empty($relations)){
+                foreach($relations as $r_name => $r_value){
+                    if (empty ($catalog->{$r_name})){
+                        $catalog->{$r_name} = new ShopCategoriesDescriptionLegacy();
+                    }
+                }
+            }
 
-        return ($id ? CatalogLegacy::model()->with('description')->findByPk($id) : new CatalogLegacy($scenario));
+        } else {
+            $catalog = new CatalogLegacy($scenario);
+            $relations=$catalog->relations();
+            if (!empty($relations)){
 
-//        echo '<pre>';
-//        $catalog_data=CatalogLegacy::model()->with('description')->findByPk($id);
-//        $catalog_data->attributes=$catalog_data->description->attribute;
-//        print_r($catalog_data->description->attributes);
-//        exit;
+                foreach($relations as $r_name => $r_value){
+                    $r_class = $r_value[1];
+                    $catalog->{$r_name} = new $r_class();
+                }
+            }
+        }
+        return $catalog;
     }
+
 
 
     public static function getFieldName($field, $direct = true) {
@@ -73,16 +103,23 @@ class CatalogLayer {
     }
 
 
-    public static function getListAndParams($data) {
+    public static function getListAndParams($data,$data1) {
+        $result = [];
 
+//      $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
+        $data=array_merge($data, ['with'=>['categories_description','category_to_catalog','description'=>$data]]);
+//        print_r($data);exit;
         $criteria = new CDbCriteria($data);
-        $criteria->limit = 1000;
-        $list = CatalogLegacy::model()->with('description')->findall($criteria);
-
-
-        foreach ($list as $val) {
-                $result[] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes);
+        $criteria->limit = 100;
+        $list = CatalogLegacy::model()->findall($criteria);
+//        $list = CatalogLegacy::model()->with('category_to_catalog','categories_description')->findall($criteria);
+//          echo '<pre>';
+//         print_r($list);
+//       exit;
+        foreach ($list as $key => $val) {
+                $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
         }
+
 //        foreach ($list->description->attributes as $val) {
 //            $result[] = self::fieldMapConvert($val->attributes);
 //        }
@@ -175,15 +212,6 @@ class CatalogLayer {
 //
 //        return false;
 //    }
-
-    public static function findByParentId($id) {
-        $result = [];
-        $list = CatalogLegacy::model()->findAllByAttributes(array('products_id' => $id));
-        foreach ($list as $val) {
-            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
-        }
-        return $result;
-    }
 
 
     public static function delete($id) {

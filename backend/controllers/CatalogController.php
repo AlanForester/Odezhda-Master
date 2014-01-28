@@ -23,7 +23,7 @@ class CatalogController extends BackendController {
             'text_search' => $this->userStateParam('text_search'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
-            'filter_groups' => $this->userStateParam('filter_category')
+            'filter_category' => $this->userStateParam('filter_category')
         ];
 
         // пагинация
@@ -40,9 +40,9 @@ class CatalogController extends BackendController {
         ]);
 
        $categories_model = new ShopCategoriesModel();
-        $this->categories[''] = '- По категории -';
-        foreach ($categories_model->getList() as $g) {
-            $this->categories[$g['id']] = $g['name'];
+       $this->categories[''] = '- По категории -';
+       foreach ($categories_model->getList() as $g) {
+           $this->categories[$g['id']] = $g['name'];
        }
 
 
@@ -68,6 +68,12 @@ class CatalogController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
+
+        $categories_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+        foreach ($categories_model->getList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
 
         $model = new CatalogModel($scenario);
 

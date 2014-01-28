@@ -11,6 +11,7 @@ class CatalogModel extends CFormModel {
     public $price;
     public $name;
     public $description;
+    public $category;
 
     /**
      * @var array массив всех пользователей.
@@ -32,9 +33,11 @@ class CatalogModel extends CFormModel {
 
             // фильтр по тексту
             if (!empty($data['text_search'])) {
+
                 $condition[] = '(' . join(
                         ' OR ',  [
-                           '`description`.`'.CatalogLayer::getFieldName('id', false) . '` LIKE :text',
+                             '`description`.`'.CatalogLayer::getFieldName('id', false) . '` LIKE :text',
+                            '`t`.`'.CatalogLayer::getFieldName('price', false) . '` LIKE :text',
                             '`description`.`'.CatalogLayer::getFieldName('name', false) . '` LIKE :text',
                             '`description`.`'.CatalogLayer::getFieldName('description', false) . '` LIKE :text'
                             ]
@@ -48,7 +51,7 @@ class CatalogModel extends CFormModel {
             // поле и направление сортировки
             $order_direct = null;
 
-            $order_field = '`description`.`'.CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'product_id', false).'`';
+            $order_field = '`description`.`'.CatalogLayer::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'products_id', false).'`';
  /*           echo $data['order_field'];
             exit;*/
             //$order_field=null;
@@ -62,7 +65,19 @@ class CatalogModel extends CFormModel {
                         $order_direct = ' DESC';
                         break;
                 }
+            }else{
+                $order_direct = ' ASC';
             }
+
+            // фильтр по группе
+//            echo $data['filter_category'];
+            if (!empty($data['filter_category'])) {
+                $condition1[] = '`category_to_catalog`.`categories_id`' . '=:categories_id';
+                $params1[':categories_id'] = $data['filter_category'];
+            }
+
+
+
 
 
             $this->allCatalog = CatalogLayer::getListAndParams(
@@ -70,6 +85,10 @@ class CatalogModel extends CFormModel {
                     'condition' => join(' AND ', $condition),
                     'params' => $params,
                     'order' => $order_field . ($order_direct ? : '')
+                ],
+                [
+                    'condition' => join(' AND ', $condition1),
+                    'params' => $params1
                 ]
             );
 

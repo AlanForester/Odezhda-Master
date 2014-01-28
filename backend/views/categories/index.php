@@ -12,14 +12,60 @@ $this->widget(
         'submenu' => BackendSubMenu::shop(),
 
         'filter' => [
+            // фильтр по группе
+            TbHtml::dropDownList(
+                'filter_categories',
+                $criteria['filter_categories'],
+                $this->categories,
+                [
+                    'onChange' => 'js: (function(){
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            data:{
+                                filter_categories:$("#filter_categories").val()
+                            }
+                        }
+                    )
+                })()'
+                ]
+            ),
 
+            // фильтр по дате регистрации
+            TbHtml::dropDownList(
+                'filter_created',
+                $criteria['filter_created'],
+                [
+                    '0' => '- По дате добавления -',
+                    'today' => 'сегодня',
+                    'past_week' => 'за прошлую неделю',
+                    'past_1month' => 'за прошлый месяц',
+                    'past_3month' => 'последние 3 месяца',
+                    'past_6month' => 'последние 6 месяцев',
+                    'past_year' => 'за прошлый год',
+                    'post_year' => 'больше года назад',
+                ],
+                [
+                    'onChange' => 'js: (function(){
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            data:{
+                                filter_created:$("#filter_created").val()
+                            }
+                        }
+                    )
+                })()'
+                ]
+            )
         ],
+
 
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
                 //                'firstname' => 'Имя',
-                //                'lastname' => 'Фамилия',
+                                'name' => 'Название',
                 //                'email' => 'E-Mail',
                 //                'group_id' => 'Группа',
                 //                'logdate' => 'Последний визит',
@@ -28,7 +74,7 @@ $this->widget(
             'direct' => $criteria['order_direct']
         ],
 
-        //'pageSize' => null,//$page_size,
+//        'pageSize' => $page_size,
 
         'textSearch' => $criteria['text_search'],
 
@@ -68,12 +114,22 @@ $this->widget(
                 ]
             ],
             [
-                'header' => 'Подкатегорий',
-                'name' => 'id',
+                'header' => 'Родительская категория',
+                'name' => 'parent_id',
                 'headerHtmlOptions' => [
                     'width' => '50px'
                 ],
                 'htmlOptions' => [
+                ],
+            ],
+            [
+                'header' => 'Дата добавления',
+                'name' => 'added',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: center;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: center;'
                 ],
             ],
             [

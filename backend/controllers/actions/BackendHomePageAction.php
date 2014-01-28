@@ -33,14 +33,15 @@ class BackendHomePageAction extends CAction {
 
         // список товаров
         $productsModel = new CatalogModel();
+        $products = [];
         // todo: не работает лимит
-        $products = $productsModel->getListAndParams(
-            [
-                'order_field' => 'created',
-                'order_direct' => 'down',
-                'criteria' => ['limit' => 5]
-            ]
-        );
+//        $products = $productsModel->getListAndParams(
+//            [
+//                'order_field' => 'created',
+//                'order_direct' => 'down',
+//                'criteria' => ['limit' => 5]
+//            ]
+//        );
         $productsDataProvider = new CArrayDataProvider($products);
 
         $this->controller->render('index', compact('usersDataProvider', 'productsDataProvider'));

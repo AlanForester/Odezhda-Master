@@ -12,20 +12,24 @@ class ShopCategoriesController extends BackendController {
     public $pageTitle = 'Менеджер категорий: список';
     public $pageButton = [];
     public $model;
-    public $groups = [];
+    public $categories = [];
 
     public function actionIndex($id = 0) {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
-//            'filter_groups' => $this->userStateParam('filter_groups'),
-//            'filter_created' => $this->userStateParam('filter_created'),
+            'filter_categories' => $this->userStateParam('filter_categories'),
+            'filter_created' => $this->userStateParam('filter_created'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct')
         ];
+//        print_r($criteria);exit;
+        // пагинация
+//        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
         $model = new ShopCategoriesModel();
-        $categories = $model->findByParentId($id);
+        //$categories = $model->findByParentId($id, $criteria);
+        $categories = $model->getList($criteria);
         $this->gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
             //            'pagination' => [
@@ -33,9 +37,13 @@ class ShopCategoriesController extends BackendController {
             //            ],
         ]);
 
-//        print_r($this->layout);exit;
-
         $vars = compact('id','criteria');
+
+        $groups_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+        foreach ($groups_model->getCategoriesList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
 
         if ($this->isAjax){
             $this->renderPartial('index',$vars);
@@ -68,7 +76,7 @@ class ShopCategoriesController extends BackendController {
 
         $parentCategories_model = new ShopCategoriesModel();
         $parentCategories = [];
-        foreach ($parentCategories_model->getList() as $p) {
+        foreach ($parentCategories_model->getCategoriesList() as $p) {
             $parentCategories[$p['id']] = $p['name'];
         }
 
