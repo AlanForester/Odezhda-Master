@@ -114,10 +114,12 @@ class ShopCategoriesLayer {
     public static function buildTree($data = null,$root=0, $deep=0) {
         $result = [];
         if (count($data) > 0) {
+
             $id_name = 'id';
             $field_name = 'parent_id';
             $children_name = 'children';
             $max_deep=2;
+
             if ($deep<=$max_deep){
                 foreach ($data as $d) {
                     if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
