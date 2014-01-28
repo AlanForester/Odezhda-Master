@@ -1,3 +1,7 @@
+<?php
+Yii::app()->clientScript->registerPackage('index');
+?>
+
 <div class="wrapper">
 <div class="left-nav">
     <ul>
