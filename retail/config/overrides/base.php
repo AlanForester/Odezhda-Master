@@ -65,13 +65,10 @@ return [
                 ],
                 'catalog' => [
                     'baseUrl' => '/',
-                    'js' => [
-
-                    ],
                     'css' => [
                         'css/catalog.css',
                     ],
-                    'depends' => ['core']
+                    'depends' => ['core', 'product']
                 ],
                 'product' => [
                     'baseUrl' => '/',

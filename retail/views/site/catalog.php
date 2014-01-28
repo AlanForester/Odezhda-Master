@@ -1,3 +1,6 @@
+<?php
+Yii::app()->clientScript->registerPackage('catalog');
+?>
 
 <div class="catalog-title">
     <div class="title">
