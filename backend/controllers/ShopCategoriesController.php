@@ -29,18 +29,18 @@ class ShopCategoriesController extends BackendController {
         // получение данных
         $model = new ShopCategoriesModel();
 
-//        $gridDataProvider = $model->getActiveProvider($criteria);
-
-        $categories = $model->getList($criteria);
+        $gridDataProvider = $model->getActiveProvider($criteria);
+//    print_r($gridDataProvider);exit;
+//        $categories = $model->getList($criteria);
 
 
 //        print_r($categories);exit;
-        $gridDataProvider = new CArrayDataProvider($categories, [
-            'keyField' => 'id',
-            //            'pagination' => [
-            //                'pageSize'=>100,
-            //            ],
-        ]);
+//        $gridDataProvider = new CArrayDataProvider($categories, [
+//            'keyField' => 'id',
+//            //            'pagination' => [
+//            //                'pageSize'=>100,
+//            //            ],
+//        ]);
 
         $vars = compact('id','criteria','gridDataProvider');
 

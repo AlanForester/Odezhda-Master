@@ -75,7 +75,7 @@ class ShopCategoriesLayer {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
         foreach ($list as $val) {
-            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->rel_description ? self::fieldMapConvert($val->rel_description->getAttributes()) : []));
         }
 //        print_r($result);exit;
         return $result;
@@ -85,8 +85,8 @@ class ShopCategoriesLayer {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findall();
         foreach ($list as $val) {
-            if ($val->description){
-                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->description->getAttributes(['categories_name'])));
+            if ($val->rel_description){
+                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
             }
         }
 
@@ -100,19 +100,19 @@ class ShopCategoriesLayer {
     public static function getList($data, $relatedData) {
         $result = [];
 //        print_r($relatedData);exit;
-        $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
+        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]]);
         $criteria = new CDbCriteria($data);
 //        print_r(new CDbCriteria($data));exit;
         $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
-            $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+            $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
         }
 
         return $result;
     }
 
     public static function getActiveProvider($data)  {
-        if (!$dataProvider) {
+        if (!self::$dataProvider) {
 //            print_r($data);exit;
             // todo: переместить все в прослойку
             $condition = [];
@@ -126,7 +126,7 @@ class ShopCategoriesLayer {
                 $relatedCondition[] = '(' . join(
                         ' OR ',
                         [
-                            'description.'.self::getFieldName('name', false) . ' LIKE :text',
+                            'rel_description.'.self::getFieldName('name', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
@@ -208,7 +208,7 @@ class ShopCategoriesLayer {
             $relatedCriteriaArray = [
                 'condition' => join(' AND ', $relatedCondition),
                 'params' => $relatedParams,
-                'order' => 'description.'.$order_field . ($order_direct ? : '')
+                'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
             ];
 
             // разрешаем перезаписать любые параметры критерии
@@ -218,15 +218,16 @@ class ShopCategoriesLayer {
             if (isset($data['relatedCriteria'])) {
                 $relatedCriteria = array_merge($relatedCriteriaArray,$data['relatedCriteria']);
             }
-            $result = [];
             //$criteria=array_merge($criteria, ['with'=>['description'=>$relatedCriteria]]);
-            $criteria = new CDbCriteria(array_merge($criteriaArray, ['with'=>['description'=>$relatedCriteriaArray]]));
-            self::$dataProvider = new CActiveDataProvider('Projects', [
+
+            $criteria = new CDbCriteria(array_merge($criteriaArray, ['with'=>['rel_description'=>$relatedCriteriaArray]]));
+//            print_r($criteria);exit;
+            self::$dataProvider = new CActiveDataProvider('ShopCategoriesLegacy', [
                  'criteria'=>$criteria,
                 ]
             );
         }
-        return $dataProvider;
+        return self::$dataProvider;
     //        print_r(new CDbCriteria($data));exit;
 //            $list = ShopCategoriesLegacy::model()->findAll($criteria);
 //            foreach ($list as $val) {
@@ -370,7 +371,7 @@ class ShopCategoriesLayer {
         if ($id && $field && $value) {
             $category = self::getCategory($id);
             $category->setAttributes([$field=>$value],false);
-            return $category->withRelated->save(true, ['description']);
+            return $category->withRelated->save(true, ['rel_description']);
         }
 
         return false;
@@ -408,13 +409,13 @@ class ShopCategoriesLayer {
 
         //todo перепроверять на одинаковые id
 
-        if (!$category->withRelated->save(true,['description'])) {
+        if (!$category->withRelated->save(true,['rel_description'])) {
             self::$errors = $category->getErrors();
             return false;
         }
 //        print_r($category->getAttributes());exit;
         //return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []));
+        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->rel_description ? self::fieldMapConvert($category->rel_description->getAttributes()) : []));
     }
 
 
