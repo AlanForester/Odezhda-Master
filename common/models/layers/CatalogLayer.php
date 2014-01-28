@@ -43,9 +43,8 @@ class CatalogLayer {
 
     public static function getListAndParams($data) {
         $result = [];
-        print_r($data);
-        exit;
-        $criteria_data=array_merge(['with'=>['categories_description']=>$data['categories_description']]);
+
+        $criteria_data=array_merge($data['main'],['with'=>['description'=>$data['description'],'categories_description'=>$data['categories_description']]]);
 
         $criteria = new CDbCriteria($criteria_data);
 //       $criteria->limit=10;
