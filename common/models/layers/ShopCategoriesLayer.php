@@ -21,6 +21,7 @@ class ShopCategoriesLayer {
         //
 
     ];
+    private static $dataProvider;
 
     private static $errors = [];
 
@@ -100,13 +101,139 @@ class ShopCategoriesLayer {
         $result = [];
 //        print_r($relatedData);exit;
         $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
+        $criteria = new CDbCriteria($data);
 //        print_r(new CDbCriteria($data));exit;
-        $list = ShopCategoriesLegacy::model()->findAll(new CDbCriteria($data));//new CDbCriteria($data)
+        $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
             $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
         }
 
         return $result;
+    }
+
+    public static function getActiveProvider($data)  {
+        if (!$dataProvider) {
+//            print_r($data);exit;
+            // todo: переместить все в прослойку
+            $condition = [];
+            $params = [];
+
+            $relatedCondition= [];
+            $relatedParams = [];
+
+            // фильтр по тексту
+            if (!empty($data['text_search'])) {
+                $relatedCondition[] = '(' . join(
+                        ' OR ',
+                        [
+                            'description.'.self::getFieldName('name', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
+                        ]
+                    ) . ')';
+
+                $relatedParams[':text'] = '%' . $data['text_search'] . '%';
+            }
+
+
+            // фильтр по родительской категории
+            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
+                $condition[] = self::getFieldName('parent_id', false) . '=:category';
+                $params[':category'] = $data['filter_categories'];
+            }
+
+            // фильтр по дате создания
+//            if (!empty($data['filter_created'])) {
+//                $range = $data['filter_created'];
+//                $date_start = new DateTime();
+//                $date_now = new DateTime();
+//
+//                switch ($range) {
+//                    case 'past_week':
+//                        $date_start->modify('-7 day');
+//                        break;
+//
+//                    case 'past_1month':
+//                        $date_start->modify('-1 month');
+//                        break;
+//
+//                    case 'past_3month':
+//                        $date_start->modify('-3 month');
+//                        break;
+//
+//                    case 'past_6month':
+//                        $date_start->modify('-6 month');
+//                        break;
+//
+//                    case 'post_year':
+//                    case 'past_year':
+//                        $date_start->modify('-1 year');
+//                        break;
+//
+//                    case 'today':
+//                        $date_now->modify('+1 day');
+//                        break;
+//                }
+//
+//                if ($range == 'post_year') {
+//                    $condition[] = ShopCategoriesLayer::getFieldName('added', false) . ' < :date_start';
+//                } else {
+//                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('added', false) . ' >= :date_start AND ' . ShopCategoriesLayer::getFieldName('added', false) . ' <= :date_now)';
+//                    $params[':date_now'] = $date_now->format('Y-m-d');
+//                }
+//
+//                $params[':date_start'] = $date_start->format('Y-m-d');
+//            }
+
+            // поле и направление сортировки
+            $order_direct = null;
+            $order_field = self::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'name', false);
+
+            if (isset($data['order_direct'])) {
+                switch ($data['order_direct']) {
+                    case 'up':
+                        $order_direct = ' ASC';
+                        break;
+                    case 'down':
+                        $order_direct = ' DESC';
+                        break;
+                }
+            }
+            $criteriaArray = [
+                'condition' => join(' AND ', $condition),
+                'params' => $params,
+            ];
+
+            $relatedCriteriaArray = [
+                'condition' => join(' AND ', $relatedCondition),
+                'params' => $relatedParams,
+                'order' => 'description.'.$order_field . ($order_direct ? : '')
+            ];
+
+            // разрешаем перезаписать любые параметры критерии
+            if (isset($data['criteria'])) {
+                $criteria = array_merge($criteriaArray,$data['criteria']);
+            }
+            if (isset($data['relatedCriteria'])) {
+                $relatedCriteria = array_merge($relatedCriteriaArray,$data['relatedCriteria']);
+            }
+            $result = [];
+            //$criteria=array_merge($criteria, ['with'=>['description'=>$relatedCriteria]]);
+            $criteria = new CDbCriteria(array_merge($criteriaArray, ['with'=>['description'=>$relatedCriteriaArray]]));
+            self::$dataProvider = new CActiveDataProvider('Projects', [
+                 'criteria'=>$criteria,
+                ]
+            );
+        }
+        return $dataProvider;
+    //        print_r(new CDbCriteria($data));exit;
+//            $list = ShopCategoriesLegacy::model()->findAll($criteria);
+//            foreach ($list as $val) {
+//                $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+//            }
+
+
     }
 
     // в функцию нужно прислать массив и указать имя поля, по которому будет определяться

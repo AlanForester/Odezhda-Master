@@ -177,7 +177,7 @@ class ShopCategoriesModel extends CFormModel {
                 $criteria = array_merge($criteria,$data['criteria']);
             }
             if (isset($data['relatedCriteria'])) {
-                $criteria = array_merge($relatedCriteria,$data['relatedCriteria']);
+                $relatedCriteria = array_merge($relatedCriteria,$data['relatedCriteria']);
             }
 
             $this->allCategories = ShopCategoriesLayer::getList($criteria,$relatedCriteria);
@@ -194,6 +194,10 @@ class ShopCategoriesModel extends CFormModel {
 //            $this->allCategories = ShopCategoriesLayer::getList();
 //        }
 //        return $this->allCategories;
+    }
+
+    public function getActiveProvider ($criteria) {
+        return ShopCategoriesLayer::getActiveProvider($criteria);
     }
 
     public function findByParentId ($id, $data = []){
