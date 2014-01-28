@@ -117,9 +117,8 @@ class ShopCategoriesLayer {
             $field_name = 'parent_id';
             $children_name = 'children';
             $max_deep=2;
-
-            foreach ($data as $d) {
-                if ($deep<=$max_deep){
+            if ($deep<=$max_deep){
+                foreach ($data as $d) {
                     if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
                         $deep++;
                         $d[$children_name] = self::buildTree($data,$d[$id_name],$deep);
@@ -131,9 +130,8 @@ class ShopCategoriesLayer {
                         $result[] = $d;
                     }
                 }
-                else {
-                    $deep--;
-                }
+            } else {
+                return;
             }
         }
         return $result;
