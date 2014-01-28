@@ -41,12 +41,12 @@ class ShopCategoriesDescriptionLegacy extends CActiveRecord
      * Связь с таблицей categories
      * @return array
      */
-    public function relations()
-    {
-        return array(
-            'categories'=>array(self::HAS_ONE, 'ShopCategoriesLegacy', 'categories_id'),
-        );
-    }
+//    public function relations()
+//    {
+//        return array(
+//            'categories'=>array(self::HAS_ONE, 'ShopCategoriesLegacy', 'categories_id'),
+//        );
+//    }
 
     public function rules()
     {

@@ -43,7 +43,7 @@
 
 .jcarousel img {
     /*display: block;*/
-    max-width: 100%;
+    
     height: auto !important;
 	text-align:center;
 }

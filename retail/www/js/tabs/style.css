@@ -1,0 +1,51 @@
+
+
+/* Generic Utility */
+.hide { position: absolute; top: -9999px; left: -9999px; }
+
+
+/* Specific to example one */
+
+#example-one { padding: 10px; margin: 20px 0 0px 0; float:left; width:270px;  }
+
+#example-one p {
+	font-size:12px;
+	color:#333;
+	width:270px;
+	line-height:25px;
+}
+
+#example-one .nav { overflow: hidden; margin: 0 0 10px 0; }
+#example-one .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-one .nav li.last { margin-right: 0; }
+#example-one .nav li a { display: block; padding: 5px;  color: #333; font-size: 12px; text-align: left; border: 0; }
+#example-one .nav li a:hover { background-color: #f6f6f6; }
+
+#example-one ul { list-style: none; float:left; width:270px; }
+#example-one ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-one ul li a:hover { background: #f6f6f6; color: #333; }
+#example-one ul li:last-child a { border: none; }
+
+#example-one ul li.nav-one a.current, #example-one ul.featured li a:hover { border-bottom:solid 2px #00CCFF;  color: #333; }
+#example-one ul li.nav-two a.current, #example-one ul.core li a:hover { border-bottom:solid 2px #00CCFF;  color: #333; }
+#example-one ul li.nav-three a.current, #example-one ul.jquerytuts li a:hover { border-bottom:solid 2px #00CCFF;  color: #333; }
+#example-one ul li.nav-four a.current, #example-one ul.classics li a:hover { border-bottom:solid 2px #00CCFF;  color: #333; }
+
+
+
+/* Specific to example two */
+
+#example-two .list-wrap { background: #eee; padding: 10px; margin: 0 0 15px 0; }
+
+#example-two ul { list-style: none; }
+#example-two ul li a { display: block; border-bottom: 1px solid #666; padding: 4px; color: #666; }
+#example-two ul li a:hover { background: #333; color: white; }
+#example-two ul li:last-child a { border: none; }
+
+#example-two .nav { overflow: hidden; }
+#example-two .nav li { width: 97px; float: left; margin: 0 10px 0 0; }
+#example-two .nav li.last { margin-right: 0; }
+#example-two .nav li a { display: block; padding: 5px; background: #666; color: white; font-size: 10px; text-align: center; border: 0; }
+
+#example-two li a.current,#example-two li a.current:hover { background-color: #eee !important; color: black; }
+#example-two .nav li a:hover, #example-two .nav li a:focus { background: #999;}
