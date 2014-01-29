@@ -38,7 +38,9 @@ class CatalogModel extends CFormModel {
                 $condition['main'][] = '(' . join(
                         ' OR ',  [
                              't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('price', false) . ' LIKE :text'
+                             't.'.CatalogLayer::getFieldName('price', false) . ' LIKE :text',
+                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
                             ]
 
                              ) . ')';
@@ -46,15 +48,8 @@ class CatalogModel extends CFormModel {
                 $params['main'][':text'] = '%' . $data['text_search'] . '%';
 
 
-                $condition['description'][] = '(' . join(
-                        ' OR ',  [
-                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
-                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
-                             ]
 
-                    ) . ')';
 
-                $params['description'][':text'] = '%' . $data['text_search'] . '%';
             }
 
 
@@ -140,7 +135,10 @@ class CatalogModel extends CFormModel {
     }
 
     public function getCatalogData($id, $scenario) {
+
+
         $catalog = self::getCatalog($id, $scenario);
+
         if($scenario!='add'){
 
             $result = $catalog->attributes + $catalog->description->attributes;
@@ -163,7 +161,9 @@ class CatalogModel extends CFormModel {
 
         }
         else{
+
             $result = $catalog->attributes;
+            $result['categories_id']=[];
         }
 
 //            echo '<pre>';

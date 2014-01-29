@@ -114,7 +114,7 @@ class CatalogController extends BackendController {
                     CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' товара')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
-                $this->render('edit', compact('model', 'Catalog'));
+                $this->render('edit', compact('model', 'catalog'));
                 return;
             } else {
                 // выкидываем сообщение

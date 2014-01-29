@@ -93,6 +93,7 @@ $this->widget(
 //                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Категории',
+               // todo: добиться вывода массива категорий categories_description
                 'name' => 'category',
                 'headerHtmlOptions' => [
                 ],

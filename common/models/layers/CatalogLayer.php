@@ -45,22 +45,31 @@ class CatalogLayer {
         $result = [];
 
         $criteria_data=array_merge($data['main'],['with'=>['description'=>$data['description'],'categories_description'=>$data['categories_description']]]);
-        //print_r($data);exit;
+//        print_r($criteria_data);exit;
 
 
         $criteria = new CDbCriteria($criteria_data);
         //TODO: костыль не отрабытывает лимит , переписать для data active
         if(empty($data['categories_description']['condition'])){
-              $criteria->limit=100;
+              $criteria->limit=10;
         }
         $list = CatalogLegacy::model()->findall($criteria);
 //        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();
 //        print_r($list);
 //        exit;
         foreach ($list as $key => $val) {
-            $result[$key] = self::fieldMapConvert($val->attributes) + self::fieldMapConvert($val->description->attributes)+self::fieldMapConvert($val->categories_description[0]->attributes);
+            $result[$key] = self::fieldMapConvert($val->attributes);
+            if(!empty($val->description->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->description->attributes);
+            }
+            foreach($val->categories_description as $key_up => $val_up){
+                $result[$key]['categories_description'][$key_up]=[];
+                if(!empty($val_up['categories_id'])){
+                    $result[$key]['categories_description'][$key_up]=$val_up['categories_name'];
+                }
+            }
         }
-
+      //  print_r($result);
         return $result;
     }
 
