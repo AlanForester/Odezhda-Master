@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
 </head>
 
@@ -21,7 +21,7 @@
                 <div class="catalog">
                     <ul id="menu">
                         <li>
-                            <a href="#" class="u">каталог<img src="/images/drow-arrow.png" alt="" /></a>
+                            <a href="#" class="u">каталог<img src="/images/drow-arrow.png" alt=""/></a>
                             <ul>
                                 <li>
                                     <a href="#">CSS</a>
@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="contact">
-                    <small>Иваново </small>
+                    <small>Иваново</small>
                     <small>7(3942)</small>
                     <strong>222-962</strong>
                 </div>
@@ -114,29 +114,23 @@
 
                 <div class="top-nav">
                     <ul>
-                        <li>
-                            <a href="#">Как получить</a>
-                        </li>
-                        <li>
-                            <a href="#">Что с моим заказом?</a>
-                        </li>
-                        <li>
-                            <a href="#">Сервисы</a>
-                        </li>
-                        <ul>
+                        <li><a href="#">Как получить</a></li>
+                        <li><a href="#">Что с моим заказом?</a></li>
+                        <li><a href="#">Сервисы</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <a href="#" class="logo"><img src="/images/logo.png" alt="" /></a>
+        <a href="#" class="logo"><img src="/images/logo.png" alt=""/></a>
 
         <div class="search">
-            <input type="text"  />
-            <input type="submit" value="" />
+            <input type="text"/>
+            <input type="submit" value=""/>
         </div>
         <div class="basket">
             <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">
-                <img src="/images/basket.png" alt="" />
+                <img src="/images/basket.png" alt=""/>
                 <small>В корзине</small>
                 <span>4</span>
             </a>
@@ -150,13 +144,13 @@
     <div class="footer-box">
 
         <div class="draw-icon">
-            <a href="#"><img src="/images/dr1.png" alt="" /></a>
-            <a href="#"><img src="/images/dr2.png" alt="" /></a>
-            <a href="#"><img src="/images/dr3.png" alt="" /></a>
-            <a href="#"><img src="/images/dr4.png" alt="" /></a>
-            <a href="#"><img src="/images/dr5.png" alt="" /></a>
-            <a href="#"><img src="/images/dr6.png" alt="" /></a>
-            <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt="" /></a>
+            <a href="#"><img src="/images/dr1.png" alt=""/></a>
+            <a href="#"><img src="/images/dr2.png" alt=""/></a>
+            <a href="#"><img src="/images/dr3.png" alt=""/></a>
+            <a href="#"><img src="/images/dr4.png" alt=""/></a>
+            <a href="#"><img src="/images/dr5.png" alt=""/></a>
+            <a href="#"><img src="/images/dr6.png" alt=""/></a>
+            <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt=""/></a>
         </div>
 
         <div class="footer">
@@ -190,12 +184,13 @@
                 </ul>
             </div>
             <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>
-            <img src="/images/modal-girl.png" class="footer-girl" alt="" />
+            <img src="/images/modal-girl.png" class="footer-girl" alt=""/>
+
             <div class="gift-card">
                 <span>
                     ЧТО ПОДАРИТЬ И НЕ ПРОГАДАТЬ? Подарочная карта Lapana.ru – отличный подарок, который обязательно понравится!
                 </span>
-                <img src="/images/gift-card.png" alt="" />
+                <img src="/images/gift-card.png" alt=""/>
                 <button>купить</button>
             </div>
         </div>
@@ -204,12 +199,12 @@
 
 <?php
 
-    $this->renderPartial('/layouts/parts/bottomPanel');
-    $this->renderPartial('/layouts/parts/login');
-    $this->renderPartial('/layouts/parts/register');
-    $this->renderPartial('/layouts/parts/basket');
-    $this->renderPartial('/layouts/parts/productPreview');
-    $this->renderPartial('/layouts/parts/social');
+$this->renderPartial('/layouts/parts/bottomPanel');
+$this->renderPartial('/layouts/parts/login');
+$this->renderPartial('/layouts/parts/register');
+$this->renderPartial('/layouts/parts/basket');
+$this->renderPartial('/layouts/parts/productPreview');
+$this->renderPartial('/layouts/parts/social');
 
 ?>
 
