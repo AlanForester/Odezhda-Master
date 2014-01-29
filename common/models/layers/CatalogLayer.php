@@ -7,6 +7,8 @@ class CatalogLayer {
     private static $field_map = [
         'products_id' => 'id',
         'products_price' => 'price',
+        'products_date_added' =>'date_add',
+        'products_last_modified'=>'date_last',
             'products_name' => 'name',
             'products_description' => 'description',
             'categories_name' =>'category'
@@ -155,9 +157,11 @@ class CatalogLayer {
             // если есть пустой id в параметрах - удаяем
             if (array_key_exists('id', $data)) {
                 unset($data['id']);
-            }
 
+            }
+            $data['date_add'] = new CDbExpression('NOW()');
         }
+        $data['date_last'] = new CDbExpression('NOW()');
 //        print_r($data);
 //        exit;
         // задаем значения, получаем реальные имена полей

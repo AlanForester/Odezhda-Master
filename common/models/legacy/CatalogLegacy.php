@@ -50,28 +50,30 @@ class CatalogLegacy extends CActiveRecord
     protected function afterSave() {
         parent::afterSave();
 
+        // TODO: БК
         $id = $this->_allData['products_id'] = $this->products_id;
-        $categories_data=$this->_allData['categories_name'];
+        if(!empty($this->_allData['categories_name'])){
+            $categories_data=$this->_allData['categories_name'];
 
-        /**
-         * Сохранение категорий
-         */
-        CatalogToCategoriesLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
-        // todo: переписать через save
-        foreach($categories_data as $category_id){
-            if(!empty($category_id)){
+            /**
+             * Сохранение категорий
+             */
+            CatalogToCategoriesLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
+            // todo: переписать через save
+            foreach($categories_data as $category_id){
+                if(!empty($category_id)){
 
-                $command_cr = Yii::app()->db->createCommand();
+                    $command_cr = Yii::app()->db->createCommand();
 
-                $command_cr->insert('products_to_categories',
-                    [
-                        'products_id'=>$id,
-                        'categories_id'=>$category_id,
-                    ]
-                );
+                    $command_cr->insert('products_to_categories',
+                        [
+                            'products_id'=>$id,
+                            'categories_id'=>$category_id,
+                        ]
+                    );
+                }
             }
         }
-
 
         $this->_allData['categories_name']='';
         foreach($this->relations() as $value){
