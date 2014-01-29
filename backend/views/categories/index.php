@@ -4,7 +4,6 @@ $this->pageButton = [
     BackendPageButtons::remove("/categories/mass"),
     BackendPageButtons::mass("/categories/mass")
 ];
-
 // таблица
 $this->widget(
     'backend.widgets.Grid',
