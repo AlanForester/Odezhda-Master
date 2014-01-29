@@ -267,18 +267,6 @@ Yii::app()->clientScript->registerPackage('index');
 </div>
 
 <div class="main-tabs">
-    <script type="text/javascript">
-        $(function(){
-            $("#tabs").tabs();
-        });
-        jQuery(document).ready(function() {
-            $(".ui-tabs .ui-tabs-nav li a, .ui-tabs .ui-tabs-nav li").click(function () {
-                $(".ui-tabs #fragment_holder").fadeIn("1000");
-            });
-        });
-    </script>
-
-
     <div id="tabs">
         <div class="tab-menu">
             <ul>
