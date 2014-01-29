@@ -1,9 +1,12 @@
-<?php $this->widget('yiiwheels.widgets.grid.WhGridView', array(
+<?php
+//print_r($gridDataProvider);exit;
+$this->widget('backend.widgets.GridTreeView', array(
     'fixedHeader' => true,
     'headerOffset' => 40,
     'type' => 'striped',
     'dataProvider' => $gridDataProvider,
     'responsiveTable' => true,
+    //'rowCssClass' => ['odd treegrid treegrid-parent','even treegrid treegrid-parent'],//.$gridDataProvider->data['id']
     'template' => "{items}",
         'itemsCssClass' => 'tree table-bordered items',
         //    'filter'=>$this->model,
@@ -25,17 +28,7 @@
                     ',
         'summaryText' => 'Отображено записей {start}-{end} из {count}',
         'columns' => [
-        [
-                'class' => 'backend.widgets.ace.CheckBoxColumn',
 
-                'checkBoxHtmlOptions' => [
-                    'name' => 'gridids[]'
-                ],
-                // todo: перенести в виджет
-                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
-//                'value' => $this->gridIdData,
-                'checked' => null,
-        ],
         [
             'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
             'type' => 'text',
