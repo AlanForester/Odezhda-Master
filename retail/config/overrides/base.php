@@ -63,6 +63,9 @@ return [
                 ],
                 'index' => [
                     'baseUrl' => '/',
+                    'js' => [
+                        'js/index.js',
+                    ],
                     'css' => [
                         'css/main.css',
                     ],
@@ -75,6 +78,7 @@ return [
                         'js/tabs/organictabs.jquery.js',
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
+                        'js/catalog.js',
                     ],
                     'css' => [
                         'css/catalog.css',
@@ -89,6 +93,7 @@ return [
                     'js' => [
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
+                        'js/product.js',
                     ],
                     'css' => [
                         'css/karta.css',
