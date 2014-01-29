@@ -10,10 +10,10 @@
  */
 class CatalogDescriptionLegacy extends CActiveRecord
 {
-    public $products_id;
+//    public $products_id;
 
 
-    public $primaryKey='products_id';
+//    public $primaryKey='products_id';
 
     /**
      * Name of the database table associated with this ActiveRecord

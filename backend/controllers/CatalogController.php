@@ -93,10 +93,10 @@ class CatalogController extends BackendController {
     public function actionEdit($id, $scenario = 'edit') {
 
         $categories_model = new ShopCategoriesModel();
-        $this->categories[''] = '- По категории -';
         foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
         }
+
 
         $model = new CatalogModel($scenario);
 
@@ -104,6 +104,8 @@ class CatalogController extends BackendController {
         if (!empty($form_action)) {
             $model->setAttributes($_POST['CatalogModel'], false);
             // отправляем в модель данные
+//            print_r($_POST['CatalogModel']);
+//            exit;
             $result = $model->save($_POST['CatalogModel']);
 
             if (!$result) {

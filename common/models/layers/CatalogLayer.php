@@ -51,7 +51,7 @@ class CatalogLayer {
         $criteria = new CDbCriteria($criteria_data);
         //TODO: костыль не отрабытывает лимит , переписать для data active
         if(empty($data['categories_description']['condition'])){
-              $criteria->limit=10;
+              $criteria->limit=100;
         }
         $list = CatalogLegacy::model()->findall($criteria);
 //        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();

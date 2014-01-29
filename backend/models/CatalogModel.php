@@ -142,7 +142,22 @@ class CatalogModel extends CFormModel {
     public function getCatalogData($id, $scenario) {
         $catalog = self::getCatalog($id, $scenario);
         if($scenario!='add'){
-            $result = $catalog->attributes + $catalog->description->attributes +$catalog->categories_description[0]->attributes;
+
+            $result = $catalog->attributes + $catalog->description->attributes;
+
+            /**
+             * Формирование массива используемых категорий в соответствующем формате [categories_id]=['selected']
+             */
+            $mass=[];
+            foreach($catalog->categories_description as $array){
+                if(!empty($array)){
+                     $mass[$array->attributes['categories_id']] = ['selected'=>'selected'];
+                }
+            }
+            $result['categories_id']=$mass;
+//            print_r($result);
+//            exit;
+
 
             // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
 
