@@ -111,7 +111,6 @@ class ShopCategoriesLayer {
 
         $result=self::buildTree($result);
         $result=self::flatTree(['data'=>$result]);
-        print_r($result);exit;
         array_shift($result);
 
         $result = array_map(function($el){return (array)$el;},$result);
