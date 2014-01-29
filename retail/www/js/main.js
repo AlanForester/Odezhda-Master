@@ -189,3 +189,31 @@ jQuery(document).ready(function() {
         }
     );
 });
+
+$(function() {
+
+    $("#example-one").organicTabs();
+
+    $("#example-two").organicTabs({
+        "speed": 200
+    });
+
+});
+
+//catalog (Показать еще)
+$(document).ready(function(){
+    $(".any-goods").click(function(){
+        $(".catalog-goods.more").slideToggle("slow");
+        $(this).toggleClass("active");
+    });
+});
+
+// index
+$(function(){
+    $("#tabs").tabs();
+});
+jQuery(document).ready(function() {
+    $(".ui-tabs .ui-tabs-nav li a, .ui-tabs .ui-tabs-nav li").click(function () {
+        $(".ui-tabs #fragment_holder").fadeIn("1000");
+    });
+});

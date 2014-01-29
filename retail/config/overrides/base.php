@@ -70,15 +70,29 @@ return [
                 ],
                 'catalog' => [
                     'baseUrl' => '/',
+                    'js' => [
+                        'js/tabs/withoutPlugin.js',
+                        'js/tabs/organictabs.jquery.js',
+                        'js/slider-clothes/jquery.jcarousel.min.js',
+                        'js/slider-clothes/jcarousel.responsive.js',
+                    ],
                     'css' => [
                         'css/catalog.css',
+                        'css/karta.css',
+                        'js/slider-clothes/jcarousel.responsive.css',
+                        'js/tabs/style.css',
                     ],
-                    'depends' => ['core', 'product']
+                    'depends' => ['core']
                 ],
                 'product' => [
                     'baseUrl' => '/',
+                    'js' => [
+                        'js/slider-clothes/jquery.jcarousel.min.js',
+                        'js/slider-clothes/jcarousel.responsive.js',
+                    ],
                     'css' => [
                         'css/karta.css',
+                        'js/slider-clothes/jcarousel.responsive-karta.css',
                     ],
                     'depends' => ['core']
                 ],

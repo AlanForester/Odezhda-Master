@@ -1,9 +1,6 @@
 <div class="g-hidden">
 <div class="box-modal more-goods" id="exampleModalmore-goods">
 <div class="box-modal_close arcticmodal-close modal-reg">X</div>
-<script type="text/javascript" src="/js/slider-clothes/jquery.jcarousel.min.js"></script>
-<script type="text/javascript" src="/js/slider-clothes/jcarousel.responsive.js"></script>
-<link rel="stylesheet" type="text/css" href="/js/slider-clothes/jcarousel.responsive.css">
 <div class="jcarousel-wrapper">
 <div class="jcarousel">
 <ul>
@@ -54,20 +51,6 @@
             </div>
             <div class="tovar-more-info">
 
-                <script type="text/javascript" src="/js/tabs/withoutPlugin.js"></script>
-                <script type="text/javascript" src="/js/tabs/organictabs.jquery.js"></script>
-                <link href="/js/tabs/style.css" rel="stylesheet" type="text/css" />
-                <script>
-                    $(function() {
-
-                        $("#example-one").organicTabs();
-
-                        $("#example-two").organicTabs({
-                            "speed": 200
-                        });
-
-                    });
-                </script>
                 <div id="example-one">
 
                     <ul class="nav">
@@ -161,21 +144,6 @@
                 <a href="#" class="razmer-one">39</a>
             </div>
             <div class="tovar-more-info">
-
-                <script type="text/javascript" src="/js/tabs/withoutPlugin.js"></script>
-                <script type="text/javascript" src="/js/tabs/organictabs.jquery.js"></script>
-                <link href="/js/tabs/style.css" rel="stylesheet" type="text/css" />
-                <script>
-                    $(function() {
-
-                        $("#example-one").organicTabs();
-
-                        $("#example-two").organicTabs({
-                            "speed": 200
-                        });
-
-                    });
-                </script>
                 <div id="example-one">
 
                     <ul class="nav">

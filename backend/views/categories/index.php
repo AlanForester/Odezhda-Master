@@ -1,140 +1,102 @@
-<?php
-$this->pageButton = [
-    BackendPageButtons::add("/categories/add"),
-    BackendPageButtons::remove("/categories/mass"),
-    BackendPageButtons::mass("/categories/mass")
-];
-
-// таблица
-$this->widget(
-    'backend.widgets.Grid',
-    [
-        'submenu' => BackendSubMenu::shop(),
-
-        'filter' => [
-            // фильтр по группе
-            TbHtml::dropDownList(
-                'filter_categories',
-                $criteria['filter_categories'],
-                $this->categories,
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_categories:$("#filter_categories").val()
-                            }
-                        }
-                    )
-                })()'
-                ]
-            ),
-
-            // фильтр по дате регистрации
-//            TbHtml::dropDownList(
-//                'filter_created',
-//                $criteria['filter_created'],
-//                [
-//                    '0' => '- По дате добавления -',
-//                    'today' => 'сегодня',
-//                    'past_week' => 'за прошлую неделю',
-//                    'past_1month' => 'за прошлый месяц',
-//                    'past_3month' => 'последние 3 месяца',
-//                    'past_6month' => 'последние 6 месяцев',
-//                    'past_year' => 'за прошлый год',
-//                    'post_year' => 'больше года назад',
-//                ],
-//                [
-//                    'onChange' => 'js: (function(){
-//                    $.fn.yiiGridView.update(
-//                        "whgrid",
-//                        {
-//                            data:{
-//                                filter_created:$("#filter_created").val()
-//                            }
-//                        }
-//                    )
-//                })()'
-//                ]
-//            )
+<?php $this->widget('yiiwheels.widgets.grid.WhGridView', array(
+    'fixedHeader' => true,
+    'headerOffset' => 40,
+    'type' => 'striped',
+    'dataProvider' => $gridDataProvider,
+    'responsiveTable' => true,
+    'template' => "{items}",
+        'itemsCssClass' => 'tree table-bordered items',
+        //    'filter'=>$this->model,
+        'htmlOptions' => [
+            'class' => 'grid-view dataTables_wrapper'
         ],
 
+        'selectableRows' => 2, // если 0 или 1 - чекбоксы перестают работать
 
-        'order' => [
-            'active' => $criteria['order_field'],
-            'fields' => [
-                //                'firstname' => 'Имя',
-                                'name' => 'Название',
-                //                'email' => 'E-Mail',
-                //                'group_id' => 'Группа',
-                //                'logdate' => 'Последний визит',
-                'id' => 'ID',
+        'emptyText' => 'Нет данных для отображения',
+
+        // todo: pager - сделать tooltip на кнопки
+        'template' => '
+                    <div class="table-block">{items}</div>
+                    <div class="row pager-block">
+                        <div class="span6 pull-right">{summary}</div>
+                        <div class="span6 pull-left">{pager}</div>
+                    </div>
+                    ',
+        'summaryText' => 'Отображено записей {start}-{end} из {count}',
+        'columns' => [
+        [
+                'class' => 'backend.widgets.ace.CheckBoxColumn',
+
+                'checkBoxHtmlOptions' => [
+                    'name' => 'gridids[]'
+                ],
+                // todo: перенести в виджет
+                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
+//                'value' => $this->gridIdData,
+                'checked' => null,
+        ],
+        [
+            'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+            'type' => 'text',
+            'header' => 'Название',
+            'name' => 'name',
+            'headerHtmlOptions' => [
             ],
-            'direct' => $criteria['order_direct']
-        ],
-
-//        'pageSize' => $page_size,
-
-        'textSearch' => $criteria['text_search'],
-
-        'dataProvider' =>$gridDataProvider,
-
-        //        'gridOptions'=>[
-        //            'id' => 'tree_id' . $id
-        //        ],
-
-        'gridColumns' => [[
-            'class' => 'yiiwheels.widgets.grid.WhRelationalColumn',
-            //            'name' => 'subGrid',
-            'url' => $this->createUrl('categories/index', ['ajax' => '1']),
-            'value' => '"Развернуть"',
             'htmlOptions' => [
-                'class' => 'action-buttons',
+            ],
+            'editable' => [
+                'placement' => 'top',
+                'emptytext' => 'не задано',
+                'url' => Yii::app()->createUrl("/categories/update"),
+                //'source'   => $this->createUrl('users/update'),
+            ]
+        ],
+        [
+            'header' => 'Родительская категория',
+            'name' => 'parent_id',
+            'headerHtmlOptions' => [
+                'width' => '200px'
+            ],
+            'htmlOptions' => [
+            ],
+        ],
+        [
+            'header' => 'Id',
+            'name' => 'id',
+            'headerHtmlOptions' => [
                 'width' => '50px'
             ],
-            'afterAjaxUpdate' => 'js:function(tr,id,data){
-                        $("#tree_id0").trigger("ajaxUpdate.editable");
-                    }'
+            'htmlOptions' => [
+            ],
         ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Название',
-                'name' => 'name',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/categories/update"),
-                    //'source'   => $this->createUrl('users/update'),
-                ]
-            ],
-            [
-                'header' => 'Родительская категория',
-                'name' => 'parent_id',
-                'headerHtmlOptions' => [
-                    'width' => '200px'
-                ],
-                'htmlOptions' => [
-                ],
-            ],
-            [
-                'header' => 'Id',
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                    'width' => '50px'
-                ],
-                'htmlOptions' => [
-                ],
-            ]],
+        [
+        'header' => 'Действие',
+        'htmlOptions' => [
+            'class' => 'action-buttons',
+            'width' => '50px'
+        ],
+        'deleteButtonOptions' => [
+            'class' => 'red bigger-130',
+            'title' => 'Удалить',
+        ],
+        'updateButtonOptions' => [
+            'class' => 'green bigger-130',
+            'title' => 'Изменить',
+        ],
+        'viewButtonOptions' => [
+            'class' => 'bigger-130',
+            'title' => 'Просмотр',
+            'onClick' => 'js: (function(){
+                                bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
+                            })()'
+        ],
+        'class' => 'bootstrap.widgets.TbButtonColumn',
+        'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
-        'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/categories/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/categories/delete", array("id"=>$data["id"]))',
-        ]
+        'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+        'updateButtonUrl' => null,
+        'deleteButtonUrl' => null,
     ]
-);
+    ],
+)); ?>

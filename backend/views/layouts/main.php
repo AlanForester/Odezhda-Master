@@ -22,8 +22,19 @@
 //Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/theme/js/ace.min.js');
 
 $this->registerTemplateAssets();
-
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.css');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.js');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap3.js');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap2.js');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.cookie.js');
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_treegrid/css/jquery.treegrid.css');
+
+// составляем javascript, который должен быть на странице
+$js = "$('.tree').treegrid()";
+
+// разместить скрипт на странице
+Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_READY);
+
 ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>

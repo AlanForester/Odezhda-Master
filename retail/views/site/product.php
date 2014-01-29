@@ -116,9 +116,6 @@ Yii::app()->clientScript->registerPackage('product');
 
     <p class="title-cart-like-tovar">Похожие товары</p>
     <div class="slider-clothes">
-        <script type="text/javascript" src="/js/slider-clothes/jquery.jcarousel.min.js"></script>
-        <script type="text/javascript" src="/js/slider-clothes/jcarousel.responsive.js"></script>
-        <link rel="stylesheet" type="text/css" href="/js/slider-clothes/jcarousel.responsive-karta.css">
         <div class="jcarousel-wrapper">
             <div class="jcarousel">
                 <ul>

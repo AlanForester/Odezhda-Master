@@ -420,15 +420,6 @@ Yii::app()->clientScript->registerPackage('catalog');
     </div>
 </div>
 
-<script>
-    $(document).ready(function(){
-        $(".any-goods").click(function(){
-            $(".catalog-goods.more").slideToggle("slow");
-            $(this).toggleClass("active");
-        });
-    });
-</script>
-
 <button class="any-goods">Показать еще</button>
 
 </div>
