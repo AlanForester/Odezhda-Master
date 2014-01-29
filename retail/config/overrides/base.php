@@ -39,6 +39,9 @@ return [
 
                         // Modal
                         'js/modal/jquery.arcticmodal-0.3.min.js',
+
+                        'js/karta-slider/jquery.jqzoom-core-pack.js',
+                        'js/main.js'
                     ],
                     'css' => [
                         'css/reset.css',
@@ -53,6 +56,8 @@ return [
                         // Modal
                         'js/modal/jquery.arcticmodal-0.3.css',
                         'js/modal/themes/simple.css',
+
+                        'js/karta-slider/jquery.jqzoom.css',
                     ],
                     'depends' => ['jquery', 'jquery.ui']
                 ],
@@ -72,12 +77,8 @@ return [
                 ],
                 'product' => [
                     'baseUrl' => '/',
-                    'js' => [
-                        'js/karta-slider/jquery.jqzoom-core-pack.js',
-                    ],
                     'css' => [
                         'css/karta.css',
-                        'js/karta-slider/jquery.jqzoom.css',
                     ],
                     'depends' => ['core']
                 ],

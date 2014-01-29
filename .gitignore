@@ -63,6 +63,7 @@ index
 
 /backend/www/assets/
 /frontend/www/assets/
+/retail/www/assets/
 
 # Behat local config installed (leading slash matters)
 /behat-local.yml
