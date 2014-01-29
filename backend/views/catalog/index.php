@@ -41,7 +41,10 @@ $this->widget(
 //                'group_id' => 'Группа',
 //                'logdate' => 'Последний визит',
                 'id' => 'ID',
-                'name' => 'Название'
+                'name' => 'Название',
+                'date_add' => 'Дата добавления',
+                'date_last' => 'Дата изменения',
+                'price' => 'Цена'
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -58,6 +61,23 @@ $this->widget(
                 'type' => 'text',
                 'header' => 'Название',
                 'name' => 'name',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    //'source'   => $this->createUrl('users/update'),
+                ]
+            ],[
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Описание',
+                'name' => 'description',
                 'headerHtmlOptions' => [
                     //                    'style' => 'text-align: left;'
                 ],
@@ -121,6 +141,40 @@ $this->widget(
                     'placement' => 'top',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],[
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Дата поступления',
+                'name' => 'date_add',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    //'source'   => $this->createUrl('users/update'),
+                ]
+            ],[
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Дата изменениния',
+                'name' => 'date_last',
+                'headerHtmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'htmlOptions' => [
+                    //                    'style' => 'text-align: left;'
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],
             [
