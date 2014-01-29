@@ -45,17 +45,17 @@ $this->pageButton = [
         <fieldset>
             <legend>Товар</legend>
             <?php
-//            print_r($model);
-//            exit;
+
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
             echo $form->textFieldControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
             echo $form->textFieldControlGroup($model, 'price', ['value' => $model->price, 'label' => 'Цена, руб.']);
-          //  echo $form->textFieldControlGroup($model, 'category', ['value' => $model->category, 'label' => 'Цена, руб.']);
-                echo $form->dropDownListControlGroup($model,'category',[$model->category,'asdf'],[
+                echo $form->dropDownListControlGroup($model,'category', $this->categories,[
+                'options' =>[$catalog['categories_id']=>['selected'=>'selected']],
                 'multiple'=>'multiple',
                 'size'=>'10',
-                    'label' => 'Категории'
+                'label' => 'Категории',
+
             ])
             ?>
 
