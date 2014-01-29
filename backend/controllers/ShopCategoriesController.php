@@ -37,9 +37,9 @@ class ShopCategoriesController extends BackendController {
 //        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
-            //            'pagination' => [
-            //                'pageSize'=>100,
-            //            ],
+                        'pagination' => [
+                            'pageSize'=>count($categories),
+                        ],
         ]);
 
         $vars = compact('id','criteria','gridDataProvider');

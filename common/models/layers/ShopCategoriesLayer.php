@@ -91,8 +91,9 @@ class ShopCategoriesLayer {
         }
 
         $result=self::buildTree($result);
-//        print_r($result);exit;
         $result=self::flatTree(['data'=>$result]);
+//        print_r($result);exit;
+
         $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
@@ -108,6 +109,13 @@ class ShopCategoriesLayer {
             $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
         }
 
+
+        $result=self::buildTree($result);
+        $result=self::flatTree(['data'=>$result]);
+        array_shift($result);
+//                print_r($result);exit;
+
+        $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
@@ -246,7 +254,7 @@ class ShopCategoriesLayer {
             $id_name = 'id';
             $field_name = 'parent_id';
             $children_name = 'children';
-            $max_deep=2;
+            $max_deep=10;
 
             if ($deep<=$max_deep){
                 foreach ($data as $d) {

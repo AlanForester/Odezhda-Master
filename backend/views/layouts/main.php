@@ -24,9 +24,9 @@
 $this->registerTemplateAssets();
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/main.css');
 Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.js');
-Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap3.js');
-Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap2.js');
-Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.cookie.js');
+//Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap3.js');
+//Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap2.js');
+//Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.cookie.js');
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_treegrid/css/jquery.treegrid.css');
 //$url = Yii::app()->assetManager->publish(ROOT_DIR . '/backend/packages/jquery_treegrid/img/collapse.png');
 //echo CHtml::image($url);
@@ -38,10 +38,14 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_
 //echo CHtml::image($url);
 
 // составляем javascript, который должен быть на странице
-$js = "$('.tree').treegrid()";
+$js = "
+        $(document).ready(function() {
+            $('.tree').treegrid();
+        });
+        ";
 
 // разместить скрипт на странице
-Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_READY);
+Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_HEAD);
 
 ?>
 <!DOCTYPE html>
