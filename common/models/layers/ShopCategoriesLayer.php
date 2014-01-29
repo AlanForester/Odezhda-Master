@@ -21,6 +21,7 @@ class ShopCategoriesLayer {
         //
 
     ];
+    private static $dataProvider;
 
     private static $errors = [];
 
@@ -74,7 +75,7 @@ class ShopCategoriesLayer {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findAllByAttributes(array('parent_id' => $id));
         foreach ($list as $val) {
-            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->description ? self::fieldMapConvert($val->description->getAttributes()) : []));
+            $result[]=array_merge(self::fieldMapConvert($val->getAttributes()), ($val->rel_description ? self::fieldMapConvert($val->rel_description->getAttributes()) : []));
         }
 //        print_r($result);exit;
         return $result;
@@ -84,8 +85,8 @@ class ShopCategoriesLayer {
         $result = [];
         $list = ShopCategoriesLegacy::model()->findall();
         foreach ($list as $val) {
-            if ($val->description){
-                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->description->getAttributes(['categories_name'])));
+            if ($val->rel_description){
+                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
             }
         }
 
@@ -99,14 +100,141 @@ class ShopCategoriesLayer {
     public static function getList($data, $relatedData) {
         $result = [];
 //        print_r($relatedData);exit;
-        $data=array_merge($data, ['with'=>['description'=>$relatedData]]);
+        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]]);
+        $criteria = new CDbCriteria($data);
 //        print_r(new CDbCriteria($data));exit;
-        $list = ShopCategoriesLegacy::model()->findAll(new CDbCriteria($data));//new CDbCriteria($data)
+        $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
-            $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+            $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
         }
 
         return $result;
+    }
+
+    public static function getActiveProvider($data)  {
+        if (!self::$dataProvider) {
+//            print_r($data);exit;
+            // todo: переместить все в прослойку
+            $condition = [];
+            $params = [];
+
+            $relatedCondition= [];
+            $relatedParams = [];
+
+            // фильтр по тексту
+            if (!empty($data['text_search'])) {
+                $relatedCondition[] = '(' . join(
+                        ' OR ',
+                        [
+                            'rel_description.'.self::getFieldName('name', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
+//                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
+                        ]
+                    ) . ')';
+
+                $relatedParams[':text'] = '%' . $data['text_search'] . '%';
+            }
+
+
+            // фильтр по родительской категории
+            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
+                $condition[] = self::getFieldName('parent_id', false) . '=:category';
+                $params[':category'] = $data['filter_categories'];
+            }
+
+            // фильтр по дате создания
+//            if (!empty($data['filter_created'])) {
+//                $range = $data['filter_created'];
+//                $date_start = new DateTime();
+//                $date_now = new DateTime();
+//
+//                switch ($range) {
+//                    case 'past_week':
+//                        $date_start->modify('-7 day');
+//                        break;
+//
+//                    case 'past_1month':
+//                        $date_start->modify('-1 month');
+//                        break;
+//
+//                    case 'past_3month':
+//                        $date_start->modify('-3 month');
+//                        break;
+//
+//                    case 'past_6month':
+//                        $date_start->modify('-6 month');
+//                        break;
+//
+//                    case 'post_year':
+//                    case 'past_year':
+//                        $date_start->modify('-1 year');
+//                        break;
+//
+//                    case 'today':
+//                        $date_now->modify('+1 day');
+//                        break;
+//                }
+//
+//                if ($range == 'post_year') {
+//                    $condition[] = ShopCategoriesLayer::getFieldName('added', false) . ' < :date_start';
+//                } else {
+//                    $condition[] = '(' . ShopCategoriesLayer::getFieldName('added', false) . ' >= :date_start AND ' . ShopCategoriesLayer::getFieldName('added', false) . ' <= :date_now)';
+//                    $params[':date_now'] = $date_now->format('Y-m-d');
+//                }
+//
+//                $params[':date_start'] = $date_start->format('Y-m-d');
+//            }
+
+            // поле и направление сортировки
+            $order_direct = null;
+            $order_field = self::getFieldName(!empty($data['order_field']) ? $data['order_field'] : 'name', false);
+
+            if (isset($data['order_direct'])) {
+                switch ($data['order_direct']) {
+                    case 'up':
+                        $order_direct = ' ASC';
+                        break;
+                    case 'down':
+                        $order_direct = ' DESC';
+                        break;
+                }
+            }
+            $criteriaArray = [
+                'condition' => join(' AND ', $condition),
+                'params' => $params,
+            ];
+
+            $relatedCriteriaArray = [
+                'condition' => join(' AND ', $relatedCondition),
+                'params' => $relatedParams,
+                'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
+            ];
+
+            // разрешаем перезаписать любые параметры критерии
+            if (isset($data['criteria'])) {
+                $criteria = array_merge($criteriaArray,$data['criteria']);
+            }
+            if (isset($data['relatedCriteria'])) {
+                $relatedCriteria = array_merge($relatedCriteriaArray,$data['relatedCriteria']);
+            }
+            //$criteria=array_merge($criteria, ['with'=>['description'=>$relatedCriteria]]);
+
+            $criteria = new CDbCriteria(array_merge($criteriaArray, ['with'=>['rel_description'=>$relatedCriteriaArray]]));
+//            print_r($criteria);exit;
+            self::$dataProvider = new CActiveDataProvider('ShopCategoriesLegacy', [
+                 'criteria'=>$criteria,
+                ]
+            );
+        }
+        return self::$dataProvider;
+    //        print_r(new CDbCriteria($data));exit;
+//            $list = ShopCategoriesLegacy::model()->findAll($criteria);
+//            foreach ($list as $val) {
+//                $result[] = array_merge(self::fieldMapConvert($val->description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
+//            }
+
+
     }
 
     // в функцию нужно прислать массив и указать имя поля, по которому будет определяться
@@ -238,12 +366,11 @@ class ShopCategoriesLayer {
         $field = self::getFieldName($data['field'], false);
         $id = (!empty($data['id']) ? $data['id'] : false);
         $value = (!empty($data['newValue']) ? $data['newValue'] : false);
-
-        // все все данные верны, сохраняем
+        // все данные верны, сохраняем
         if ($id && $field && $value) {
             $category = self::getCategory($id);
             $category->setAttributes([$field=>$value],false);
-            return $category->withRelated->save(true, ['description']);
+            return $category->withRelated->save(true, ['rel_description']);
         }
 
         return false;
@@ -281,13 +408,13 @@ class ShopCategoriesLayer {
 
         //todo перепроверять на одинаковые id
 
-        if (!$category->withRelated->save(true,['description'])) {
+        if (!$category->withRelated->save(true,['rel_description'])) {
             self::$errors = $category->getErrors();
             return false;
         }
 //        print_r($category->getAttributes());exit;
         //return array_merge(self::fieldMapConvert($category->attributes), self::fieldMapConvert($category->description->attributes));
-        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->description ? self::fieldMapConvert($category->description->getAttributes()) : []));
+        return array_merge(self::fieldMapConvert($category->getAttributes()), ($category->rel_description ? self::fieldMapConvert($category->rel_description->getAttributes()) : []));
     }
 
 

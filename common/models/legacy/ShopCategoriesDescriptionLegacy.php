@@ -48,6 +48,25 @@ class ShopCategoriesDescriptionLegacy extends CActiveRecord
 //        );
 //    }
 
+//    public function __get($name){
+//        $name = ShopCategoriesLayer::getFieldName($name,false);
+//        foreach ($this->relations() as $a=>$r){
+//            if (isset($this->$a->$name)){
+//                $name = $a.'.'.$name;
+//                break;
+//            }
+//        }
+//        return parent::__get($name);
+//    }
+//
+//    public function __set($name,$value){
+//        return parent::__set(ShopCategoriesLayer::getFieldName($name,true),$value);
+//    }
+//
+//    public function __isset($name) {
+//        return parent::__isset(ShopCategoriesLayer::getFieldName($name,false));
+//    }
+
     public function rules()
     {
         return [

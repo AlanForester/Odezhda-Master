@@ -55,9 +55,30 @@ class ShopCategoriesLegacy extends CActiveRecord {
      */
     public function relations() {
         return [
-            'description' => [self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'],
+            'rel_description' => [self::HAS_ONE, 'ShopCategoriesDescriptionLegacy', 'categories_id'],
         ];
     }
+//
+//    public function __get($name){
+////        $name = ShopCategoriesLayer::getFieldName($name,false);
+////        foreach ($this->relations() as $a=>$r){
+////            if (isset($this->$a->$name)){
+////                return $this->$a->$name;
+////                //$name = $a.'.'.$name;
+////                //break;
+////            }
+////        }
+////        return parent::__get($name);
+//        return parent::__get(ShopCategoriesLayer::getFieldName($name,false));
+//    }
+//
+//    public function __set($name,$value){
+//        return parent::__set(ShopCategoriesLayer::getFieldName($name,true),$value);
+//    }
+//
+//    public function __isset($name) {
+//        return parent::__isset(ShopCategoriesLayer::getFieldName($name,false));
+//    }
 
     /**
      * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР

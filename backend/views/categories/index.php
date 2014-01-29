@@ -78,7 +78,7 @@ $this->widget(
 
         'textSearch' => $criteria['text_search'],
 
-        'dataProvider' => $this->gridDataProvider,
+        'dataProvider' =>$gridDataProvider,
 
         //        'gridOptions'=>[
         //            'id' => 'tree_id' . $id

@@ -87,7 +87,7 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedCondition[] = '(' . join(
                         ' OR ',
                         [
-                            'description.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
+                            'rel_description.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
 //                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
@@ -169,7 +169,7 @@ class ShopCategoriesModel extends CFormModel {
             $relatedCriteria = [
                 'condition' => join(' AND ', $relatedCondition),
                 'params' => $relatedParams,
-                'order' => 'description.'.$order_field . ($order_direct ? : '')
+                'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
             ];
 
             // разрешаем перезаписать любые параметры критерии
@@ -177,7 +177,7 @@ class ShopCategoriesModel extends CFormModel {
                 $criteria = array_merge($criteria,$data['criteria']);
             }
             if (isset($data['relatedCriteria'])) {
-                $criteria = array_merge($relatedCriteria,$data['relatedCriteria']);
+                $relatedCriteria = array_merge($relatedCriteria,$data['relatedCriteria']);
             }
 
             $this->allCategories = ShopCategoriesLayer::getList($criteria,$relatedCriteria);
@@ -194,6 +194,10 @@ class ShopCategoriesModel extends CFormModel {
 //            $this->allCategories = ShopCategoriesLayer::getList();
 //        }
 //        return $this->allCategories;
+    }
+
+    public function getActiveProvider ($criteria) {
+        return ShopCategoriesLayer::getActiveProvider($criteria);
     }
 
     public function findByParentId ($id, $data = []){
@@ -236,7 +240,7 @@ class ShopCategoriesModel extends CFormModel {
         $category = self::getCategory($id, $scenario);
 //        print_r($category);exit;
         //return ($category ? ($id ? array_merge(ShopCategoriesLayer::fieldMapConvert($category->attributes), ShopCategoriesLayer::fieldMapConvert($category->description->attributes)) : ShopCategoriesLayer::fieldMapConvert($category->attributes)) : false);
-        return ($category ? ($id ? array_merge(($category->description ? ShopCategoriesLayer::fieldMapConvert($category->description->getAttributes()) : []), ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : false);
+        return ($category ? ($id ? array_merge(($category->rel_description ? ShopCategoriesLayer::fieldMapConvert($category->rel_description->getAttributes()) : []), ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : false);
     }
     /**
      * Удаляет категорию и все вложенные категории
