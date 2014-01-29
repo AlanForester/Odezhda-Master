@@ -346,7 +346,7 @@ class Grid extends CWidget {
                     'id' => 'whgrid',
                     //        'CssClass'=>'dataTables_wrapper',
                     'dataProvider' => $this->dataProvider,
-                    'itemsCssClass' => 'table-bordered items',
+                    'itemsCssClass' => 'tree table-bordered items',
                     //    'filter'=>$this->model,
                     'fixedHeader' => true,
                     'responsiveTable' => true,
