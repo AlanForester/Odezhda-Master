@@ -74,18 +74,13 @@ class CatalogLegacy extends CActiveRecord
 
                     $command_cr->insert('products_to_categories',
                         [
-                            'products_id'=>$id,
+                               'products_id'=>$id,
                             'categories_id'=>$category_id,
                         ]
                     );
                 }
             }
         }
-
-
-
-
-
 
 
         //todo: БЮ Очистка ненежных связей перед сохранением

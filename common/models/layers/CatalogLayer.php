@@ -11,6 +11,16 @@ class CatalogLayer {
         'products_date_added' =>'date_add',
         'products_last_modified'=>'date_last',
         'products_weight'=>'weight',
+
+
+        'products_quantity_order_min'=>'min_quantity',
+        //шаг заказа
+        'products_quantity_order_min'=>'products_quantity_order_min',
+
+
+        //грппа checkbox
+        'products_status','status',
+        'products_to_xml','xml',
         //таблица описание товара
             'products_name' => 'name',
             'products_description' => 'description',
