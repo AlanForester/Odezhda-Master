@@ -7,8 +7,9 @@ class CatalogLayer {
     private static $field_map = [
         'products_id' => 'id',
         'products_price' => 'price',
-        'products_price' => 'products_old_price',
+        'products_old_price' => 'old_price',
         'products_tax_class_id' => 'tax',
+        'products_ordered' => 'count_orders',
 
 
         'products_quantity' => 'quantity',
@@ -98,10 +99,14 @@ class CatalogLayer {
             if(!empty($val->manufacturers->attributes)){
                 $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
             }
+            $result[$key]['categories_list']='';
             foreach($val->categories_description as $key_up => $val_up){
-                $result[$key]['categories_description'][$key_up]=[];
+
                 if(!empty($val_up['categories_id'])){
-                    $result[$key]['categories_description'][$key_up]=$val_up['categories_name'];
+                    if($key_up!=0){
+                        $result[$key]['categories_list'].=', ';
+                    }
+                    $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
         }
