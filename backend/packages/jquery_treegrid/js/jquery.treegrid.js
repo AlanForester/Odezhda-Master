@@ -333,7 +333,8 @@
          * @returns {Boolean}
          */
         isLeaf: function() {
-            return $(this).treegrid('getChildNodes').length === 0;
+            return !$(this).hasClass('hasChildren');
+            //return false;//$(this).treegrid('getChildNodes').length === 0;
         },
         /**
          * Method return true if node last in branch
@@ -416,9 +417,31 @@
         expand: function() {
             return $(this).each(function() {
                 var $this = $(this);
-                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {
-                    $this.trigger("expand");
-                    $this.trigger("change");
+                var expander = $this.treegrid('getSetting', 'getExpander').apply(this);
+
+                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('load')) {
+
+                    expander.addClass('load');
+                    $.ajax({
+                        url: window.location,
+                        type:'post',
+                        data:$(this).id,
+
+                        success:function(data, textStatus){
+                            // докидываем новые строки
+                            //$(data).find('#tree');
+                            var test = '<tr class="treegrid-1333 "><td><span class="treegrid-expander"></span><a data-pk="1333" rel="name" href="#" class="editable editable-click">Лоты</a></td><td>0</td><td>0</td><td>1333</td><td width="50px" class="action-buttons"></td></tr>';
+                            $this.after(test);
+
+                            // запускаем реакцию
+                            $this.trigger("expand");
+                            $this.trigger("change");
+
+                            expander.removeClass('load');
+                        }
+                    });
+
+
                 }
             });
         },
