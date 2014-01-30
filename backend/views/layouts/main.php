@@ -40,7 +40,9 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_
 // составляем javascript, который должен быть на странице
 $js = "
         $(document).ready(function() {
-            $('.tree').treegrid();
+            $('.tree').treegrid({
+          'initialState': 'collapsed',
+        });
         });
         ";
 
