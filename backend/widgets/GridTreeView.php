@@ -29,11 +29,16 @@ class GridTreeView extends WhGridView {
                 $htmlOptions['class'] = $class.'-';
             }
         }
-        if ($this->dataProvider->data[$row]['parent_id']=='0'){
-            $htmlOptions['class']='treegrid-'.$this->dataProvider->data[$row]['id'];
-        } else {
-            $htmlOptions['class']='treegrid-'.$this->dataProvider->data[$row]['id'].' treegrid-parent-'.$this->dataProvider->data[$row]['parent_id'];
+
+        $css='treegrid-'.$this->dataProvider->data[$row]['id'].' ';
+        if (!empty($this->dataProvider->data[$row]['childCount'])){
+            $css.='hasChildren ';
         }
+        if ($this->dataProvider->data[$row]['parent_id']!='0'){
+            $css.=' treegrid-parent-'.$this->dataProvider->data[$row]['parent_id'];//$htmlOptions['class']='treegrid-'.$this->dataProvider->data[$row]['id'];
+        }
+        $htmlOptions['class']=$css;
+
         echo CHtml::openTag('tr', $htmlOptions);
         foreach ($this->columns as $column) {
             echo $this->displayExtendedSummary && !empty($this->extendedSummary['columns']) ? $this->parseColumnValue(

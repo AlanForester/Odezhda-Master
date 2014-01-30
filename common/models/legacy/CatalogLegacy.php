@@ -83,11 +83,6 @@ class CatalogLegacy extends CActiveRecord
         }
 
 
-
-
-
-
-
         //todo: БЮ Очистка ненежных связей перед сохранением
         $this->_allData['categories_name']='';
         $relations=$this->relations();
@@ -136,7 +131,7 @@ class CatalogLegacy extends CActiveRecord
         $id = $this->_allData['products_id'] = $this->products_id;
 
         CatalogDescriptionLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
-        CatalogToCategorLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
+        CatalogToCategoriesLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
 //        $command = Yii::app()->db->createCommand();
 //        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
     }
