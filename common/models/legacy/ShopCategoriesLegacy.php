@@ -41,7 +41,8 @@ class ShopCategoriesLegacy extends CActiveRecord {
 
     protected $_allData = [];
 
-//    public  $childCount;
+    public  $childCount;
+
 
     /**
      * Name of the database table associated with this ActiveRecord

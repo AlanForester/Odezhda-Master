@@ -28,6 +28,7 @@ class ShopCategoriesDescriptionLegacy extends CActiveRecord
 
     public $primaryKey='categories_id';
 
+
     /**
      * Name of the database table associated with this ActiveRecord
      * @return string
