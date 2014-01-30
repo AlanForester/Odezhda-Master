@@ -34,14 +34,17 @@ $this->widget(
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
+                'order'=>'Сортировка',
                 'id' => 'ID',
                 'name' => 'Название',
                 'date_add' => 'Дата добавления',
                 'date_last' => 'Дата изменения',
                 'price' => 'Цена',
-                'quantity' => 'Количество',
+                'quantity' => 'Кол-во',
                 'weight' => 'Вес',
-                'manufacturers'=>'Производитель'
+                'manufacturers'=>'Производитель',
+                'status'=>'Наличие',
+
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -67,14 +70,26 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
+            ], [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Код',
+                'name' => 'model',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update"),
+                ]
             ],[
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Описание',
                 'name' => 'description',
                 'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
                 ],
                 'editable' => [
                     'placement' => 'top',
@@ -156,6 +171,81 @@ $this->widget(
                 'type' => 'text',
                 'header' => 'Дата изменениния',
                 'name' => 'date_last',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Мин. заказ',
+                'name' => 'min_quantity',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Шаг',
+                'name' => 'step',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Сортировка',
+                'name' => 'order',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'XML',
+                'name' => 'xml',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Наличие',
+                'name' => 'status',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
