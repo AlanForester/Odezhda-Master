@@ -100,8 +100,7 @@ $this->widget(
             [
                 'type' => 'text',
                 'header' => 'Категории',
-               // todo: добиться вывода массива категорий categories_description
-                'name' => 'category',
+                'name' => 'categories_list',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -140,6 +139,12 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update")
                 ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Покупок',
+                'name' => 'count_orders'
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
