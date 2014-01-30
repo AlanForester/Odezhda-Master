@@ -82,8 +82,20 @@ class CatalogLegacy extends CActiveRecord
             }
         }
 
+
+
+
+
+
+
+        //todo: БЮ Очистка ненежных связей перед сохранением
         $this->_allData['categories_name']='';
-        foreach($this->relations() as $value){
+        $relations=$this->relations();
+        unset($relations['manufacturers']);
+
+
+        foreach($relations as $value){
+
             // имя класса АР
             $r_class = $value[1];
             $r_relation_id = $value[2];

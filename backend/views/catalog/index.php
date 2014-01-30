@@ -41,6 +41,7 @@ $this->widget(
                 'price' => 'Цена',
                 'quantity' => 'Количество',
                 'weight' => 'Вес',
+                'manufacturers'=>'Производитель'
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -96,8 +97,6 @@ $this->widget(
                 'header' => 'Производитель',
                 'name' => 'manufacturers',
                 'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
                 ],
             ],
             [
