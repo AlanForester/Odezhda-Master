@@ -42,6 +42,13 @@ class CatalogLegacy extends CActiveRecord
 //        );
         return array(
             'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+            'manufacturers'=>array(self::BELONGS_TO, 'ManufacturersInfoLegacy', 'manufacturers_id'),
+
+            //связь с производителями  many to many (но выбирается только один производитель)
+//            'catalog_to_manufacturers'=>array(self::HAS_MANY, 'CatalogToManufacturersLegacy', 'products_id'),
+//            'manufacturers'=>array(self::HAS_MANY, 'ManufacturersInfoLegacy', 'manufacturers_id', 'categories_id', 'through' => 'category_to_catalog'),
+
+            //связь с категориями many to many
             'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id'),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog')
         );
@@ -67,7 +74,7 @@ class CatalogLegacy extends CActiveRecord
 
                     $command_cr->insert('products_to_categories',
                         [
-                            'products_id'=>$id,
+                               'products_id'=>$id,
                             'categories_id'=>$category_id,
                         ]
                     );
@@ -75,8 +82,15 @@ class CatalogLegacy extends CActiveRecord
             }
         }
 
+
+        //todo: БЮ Очистка ненежных связей перед сохранением
         $this->_allData['categories_name']='';
-        foreach($this->relations() as $value){
+        $relations=$this->relations();
+        unset($relations['manufacturers']);
+
+
+        foreach($relations as $value){
+
             // имя класса АР
             $r_class = $value[1];
             $r_relation_id = $value[2];

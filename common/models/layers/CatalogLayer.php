@@ -7,11 +7,32 @@ class CatalogLayer {
     private static $field_map = [
         'products_id' => 'id',
         'products_price' => 'price',
+        'products_quantity' => 'quantity',
         'products_date_added' =>'date_add',
         'products_last_modified'=>'date_last',
+        // если товар виртуальный - код равняется 0
+        'products_weight'=>'weight',
+        'products_model'=>'model',
+
+        //порядок сортировки
+        'products_sort_order'=>'order',
+
+        'products_quantity_order_min'=>'min_quantity',
+        //шаг заказа
+        'products_quantity_order_min'=>'products_quantity_order_min',
+
+
+        //грппа checkbox
+        'products_status','status',
+        'products_to_xml','xml',
+        //таблица описание товара
             'products_name' => 'name',
             'products_description' => 'description',
-            'categories_name' =>'category'
+        //таблица категории товара
+            'categories_name' =>'category',
+        //таблица производителя товара
+            'manufacturers_name' =>'manufacturers'
+
 
     ];
 
@@ -46,23 +67,28 @@ class CatalogLayer {
     public static function getListAndParams($data) {
         $result = [];
 
-        $criteria_data=array_merge($data['main'],['with'=>['description'=>$data['description'],'categories_description'=>$data['categories_description']]]);
-//        print_r($criteria_data);exit;
+        $criteria_data=array_merge(
+            $data['main'],
+            ['with'=>
+                ['description'=>$data['description'],
+                'categories_description'=>$data['categories_description'],
+                'manufacturers']]);
 
 
         $criteria = new CDbCriteria($criteria_data);
-        //TODO: костыль не отрабытывает лимит , переписать для data active
+        //TODO: костыль не отрабытывает лимит , переписать для data active , тоже БК
         if(empty($data['categories_description']['condition'])){
               $criteria->limit=10;
         }
         $list = CatalogLegacy::model()->findall($criteria);
-//        $list = CatalogLegacy::model()->with(['categories_description'=>['condition'=>'categories_description.categories_id=79']])->findall();
-//        print_r($list);
-//        exit;
+
         foreach ($list as $key => $val) {
             $result[$key] = self::fieldMapConvert($val->attributes);
             if(!empty($val->description->attributes)){
                 $result[$key]+=self::fieldMapConvert($val->description->attributes);
+            }
+            if(!empty($val->manufacturers->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
             }
             foreach($val->categories_description as $key_up => $val_up){
                 $result[$key]['categories_description'][$key_up]=[];

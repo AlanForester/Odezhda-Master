@@ -68,6 +68,9 @@ class CatalogModel extends CFormModel {
                 if($data['order_field']=='name'){
                     $order_field = 'description.'.CatalogLayer::getFieldName($data['order_field'], false);
                 }
+                elseif($data['order_field']=='manufacturers'){
+                    $order_field = 'manufacturers.'.CatalogLayer::getFieldName($data['order_field'], false);
+                }
                 else{
                     $order_field = 't.'.CatalogLayer::getFieldName($data['order_field'], false);
                 }

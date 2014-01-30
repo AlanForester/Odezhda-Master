@@ -430,9 +430,6 @@ Yii::app()->clientScript->registerPackage('index');
 </div>
 
 <div class="slider-clothes">
-    <script type="text/javascript" src="/js/slider-clothes/jquery.jcarousel.min.js"></script>
-    <script type="text/javascript" src="/js/slider-clothes/jcarousel.responsive.js"></script>
-    <link rel="stylesheet" type="text/css" href="/js/slider-clothes/jcarousel.responsive.css">
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>
