@@ -39,7 +39,7 @@ class CatalogLayer {
         //таблица производителя товара
             'manufacturers_name' => 'manufacturers',
         //meta
-            'products_head_title_tag' => 'title',
+            'products_head_title_tag' => 'meta_title',
             'products_head_desc_tag' => 'meta_description',
             'products_head_keywords_tag' => 'meta_keywords'
         //

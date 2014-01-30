@@ -37,6 +37,7 @@ $this->widget(
                 'order'=>'Сортировка',
                 'id' => 'ID',
                 'name' => 'Название',
+                'model' => 'Код товара',
                 'date_add' => 'Дата добавления',
                 'date_last' => 'Дата изменения',
                 'price' => 'Цена',
@@ -158,33 +159,13 @@ $this->widget(
                 ]
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
                 'header' => 'Дата поступления',
-                'name' => 'date_add',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
-                ]
+                'name' => 'date_add'
+
             ],[
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
                 'header' => 'Дата изменениния',
-                'name' => 'date_last',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
-                ]
+                'name' => 'date_last'
+
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
