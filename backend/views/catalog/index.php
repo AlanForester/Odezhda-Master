@@ -12,7 +12,6 @@ $this->widget(
         'submenu' => BackendSubMenu::shop(),
 
         'filter' => [
-            // фильтр по категории
             TbHtml::dropDownList(
                 'filter_category',
                 $criteria['filter_category'],
@@ -35,16 +34,12 @@ $this->widget(
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
-//                'firstname' => 'Имя',
-//                'lastname' => 'Фамилия',
-//                'email' => 'E-Mail',
-//                'group_id' => 'Группа',
-//                'logdate' => 'Последний визит',
                 'id' => 'ID',
                 'name' => 'Название',
                 'date_add' => 'Дата добавления',
                 'date_last' => 'Дата изменения',
-                'price' => 'Цена'
+                'price' => 'Цена',
+                'quantity' => 'Количество',
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -62,16 +57,13 @@ $this->widget(
                 'header' => 'Название',
                 'name' => 'name',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update"),
-                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],[
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -79,38 +71,16 @@ $this->widget(
                 'header' => 'Описание',
                 'name' => 'description',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update"),
-                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],
-//            [
-//                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-//                'type' => 'text',
-//                'header' => 'Описание',
-//                'name' => 'description',
-//                'headerHtmlOptions' => [
-//                    //                    'style' => 'text-align: left;'
-//                ],
-//                'htmlOptions' => [
-//                    //                    'style' => 'text-align: left;'
-//                ],
-//                'editable' => [
-//                    'placement' => 'right',
-//                    'emptytext' => 'не задано',
-//                    'url' => Yii::app()->createUrl("/catalog/update"),
-//                    //'source'   => $this->createUrl('users/update'),
-//                ]
-//            ],
             [
-//                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Категории',
                // todo: добиться вывода массива категорий categories_description
@@ -119,11 +89,6 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                 ],
-//                'editable' => [
-//                    'placement' => 'top',
-//                    'emptytext' => 'не задано',
-//                    'url' => Yii::app()->createUrl("/catalog/update")
-//                ]
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -132,10 +97,37 @@ $this->widget(
                 'name' => 'price',
                 'headerHtmlOptions' => [
                     'width'=>'150px'
-                    //                    'style' => 'text-align: left;'
+                ],
+
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Количество',
+                'name' => 'quantity',
+                'headerHtmlOptions' => [
+                    'width'=>'150px'
+                ],
+
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Дата поступления',
+                'name' => 'date_add',
+                'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'top',
@@ -145,36 +137,16 @@ $this->widget(
             ],[
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'Дата поступления',
-                'name' => 'date_add',
-                'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
-                ],
-                'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update"),
-                    //'source'   => $this->createUrl('users/update'),
-                ]
-            ],[
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
                 'header' => 'Дата изменениния',
                 'name' => 'date_last',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update"),
-                    //'source'   => $this->createUrl('users/update'),
+                    'url' => Yii::app()->createUrl("/catalog/update")
                 ]
             ],
             [
@@ -182,10 +154,8 @@ $this->widget(
                 'name' => 'id',
                 'headerHtmlOptions' => [
                     'width'=>'50px'
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ]
             ]
         ],

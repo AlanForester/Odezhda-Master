@@ -7,6 +7,7 @@ class CatalogLayer {
     private static $field_map = [
         'products_id' => 'id',
         'products_price' => 'price',
+        'products_quantity' => 'quantity',
         'products_date_added' =>'date_add',
         'products_last_modified'=>'date_last',
             'products_name' => 'name',
