@@ -7,6 +7,10 @@ class CatalogLayer {
     private static $field_map = [
         'products_id' => 'id',
         'products_price' => 'price',
+        'products_price' => 'products_old_price',
+        'products_tax_class_id' => 'tax',
+
+
         'products_quantity' => 'quantity',
         'products_date_added' =>'date_add',
         'products_last_modified'=>'date_last',
@@ -14,26 +18,30 @@ class CatalogLayer {
         'products_weight'=>'weight',
         'products_model'=>'model',
 
+
         //порядок сортировки
         'products_sort_order'=>'order',
 
         'products_quantity_order_min'=>'min_quantity',
         //шаг заказа
-        'products_quantity_order_min'=>'products_quantity_order_min',
+        'products_quantity_order_units'=>'step',
 
 
         //грппа checkbox
-        'products_status','status',
-        'products_to_xml','xml',
+        'products_status' => 'status',
+        'products_to_xml' => 'xml',
         //таблица описание товара
             'products_name' => 'name',
             'products_description' => 'description',
         //таблица категории товара
             'categories_name' =>'category',
         //таблица производителя товара
-            'manufacturers_name' =>'manufacturers'
-
-
+            'manufacturers_name' => 'manufacturers',
+        //meta
+            'products_head_title_tag' => 'title',
+            'products_head_desc_tag' => 'meta_description',
+            'products_head_keywords_tag' => 'meta_keywords'
+        //
     ];
 
     public static $errors = [];
