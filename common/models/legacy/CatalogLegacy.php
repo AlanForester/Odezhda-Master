@@ -42,6 +42,13 @@ class CatalogLegacy extends CActiveRecord
 //        );
         return array(
             'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
+            'manufacturers'=>array(self::BELONGS_TO, 'ManufacturersInfoLegacy', 'manufacturers_id'),
+
+            //связь с производителями  many to many (но выбирается только один производитель)
+//            'catalog_to_manufacturers'=>array(self::HAS_MANY, 'CatalogToManufacturersLegacy', 'products_id'),
+//            'manufacturers'=>array(self::HAS_MANY, 'ManufacturersInfoLegacy', 'manufacturers_id', 'categories_id', 'through' => 'category_to_catalog'),
+
+            //связь с категориями many to many
             'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id'),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog')
         );

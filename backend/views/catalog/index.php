@@ -40,6 +40,7 @@ $this->widget(
                 'date_last' => 'Дата изменения',
                 'price' => 'Цена',
                 'quantity' => 'Количество',
+                'weight' => 'Вес',
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -91,6 +92,15 @@ $this->widget(
                 ],
             ],
             [
+                'type' => 'text',
+                'header' => 'Производитель',
+                'name' => 'manufacturers',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
+            [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Цена (руб.)',
@@ -110,10 +120,18 @@ $this->widget(
                 'type' => 'text',
                 'header' => 'Количество',
                 'name' => 'quantity',
-                'headerHtmlOptions' => [
-                    'width'=>'150px'
-                ],
 
+                'editable' => [
+                    'placement' => 'top',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/catalog/update")
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'header' => 'Вес (кг)',
+                'name' => 'weight',
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
