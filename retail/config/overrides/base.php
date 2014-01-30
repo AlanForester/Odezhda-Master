@@ -36,6 +36,8 @@ return [
                         //Slider
                         'js/slider/jquery.themepunch.plugins.min.js',
                         'js/slider/jquery.themepunch.revolution.min.js',
+                        'js/slider-clothes/jquery.jcarousel.min.js',
+                        'js/slider-clothes/jcarousel.responsive.js',
 
                         // Modal
                         'js/modal/jquery.arcticmodal-0.3.min.js',
@@ -68,6 +70,7 @@ return [
                     ],
                     'css' => [
                         'css/main.css',
+                        'js/slider-clothes/jcarousel.responsive.css',
                     ],
                     'depends' => ['core'],
                 ],
@@ -76,8 +79,6 @@ return [
                     'js' => [
                         'js/tabs/withoutPlugin.js',
                         'js/tabs/organictabs.jquery.js',
-                        'js/slider-clothes/jquery.jcarousel.min.js',
-                        'js/slider-clothes/jcarousel.responsive.js',
                         'js/catalog.js',
                     ],
                     'css' => [
@@ -91,8 +92,6 @@ return [
                 'product' => [
                     'baseUrl' => '/',
                     'js' => [
-                        'js/slider-clothes/jquery.jcarousel.min.js',
-                        'js/slider-clothes/jcarousel.responsive.js',
                         'js/product.js',
                     ],
                     'css' => [
