@@ -10,8 +10,12 @@ class CatalogLayer {
         'products_quantity' => 'quantity',
         'products_date_added' =>'date_add',
         'products_last_modified'=>'date_last',
+        // если товар виртуальный - код равняется 0
         'products_weight'=>'weight',
+        'products_model'=>'model',
 
+        //порядок сортировки
+        'products_sort_order'=>'order',
 
         'products_quantity_order_min'=>'min_quantity',
         //шаг заказа
