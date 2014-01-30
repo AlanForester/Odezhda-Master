@@ -96,13 +96,17 @@ class ShopCategoriesModel extends CFormModel {
 
                 $relatedParams[':text'] = '%' . $data['text_search'] . '%';
             }
+            else{
+                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
+                $params[':category'] = 0;
+            }
 
 
             // фильтр по родительской категории
-            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
-                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
-                $params[':category'] = $data['filter_categories'];
-            }
+//            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
+//                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
+//                $params[':category'] = $data['filter_categories'];
+//            }
 
             // фильтр по дате создания
 //            if (!empty($data['filter_created'])) {

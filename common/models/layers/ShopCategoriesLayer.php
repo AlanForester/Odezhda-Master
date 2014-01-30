@@ -89,8 +89,10 @@ class ShopCategoriesLayer {
                 $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
             }
         }
-
-        $result=self::buildTree($result);
+        $params=[
+            'max_deep'=>2,
+        ];
+        $result=self::buildTree($result,$params);
         $result=self::flatTree(['data'=>$result]);
 //        print_r($result);exit;
 
@@ -100,20 +102,26 @@ class ShopCategoriesLayer {
 
     public static function getList($data, $relatedData) {
         $result = [];
-//        print_r($relatedData);exit;
-        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]]);
+//        $defaultDataCriteria=['condition'=>'parent_id=:parent_id','params'=>[':parent_id'=>0]];
+
+        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS t WHERE (t.parent_id = categories_id)) AS childCount']);
+
         $criteria = new CDbCriteria($data);
-//        print_r(new CDbCriteria($data));exit;
+//                print_r($criteria);exit;
+
         $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
             $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()));
         }
+        print_r($result);exit;
 
-        $result=self::buildTree($result);
-        $result=self::flatTree(['data'=>$result]);
-        array_shift($result);
-
-        $result = array_map(function($el){return (array)$el;},$result);
+//        $params=[
+//            'max_deep'=>0,
+//        ];
+//        $result=self::buildTree($result,$params);
+//        $result=self::flatTree(['data'=>$result]);
+//        array_shift($result);
+//        $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
@@ -245,20 +253,20 @@ class ShopCategoriesLayer {
 
     // в функцию нужно прислать массив и указать имя поля, по которому будет определяться
     // поле сортировки. В ответ получим массив, где вложенные записи будут в поле $children_name
-    public static function buildTree($data = null,$root=0, $deep=0) {
+    public static function buildTree($data = null,$params, $root=0, $deep=0) {
         $result = [];
         if (count($data) > 0) {
-
-            $id_name = 'id';
-            $field_name = 'parent_id';
-            $children_name = 'children';
-            $max_deep=2;
+            $params=array_merge(['id_name'=>'id','field_name'=>'parent_id','children_name'=>'children'],$params);
+            $id_name = $params['id_name'];
+            $field_name = $params['field_name'];
+            $children_name = $params['children_name'];
+            $max_deep=$params['max_deep'];
 
             if ($deep<=$max_deep){
                 foreach ($data as $d) {
                     if (isset($d[$field_name]) && isset($d[$id_name]) && $d[$field_name] == $root) {
                         $deep++;
-                        $d[$children_name] = self::buildTree($data,$d[$id_name],$deep);
+                        $d[$children_name] = self::buildTree($data,$params,$d[$id_name],$deep);
 
                         if (count($d[$children_name]) == 0) {
                             unset($d[$children_name]);
