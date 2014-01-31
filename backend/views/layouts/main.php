@@ -31,15 +31,12 @@ Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_
 // составляем javascript, который должен быть на странице
 
 $js = "
-
-        ";
-$js .= "
         $(document).ready(function() {
             $('.tree').treegrid({
                 'initialState': 'collapsed',
             });
 
-            $('#whgrid').live('ajaxUpdateTree',function(e) {
+            $('#whgrid').bind('ajaxUpdateTree',function(e) {
                     $('.tree').treegrid({
                         'initialState': 'collapsed',
                     });

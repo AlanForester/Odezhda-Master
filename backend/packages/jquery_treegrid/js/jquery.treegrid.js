@@ -474,10 +474,22 @@
                             data:{
                                 parent_id:ids
                             },
-                            success:function(data){
-                                expander.removeClass('loading');
-                                expander.addClass('loaded');
+                            complete: function(data) {
+                                //console.log(data.status);
+                                if (data.status==200){
+                                    //console.log(11111);
+                                    $this.trigger("expand");
+                                    $this.trigger("change");
+                                    expander.removeClass('loading');
+                                    expander.addClass('loaded');
+                                }
                             }
+//                            success:function(data){
+//                                $this.trigger("expand");
+//                                $this.trigger("change");
+//                                expander.removeClass('loading');
+//                                expander.addClass('loaded');
+//                            }
                         }
                     )
                 } else if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {

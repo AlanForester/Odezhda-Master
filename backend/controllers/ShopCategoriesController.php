@@ -56,7 +56,7 @@ class ShopCategoriesController extends BackendController {
 //            Yii::app()->end();
 //        }
         if ($this->isAjax){
-            $this->renderPartial('index',$vars,false,true);
+            $this->renderPartial('index',$vars);
 
             Yii::app()->end();
         }
