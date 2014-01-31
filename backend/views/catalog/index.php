@@ -208,7 +208,7 @@ $this->widget(
                     'type' => 'select',
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'source' => [1 => "Да", 0 => "Нет",2=>'Хрень'],
+                    'source' => [1 => "Да", 0 => "Нет"],
                     'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
             ],
@@ -222,9 +222,11 @@ $this->widget(
                 'htmlOptions' => [
                 ],
                 'editable' => [
+                    'type' => 'select',
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'source' => [1 => "Да", 0 => "Нет"],
+                    'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
             ],
             [
