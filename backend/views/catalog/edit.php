@@ -20,6 +20,7 @@ $this->pageButton = [
                 'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
                 //'enableAjaxValidation' => true,
                 'enableClientValidation' => true,
+                'htmlOptions'=>array('enctype'=>'multipart/form-data'),
                 'clientOptions' => [
                     'validateOnSubmit' => true,
 //                    'afterValidate' => 'js: function(form,data,hasError)
@@ -46,7 +47,7 @@ $this->pageButton = [
             <legend>Товар</legend>
             <?php
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-            echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название']);
+            echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название *']);
             echo $form->textFieldControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
             echo $form->textFieldControlGroup($model, 'model', ['value' => $model->model, 'label' => 'Код товара']);
             echo '<br/>';
@@ -106,6 +107,7 @@ if (!empty($model->id)) {
                         ['name' => 'id', 'label' => 'ID'],
                         ['name' => 'date_add', 'label' => 'Дата создания'],
                         ['name' => 'date_last', 'label' => 'Дата изменения'],
+                        ['name' => 'count_orders', 'label' => 'Покупок']
 
                     ],
                 ]
@@ -126,13 +128,25 @@ if (!empty($model->id)) {
         <fieldset>
             <legend>Фотографии</legend>
             <?php
-                $this->widget(
-                    'yiiwheels.widgets.fileupload.WhFileUpload',
-                    [
-                        'name'     => 'fileuploadui',
-                        'url'      => $this->createUrl('site/upload', ['type' => 'fine']),
-                        'multiple' => true,
-                    ]                );
+//          echo $form->fileFieldControlGroup($model, 'image', ['value' => $model->meta_title,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
+     /*            $this->widget(
+                        'yiiwheels.widgets.fileupload.WhFileUpload',
+                        array(
+                            'name'     => 'image',
+                            'url'      => $this->createUrl('file/index', array('fine' => '1')),
+                            'multiple' => true,
+                        )
+                    );*/
+
+            $this->widget('yiiwheels.widgets.fineuploader.WhFineUploader', array(
+                'name'          => 'image',
+                'uploadAction'  => $this->createUrl('file/index'),
+                'pluginOptions' => array(
+                    'validation'=>array(
+                        'allowedExtensions' => array( 'jpg')
+                    ),'autoUpload' => 'false'
+                )
+            ));
             ?>
         </fieldset>
 

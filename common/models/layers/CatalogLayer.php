@@ -41,8 +41,9 @@ class CatalogLayer {
         //meta
             'products_head_title_tag' => 'meta_title',
             'products_head_desc_tag' => 'meta_description',
-            'products_head_keywords_tag' => 'meta_keywords'
-        //
+            'products_head_keywords_tag' => 'meta_keywords',
+        //фото
+            'products_image' => 'image'
     ];
 
     public static $errors = [];
@@ -296,17 +297,18 @@ class CatalogLayer {
     public static function updateField($data) {
         // реальное имя поля
         $field = self::getFieldName($data['field'], false);
-        $Catalog_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
+        $catalog_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
         $value = TbArray::getValue('newValue', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
 
-        $data_params=['id'=>$Catalog_id,$data['field']=>$value];
+        $data_params=['id'=>$catalog_id,$data['field']=>$value];
+//        print_r($data_params);
+//        exit;
         // все все данные верны, сохраняем
-        if ($Catalog_id && $field && $value) {
-            $catalog = self::getCatalog($Catalog_id);
+        if ($catalog_id && $field && $value!='') {
+            $catalog = self::getCatalog($catalog_id);
 
 //            echo '<pre>';
-//            print_r($data_params);
-//            exit;
+
 
 
             //$catalog->{$field} = $value;

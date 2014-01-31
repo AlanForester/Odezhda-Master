@@ -40,6 +40,8 @@ class CatalogModel extends CFormModel {
     public $meta_description;
     public $meta_keywords;
 
+    public $image;
+
 
 
     /**

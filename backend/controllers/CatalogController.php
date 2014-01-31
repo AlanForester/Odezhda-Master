@@ -106,8 +106,8 @@ class CatalogController extends BackendController {
         }
 
         $language_model = new Language();
-        foreach ($language_model->getList() as $g) {
-            $this->languages_list[$g['languages_id']] = $g['name'];
+        foreach ($language_model->getList() As $l) {
+         $this->languages_list[$l['languages_id']]= $l['name'];
         }
 
         $model = new CatalogModel($scenario);
@@ -199,8 +199,10 @@ class CatalogController extends BackendController {
         $params['newValue'] = Yii::app()->request->getPost('value');
 
         $model = new CatalogModel();
-        if (!$model->updateField($params)) {
-            $this->error();
+
+        if(!$model->updateField($params)) {
+             $this->error();
         }
     }
+
 }
