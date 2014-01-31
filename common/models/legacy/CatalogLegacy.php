@@ -11,7 +11,7 @@
 class CatalogLegacy extends CActiveRecord
 {
     public $products_id;
-
+    public $image;
 
     public $primaryKey='products_id';
 
