@@ -429,6 +429,15 @@
                 var reg_id=/treegrid-(\d+)/;
                 var id=reg_id.exec($this.attr("class"))[1];
 
+                var ids=[id];
+                var i=1;
+                var expandedElements=$('.loaded').parents('tr').each(function () {
+
+                        ids[i]=reg_id.exec($(this).attr("class"))[1];
+                        i++;
+                    }
+                );
+                ids=jQuery.unique(ids);
                 if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !expander.hasClass('loaded')) {
                     expander.addClass('loading');
 //                    $.ajax({
@@ -463,7 +472,11 @@
                         {
                             type:'post',
                             data:{
-                                parent_id:[0,934]
+                                parent_id:ids
+                            },
+                            success:function(data){
+                                expander.removeClass('loading');
+                                expander.addClass('loaded');
                             }
                         }
                     )
