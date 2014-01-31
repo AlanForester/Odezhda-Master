@@ -37,13 +37,13 @@ class BackendSubMenu {
         return
             [
                 [
+                    'label' => 'Товары',
+                    'url' => ['/catalog/index']
+                ],
+                [
                     'label' => 'Категории',
                     'url' => ['/categories/index'],
 
-                ],
-                [
-                    'label' => 'Каталог',
-                    'url' => ['/catalog/index']
                 ]
             ];
     }

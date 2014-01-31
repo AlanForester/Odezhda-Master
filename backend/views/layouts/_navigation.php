@@ -84,12 +84,12 @@ $this->widget(
                         'url' => '#',
                         'items' => [
                             [
-                                'label' => 'Категории',
-                                'url' => ['/categories/index']
+                                'label' => 'Товары',
+                                'url' => ['/catalog/index']
                             ],
                             [
-                                'label' => 'Каталог',
-                                'url' => ['/catalog/index']
+                                'label' => 'Категории',
+                                'url' => ['/categories/index']
                             ],
                             [
                                 'label' => 'Бухгалтерия',
