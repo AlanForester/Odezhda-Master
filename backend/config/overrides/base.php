@@ -21,6 +21,7 @@ return [
         'common.helpers.*',
 
         'bootstrap.helpers.*',
+        'common.extensions.upload.*'
 //        'common.helpers.*',
     ],
     //    'aliases' => array(
@@ -32,6 +33,7 @@ return [
         'users' => 'UsersController',
         'groups' => 'GroupsController',
         'categories' => 'ShopCategoriesController',
+
     ],
     'components' => [
         // Backend uses the YiiBooster package for its UI

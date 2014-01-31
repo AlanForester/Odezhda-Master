@@ -10,41 +10,58 @@ class FileController extends BackendController {
 
     public function actionIndex() {
 
-        $modMyModel=new MyModel;
-
-        if(isset($_FILES['images'])){
-            $modMyModel->attributes=$_POST['MyModel'];
-            $modMyModel->id_image=CUploadedFile::getInstance($modMyModel,'image');
-            if($modMyModel->save()){
-                $modMyModel->id_image->saveAs('path/to/localFile');
-                // перенаправляем на страницу, где выводим сообщение об
-                // успешной загрузке
-            }
-        }
+//        $model=new CatalogLegacy();
+////       print_r($_FILES['image']['tmp_name']);exit;
+//        if(isset($_FILES['image'])){
+//            $model->attributes=$_FILES['image'];
+//
+//            $temp=CUploadedFile::getInstance($model,'image');
+//        //    if($model->save()){
+//            $temp->saveAs($_FILES['image']['tmp_name']);
+//      //      }
+//
+//        }
 
        // $this->render('create', array('model'=>$modMyModel));
 
+//        Yii::import('common.extensions.upload.upload');
+        $upload=new upload($_FILES["image"]);
 
-//       print_r($_);
-
-
-
-        // получение данных
-     //   $this->model = new FileModel();
-     //   $File = $this->model->getListAndParams($criteria);
-        return true;
-
-    }
-
-
-    public function actionUpdate() {
-        $params['field'] = Yii::app()->request->getPost('name');
-        $params['id'] = Yii::app()->request->getPost('pk');
-        $params['newValue'] = Yii::app()->request->getPost('value');
-
-        $model = new FileModel();
-        if (!$model->updateField($params)) {
-            $this->error();
+//        print_r($_FILES["image"]);
+//        exit;
+        $path=Yii::app()->request->baseUrl."/upload/" ;
+//        echo $path;
+//        exit;
+        try{
+            if($upload->uploaded)
+            {
+                $upload->process('/var/www/Odezhda-Master/backend/www/upload/');
+            }
+            else
+            {
+                echo(" file not uploaded ");
+            }
+            if($upload->processed) {
+                $Name = $upload->file_dst_name;
+            }
+            else
+            {
+                echo("upload not processed");
+                die;
+            }
         }
+        catch (Exception $excp)
+        {
+            echo($excp);
+        }
+
+        echo json_encode([
+            'success'=>true
+        ]);
+
+        Yii::app()->end();
+
     }
+
+
 }

@@ -144,7 +144,8 @@ if (!empty($model->id)) {
                 'pluginOptions' => array(
                     'validation'=>array(
                         'allowedExtensions' => array( 'jpg')
-                    ),'autoUpload' => 'false'
+                    ),
+                    'autoUpload' => false
                 )
             ));
             ?>
