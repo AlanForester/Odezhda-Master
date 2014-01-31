@@ -15,6 +15,7 @@ class ShopCategoriesController extends BackendController {
     public $categories = [];
 
     public function actionIndex($parent_id = 0) {//TODO было id стало parent_id
+        $showRelated = (Yii::app()->request->getParam('tree') ? true : false);
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
 //            'filter_categories' => $this->userStateParam('filter_categories'),
@@ -47,8 +48,13 @@ class ShopCategoriesController extends BackendController {
 //            $this->categories[$g['id']] = $g['name'];
 //        }
 
-        if ($this->isAjax){
-            $this->renderPartial('grids',$vars);
+        if ($this->isAjax && $showRelated){
+            $this->renderPartial('grids',$vars,false,true);
+            Yii::app()->end();
+        }
+        elseif ($this->isAjax){
+            $this->renderPartial('index',$vars,false,true);
+
             Yii::app()->end();
         }
 

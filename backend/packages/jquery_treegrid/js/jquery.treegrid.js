@@ -114,6 +114,7 @@
             if (expander) {
                 expander.remove();
             }
+//            $(tpl).prependTo(cell).unbind('click');
             $(tpl).prependTo(cell).click(function() {
                 $($(this).closest('tr')).treegrid('toggle');
             });
@@ -419,7 +420,7 @@
          * @returns {Node}
          */
         expand: function() {
-            var me = this;
+//            var me = this;
 
             return $(this).each(function() {
                 var $this = $(this);
@@ -433,7 +434,7 @@
                     $.ajax({
                         url: window.location,
                         type:'get',
-                        data: 'ajax=whgrid&parent_id='+id,
+                        data: 'tree=showrelated&ajax=whgrid&parent_id='+id,
 
                         success:function(data){
                             // докидываем новые строки
@@ -441,7 +442,12 @@
 
                             $this.after(data);
 
-                            var settings = $.extend({}, me.treegrid.defaults);
+                            $this.parents('.grid-view').trigger('ajaxUpdate');
+//                            console.log($this);
+
+                            var settings = $.extend({}, $this.treegrid.defaults);
+//                            console.log(settings.getTreeGridContainer());
+
                             settings.getTreeGridContainer.apply($this);
                             $this.treegrid('getChildNodes').treegrid('initNode', settings);
 
