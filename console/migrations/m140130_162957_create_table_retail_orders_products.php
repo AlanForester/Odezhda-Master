@@ -11,8 +11,8 @@ class m140130_162957_create_table_retail_orders_products extends CDbMigration
     {
         $this->execute("CREATE TABLE `retail_orders_products` (
               `retail_orders_products_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-              `retail_orders_id` int(11) unsigned NOT NULL DEFAULT '0',
-              `products_id` int(11) NOT NULL DEFAULT '0',
+              `retail_orders_id` int(11) unsigned NOT NULL,
+              `products_id` int(11) unsigned NOT NULL,
 
               `retail_sub_orders_id` int(11) unsigned DEFAULT NULL,
               `products_model` varchar(255) DEFAULT NULL,

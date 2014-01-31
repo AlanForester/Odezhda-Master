@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{retail_orders}}':
  * @property integer $retail_orders_id
  */
-class UserLegacy extends CActiveRecord {
+class RetailOrdersLegacy extends CActiveRecord {
 
     public $primaryKey = 'retail_orders_id';
 
