@@ -30,8 +30,7 @@ class FileController extends BackendController {
 //        print_r($_FILES["image"]);
 //        exit;
         $path=Yii::app()->request->baseUrl."/upload/" ;
-//        echo $path;
-//        exit;
+
         try{
             if($upload->uploaded)
             {
