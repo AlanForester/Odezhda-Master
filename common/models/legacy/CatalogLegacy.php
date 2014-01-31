@@ -11,7 +11,7 @@
 class CatalogLegacy extends CActiveRecord
 {
     public $products_id;
-
+    public $image;
 
     public $primaryKey='products_id';
 
@@ -88,7 +88,7 @@ class CatalogLegacy extends CActiveRecord
         $relations=$this->relations();
         unset($relations['manufacturers']);
 
-
+//todo: отсечь привязку к категории,(в случае отсутствия категории выкидывает ошибку.)
         foreach($relations as $value){
 
             // имя класса АР
@@ -147,6 +147,9 @@ class CatalogLegacy extends CActiveRecord
         $this->setAttributes($data,$safe);
         $this->_allData=$data;
     }
+
+
+
 
 //    public function behaviors()
 //    {

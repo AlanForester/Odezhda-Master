@@ -114,6 +114,7 @@
             if (expander) {
                 expander.remove();
             }
+//            $(tpl).prependTo(cell).unbind('click');
             $(tpl).prependTo(cell).click(function() {
                 $($(this).closest('tr')).treegrid('toggle');
             });
@@ -419,7 +420,7 @@
          * @returns {Node}
          */
         expand: function() {
-            var me = this;
+//            var me = this;
 
             return $(this).each(function() {
                 var $this = $(this);
@@ -428,39 +429,70 @@
                 var reg_id=/treegrid-(\d+)/;
                 var id=reg_id.exec($this.attr("class"))[1];
 
-                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !expander.hasClass('loaded')) {
+                var ids=[id];
+                var i=1;
+                $('.loaded').each(function () {
+                        ids[i]=reg_id.exec($(this).attr("class"))[1];
+                        i++;
+                    }
+                );
+                ids=jQuery.unique(ids);
+//                console.log(ids);
+                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !$this.hasClass('loaded')) {
+
                     expander.addClass('loading');
-                    $.ajax({
-                        url: window.location,
-                        type:'get',
-                        data: 'ajax=whgrid&parent_id='+id,
-
-                        success:function(data){
-                            // докидываем новые строки
-//                            data = $(data).find('#grid');
-
-                            $this.after(data);
-
-                            var settings = $.extend({}, me.treegrid.defaults);
-                            settings.getTreeGridContainer.apply($this);
-                            $this.treegrid('getChildNodes').treegrid('initNode', settings);
-
-//                            $('.tree').treegrid({
-//                                'initialState': 'expand'
-//                            });
-
-//                            var settings = $this.treegrid('getTreeContainer').data('settings');
-////                            var settings = $this.treegrid('getSettigs');
-//                            settings.getRootNodes.apply(me, $this.treegrid('getTreeContainer')).treegrid('initNode', settings);
-
-                            // запускаем реакцию
-                            $this.trigger("expand");
-                            $this.trigger("change");
-
-                            expander.removeClass('loading');
-                            expander.addClass('loaded');
+//                    $.ajax({
+//                        url: window.location,
+//                        type:'get',
+//                        data: 'tree=showrelated&ajax=whgrid&parent_id='+id,
+//
+//                        success:function(data){
+//                            // докидываем новые строки
+////                            data = $(data).find('#grid');
+//
+//                            $this.after(data);
+//
+//                            $this.parents('.grid-view').trigger('ajaxUpdate');
+////                            $this.parents('.grid-view').trigger('ajaxUpdate');
+//
+//                            var settings = $.extend({}, $this.treegrid.defaults);
+//
+//                            settings.getTreeGridContainer.apply($this);
+//                            $this.treegrid('getChildNodes').treegrid('initNode', settings);
+//
+//                            // запускаем реакцию
+//                            $this.trigger("expand");
+//                            $this.trigger("change");
+//
+//                            expander.removeClass('loading');
+//                            expander.addClass('loaded');
+//                        }
+//                    });
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            type:'post',
+                            data:{
+                                parent_id:ids
+                            },
+                            complete: function(data) {
+                                //console.log(data.status);
+                                if (data.status==200){
+                                    //console.log(11111);
+                                    $this.trigger("expand");
+                                    $this.trigger("change");
+                                    expander.removeClass('loading');
+//                                    expander.addClass('loaded');
+                                }
+                            }
+//                            success:function(data){
+//                                $this.trigger("expand");
+//                                $this.trigger("change");
+//                                expander.removeClass('loading');
+//                                expander.addClass('loaded');
+//                            }
                         }
-                    });
+                    )
                 } else if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {
                     $this.trigger("expand");
                     $this.trigger("change");

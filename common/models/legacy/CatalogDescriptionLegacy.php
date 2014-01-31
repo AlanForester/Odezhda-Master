@@ -29,7 +29,11 @@ class CatalogDescriptionLegacy extends CActiveRecord
     {
         return parent::model($className);
     }
-
+    public function rules() {
+        return [
+            ['products_name', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')]
+        ];
+    }
 //    public function relations()
 //    {
 //        return array(

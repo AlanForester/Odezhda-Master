@@ -9,30 +9,58 @@ class FileController extends BackendController {
 
 
     public function actionIndex() {
-        $criteria = [
-            'text_search' => $this->userStateParam('text_search'),
-            'order_field' => $this->userStateParam('order_field'),
-            'order_direct' => $this->userStateParam('order_direct')
-        ];
-       // print_r($_FILES);
 
+//        $model=new CatalogLegacy();
+////       print_r($_FILES['image']['tmp_name']);exit;
+//        if(isset($_FILES['image'])){
+//            $model->attributes=$_FILES['image'];
+//
+//            $temp=CUploadedFile::getInstance($model,'image');
+//        //    if($model->save()){
+//            $temp->saveAs($_FILES['image']['tmp_name']);
+//      //      }
+//
+//        }
 
-        // получение данных
-     //   $this->model = new FileModel();
-     //   $File = $this->model->getListAndParams($criteria);
-        return true;
+       // $this->render('create', array('model'=>$modMyModel));
 
-    }
+//        Yii::import('common.extensions.upload.upload');
+        $upload=new upload($_FILES["image"]);
 
+//        print_r($_FILES["image"]);
+//        exit;
+        $path=Yii::app()->request->baseUrl."/upload/" ;
 
-    public function actionUpdate() {
-        $params['field'] = Yii::app()->request->getPost('name');
-        $params['id'] = Yii::app()->request->getPost('pk');
-        $params['newValue'] = Yii::app()->request->getPost('value');
-
-        $model = new FileModel();
-        if (!$model->updateField($params)) {
-            $this->error();
+        try{
+            if($upload->uploaded)
+            {
+                $upload->process('/var/www/Odezhda-Master/backend/www/upload/');
+            }
+            else
+            {
+                echo(" file not uploaded ");
+            }
+            if($upload->processed) {
+                $Name = $upload->file_dst_name;
+            }
+            else
+            {
+                echo("upload not processed");
+                die;
+            }
         }
+        catch (Exception $excp)
+        {
+            echo($excp);
+        }
+
+        echo json_encode([
+            'success'=>true
+        ]);
+
+        Yii::app()->end();
+
     }
+
+
 }
