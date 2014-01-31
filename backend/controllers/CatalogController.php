@@ -34,6 +34,7 @@ class CatalogController extends BackendController {
         $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
 
+
         // получение данных
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
@@ -71,7 +72,6 @@ class CatalogController extends BackendController {
        foreach ($categories_model->getCategoriesList() as $g) {
            $this->categories[$g['id']] = $g['name'];
        }
-
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
@@ -113,12 +113,41 @@ class CatalogController extends BackendController {
         $model = new CatalogModel($scenario);
 
         $form_action = Yii::app()->request->getPost('form_action');
+
+//       print_r($_FILES['CatalogModel']);
+
+
         if (!empty($form_action)) {
-            $model->setAttributes($_POST['CatalogModel'], false);
+
+            if($data=$_POST['CatalogModel']){
+                $data=$_POST['CatalogModel'];
+            }
+            if(!empty($_FILES)){
+                $data['image']=$_FILES['CatalogModel']['name']['image'];
+            }
+
+
+            $model->setAttributes($data, false);
+
+            if(!empty($_FILES)){
+                //todo:БК
+                foreach($_FILES['CatalogModel'] as $key=>$field){
+                    $data['images'][$key]=$field['image'];
+                   // unset($_FILES['CatalogModel'][$key]['image']);
+                }
+//                print_r($_FILES);exit;
+//
+//                $data['images']=$_FILES['CatalogModel'];
+
+
+
+            }
+
+
             // отправляем в модель данные
 //            print_r($_POST['CatalogModel']);
 //            exit;
-            $result = $model->save($_POST['CatalogModel']);
+            $result = $model->save($data);
 
             if (!$result) {
                 Yii::app()->user->setFlash(

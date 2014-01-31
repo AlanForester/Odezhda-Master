@@ -128,7 +128,9 @@ if (!empty($model->id)) {
         <fieldset>
             <legend>Фотографии</legend>
             <?php
-//          echo $form->fileFieldControlGroup($model, 'image', ['value' => $model->meta_title,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
+          echo $form->fileFieldControlGroup($model, 'image', ['accept'=>'image/*','value' => $model->image,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
+
+
      /*            $this->widget(
                         'yiiwheels.widgets.fileupload.WhFileUpload',
                         array(
@@ -138,17 +140,30 @@ if (!empty($model->id)) {
                         )
                     );*/
 
-            $this->widget('yiiwheels.widgets.fineuploader.WhFineUploader', array(
-                'name'          => 'image',
-                'uploadAction'  => $this->createUrl('file/index'),
-                'pluginOptions' => array(
-                    'validation'=>array(
-                        'allowedExtensions' => array( 'jpg')
-                    ),
-                    'autoUpload' => false
-                )
-            ));
+//            $this->widget('yiiwheels.widgets.fineuploader.WhFineUploader', array(
+//                'name'          => 'image',
+//                'uploadAction'  => $this->createUrl('catalog/edit/'),
+//                'pluginOptions' => array(
+//                    'validation'=>array(
+//                        'allowedExtensions' => array( 'jpg')
+//                    ),
+//                    'autoUpload' => false
+//                )
+//            ));
+            if(!empty($model->image)){
+            $this->widget(
+                            'yiiwheels.widgets.detail.WhDetailView',
+                            [
+                                'data' => $model,
+                                'attributes' => [
+                                    ['name' => 'image', 'label' => 'Название фото']
+                                ],
+                            ]
+                        );
+                echo '<img src="'.Yii::app()->request->baseUrl.'/images/catalog/'.$model->image.'" class="img">';
+            }
             ?>
+
         </fieldset>
 
 

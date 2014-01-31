@@ -179,7 +179,47 @@ class CatalogLayer {
 
 
 
+
+
+
     public static function save($data) {
+
+        //fileupload
+        if(!empty($data['images'])){
+            $upload=new upload($data['images']);
+
+            try{
+                $sizes = [0=>['path'=>'catalog/'],1=>['x'=>'100','path'=>'catalog/small'],2=>['x'=>'100','path'=>'catalog/large']];
+                foreach($sizes as $size){
+                    if(isset($size['x'])){
+                        $upload->image_resize = true;
+                        $upload->image_x = $size['x'];
+                        $upload->image_ratio_y= true;
+                    }
+
+                    if($upload->uploaded)
+                    {
+                        $upload->process(realpath('backend/www/images').'/'.$size['path']);
+                    }
+                    else
+                    {
+                        echo(" file not uploaded ");
+                    }
+                    if($upload->processed) {
+                        $Name = $upload->file_dst_name;
+                    }
+                    else
+                    {
+                        echo("upload not processed");
+                    }
+                }
+            }
+            catch (Exception $excp)
+            {
+                echo($excp);
+            }
+        }
+
 
        // $id = TbArray::getValue('id', $data);
         $id=isset($data['id']) ? $data['id'] : null;

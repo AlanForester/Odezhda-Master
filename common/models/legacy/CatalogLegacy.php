@@ -88,7 +88,7 @@ class CatalogLegacy extends CActiveRecord
         $relations=$this->relations();
         unset($relations['manufacturers']);
 
-
+//todo: отсечь привязку к категории,(в случае отсутствия категории выкидывает ошибку.)
         foreach($relations as $value){
 
             // имя класса АР
