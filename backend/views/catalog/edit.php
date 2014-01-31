@@ -130,7 +130,7 @@ if (!empty($model->id)) {
                     'yiiwheels.widgets.fileupload.WhFileUpload',
                     [
                         'name'     => 'fileuploadui',
-                        'url'      => $this->createUrl('site/upload', ['type' => 'fine'],
+                        'url'      => $this->createUrl('site/upload', ['type' => 'fine']),
                         'multiple' => true,
                     ]                );
             ?>
