@@ -28,21 +28,24 @@ Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jque
 //Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.treegrid.bootstrap2.js');
 //Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/jquery_treegrid/js/jquery.cookie.js');
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/jquery_treegrid/css/jquery.treegrid.css');
-//$url = Yii::app()->assetManager->publish(ROOT_DIR . '/backend/packages/jquery_treegrid/img/collapse.png');
-//echo CHtml::image($url);
-//$url = Yii::app()->assetManager->publish(ROOT_DIR . '/backend/packages/jquery_treegrid/img/expand.png');
-//echo CHtml::image($url);
-//$url = Yii::app()->assetManager->publish(ROOT_DIR . '/backend/packages/jquery_treegrid/img/file.png');
-//echo CHtml::image($url);
-//$url = Yii::app()->assetManager->publish(ROOT_DIR . '/backend/packages/jquery_treegrid/img/folder.png');
-//echo CHtml::image($url);
-
 // составляем javascript, который должен быть на странице
+
 $js = "
+
+        ";
+$js .= "
         $(document).ready(function() {
             $('.tree').treegrid({
-          'initialState': 'collapsed',
-        });
+                'initialState': 'collapsed',
+            });
+
+            $('body').on('ajaxUpdate',function(e,l) {
+                console.log(e,l);
+                $('.tree').treegrid({
+                    'initialState': 'collapsed',
+                });
+            });
+
         });
         ";
 

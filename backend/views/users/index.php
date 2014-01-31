@@ -1,5 +1,4 @@
 <?php
-
 // кнопки страницы
 $this->pageButton = [
     BackendPageButtons::add("/users/add"),
