@@ -12,7 +12,11 @@ class CatalogController extends BackendController {
     public $pageTitle = 'Управление товарами: список';
     public $pageButton = [];
     public $model;
+
     public $categories = [];
+    public $manufacturers_list = [];
+    public $languages_list = [];
+
 
 //    private function error($msg = 'Something wrong in your request!') {
 //        throw new CHttpException(400, Yii::t('err', $msg));
@@ -96,7 +100,15 @@ class CatalogController extends BackendController {
         foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
         }
+        $manufacturers_model = new ManufacturersModel();
+        foreach ($manufacturers_model->getList() as $g) {
+            $this->manufacturers_list[$g['id']] = $g['name'];
+        }
 
+        $language_model = new Language();
+        foreach ($language_model->getList() as $g) {
+            $this->languages_list[$g['languages_id']] = $g['name'];
+        }
 
         $model = new CatalogModel($scenario);
 

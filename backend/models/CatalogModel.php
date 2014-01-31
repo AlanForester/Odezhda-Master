@@ -8,10 +8,39 @@ class CatalogModel extends CFormModel {
 
 
     public $id;
+
     public $price;
+    public $old_price;
+
     public $name;
     public $description;
+    public $model;
     public $category;
+    public $date_add;
+    public $date_last;
+
+    public $tax;
+    public $count_orders;
+    public $quantity;
+    public $weight;
+
+    public $order;
+
+    public $min_quantity;
+    public $step;
+    public $status;
+    public $xml;
+
+    public $manufacturers;
+    public $manufacturers_id;
+
+    public $languages_id;
+
+    public $meta_title;
+    public $meta_description;
+    public $meta_keywords;
+
+
 
     /**
      * @var array массив всех пользователей.
@@ -147,7 +176,9 @@ class CatalogModel extends CFormModel {
         if($scenario!='add'){
 
             $result = $catalog->attributes + $catalog->description->attributes;
-
+            if(!empty($catalog->manufacturers->attributes)){
+                $result += $catalog->manufacturers->attributes;
+            }
             /**
              * Формирование массива используемых категорий в соответствующем формате [categories_id]=['selected']
              */
@@ -158,8 +189,7 @@ class CatalogModel extends CFormModel {
                 }
             }
             $result['categories_id']=$mass;
-//            print_r($result);
-//            exit;
+
 
 
             // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
@@ -173,7 +203,7 @@ class CatalogModel extends CFormModel {
 
 //            echo '<pre>';
 //            print_r($result);
-//            exit;
+//           exit;
         return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 

@@ -74,7 +74,7 @@ class CatalogLegacy extends CActiveRecord
 
                     $command_cr->insert('products_to_categories',
                         [
-                               'products_id'=>$id,
+                            'products_id'=>$id,
                             'categories_id'=>$category_id,
                         ]
                     );
@@ -131,7 +131,7 @@ class CatalogLegacy extends CActiveRecord
         $id = $this->_allData['products_id'] = $this->products_id;
 
         CatalogDescriptionLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
-        CatalogToCategorLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
+        CatalogToCategoriesLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
 //        $command = Yii::app()->db->createCommand();
 //        $command->delete('products_description', 'products_id=:id', array(':id'=>$id));
     }
