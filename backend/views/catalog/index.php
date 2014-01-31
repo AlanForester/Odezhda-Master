@@ -39,12 +39,12 @@ $this->widget(
                 'name' => 'Название',
                 'model' => 'Код товара',
                 'date_add' => 'Дата добавления',
-                'date_last' => 'Дата изменения',
                 'price' => 'Цена',
                 'quantity' => 'Кол-во',
                 'weight' => 'Вес',
                 'manufacturers'=>'Производитель',
                 'status'=>'Наличие',
+                'xml'=>'XML',
 
             ],
             'direct' => $criteria['order_direct']
@@ -108,7 +108,6 @@ $this->widget(
                 'header' => 'Цена (руб.)',
                 'name' => 'price',
                 'headerHtmlOptions' => [
-                    'width'=>'150px'
                 ],
 
                 'editable' => [
@@ -150,36 +149,6 @@ $this->widget(
                 'header' => 'Дата поступления',
                 'name' => 'date_add'
 
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Мин. заказ',
-                'name' => 'min_quantity',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Шаг',
-                'name' => 'step',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
-                ]
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -233,7 +202,6 @@ $this->widget(
                 'header' => 'ID',
                 'name' => 'id',
                 'headerHtmlOptions' => [
-                    'width'=>'50px'
                 ],
                 'htmlOptions' => [
                 ]

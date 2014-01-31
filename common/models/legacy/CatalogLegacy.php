@@ -148,6 +148,9 @@ class CatalogLegacy extends CActiveRecord
         $this->_allData=$data;
     }
 
+
+
+
 //    public function behaviors()
 //    {
 //        return array(

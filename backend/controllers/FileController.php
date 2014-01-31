@@ -9,12 +9,24 @@ class FileController extends BackendController {
 
 
     public function actionIndex() {
-        $criteria = [
-            'text_search' => $this->userStateParam('text_search'),
-            'order_field' => $this->userStateParam('order_field'),
-            'order_direct' => $this->userStateParam('order_direct')
-        ];
-       // print_r($_FILES);
+
+        $modMyModel=new MyModel;
+
+        if(isset($_FILES['images'])){
+            $modMyModel->attributes=$_POST['MyModel'];
+            $modMyModel->id_image=CUploadedFile::getInstance($modMyModel,'image');
+            if($modMyModel->save()){
+                $modMyModel->id_image->saveAs('path/to/localFile');
+                // перенаправляем на страницу, где выводим сообщение об
+                // успешной загрузке
+            }
+        }
+
+       // $this->render('create', array('model'=>$modMyModel));
+
+
+//       print_r($_);
+
 
 
         // получение данных
