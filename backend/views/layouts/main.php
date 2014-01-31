@@ -38,8 +38,10 @@ $js = "
 
             $('#whgrid').live('ajaxUpdateTree',function(e) {
                     $('.tree').treegrid({
-                        'initialState': 'expanded',
+                        'initialState': 'collapsed',
                     });
+                    $('.loaded').trigger('expand');
+                    $('.loaded').trigger('change');
             });
 
         });
