@@ -14,8 +14,11 @@ class ShopCategoriesController extends BackendController {
     public $model;
     public $categories = [];
 
-    public function actionIndex($parent_id = 0) {//TODO было id стало parent_id
-        $showRelated = (Yii::app()->request->getParam('tree') ? true : false);
+    public function actionIndex() {//TODO было id стало parent_id
+//        $showRelated = (Yii::app()->request->getParam('tree') ? true : false);
+        $parent_ids = Yii::app()->request->getParam('parent_id');
+        $parent_ids=array_unique($parent_ids ? array_merge([0], (array)$parent_ids) : [0]);
+
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
 //            'filter_categories' => $this->userStateParam('filter_categories'),
@@ -23,8 +26,7 @@ class ShopCategoriesController extends BackendController {
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct')
         ];
-//        print_r($id);exit;
-//        print_r($criteria);exit;
+
         // пагинация
 //        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
@@ -32,7 +34,8 @@ class ShopCategoriesController extends BackendController {
         $model = new ShopCategoriesModel();
 //        $gridDataProvider = $model->getActiveProvider($criteria);
 
-        $categories = $model->getList($parent_id,$criteria);
+        $categories = $model->getList($parent_ids,$criteria);
+//        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
                         'pagination' => [
@@ -48,11 +51,11 @@ class ShopCategoriesController extends BackendController {
 //            $this->categories[$g['id']] = $g['name'];
 //        }
 
-        if ($this->isAjax && $showRelated){
-            $this->renderPartial('grids',$vars,false,true);
-            Yii::app()->end();
-        }
-        elseif ($this->isAjax){
+//        if ($this->isAjax && $showRelated){
+//            $this->renderPartial('grids',$vars,false,true);
+//            Yii::app()->end();
+//        }
+        if ($this->isAjax){
             $this->renderPartial('index',$vars,false,true);
 
             Yii::app()->end();
