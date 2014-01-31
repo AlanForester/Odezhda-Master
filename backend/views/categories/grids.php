@@ -5,7 +5,7 @@
  * Date: 30.01.14
  * Time: 20:48
  */
-//print_r($gridDataProvider->data);exit;
+//todo переделать под виджет
 $result='';
 foreach ($gridDataProvider->data as $element) {
     $css='treegrid-'.$element['id'].' ';
@@ -13,7 +13,7 @@ foreach ($gridDataProvider->data as $element) {
         $css.='hasChildren ';
     }
     if ($element['parent_id']!='0'){
-        $css.=' treegrid-parent-'.$element['parent_id'];//$htmlOptions['class']='treegrid-'.$this->dataProvider->data[$row]['id'];
+        $css.=' treegrid-parent-'.$element['parent_id'];
     }
 
  $result.='<tr class=" '.$css.' "><td><span class="treegrid-expander treegrid-expander-collapsed"></span><a data-pk="'.$element['id'].'" rel="name" href="#" class="editable editable-click">'.$element['name'].'</a></td><td>'.$element['parent_id'].'</td><td>'.$element['childCount'].'</td><td>'.$element['id'].'</td><td width="50px" class="action-buttons"><a href="#" rel="tooltip" onclick="js: (function(){

@@ -428,8 +428,8 @@
                 var reg_id=/treegrid-(\d+)/;
                 var id=reg_id.exec($this.attr("class"))[1];
 
-                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('load') && typeof id !=="undefined") {
-                    expander.addClass('load');
+                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !expander.hasClass('loaded')) {
+                    expander.addClass('loading');
                     $.ajax({
                         url: window.location,
                         type:'get',
@@ -437,8 +437,6 @@
 
                         success:function(data){
                             // докидываем новые строки
-                            //$(data).find('#tree');
-                            //var test = '<tr class="treegrid-1333 "><td><span class="treegrid-expander"></span><a data-pk="1333" rel="name" href="#" class="editable editable-click">Лоты</a></td><td>0</td><td>0</td><td>1333</td><td width="50px" class="action-buttons"></td></tr>';
                             $this.after(data);
 
                             var settings = $.extend({}, me.treegrid.defaults);
@@ -457,11 +455,13 @@
                             $this.trigger("expand");
                             $this.trigger("change");
 
-                            expander.removeClass('load');
+                            expander.removeClass('loading');
+                            expander.addClass('loaded');
                         }
                     });
-
-
+                } else if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {
+                    $this.trigger("expand");
+                    $this.trigger("change");
                 }
             });
         },
