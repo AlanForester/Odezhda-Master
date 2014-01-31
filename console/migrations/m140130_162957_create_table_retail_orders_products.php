@@ -29,7 +29,7 @@ class m140130_162957_create_table_retail_orders_products extends CDbMigration
               `products_status` tinyint(2) NOT NULL DEFAULT '0',
               `verification` int(128) NOT NULL DEFAULT '0',
               `comment` tinytext,
-              PRIMARY KEY (`orders_products_id`),
+              PRIMARY KEY (`retail_orders_products_id`),
               KEY `idx_retail_orders_products_orders_id` (`retail_orders_id`),
               KEY `idx_retail_orders_products_products_id` (`products_id`),
               KEY `idx_retail_sub_orders_id` (`retail_sub_orders_id`),
