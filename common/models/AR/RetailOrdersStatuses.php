@@ -1,14 +1,12 @@
 <?php
 
 /**
- * This is the model class for table "{{retail_orders_products}}".
+ * This is the model class for table "{{retail_orders_statuses}}".
  *
- * The followings are the available columns in table '{{retail_orders_products}}':
- * @property integer $retail_orders_products_id
+ * The followings are the available columns in table '{{retail_orders_statuses}}':
+ * @property integer $id
  */
-class RetailOrdersProductsLegacy extends CActiveRecord {
-
-    public $primaryKey = 'retail_orders_products_id';
+class RetailOrdersStatuses extends CActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -16,7 +14,7 @@ class RetailOrdersProductsLegacy extends CActiveRecord {
      * @return string
      */
     public function tableName() {
-        return 'retail_orders_products';
+        return 'retail_orders_statuses';
     }
 
     /**
@@ -29,8 +27,8 @@ class RetailOrdersProductsLegacy extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['retail_orders_id, products_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} должно быть числовым')],
-            ['retail_orders_id, products_id, products_name', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['name', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['name', 'length', 'min'=>1, 'max'=>64, 'encoding' => 'utf-8', 'message' => Yii::t('validation', 'Длина поля {attribute} - не более 64 символов')],
         ];
     }
 
@@ -39,7 +37,7 @@ class RetailOrdersProductsLegacy extends CActiveRecord {
      * Mandatory method for ActiveRecord descendants.
      *
      * @param string $className
-     * @return User the static model class
+     * @return RetailOrdersStatuses the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);

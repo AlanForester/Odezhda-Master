@@ -4,11 +4,9 @@
  * This is the model class for table "{{delivery_points}}".
  *
  * The followings are the available columns in table '{{delivery_points}}':
- * @property integer $delivery_points_id
+ * @property integer $id
  */
-class RetailOrdersProductsLegacy extends CActiveRecord {
-
-    public $primaryKey = 'delivery_points_id';
+class DeliveryPoints extends CActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -40,7 +38,7 @@ class RetailOrdersProductsLegacy extends CActiveRecord {
      * Mandatory method for ActiveRecord descendants.
      *
      * @param string $className
-     * @return User the static model class
+     * @return DeliveryPoints the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);

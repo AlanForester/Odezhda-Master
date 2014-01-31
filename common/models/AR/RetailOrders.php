@@ -4,11 +4,9 @@
  * This is the model class for table "{{retail_orders}}".
  *
  * The followings are the available columns in table '{{retail_orders}}':
- * @property integer $retail_orders_id
+ * @property integer $id
  */
-class RetailOrdersLegacy extends CActiveRecord {
-
-    public $primaryKey = 'retail_orders_id';
+class RetailOrders extends CActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -29,10 +27,10 @@ class RetailOrdersLegacy extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['orders_id, customer_id, delivery_points_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} должно быть числовым')],
+            ['orders_id, customer_id, delivery_points_id, retail_orders_statuses_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
             ['customer_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             //['address_id, delivery_address_id, billing_address_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
-            ['customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state`, customers_country, customers_telephone, customers_email_address, delivery_name, delivery_lastname, delivery_pasport_kogda_vidan, delivery_street_address, delivery_city, delivery_postcode, delivery_country, billing_name, billing_street_address, billing_city, billing_postcode, billing_country, payment_method, customers_fax',
+            ['person_type, customers_name, customers_company, customers_street_address, customers_suburb, customers_city, customers_postcode, customers_state`, customers_country, customers_telephone, customers_email_address, delivery_name, delivery_lastname, delivery_pasport_kogda_vidan, delivery_street_address, delivery_city, delivery_postcode, delivery_country, billing_name, billing_street_address, billing_city, billing_postcode, billing_country, payment_method, customers_fax',
                 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
         ];
     }
@@ -42,7 +40,7 @@ class RetailOrdersLegacy extends CActiveRecord {
      * Mandatory method for ActiveRecord descendants.
      *
      * @param string $className
-     * @return User the static model class
+     * @return RetailOrders the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
