@@ -20,6 +20,7 @@ $this->pageButton = [
                 'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
                 //'enableAjaxValidation' => true,
                 'enableClientValidation' => true,
+                'htmlOptions'=>array('enctype'=>'multipart/form-data'),
                 'clientOptions' => [
                     'validateOnSubmit' => true,
 //                    'afterValidate' => 'js: function(form,data,hasError)
@@ -55,6 +56,7 @@ $this->pageButton = [
             echo '<br/>';
             echo $form->textFieldControlGroup($model, 'price', ['value' => $model->price, 'label' => 'Цена, руб.']);
             echo $form->textFieldControlGroup($model, 'old_price', ['value' => $model->old_price, 'label' => 'Старая цена, руб.']);
+            echo $form->dropDownListControlGroup($model, 'status', [1 => "НДС", 0 => "Нет"], ['label' => 'Налог']);
             echo '<br/>';
 
             echo $form->textFieldControlGroup($model, 'min_quantity', ['value' => $model->min_quantity, 'label' => 'Минимальный заказ']);
@@ -62,8 +64,10 @@ $this->pageButton = [
             echo '<br/>';
 
             //сделать checkbox
-            echo $form->textFieldControlGroup($model, 'status', ['value' => $model->status, 'label' => 'Наличие','type'=>'primary']);
-            echo $form->textFieldControlGroup($model, 'xml', ['value' => $model->xml, 'label' => 'XML' ]);
+            echo $form->dropDownListControlGroup($model, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Статус']);
+            echo $form->dropDownListControlGroup($model, 'xml', [1 => "Да", 0 => "Нет"], ['value' => $model->xml, 'label' => 'XML флаг']);
+//            echo $form->textFieldControlGroup($model, 'status', ['value' => $model->status, 'label' => 'Наличие','type'=>'primary']);
+//            echo $form->textFieldControlGroup($model, 'xml', ['value' => $model->xml, 'label' => 'XML' ]);
             echo '<br/>';
 
 
@@ -71,7 +75,10 @@ $this->pageButton = [
             echo $form->textFieldControlGroup($model, 'order', ['value' => $model->order, 'label' => 'Порядок сортировки']);
 
 
-                echo $form->dropDownListControlGroup($model,'category', $this->categories,[
+
+            echo $form->dropDownListControlGroup($model, 'languages_id',  $this->languages_list, ['label' => 'Язык']);
+            echo $form->dropDownListControlGroup($model, 'manufacturers_id',  $this->manufacturers_list, ['label' => 'Производитель']);
+            echo $form->dropDownListControlGroup($model,'category', $this->categories,[
                 'options' =>$catalog['categories_id'],
                 'multiple'=>'multiple',
                 'size'=>'10',
@@ -84,11 +91,11 @@ $this->pageButton = [
         <input type="hidden" name="form_action" value="save">
 
     </div>
-
+    <div class="span6 form-horizontal">
 <?php
 if (!empty($model->id)) {
     ?>
-    <div class="span6">
+
         <fieldset>
             <legend>Дополнительная информация</legend>
             <?php
@@ -100,24 +107,51 @@ if (!empty($model->id)) {
                         ['name' => 'id', 'label' => 'ID'],
                         ['name' => 'date_add', 'label' => 'Дата создания'],
                         ['name' => 'date_last', 'label' => 'Дата изменения'],
+                        ['name' => 'count_orders', 'label' => 'Покупок']
 
                     ],
                 ]
             );
             ?>
         </fieldset>
-        <fieldset>
-            <legend>Метаданные</legend>
-            <?php
-            echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $model->meta_title,'label' => 'Title']);
-            //            echo $form->textFieldControlGroup($model, 'meta_description', ['value' => $model->meta_description, 'label' => 'Description']);
-            //            echo $form->textFieldControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords, 'label' => 'Keywords']);
 
-            echo $form->textAreaControlGroup($model, 'meta_description', ['value' => $model->meta_description,'label' => 'Description', 'span' => 8, 'rows' => 5]);
-            echo $form->textAreaControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords,'label' => 'Keywords', 'span' => 8, 'rows' => 5]);
+<?php } ?>
+    <fieldset>
+        <legend>Метаданные</legend>
+        <?php
+        echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $model->meta_title,'label' => 'Title', 'span' => 8]);
+        echo $form->textAreaControlGroup($model, 'meta_description', ['value' => $model->meta_description,'label' => 'Description', 'span' => 8, 'rows' => 5]);
+        echo $form->textAreaControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords,'label' => 'Keywords', 'span' => 8, 'rows' => 5]);
+        ?>
+    </fieldset>
+
+        <fieldset>
+            <legend>Фотографии</legend>
+            <?php
+//          echo $form->fileFieldControlGroup($model, 'image', ['value' => $model->meta_title,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
+     /*            $this->widget(
+                        'yiiwheels.widgets.fileupload.WhFileUpload',
+                        array(
+                            'name'     => 'image',
+                            'url'      => $this->createUrl('file/index', array('fine' => '1')),
+                            'multiple' => true,
+                        )
+                    );*/
+
+            $this->widget('yiiwheels.widgets.fineuploader.WhFineUploader', array(
+                'name'          => 'image',
+                'uploadAction'  => $this->createUrl('file/index'),
+                'pluginOptions' => array(
+                    'validation'=>array(
+                        'allowedExtensions' => array( 'jpg')
+                    ),'autoUpload' => 'false'
+                )
+            ));
             ?>
         </fieldset>
+
+
+
     </div>
 <?php  $this->endWidget();
-}
 

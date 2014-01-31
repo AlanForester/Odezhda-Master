@@ -104,7 +104,7 @@ class ShopCategoriesLayer {
         $result = [];
         $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.parent_id = t.categories_id)) AS childCount'],['alias'=>'t']);
 //        SELECT *,(SELECT COUNT(*) FROM `categories` AS c WHERE (c.parent_id = t.categories_id)) AS childCount FROM `categories` AS t WHERE 1
-
+//        print_r($data);exit;
         $criteria = new CDbCriteria($data);
         $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {

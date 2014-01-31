@@ -85,18 +85,6 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
-            ],[
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Описание',
-                'name' => 'description',
-                'headerHtmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update"),
-                ]
             ],
             [
                 'type' => 'text',
@@ -162,10 +150,6 @@ $this->widget(
                 'header' => 'Дата поступления',
                 'name' => 'date_add'
 
-            ],[
-                'header' => 'Дата изменениния',
-                'name' => 'date_last'
-
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -214,7 +198,6 @@ $this->widget(
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
                 'header' => 'XML',
                 'name' => 'xml',
                 'headerHtmlOptions' => [
@@ -222,9 +205,11 @@ $this->widget(
                 'htmlOptions' => [
                 ],
                 'editable' => [
+                    'type' => 'select',
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'source' => [1 => "Да", 0 => "Нет"],
+                    'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
             ],
             [
@@ -237,9 +222,11 @@ $this->widget(
                 'htmlOptions' => [
                 ],
                 'editable' => [
+                    'type' => 'select',
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'source' => [1 => "Да", 0 => "Нет"],
+                    'url' => Yii::app()->createUrl("/catalog/update"),
                 ]
             ],
             [

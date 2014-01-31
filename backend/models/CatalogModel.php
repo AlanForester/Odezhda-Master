@@ -32,10 +32,15 @@ class CatalogModel extends CFormModel {
     public $xml;
 
     public $manufacturers;
+    public $manufacturers_id;
+
+    public $languages_id;
 
     public $meta_title;
     public $meta_description;
     public $meta_keywords;
+
+    public $image;
 
 
 
@@ -173,7 +178,9 @@ class CatalogModel extends CFormModel {
         if($scenario!='add'){
 
             $result = $catalog->attributes + $catalog->description->attributes;
-
+            if(!empty($catalog->manufacturers->attributes)){
+                $result += $catalog->manufacturers->attributes;
+            }
             /**
              * Формирование массива используемых категорий в соответствующем формате [categories_id]=['selected']
              */
