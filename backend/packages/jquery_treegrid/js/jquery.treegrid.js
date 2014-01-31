@@ -437,6 +437,8 @@
 
                         success:function(data){
                             // докидываем новые строки
+//                            data = $(data).find('#grid');
+
                             $this.after(data);
 
                             var settings = $.extend({}, me.treegrid.defaults);

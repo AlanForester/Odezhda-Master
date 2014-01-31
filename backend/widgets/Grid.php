@@ -72,6 +72,12 @@ class Grid extends CWidget {
     public $gridOptions = [];
 
     /**
+     * Геренировать дерево
+     * @var bool
+     */
+    public $gridTree = false;
+
+    /**
      * Контроллер страницы
      * @var
      */
@@ -334,12 +340,11 @@ class Grid extends CWidget {
             </div>';
     }
 
-
     public function renderGrid() {
 
         //        return false;
         return $this->widget(
-            'yiiwheels.widgets.grid.WhGridView',
+            ($this->gridTree ? 'backend.widgets.GridTreeView' : 'yiiwheels.widgets.grid.WhGridView'),
             array_merge(
                 $this->gridOptions,
                 [
