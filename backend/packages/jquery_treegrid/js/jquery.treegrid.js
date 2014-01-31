@@ -609,7 +609,7 @@
         indentTemplate: '<span class="treegrid-indent"></span>',
         expanderExpandedClass: 'treegrid-expander-expanded',
         expanderCollapsedClass: 'treegrid-expander-collapsed',
-        treeColumn: 0,
+        treeColumn: 1,
         getExpander: function() {
             return $(this).find('.treegrid-expander');
         },

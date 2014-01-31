@@ -17,7 +17,7 @@ class ShopCategoriesController extends BackendController {
     public function actionIndex($parent_id = 0) {//TODO было id стало parent_id
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
-            'filter_categories' => $this->userStateParam('filter_categories'),
+//            'filter_categories' => $this->userStateParam('filter_categories'),
 //            'filter_created' => $this->userStateParam('filter_created'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct')
@@ -32,10 +32,6 @@ class ShopCategoriesController extends BackendController {
 //        $gridDataProvider = $model->getActiveProvider($criteria);
 
         $categories = $model->getList($parent_id,$criteria);
-//        print_r($categories);exit;
-
-
-//        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
                         'pagination' => [
@@ -45,11 +41,11 @@ class ShopCategoriesController extends BackendController {
 
         $vars = compact('id','criteria','gridDataProvider');
 
-        $groups_model = new ShopCategoriesModel();
-        $this->categories[''] = '- По категории -';
-        foreach ($groups_model->getCategoriesList() as $g) {
-            $this->categories[$g['id']] = $g['name'];
-        }
+//        $groups_model = new ShopCategoriesModel();
+//        $this->categories[''] = '- По категории -';
+//        foreach ($groups_model->getCategoriesList() as $g) {
+//            $this->categories[$g['id']] = $g['name'];
+//        }
 
         if ($this->isAjax){
             $this->renderPartial('grids',$vars);

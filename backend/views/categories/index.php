@@ -126,6 +126,15 @@ $this->widget(
                 ],
             ],
             [
+                'header' => 'Дочерние подкатегории',
+                'name' => 'childCount',
+                'headerHtmlOptions' => [
+                    'width' => '200px'
+                ],
+                'htmlOptions' => [
+                ],
+            ],
+            [
                 'header' => 'Id',
                 'name' => 'id',
                 'headerHtmlOptions' => [
