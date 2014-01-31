@@ -72,7 +72,7 @@ class ShopCategoriesModel extends CFormModel {
         return $this->list;
     }
 
-    public function getList($parent_id,$data=null) {
+    public function getList($parent_ids,$data=null) {
         if (!$this->allCategories) {
 //            print_r($data);exit;
             // todo: переместить все в прослойку
@@ -97,10 +97,17 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedParams[':text'] = '%' . $data['text_search'] . '%';
             }
             else{
-                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
-                $params[':category'] = $parent_id;
+                $IN_str='(';
+                $i=0;
+                foreach ($parent_ids as $k=>$val){
+                    $i++;
+                    $IN_str.=':el'.$k.($i!=count($parent_ids) ? ', ' : '');
+                    $params[':el'.$k]=$val;
+                }
+                $IN_str.=')';
+                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . ' IN '.$IN_str;
+//                $params[':ids'] = join(', ', $parent_ids);
             }
-
             // фильтр по родительской категории
 //            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
 //                $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
@@ -174,6 +181,7 @@ class ShopCategoriesModel extends CFormModel {
                 'params' => $relatedParams,
                 'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
             ];
+//            print_r($criteria);print_r($relatedCriteria);exit;
 
             // разрешаем перезаписать любые параметры критерии
             if (isset($data['criteria'])) {

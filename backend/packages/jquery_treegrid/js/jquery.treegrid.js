@@ -431,42 +431,42 @@
 
                 if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !expander.hasClass('loaded')) {
                     expander.addClass('loading');
-                    $.ajax({
-                        url: window.location,
-                        type:'get',
-                        data: 'tree=showrelated&ajax=whgrid&parent_id='+id,
-
-                        success:function(data){
-                            // докидываем новые строки
-//                            data = $(data).find('#grid');
-
-                            $this.after(data);
-
-                            $this.parents('.grid-view').trigger('ajaxUpdate');
-//                            console.log($this);
-
-                            var settings = $.extend({}, $this.treegrid.defaults);
-//                            console.log(settings.getTreeGridContainer());
-
-                            settings.getTreeGridContainer.apply($this);
-                            $this.treegrid('getChildNodes').treegrid('initNode', settings);
-
-//                            $('.tree').treegrid({
-//                                'initialState': 'expand'
-//                            });
-
-//                            var settings = $this.treegrid('getTreeContainer').data('settings');
-////                            var settings = $this.treegrid('getSettigs');
-//                            settings.getRootNodes.apply(me, $this.treegrid('getTreeContainer')).treegrid('initNode', settings);
-
-                            // запускаем реакцию
-                            $this.trigger("expand");
-                            $this.trigger("change");
-
-                            expander.removeClass('loading');
-                            expander.addClass('loaded');
+//                    $.ajax({
+//                        url: window.location,
+//                        type:'get',
+//                        data: 'tree=showrelated&ajax=whgrid&parent_id='+id,
+//
+//                        success:function(data){
+//                            // докидываем новые строки
+////                            data = $(data).find('#grid');
+//
+//                            $this.after(data);
+//
+//                            $this.parents('.grid-view').trigger('ajaxUpdate');
+////                            $this.parents('.grid-view').trigger('ajaxUpdate');
+//
+//                            var settings = $.extend({}, $this.treegrid.defaults);
+//
+//                            settings.getTreeGridContainer.apply($this);
+//                            $this.treegrid('getChildNodes').treegrid('initNode', settings);
+//
+//                            // запускаем реакцию
+//                            $this.trigger("expand");
+//                            $this.trigger("change");
+//
+//                            expander.removeClass('loading');
+//                            expander.addClass('loaded');
+//                        }
+//                    });
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            type:'post',
+                            data:{
+                                parent_id:[0,934]
+                            }
                         }
-                    });
+                    )
                 } else if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded")) {
                     $this.trigger("expand");
                     $this.trigger("change");

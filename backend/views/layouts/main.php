@@ -39,11 +39,10 @@ $js .= "
                 'initialState': 'collapsed',
             });
 
-            $('body').on('ajaxUpdate',function(e,l) {
-                console.log(e,l);
-                $('.tree').treegrid({
-                    'initialState': 'collapsed',
-                });
+            $('#whgrid').live('ajaxUpdateTree',function(e) {
+                    $('.tree').treegrid({
+                        'initialState': 'collapsed',
+                    });
             });
 
         });

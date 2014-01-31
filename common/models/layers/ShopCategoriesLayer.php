@@ -104,20 +104,22 @@ class ShopCategoriesLayer {
         $result = [];
         $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.parent_id = t.categories_id)) AS childCount'],['alias'=>'t']);
 //        SELECT *,(SELECT COUNT(*) FROM `categories` AS c WHERE (c.parent_id = t.categories_id)) AS childCount FROM `categories` AS t WHERE 1
-//        print_r($data);exit;
+
         $criteria = new CDbCriteria($data);
+//        $criteria->addInCondition('parent_id',$parent_ids);
+//        print_r($criteria);exit;
         $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
             $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount]);
         }
 
-//        $params=[
-//            'max_deep'=>0,
-//        ];
-//        $result=self::buildTree($result,$params);
-//        $result=self::flatTree(['data'=>$result]);
-//        array_shift($result);
-//        $result = array_map(function($el){return (array)$el;},$result);
+        $params=[
+            'max_deep'=>5,
+        ];
+        $result=self::buildTree($result,$params);
+        $result=self::flatTree(['data'=>$result]);
+        array_shift($result);
+        $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
