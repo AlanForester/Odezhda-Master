@@ -73,6 +73,8 @@ $this->pageButton = [
 
             echo $form->textFieldControlGroup($model, 'order', ['value' => $model->order, 'label' => 'Порядок сортировки']);
 
+
+
             echo $form->dropDownListControlGroup($model, 'languages_id',  $this->languages_list, ['label' => 'Язык']);
             echo $form->dropDownListControlGroup($model, 'manufacturers_id',  $this->manufacturers_list, ['label' => 'Производитель']);
             echo $form->dropDownListControlGroup($model,'category', $this->categories,[
@@ -88,11 +90,11 @@ $this->pageButton = [
         <input type="hidden" name="form_action" value="save">
 
     </div>
-
+    <div class="span6 form-horizontal">
 <?php
 if (!empty($model->id)) {
     ?>
-    <div class="span6 form-horizontal">
+
         <fieldset>
             <legend>Дополнительная информация</legend>
             <?php
@@ -120,6 +122,22 @@ if (!empty($model->id)) {
         echo $form->textAreaControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords,'label' => 'Keywords', 'span' => 8, 'rows' => 5]);
         ?>
     </fieldset>
+
+        <fieldset>
+            <legend>Фотографии</legend>
+            <?php
+                $this->widget(
+                    'yiiwheels.widgets.fileupload.WhFileUpload',
+                    [
+                        'name'     => 'fileuploadui',
+                        'url'      => $this->createUrl('site/upload', ['type' => 'fine'],
+                        'multiple' => true,
+                    ]                );
+            ?>
+        </fieldset>
+
+
+
     </div>
 <?php  $this->endWidget();
 
