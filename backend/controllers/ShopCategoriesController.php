@@ -17,7 +17,7 @@ class ShopCategoriesController extends BackendController {
     public function actionIndex() {//TODO было id стало parent_id
 //        $showRelated = (Yii::app()->request->getParam('tree') ? true : false);
         $parent_ids = Yii::app()->request->getParam('parent_id');
-        $parent_ids=array_unique($parent_ids ? array_merge([0], (array)$parent_ids) : [0]);
+        $parent_ids=array_unique($parent_ids ? array_merge([0], (array)$parent_ids) : [0,1420,934]);
 
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
@@ -35,6 +35,12 @@ class ShopCategoriesController extends BackendController {
 //        $gridDataProvider = $model->getActiveProvider($criteria);
 
         $categories = $model->getList($parent_ids,$criteria);
+        //добавляем у раскрытых веток дерева свойство loaded
+        foreach ($categories as &$cat){
+            if(in_array ($cat['id'], $parent_ids)){
+                $cat['loaded']='loaded';
+            }
+        }
 //        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',

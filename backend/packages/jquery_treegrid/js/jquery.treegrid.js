@@ -431,14 +431,15 @@
 
                 var ids=[id];
                 var i=1;
-                var expandedElements=$('.loaded').parents('tr').each(function () {
-
+                $('.loaded').each(function () {
                         ids[i]=reg_id.exec($(this).attr("class"))[1];
                         i++;
                     }
                 );
                 ids=jQuery.unique(ids);
-                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !expander.hasClass('loaded')) {
+//                console.log(ids);
+                if (!$this.treegrid('isLeaf') && !$this.treegrid("isExpanded") && !expander.hasClass('loading') && typeof id !=="undefined" && !$this.hasClass('loaded')) {
+
                     expander.addClass('loading');
 //                    $.ajax({
 //                        url: window.location,
@@ -481,7 +482,7 @@
                                     $this.trigger("expand");
                                     $this.trigger("change");
                                     expander.removeClass('loading');
-                                    expander.addClass('loaded');
+//                                    expander.addClass('loaded');
                                 }
                             }
 //                            success:function(data){

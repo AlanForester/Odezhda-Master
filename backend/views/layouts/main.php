@@ -36,9 +36,9 @@ $js = "
                 'initialState': 'collapsed',
             });
 
-            $('#whgrid').bind('ajaxUpdateTree',function(e) {
+            $('#whgrid').live('ajaxUpdateTree',function(e) {
                     $('.tree').treegrid({
-                        'initialState': 'collapsed',
+                        'initialState': 'expanded',
                     });
             });
 
