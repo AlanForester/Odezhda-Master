@@ -102,8 +102,8 @@ abstract class BackendController extends CController {
         $publisher = Yii::app()->assetManager;
         //        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
         Yii::app()->bootstrap->register();
-
-        $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages');
+//TODO изменить $forceCopy на null при релизе проекта
+        $this->assets_backend = $publisher->publish(ROOT_DIR . '/backend/packages',false,-1,true);
     }
 
     /**

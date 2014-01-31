@@ -72,7 +72,7 @@ class ShopCategoriesModel extends CFormModel {
         return $this->list;
     }
 
-    public function getList($data=null) {
+    public function getList($parent_id,$data=null) {
         if (!$this->allCategories) {
 //            print_r($data);exit;
             // todo: переместить все в прослойку
@@ -98,9 +98,8 @@ class ShopCategoriesModel extends CFormModel {
             }
             else{
                 $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . '=:category';
-                $params[':category'] = 0;
+                $params[':category'] = $parent_id;
             }
-
 
             // фильтр по родительской категории
 //            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
