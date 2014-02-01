@@ -44,6 +44,8 @@ class CatalogLayer {
             'products_head_keywords_tag' => 'meta_keywords',
         //фото
             'products_image' => 'image'
+
+        // products option values
     ];
 
     public static $errors = [];
@@ -189,11 +191,16 @@ class CatalogLayer {
             $upload=new upload($data['images']);
 
             try{
-                $sizes = [0=>['path'=>'catalog/'],1=>['x'=>'100','path'=>'catalog/small'],2=>['x'=>'100','path'=>'catalog/large']];
+                $sizes = [0=>['path'=>'catalog/'],
+                         1=>['x'=>'50','y'=>'75','path'=>'catalog/small'],
+                         2=>['x'=>'223','y'=>'330','path'=>'catalog/middle'],
+                         3=>['x'=>'600','y'=>'900','path'=>'catalog/large']];
                 foreach($sizes as $size){
                     if(isset($size['x'])){
                         $upload->image_resize = true;
                         $upload->image_x = $size['x'];
+                        $upload->image_y = $size['y'];
+//                        $upload->image_crop='TB';
                         $upload->image_ratio_y= true;
                     }
 
