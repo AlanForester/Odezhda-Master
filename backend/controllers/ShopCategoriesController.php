@@ -36,6 +36,7 @@ class ShopCategoriesController extends BackendController {
 
         $categories = $model->getList($parent_ids,$criteria);
         //добавляем у раскрытых веток дерева свойство loaded
+        //добавляем имя родителя
         foreach ($categories as &$cat){
             if(in_array ($cat['id'], $parent_ids)){
                 $cat['loaded']='loaded';

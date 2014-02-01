@@ -126,10 +126,10 @@ $this->widget(
                 ],
             ],
             [
-                'header' => 'Дочерние подкатегории',
+                'header' => 'Кол-во подкатегорий',
                 'name' => 'childCount',
                 'headerHtmlOptions' => [
-                    'width' => '200px'
+                    'width' => '150px'
                 ],
                 'htmlOptions' => [
                 ],

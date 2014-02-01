@@ -102,24 +102,32 @@ class ShopCategoriesLayer {
 
     public static function getList($data, $relatedData) {
         $result = [];
-        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.parent_id = t.categories_id)) AS childCount'],['alias'=>'t']);
+        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount,
+        (SELECT `'.self::getFieldName('name',false).'` FROM '.ShopCategoriesDescriptionLegacy::model()->tableName().' AS d WHERE (d.'.self::getFieldName('id',false).' = t.'.self::getFieldName('parent_id',false).')) AS parentName
+        '],['alias'=>'t']);
 //        SELECT *,(SELECT COUNT(*) FROM `categories` AS c WHERE (c.parent_id = t.categories_id)) AS childCount FROM `categories` AS t WHERE 1
-
+//        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],[
+//                'select'=>'*,
+//                (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id',false).' = t.'.self::getFieldName('id',false).' AS childCount'
+////                (SELECT '.self::getFieldName('name',false).' FROM '.ShopCategoriesDescriptionLegacy::model()->tableName().' AS d WHERE (d.'.self::getFieldName('id',false).' = t.'.self::getFieldName('parent_id',false).')) AS parentName'
+//            ],
+//            ['alias'=>'t']);
         $criteria = new CDbCriteria($data);
 //        $criteria->addInCondition('parent_id',$parent_ids);
 //        print_r($criteria);exit;
         $list = ShopCategoriesLegacy::model()->findAll($criteria);
         foreach ($list as $val) {
-            $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount]);
+            $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount, 'parentName'=>(!empty($val->parentName) ? $val->parentName : 'Корень')]);
         }
-
+//        print_r($result);exit;
         $params=[
             'max_deep'=>5,
         ];
         $result=self::buildTree($result,$params);
-        $result=self::flatTree(['data'=>$result]);
+        $result=self::flatTree(['data'=>$result,'level_prx'=>'']);
         array_shift($result);
         $result = array_map(function($el){return (array)$el;},$result);
+
         return $result;
     }
 

@@ -42,6 +42,7 @@ class ShopCategoriesLegacy extends CActiveRecord {
     protected $_allData = [];
 
     public  $childCount;
+    public  $parentName;
 
 
     /**
