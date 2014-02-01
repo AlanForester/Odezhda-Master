@@ -484,6 +484,7 @@
                                     $this.trigger("expand");
                                     $this.trigger("change");
                                     expander.removeClass('loading');
+
 //                                    expander.addClass('loaded');
                                 }
                             }
