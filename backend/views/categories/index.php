@@ -4,6 +4,7 @@ $this->pageButton = [
     BackendPageButtons::remove("/categories/mass"),
     BackendPageButtons::mass("/categories/mass")
 ];
+//print_r($criteria);exit;
 // таблица
 $this->widget(
     'backend.widgets.Grid',
@@ -83,7 +84,8 @@ $this->widget(
         //            'id' => 'tree_id' . $id
         //        ],
 
-        'gridTree' => true,
+        //если сортировка по полю name - дерево не выводим
+        'gridTree' => (($criteria['order_field']!='name') ? true : false),
 
         'gridColumns' => [
 //            [

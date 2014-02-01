@@ -351,7 +351,7 @@ class Grid extends CWidget {
                     'id' => 'whgrid',
                     //        'CssClass'=>'dataTables_wrapper',
                     'dataProvider' => $this->dataProvider,
-                    'itemsCssClass' => 'tree table-bordered items',
+                    'itemsCssClass' => ($this->gridTree ? 'tree table-bordered items' : 'table-bordered items'),
                     'afterAjaxUpdate'=>'function(){
                         $("#whgrid").trigger("ajaxUpdateTree");
                     }',

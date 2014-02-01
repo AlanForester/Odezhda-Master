@@ -45,11 +45,10 @@ class ShopCategoriesController extends BackendController {
 //        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
-                        'pagination' => [
-                            'pageSize'=>count($categories),
-                        ],
+            'pagination' => [
+                'pageSize'=>count($categories),
+            ],
         ]);
-
         $vars = compact('id','criteria','gridDataProvider');
 
 //        $groups_model = new ShopCategoriesModel();

@@ -74,7 +74,6 @@ class ShopCategoriesModel extends CFormModel {
 
     public function getList($parent_ids,$data=null) {
         if (!$this->allCategories) {
-//            print_r($data);exit;
             // todo: переместить все в прослойку
             $condition = [];
             $params = [];
@@ -82,21 +81,21 @@ class ShopCategoriesModel extends CFormModel {
             $relatedCondition= [];
             $relatedParams = [];
 
+            //если сортировка произошла по полю name, то дерево строить не надо
+            $buildTree = (($data['order_field']!='name') ? true : false);
+
             // фильтр по тексту
             if (!empty($data['text_search'])) {
                 $relatedCondition[] = '(' . join(
                         ' OR ',
                         [
                             'rel_description.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
-//                            ShopCategoriesLayer::getFieldName('lastname', false) . ' LIKE :text',
-//                            ShopCategoriesLayer::getFieldName('email', false) . ' LIKE :text',
-//                            ShopCategoriesLayer::getFieldName('id', false) . ' LIKE :text'
                         ]
                     ) . ')';
 
                 $relatedParams[':text'] = '%' . $data['text_search'] . '%';
             }
-            else{
+            elseif ($buildTree) {
                 $IN_str='(';
                 $i=0;
                 foreach ($parent_ids as $k=>$val){
@@ -106,7 +105,6 @@ class ShopCategoriesModel extends CFormModel {
                 }
                 $IN_str.=')';
                 $condition[] = ShopCategoriesLayer::getFieldName('parent_id', false) . ' IN '.$IN_str;
-//                $params[':ids'] = join(', ', $parent_ids);
             }
             // фильтр по родительской категории
 //            if (!empty($data['filter_categories']) || $data['filter_categories']==='0') {//вторая проверка для случая, когда parent_id=0
@@ -191,7 +189,7 @@ class ShopCategoriesModel extends CFormModel {
                 $relatedCriteria = array_merge($relatedCriteria,$data['relatedCriteria']);
             }
 
-            $this->allCategories = ShopCategoriesLayer::getList($criteria,$relatedCriteria);
+            $this->allCategories = ShopCategoriesLayer::getList($criteria,$relatedCriteria,$buildTree);
         }
         return $this->allCategories;
 
