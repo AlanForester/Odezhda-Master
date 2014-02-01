@@ -7,33 +7,13 @@ class UsersController extends BackendController {
     /**
      * @var
      */
-    public $gridDataProvider;
+    //    public $gridDataProvider;
 
     public $pageTitle = 'Менеджер пользователей: список';
     public $pageButton = [];
     public $model;
-    public $groups = [];
 
-//    private function error($msg = 'Something wrong in your request!') {
-//        throw new CHttpException(400, Yii::t('err', $msg));
-//    }
-
-    /**
-     * Получить параметр из сессии или запроса. Запрос имеет более высокий приоритет перед данными
-     * из сессии. Полученный параметр будет перезаписн в пользовательские данные
-     * @param string $param имя параметра
-     * @param null $default [опционально] значение по умолчанию
-     * @return mixed найденное и записанное значение
-     */
-//    private function userStateParam($param, $default = null) {
-//        $data = Yii::app()->request->getParam(
-//            $param,
-//            Yii::app()->user->getState($param, $default)
-//        );
-//
-//        Yii::app()->user->setState($param, $data);
-//        return $data;
-//    }
+    //    public $groups = [];
 
     public function actionIndex() {
         $criteria = [
@@ -41,29 +21,33 @@ class UsersController extends BackendController {
             'filter_groups' => $this->userStateParam('filter_groups'),
             'filter_created' => $this->userStateParam('filter_created'),
             'order_field' => $this->userStateParam('order_field'),
-            'order_direct' => $this->userStateParam('order_direct')
+            'order_direct' => $this->userStateParam('order_direct'),
+
+            'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
         // пагинация
-        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+//        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
         $this->model = new UsersModel();
-        $users = $this->model->getList($criteria);
-        $this->gridDataProvider = new CArrayDataProvider($users, [
-            'keyField' => 'id',
-            'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($users) : $page_size),
-            ],
-        ]);
+        //        $users = $this->model->getList($criteria);
+        //        $this->gridDataProvider = new CArrayDataProvider($users, [
+        //            'keyField' => 'id',
+        //            'pagination' => [
+        //                'pageSize' => ($page_size == 'all' ? count($users) : $page_size),
+        //            ],
+        //        ]);
+
+        $gridDataProvider = $this->model->getDataProvider($criteria); //UsersLayer::getActiveProvider();
 
         $groups_model = new GroupsModel();
-        $this->groups[''] = '- По группе -';
+//        $groups[''] = '- По группе -';
         foreach ($groups_model->getList() as $g) {
-            $this->groups[$g['id']] = $g['name'];
+            $groups[$g['id']] = $g['name'];
         }
 
-        $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
+        $this->render('index', compact('page_size', 'criteria', 'gridDataProvider', 'groups'));
     }
 
     /**
@@ -72,11 +56,11 @@ class UsersController extends BackendController {
     public function actionUpdate() {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
-        $params['newValue'] = Yii::app()->request->getPost('value');
+        $params['value'] = Yii::app()->request->getPost('value');
 
         $model = new UsersModel();
         if (!$model->updateField($params)) {
-            $this->error();
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных пользователя'));
         }
     }
 
@@ -88,21 +72,27 @@ class UsersController extends BackendController {
         }
 
         $model = new UsersModel($scenario);
+        if (!$item = $model->getUser($id, $scenario)){
+            $this->error('Ошибка получения данных пользователя');
+        }
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
-            $model->setAttributes($_POST['UsersModel'], false);
-            // отправляем в модель данные
-            $result = $model->save($_POST['UsersModel']);
+            // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
+            $item->setAttributes($model->getPostData(),false);
+//            $model->setAttributes($_POST['UsersModel'], false);
+            // записываем данные
+            $result = $model->save($model->getPostData());
 
             if (!$result) {
+                // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
-                $this->render('edit', compact('model', 'groups'));
-                return;
+//                $this->render('edit', compact('item', 'groups'));
+//                return;
             } else {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
@@ -119,13 +109,13 @@ class UsersController extends BackendController {
             }
         }
 
-        $user = $model->getUserData($id, $scenario);
-        if ($user) {
-            $model->setAttributes($user, false);
-        } else
-            $this->error();
+//        $user = $model->getUserData($id, $scenario);
+//        if ($user) {
+//            $model->setAttributes($user, false);
+//        } else
+//            $this->error();
 
-        $this->render('edit', compact('model', 'groups'));
+        $this->render('edit', compact('item', 'groups'));
     }
 
     public function actionAdd() {

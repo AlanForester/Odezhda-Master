@@ -11,6 +11,7 @@ return [
         'application.controllers.*',
         'application.controllers.actions.*',
         'common.actions.*',
+        'common.models.AR.*',
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules

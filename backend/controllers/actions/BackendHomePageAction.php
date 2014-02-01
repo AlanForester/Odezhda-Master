@@ -6,6 +6,8 @@
  * Everything which should be done when user opens the backend landing page is here.
  *
  * @package YiiBoilerplate\Backend
+ *
+ * todo: перенести в основной контроллер страницы
  */
 class BackendHomePageAction extends CAction {
     /**
@@ -22,13 +24,14 @@ class BackendHomePageAction extends CAction {
 
         // список пользовалетей
         $usersModel = new UsersModel();
-        $users = $usersModel->getList(
-            [
-                'order_field' => 'created',
-                'order_direct' => 'down',
-                'criteria' => ['limit' => 5]
-            ]
-        );
+//        $users = $usersModel->getList(
+//            [
+//                'order_field' => 'created',
+//                'order_direct' => 'down',
+//                'criteria' => ['limit' => 5]
+//            ]
+//        );
+        $users = [];
         $usersDataProvider = new CArrayDataProvider($users);
 
         // список товаров

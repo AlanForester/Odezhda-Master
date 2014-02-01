@@ -1,21 +1,22 @@
 <?php
+
 /**
  * Controller action for logging users in using the login form containing username and password.
  *
  * It is statically dependent on the LoginForm model representing the authentication form.
  *
  * @package YiiBoilerplate\Backend
+ *
+ * todo: перенести в основной контроллер страницы
  */
-class PasswordLoginAction extends CAction
-{
+class PasswordLoginAction extends CAction {
     /**
      * If there were no login attempt or it failed render login form page
      * otherwise redirect him to wherever he should return to.
      *
      * Also, this endpoint serves as the AJAX endpoint for client-side validation of login info.
      */
-    public function run()
-    {
+    public function run() {
 
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
@@ -28,12 +29,11 @@ class PasswordLoginAction extends CAction
 
         $formData = $request->getPost(get_class($model), false);
 
-        if ($formData)
-        {
+        if ($formData) {
 
             //print_r($model->attributes); print_r($formData);exit;
             $model->attributes = $formData;
-              //print_r($model->attributes);exit;
+            //print_r($model->attributes);exit;
             if ($model->validate(array('username', 'password')) && $model->login())
                 $this->controller->redirect($user->returnUrl);
         }
@@ -46,8 +46,7 @@ class PasswordLoginAction extends CAction
      * @param CHttpRequest $request
      * @param User $model
      */
-    private function respondIfAjaxRequest($request, $model)
-    {
+    private function respondIfAjaxRequest($request, $model) {
         $ajaxRequest = $request->getPost('ajax', false);
         if (!$ajaxRequest or $ajaxRequest !== 'login-form')
             return;
@@ -62,8 +61,7 @@ class PasswordLoginAction extends CAction
     /**
      * @param $user
      */
-    private function redirectAwayAlreadyAuthenticatedUsers($user)
-    {
+    private function redirectAwayAlreadyAuthenticatedUsers($user) {
         if (!$user->isGuest)
             $this->controller->redirect(Yii::app()->request->baseUrl);
     }

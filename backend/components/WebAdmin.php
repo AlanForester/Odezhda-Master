@@ -43,7 +43,7 @@ class WebAdmin extends CWebUser {
  
     private function getModel(){
         if (!$this->isGuest && $this->_model === null){
-            $this->_model = UsersLayer::findByPk(Yii::app()->user->id, array('select' => 'admin_groups_id'));
+            $this->_model = UsersHelper::findByPk(Yii::app()->user->id, array('select' => 'admin_groups_id'));
         }        
         return $this->_model;
     }

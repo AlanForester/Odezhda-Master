@@ -35,14 +35,20 @@ class ShopCategoriesController extends BackendController {
 //        $gridDataProvider = $model->getActiveProvider($criteria);
 
         $categories = $model->getList($parent_ids,$criteria);
+        //добавляем у раскрытых веток дерева свойство loaded
+        //добавляем имя родителя
+        foreach ($categories as &$cat){
+            if(in_array ($cat['id'], $parent_ids)){
+                $cat['loaded']='loaded';
+            }
+        }
 //        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',
-                        'pagination' => [
-                            'pageSize'=>count($categories),
-                        ],
+            'pagination' => [
+                'pageSize'=>count($categories),
+            ],
         ]);
-
         $vars = compact('id','criteria','gridDataProvider');
 
 //        $groups_model = new ShopCategoriesModel();
@@ -56,7 +62,7 @@ class ShopCategoriesController extends BackendController {
 //            Yii::app()->end();
 //        }
         if ($this->isAjax){
-            $this->renderPartial('index',$vars,false,true);
+            $this->renderPartial('index',$vars);
 
             Yii::app()->end();
         }

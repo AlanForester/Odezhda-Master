@@ -7,11 +7,11 @@ return [
     'import' => [
         'common.components.*',
         'common.models.*',
+        'common.helpers.*',
         // The following two imports are polymorphic and will resolve against wherever the `basePath` is pointing to.
         // We have components and models in all entry points anyway
         'application.components.*',
         'application.models.*'
-
     ],
     'aliases' => array(
         'bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap'), // change this if necessary

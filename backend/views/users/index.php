@@ -17,7 +17,7 @@ $this->widget(
             TbHtml::dropDownList(
                 'filter_groups',
                 $criteria['filter_groups'],
-                $this->groups,
+                array_merge([''=>'- По группе -'],$groups),
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
@@ -74,23 +74,21 @@ $this->widget(
             'direct' => $criteria['order_direct']
         ],
 
-        'pageSize' => $page_size,
+        'pageSize' => $criteria['page_size'],
 
         'textSearch' => $criteria['text_search'],
 
-        'dataProvider'=>$this->gridDataProvider,
+        'dataProvider' => $gridDataProvider,
 
         'gridColumns' => [
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'Имя',
+//                'header' => 'Имя',
                 'name' => 'firstname',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'right',
@@ -102,13 +100,11 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'Фамилия',
+//                'header' => 'Фамилия',
                 'name' => 'lastname',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: left;'
                 ],
                 'editable' => [
                     'placement' => 'right',
@@ -119,13 +115,11 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'E-mail',
+//                'header' => 'E-mail',
                 'name' => 'email',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: center;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: center;'
                 ],
                 'editable' => [
                     'placement' => 'right',
@@ -135,40 +129,34 @@ $this->widget(
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'header' => 'Группа',
+//                'header' => 'Группа',
                 'name' => 'group_id',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'width: 200px; text-align: center;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'width: 200px; text-align: center;'
                 ],
                 'editable' => [
                     'type' => 'select',
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/users/update"),
-                    'source' => $this->createUrl('groups/list'),
+                    'source' => $groups //$this->createUrl('groups/list'),
                 ]
             ],
             [
-                'header' => 'Последний визит',
+//                'header' => 'Последний визит',
                 'name' => 'logdate',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'text-align: center;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'text-align: center;'
                 ],
             ],
             [
-                'header' => 'Id',
+//                'header' => 'Id',
                 'name' => 'id',
                 'headerHtmlOptions' => [
-                    //                    'style' => 'width: 30px; text-align: center;'
                 ],
                 'htmlOptions' => [
-                    //                    'style' => 'width: 30px; text-align: center;'
                 ],
             ],
         ],

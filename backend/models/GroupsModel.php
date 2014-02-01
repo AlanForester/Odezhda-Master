@@ -65,10 +65,6 @@ class GroupsModel extends CFormModel {
         return $this->allGroups;
     }
 
-
-
-
-
     /**
      * @return array задает возвращает массив всех групп пользователей
      */
