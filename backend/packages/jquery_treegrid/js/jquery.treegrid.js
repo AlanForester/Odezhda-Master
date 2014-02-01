@@ -431,7 +431,9 @@
 
                 var ids=[id];
                 var i=1;
-                $('.loaded').each(function () {
+                $('.treegrid-expanded').each(function () {//$('.loaded').each(function () {
+                        //var reg_parent_id=/treegrid-parent-(\d+)/;
+//                        var parent_id=reg_parent_id.exec($this.attr("class"))[1];
                         ids[i]=reg_id.exec($(this).attr("class"))[1];
                         i++;
                     }
