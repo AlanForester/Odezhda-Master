@@ -35,6 +35,12 @@ class ShopCategoriesController extends BackendController {
 //        $gridDataProvider = $model->getActiveProvider($criteria);
 
         $categories = $model->getList($parent_ids,$criteria);
+        //добавляем у раскрытых веток дерева свойство loaded
+        foreach ($categories as &$cat){
+            if(in_array ($cat['id'], $parent_ids)){
+                $cat['loaded']='loaded';
+            }
+        }
 //        print_r($categories);exit;
         $gridDataProvider = new CArrayDataProvider($categories, [
             'keyField' => 'id',

@@ -29,8 +29,11 @@ class GridTreeView extends WhGridView {
                 $htmlOptions['class'] = $class.'-';
             }
         }
-
+//        print_r($this->dataProvider->data);exit;
         $css='treegrid-'.$this->dataProvider->data[$row]['id'].' ';
+        if(isset($this->dataProvider->data[$row]['loaded'])){
+            $css.='loaded ';
+        }
         if (!empty($this->dataProvider->data[$row]['childCount'])){
             $css.='hasChildren ';
         }

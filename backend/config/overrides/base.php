@@ -18,6 +18,7 @@ return [
         'common.models.*',
         'common.models.legacy.*',
         'common.models.layers.*',
+        'common.models.AR.*',
         'common.helpers.*',
 
         'bootstrap.helpers.*',
