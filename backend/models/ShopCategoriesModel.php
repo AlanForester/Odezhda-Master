@@ -236,7 +236,7 @@ class ShopCategoriesModel extends CFormModel {
     /**
      * АР модель категории на основе id
      * @param int $id id категории
-     * @return UserLegacy
+     * @return User
      */
     public function getCategory($id, $scenario) {
         return ShopCategoriesLayer::getCategory($id, $scenario);

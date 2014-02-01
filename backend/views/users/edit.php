@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Менеджер пользователей: ' . ($model->id ? 'редактирование [' . $model->email . ']' : 'новый пользователь');
+$this->pageTitle = 'Менеджер пользователей: ' . ($item->id ? 'редактирование [' . $item->email . ']' : 'новый пользователь');
 
 $this->pageButton = [
     BackendPageButtons::save(),
@@ -29,12 +29,12 @@ $this->pageButton = [
         <fieldset>
             <legend>Учетная запись</legend>
             <?php
-            echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-            echo $form->dropDownListControlGroup($model, 'group_id', $groups, ['value' => $model->group_id, 'label' => 'Группа']);
-            echo $form->textFieldControlGroup($model, 'firstname', ['value' => $model->firstname, 'label' => 'Имя']);
-            echo $form->textFieldControlGroup($model, 'lastname', ['value' => $model->lastname, 'label' => 'Фамилия']);
-            echo $form->textFieldControlGroup($model, 'email', ['value' => $model->email, 'label' => 'Email']);
-            echo $form->passwordFieldControlGroup($model, 'password', ['autocomplete' => 'off', 'value' => '', 'label' => 'Новый пароль']);
+            echo $form->hiddenField($item, 'id', []);
+            echo $form->dropDownListControlGroup($item, 'group_id', $groups, []);
+            echo $form->textFieldControlGroup($item, 'firstname', []);
+            echo $form->textFieldControlGroup($item, 'lastname', []);
+            echo $form->textFieldControlGroup($item, 'email', []);
+            echo $form->passwordFieldControlGroup($item, 'password', ['autocomplete' => 'off', 'value' => '']);
             ?>
 
         </fieldset>
@@ -43,7 +43,7 @@ $this->pageButton = [
     </div>
 
 <?php
-if (!empty($model->id)) {
+if (!empty($item->id)) {
     ?>
     <div class="span6">
         <fieldset>
@@ -52,13 +52,13 @@ if (!empty($model->id)) {
             $this->widget(
                 'yiiwheels.widgets.detail.WhDetailView',
                 [
-                    'data' => $model,
+                    'data' => $item,
                     'attributes' => [
-                        ['name' => 'id', 'label' => 'ID'],
-                        ['name' => 'lognum', 'label' => 'Кол-во авторизаций'],
-                        ['name' => 'logdate', 'label' => 'Последний визит'],
-                        ['name' => 'modified', 'label' => 'Изменен'],
-                        ['name' => 'created', 'label' => 'Создан'],
+                        ['name' => 'id'],
+                        ['name' => 'lognum'],
+                        ['name' => 'logdate'],
+                        ['name' => 'modified'],
+                        ['name' => 'created'],
                     ],
                 ]
             );

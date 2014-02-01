@@ -137,8 +137,7 @@ class BackendLoginForm extends CFormModel {
      */
     public function getUser() {
         if ($this->_user === null)
-            // todo: завернуть через прослойку
-            $this->_user = UsersLayer::findByAttributes(['admin_email_address' => $this->username]);
+            $this->_user = UsersHelper::findByAttributes(['[[email]]' => $this->username]);
         //			$this->_user = User::model()->findByAttributes(['username' => $this->username]);
 
         return $this->_user;
