@@ -118,7 +118,7 @@ $this->widget(
             ],
             [
                 'header' => 'Родительская категория',
-                'name' => 'parent_id',
+                'name' => 'parentName',
                 'headerHtmlOptions' => [
                     'width' => '200px'
                 ],
