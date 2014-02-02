@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{retail_orders_products}}':
  * @property integer $id
  */
-class RetailOrdersProducts extends CActiveRecord {
+class RetailOrdersProducts extends LegacyActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord

@@ -6,7 +6,7 @@
  * The followings are the available columns in table '{{delivery_points}}':
  * @property integer $id
  */
-class DeliveryPoints extends CActiveRecord {
+class DeliveryPoints extends LegacyActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
