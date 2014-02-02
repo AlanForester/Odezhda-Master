@@ -100,6 +100,25 @@ class ShopCategoriesLayer {
         return $result;
     }
 
+    public static function getClearCategoriesList($id=0) {
+        $result = [];
+        $list = ShopCategoriesLegacy::model()->findall();
+        foreach ($list as $val) {
+            if ($val->rel_description){
+                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
+            }
+        }
+        $params=[
+            'max_deep'=>2,
+        ];
+        $result=self::buildTree($result,$params);
+//        $result=self::flatTree(['data'=>$result]);
+//        print_r($result);exit;
+
+       // $result = array_map(function($el){return (array)$el;},$result);
+        return $result;
+    }
+
     public static function getList($data, $relatedData, $buildTree=false) {
         $result = [];
         $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount,

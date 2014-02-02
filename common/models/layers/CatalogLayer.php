@@ -44,8 +44,6 @@ class CatalogLayer {
             'products_head_keywords_tag' => 'meta_keywords',
         //фото
             'products_image' => 'image'
-
-        // products option values
     ];
 
     public static $errors = [];

@@ -5,6 +5,29 @@ $this->pageButton = [
     BackendPageButtons::mass("/catalog/mass")
 ];
 
+$my_data = array(
+    array(
+        'text'     => 'Node 1',
+        'expanded' => false, // будет развернута ветка или нет (по умолчанию)
+        'children' => array(
+            array(
+                'text'     => 'Node 1.1',
+            ),
+            array(
+                'text'     => 'Node 1.2',
+            ),
+            array(
+                'text'     => 'Node 1.3',
+            ),
+        )
+    ),
+);
+
+//print_r($this->categories);
+ob_start();
+$this->widget('CTreeView', ['data' => $my_data]);
+$treeView=ob_get_clean();
+
 // таблица
 $this->widget(
     'backend.widgets.Grid',
@@ -26,9 +49,9 @@ $this->widget(
                             }
                         }
                     )
-                })()'
+                })()',
                 ]
-            )
+            ),$treeView
         ],
 
         'order' => [
