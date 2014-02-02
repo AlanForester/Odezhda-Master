@@ -134,7 +134,7 @@ class ShopCategoriesLayer {
         //если дерево строить не надо - возвращаем как есть
         if ($buildTree){
             $params=[
-                'max_deep'=>5,
+                'max_deep'=>2,
             ];
             $result=self::buildTree($result,$params);
             $result=self::flatTree(['data'=>$result,'level_prx'=>'']);
