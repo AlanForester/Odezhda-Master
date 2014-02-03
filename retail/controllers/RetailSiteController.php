@@ -30,6 +30,10 @@ class RetailSiteController extends RetailController {
         $catalogModel =new CatalogModel();
         $catalogModel->frontCatalogData();
 
+        $categoriesModel = new ShopCategoriesModel();
+        $categories = $categoriesModel->getClearCategoriesList();
+        print_r($categories);exit;
+
         $this->render("/site/index");
     }
 

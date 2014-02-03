@@ -26,6 +26,11 @@ class ShopCategoriesLayer {
     private static $errors = [];
 
     /**
+     * @var array ids категорий, исключенных из поиска
+     */
+    private static $exceptedIds = [327,1435,1354,1333,590];
+
+    /**
      * @param $row массив полей, которые нужно пропустить через карту
      * @param bool $reverse конвертировать в прямую (old=>new) или обратную(new=>old) сторону(по умолчанию -  прямую)
      * @return mixed конвертированный по ключам массив
@@ -90,7 +95,7 @@ class ShopCategoriesLayer {
             }
         }
         $params=[
-            'max_deep'=>2,
+            'max_deep'=>1,
         ];
         $result=self::buildTree($result,$params);
         $result=self::flatTree(['data'=>$result]);
@@ -100,16 +105,29 @@ class ShopCategoriesLayer {
         return $result;
     }
 
-    public static function getClearCategoriesList($id=0) {
+    /**
+     * @param int $excepted_ids - ids исключаемых из поиска категорий
+     * @return array список категорий по уровням вложенности
+     */
+    public static function getFrontCategoriesList($excepted_ids=[]) {
+        $excepted_ids=array_unique(array_merge(self::$exceptedIds, $excepted_ids));
         $result = [];
-        $list = ShopCategoriesLegacy::model()->findall();
+
+        $criteria = new CDbCriteria();
+
+        $criteria->select = '*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount';
+        $criteria->addInCondition(
+            self::getFieldName('id',false),
+            'SELECT '.self::getFieldName('id',false).' FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = `0`)');
+//        $criteria->addNotInCondition(self::getFieldName('id',false),$excepted_ids);
+        $list = ShopCategoriesLegacy::model()->findall($criteria);
         foreach ($list as $val) {
             if ($val->rel_description){
-                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
-            }
+                $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount]);            }
         }
+        print_r($result);exit;
         $params=[
-            'max_deep'=>2,
+            'max_deep'=>1,
         ];
         $result=self::buildTree($result,$params);
 //        $result=self::flatTree(['data'=>$result]);

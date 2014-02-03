@@ -4,7 +4,7 @@
  * Class UsersModel - работа с пользователями
  *
  */
-class ShopCategoriesModel extends CFormModel {
+class ShopCategoriesModel {
 
     public $id;
     public $image;
@@ -34,35 +34,11 @@ class ShopCategoriesModel extends CFormModel {
      */
     private $allCategories = [];
 
-    /**
-     * @param array $data массив данных из которых будет создан массив для CDbCriteria
-     * @return array задает возвращает массив всех пользователей
-     */
-
-//    public function rules()
-//    {
-//        return array(
-//            array('password, email', 'required', 'on'=>'add', 'message'=>'Некорректный E-mail'),
-//        );
-//    }
-
     public function attributeLabels() {
         return array(
             'name' => Yii::t('labels', 'Название'),
             'parent_id' => Yii::t('labels', 'Родительская категория'),
         );
-    }
-
-    public function rules() {
-        return ShopCategoriesLayer::rules();
-    }
-
-    public function validate($attributes=null, $clearErrors=true) {
-        return ShopCategoriesLayer::validate($attributes,$clearErrors);
-    }
-
-    public function getErrors($attributes=null){
-        return ShopCategoriesLayer::getErrors($attributes);
     }
 
     public function getCategoriesList() {
@@ -74,7 +50,7 @@ class ShopCategoriesModel extends CFormModel {
 
     public function getClearCategoriesList() {
         if (!$this->list) {
-            $this->list = ShopCategoriesLayer::getClearCategoriesList();
+            $this->list = ShopCategoriesLayer::getFrontCategoriesList();
         }
         return $this->list;
     }
@@ -215,28 +191,6 @@ class ShopCategoriesModel extends CFormModel {
         return ShopCategoriesLayer::getActiveProvider($criteria);
     }
 
-    public function findByParentId ($id, $data = []){
-        return ShopCategoriesLayer::findByParentId($id);
-    }
-
-    /**
-     * Сохарение или создание нового пользователь
-     * @param array $data исходные данные
-     * @return bool|array массив данных пользователя или false
-     */
-    public function save($data) {
-        return ShopCategoriesLayer::save($data);
-    }
-
-    /**
-     * Обновление параметра пользователя
-     * @param array $params смотри описание updateField() ShopCategoriesLayer
-     * @return bool успешно ли произошла запись
-     */
-    public function updateField($params=[]) {
-        return ($params ? ShopCategoriesLayer::updateField($params) : false);
-    }
-
     /**
      * АР модель категории на основе id
      * @param int $id id категории
@@ -257,12 +211,5 @@ class ShopCategoriesModel extends CFormModel {
         //return ($category ? ($id ? array_merge(ShopCategoriesLayer::fieldMapConvert($category->attributes), ShopCategoriesLayer::fieldMapConvert($category->description->attributes)) : ShopCategoriesLayer::fieldMapConvert($category->attributes)) : false);
         return ($category ? ($id ? array_merge(($category->rel_description ? ShopCategoriesLayer::fieldMapConvert($category->rel_description->getAttributes()) : []), ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : ShopCategoriesLayer::fieldMapConvert($category->getAttributes())) : false);
     }
-    /**
-     * Удаляет категорию и все вложенные категории
-     * @param $id удаляемой категории
-     * @return bool результат удаления (true/false)
-     */
-    public function delete($id) {
-        return ShopCategoriesLayer::delete($id);
-    }
+
 }
