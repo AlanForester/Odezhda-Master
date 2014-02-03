@@ -17,6 +17,7 @@ class RetailOrdersController extends BackendController {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
             'filter_status' => $this->userStateParam('filter_status'),
+            'filter_deliverypoint' => $this->userStateParam('filter_deliverypoint'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
@@ -40,18 +41,21 @@ class RetailOrdersController extends BackendController {
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
 
-        $retailOrdersStatusesModel = RetailOrdersStatusesLayer::model()->findAll();
-
-        foreach ($retailOrdersStatusesModel as $status) {
+        foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
 
-        $vars = compact('criteria','gridDataProvider','statuses');
-        
-        if ($this->isAjax){
+        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
+            $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
+        }
+
+        $vars = compact('criteria','gridDataProvider','statuses', 'deliveryPoints');
+        //RetailOrders::model()->findAll()
+        //echo '<pre>'.print_r($vars,1);die();
+        /*if ($this->isAjax){
             $this->renderPartial('index',$vars);
             Yii::app()->end();
-        }
+        }*/
 
         $this->render('index',$vars);
     }

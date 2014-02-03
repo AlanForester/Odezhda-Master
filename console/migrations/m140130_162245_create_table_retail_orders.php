@@ -38,7 +38,7 @@ class m140130_162245_create_table_retail_orders extends CDbMigration
               `customers_telephone` varchar(255) NOT NULL,
               `customers_email_address` varchar(96) NOT NULL,
               `customers_address_format_id` int(5) NOT NULL DEFAULT '0',
-              `delivery_address_id` int(128) DEFAULT NULL,
+              `delivery_address_id` int(11) DEFAULT NULL,
               `delivery_name` varchar(64) NOT NULL,
               `delivery_middlename` varchar(128) DEFAULT NULL,
               `delivery_lastname` varchar(255) NOT NULL,

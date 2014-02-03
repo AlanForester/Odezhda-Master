@@ -48,10 +48,15 @@ class RetailOrdersHelper {
             $params[':text'] = '%' . $data['text_search'] . '%';
         }
 
-        /*if (!empty($data['filter_groups'])) {
-            $condition[] = '[[group_id]]=:group';
-            $params[':group'] = $data['filter_groups'];
-        }*/
+        if (!empty($data['filter_status'])) {
+            $condition[] = '[[retail_orders_statuses_id]]=:status';
+            $params[':status'] = $data['filter_status'];
+        }
+
+        if (!empty($data['filter_deliverypoint'])) {
+            $condition[] = '[[delivery_points_id]]=:delivery_point';
+            $params[':delivery_point'] = $data['filter_deliverypoint'];
+        }
 
         // поле и направление сортировки
         $order_direct = null;

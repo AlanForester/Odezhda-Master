@@ -36,6 +36,52 @@ class RetailOrders extends LegacyActiveRecord {
     }
 
     /**
+     * Заголовки полей (поле=>заголовок)
+     *
+     * @return array
+     */
+    public function attributeLabels() {
+        return [
+            'id' => Yii::t('labels', 'ID'),
+            'orders_id' => Yii::t('labels', 'Оптовый заказ'),
+            'delivery_points_id' => Yii::t('labels', 'Точка доставки'),
+            'retail_orders_statuses_id' => Yii::t('labels', 'Статус'),
+            'customers_name' => Yii::t('labels', 'Имя покупателя'),
+            'customers_company' => Yii::t('labels', 'Компания покупателя'),
+            'customers_street_address' => Yii::t('labels', 'Адрес покупателя'),
+            'customers_suburb' => Yii::t('labels', 'Район города покупателя'),
+            'customers_city' => Yii::t('labels', 'Город покупателя'),
+            'customers_postcode' => Yii::t('labels', 'Почтовый индекс покупателя'),
+            'customers_state' => Yii::t('labels', 'Регион покупателя'),
+            'customers_country' => Yii::t('labels', 'Страна покупателя'),
+            'customers_telephone' => Yii::t('labels', 'Телефон покупателя'),
+            'customers_email_address' => Yii::t('labels', 'E-mail покупателя'),
+            'delivery_name' => Yii::t('labels', 'Имя (для доставки)'),
+            'delivery_middlename' => Yii::t('labels', 'Отчество (для доставки)'),
+            'delivery_lastname' => Yii::t('labels', 'Фамилия (для доставки)'),
+            'delivery_company' => Yii::t('labels', 'Компания (для доставки)'),
+            'delivery_street_address' => Yii::t('labels', 'Адрес (для доставки)'),
+            'delivery_suburb' => Yii::t('labels', 'Район города (для доставки)'),
+            'delivery_city' => Yii::t('labels', 'Город (для доставки)'),
+            'delivery_postcode' => Yii::t('labels', 'Почтовый индекс (для доставки)'),
+            'delivery_state' => Yii::t('labels', 'Регион (для доставки)'),
+            'delivery_country' => Yii::t('labels', 'Страна доставки'),
+            'billing_name' => Yii::t('labels', 'Имя (для оплаты)'),
+            'billing_company' => Yii::t('labels', 'Компания (для оплаты)'),
+            'billing_street_address' => Yii::t('labels', 'Адрес (для оплаты)'),
+            'billing_suburb' => Yii::t('labels', 'Район города (для оплаты)'),
+            'billing_city' => Yii::t('labels', 'Город (для оплаты)'),
+            'billing_postcode' => Yii::t('labels', 'Почтовый индекс (для оплаты)'),
+            'billing_state' => Yii::t('labels', 'Регион (для оплаты)'),
+            'billing_country' => Yii::t('labels', 'Страна (для оплаты)'),
+            'payment_method' => Yii::t('labels', 'Метод оплаты'),
+            'payment_info' => Yii::t('labels', 'Информация об оплате'),
+            'customers_fax' => Yii::t('labels', 'Факс покупателя'),
+            //'orders_discont_comment' => Yii::t('labels', '?'),
+        ];
+    }
+
+    /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.
      *

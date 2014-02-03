@@ -30,6 +30,25 @@ $this->widget(
                     )
                 })()'
                 ]
+            ),
+
+            // фильтр по точкам доставки
+            TbHtml::dropDownList(
+                'filter_deliverypoint',
+                $criteria['filter_deliverypoint'],
+                array_merge([''=>'- По точке доставки -'],$deliveryPoints),
+                [
+                    'onChange' => 'js: (function(){
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            data:{
+                                filter_deliverypoint:$("#filter_deliverypoint").val()
+                            }
+                        }
+                    )
+                })()'
+                ]
             )
         ],
 
@@ -39,7 +58,7 @@ $this->widget(
                 'firstname' => 'Имя',
                 'lastname' => 'Фамилия',
                 'email' => 'E-Mail',
-                'group_id' => 'Группа',
+                'retail_orders_statuses_id' => 'Статус',
                 'logdate' => 'Последний визит',
                 'id' => 'ID',
             ],
@@ -101,8 +120,7 @@ $this->widget(
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-//                'header' => 'Группа',
-                'name' => 'group_id',
+                'name' => 'retail_orders_statuses_id',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -112,7 +130,22 @@ $this->widget(
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/retailorders/update"),
-                    'source' => $statuses //$this->createUrl('groups/list'),
+                    'source' => $statuses,
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'name' => 'delivery_points_id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'type' => 'select',
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'source' => $deliveryPoints,
                 ]
             ],
             [
