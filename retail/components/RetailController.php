@@ -5,9 +5,11 @@
  * Includes all assets required for frontend and also registers Google Analytics widget if there's code specified.
  *
  * @package YiiBoilerplate\Frontend
+ *
  */
 class RetailController extends CController
 {
+    public $assets_retail;
     /**
      * What to do before rendering the view file.
      *
@@ -37,9 +39,10 @@ class RetailController extends CController
         $publisher = Yii::app()->assetManager;
         $libraries = $publisher->publish(ROOT_DIR.'/common/packages');
 
-
-
         $frontend = $publisher->publish(ROOT_DIR.'/frontend/packages');
-      
+
+        $this->assets_retail = $publisher->publish(ROOT_DIR.'/retail/packages');
+
+
     }
 }
