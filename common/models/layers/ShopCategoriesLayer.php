@@ -112,14 +112,20 @@ class ShopCategoriesLayer {
     public static function getFrontCategoriesList($excepted_ids=[]) {
         $excepted_ids=array_unique(array_merge(self::$exceptedIds, $excepted_ids));
         $result = [];
-
+        //собираем айдишники всех категорий первого уровня, кроме исключенных
+        $in_ids = Yii::app()->db->createCommand()
+            ->select(self::getFieldName('id',false))
+            ->from(ShopCategoriesLegacy::model()->tableName())
+            ->where(['and',self::getFieldName('parent_id',false).'=0',['not in', self::getFieldName('id',false), $excepted_ids]])
+            //->where(self::getFieldName('parent_id',false).'=0 and ',['not in', self::getFieldName('id',false), $excepted_ids])
+            ->queryALL();
+        foreach ($in_ids as $k=>$v){
+            $in_ids[$k]=$v[self::getFieldName('id',false)];
+        }
+        array_push($in_ids, 0);
         $criteria = new CDbCriteria();
-
         $criteria->select = '*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount';
-        $criteria->addInCondition(
-            self::getFieldName('id',false),
-            'SELECT '.self::getFieldName('id',false).' FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = `0`)');
-//        $criteria->addNotInCondition(self::getFieldName('id',false),$excepted_ids);
+        $criteria->addInCondition(self::getFieldName('parent_id',false),$in_ids);
         $list = ShopCategoriesLegacy::model()->findall($criteria);
         foreach ($list as $val) {
             if ($val->rel_description){
