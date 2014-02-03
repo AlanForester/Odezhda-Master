@@ -13,9 +13,8 @@ class m140130_162245_create_table_retail_orders extends CDbMigration
               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
               `orders_id` int(11) unsigned DEFAULT NULL,
               /* при выгрузке в опт orders_id становится равен id
-              нового оптового заказа 'Розничные заказы' из orders, у которого customer_id всегда 22713 */
+              нового оптового заказа 'Розничные заказы' из orders, у которого customers_id всегда 22713 */
 
-              `customer_id` int(11) unsigned NOT NULL,
               `delivery_points_id` int(11) unsigned DEFAULT NULL,
               `retail_orders_statuses_id` tinyint(2) unsigned DEFAULT '0',
 
@@ -80,7 +79,7 @@ class m140130_162245_create_table_retail_orders extends CDbMigration
               `currency` char(3) DEFAULT NULL,
               `currency_value` decimal(14,6) DEFAULT NULL,
               `customers_referer_url` varchar(255) DEFAULT NULL,
-              `customers_fax` varchar(255) NOT NULL,
+              `customers_fax` varchar(255) DEFAULT NULL,
               `shipping_module` varchar(255) DEFAULT NULL,
               `referer` varchar(200) DEFAULT NULL,
               `print_torg` varchar(1) NOT NULL DEFAULT 'b',
