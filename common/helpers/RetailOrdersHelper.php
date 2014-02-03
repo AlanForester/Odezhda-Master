@@ -12,15 +12,15 @@ class RetailOrdersHelper {
                 ' OR ',
                 [
                     '[[customers_name]] LIKE :text',
-                    '[[customers_company]] LIKE :text',
+                    /*'[[customers_company]] LIKE :text',
                     '[[customers_street_address]] LIKE :text',
-                    '[[customers_suburb]] LIKE :text',
+                    '[[customers_suburb]] LIKE :text',*/
                     '[[customers_city]] LIKE :text',
-                    '[[customers_postcode]] LIKE :text',
+                    /*'[[customers_postcode]] LIKE :text',
                     '[[customers_state]] LIKE :text',
-                    '[[customers_country]] LIKE :text',
+                    '[[customers_country]] LIKE :text',*/
                     '[[customers_telephone]] LIKE :text',
-                    '[[customers_email_address]] LIKE :text',
+                    /*'[[customers_email_address]] LIKE :text',
                     '[[delivery_name]] LIKE :text',
                     '[[delivery_middlename]] LIKE :text',
                     '[[delivery_lastname]] LIKE :text',
@@ -39,9 +39,9 @@ class RetailOrdersHelper {
                     '[[billing_postcode]] LIKE :text',
                     '[[billing_state]] LIKE :text',
                     '[[billing_country]] LIKE :text',
-                    //'[[payment_method]] LIKE :text',
-                    //'[[payment_info]] LIKE :text',
-                    '[[customers_fax]] LIKE :text'
+                    '[[payment_method]] LIKE :text',
+                    '[[payment_info]] LIKE :text',
+                    '[[customers_fax]] LIKE :text'*/
                 ]
             ) . ')';
 
@@ -112,4 +112,12 @@ class RetailOrdersHelper {
         return false;
     }
 
+    public static function getRetailOrder($id = null, $scenario = null) {
+        $model = self::getModel();
+        return ($id ? $model->findByPk($id) : new $model($scenario));
+    }
+
+    public static function getModel() {
+        return RetailOrdersLayer::model();
+    }
 }

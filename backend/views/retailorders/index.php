@@ -2,8 +2,8 @@
 // кнопки страницы
 $this->pageButton = [
     BackendPageButtons::add("/retailorders/add"),
-    BackendPageButtons::remove("/retailorders/delete")/*,
-    BackendPageButtons::mass("/retailorders/mass")*/
+    BackendPageButtons::remove("/retailorders/delete"),
+    BackendPageButtons::mass("/retailorders/mass")
 ];
 
 // таблица
@@ -33,7 +33,7 @@ $this->widget(
             ),
 
             // фильтр по точкам доставки
-            TbHtml::dropDownList(
+            /*TbHtml::dropDownList(
                 'filter_deliverypoint',
                 $criteria['filter_deliverypoint'],
                 array_merge([''=>'- По точке доставки -'],$deliveryPoints),
@@ -49,17 +49,18 @@ $this->widget(
                     )
                 })()'
                 ]
-            )
+            )*/
         ],
 
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
                 'customers_name' => 'Имя покупателя',
-                'customers_company' => 'Компания покупателя',
+                'customers_telephone' => 'Телефон покупателя',
+                //'customers_company' => 'Компания покупателя',
                 'customers_city' => 'Город покупателя',
                 'retail_orders_statuses_id' => 'Статус заказа',
-                'delivery_points_id' => 'Точка доставки',
+                //'delivery_points_id' => 'Точка доставки',
                 'date_purchased' => 'Дата покупки',
             ],
             'direct' => $criteria['order_direct']
@@ -89,7 +90,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'name' => 'customers_company',
+                'name' => 'customers_telephone',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -100,6 +101,20 @@ $this->widget(
                     'url' => Yii::app()->createUrl("/retailorders/update"),
                 ]
             ],
+            /*[
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'name' => 'customers_company',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                ]
+            ],*/
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
@@ -129,7 +144,7 @@ $this->widget(
                     'source' => $statuses,
                 ]
             ],
-            [
+            /*[
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'name' => 'delivery_points_id',
                 'headerHtmlOptions' => [
@@ -143,7 +158,7 @@ $this->widget(
                     'url' => Yii::app()->createUrl("/retailorders/update"),
                     'source' => $deliveryPoints,
                 ]
-            ],
+            ],*/
             [
                 'name' => 'date_purchased',
                 'headerHtmlOptions' => [
