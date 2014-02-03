@@ -23,93 +23,93 @@
                         <li>
                             <a href="#" class="u">каталог<img src="/images/drow-arrow.png" alt=""/></a>
                             <ul>
-                                <?php
-                                    $result='';
-                                    foreach($this->categories as $el)   {
-                                        $result.='<li><a href="#">'.$el['name'].'</a>';
-                                        if($el['childCount']>0){
-                                            $result.='<ul><div class="catalog-box">';
-                                            foreach ($el['children'] as $child_el){
-                                                $result.='<li><a href="#">'.$child_el['name'].'</a></li>';
-                                            }
-                                            $result.='</div></ul>';
-                                        }
-                                        $result.='</li>';
-                                    }
-                                    echo($result);
-                                ?>
-<!--                                <li>-->
-<!--                                    <a href="#">CSS</a>-->
-<!--                                    <ul>-->
-<!--                                        <div class="catalog-box">-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                        </div>-->
-<!--                                        <div class="catalog-box">-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                        </div>-->
-<!--                                        <div class="catalog-box">-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                        </div>-->
-<!--                                        <div class="catalog-box">-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                            <li><a href="#">Item 11</a></li>-->
-<!--                                            <li><a href="#">Item 12</a></li>-->
-<!--                                            <li><a href="#">Item 13</a></li>-->
-<!--                                            <li><a href="#">Item 14</a></li>-->
-<!--                                        </div>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="#">Graphic design</a>-->
-<!--                                    <ul>-->
-<!--                                        <li><a href="#">Item 21</a></li>-->
-<!--                                        <li><a href="#">Item 22</a></li>-->
-<!--                                        <li><a href="#">Item 23</a></li>-->
-<!--                                        <li><a href="#">Item 24</a></li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="#">Development tools</a>-->
-<!--                                    <ul>-->
-<!--                                        <li><a href="#">Item 31</a></li>-->
-<!--                                        <li><a href="#">Item 32</a></li>-->
-<!--                                        <li><a href="#">Item 33</a></li>-->
-<!--                                        <li><a href="#">Item 34</a></li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
-<!--                                <li>-->
-<!--                                    <a href="#">Web design</a>-->
-<!--                                    <ul>-->
-<!--                                        <li><a href="#">Item 41</a></li>-->
-<!--                                        <li><a href="#">Item 42</a></li>-->
-<!--                                        <li><a href="#">Item 43</a></li>-->
-<!--                                        <li><a href="#">Item 44</a></li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
+<!--                                --><?php
+//                                    $result='';
+//                                    foreach($this->categories as $el)   {
+//                                        $result.='<li><a href="#">'.$el['name'].'</a>';
+//                                        if($el['childCount']>0){
+//                                            $result.='<ul><div class="catalog-box">';
+//                                            foreach ($el['children'] as $child_el){
+//                                                $result.='<li><a href="#">'.$child_el['name'].'</a></li>';
+//                                            }
+//                                            $result.='</div></ul>';
+//                                        }
+//                                        $result.='</li>';
+//                                    }
+//                                    echo($result);
+//                                ?>
+                                <li>
+                                    <a href="#">CSS</a>
+                                    <ul>
+                                        <div class="catalog-box">
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                        </div>
+                                        <div class="catalog-box">
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                        </div>
+                                        <div class="catalog-box">
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                        </div>
+                                        <div class="catalog-box">
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                            <li><a href="#">Item 11</a></li>
+                                            <li><a href="#">Item 12</a></li>
+                                            <li><a href="#">Item 13</a></li>
+                                            <li><a href="#">Item 14</a></li>
+                                        </div>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Graphic design</a>
+                                    <ul>
+                                        <li><a href="#">Item 21</a></li>
+                                        <li><a href="#">Item 22</a></li>
+                                        <li><a href="#">Item 23</a></li>
+                                        <li><a href="#">Item 24</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Development tools</a>
+                                    <ul>
+                                        <li><a href="#">Item 31</a></li>
+                                        <li><a href="#">Item 32</a></li>
+                                        <li><a href="#">Item 33</a></li>
+                                        <li><a href="#">Item 34</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Web design</a>
+                                    <ul>
+                                        <li><a href="#">Item 41</a></li>
+                                        <li><a href="#">Item 42</a></li>
+                                        <li><a href="#">Item 43</a></li>
+                                        <li><a href="#">Item 44</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     </ul>
