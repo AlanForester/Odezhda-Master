@@ -25,7 +25,7 @@ $my_data = array(
 
 //print_r($this->categories);
 ob_start();
-$this->widget('CTreeView', ['data' => $my_data]);
+$this->widget('CTreeView', ['data' => f]);
 $treeView=ob_get_clean();
 
 // таблица
