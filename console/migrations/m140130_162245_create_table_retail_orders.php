@@ -79,7 +79,7 @@ class m140130_162245_create_table_retail_orders extends CDbMigration
               `currency` char(3) DEFAULT NULL,
               `currency_value` decimal(14,6) DEFAULT NULL,
               `customers_referer_url` varchar(255) DEFAULT NULL,
-              `customers_fax` varchar(255) NOT NULL,
+              `customers_fax` varchar(255) DEFAULT NULL,
               `shipping_module` varchar(255) DEFAULT NULL,
               `referer` varchar(200) DEFAULT NULL,
               `print_torg` varchar(1) NOT NULL DEFAULT 'b',
