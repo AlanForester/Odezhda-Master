@@ -9,6 +9,10 @@
 class RetailSiteController extends RetailController {
     public $catalogModel;
     /**
+     * @var array массив всех категорий по уровням вложенностям
+     */
+    public $categories=[];
+    /**
      * Actions attached to this controller
      *
      * @return array
@@ -31,8 +35,7 @@ class RetailSiteController extends RetailController {
         $catalogModel->frontCatalogData();
 
         $categoriesModel = new ShopCategoriesModel();
-        $categories = $categoriesModel->getClearCategoriesList();
-        print_r($categories);exit;
+        $this->categories = $categoriesModel->getClearCategoriesList();
 
         $this->render("/site/index");
     }
