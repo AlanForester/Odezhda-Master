@@ -130,9 +130,10 @@ class CatalogLayer {
     public static function getCatalog($id = null, $scenario = null) {
         if ($id){
             $catalog = CatalogLegacy::model()->findByPk($id);
-            //print_r($category->description);exit;
-            $relations=$catalog->relations();
-            if (!empty($relations)){
+//            print_r($catalog);exit;
+
+            if (!empty($catalog)){
+                $relations=$catalog->relations();
                 foreach($relations as $r_name => $r_value){
                     if (empty ($catalog->{$r_name})){
                         $catalog->{$r_name} = new ShopCategoriesDescriptionLegacy();
@@ -418,9 +419,32 @@ class CatalogLayer {
 
 
 
-    public function ProductById(){
+    public static function productById($id){
+       $list = self::getCatalog($id);
 
+        if($list){
+            $result = self::fieldMapConvert($list->attributes);
+            if(!empty($list->description->attributes)){
+                $result+=self::fieldMapConvert($list->description->attributes);
+            }
+            if(!empty($list->manufacturers->attributes)){
+                $result+=self::fieldMapConvert($list->manufacturers->attributes);
+            }
+            $result['categories_list']='';
+            foreach($list->categories_description as $key_up => $val_up){
+
+                if(!empty($val_up['categories_id'])){
+                    if($key_up!=0){
+                        $result['categories_list'].=', ';
+                    }
+                    $result['categories_list'].=$val_up['categories_name'];
+                }
+            }
+            return $result;
+        }
+        return false;
     }
+
 
 
 
