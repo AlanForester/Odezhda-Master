@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 
-print_r($this);
+//print_r($this->catalogData);
 ?>
 
 <div class="wrapper">
