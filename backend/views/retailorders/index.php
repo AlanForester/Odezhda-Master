@@ -55,12 +55,12 @@ $this->widget(
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
-                'firstname' => 'Имя',
-                'lastname' => 'Фамилия',
-                'email' => 'E-Mail',
-                'retail_orders_statuses_id' => 'Статус',
-                'logdate' => 'Последний визит',
-                'id' => 'ID',
+                'customers_name' => 'Имя покупателя',
+                'customers_company' => 'Компания покупателя',
+                'customers_city' => 'Город покупателя',
+                'retail_orders_statuses_id' => 'Статус заказа',
+                'delivery_points_id' => 'Точка доставки',
+                'date_purchased' => 'Дата покупки',
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -75,24 +75,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-//                'header' => 'Имя',
-                'name' => 'firstname',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
-                    //'source'   => $this->createUrl('retailorders/update'),
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-//                'header' => 'Фамилия',
-                'name' => 'lastname',
+                'name' => 'customers_name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -106,8 +89,21 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-//                'header' => 'E-mail',
-                'name' => 'email',
+                'name' => 'customers_company',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'name' => 'customers_city',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -149,16 +145,7 @@ $this->widget(
                 ]
             ],
             [
-//                'header' => 'Последний визит',
-                'name' => 'logdate',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
-            [
-//                'header' => 'Id',
-                'name' => 'id',
+                'name' => 'date_purchased',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

@@ -10,7 +10,7 @@ class RetailOrdersController extends BackendController {
     public $pageTitle = 'Розничные заказы: список';
     public $pageButton = [];
     public $model;
-    public $rows = [];
+    //public $rows = [];
 
     public function actionIndex() {
 
@@ -23,21 +23,8 @@ class RetailOrdersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        // пагинация
-//        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
-
         // получение данных
         $this->model = new RetailOrdersLayer();
-//        $gridDataProvider = $model->getActiveProvider($criteria);
-
-        /*$rows = $this->model->getList([],$criteria);
-//        print_r($rows);exit;
-        $gridDataProvider = new CArrayDataProvider($rows, [
-            //'keyField' => 'id',
-            'pagination' => [
-                'pageSize'=>count($rows),   //$page_size
-            ],
-        ]);*/
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
 
@@ -49,14 +36,17 @@ class RetailOrdersController extends BackendController {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }
 
-        $vars = compact('criteria','gridDataProvider','statuses', 'deliveryPoints');
-        //RetailOrders::model()->findAll()
-        //echo '<pre>'.print_r($vars,1);die();
-        /*if ($this->isAjax){
-            $this->renderPartial('index',$vars);
-            Yii::app()->end();
-        }*/
+        $this->render('index', compact('criteria','gridDataProvider','statuses', 'deliveryPoints'));
+    }
 
-        $this->render('index',$vars);
+    public function actionUpdate() {
+        $params['field'] = Yii::app()->request->getPost('name');
+        $params['id'] = Yii::app()->request->getPost('pk');
+        $params['value'] = Yii::app()->request->getPost('value');
+
+        $model = new RetailOrdersLayer();
+        if (!$model->updateField($params)) {
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных розничного заказа'));
+        }
     }
 }

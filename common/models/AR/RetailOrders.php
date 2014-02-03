@@ -76,6 +76,7 @@ class RetailOrders extends LegacyActiveRecord {
             'billing_country' => Yii::t('labels', 'Страна (для оплаты)'),
             'payment_method' => Yii::t('labels', 'Метод оплаты'),
             'payment_info' => Yii::t('labels', 'Информация об оплате'),
+            'date_purchased' => Yii::t('labels', 'Дата покупки'),
             'customers_fax' => Yii::t('labels', 'Факс покупателя'),
             //'orders_discont_comment' => Yii::t('labels', '?'),
         ];
