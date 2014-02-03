@@ -36,6 +36,7 @@ class CatalogController extends BackendController {
 
 
         // получение данных
+        //todo Alex: Заместо CformModel  используем AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
 
@@ -66,16 +67,16 @@ class CatalogController extends BackendController {
                 'pageSize' => ($page_size == 'all' ? count($catalog) : $page_size),
             ],
         ]);
-
+        //todo Alex: Заместо CformModel  используем AR
        $categories_model = new ShopCategoriesModel();
        $this->categories[''] = '- По категории -';
 
-       print_r($categories_model->getClearCategoriesList());
-        exit;
+        $this->categories[''] = $categories_model->getClearCategoriesList();
 
-       foreach ($categories_model->getCategoriesList() as $g) {
-           $this->categories[$g['id']] = $g['name'];
-       }
+
+//       foreach ($categories_model->getCategoriesList() as $g) {
+//           $this->categories[$g['id']] = $g['name'];
+//       }
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }

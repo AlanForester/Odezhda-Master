@@ -26,6 +26,11 @@ class ShopCategoriesLayer {
     private static $errors = [];
 
     /**
+     * @var array ids категорий, исключенных из поиска
+     */
+    private static $exceptedIds = [327,1435,1354,1333,590];
+
+    /**
      * @param $row массив полей, которые нужно пропустить через карту
      * @param bool $reverse конвертировать в прямую (old=>new) или обратную(new=>old) сторону(по умолчанию -  прямую)
      * @return mixed конвертированный по ключам массив
@@ -90,7 +95,7 @@ class ShopCategoriesLayer {
             }
         }
         $params=[
-            'max_deep'=>2,
+            'max_deep'=>1,
         ];
         $result=self::buildTree($result,$params);
         $result=self::flatTree(['data'=>$result]);
@@ -100,22 +105,36 @@ class ShopCategoriesLayer {
         return $result;
     }
 
-    public static function getClearCategoriesList($id=0) {
+    /**
+     * @param int $excepted_ids - ids исключаемых из поиска категорий
+     * @return array список категорий по уровням вложенности
+     */
+    public static function getFrontCategoriesList($excepted_ids=[]) {
+        $excepted_ids=array_unique(array_merge(self::$exceptedIds, $excepted_ids));
         $result = [];
-        $list = ShopCategoriesLegacy::model()->findall();
+        //собираем айдишники всех категорий первого уровня, кроме исключенных
+        $in_ids = Yii::app()->db->createCommand()
+            ->select(self::getFieldName('id',false))
+            ->from(ShopCategoriesLegacy::model()->tableName())
+            ->where(['and',self::getFieldName('parent_id',false).'=0',['not in', self::getFieldName('id',false), $excepted_ids]])
+            //->where(self::getFieldName('parent_id',false).'=0 and ',['not in', self::getFieldName('id',false), $excepted_ids])
+            ->queryALL();
+        foreach ($in_ids as $k=>$v){
+            $in_ids[$k]=$v[self::getFieldName('id',false)];
+        }
+        $criteria = new CDbCriteria();
+        $criteria->select = '*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount';
+        $criteria->addInCondition(self::getFieldName('id',false),$in_ids);
+        $criteria->addInCondition(self::getFieldName('parent_id',false),$in_ids,'OR');
+        $list = ShopCategoriesLegacy::model()->findall($criteria);
         foreach ($list as $val) {
             if ($val->rel_description){
-                $result[] = array_merge(self::fieldMapConvert($val->getAttributes(['categories_id', 'parent_id'])), self::fieldMapConvert($val->rel_description->getAttributes(['categories_name'])));
-            }
+                $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount]);            }
         }
         $params=[
-            'max_deep'=>2,
+            'max_deep'=>1,
         ];
         $result=self::buildTree($result,$params);
-//        $result=self::flatTree(['data'=>$result]);
-//        print_r($result);exit;
-
-       // $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
