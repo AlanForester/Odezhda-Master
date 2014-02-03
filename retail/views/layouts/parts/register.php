@@ -6,9 +6,7 @@
             <form>
                 <div class="reg-input">
                     <input type="text" placeholder="Имя, Фамилия*" />
-                    <input type="text" placeholder="Пароль*" class="pass" />
                     <input type="text" placeholder="E-mail*" />
-                    <input type="text" placeholder="Подтвердите пароль*" class="pass" />
                 </div>
                 <div class="left-info">
                     <div class="date-birth">
