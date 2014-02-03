@@ -418,7 +418,9 @@ class CatalogLayer {
 
 
 
+    public function ProductById(){
 
+    }
 
 
 

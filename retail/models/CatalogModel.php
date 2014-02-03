@@ -60,8 +60,8 @@ class CatalogModel extends CFormModel {
 //                ]
 //
 //            ) . ')';
-
-        $data['new_model']['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' DESC';
+//        DESC'
+        $data['new_model']['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' ASC';
 
 
 
@@ -72,6 +72,11 @@ class CatalogModel extends CFormModel {
         );
 
 
+        return $list;
+    }
+
+    public function productById($id){
+        $list=CatalogLayer::productById($id);
         return $list;
     }
 
