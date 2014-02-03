@@ -14,7 +14,7 @@ class RetailOrdersLayer extends RetailOrders {
             $relatedCondition[] = '(' . join(
                 ' OR ',
                 [
-                    'retail_orders.'.ShopCategoriesLayer::getFieldName('name', false) . ' LIKE :text',
+                    'rel_description.customers_name' . ' LIKE :text',
                 ]
             ) . ')';
 
@@ -43,13 +43,28 @@ class RetailOrdersLayer extends RetailOrders {
         $relatedCriteria = [
             'condition' => join(' AND ', $relatedCondition),
             'params' => $relatedParams,
-            'order' => 'retail_orders.'.$order_field . ($order_direct ? : '')
+            'order' => 'rel_description.'.$order_field . ($order_direct ? : '')
         ];
 
+        $result = [];
+        $searchField = 'customers_name';
+        $criteria=array_merge($criteria,
+            ['with'=>['rel_description'=>$relatedCriteria]],
+            ['select'=>'*, (SELECT COUNT(*) FROM '.$this->tableName().' AS c WHERE (c.id = t.id)) AS childCount,
+                (SELECT `'.$searchField.'` FROM '.$this->tableName().' AS d WHERE (d.id = t.id)) AS parentName
+            '],
+            ['alias'=>'t']);
 
-        //$rows = RetailOrders::getList($criteria,$relatedCriteria,$buildTree);
+        $criteria = new CDbCriteria($criteria);
 
-        return $rows;
+        $list = $this->findAll($criteria);
+        foreach ($list as $val) {
+            $result[] = array_merge(ShopCategoriesLayer::fieldMapConvert($val->rel_description->getAttributes()), ShopCategoriesLayer::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount, 'parentName'=>(!empty($val->parentName) ? $val->parentName : 'Корень')]);
+        }
+
+        return $result;
+
+        //return $this->allCategories;
 
     }
 
