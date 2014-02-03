@@ -140,7 +140,7 @@ class ShopCategoriesLayer {
 
     public static function getList($data, $relatedData, $buildTree=false) {
         $result = [];
-        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount,
+        $data=array_merge($data, ['with'=>['rel_description'=>$relatedData]],['select'=>'*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id',false).' = t.'.self::getFieldName('id',false).' AND t.'.self::getFieldName('parent_id',false).' = 0)) AS childCount,
         (SELECT `'.self::getFieldName('name',false).'` FROM '.ShopCategoriesDescriptionLegacy::model()->tableName().' AS d WHERE (d.'.self::getFieldName('id',false).' = t.'.self::getFieldName('parent_id',false).')) AS parentName
         '],['alias'=>'t']);
 
@@ -153,7 +153,7 @@ class ShopCategoriesLayer {
         //если дерево строить не надо - возвращаем как есть
         if ($buildTree){
             $params=[
-                'max_deep'=>2,
+                'max_deep'=>1,
             ];
             $result=self::buildTree($result,$params);
             $result=self::flatTree(['data'=>$result,'level_prx'=>'']);
