@@ -72,12 +72,12 @@ class ShopCategoriesModel extends CFormModel {
         return $this->list;
     }
 
-    public function getClearCategoriesList() {
-        if (!$this->list) {
-            $this->list = ShopCategoriesLayer::getClearCategoriesList();
-        }
-        return $this->list;
-    }
+//    public function getClearCategoriesList() {
+//        if (!$this->list) {
+//            $this->list = ShopCategoriesLayer::getClearCategoriesList();
+//        }
+//        return $this->list;
+//    }
     public function getList($parent_ids,$data=null) {
         if (!$this->allCategories) {
             // todo: переместить все в прослойку

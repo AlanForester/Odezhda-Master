@@ -12,6 +12,7 @@ return CMap::mergeArray(
     (require ROOT_DIR . '/common/config/main.php'),
     (require __DIR__ . '/overrides/base.php'),
     (file_exists(__DIR__ . '/overrides/environment.php') ? require(__DIR__ . '/overrides/environment.php') : array()),
-    (file_exists(__DIR__ . '/overrides/local.php') ? require(__DIR__ . '/overrides/local.php') : array())
+    (file_exists(__DIR__ . '/overrides/local.php') ? require(__DIR__ . '/overrides/local.php') : array()),
+    (file_exists(__DIR__ . '/overrides/my_local_db.php') ? require(__DIR__ . '/overrides/my_local_db.php') : array())
 );
 
