@@ -7,24 +7,36 @@
  * @package YiiBoilerplate\Frontend
  */
 class RetailSiteController extends RetailController {
-
+    public $catalogModel;
     /**
      * Actions attached to this controller
      *
      * @return array
      */
-    public function actions() {
-        return array(
-            'index' => array(
-                'class' => 'LandingPageAction'
-            ),
-            'error' => array(
-                'class' => 'SimpleErrorAction'
-            )
-        );
+//    public function actions() {
+//
+//        return array(
+//            'index' => array(
+//                'class' => 'LandingPageAction'
+//            ),
+//            'error' => array(
+//                'class' => 'SimpleErrorAction'
+//            )
+//        );
+//    }
+
+    public function actionIndex() {
+
+        $catalogModel =new CatalogModel();
+        $catalogModel->frontCatalogData();
+
+        $this->render("/site/index");
     }
+
     
     public function actionProduct() {
+
+
         $this->render("/site/product");
     }
 
@@ -32,5 +44,4 @@ class RetailSiteController extends RetailController {
     {
         $this->render('/site/catalog');
     }
-
 }

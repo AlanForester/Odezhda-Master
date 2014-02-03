@@ -1,5 +1,7 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
+
+print_r($this);
 ?>
 
 <div class="wrapper">

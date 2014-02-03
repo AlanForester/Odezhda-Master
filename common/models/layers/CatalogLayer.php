@@ -372,4 +372,23 @@ class CatalogLayer {
 
         return false;
     }
+
+
+    //front
+    public static function frontCatalogData($data){
+
+
+
+        $criteria = new CDbCriteria();
+            $criteria->limit=6;
+        $list = CatalogLegacy::model()->findall($criteria);
+    }
+
+
+
+
+
+
+
+
 }
