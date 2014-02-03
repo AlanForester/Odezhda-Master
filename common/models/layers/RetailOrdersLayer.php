@@ -1,7 +1,11 @@
 <?php
 
 class RetailOrdersLayer extends RetailOrders {
-    //put your code here
+
+    public function getDataProvider($criteria = null) {
+        return RetailOrdersHelper::getDataProvider($criteria);
+    }
+
 }
 
 ?>

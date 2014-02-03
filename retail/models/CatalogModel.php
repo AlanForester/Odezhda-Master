@@ -75,7 +75,9 @@ class CatalogModel extends CFormModel {
         return $list;
     }
 
+
     public function productById($id){
+
         $list=CatalogLayer::productById($id);
         return $list;
     }
