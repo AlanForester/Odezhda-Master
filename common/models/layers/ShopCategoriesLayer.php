@@ -122,24 +122,19 @@ class ShopCategoriesLayer {
         foreach ($in_ids as $k=>$v){
             $in_ids[$k]=$v[self::getFieldName('id',false)];
         }
-        array_push($in_ids, 0);
         $criteria = new CDbCriteria();
         $criteria->select = '*, (SELECT COUNT(*) FROM '.ShopCategoriesLegacy::model()->tableName().' AS c WHERE (c.'.self::getFieldName('parent_id').' = t.'.self::getFieldName('id',false).')) AS childCount';
-        $criteria->addInCondition(self::getFieldName('parent_id',false),$in_ids);
+        $criteria->addInCondition(self::getFieldName('id',false),$in_ids);
+        $criteria->addInCondition(self::getFieldName('parent_id',false),$in_ids,'OR');
         $list = ShopCategoriesLegacy::model()->findall($criteria);
         foreach ($list as $val) {
             if ($val->rel_description){
                 $result[] = array_merge(self::fieldMapConvert($val->rel_description->getAttributes()), self::fieldMapConvert($val->getAttributes()),['childCount'=>$val->childCount]);            }
         }
-        print_r($result);exit;
         $params=[
             'max_deep'=>1,
         ];
         $result=self::buildTree($result,$params);
-//        $result=self::flatTree(['data'=>$result]);
-//        print_r($result);exit;
-
-       // $result = array_map(function($el){return (array)$el;},$result);
         return $result;
     }
 
