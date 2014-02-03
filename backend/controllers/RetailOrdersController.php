@@ -39,8 +39,15 @@ class RetailOrdersController extends BackendController {
         ]);*/
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
-        $vars = compact('criteria','gridDataProvider');
 
+        $retailOrdersStatusesModel = RetailOrdersStatusesLayer::model()->findAll();
+
+        foreach ($retailOrdersStatusesModel as $status) {
+            $statuses[$status['id']] = $status['name'];
+        }
+
+        $vars = compact('criteria','gridDataProvider','statuses');
+        
         if ($this->isAjax){
             $this->renderPartial('index',$vars);
             Yii::app()->end();
