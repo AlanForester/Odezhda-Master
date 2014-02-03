@@ -10,7 +10,6 @@ class RetailOrdersController extends BackendController {
     public $pageTitle = 'Розничные заказы: список';
     public $pageButton = [];
     public $model;
-    //public $rows = [];
 
     public function actionIndex() {
 
@@ -44,9 +43,9 @@ class RetailOrdersController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $model = new RetailOrdersLayer();
-        if (!$model->updateField($params)) {
-            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных розничного заказа'));
+        $this->model = new RetailOrdersLayer();
+        if (!$this->model->updateField($params)) {
+            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
         }
     }
 }

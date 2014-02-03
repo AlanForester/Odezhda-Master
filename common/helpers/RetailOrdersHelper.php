@@ -87,12 +87,29 @@ class RetailOrdersHelper {
         }*/
 
         return new CActiveDataProvider(
-            'RetailOrders',
+            'RetailOrdersLayer',
             [
                 'criteria' => $criteria,
                 'pagination' => ($data['page_size'] == 'all' ? false : ['pageSize' => $data['page_size']]),
             ]
         );
+    }
+
+    public static function updateField($data = []) {
+        $field = TbArray::getValue('field', $data, false);
+        $rowId = TbArray::getValue('id', $data, false);
+        $value = TbArray::getValue('value', $data, false);
+
+        if ($rowId && $field && $value) {
+            if (!$retailOrders = RetailOrdersLayer::model()->findByPk($rowId)) {
+                return false;
+            }
+            $retailOrders->{$field} = $value;
+
+            return $retailOrders->save(true, [$field]);
+        }
+
+        return false;
     }
 
 }

@@ -6,6 +6,9 @@ class RetailOrdersLayer extends RetailOrders {
         return RetailOrdersHelper::getDataProvider($criteria);
     }
 
+    public function updateField($params = []) {
+        return RetailOrdersHelper::updateField($params);
+    }
 }
 
 ?>
