@@ -24,9 +24,19 @@
                             <a href="#" class="u">каталог<img src="/images/drow-arrow.png" alt=""/></a>
                             <ul>
                                 <?php
-                                    $result;
-
-
+                                    $result='';
+                                    foreach($this->categories as $el)   {
+                                        $result.='<li><a href="#">'.$el['name'].'</a>';
+                                        if($el['childCount']>0){
+                                            $result.='<ul><div class="catalog-box">';
+                                            foreach ($el['children'] as $child_el){
+                                                $result.='<li><a href="#">'.$child_el['name'].'</a></li>';
+                                            }
+                                            $result.='</div></ul>';
+                                        }
+                                        $result.='</li>';
+                                    }
+                                    echo($result);
                                 ?>
 <!--                                <li>-->
 <!--                                    <a href="#">CSS</a>-->

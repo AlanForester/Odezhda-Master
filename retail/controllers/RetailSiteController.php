@@ -36,19 +36,15 @@ class RetailSiteController extends RetailController {
 
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
-
         $this->render("/site/index");
     }
 
     
     public function actionProduct() {
-
-
         $this->render("/site/product");
     }
 
-    public function actionCatalog()
-    {
+    public function actionCatalog(){
         $this->render('/site/catalog');
     }
 }
