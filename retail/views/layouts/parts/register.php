@@ -11,25 +11,19 @@
                 <div class="left-info">
                     <div class="date-birth">
                         <p>Дата рождения</p>
-                        <select class="intro-select-day">
+                        <select name="day" class="intro-select-day">
                             <option>дд</option>
                             <option>мм</option>
                             <option>гггг</option>
                             <option>пол</option>
                         </select>
-                        <select class="intro-select-month">
+                        <select name="month" class="intro-select-month">
                             <option>дд</option>
                             <option>мм</option>
                             <option>гггг</option>
                             <option>пол</option>
                         </select>
-                        <select class="intro-select-year">
-                            <option>дд</option>
-                            <option>мм</option>
-                            <option>гггг</option>
-                            <option>пол</option>
-                        </select>
-                        <select class="intro-select-pol">
+                        <select name="year" class="intro-select-year">
                             <option>дд</option>
                             <option>мм</option>
                             <option>гггг</option>
