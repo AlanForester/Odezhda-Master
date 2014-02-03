@@ -54,18 +54,22 @@ class CatalogModel extends CFormModel {
     public function frontCatalogData(){
 
         $data=[];
-        $data['new_model']['condition'] = '(' . join(
-                ' OR ',  [
-                    't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                ]
+//        $data['new_model']['condition'] = '(' . join(
+//                ' OR ',  [
+//                    't.'.CatalogLayer::getFieldName('id', false) . ' =text',
+//                ]
+//
+//            ) . ')';
 
-            ) . ')';
-
-        $data['new_model']['order_field'] = 'description.'.CatalogLayer::getFieldName('id', false);
+        $data['new_model']['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' DESC';
 
 
 
-        $list=CatalogLayer::frontCatalogData($data);
+        $list=CatalogLayer::frontCatalogData(
+            ['new_model'=> [
+                'order' => $data['new_model']['order_field']
+        ]]
+        );
 
 
         return $list;

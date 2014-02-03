@@ -282,60 +282,65 @@ Yii::app()->clientScript->registerPackage('index');
 
         <div id="fragment_holder">
             <div id="fragment-1" class="fragment displayed_tab_content">
+
+                <?php ?>
+                <?php foreach($this->catalogData['new_model'] as $product){ ?>
                 <div class="tab-var">
                     <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
+                    <a href="#"><?php echo $product['name']; ?></a>
                     <span>350р</span>
                     <h5>390р</h5>
                     <div class="var-all">
                         <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
                     </div>
                 </div>
-                <div class="tab-var">
-                    <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
-                    <span>350р</span>
-                    <h5>390р</h5>
-                    <div class="var-all">
-                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
-                    </div>
-                </div>
-                <div class="tab-var">
-                    <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
-                    <span>350р</span>
-                    <h5>390р</h5>
-                    <div class="var-all">
-                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
-                    </div>
-                </div>
-                <div class="tab-var">
-                    <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
-                    <span>350р</span>
-                    <h5>390р</h5>
-                    <div class="var-all">
-                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
-                    </div>
-                </div>
-                <div class="tab-var">
-                    <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
-                    <span>350р</span>
-                    <h5>390р</h5>
-                    <div class="var-all">
-                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
-                    </div>
-                </div>
-                <div class="tab-var">
-                    <img src="/images/kofta.png" alt="" />
-                    <a href="#">Кофта (75382936)</a>
-                    <span>350р</span>
-                    <h5>390р</h5>
-                    <div class="var-all">
-                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>
-                    </div>
-                </div>
+                <?php }?>
+<!--                <div class="tab-var">-->
+<!--                    <img src="/images/kofta.png" alt="" />-->
+<!--                    <a href="#">Кофта (75382936)</a>-->
+<!--                    <span>350р</span>-->
+<!--                    <h5>390р</h5>-->
+<!--                    <div class="var-all">-->
+<!--                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="tab-var">-->
+<!--                    <img src="/images/kofta.png" alt="" />-->
+<!--                    <a href="#">Кофта (75382936)</a>-->
+<!--                    <span>350р</span>-->
+<!--                    <h5>390р</h5>-->
+<!--                    <div class="var-all">-->
+<!--                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="tab-var">-->
+<!--                    <img src="/images/kofta.png" alt="" />-->
+<!--                    <a href="#">Кофта (75382936)</a>-->
+<!--                    <span>350р</span>-->
+<!--                    <h5>390р</h5>-->
+<!--                    <div class="var-all">-->
+<!--                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="tab-var">-->
+<!--                    <img src="/images/kofta.png" alt="" />-->
+<!--                    <a href="#">Кофта (75382936)</a>-->
+<!--                    <span>350р</span>-->
+<!--                    <h5>390р</h5>-->
+<!--                    <div class="var-all">-->
+<!--                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="tab-var">-->
+<!--                    <img src="/images/kofta.png" alt="" />-->
+<!--                    <a href="#">Кофта (75382936)</a>-->
+<!--                    <span>350р</span>-->
+<!--                    <h5>390р</h5>-->
+<!--                    <div class="var-all">-->
+<!--                        <a href="#">Вся одежда<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
             </div>
             <div id="fragment-2" class="fragment">
                 <p>Tab 2 content2</p>

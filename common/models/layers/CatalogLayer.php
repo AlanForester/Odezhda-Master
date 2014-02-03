@@ -377,11 +377,11 @@ class CatalogLayer {
     //front
     public static function frontCatalogData($data){
        // $data['main'];
-        $data = ['with'=>
+        $data= array_merge(
+            $data['new_model'],['with'=>
                 ['description'=>['description'],
                     'categories_description'=>['categories_description'],
-                    'manufacturers']];
-
+                    'manufacturers']]);
 
         $criteria = new CDbCriteria($data);
         $criteria->limit=6;
@@ -408,7 +408,10 @@ class CatalogLayer {
                 }
             }
         }
-        return $result;
+
+        $tabs['new_model']=$result;
+
+        return $tabs;
 
     }
 
