@@ -32,8 +32,8 @@ Yii::app()->clientScript->registerPackage('product');
         </div>
 
         <div class="tovar-info">
-            <p>Футболка</p>
-            <span>Артикул 75388308</span>
+            <p><?php echo $this->product['name'].'р' ?></p>
+            <span>Артикул <?php echo $this->product['model'] ?></span>
             <div class="color">
                 <span>ВЫБЕРИТЕ ЦВЕТ</span>
                 <a href="#"><img src="/images/tovar1.png" alt=""></a>
@@ -63,7 +63,7 @@ Yii::app()->clientScript->registerPackage('product');
                     <div class="tab_container">
                         <div id="tab1" class="tab_content">
                             <p>СОСТАВ:   шелк 100%;</p>
-                            <p>СТРАНА ПРОИЗВОДСТВА:   Китай </p>
+                            <p>СТРАНА ПРОИЗВОДСТВА:   <?php echo $this->product['manufacturers'] ?> </p>
                             <p>ОБХВАТ ГРУДИ:   110см</p>
                             <p>ДЛИНА ИЗДЕЛИЯ:   80см</p>
                         </div>
@@ -104,9 +104,9 @@ Yii::app()->clientScript->registerPackage('product');
         </div>
         <div class="price-main">
                 	<span>
-                    	1200 руб.
+                    	  <?php echo round($this->product['price']) ?> руб.
                     </span>
-            <small>1500 руб.</small>
+            <small><?php echo round($this->product['old_price']) ?> руб.</small>
         </div>
         <div class="btn">
             <button class="basket">В КОРЗИНУ</button>
