@@ -16,7 +16,7 @@ $this->widget(
             // фильтр по статусу
             TbHtml::dropDownList(
                 'filter_status',
-                $criteria['filter_status'],
+                $criteria['filters']['retail_orders_statuses_id'],
                 array_merge([''=>'- По статусу -'],$statuses),
                 [
                     'onChange' => 'js: (function(){
@@ -24,7 +24,7 @@ $this->widget(
                         "whgrid",
                         {
                             data:{
-                                filter_status:$("#filter_status").val()
+                                "filters[retail_orders_statuses_id]":$("#filter_status").val()
                             }
                         }
                     )
@@ -33,9 +33,9 @@ $this->widget(
             ),
 
             // фильтр по точкам доставки
-            /*TbHtml::dropDownList(
+            TbHtml::dropDownList(
                 'filter_deliverypoint',
-                $criteria['filter_deliverypoint'],
+                $criteria['filters']['delivery_points_id'],
                 array_merge([''=>'- По точке доставки -'],$deliveryPoints),
                 [
                     'onChange' => 'js: (function(){
@@ -43,13 +43,13 @@ $this->widget(
                         "whgrid",
                         {
                             data:{
-                                filter_deliverypoint:$("#filter_deliverypoint").val()
+                                "filter[delivery_points_id]":$("#filter_deliverypoint").val()
                             }
                         }
                     )
                 })()'
                 ]
-            )*/
+            )
         ],
 
         'order' => [

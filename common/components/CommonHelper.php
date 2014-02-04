@@ -2,15 +2,15 @@
 
 class CommonHelper {
 
-    public static function getDataProvider($modelClass, $pageSize = 10, $filter = [], $order = [], $textSearch = []) {
+    public static function getDataProvider($data = null,$modelClass) {
         $condition = $params = [];
 
         // фильтр по тексту
-        if (!empty($textSearch['value']) && !empty($textSearch['columns'])) {
+        if (!empty($data['text_search']['value']) && !empty($data['text_search']['columns'])) {
             $columnConditions = [];
 
-            if(is_array($textSearch['columns']))
-                foreach($textSearch['columns'] as $column) {
+            if(is_array($data['text_search']['columns']))
+                foreach($data['text_search']['columns'] as $column) {
                     $columnConditions[] = '[['.$column.']] LIKE :text_search';
                 }
             
@@ -19,39 +19,30 @@ class CommonHelper {
                 $columnConditions
             ) . ')';
 
-            $params[':text_search'] = '%' . $textSearch['value'] . '%';
+            $params[':text_search'] = '%' . $data['text_search']['value'] . '%';
         }
 
-        if ($filter) {
-            foreach($filter as $fieldName => $fieldValue) {
-                $condition[] = '[['.$fieldName.']]=:'.$fieldName;
-                $params[':'.$fieldName] = $fieldValue;
+        if(!empty($data['filters'])) {
+            foreach($data['filters'] as $fieldName => $fieldValue) {
+                if($fieldValue !== null) {
+                    $condition[] = '[['.$fieldName.']]=:'.$fieldName;
+                    $params[':'.$fieldName] = $fieldValue;
+                }
             }
         }
-        /*if (!empty($data['filter_status'])) {
-            $condition[] = '[[retail_orders_statuses_id]]=:status';
-            $params[':status'] = $data['filter_status'];
-        }
-
-        if (!empty($data['filter_deliverypoint'])) {
-            $condition[] = '[[delivery_points_id]]=:delivery_point';
-            $params[':delivery_point'] = $data['filter_deliverypoint'];
-        }*/
-
 
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
-            //'order' => $orderField . ($orderDirection ? : ''),
         ];
 
         // поле и направление сортировки
-        if (!empty($order['field']) && !empty($order['direction'])) {
+        if (!empty($data['order']['field']) && !empty($data['order']['direction'])) {
             $orderDirection = null;
-            $orderField = '[[' . (!empty($order['field']) ? $order['field'] : 'id') . ']]';
+            $orderField = '[[' . (!empty($data['order']['field']) ? $data['order']['field'] : 'id') . ']]';
 
-            if (isset($order['direction'])) {
-                switch ($order['direction']) {
+            if (isset($data['order']['direction'])) {
+                switch ($data['order']['direction']) {
                     case 'up':
                         $orderDirection = ' ASC';
                         break;
@@ -72,12 +63,12 @@ class CommonHelper {
             $modelClass,
             [
                 'criteria' => $criteria,
-                'pagination' => ($pageSize == 'all' ? false : ['pageSize' => $pageSize]),
+                'pagination' => ($data['page_size'] == 'all' ? false : ['pageSize' => $data['page_size']]),
             ]
         );
     }
 
-    public static function updateField($modelClass, $data = []) {
+    public static function updateField($data = [], $modelClass) {
         $field = TbArray::getValue('field', $data, false);
         $rowId = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);

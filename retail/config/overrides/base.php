@@ -10,6 +10,7 @@ return [
         'application.components.*',
         'application.controllers.*',
         'application.controllers.actions.*',
+        'common.components.*',
         'common.actions.*',
         'common.models.AR.*',
         'common.models.layers.*',

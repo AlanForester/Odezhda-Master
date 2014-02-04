@@ -14,6 +14,7 @@ return [
         'application.models.*',
         'application.helpers.*',
 
+        'common.components.*',
         'common.actions.*',
         'common.models.*',
         'common.models.legacy.*',
