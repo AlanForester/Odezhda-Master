@@ -38,6 +38,9 @@ class CatalogController extends RetailController {
 
     public function actionProduct($id=null) {
 
+
+
+
         if($id!=null){
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
@@ -61,14 +64,29 @@ class CatalogController extends RetailController {
 
     public function actionList() {
 
+        $params['offset'] = Yii::app()->request->getPost('offset');
+
+        if($params['offset']){
+            $catalogModel = new CatalogModel();
+         //   $this->list = $catalogModel->frontCatalogData();
+
+        }
+
+
+
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
 
         $catalogModel = new CatalogModel();
         $filter=[];
-        $this->list = $catalogModel->frontCatalogData();
+        $this->list = $catalogModel->frontCatalogList($params['offset']);
 
-        $this->render("/site/catalog");
+        if(!empty($params['offset'])){
+            $this->renderPartial("/site/catalog_ajax");
+        }
+        else{
+            $this->render("/site/catalog");
+        }
     }
 
     public function actionError() {

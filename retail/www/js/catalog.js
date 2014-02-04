@@ -78,9 +78,9 @@ RetailCatalog.loadData =function (){
 
         $(".any-goods").click(function(){
 
-            $.post( "/catalog/ajaxload/", { offset: (offset+6)}).done(function(data) {
+            $.post( "/catalog/list/", { 'offset': (offset+6)}).done(function(data) {
                   $( ".catalog-goods" ).append(data);
-                  console.log('works');
+                  offset=offset+6;
                 });
         });
 

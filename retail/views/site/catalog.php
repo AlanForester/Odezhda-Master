@@ -250,7 +250,7 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 <div class="catalog-goods">
 
-    <?php foreach($this->list['new_model'] as $product){ ?>
+    <?php foreach($this->list as $product){ ?>
     <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
         <a href="#"><?php echo $product['name'].' '.$product['model']?></a>

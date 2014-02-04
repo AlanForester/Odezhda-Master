@@ -203,11 +203,28 @@ class CatalogModel extends CFormModel {
             $result['categories_id']=[];
         }
 
-//            echo '<pre>';
-//            print_r($result);
-//           exit;
         return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public function save($data) {
         return CatalogLayer::save($data);
