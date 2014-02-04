@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/retailorders/add"),
-    BackendPageButtons::remove("/retailorders/delete"),
-    BackendPageButtons::mass("/retailorders/mass")
+    BackendPageButtons::add("/retail_orders/add"),
+    BackendPageButtons::remove("/retail_orders/delete"),
+    BackendPageButtons::mass("/retail_orders/mass")
 ];
 
 // таблица
@@ -74,6 +74,13 @@ $this->widget(
 
         'gridColumns' => [
             [
+                'name' => 'id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
+            [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'customers_name',
@@ -84,7 +91,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             [
@@ -98,7 +105,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             /*[
@@ -112,7 +119,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],*/
             [
@@ -126,7 +133,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             [
@@ -140,7 +147,7 @@ $this->widget(
                     'type' => 'select',
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                     'source' => $statuses,
                 ]
             ],
@@ -155,7 +162,7 @@ $this->widget(
                     'type' => 'select',
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                     'source' => $deliveryPoints,
                 ]
             ],*/
@@ -169,8 +176,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/retailorders/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/retailorders/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/retail_orders/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/retail_orders/delete", array("id"=>$data["id"]))',
         ]
     ]
 );

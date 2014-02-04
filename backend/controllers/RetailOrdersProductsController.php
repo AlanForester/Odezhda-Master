@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Class ProductsController
+ * Class RetailOrdersProductsController
  */
-class ProductsController extends BackendController {
+class RetailOrdersProductsController extends BackendController {
 
     public $gridDataProvider;
 
-    public $pageTitle = 'Продукты: список';
+    public $pageTitle = 'Продукты в заказе: список';
     public $pageButton = [];
     public $model;
 
@@ -27,7 +27,7 @@ class ProductsController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        $this->model = new ProductsLayer('update');
+        $this->model = new RetailOrdersProductsLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
 

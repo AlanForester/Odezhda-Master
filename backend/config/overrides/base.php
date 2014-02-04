@@ -36,7 +36,8 @@ return [
         'groups' => 'GroupsController',
         'categories' => 'ShopCategoriesController',
         'info_pages' => 'InfoPagesController',
-        //'retail_orders' => 'RetailOrdersController',
+        'retail_orders' => 'RetailOrdersController',
+        'retail_orders_products' => 'RetailOrdersProductsController',
 
     ],
     'components' => [

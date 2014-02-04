@@ -78,14 +78,14 @@ class RetailOrdersController extends BackendController {
             $sellers[$seller['id']] = $seller['ur'];
         }
 
-        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
-            $paymentMethods[$method['id']] = $method['name'];
-        }
-
         foreach (CurrenciesLayer::model()->findAll() as $currency) {
             $currencies[$currency['id']] = $currency['name'];
         }*/
-        $paymentMethods['aaa'] = 'aaa';
+
+        foreach (/*PaymentMethodsLayer::model()->findAll()*/ [['id'=>1,'name'=>1]] as $method) {
+            $paymentMethods[$method['id']] = $method['name'];
+        }
+
         $model = new RetailOrdersLayer($scenario);
         if (!$item = $model->getRetailOrder($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');

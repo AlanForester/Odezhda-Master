@@ -53,11 +53,11 @@ class BackendSubMenu {
             [
                 [
                     'label' => 'Информация о заказе',
-                    'url' => ['/retailorders/edit/'.$id]
+                    'url' => ['/retail_orders/edit/'.$id]
                 ],
                 [
                     'label' => 'Продукты в заказе',
-                    'url' => ['/products/order/'.$id]
+                    'url' => ['/retail_orders_products/order/'.$id]
                 ],
             ];
     }
