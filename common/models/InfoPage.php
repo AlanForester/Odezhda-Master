@@ -15,6 +15,39 @@
  */
 class InfoPage extends LegacyActiveRecord {
 
+    public $primaryKey = 'pages_id';
+
+    public function __get($name) {
+
+        foreach ($this->relations() as $relName => $relData){
+            if(!$this->hasRelated($relName))
+                continue;
+
+            $relation = $this->getRelated($relName);
+            if (isset($relation->{$name})){
+                return $relation->{$name};
+//                return $relName.'.'.$rel->getFieldMapName($field,false);
+            }
+        }
+
+        return parent::__get($this->getFieldMapName($name, false));
+    }
+
+    public function __isset($name) {
+
+        foreach ($this->relations() as $relName => $relData){
+            if(!$this->hasRelated($relName))
+                continue;
+
+            $relation = $this->getRelated($relName);
+            if (isset($relation->{$name})){
+                return true;
+            }
+        }
+
+        return parent::__isset($this->getFieldMapName($name, false));
+    }
+
     public function tableName() {
         return 'pages';
     }
@@ -39,11 +72,20 @@ class InfoPage extends LegacyActiveRecord {
      * @return array
      */
     public function getRules() {
-        return [
+        $result = [];
+        foreach ($this->relations() as $relName => $relData){
+            if(!$this->hasRelated($relName))
+                continue;
+
+            $result = array_merge($result,$this->getRelated($relName)->getRules());
+
+        }
+
+        return array_merge($result,[
             ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
             ['status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
             ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
-        ];
+        ]);
     }
 
     /**
@@ -51,14 +93,22 @@ class InfoPage extends LegacyActiveRecord {
      * @return array
      */
     public function attributeLabels() {
-        return [
+        $result = [];
+        foreach ($this->relations() as $relName => $relData){
+            if(!$this->hasRelated($relName))
+                continue;
+
+            $result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+        }
+
+        return array_merge($result,[
             'id' => Yii::t('labels', 'ID'),
             'sort_order' => Yii::t('labels', 'Порядок сортирвки'),
             'status' => Yii::t('labels', 'Статус'),
             'modified' => Yii::t('labels', 'Изменена'),
             'added' => Yii::t('labels', 'Создана'),
             'image' => Yii::t('labels', 'Изображение'),
-        ];
+        ]);
     }
 
     public function relations() {

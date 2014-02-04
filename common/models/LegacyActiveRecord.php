@@ -2,6 +2,9 @@
 
 abstract class LegacyActiveRecord extends CActiveRecord {
 
+    // todo: временно не используется
+    public $withRealation = false;
+
     public function __get($name) {
         return parent::__get($this->getFieldMapName($name, false));
     }
@@ -142,14 +145,14 @@ abstract class LegacyActiveRecord extends CActiveRecord {
     }
 
     public function findByAttributes($attributes, $condition = '', $params = []) {
-        foreach ($attributes as $key=>$val){
+        foreach ($attributes as $key => $val) {
             $tmp = $this->getFieldMapName($key, false);
             if ($tmp != $key) {
                 $attributes[$tmp] = $val;
                 unset($attributes[$key]);
             }
         }
-        return parent::findByAttributes($this->getFieldMapQuery($attributes),$condition,$params);
+        return parent::findByAttributes($this->getFieldMapQuery($attributes), $condition, $params);
 //        Yii::trace(get_class($this) . '.findByAttributes()', 'system.db.ar.CActiveRecord');
 //        $prefix = $this->getTableAlias(true) . '.';
 //        $criteria = $this->getCommandBuilder()->createColumnCriteria($this->getTableSchema(), $attributes, $condition, $params, $prefix);

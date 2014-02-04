@@ -14,6 +14,8 @@
  */
 class InfoPageDescription extends LegacyActiveRecord {
 
+    public $primaryKey = 'pages_id';
+
     public function tableName() {
         return 'pages_description';
     }
@@ -44,11 +46,11 @@ class InfoPageDescription extends LegacyActiveRecord {
         ];
     }
 
-    public function relations() {
-        return [
-            'page_description' => [self::HAS_ONE, 'InfoPageDescription', 'pages_id'],
-        ];
-    }
+//    public function relations() {
+//        return [
+//            'description' => [self::HAS_ONE, 'InfoPage', 'pages_id'],
+//        ];
+//    }
 
     /**
      * Заголовки полей (поле=>заголовок)
@@ -58,9 +60,9 @@ class InfoPageDescription extends LegacyActiveRecord {
         return [
             'id' => Yii::t('labels', 'ID'),
             'language_id' => Yii::t('labels', 'Язык'),
-            'pages_name' => Yii::t('labels', 'Название'),
-            'pages_description' => Yii::t('labels', 'Описание'),
-            'pages_viewed' => Yii::t('labels', 'Количество просмотров'),
+            'name' => Yii::t('labels', 'Название'),
+            'description' => Yii::t('labels', 'Описание'),
+            'viewed' => Yii::t('labels', 'Количество просмотров'),
         ];
     }
 

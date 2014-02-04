@@ -21,8 +21,9 @@ class InfoPagesController extends BackendController {
         ];
 
         // получение данных
-        //$this->model = new InfoPagesModel();
-//        $gridDataProvider = $this->model->getDataProvider($criteria); //UsersLayer::getActiveProvider();
+        $this->model = new InfoPagesModel();
+        $gridDataProvider = $this->model->getDataProvider($criteria); //UsersLayer::getActiveProvider();
+//        print_r($gridDataProvider);exit;
 
         $this->render('index', compact('page_size', 'criteria', 'gridDataProvider'));
     }
