@@ -1,115 +1,55 @@
 <?php
 
-class RetailOrdersHelper {
+class RetailOrdersHelper extends CommonHelper {
 
     public static function getDataProvider($data = null) {
-        $condition = [];
-        $params = [];
 
-        // фильтр по тексту
-        if (!empty($data['text_search'])) {
-            $condition[] = '(' . join(
-                ' OR ',
-                [
-                    '[[customers_name]] LIKE :text',
-                    /*'[[customers_company]] LIKE :text',
-                    '[[customers_street_address]] LIKE :text',
-                    '[[customers_suburb]] LIKE :text',*/
-                    '[[customers_city]] LIKE :text',
-                    /*'[[customers_postcode]] LIKE :text',
-                    '[[customers_state]] LIKE :text',
-                    '[[customers_country]] LIKE :text',*/
-                    '[[customers_telephone]] LIKE :text',
-                    /*'[[customers_email_address]] LIKE :text',
-                    '[[delivery_name]] LIKE :text',
-                    '[[delivery_middlename]] LIKE :text',
-                    '[[delivery_lastname]] LIKE :text',
-                    '[[delivery_company]] LIKE :text',
-                    '[[delivery_street_address]] LIKE :text',
-                    '[[delivery_suburb]] LIKE :text',
-                    '[[delivery_city]] LIKE :text',
-                    '[[delivery_postcode]] LIKE :text',
-                    '[[delivery_state]] LIKE :text',
-                    '[[delivery_country]] LIKE :text',
-                    '[[billing_name]] LIKE :text',
-                    '[[billing_company]] LIKE :text',
-                    '[[billing_street_address]] LIKE :text',
-                    '[[billing_suburb]] LIKE :text',
-                    '[[billing_city]] LIKE :text',
-                    '[[billing_postcode]] LIKE :text',
-                    '[[billing_state]] LIKE :text',
-                    '[[billing_country]] LIKE :text',
-                    '[[payment_method]] LIKE :text',
-                    '[[payment_info]] LIKE :text',
-                    '[[customers_fax]] LIKE :text'*/
-                ]
-            ) . ')';
-
-            $params[':text'] = '%' . $data['text_search'] . '%';
-        }
-
-        if (!empty($data['filter_status'])) {
-            $condition[] = '[[retail_orders_statuses_id]]=:status';
-            $params[':status'] = $data['filter_status'];
-        }
-
-        if (!empty($data['filter_deliverypoint'])) {
-            $condition[] = '[[delivery_points_id]]=:delivery_point';
-            $params[':delivery_point'] = $data['filter_deliverypoint'];
-        }
-
-        // поле и направление сортировки
-        $order_direct = null;
-        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'id') . ']]';
-
-        if (isset($data['order_direct'])) {
-            switch ($data['order_direct']) {
-                case 'up':
-                    $order_direct = ' ASC';
-                    break;
-                case 'down':
-                    $order_direct = ' DESC';
-                    break;
-            }
-        }
-
-        //$page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
-
-        $criteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
-            'order' => $order_field . ($order_direct ? : ''),
-        ];
-
-        // разрешаем перезаписать любые параметры критерии
-        /*if (isset($data['criteria'])) {
-            $criteria = array_merge($criteria, $data['criteria']);
-        }*/
-
-        return new CActiveDataProvider(
+        return parent::getDataProvider(
             'RetailOrdersLayer',
+            $data['page_size'],
+            $data['filter'],
+            $data['order'],
             [
-                'criteria' => $criteria,
-                'pagination' => ($data['page_size'] == 'all' ? false : ['pageSize' => $data['page_size']]),
+                'value' => $data['text_search'],
+                'columns' => [
+                    'customers_name',
+                    /*'customers_company',
+                    'customers_street_address',
+                    'customers_suburb',*/
+                    'customers_city',
+                    /*'customers_postcode',
+                    'customers_state',
+                    'customers_country',*/
+                    'customers_telephone',
+                    /*'customers_email_address',
+                    'delivery_name',
+                    'delivery_middlename',
+                    'delivery_lastname',
+                    'delivery_company',
+                    'delivery_street_address',
+                    'delivery_suburb',
+                    'delivery_city',
+                    'delivery_postcode',
+                    'delivery_state',
+                    'delivery_country',
+                    'billing_name',
+                    'billing_company',
+                    'billing_street_address',
+                    'billing_suburb',
+                    'billing_city',
+                    'billing_postcode',
+                    'billing_state',
+                    'billing_country',
+                    'payment_method',
+                    'payment_info',
+                    'customers_fax'*/
+                ]
             ]
         );
     }
 
     public static function updateField($data = []) {
-        $field = TbArray::getValue('field', $data, false);
-        $rowId = TbArray::getValue('id', $data, false);
-        $value = TbArray::getValue('value', $data, false);
-
-        if ($rowId && $field && $value) {
-            if (!$retailOrders = RetailOrdersLayer::model()->findByPk($rowId)) {
-                return false;
-            }
-            $retailOrders->{$field} = $value;
-
-            return $retailOrders->save(true, [$field]);
-        }
-
-        return false;
+        return parent::updateField('RetailOrdersLayer', $data);
     }
 
     public static function getRetailOrder($id = null, $scenario = null) {

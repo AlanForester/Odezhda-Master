@@ -15,8 +15,9 @@ class RetailOrdersController extends BackendController {
 
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
-            'filter_status' => $this->userStateParam('filter_status'),
-            'filter_deliverypoint' => $this->userStateParam('filter_deliverypoint'),
+            'filter' => $this->userStateParam('filter'),
+            //'filter_status' => $this->userStateParam('filter_status'),
+            //'filter_deliverypoint' => $this->userStateParam('filter_deliverypoint'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
@@ -116,5 +117,32 @@ class RetailOrdersController extends BackendController {
         }
 
         $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
+    }
+
+    public function actionDelete($id) {
+        $model = new RetailOrdersLayer();
+
+        if (!$model->delete($id)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Заказ удален'
+            );
+        }
+    }
+
+    public function actionMass() {
+        $mass_action = Yii::app()->request->getParam('mass_action');
+        $ids = array_unique(Yii::app()->request->getParam('ids'));
+        switch ($mass_action) {
+            case 'delete':
+                foreach ($ids as $id) {
+                    $this->actionDelete($id);
+                }
+                break;
+        }
+
+        $this->actionIndex();
     }
 }
