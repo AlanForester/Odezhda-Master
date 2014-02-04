@@ -3,7 +3,7 @@
 /**
  * This is the model class for table "{{categories}}".
  *
- * The followings are the available columns in table '{{user}}':
+ * The followings are the available columns in table '{{categories}}':
  * @property integer $categories_id
  * @property integer $parent_id
  * @property string $categories_image
