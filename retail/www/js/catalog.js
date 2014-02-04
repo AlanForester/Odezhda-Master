@@ -1,12 +1,14 @@
 var RetailCatalog = {};
+offset=0;
 
 $(document).ready(function(){
     RetailCatalog.tooltip();
     RetailCatalog.sliders();
     RetailCatalog.accordion();
     RetailCatalog.tabs();
-    RetailCatalog.moreButton();
+//    RetailCatalog.moreButton();
     RetailCatalog.zoom();
+    RetailCatalog.loadData();
 });
 
 RetailCatalog.tooltip = function(){
@@ -66,12 +68,23 @@ RetailCatalog.tabs = function(){
     });
 };
 
-RetailCatalog.moreButton = function(){
-    $(".any-goods").click(function(){
-        $(".catalog-goods.more").slideToggle("slow");
-        $(this).toggleClass("active");
-    });
-};
+    //RetailCatalog.moreButton = function(){
+    //    $(".any-goods").click(function(){
+    //        $(".catalog-goods.more").slideToggle("slow");
+    //        $(this).toggleClass("active");
+    //    });
+    //};
+RetailCatalog.loadData =function (){
+
+        $(".any-goods").click(function(){
+
+            $.post( "/catalog/ajaxload/", { offset: (offset+6)}).done(function(data) {
+                  $( ".catalog-goods" ).append(data);
+                  console.log('works');
+                });
+        });
+
+}
 
 RetailCatalog.zoom = function(){
     $('.jqzoom').jqzoom({
@@ -80,4 +93,6 @@ RetailCatalog.zoom = function(){
         preloadImages: false,
         alwaysOn:false
     });
+
+
 };
