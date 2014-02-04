@@ -80,6 +80,9 @@ RetailCatalog.loadData =function (){
 
             $.post( location.pathname, { 'offset': (offset+6)}).done(function(data) {
                   $( ".catalog-goods" ).append(data);
+                    if(!data){
+                        $('.any-goods').remove();
+                    }
                   offset=offset+6;
                 });
         });

@@ -118,6 +118,6 @@ class RetailOrdersHelper {
     }
 
     public static function getModel() {
-        return RetailOrdersLayer::model();
+        return RetailOrders::model();
     }
 }
