@@ -71,12 +71,12 @@ class CatalogController extends BackendController {
        $categories_model = new ShopCategoriesModel();
        $this->categories[''] = '- По категории -';
 
-        $this->categories[''] = $categories_model->getClearCategoriesList();
+//        $this->categories[''] = $categories_model->getClearCategoriesList();
 
 
-//       foreach ($categories_model->getCategoriesList() as $g) {
-//           $this->categories[$g['id']] = $g['name'];
-//       }
+       foreach ($categories_model->getCategoriesList() as $g) {
+           $this->categories[$g['id']] = $g['name'];
+       }
 
         $this->render('index', ['page_size' => $page_size, 'criteria' => $criteria]);
     }
