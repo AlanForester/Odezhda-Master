@@ -54,6 +54,7 @@ class ShopCategoriesModel {
         }
         return $this->list;
     }
+    
     public function getList($parent_ids,$data=null) {
         if (!$this->allCategories) {
             // todo: переместить все в прослойку

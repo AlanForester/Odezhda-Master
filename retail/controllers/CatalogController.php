@@ -61,6 +61,8 @@ class CatalogController extends RetailController {
 
     public function actionList() {
 
+        $categoriesModel = new ShopCategoriesModel();
+        $this->categories = $categoriesModel->getClearCategoriesList();
 
         $catalogModel = new CatalogModel();
         $filter=[];

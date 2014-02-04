@@ -12,54 +12,80 @@ Yii::app()->clientScript->registerPackage('catalog');
 <div class="left-option">
     <div class="accord-item">
         <div id="accordion">
-            <h3>Одежда</h3>
-            <div>
-                <ul>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </ul>
-            </div>
 
-            <h3>Обувь</h3>
 
-            <div>
-                <p>
-                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-                    suscipit faucibus urna.
-                </p>
-            </div>
-            <h3>Аксессуары</h3>
-            <div>
-                <p>
-                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-                </p>
-                <ul>
-                    <li>List item one</li>
-                    <li>List item two</li>
-                    <li>List item three</li>
-                </ul>
-            </div>
-            <h3>Белье</h3>
-            <div>
-                <p>
-                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-                    mauris vel est.
-                </p>
-            </div>
+<!--            <h3>Одежда</h3>-->
+<!--            <div>-->
+<!--                <ul>-->
+<!--                    <li><a href="#">Item 11</a></li>-->
+<!--                    <li><a href="#">Item 12</a></li>-->
+<!--                    <li><a href="#">Item 13</a></li>-->
+<!--                    <li><a href="#">Item 14</a></li>-->
+<!--                    <li><a href="#">Item 11</a></li>-->
+<!--                    <li><a href="#">Item 12</a></li>-->
+<!--                    <li><a href="#">Item 13</a></li>-->
+<!--                    <li><a href="#">Item 14</a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+            <?php foreach($this->categories as $category){ ?>
+                <h3><?php echo $category['name']; ?></h3>
+
+
+                    <div>
+                        <ul>
+                <?php if(!empty($category['children'])){ ?>
+                            <?php  foreach($category['children'] as $child){ ?>
+                                <li><a href="#"><?php echo $child['name'];?></a></li>
+
+                            <?php } ?>
+                <?php } ?>
+
+                        </ul>
+                    </div>
+
+            <?php } ?>
+
+<!--            <h3>Обувь</h3>-->
+<!---->
+<!--            <div>-->
+<!--                <p>-->
+<!--                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet-->
+<!--                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor-->
+<!--                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In-->
+<!--                    suscipit faucibus urna.-->
+<!--                </p>-->
+<!--            </div>-->
+<!---->
+<!---->
+<!--            <h3>Аксессуары</h3>-->
+<!--            <div>-->
+<!--                <p>-->
+<!--                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.-->
+<!--                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero-->
+<!--                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis-->
+<!--                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.-->
+<!--                </p>-->
+<!--                <ul>-->
+<!--                    <li>List item one</li>-->
+<!--                    <li>List item two</li>-->
+<!--                    <li>List item three</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!---->
+<!---->
+<!--            <h3>Белье</h3>-->
+<!--            <div>-->
+<!--                <p>-->
+<!--                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus-->
+<!--                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in-->
+<!--                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia-->
+<!--                    mauris vel est.-->
+<!--                </p>-->
+<!--            </div>-->
+
         </div>
+
     </div>
 
     <div class="item-options">
