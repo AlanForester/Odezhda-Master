@@ -23,10 +23,10 @@ $my_data = array(
     ),
 );
 
-//print_r($this->categories);
-ob_start();
-$this->widget('CTreeView', ['data' => f]);
-$treeView=ob_get_clean();
+////print_r($this->categories);
+//ob_start();
+//$this->widget('CTreeView', ['data' => categories_clear]);
+//$treeView=ob_get_clean();
 
 // таблица
 $this->widget(
@@ -51,7 +51,7 @@ $this->widget(
                     )
                 })()',
                 ]
-            ),$treeView
+            )/*,$treeView*/
         ],
 
         'order' => [

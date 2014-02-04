@@ -61,8 +61,10 @@ class CatalogController extends RetailController {
     }
 
 
-
-    public function actionList() {
+    /**
+     * @param int $id - category_id
+     */
+    public function actionList($id=0) {
 
         $params['offset'] = Yii::app()->request->getPost('offset');
 
@@ -79,7 +81,8 @@ class CatalogController extends RetailController {
 
         $catalogModel = new CatalogModel();
         $filter=[];
-        $this->list = $catalogModel->frontCatalogList($params['offset']);
+
+        $this->list = $catalogModel->frontCatalogList($params['offset'],$id);
 
         if(!empty($params['offset'])){
             $this->renderPartial("/site/catalog_ajax");

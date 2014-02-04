@@ -29,20 +29,21 @@ Yii::app()->clientScript->registerPackage('catalog');
 <!--            </div>-->
 
             <?php foreach($this->categories as $category){ ?>
-                <h3><?php echo $category['name']; ?></h3>
+                <?php if(!empty($category['children'])){?> <h3><?php echo $category['name']; ?></h3> <?php } ?>
 
-
+                <?php if(!empty($category['children'])){ ?>
                     <div>
                         <ul>
-                <?php if(!empty($category['children'])){ ?>
+
                             <?php  foreach($category['children'] as $child){ ?>
-                                <li><a href="#"><?php echo $child['name'];?></a></li>
+                                <li><a href="/catalog/list/<?php echo $child['id'];?>"><?php echo $child['name'];?></a></li>
 
                             <?php } ?>
-                <?php } ?>
+
 
                         </ul>
                     </div>
+                <?php } ?>
 
             <?php } ?>
 

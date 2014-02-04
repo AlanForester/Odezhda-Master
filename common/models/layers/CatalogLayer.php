@@ -90,6 +90,9 @@ class CatalogLayer {
         if(empty($data['categories_description']['condition'])){
               $criteria->limit=10;
         }
+
+
+
         $list = CatalogLegacy::model()->findall($criteria);
 
         foreach ($list as $key => $val) {
@@ -422,16 +425,22 @@ class CatalogLayer {
         // $data['main'];
         $data= array_merge(
             $data['new_model'],['with'=>
-            ['description'=>['description'],
-                'categories_description'=>['categories_description'],
-                'manufacturers']]);
+            ['description'=>'description',
+                'categories_description'=>$data['categories_description'],
+                'manufacturers'=>'manufacturers'
+            ]
+            ]);
+
 
         $criteria = new CDbCriteria($data);
-        $criteria->limit=6;
-        $criteria->offset=$offset;
-
+        //todo:limit
+//        $criteria->limit=6;
+//        $criteria->offset=$offset;
+//            print_r($criteria);
+//            exit;
 
         $list = CatalogLegacy::model()->findall($criteria);
+
 
         foreach ($list as $key => $val) {
             $result[$key] = self::fieldMapConvert($val->attributes);
@@ -452,9 +461,7 @@ class CatalogLayer {
                 }
             }
         }
-
         return $result;
-
     }
 
 
