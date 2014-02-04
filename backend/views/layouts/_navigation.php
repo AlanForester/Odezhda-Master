@@ -64,8 +64,7 @@ $this->widget(
                             ],
                             [
                                 'label' => 'Информационные страницы',
-                                'url' => ['/articles/index'],
-                                'disabled'=>true
+                                'url' => ['/info_pages/index'],
                             ],
                             [
                                 'label' => 'Новости',

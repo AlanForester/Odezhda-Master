@@ -34,6 +34,7 @@ return [
         'users' => 'UsersController',
         'groups' => 'GroupsController',
         'categories' => 'ShopCategoriesController',
+        'info_pages' => 'InfoPagesController',
         //'retail_orders' => 'RetailOrdersController',
 
     ],

@@ -41,16 +41,19 @@ class CatalogLegacy extends CActiveRecord
 //            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'CatalogToCategoriesLegacy')
 //        );
         return array(
-            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id'),
-            'manufacturers'=>array(self::BELONGS_TO, 'ManufacturersInfoLegacy', 'manufacturers_id'),
+            'description'=>array(self::HAS_ONE, 'CatalogDescriptionLegacy', 'products_id','together'=>true),
+            'manufacturers'=>array(self::BELONGS_TO, 'ManufacturersInfoLegacy', 'manufacturers_id','together'=>true),
 
             //связь с производителями  many to many (но выбирается только один производитель)
 //            'catalog_to_manufacturers'=>array(self::HAS_MANY, 'CatalogToManufacturersLegacy', 'products_id'),
 //            'manufacturers'=>array(self::HAS_MANY, 'ManufacturersInfoLegacy', 'manufacturers_id', 'categories_id', 'through' => 'category_to_catalog'),
 
             //связь с категориями many to many
-            'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id'),
-            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog')
+            'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id','together'=>true),
+            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog','together'=>true),
+            //связь с категориями many to many
+            'catalog_attributes' => array(self::HAS_MANY, 'CatalogAtributesLegacy', 'products_id','together'=>true),
+           // 'catalog_options_values' => array(self::HAS_ONE, 'CatalogOptionsLegacy', 'products_options_values_id', 'through' => 'catalog_attributes')
         );
     }
 
