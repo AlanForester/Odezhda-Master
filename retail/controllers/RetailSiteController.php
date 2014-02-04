@@ -28,7 +28,7 @@ class RetailSiteController extends RetailController {
     public function actionIndex() {
 
         $catalogModel =new CatalogModel();
-       $this->catalogData= $catalogModel->frontCatalogData();
+        $this->catalogData= $catalogModel->frontCatalogData();
 
         $this->render("/site/index");
     }
