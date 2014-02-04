@@ -50,8 +50,8 @@ class InfoPagesHelper {
             $condition[] = '(' . join(
                     ' OR ',
                     [
-                        'page_description.[[name]] LIKE :text',
-                        'page_description.[[id]] LIKE :text',
+                        '[[name]] LIKE :text',
+                        '[[id]] LIKE :text',
                     ]
                 ) . ')';
 
@@ -60,7 +60,7 @@ class InfoPagesHelper {
 
         // поле и направление сортировки
         $order_direct = null;
-        $order_field = 'page_description.[[' . (!empty($data['order_field']) ? $data['order_field'] : 'id') . ']]';
+        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
@@ -113,6 +113,52 @@ class InfoPagesHelper {
             }, explode(',', $r[0])));
         }
         return $rules;
+    }
+
+    /**
+     * Обновление значения параметра пользователя
+     * @param array $data массив данных для изменяемому полю бд. ключи: pk - первичные ключи(в том числе и связанных таблиц),field - название изменяемого поля,
+     * value - новое значение поля
+     * @return bool
+     */
+    public static function updateField($data) {
+        // реальное имя поля
+        $field = TbArray::getValue('field', $data, false); //self::getFieldName($data['field'], false);
+        $pk = (TbArray::getValue('pk', $data, false)); //(!empty($data['id']) ? $data['id'] : false);
+        if ($pk){
+            $id=$pk[InfoPage::model()->getFieldMapName('id',false)];
+        }
+        $value = TbArray::getValue('value', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
+        // все все данные верны, сохраняем
+        if ($id && $field && $value) {
+            if (!$page = self::getPage($id)) {
+                return false;
+            }
+            $dataToSave=[
+                $field=>$value,
+                InfoPage::model()->getFieldMapName('modified',false)=>new CDbExpression('NOW()')
+            ];
+            $page->setAttributes($dataToSave,false);
+            return $page->withRelated->save(true, ['page_description']);
+        }
+
+        return false;
+    }
+
+    /**
+     * Удаление информационной страницы по id
+     * (удаляет основную и все связанные таблицы(afterDelete))
+     * @param $id - id информационной страницы
+     * @return bool успешность удаления
+     */
+    public static function delete($id) {
+
+        $page = self::getPage($id);
+        if ($page) {
+            return $page->delete();
+        }
+
+        return false;
     }
 
 }

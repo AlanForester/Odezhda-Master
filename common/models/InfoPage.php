@@ -15,18 +15,19 @@
  */
 class InfoPage extends LegacyActiveRecord {
 
-    public $primaryKey = 'pages_id';
+//    public $primaryKey = 'id';
 
     public function __get($name) {
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+                if(!$this->hasRelated($relName))
+                    continue;
 
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $relation = $this->getRelated($relName);
-            if (isset($relation->{$name})){
-                return $relation->{$name};
-//                return $relName.'.'.$rel->getFieldMapName($field,false);
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})){
+                    return $relation->{$name};
+                }
             }
         }
 
@@ -34,18 +35,64 @@ class InfoPage extends LegacyActiveRecord {
     }
 
     public function __isset($name) {
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+                if(!$this->hasRelated($relName))
+                    continue;
 
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $relation = $this->getRelated($relName);
-            if (isset($relation->{$name})){
-                return true;
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})){
+                    return true;
+                }
             }
         }
 
         return parent::__isset($this->getFieldMapName($name, false));
+    }
+
+    /**
+     * Замена имени поля в подстроке по маске "[[new]]" => "old"
+     * @param mixed $data исходные данные. может быть массивом, обьектом или строкой
+     * @return mixed
+     */
+    public function getFieldMapQuery($data) {
+        switch (gettype($data)) {
+            case 'array':
+            case 'object':
+                foreach ($data as &$d) {
+                    $d = $this->getFieldMapQuery($d);
+                }
+                break;
+
+            case 'string':
+                $data = preg_replace_callback(
+                    '/(\[\[(.*)\]\])/isU',
+                    function ($m) {
+                        //todo забито гвоздями - переделать
+                        //сделано для предотвращения конфликта одинаковых полей id в связанных таблицах
+                        $alias='';
+                        if($m[2]=='id'){
+                            $alias='t.';
+                        }
+
+                        $relations=$this->relations();
+                        if(!empty($relations)){
+                            foreach ($relations as $relName => $relData){
+                                $relClass=$relData[1];
+                                $result = $relClass::model()->getFieldMapName($m[2], false);
+                                if ($result!=$m[2]){
+                                    return $alias.$result;
+                                }
+                            }
+                        }
+                        return $alias.$this->getFieldMapName($m[2], false);
+                    },
+                    $data
+                );
+                break;
+        }
+        return $data;
     }
 
     public function tableName() {
@@ -73,14 +120,16 @@ class InfoPage extends LegacyActiveRecord {
      */
     public function getRules() {
         $result = [];
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $result = array_merge($result,$this->getRelated($relName)->getRules());
-
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+//                if(!$this->hasRelated($relName))
+//                    continue;
+                $relClass=$relData[1];
+//                $result = array_merge($result,$this->getRelated($relName)->getRules());
+                $result = array_merge($result,$relClass::model()->getRules());
+            }
         }
-
         return array_merge($result,[
             ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
             ['status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
@@ -94,11 +143,16 @@ class InfoPage extends LegacyActiveRecord {
      */
     public function attributeLabels() {
         $result = [];
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+//                if(!$this->hasRelated($relName))
+//                    continue;
+                $relClass=$relData[1];
 
-            $result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+                //$result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+                $result = array_merge($result,$relClass::model()->attributeLabels());
+            }
         }
 
         return array_merge($result,[
@@ -114,6 +168,47 @@ class InfoPage extends LegacyActiveRecord {
     public function relations() {
         return [
             'page_description' => [self::HAS_ONE, 'InfoPageDescription', 'pages_id'],
+        ];
+    }
+
+    /**
+     * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР
+     * @param array $values массив данных для установки
+     * @param bool $safeOnly только безопасные атрибуты
+     */
+    public function setAttributes($values, $safeOnly = true) {
+        parent::setAttributes($values, $safeOnly);
+        $relations=$this->relations();
+        if (!empty($relations)){
+            foreach($relations as $relName => $relData){
+                $this->{$relName}->setAttributes($values,$safeOnly);
+            }
+        }
+    }
+
+    /**
+     * Удаление всех связанных таблиц
+     */
+    protected function afterDelete() {
+        parent::afterDelete();
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+//                $relClass=$relData[1];
+//                $relClass::model()->deleteAll('id=:id', array(':id' => $this->id));
+                if(!$this->hasRelated($relName))
+                    continue;
+                $this->getRelated($relName)->delete();
+            }
+        }
+    }
+
+
+    public function behaviors(){
+        return [
+            'withRelated'=>array(
+                'class'=>'common.extensions.behaviors.WithRelatedBehavior',
+            ),
         ];
     }
 

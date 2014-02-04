@@ -13,10 +13,10 @@ $this->widget(
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
-                'fields' => [
-                    'name' => 'Название',
-                    'id' => 'ID',
-                ],
+
+                'name' => 'Название',
+                'id' => 'ID',
+
             ],
             'direct' => $criteria['order_direct']
         ],
