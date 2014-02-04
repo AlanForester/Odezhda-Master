@@ -37,7 +37,7 @@ class InfoPage extends LegacyActiveRecord {
     public function __isset($name) {
         $relations=$this->relations();
         if(!empty($relations)){
-            foreach ($this->relations() as $relName => $relData){
+            foreach ($relations as $relName => $relData){
                 if(!$this->hasRelated($relName))
                     continue;
 
@@ -69,7 +69,24 @@ class InfoPage extends LegacyActiveRecord {
                 $data = preg_replace_callback(
                     '/(\[\[(.*)\]\])/isU',
                     function ($m) {
-                        return $this->getFieldMapName($m[2], false);
+                        //todo забито гвоздями - переделать
+                        //сделано для предотвращения конфликта одинаковых полей id в связанных таблицах
+                        $alias='';
+                        if($m[2]=='id'){
+                            $alias='t.';
+                        }
+
+                        $relations=$this->relations();
+                        if(!empty($relations)){
+                            foreach ($relations as $relName => $relData){
+                                $relClass=$relData[1];
+                                $result = $relClass::model()->getFieldMapName($m[2], false);
+                                if ($result!=$m[2]){
+                                    return $alias.$result;
+                                }
+                            }
+                        }
+                        return $alias.$this->getFieldMapName($m[2], false);
                     },
                     $data
                 );
@@ -105,10 +122,12 @@ class InfoPage extends LegacyActiveRecord {
         $result = [];
         $relations=$this->relations();
         if(!empty($relations)){
-            foreach ($this->relations() as $relName => $relData){
-                if(!$this->hasRelated($relName))
-                    continue;
-                $result = array_merge($result,$this->getRelated($relName)->getRules());
+            foreach ($relations as $relName => $relData){
+//                if(!$this->hasRelated($relName))
+//                    continue;
+                $relClass=$relData[1];
+//                $result = array_merge($result,$this->getRelated($relName)->getRules());
+                $result = array_merge($result,$relClass::model()->getRules());
             }
         }
 
@@ -127,11 +146,13 @@ class InfoPage extends LegacyActiveRecord {
         $result = [];
         $relations=$this->relations();
         if(!empty($relations)){
-            foreach ($this->relations() as $relName => $relData){
-                if(!$this->hasRelated($relName)){
-                    continue;
-                }
-                $result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+            foreach ($relations as $relName => $relData){
+//                if(!$this->hasRelated($relName))
+//                    continue;
+                $relClass=$relData[1];
+
+                //$result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+                $result = array_merge($result,$relClass::model()->attributeLabels());
             }
         }
 

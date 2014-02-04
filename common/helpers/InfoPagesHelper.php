@@ -50,8 +50,8 @@ class InfoPagesHelper {
             $condition[] = '(' . join(
                     ' OR ',
                     [
-                        'page_description.[[name]] LIKE :text',
-                        'page_description.[[id]] LIKE :text',
+                        '[[name]] LIKE :text',
+                        '[[id]] LIKE :text',
                     ]
                 ) . ')';
 
@@ -60,7 +60,7 @@ class InfoPagesHelper {
 
         // поле и направление сортировки
         $order_direct = null;
-        $order_field = 'page_description.[[' . (!empty($data['order_field']) ? $data['order_field'] : 'id') . ']]';
+        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
