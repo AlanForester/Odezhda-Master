@@ -29,4 +29,8 @@ class InfoPagesModel extends CFormModel {
     public function updateField($params = []) {
         return InfoPagesHelper::updateField($params);
     }
+
+    public function rules() {
+        return InfoPagesHelper::rules();
+    }
 }

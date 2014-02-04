@@ -130,7 +130,6 @@ class InfoPage extends LegacyActiveRecord {
                 $result = array_merge($result,$relClass::model()->getRules());
             }
         }
-
         return array_merge($result,[
             ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
             ['status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
