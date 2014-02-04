@@ -1,5 +1,5 @@
-   <?php foreach($this->list as $product){ ?>
-    <div class="goods-var">
+<?php foreach($this->list as $product){ ?>
+   <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
         <a href="#"><?php echo $product['name'].' '.$product['model']?></a>
         <span><?php echo round($product['price']).'р'; ?></span>
