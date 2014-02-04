@@ -18,15 +18,16 @@ class InfoPage extends LegacyActiveRecord {
     public $primaryKey = 'pages_id';
 
     public function __get($name) {
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+                if(!$this->hasRelated($relName))
+                    continue;
 
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $relation = $this->getRelated($relName);
-            if (isset($relation->{$name})){
-                return $relation->{$name};
-//                return $relName.'.'.$rel->getFieldMapName($field,false);
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})){
+                    return $relation->{$name};
+                }
             }
         }
 
@@ -34,18 +35,47 @@ class InfoPage extends LegacyActiveRecord {
     }
 
     public function __isset($name) {
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($this->relations() as $relName => $relData){
+                if(!$this->hasRelated($relName))
+                    continue;
 
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $relation = $this->getRelated($relName);
-            if (isset($relation->{$name})){
-                return true;
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})){
+                    return true;
+                }
             }
         }
 
         return parent::__isset($this->getFieldMapName($name, false));
+    }
+
+    /**
+     * Замена имени поля в подстроке по маске "[[new]]" => "old"
+     * @param mixed $data исходные данные. может быть массивом, обьектом или строкой
+     * @return mixed
+     */
+    public function getFieldMapQuery($data) {
+        switch (gettype($data)) {
+            case 'array':
+            case 'object':
+                foreach ($data as &$d) {
+                    $d = $this->getFieldMapQuery($d);
+                }
+                break;
+
+            case 'string':
+                $data = preg_replace_callback(
+                    '/(\[\[(.*)\]\])/isU',
+                    function ($m) {
+                        return $this->getFieldMapName($m[2], false);
+                    },
+                    $data
+                );
+                break;
+        }
+        return $data;
     }
 
     public function tableName() {
@@ -73,12 +103,13 @@ class InfoPage extends LegacyActiveRecord {
      */
     public function getRules() {
         $result = [];
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $result = array_merge($result,$this->getRelated($relName)->getRules());
-
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($this->relations() as $relName => $relData){
+                if(!$this->hasRelated($relName))
+                    continue;
+                $result = array_merge($result,$this->getRelated($relName)->getRules());
+            }
         }
 
         return array_merge($result,[
@@ -94,11 +125,14 @@ class InfoPage extends LegacyActiveRecord {
      */
     public function attributeLabels() {
         $result = [];
-        foreach ($this->relations() as $relName => $relData){
-            if(!$this->hasRelated($relName))
-                continue;
-
-            $result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($this->relations() as $relName => $relData){
+                if(!$this->hasRelated($relName)){
+                    continue;
+                }
+                $result = array_merge($result,$this->getRelated($relName)->attributeLabels());
+            }
         }
 
         return array_merge($result,[
