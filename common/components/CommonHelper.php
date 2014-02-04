@@ -22,9 +22,10 @@ class CommonHelper {
             $params[':text_search'] = '%' . $data['text_search']['value'] . '%';
         }
 
+        //фильтры по значениям
         if(!empty($data['filters'])) {
             foreach($data['filters'] as $fieldName => $fieldValue) {
-                if($fieldValue !== null) {
+                if($fieldValue != '') {
                     $condition[] = '[['.$fieldName.']]=:'.$fieldName;
                     $params[':'.$fieldName] = $fieldValue;
                 }

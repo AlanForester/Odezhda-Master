@@ -85,7 +85,7 @@ class RetailOrdersController extends BackendController {
         foreach (CurrenciesLayer::model()->findAll() as $currency) {
             $currencies[$currency['id']] = $currency['name'];
         }*/
-
+        $paymentMethods['aaa'] = 'aaa';
         $model = new RetailOrdersLayer($scenario);
         if (!$item = $model->getRetailOrder($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
@@ -125,8 +125,8 @@ class RetailOrdersController extends BackendController {
 
     public function actionDelete($id) {
         $model = new RetailOrdersLayer();
-
-        if (!$model->delete($id)) {
+        $model->findByPk($id);
+        if (!$model->delete()) {
             $this->error();
         } else {
             Yii::app()->user->setFlash(

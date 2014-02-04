@@ -44,7 +44,7 @@ class m140130_162245_create_table_retail_orders extends CDbMigration
               `delivery_passport_serie` varchar(10) DEFAULT NULL,
               `delivery_passport_number` varchar(20) DEFAULT NULL,
               `delivery_passport_issue_organization` text,   /* кем выдан */
-              `delivery_passport_issue_date` date NOT NULL,  /* когда выдан */
+              `delivery_passport_issue_date` date DEFAULT NULL,  /* когда выдан */
               `delivery_company` varchar(255) DEFAULT NULL,
               `delivery_street_address` varchar(64) NOT NULL,
               `delivery_suburb` varchar(255) DEFAULT NULL,

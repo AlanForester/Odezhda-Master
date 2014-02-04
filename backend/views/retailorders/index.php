@@ -16,7 +16,7 @@ $this->widget(
             // фильтр по статусу
             TbHtml::dropDownList(
                 'filter_status',
-                $criteria['filters']['retail_orders_statuses_id'],
+                !empty($criteria['filters']['retail_orders_statuses_id']) ? : null,
                 array_merge([''=>'- По статусу -'],$statuses),
                 [
                     'onChange' => 'js: (function(){
@@ -33,9 +33,9 @@ $this->widget(
             ),
 
             // фильтр по точкам доставки
-            TbHtml::dropDownList(
+            /*TbHtml::dropDownList(
                 'filter_deliverypoint',
-                $criteria['filters']['delivery_points_id'],
+                !empty($criteria['filters']['delivery_points_id']) ? : null,
                 array_merge([''=>'- По точке доставки -'],$deliveryPoints),
                 [
                     'onChange' => 'js: (function(){
@@ -49,11 +49,11 @@ $this->widget(
                     )
                 })()'
                 ]
-            )
+            )*/
         ],
 
         'order' => [
-            'active' => $criteria['order_field'],
+            'active' => $criteria['order']['field'],
             'fields' => [
                 'customers_name' => 'Имя покупателя',
                 'customers_telephone' => 'Телефон покупателя',
@@ -61,9 +61,9 @@ $this->widget(
                 'customers_city' => 'Город покупателя',
                 'retail_orders_statuses_id' => 'Статус заказа',
                 //'delivery_points_id' => 'Точка доставки',
-                'date_purchased' => 'Дата покупки',
+                'date_purchased' => 'Дата создания',
             ],
-            'direct' => $criteria['order_direct']
+            'direct' => $criteria['order']['direction']
         ],
 
         'pageSize' => $criteria['page_size'],
