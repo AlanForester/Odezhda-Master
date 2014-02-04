@@ -76,6 +76,23 @@ class CatalogModel extends CFormModel {
     }
 
 
+
+    public function frontCatalogList($offset){
+
+        $data=[];
+        $data['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' ASC';
+
+
+        $list=CatalogLayer::frontCatalogList($offset,
+            ['new_model'=> [
+                'order' => $data['order_field']
+            ]]
+        );
+
+
+        return $list;
+    }
+
     public function productById($id){
 
         $list=CatalogLayer::productById($id);
