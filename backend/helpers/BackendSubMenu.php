@@ -48,4 +48,18 @@ class BackendSubMenu {
             ];
     }
 
+    public static function retailOrder($id) {
+        return
+            [
+                [
+                    'label' => 'Информация о заказе',
+                    'url' => ['/retailorders/edit/'.$id]
+                ],
+                [
+                    'label' => 'Продукты в заказе',
+                    'url' => ['/products/order/'.$id]
+                ],
+            ];
+    }
+
 }

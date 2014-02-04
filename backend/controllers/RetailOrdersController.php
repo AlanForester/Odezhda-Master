@@ -115,6 +115,6 @@ class RetailOrdersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'statuses'));
+        $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
     }
 }
