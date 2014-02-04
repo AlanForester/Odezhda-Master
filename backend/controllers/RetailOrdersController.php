@@ -22,8 +22,7 @@ class RetailOrdersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        // получение данных
-        $this->model = new RetailOrdersLayer('edit');
+        $this->model = new RetailOrdersLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
 
@@ -45,7 +44,7 @@ class RetailOrdersController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $this->model = new RetailOrdersLayer('edit');
+        $this->model = new RetailOrdersLayer('update');
         if (!$this->model->updateField($params)) {
             $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
         }
@@ -56,11 +55,31 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $statuses = [];
+        $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
+
+        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
+            $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
+        }
+
+        /*foreach (DefaultProvidersLayer::model()->findAll() as $provider) {
+            $defaultProviders[$provider['id']] = $provider['name'];
+        }
+
+        foreach (SellersLayer::model()->findAll() as $seller) {
+            $sellers[$seller['id']] = $seller['ur'];
+        }
+
+        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
+            $paymentMethods[$method['id']] = $method['name'];
+        }
+
+        foreach (CurrenciesLayer::model()->findAll() as $currency) {
+            $currencies[$currency['id']] = $currency['name'];
+        }*/
 
         $model = new RetailOrdersLayer($scenario);
         if (!$item = $model->getRetailOrder($id, $scenario)){
@@ -72,7 +91,7 @@ class RetailOrdersController extends BackendController {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
             $item->setAttributes($model->getPostData(),false);
             // записываем данные
-            $result = $model->save($model->getPostData());
+            $result = $item->save($model->getPostData());
 
             if (!$result) {
                 // ошибка записи
@@ -96,6 +115,6 @@ class RetailOrdersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'statuses'));
+        $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
     }
 }
