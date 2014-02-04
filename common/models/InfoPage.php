@@ -186,6 +186,23 @@ class InfoPage extends LegacyActiveRecord {
         }
     }
 
+    /**
+     * Удаление всех связанных таблиц
+     */
+    protected function afterDelete() {
+        parent::afterDelete();
+        $relations=$this->relations();
+        if(!empty($relations)){
+            foreach ($relations as $relName => $relData){
+//                $relClass=$relData[1];
+//                $relClass::model()->deleteAll('id=:id', array(':id' => $this->id));
+                if(!$this->hasRelated($relName))
+                    continue;
+                $this->getRelated($relName)->delete();
+            }
+        }
+    }
+
 
     public function behaviors(){
         return [

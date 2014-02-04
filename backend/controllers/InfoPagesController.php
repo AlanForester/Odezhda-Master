@@ -55,4 +55,18 @@ class InfoPagesController extends BackendController {
         }
     }
 
+    public function actionMass() {
+        $mass_action = Yii::app()->request->getParam('mass_action');
+        $ids = array_unique(Yii::app()->request->getParam('ids'));
+        switch ($mass_action) {
+            case 'delete':
+                foreach ($ids as $id) {
+                    $this->actionDelete($id);
+                }
+                break;
+        }
+
+        $this->actionIndex();
+    }
+
 }

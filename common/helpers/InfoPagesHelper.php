@@ -146,26 +146,19 @@ class InfoPagesHelper {
     }
 
     /**
-     * удаление информационной страницы по id
+     * Удаление информационной страницы по id
+     * (удаляет основную и все связанные таблицы(afterDelete))
      * @param $id - id информационной страницы
      * @return bool успешность удаления
      */
     public static function delete($id) {
-        $parent = self::getPage($id);
-//        print_r($parent);exit;
-        if (!($parent && $parent->delete())) {
-            return false;
-        } else {
-            $children = self::getPage($id);
 
-            foreach ($children as $val) {
-                $child = self::getPage($val['id']);
-                if (!($child && $child->delete())) {
-                    return false;
-                }
-            }
-            return true;
+        $page = self::getPage($id);
+        if ($page) {
+            return $page->delete();
         }
+
+        return false;
     }
 
 }
