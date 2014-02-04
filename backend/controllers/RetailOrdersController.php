@@ -22,8 +22,7 @@ class RetailOrdersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        // получение данных
-        $this->model = new RetailOrdersLayer('edit');
+        $this->model = new RetailOrdersLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
 
@@ -45,7 +44,7 @@ class RetailOrdersController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $this->model = new RetailOrdersLayer('edit');
+        $this->model = new RetailOrdersLayer('update');
         if (!$this->model->updateField($params)) {
             $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
         }

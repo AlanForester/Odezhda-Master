@@ -27,7 +27,7 @@ class RetailOrders extends LegacyActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['customers_name, customers_company, customers_city, customers_telephone', 'required', 'on' => 'edit', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['customers_name, customers_company, customers_city, customers_telephone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['orders_id, customers_id, delivery_points_id, retail_orders_statuses_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
             ['customers_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             //['address_id, delivery_address_id, billing_address_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
@@ -77,7 +77,14 @@ class RetailOrders extends LegacyActiveRecord {
             'billing_country' => Yii::t('labels', 'Страна (для оплаты)'),
             'payment_method' => Yii::t('labels', 'Метод оплаты'),
             'payment_info' => Yii::t('labels', 'Информация об оплате'),
-            'date_purchased' => Yii::t('labels', 'Дата покупки'),
+            'date_purchased' => Yii::t('labels', 'Дата создания'),
+            'currency' => Yii::t('labels', 'Валюта'),
+            'currency_value' => Yii::t('labels', 'Значение валюты'),
+            'default_provider' => Yii::t('labels', 'Поставщик'),
+            'booker_orders_id' => Yii::t('labels', 'Номер в отчет'),
+            'act_date' => Yii::t('labels', 'Дата в акт'),
+            'act_number' => Yii::t('labels', 'Номер в акт'),
+            'seller_id' => Yii::t('labels', 'Продавец'),
             'customers_fax' => Yii::t('labels', 'Факс покупателя'),
             //'orders_discont_comment' => Yii::t('labels', '?'),
         ];
