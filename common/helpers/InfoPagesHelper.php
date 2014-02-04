@@ -115,4 +115,49 @@ class InfoPagesHelper {
         return $rules;
     }
 
+    /**
+     * Обновление значения параметра пользователя
+     * @param array $data массив данных для изменяемому полю бд. ключи: pk - первичные ключи(в том числе и связанных таблиц),field - название изменяемого поля,
+     * value - новое значение поля
+     * @return bool
+     */
+    public static function updateField($data) {
+        // реальное имя поля
+        $field = TbArray::getValue('field', $data, false); //self::getFieldName($data['field'], false);
+        $pk = (TbArray::getValue('pk', $data, false)); //(!empty($data['id']) ? $data['id'] : false);
+        if ($pk){
+            $id=$pk[InfoPage::model()->getFieldMapName('id',false)];
+        }
+        $value = TbArray::getValue('value', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
+        // все все данные верны, сохраняем
+        if ($id && $field && $value) {
+            if (!$page = self::getPage($id)) {
+                return false;
+            }
+            $dataToSave=[
+                $field=>$value,
+                InfoPage::model()->getFieldMapName('modified',false)=>new CDbExpression('NOW()')
+            ];
+            $page->setAttributes($dataToSave,false);
+            return $page->withRelated->save(true, ['page_description']);
+        }
+
+        return false;
+    }
+
+//    public static function updateField($data) {
+//        // реальное имя поля
+//        $field = self::getFieldName($data['field'], false);
+//        $id = (!empty($data['id']) ? $data['id'] : false);
+//        $value = (!empty($data['newValue']) ? $data['newValue'] : false);
+//        // все данные верны, сохраняем
+//        if ($id && $field && $value) {
+//            $category = self::getCategory($id);
+//            $category->setAttributes([$field=>$value],false);
+//            return $category->withRelated->save(true, ['rel_description']);
+//        }
+//
+//        return false;
+//    }
+
 }

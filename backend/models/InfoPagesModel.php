@@ -21,4 +21,12 @@ class InfoPagesModel extends CFormModel {
     public function getPage($id, $scenario = null) {
         return InfoPagesHelper::getPage($id, $scenario);
     }
+    /**
+     * Обновление параметра пользователя
+     * @param array $params смотри описание updateField()
+     * @return bool успешно ли произошла запись
+     */
+    public function updateField($params = []) {
+        return InfoPagesHelper::updateField($params);
+    }
 }

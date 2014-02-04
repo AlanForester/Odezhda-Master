@@ -173,6 +173,30 @@ class InfoPage extends LegacyActiveRecord {
     }
 
     /**
+     * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР
+     * @param array $values массив данных для установки
+     * @param bool $safeOnly только безопасные атрибуты
+     */
+    public function setAttributes($values, $safeOnly = true) {
+        parent::setAttributes($values, $safeOnly);
+        $relations=$this->relations();
+        if (!empty($relations)){
+            foreach($relations as $relName => $relData){
+                $this->{$relName}->setAttributes($values,$safeOnly);
+            }
+        }
+    }
+
+
+    public function behaviors(){
+        return [
+            'withRelated'=>array(
+                'class'=>'common.extensions.behaviors.WithRelatedBehavior',
+            ),
+        ];
+    }
+
+    /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.
      * @param string $className
