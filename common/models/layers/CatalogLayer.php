@@ -82,7 +82,8 @@ class CatalogLayer {
             ['with'=>
                 ['description'=>$data['description'],
                 'categories_description'=>$data['categories_description'],
-                'manufacturers']]);
+                'manufacturers',
+                'catalog_attributes']]);
 
 
         $criteria = new CDbCriteria($criteria_data);
@@ -94,7 +95,8 @@ class CatalogLayer {
 
 
         $list = CatalogLegacy::model()->findall($criteria);
-
+//        print_r($list);
+//        exit;
         foreach ($list as $key => $val) {
             $result[$key] = self::fieldMapConvert($val->attributes);
             if(!empty($val->description->attributes)){
@@ -434,33 +436,32 @@ class CatalogLayer {
 
         $criteria = new CDbCriteria($data);
         //todo:limit
-//        $criteria->limit=6;
-//        $criteria->offset=$offset;
+        $criteria->limit=6;
+        $criteria->offset=$offset;
 //            print_r($criteria);
 //            exit;
-
+        $result=[];
         $list = CatalogLegacy::model()->findall($criteria);
+            foreach ($list as $key => $val) {
+                $result[$key] = self::fieldMapConvert($val->attributes);
+                if(!empty($val->description->attributes)){
+                    $result[$key]+=self::fieldMapConvert($val->description->attributes);
+                }
+                if(!empty($val->manufacturers->attributes)){
+                    $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
+                }
+                $result[$key]['categories_list']='';
+                foreach($val->categories_description as $key_up => $val_up){
 
-
-        foreach ($list as $key => $val) {
-            $result[$key] = self::fieldMapConvert($val->attributes);
-            if(!empty($val->description->attributes)){
-                $result[$key]+=self::fieldMapConvert($val->description->attributes);
-            }
-            if(!empty($val->manufacturers->attributes)){
-                $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
-            }
-            $result[$key]['categories_list']='';
-            foreach($val->categories_description as $key_up => $val_up){
-
-                if(!empty($val_up['categories_id'])){
-                    if($key_up!=0){
-                        $result[$key]['categories_list'].=', ';
+                    if(!empty($val_up['categories_id'])){
+                        if($key_up!=0){
+                            $result[$key]['categories_list'].=', ';
+                        }
+                        $result[$key]['categories_list'].=$val_up['categories_name'];
                     }
-                    $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
-        }
+
         return $result;
     }
 
@@ -477,6 +478,10 @@ class CatalogLayer {
             if(!empty($list->manufacturers->attributes)){
                 $result+=self::fieldMapConvert($list->manufacturers->attributes);
             }
+            if(empty($result['manufacturers'])){
+                 $result['manufacturers']='неизвестно';
+            }
+
             $result['categories_list']='';
             foreach($list->categories_description as $key_up => $val_up){
 

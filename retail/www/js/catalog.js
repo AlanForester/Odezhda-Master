@@ -78,7 +78,7 @@ RetailCatalog.loadData =function (){
 
         $(".any-goods").click(function(){
 
-            $.post( "/catalog/list/", { 'offset': (offset+6)}).done(function(data) {
+            $.post( location.pathname, { 'offset': (offset+6)}).done(function(data) {
                   $( ".catalog-goods" ).append(data);
                   offset=offset+6;
                 });
