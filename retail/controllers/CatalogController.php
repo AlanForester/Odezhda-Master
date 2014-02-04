@@ -9,6 +9,7 @@
 class CatalogController extends RetailController {
     public $catalogData;
     public $product;
+    public $list;
     public $categories=[];
     /**
      * Actions attached to this controller
@@ -56,9 +57,16 @@ class CatalogController extends RetailController {
         }
     }
 
-    public function actionList() {
-        $this->render("/site/catalog");
 
+
+    public function actionList() {
+
+
+        $catalogModel = new CatalogModel();
+        $filter=[];
+        $this->list = $catalogModel->frontCatalogData();
+
+        $this->render("/site/catalog");
     }
 
     public function actionError() {

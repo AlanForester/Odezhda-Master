@@ -223,11 +223,13 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 
 <div class="catalog-goods">
+
+    <?php foreach($this->list['new_model'] as $product){ ?>
     <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
+        <a href="#"><?php echo $product['name'].' '.$product['model']?></a>
+        <span><?php echo round($product['price']).'р'; ?></span>
+        <h5><?php echo round($product['old_price']).'р'; ?></h5>
         <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
         <div class="choice">
             <select>
@@ -239,86 +241,89 @@ Yii::app()->clientScript->registerPackage('catalog');
             <button class="in-basket">в корзину</button>
         </div>
     </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
+    <?php }?>
+
+
+    <!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 
 <div class="catalog-goods more">
