@@ -12,7 +12,7 @@
 
  *
  */
-class InfoPage extends LegacyActiveRecord {
+class InfoPageDescription extends LegacyActiveRecord {
 
     public function tableName() {
         return 'pages_description';

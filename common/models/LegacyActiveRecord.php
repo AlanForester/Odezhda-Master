@@ -129,7 +129,6 @@ abstract class LegacyActiveRecord extends CActiveRecord {
      */
     public function rules() {
         $rules = $this->getRules();
-
         // исправление некоторых имен полей, критичных для дальнешей работы с бд
         foreach ($rules as &$r) {
             if (isset($r[0], $r[1])) {
