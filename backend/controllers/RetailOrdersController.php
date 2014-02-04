@@ -55,11 +55,31 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $statuses = [];
+        $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
+
+        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
+            $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
+        }
+
+        /*foreach (DefaultProvidersLayer::model()->findAll() as $provider) {
+            $defaultProviders[$provider['id']] = $provider['name'];
+        }
+
+        foreach (SellersLayer::model()->findAll() as $seller) {
+            $sellers[$seller['id']] = $seller['ur'];
+        }
+
+        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
+            $paymentMethods[$method['id']] = $method['name'];
+        }
+
+        foreach (CurrenciesLayer::model()->findAll() as $currency) {
+            $currencies[$currency['id']] = $currency['name'];
+        }*/
 
         $model = new RetailOrdersLayer($scenario);
         if (!$item = $model->getRetailOrder($id, $scenario)){
