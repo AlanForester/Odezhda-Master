@@ -11,7 +11,8 @@ class InfoPagesController extends BackendController {
 
     public $pageTitle = 'Информационные страницы: список';
     public $pageButton = [];
-    public $model;
+//    public $model;
+
     public function actionIndex() {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
@@ -21,11 +22,24 @@ class InfoPagesController extends BackendController {
         ];
 
         // получение данных
-        $this->model = new InfoPagesModel();
-        $gridDataProvider = $this->model->getDataProvider($criteria); //UsersLayer::getActiveProvider();
-//        print_r($gridDataProvider);exit;
+        $model = new InfoPagesModel();
+        $gridDataProvider = $model->getDataProvider($criteria);
 
         $this->render('index', compact('page_size', 'criteria', 'gridDataProvider'));
+    }
+
+    /**
+     * Метод для редактирования одного поля пользователя
+     */
+    public function actionUpdate() {
+        $params['field'] = Yii::app()->request->getPost('name');
+        $params['pk'] = Yii::app()->request->getPost('pk');
+        $params['value'] = Yii::app()->request->getPost('value');
+
+        $model = new InfoPagesModel();
+        if (!$model->updateField($params)) {
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных пользователя'));
+        }
     }
 
 }

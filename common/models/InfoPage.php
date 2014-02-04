@@ -15,7 +15,7 @@
  */
 class InfoPage extends LegacyActiveRecord {
 
-    public $primaryKey = 'pages_id';
+//    public $primaryKey = 'id';
 
     public function __get($name) {
         $relations=$this->relations();

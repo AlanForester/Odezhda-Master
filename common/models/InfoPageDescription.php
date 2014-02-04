@@ -14,7 +14,7 @@
  */
 class InfoPageDescription extends LegacyActiveRecord {
 
-    public $primaryKey = 'pages_id';
+//    public $primaryKey = 'id';
 
     public function tableName() {
         return 'pages_description';
