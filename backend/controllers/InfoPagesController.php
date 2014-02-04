@@ -42,4 +42,17 @@ class InfoPagesController extends BackendController {
         }
     }
 
+    public function actionDelete($id) {
+
+        $model = new InfoPagesModel();
+        if (!$model->delete($id)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Пользователь удален'
+            );
+        }
+    }
+
 }

@@ -145,19 +145,27 @@ class InfoPagesHelper {
         return false;
     }
 
-//    public static function updateField($data) {
-//        // реальное имя поля
-//        $field = self::getFieldName($data['field'], false);
-//        $id = (!empty($data['id']) ? $data['id'] : false);
-//        $value = (!empty($data['newValue']) ? $data['newValue'] : false);
-//        // все данные верны, сохраняем
-//        if ($id && $field && $value) {
-//            $category = self::getCategory($id);
-//            $category->setAttributes([$field=>$value],false);
-//            return $category->withRelated->save(true, ['rel_description']);
-//        }
-//
-//        return false;
-//    }
+    /**
+     * удаление информационной страницы по id
+     * @param $id - id информационной страницы
+     * @return bool успешность удаления
+     */
+    public static function delete($id) {
+        $parent = self::getPage($id);
+//        print_r($parent);exit;
+        if (!($parent && $parent->delete())) {
+            return false;
+        } else {
+            $children = self::getPage($id);
+
+            foreach ($children as $val) {
+                $child = self::getPage($val['id']);
+                if (!($child && $child->delete())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 
 }

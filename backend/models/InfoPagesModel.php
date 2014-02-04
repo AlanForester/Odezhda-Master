@@ -30,6 +30,10 @@ class InfoPagesModel extends CFormModel {
         return InfoPagesHelper::updateField($params);
     }
 
+    public function delete($id) {
+        return InfoPagesHelper::delete($id);
+    }
+
     public function rules() {
         return InfoPagesHelper::rules();
     }
