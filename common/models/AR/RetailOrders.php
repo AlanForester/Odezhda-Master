@@ -27,7 +27,7 @@ class RetailOrders extends LegacyActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['customers_name, customers_company, customers_city, customers_telephone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['customers_name, customers_city, customers_telephone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['orders_id, customers_id, delivery_points_id, retail_orders_statuses_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
             ['customers_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             //['address_id, delivery_address_id, billing_address_id', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],

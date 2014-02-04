@@ -91,7 +91,7 @@ class RetailOrdersController extends BackendController {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
             $item->setAttributes($model->getPostData(),false);
             // записываем данные
-            $result = $model->save($model->getPostData());
+            $result = $item->save($model->getPostData());
 
             if (!$result) {
                 // ошибка записи
