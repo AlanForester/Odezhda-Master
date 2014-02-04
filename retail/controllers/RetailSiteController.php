@@ -7,7 +7,7 @@
  * @package YiiBoilerplate\Frontend
  */
 class RetailSiteController extends RetailController {
-    public $catalogModel;
+    public $catalogData;
     /**
      * Actions attached to this controller
      *
@@ -28,7 +28,7 @@ class RetailSiteController extends RetailController {
     public function actionIndex() {
 
         $catalogModel =new CatalogModel();
-        $catalogModel->frontCatalogData();
+       $this->catalogData= $catalogModel->frontCatalogData();
 
         $this->render("/site/index");
     }
