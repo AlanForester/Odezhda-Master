@@ -12,11 +12,7 @@ class RetailOrdersProductsController extends BackendController {
     public $model;
 
 
-    public function actionIndex() {
-
-    }
-
-    public function actionOrder($id) {
+    public function actionIndex($id = null) {
         $criteria = [
             'text_search' => [
                 'value' => $this->userStateParam('text_search'),
@@ -29,23 +25,26 @@ class RetailOrdersProductsController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        $criteria['filters']['retail_orders_id'] = $id;
+        $retailOrders = [];
 
+        if($id) {
+            $criteria['filters']['retail_orders_id'] = $id;
+
+        } else {
+            foreach (RetailOrdersLayer::model()->findAll() as $order) {
+                $retailOrders[$order['id'].'&'] = $order['id'] . ' (' . $order['customers_name'] . ')';
+            }
+        }
+        //var_dump($retailOrders);die();
         $this->model = new RetailOrdersProductsLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
-        //print_r($gridDataProvider);die();
-        /*$statuses = $deliveryPoints = [];
 
-        foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
-            $statuses[$status['id']] = $status['name'];
-        }
+        $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
+    }
 
-        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
-            $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
-        }*/
-
-        $this->render('order', compact('id','criteria','gridDataProvider'));
+    public function actionOrder($id) {
+        $this->actionIndex($id);
     }
 
     public function actionUpdate() {
@@ -59,18 +58,18 @@ class RetailOrdersProductsController extends BackendController {
         }
     }
 
-    public function actionAdd() {
-        $this->actionEdit(null, 'add');
+    public function actionAdd($id) {
+        $this->actionEdit(null, 'add', $id);
     }
 
-    public function actionEdit($id, $scenario = 'edit') {
+    public function actionEdit($id, $scenario = 'edit', $orderId = null) {
 
         $model = new RetailOrdersProductsLayer($scenario);
         if (!$item = $model->getRetailOrdersProduct($id, $scenario)){
             $this->error('Ошибка получения данных товара');
         }
 
-        $orderId = $item->retail_orders_id;
+        $orderId = $orderId ? : $item->retail_orders_id;
 
         $products = [];
         /*foreach (CatalogLayer::getList() as $product) {

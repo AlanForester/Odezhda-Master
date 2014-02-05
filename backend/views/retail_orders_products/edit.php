@@ -37,7 +37,7 @@ $this->pageButton = [
         <div class="span12">
             <div class="span6">
                 <fieldset>
-                    <legend>Основные параметры товара</legend>
+                    <legend>Параметры товара в заказе</legend>
                     <?php
                     echo $form->hiddenField($item, 'id', []);
                     //echo $form->dropDownListControlGroup($item, 'retail_orders_id', $retailOrders, []);

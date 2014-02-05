@@ -1,8 +1,38 @@
 <?php
-// кнопки страницы
+
+if(Yii::app()->controller->action->id == 'order') {
+    $buttonLabels = ['Добавить в заказ','Удалить из заказа'];
+    $submenu = BackendSubMenu::retailOrder($id);
+    $filter = [];
+
+} else {
+    $this->pageTitle = 'Товары в розничных заказах: список';
+    $buttonLabels = ['Добавить','Удалить'];
+    $submenu = [];
+    $filter = [
+        TbHtml::dropDownList(
+            'filter_retail_order',
+            $criteria['filters']['retail_orders_id'],
+            array_merge([''=>'- По розн. заказу -'],$retailOrders),
+            [
+                'onChange' => 'js: (function(){
+                    $.fn.yiiGridView.update(
+                        "whgrid",
+                        {
+                            data:{
+                                "filters[retail_orders_id]":$("#filter_retail_order").val()
+                            }
+                        }
+                    )
+                })()'
+            ]
+        ),
+    ];
+}
+
 $this->pageButton = [
-    BackendPageButtons::add("/retail_orders_products/add", [], 'Добавить в заказ'),
-    BackendPageButtons::remove("/retail_orders_products/delete", [], 'Удалить из заказа'),
+    BackendPageButtons::add("/retail_orders_products/add/".$id, [], $buttonLabels[0]),
+    BackendPageButtons::remove("/retail_orders_products/delete", [], $buttonLabels[1]),
     BackendPageButtons::mass("/retail_orders_products/mass")
 ];
 
@@ -10,28 +40,9 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => BackendSubMenu::retailOrder($id),
+        'submenu' => $submenu,
 
-        'filter' => [
-            // фильтр по статусу
-            /*TbHtml::dropDownList(
-                'filter_status',
-                $criteria['filters'][''],
-                array_merge([''=>'- По статусу -'],$a),
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_status:$("#filter_status").val()
-                            }
-                        }
-                    )
-                })()'
-                ]
-            ),*/
-        ],
+        'filter' => $filter,
 
         'order' => [
             'active' => $criteria['order']['field'],
