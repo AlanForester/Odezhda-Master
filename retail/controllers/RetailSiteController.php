@@ -13,17 +13,11 @@ class RetailSiteController extends RetailController {
      *
      * @return array
      */
-//    public function actions() {
-//
-//        return array(
-//            'index' => array(
-//                'class' => 'LandingPageAction'
-//            ),
-//            'error' => array(
-//                'class' => 'SimpleErrorAction'
-//            )
-//        );
-//    }
+    public function actions() {
+        return [
+            'error' => 'SimpleErrorAction',
+        ];
+    }
 
     public function actionIndex() {
 

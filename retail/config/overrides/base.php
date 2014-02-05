@@ -15,6 +15,10 @@ return [
         'common.models.AR.*',
         'common.models.layers.*',
         'common.models.legacy.*',
+
+        'common.helpers.*',
+        'common.models.*',
+
         'retail.models.*'
     ],
     'controllerMap' => [
