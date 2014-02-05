@@ -19,7 +19,8 @@ return [
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules
-        'site' => 'RetailSiteController'
+        'site' => 'RetailSiteController',
+        'info' => 'InfoPagesController'
     ],
     'components' => [
         'errorHandler' => [
