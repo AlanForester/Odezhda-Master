@@ -1,14 +1,14 @@
 <?php
 
-$this->pageTitle = 'Менеджер пользователей: ' . ($item->id ? 'редактирование [' . $item->email . ']' : 'новый пользователь');
+$this->pageTitle = 'Информационная страница: ' . ($item->id ? 'редактирование [' . $item->name . ']' : 'новый пользователь');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/users/index")
+    BackendPageButtons::cancel("/info_pages/index")
 ];
 ?>
-    <div class="span6">
+    <div class="span7">
         <?php
         /**
          * @var TbActiveForm $form
@@ -30,22 +30,19 @@ $this->pageButton = [
             <legend>Учетная запись</legend>
             <?php
             echo $form->hiddenField($item, 'id', []);
-            echo $form->dropDownListControlGroup($item, 'group_id', $groups, []);
-            echo $form->textFieldControlGroup($item, 'firstname', []);
-            echo $form->textFieldControlGroup($item, 'lastname', []);
-            echo $form->textFieldControlGroup($item, 'email', []);
-            echo $form->passwordFieldControlGroup($item, 'password', ['autocomplete' => 'off', 'value' => '']);
+            echo $form->textFieldControlGroup($item, 'name', []);
+            echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
+            echo $form->dropDownListControlGroup($item, 'language_id', $languages, []);
             ?>
 
         </fieldset>
         <input type="hidden" name="form_action" value="save">
-        <?php $this->endWidget(); ?>
     </div>
 
 <?php
 if (!empty($item->id)) {
     ?>
-    <div class="span6">
+    <div class="span5">
         <fieldset>
             <legend>Дополнительная информация</legend>
             <?php
@@ -55,8 +52,7 @@ if (!empty($item->id)) {
                     'data' => $item,
                     'attributes' => [
                         ['name' => 'id'],
-                        ['name' => 'lognum'],
-                        ['name' => 'logdate'],
+                        ['name' => 'viewed'],
                         ['name' => 'modified'],
                         ['name' => 'created'],
                     ],
@@ -64,6 +60,17 @@ if (!empty($item->id)) {
             );
             ?>
         </fieldset>
-    </div>
 <?php
 }
+?>
+
+    <fieldset>
+        <legend>Дополнительная информация</legend>
+        <?php
+        echo $form->dropDownListControlGroup($item, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Опубликовано']);
+        echo $form->textFieldControlGroup($item, 'sort_order', []);
+        ?>
+    </fieldset>
+    </div>
+<?php
+$this->endWidget();

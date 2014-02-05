@@ -120,7 +120,7 @@ class InfoPagesController extends BackendController {
 //        } else
 //            $this->error();
 
-        $this->render('edit', compact('item', 'groups'));
+        $this->render('edit', compact('item', 'languages'));
     }
 
     public function actionAdd() {
