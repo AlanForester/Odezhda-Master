@@ -12,6 +12,6 @@ class InfoPagesModel {
      * @return mixed
      */
     public function getInfoPage($id){
-        return InfoPagesHelper::getPage($id);
+        return InfoPagesHelper::getInfoPage($id);
     }
 }

@@ -205,5 +205,17 @@ class InfoPagesHelper {
         return $page;
 
     }
+    public static function getInfoPage($id){
+        $pageObj = self::getPage($id);
+
+        $pageArr = $pageObj->getFieldMapArrayKeys($pageObj->attributes,true);
+        $relations=$pageObj->relations();
+        if (!empty($relations)){
+            foreach($relations as $r_name => $r_value){
+                $pageArr=array_merge($pageArr,$pageObj->$r_name->getFieldMapArrayKeys($pageObj->$r_name->attributes,true));
+            }
+        }
+        return $pageArr;
+    }
 
 }

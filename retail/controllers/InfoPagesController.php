@@ -18,7 +18,6 @@ class InfoPagesController extends RetailController {
             $pageModel =new InfoPagesModel();
             //обьект информационной страницы
             $infoPage = $pageModel->getInfoPage($id);
-//            print_r($infoPage);exit;
             $this->render("/site/info", compact('infoPage'));
         } else {
 
