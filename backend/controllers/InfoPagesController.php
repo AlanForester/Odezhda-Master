@@ -69,4 +69,62 @@ class InfoPagesController extends BackendController {
         $this->actionIndex();
     }
 
+    public function actionEdit($id, $scenario = 'edit') {
+        $groups_model = new GroupsModel();
+        $groups = [];
+        foreach ($groups_model->getList() as $g) {
+            $groups[$g['id']] = $g['name'];
+        }
+
+        $model = new UsersModel($scenario);
+        if (!$item = $model->getUser($id, $scenario)){
+            $this->error('Ошибка получения данных пользователя');
+        }
+
+        $form_action = Yii::app()->request->getPost('form_action');
+        if (!empty($form_action)) {
+            // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
+            $item->setAttributes($model->getPostData(),false);
+//            $model->setAttributes($_POST['UsersModel'], false);
+            // записываем данные
+            $result = $model->save($model->getPostData());
+
+            if (!$result) {
+                // ошибка записи
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                );
+                //$this->redirect(Yii::app()->request->urlReferrer);
+//                $this->render('edit', compact('item', 'groups'));
+//                return;
+            } else {
+                // выкидываем сообщение
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_INFO,
+                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                );
+                if ($form_action == 'save') {
+                    $this->redirect(['index']);
+                    return;
+                } else {
+                    $this->redirect(['edit', 'id' => $result['id']]);
+                    return;
+                }
+            }
+        }
+
+//        $user = $model->getUserData($id, $scenario);
+//        if ($user) {
+//            $model->setAttributes($user, false);
+//        } else
+//            $this->error();
+
+        $this->render('edit', compact('item', 'groups'));
+    }
+
+    public function actionAdd() {
+        $this->actionEdit(null, 'add');
+    }
+
 }
