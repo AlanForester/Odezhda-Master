@@ -58,6 +58,24 @@ abstract class LegacyActiveRecord extends CActiveRecord {
     }
 
     /**
+     * Конвертировать массив, в котором ключи необходимо перевернуть
+     * @see getFieldMapName
+     * @param $fields массив полей
+     * @param bool $direct направление проверки
+     * @return mixed массив с замененными по карте значениями
+     */
+    public function getFieldMapArrayKeys($fields, $direct = true) {
+
+        if ($fields) {
+           $result=[];
+            foreach ($fields as $n => $f) {
+                $result[$this->getFieldMapName($n, $direct)]=$f;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Замена имени поля в подстроке по маске "[[new]]" => "old"
      * @param mixed $data исходные данные. может быть массивом, обьектом или строкой
      * @return mixed

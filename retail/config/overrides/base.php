@@ -15,11 +15,16 @@ return [
         'common.models.AR.*',
         'common.models.layers.*',
         'common.models.legacy.*',
+
+        'common.helpers.*',
+        'common.models.*',
+
         'retail.models.*'
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules
-        'site' => 'RetailSiteController'
+        'site' => 'RetailSiteController',
+        'info' => 'InfoPagesController'
     ],
     'components' => [
         'errorHandler' => [
