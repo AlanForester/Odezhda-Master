@@ -25,9 +25,15 @@ class InfoPage extends LegacyActiveRecord {
                     continue;
 
                 $relation = $this->getRelated($relName);
-                if (isset($relation->{$name})){
+//                $is_column = isset($relation->getMetaData()->columns[$name]);
+
+                $rel_name = $relation->getFieldMapName($name,false);
+                $columns = $relation->getMetaData()->columns;
+                // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                if (array_key_exists($rel_name,$columns)){
                     return $relation->{$name};
                 }
+
             }
         }
 
@@ -131,8 +137,8 @@ class InfoPage extends LegacyActiveRecord {
             }
         }
         return array_merge($result,[
-            ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
             ['status', 'boolean', 'message'=>Yii::t('validation', 'Неверное значение поля')],
+            ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
             ['sort_order', 'length', 'max' => 3, 'message'=>Yii::t('validation', 'Слишком большое число (максимум 999)')],
         ]);
     }
@@ -151,7 +157,8 @@ class InfoPage extends LegacyActiveRecord {
                 $relClass=$relData[1];
 
                 //$result = array_merge($result,$this->getRelated($relName)->attributeLabels());
-                $result = array_merge($result,$relClass::model()->attributeLabels());
+                $model = call_user_func([$relClass,'model']);
+                $result = array_merge($result,$model->attributeLabels());
             }
         }
 

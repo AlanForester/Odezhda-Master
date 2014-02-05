@@ -33,10 +33,13 @@ $this->pageButton = [
             echo $form->textFieldControlGroup($item, 'name', []);
             echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
             echo $form->dropDownListControlGroup($item, 'language_id', $languages, []);
+            echo $form->dropDownListControlGroup($item, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Опубликовано']);
+            echo $form->textFieldControlGroup($item, 'sort_order', []);
             ?>
 
         </fieldset>
         <input type="hidden" name="form_action" value="save">
+        <?php $this->endWidget(); ?>
     </div>
 
 <?php
@@ -54,23 +57,12 @@ if (!empty($item->id)) {
                         ['name' => 'id'],
                         ['name' => 'viewed'],
                         ['name' => 'modified'],
-                        ['name' => 'created'],
+                        ['name' => 'added'],
                     ],
                 ]
             );
             ?>
         </fieldset>
-<?php
-}
-?>
-
-    <fieldset>
-        <legend>Дополнительная информация</legend>
-        <?php
-        echo $form->dropDownListControlGroup($item, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Опубликовано']);
-        echo $form->textFieldControlGroup($item, 'sort_order', []);
-        ?>
-    </fieldset>
     </div>
 <?php
-$this->endWidget();
+}
