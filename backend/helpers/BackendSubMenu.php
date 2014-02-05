@@ -57,7 +57,7 @@ class BackendSubMenu {
                     'strict' => false
                 ],
                 [
-                    'label' => 'Продукты в заказе',
+                    'label' => 'Товары в заказе',
                     'url' => ['/retail_orders_products/order/'.$id],
                     'strict' => false
                 ],

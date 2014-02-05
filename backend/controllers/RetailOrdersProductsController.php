@@ -70,6 +70,13 @@ class RetailOrdersProductsController extends BackendController {
             $this->error('Ошибка получения данных товара');
         }
 
+        $orderId = $item->retail_orders_id;
+
+        $products = [];
+        /*foreach (CatalogLayer::getList() as $product) {
+            $products[$product['id']] = $product['products_name'];
+        }*/
+
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
@@ -99,7 +106,7 @@ class RetailOrdersProductsController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
+        $this->render('edit', compact('orderId', 'item', 'products'));
     }
 
     public function actionDelete($id) {

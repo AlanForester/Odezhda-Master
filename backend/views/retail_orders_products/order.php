@@ -16,8 +16,8 @@ $this->widget(
             // фильтр по статусу
             /*TbHtml::dropDownList(
                 'filter_status',
-                $criteria['filter_status'],
-                array_merge([''=>'- По статусу -'],$statuses),
+                $criteria['filters'][''],
+                array_merge([''=>'- По статусу -'],$a),
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
@@ -38,8 +38,8 @@ $this->widget(
             'fields' => [
                 'products_name' => 'Название',
                 'products_model' => 'Код',
+                'products_quantity' => 'Количество',
                 'products_price' => 'Цена',
-
             ],
             'direct' => $criteria['order']['direction']
         ],
@@ -69,6 +69,20 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'products_model',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'name' => 'products_quantity',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
