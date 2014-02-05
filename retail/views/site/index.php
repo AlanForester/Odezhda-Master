@@ -1,107 +1,35 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 
-//print_r($this);
+//print_r($this->categories);
+//exit;
 ?>
 
 <div class="wrapper">
 <div class="left-nav">
     <ul>
+<?php foreach($this->categories as $category){ ?>
         <li>
-            <a href="#">Женщинам</a><span>></span>
-            <ul>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-                <div class="catalog-box">
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                    <li><a href="#">Item 11</a></li>
-                    <li><a href="#">Item 12</a></li>
-                    <li><a href="#">Item 13</a></li>
-                    <li><a href="#">Item 14</a></li>
-                </div>
-            </ul>
+            <a href="#"><?php echo $category['name']; ?></a><span>></span>
+            <?php if(!empty($category['children'])){  $i=0; ?>
+
+                     <ul>
+
+                        <div class="catalog-box">
+                            <?php  foreach($category['children'] as $child){$i++; ?>
+
+                            <?php if($i%16==0 && $i>0){ ?>
+                                 </div><div class="catalog-box">
+                            <?php }?>
+                                    <li><a href="#"><?php echo $child['name']; ?></a></li>
+                            <?php } ?>
+                        </div>
+                    </ul>
+
+            <?php } ?>
         </li>
-        <li>
-            <a href="#">Мужчинам</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Мода+</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Детям</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Молодежная мода</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Дом и дача</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Красота и здоровье</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Спорт</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Праздники</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Электроника</a><span>></span>
-        </li>
-        <li>
-            <a href="#">Сувениры</a><span>></span>
-        </li>
+        <?php } ?>
+
     </ul>
     <a href="#" class="all-catalog">Весь каталог</a>
 </div>

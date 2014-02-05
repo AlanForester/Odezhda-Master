@@ -8,6 +8,7 @@
  */
 class RetailSiteController extends RetailController {
     public $catalogData;
+    public $categories;
     /**
      * Actions attached to this controller
      *
@@ -21,6 +22,8 @@ class RetailSiteController extends RetailController {
 
     public function actionIndex() {
 
+        $categoriesModel = new ShopCategoriesModel();
+        $this->categories = $categoriesModel->getClearCategoriesList();
         $catalogModel =new CatalogModel();
         $this->catalogData= $catalogModel->frontCatalogData();
 
