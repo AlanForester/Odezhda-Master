@@ -137,7 +137,11 @@ class Grid extends CWidget {
      * @return bool
      */
     protected function isItemActive($item, $route) {
-        if (isset($item['url']) && is_array($item['url']) && !strcasecmp(trim($item['url'][0], '/'), $route)) {
+        $strict = isset($item['strict']) ? $item['strict'] : true;
+        $accordance = $strict && !strcasecmp(trim($item['url'][0], '/'), $route) ?
+            : strpos(trim($item['url'][0], '/'), $route) !== false;
+
+        if (isset($item['url']) && is_array($item['url']) && $accordance) {
 
             unset($item['url']['#']);
             if (count($item['url']) > 1) {

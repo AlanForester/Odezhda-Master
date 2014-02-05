@@ -21,8 +21,9 @@ class m140130_162957_create_table_retail_orders_products extends CDbMigration
               `final_price` decimal(15,4) NOT NULL DEFAULT '0.0000',
               `products_tax` decimal(7,4) NOT NULL DEFAULT '0.0000',
               `products_quantity` int(2) NOT NULL DEFAULT '0',
-              `products_av` int(2) NOT NULL DEFAULT '1',
+              `products_av` int(1) NOT NULL DEFAULT '1',
               `products_sort` varchar(20) NOT NULL DEFAULT '0',
+
               `checks` int(11) NOT NULL DEFAULT '0',
               `first_quant` int(11) NOT NULL DEFAULT '0',
               `products_status` tinyint(2) NOT NULL DEFAULT '0',

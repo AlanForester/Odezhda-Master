@@ -7,7 +7,7 @@ class RetailOrdersProductsController extends BackendController {
 
     public $gridDataProvider;
 
-    public $pageTitle = 'Товары в заказе: список';
+    public $pageTitle = 'Товары в розничном заказе: список';
     public $pageButton = [];
     public $model;
 
@@ -16,8 +16,7 @@ class RetailOrdersProductsController extends BackendController {
 
     }
 
-    public function actionOrder($orderId) {
-
+    public function actionOrder($id) {
         $criteria = [
             'text_search' => [
                 'value' => $this->userStateParam('text_search'),
@@ -29,6 +28,8 @@ class RetailOrdersProductsController extends BackendController {
             ],
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
+
+        $criteria['filters']['retail_orders_id'] = $id;
 
         $this->model = new RetailOrdersProductsLayer('update');
 
@@ -44,7 +45,7 @@ class RetailOrdersProductsController extends BackendController {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }*/
 
-        $this->render('order', compact('orderId','criteria','gridDataProvider'));
+        $this->render('order', compact('id','criteria','gridDataProvider'));
     }
 
     public function actionUpdate() {

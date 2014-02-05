@@ -10,7 +10,7 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => BackendSubMenu::retailOrder($orderId),
+        'submenu' => BackendSubMenu::retailOrder($id),
 
         'filter' => [
             // фильтр по статусу
@@ -34,14 +34,14 @@ $this->widget(
         ],
 
         'order' => [
-            'active' => $criteria['order_field'],
+            'active' => $criteria['order']['field'],
             'fields' => [
                 'products_name' => 'Название',
                 'products_model' => 'Код',
                 'products_price' => 'Цена',
 
             ],
-            'direct' => $criteria['order_direct']
+            'direct' => $criteria['order']['direction']
         ],
 
         'pageSize' => $criteria['page_size'],
