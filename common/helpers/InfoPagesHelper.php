@@ -167,11 +167,11 @@ class InfoPagesHelper {
      * @return bool|array массив данных пользователя или false
      */
     public static function save($data) {
-        $id = TbArray::getValue('id', $data); //isset($data['id']) ? $data['id'] : null;
+        $id = TbArray::getValue('id', $data);
 
         // модель пользователя
-        $user = self::getUser($id, 'add');
-        if (!$user) {
+        $page = self::getPage($id, 'add');
+        if (!$page) {
             return false;
         }
 
@@ -179,39 +179,24 @@ class InfoPagesHelper {
             // обновление пользователя
 
         } else {
-            // если есть пустой id в параметрах - удаяем
+            // если есть пустой id в параметрах - удаляем
             if (array_key_exists('id', $data)) {
                 unset($data['id']);
             }
-
-            $data['created'] = new CDbExpression('NOW()');
+            $data['added'] = new CDbExpression('NOW()');
         }
-
-        // новый пользователь или новый пароль
-        if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
-            $data['password'] = $user->encrypt_password($data['password']);
-
-        } else {
-            unset ($data['password']);
-        }
-
         $data['modified'] = new CDbExpression('NOW()');
 
         // задаем значения, получаем реальные имена полей
-        $user->setAttributes($data, false);
-        //        $user->setAttributes(self::fieldMapConvert($data, true), false);
-        //print_r($user);exit;
-        if (!$user->save()) {
-            self::$errors = $user->getErrors();
+        $page->setAttributes($data, false);
 
+        if (!$page->withRelated->save(true,['page_description'])) {
+            self::$errors = $page->getErrors();
             return false;
         }
 
-        return $user; //->attributes;
-        //        return self::fieldMapConvert($user->attributes);
+        return $page;
 
-        // сохраняем и переворачиваем в виртуальные данные
-        //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
     }
 
 }
