@@ -80,12 +80,10 @@ class InfoPagesController extends BackendController {
         if (!$item = $model->getPage($id, $scenario)){
             $this->error('Ошибка получения данных пользователя');
         }
-
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
             $item->setAttributes($model->getPostData(),false);
-//            $model->setAttributes($_POST['UsersModel'], false);
             // записываем данные
             $result = $model->save($model->getPostData());
 
@@ -113,12 +111,6 @@ class InfoPagesController extends BackendController {
                 }
             }
         }
-
-//        $user = $model->getUserData($id, $scenario);
-//        if ($user) {
-//            $model->setAttributes($user, false);
-//        } else
-//            $this->error();
 
         $this->render('edit', compact('item', 'languages'));
     }

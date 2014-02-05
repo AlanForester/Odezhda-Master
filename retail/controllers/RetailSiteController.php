@@ -8,25 +8,22 @@
  */
 class RetailSiteController extends RetailController {
     public $catalogData;
+    public $categories;
     /**
      * Actions attached to this controller
      *
      * @return array
      */
-//    public function actions() {
-//
-//        return array(
-//            'index' => array(
-//                'class' => 'LandingPageAction'
-//            ),
-//            'error' => array(
-//                'class' => 'SimpleErrorAction'
-//            )
-//        );
-//    }
+    public function actions() {
+        return [
+            'error' => 'SimpleErrorAction',
+        ];
+    }
 
     public function actionIndex() {
 
+        $categoriesModel = new ShopCategoriesModel();
+        $this->categories = $categoriesModel->getClearCategoriesList();
         $catalogModel =new CatalogModel();
         $this->catalogData= $catalogModel->frontCatalogData();
 

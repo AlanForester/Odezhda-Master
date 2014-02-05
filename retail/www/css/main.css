@@ -3,6 +3,7 @@
 	width:165px;
 	height:auto;
 	margin-top:25px;
+    position:relative;
 }
 
 .left-nav ul li {
@@ -10,7 +11,6 @@
 	float:left;
 	height:25px;
 	line-height:25px;
-	position:relative;
 }
 
 .left-nav ul {
@@ -26,9 +26,12 @@
 	float:left;
 }
 
+.left-nav>ul>li>a {
+    width: 150px !important;
+}
 .left-nav ul li a {
 	float:left;
-	width:150px;
+    width: 400px;
 	font-size:14px;
 }
 
@@ -86,10 +89,10 @@
 	padding-bottom:20px;
 }
 
-.left-nav ul li ul .catalog-box li:first-child a {
-	color:#E21A70;
-	font-weight:bold;
-}
+/*.left-nav ul li ul .catalog-box li:first-child a {*/
+	/*color:#E21A70;*/
+	/*font-weight:bold;*/
+/*}*/
 
 .slider {
 	float:left;

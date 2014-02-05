@@ -34,12 +34,19 @@ class InfoPagesHelper {
             if (!empty($relations)){
                 foreach($relations as $r_name => $r_value){
                     $r_class = $r_value[1];
-                    $page->{$r_name} = new $r_class();
+//                    $model = $r_class::model();
+                    $page->{$r_name} = new $r_class;
                 }
             }
         }
         return $page;
     }
+//    public static function getUser($id = null, $scenario = null) {
+//        $model = UsersHelper::getModel();
+//        return ($id ? $model->findByPk($id) : new $model($scenario));
+//
+//        //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
+//    }
 
     public static function getDataProvider($data = null) {
         $condition = ['language_id=:language_id'];
@@ -197,6 +204,18 @@ class InfoPagesHelper {
 
         return $page;
 
+    }
+    public static function getInfoPage($id){
+        $pageObj = self::getPage($id);
+
+        $pageArr = $pageObj->getFieldMapArrayKeys($pageObj->attributes,true);
+        $relations=$pageObj->relations();
+        if (!empty($relations)){
+            foreach($relations as $r_name => $r_value){
+                $pageArr=array_merge($pageArr,$pageObj->$r_name->getFieldMapArrayKeys($pageObj->$r_name->attributes,true));
+            }
+        }
+        return $pageArr;
     }
 
 }

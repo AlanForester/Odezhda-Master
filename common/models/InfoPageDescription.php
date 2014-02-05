@@ -9,12 +9,17 @@
  * @property string $pages_name
  * @property string $pages_description
  * @property integer $pages_viewed
-
  *
  */
 class InfoPageDescription extends LegacyActiveRecord {
 
 //    public $primaryKey = 'id';
+
+//    public $pages_name = '';
+
+//public $attributes = [
+//    'name'
+//];
 
     public function tableName() {
         return 'pages_description';
@@ -39,8 +44,8 @@ class InfoPageDescription extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
-            ['language_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле должно быть числовым')],
-            ['language_id', 'exist', 'allowEmpty'=>false,'className'=>'Language', 'attributeName' => 'languages_id', 'message'=>Yii::t('validation', 'Неверное значение для поля')],
+            ['language_id', 'numerical', 'integerOnly' => true, 'message' => Yii::t('validation', 'Поле должно быть числовым')],
+            ['language_id', 'exist', 'allowEmpty' => false, 'className' => 'Language', 'attributeName' => 'languages_id', 'message' => Yii::t('validation', 'Неверное значение для поля')],
             ['name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
             ['description', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
         ];
