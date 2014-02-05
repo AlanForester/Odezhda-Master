@@ -21,6 +21,11 @@ class InfoPagesModel extends CFormModel {
     public function getPage($id, $scenario = null) {
         return InfoPagesHelper::getPage($id, $scenario);
     }
+
+    public function getPostData() {
+        $name = get_class(InfoPagesHelper::getModel());
+        return $_POST[$name];
+    }
     /**
      * Обновление параметра пользователя
      * @param array $params смотри описание updateField()
@@ -36,5 +41,14 @@ class InfoPagesModel extends CFormModel {
 
     public function rules() {
         return InfoPagesHelper::rules();
+    }
+
+    /**
+     * Сохарение или создание нового пользователь
+     * @param array $data исходные данные
+     * @return bool|array массив данных пользователя или false
+     */
+    public function save($data) {
+        return InfoPagesHelper::save($data);
     }
 }

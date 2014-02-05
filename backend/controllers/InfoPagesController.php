@@ -70,14 +70,14 @@ class InfoPagesController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $groups_model = new GroupsModel();
-        $groups = [];
-        foreach ($groups_model->getList() as $g) {
-            $groups[$g['id']] = $g['name'];
+        $language_model = new Language();
+        $languages = [];
+        foreach ($language_model->getList() as $l) {
+            $languages[$l['languages_id']] = $l['name'];
         }
 
-        $model = new UsersModel($scenario);
-        if (!$item = $model->getUser($id, $scenario)){
+        $model = new InfoPagesModel($scenario);
+        if (!$item = $model->getPage($id, $scenario)){
             $this->error('Ошибка получения данных пользователя');
         }
 
@@ -93,7 +93,7 @@ class InfoPagesController extends BackendController {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' информационной страницы')
                 );
                 //$this->redirect(Yii::app()->request->urlReferrer);
 //                $this->render('edit', compact('item', 'groups'));
@@ -102,7 +102,7 @@ class InfoPagesController extends BackendController {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Пользователь ' . ($id ? 'сохранен' : 'добавлен')
+                    'Информационная страница ' . ($id ? 'сохранена' : 'добавлена')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
