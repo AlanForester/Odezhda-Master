@@ -22,8 +22,6 @@ class RetailOrdersController extends BackendController {
                 'field' => $this->userStateParam('order_field'),
                 'direction' => $this->userStateParam('order_direct'),
             ],
-            //'order_field' => $this->userStateParam('order_field'),
-            //'order_direct' => $this->userStateParam('order_direct'),
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 

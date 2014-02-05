@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/products/add", [], 'Добавить в заказ'),
-    BackendPageButtons::remove("/products/delete", [], 'Удалить из заказа'),
-    BackendPageButtons::mass("/products/mass")
+    BackendPageButtons::add("/retail_orders_products/add", [], 'Добавить в заказ'),
+    BackendPageButtons::remove("/retail_orders_products/delete", [], 'Удалить из заказа'),
+    BackendPageButtons::mass("/retail_orders_products/mass")
 ];
 
 // таблица
@@ -62,7 +62,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/products/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                 ]
             ],
             [
@@ -76,7 +76,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/products/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                 ]
             ],
             [
@@ -90,7 +90,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/products/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                 ]
             ],
 
@@ -98,8 +98,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/products/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/products/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/retail_orders_products/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
         ]
     ]
 );
