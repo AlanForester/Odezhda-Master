@@ -14,6 +14,7 @@ return [
         'application.models.*',
         'application.helpers.*',
 
+        'common.components.*',
         'common.actions.*',
         'common.models.*',
         'common.models.legacy.*',
@@ -35,7 +36,8 @@ return [
         'groups' => 'GroupsController',
         'categories' => 'ShopCategoriesController',
         'info_pages' => 'InfoPagesController',
-        //'retail_orders' => 'RetailOrdersController',
+        'retail_orders' => 'RetailOrdersController',
+        'retail_orders_products' => 'RetailOrdersProductsController',
 
     ],
     'components' => [

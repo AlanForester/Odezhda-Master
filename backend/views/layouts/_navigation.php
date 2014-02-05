@@ -91,6 +91,10 @@ $this->widget(
                                 'url' => ['/categories/index']
                             ],
                             [
+                                'label' => 'Розничные заказы',
+                                'url' => ['/retail_orders/index']
+                            ],
+                            [
                                 'label' => 'Бухгалтерия',
                                 'url' => ['/articles/index'],
                                 'disabled'=>true

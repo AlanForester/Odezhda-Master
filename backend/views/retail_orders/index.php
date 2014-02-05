@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/retailorders/add"),
-    BackendPageButtons::remove("/retailorders/delete"),
-    BackendPageButtons::mass("/retailorders/mass")
+    BackendPageButtons::add("/retail_orders/add"),
+    BackendPageButtons::remove("/retail_orders/delete"),
+    BackendPageButtons::mass("/retail_orders/mass")
 ];
 
 // таблица
@@ -16,7 +16,7 @@ $this->widget(
             // фильтр по статусу
             TbHtml::dropDownList(
                 'filter_status',
-                $criteria['filter_status'],
+                !empty($criteria['filters']['retail_orders_statuses_id']) ? : null,
                 array_merge([''=>'- По статусу -'],$statuses),
                 [
                     'onChange' => 'js: (function(){
@@ -24,7 +24,7 @@ $this->widget(
                         "whgrid",
                         {
                             data:{
-                                filter_status:$("#filter_status").val()
+                                "filters[retail_orders_statuses_id]":$("#filter_status").val()
                             }
                         }
                     )
@@ -35,7 +35,7 @@ $this->widget(
             // фильтр по точкам доставки
             /*TbHtml::dropDownList(
                 'filter_deliverypoint',
-                $criteria['filter_deliverypoint'],
+                !empty($criteria['filters']['delivery_points_id']) ? : null,
                 array_merge([''=>'- По точке доставки -'],$deliveryPoints),
                 [
                     'onChange' => 'js: (function(){
@@ -43,7 +43,7 @@ $this->widget(
                         "whgrid",
                         {
                             data:{
-                                filter_deliverypoint:$("#filter_deliverypoint").val()
+                                "filter[delivery_points_id]":$("#filter_deliverypoint").val()
                             }
                         }
                     )
@@ -53,7 +53,7 @@ $this->widget(
         ],
 
         'order' => [
-            'active' => $criteria['order_field'],
+            'active' => $criteria['order']['field'],
             'fields' => [
                 'customers_name' => 'Имя покупателя',
                 'customers_telephone' => 'Телефон покупателя',
@@ -61,9 +61,9 @@ $this->widget(
                 'customers_city' => 'Город покупателя',
                 'retail_orders_statuses_id' => 'Статус заказа',
                 //'delivery_points_id' => 'Точка доставки',
-                'date_purchased' => 'Дата покупки',
+                'date_purchased' => 'Дата создания',
             ],
-            'direct' => $criteria['order_direct']
+            'direct' => $criteria['order']['direction']
         ],
 
         'pageSize' => $criteria['page_size'],
@@ -73,6 +73,13 @@ $this->widget(
         'dataProvider' => $gridDataProvider,
 
         'gridColumns' => [
+            [
+                'name' => 'id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
@@ -84,7 +91,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             [
@@ -98,7 +105,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             /*[
@@ -112,7 +119,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],*/
             [
@@ -126,7 +133,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                 ]
             ],
             [
@@ -140,7 +147,7 @@ $this->widget(
                     'type' => 'select',
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                     'source' => $statuses,
                 ]
             ],
@@ -155,7 +162,7 @@ $this->widget(
                     'type' => 'select',
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/retailorders/update"),
+                    'url' => Yii::app()->createUrl("/retail_orders/update"),
                     'source' => $deliveryPoints,
                 ]
             ],*/
@@ -169,8 +176,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/retailorders/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/retailorders/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/retail_orders/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/retail_orders/delete", array("id"=>$data["id"]))',
         ]
     ]
 );
