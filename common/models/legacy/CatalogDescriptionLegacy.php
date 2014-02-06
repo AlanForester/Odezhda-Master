@@ -13,7 +13,7 @@ class CatalogDescriptionLegacy extends CActiveRecord
 //    public $products_id;
 
 
-//    public $primaryKey='products_id';
+    public $primaryKey='products_id';
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -29,11 +29,11 @@ class CatalogDescriptionLegacy extends CActiveRecord
     {
         return parent::model($className);
     }
-    public function rules() {
-        return [
-            ['products_name', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')]
-        ];
-    }
+//    public function rules() {
+//        return [
+//            ['products_name', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')]
+//        ];
+//    }
 //    public function relations()
 //    {
 //        return array(
