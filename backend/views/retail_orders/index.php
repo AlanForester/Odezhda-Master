@@ -2,7 +2,7 @@
 // кнопки страницы
 $this->pageButton = [
     BackendPageButtons::add("/retail_orders/add"),
-    BackendPageButtons::remove("/retail_orders/delete"),
+    BackendPageButtons::remove("/retail_orders/mass"),
     BackendPageButtons::mass("/retail_orders/mass")
 ];
 

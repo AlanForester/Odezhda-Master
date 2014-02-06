@@ -32,7 +32,7 @@ if(Yii::app()->controller->action->id == 'order') {
 
 $this->pageButton = [
     BackendPageButtons::add("/retail_orders_products/add/".$id, [], $buttonLabels[0]),
-    BackendPageButtons::remove("/retail_orders_products/delete", [], $buttonLabels[1]),
+    BackendPageButtons::remove("/retail_orders_products/mass", [], $buttonLabels[1]),
     BackendPageButtons::mass("/retail_orders_products/mass")
 ];
 

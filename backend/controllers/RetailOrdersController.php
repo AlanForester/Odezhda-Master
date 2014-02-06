@@ -28,6 +28,7 @@ class RetailOrdersController extends BackendController {
         $this->model = new RetailOrdersLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
+        $gridDataProvider->setSort(false);
 
         $statuses = $deliveryPoints = [];
 
@@ -112,7 +113,7 @@ class RetailOrdersController extends BackendController {
                     $this->redirect(['index']);
                     return;
                 } else {
-                    $this->redirect(['edit', 'id' => $result['id']]);
+                    $this->redirect(['edit', 'id' => $item['id']]);
                     return;
                 }
             }
@@ -122,8 +123,7 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = new RetailOrdersLayer();
-        $model->findByPk($id);
+        $model = RetailOrdersLayer::model()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {

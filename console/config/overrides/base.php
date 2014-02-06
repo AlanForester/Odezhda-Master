@@ -5,6 +5,15 @@
 return [
     // Changing `application` path alias to point at `/console` subdirectory
     'basePath' => 'console',
+    'import' => [
+        'common.components.*',
+        //'common.actions.*',
+        'common.models.*',
+        'common.models.legacy.*',
+        'common.models.layers.*',
+        'common.models.AR.*',
+        'common.helpers.*',
+    ],
     'commandMap' => [
         'migrate' => [
             'class' => 'system.cli.commands.MigrateCommand',

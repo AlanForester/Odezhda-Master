@@ -39,6 +39,7 @@ class RetailOrdersProductsController extends BackendController {
         $this->model = new RetailOrdersProductsLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
+        $gridDataProvider->setSort(false);
 
         $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
     }
@@ -69,7 +70,7 @@ class RetailOrdersProductsController extends BackendController {
             $this->error('Ошибка получения данных товара');
         }
 
-        $orderId = $orderId ? : $item->retail_orders_id;
+        $item->retail_orders_id = $item->retail_orders_id ? : $orderId;
 
         $products = [];
         /*foreach (CatalogLayer::getList() as $product) {
@@ -96,10 +97,10 @@ class RetailOrdersProductsController extends BackendController {
                     'Товар ' . ($id ? 'сохранен' : 'добавлен')
                 );
                 if ($form_action == 'save') {
-                    $this->redirect(['index']);
+                    $this->redirect(['order', 'id' => $item['retail_orders_id']]);
                     return;
                 } else {
-                    $this->redirect(['edit', 'id' => $result['id']]);
+                    $this->redirect(['edit', 'id' => $item['id']]);
                     return;
                 }
             }
@@ -109,8 +110,7 @@ class RetailOrdersProductsController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = new RetailOrdersProductsLayer();
-        $model->findByPk($id);
+        $model = RetailOrdersProductsLayer::model()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {

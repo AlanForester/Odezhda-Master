@@ -8,12 +8,14 @@ $this->pageButton = [
     BackendPageButtons::cancel("/retail_orders/index")
 ];
 
-$this->widget(
-    'backend.widgets.SubMenu',
-    [
-        'submenu' => BackendSubMenu::retailOrder($item->id),
-    ]
-);
+if($item->id) {
+    $this->widget(
+        'backend.widgets.SubMenu',
+        [
+            'submenu' => BackendSubMenu::retailOrder($item->id),
+        ]
+    );
+}
 ?>
 <div class="span10">
     <?php

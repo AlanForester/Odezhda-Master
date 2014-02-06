@@ -5,13 +5,13 @@ $this->pageTitle = 'Товары: ' . ($item->id ? 'редактирование
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/retail_orders_products/order/".$orderId)
+    BackendPageButtons::cancel("/retail_orders_products/order/".$item->retail_orders_id)
 ];
 
 /*$this->widget(
     'backend.widgets.SubMenu',
     [
-        'submenu' => BackendSubMenu::retailOrder($orderId),
+        'submenu' => BackendSubMenu::retailOrder($item->retail_orders_id),
     ]
 );*/
 ?>
@@ -40,6 +40,7 @@ $this->pageButton = [
                     <legend>Параметры товара в заказе</legend>
                     <?php
                     echo $form->hiddenField($item, 'id', []);
+                    echo $form->hiddenField($item, 'retail_orders_id', []);
                     //echo $form->dropDownListControlGroup($item, 'retail_orders_id', $retailOrders, []);
                     echo $form->dropDownListControlGroup($item, 'products_id', $products, []);
                     echo $form->textFieldControlGroup($item, 'products_name', []);
