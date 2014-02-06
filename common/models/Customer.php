@@ -30,7 +30,7 @@ class Customer extends LegacyActiveRecord {
             'customers_lastname' => 'lastname',
             'customers_email_address' => 'email',
             'customers_password' => 'password',
-            'customers_telephone' => 'telephone',
+            'customers_telephone' => 'phone',
             'customers_groups_id' => 'group_id',
         ];
     }

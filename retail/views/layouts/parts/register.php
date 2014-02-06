@@ -5,7 +5,7 @@
             <p>Регистрация</p>
             <form>
                 <div class="reg-input">
-                    <input type="text" name="RetailLoginForm[name]" placeholder="Имя, Фамилия*" />
+                    <input type="text" name="RetailLoginForm[name_surname]" placeholder="Имя, Фамилия*" />
                     <input type="text" name="RetailLoginForm[email]" placeholder="E-mail*" />
                 </div>
                 <div class="left-info">
@@ -53,7 +53,7 @@
                         </select>
                         <h6>Подарки и сюрпризы на день рождения от Lapana.ru</h6>
                     </div>
-                    <input type="text" name="phone" placeholder="Мобильный" />
+                    <input type="text" name="RetailLoginForm[phone]" placeholder="Мобильный" />
                     <h6>Для sms-уведомлений о состоянии заказа и связи с вами, когда вы заказываете доставку. Мы не берем за это денег, не рассылаем спам и не раскрываем ваш номер сторонним организациям.</h6>
                     <input type="text" name="promo" placeholder="Промо-код" />
                     <h6>Вводится при регистрации по приглашению от действующего участника программы Lapa-bonus</h6>
@@ -62,7 +62,7 @@
                     <div class="remember">
                         <p><input name="notes_email" type="checkbox"  /><span>Я хочу получать уведомления по электронной почте</span></p>
                         <p><input name="notes_sms" type="checkbox"  /><span>Я хочу получать sms-уведомления</span></p>
-                        <p><input name="remember" type="checkbox"  /><span>Запомнить меня</span></p>
+                        <p><input name="RetailLoginForm[rememberMe]" type="checkbox"  /><span>Запомнить меня</span></p>
                     </div>
                     <h6>чтобы автоматически входить на сайт при каждом посещении</h6>
                     <h6>Lapana.ru не передает и не продает персональную информацию. Нажимая кнопку "РЕГИСТРАЦИЯ" Вы соглашаетесь на обработку Ваших персональных данных в соответствии с ФЗ РФ от 27.07.2006 г. № 152-ФЗ (в ред. 25.07.2011 г.) "О персональных данных", а так же с нашей Политикой конфиденциальности и условиями договора публичной оферты.</h6>
