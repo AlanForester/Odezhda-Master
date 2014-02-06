@@ -31,16 +31,21 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
-            echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
-//            $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
-//                'name' => 'redactortest',
-//                'model' => $item,
-//                'attribute' => 'description',
-//                'htmlOptions' => [
-////                    'style' => 'margin-bottom: 20px',
-//                ],
-//
-//            ]);
+//            echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
+            $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
+                'name' => 'InfoPage[description]',
+                'model' => $item,
+                'attribute' => 'description',
+                'pluginOptions'=>[
+                    'iframe'=>'true',
+                    'width'=>'10px',
+                ],
+                'htmlOptions' => [
+//                    'width'=>'10px',
+//                    'style' => 'margin-bottom: 20px',
+                ],
+
+            ]);
             echo $form->dropDownListControlGroup($item, 'language_id', $languages, []);
             echo $form->dropDownListControlGroup($item, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Опубликовано']);
             echo $form->textFieldControlGroup($item, 'sort_order', []);
