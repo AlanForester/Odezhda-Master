@@ -235,7 +235,7 @@ Yii::app()->clientScript->registerPackage('catalog');
     </div>
 </div>
 <div class="sort-goods-catalog">
-    <p>Всего 6900 товаров</p>
+    <p>Всего <?php echo $this->count; ?> товаров</p>
     <div class="sort">
         <span>Сортировать по:</span>
         <select>
