@@ -30,6 +30,7 @@ $this->pageButton = [
         <fieldset>
             <legend>Учетная запись</legend>
             <?php
+            echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
 //            echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
             echo $form->dropDownListControlGroup($item, 'language_id', $languages, []);
@@ -73,17 +74,10 @@ if (!empty($item->id)) {
             $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
                 'name' => 'InfoPage[description]',
                 'model' => $item,
-//                'head'=>'123',
                 'attribute' => 'description',
                 'pluginOptions'=>[
 //                    'iframe'=>'true',
                 ],
-                'htmlOptions' => [
-//                    'label'=>'123'
-//                    'width'=>'10px',
-//                    'style' => 'margin-bottom: 20px',
-                ],
-
             ]);
             ?>
      </fieldset>
