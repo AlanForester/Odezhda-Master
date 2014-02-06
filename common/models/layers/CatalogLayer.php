@@ -117,6 +117,17 @@ class CatalogLayer {
                     $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
+//            Через запятую
+            $result[$key]['catalog_options_values']='';
+            foreach($val->catalog_options_values as $key_up => $val_up){
+
+                if(!empty($val_up['products_options_values_name'])){
+                    if($key_up!=0){
+                        $result[$key]['catalog_options_values'].=', ';
+                    }
+                    $result[$key]['catalog_options_values'].=$val_up['products_options_values_name'];
+                }
+            }
 
             //Полная запись
 //            if(!empty($val->catalog_options_values)){
@@ -126,6 +137,8 @@ class CatalogLayer {
 //            }
 
         }
+//
+
         return $result;
     }
 
@@ -144,7 +157,7 @@ class CatalogLayer {
     public static function getCatalog($id = null, $scenario = null) {
         if ($id){
             $catalog = CatalogLegacy::model()->findByPk($id);
-//            print_r($catalog);exit;
+
 
             if (!empty($catalog)){
                 $relations=$catalog->relations();
