@@ -83,18 +83,19 @@ class CatalogLayer {
                 ['description'=>$data['description'],
                 'categories_description'=>$data['categories_description'],
                 'manufacturers',
-                'catalog_attributes']]);
+                'catalog_options_values']]);
 
 
         $criteria = new CDbCriteria($criteria_data);
         //TODO: костыль не отрабытывает лимит , переписать для data active , тоже БК
         if(empty($data['categories_description']['condition'])){
-              $criteria->limit=10;
+              $criteria->limit=100;
         }
 
 
 
         $list = CatalogLegacy::model()->findall($criteria);
+
 //        print_r($list);
 //        exit;
         foreach ($list as $key => $val) {
@@ -105,6 +106,7 @@ class CatalogLayer {
             if(!empty($val->manufacturers->attributes)){
                 $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
             }
+//            Через запятую
             $result[$key]['categories_list']='';
             foreach($val->categories_description as $key_up => $val_up){
 
@@ -115,8 +117,15 @@ class CatalogLayer {
                     $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
+
+            //Полная запись
+//            if(!empty($val->catalog_options_values)){
+//                foreach($val->catalog_options_values as $key_up => $val_up){
+//                     $result[$key]['catalog_options_values'][$key_up]=$val_up->attributes;
+//                }
+//            }
+
         }
-      //  print_r($result);
         return $result;
     }
 

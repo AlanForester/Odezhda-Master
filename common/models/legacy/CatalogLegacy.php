@@ -53,7 +53,7 @@ class CatalogLegacy extends CActiveRecord
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog','together'=>true),
             //связь с категориями many to many
             'catalog_attributes' => array(self::HAS_MANY, 'CatalogAtributesLegacy', 'products_id','together'=>true),
-           // 'catalog_options_values' => array(self::HAS_ONE, 'CatalogOptionsLegacy', 'products_options_values_id', 'through' => 'catalog_attributes')
+            'catalog_options_values' => array(self::HAS_MANY, 'CatalogOptionsLegacy', 'options_values_id', 'through' => 'catalog_attributes','together'=>true)
         );
     }
 
@@ -90,6 +90,7 @@ class CatalogLegacy extends CActiveRecord
         $this->_allData['categories_name']='';
         $relations=$this->relations();
         unset($relations['manufacturers']);
+        unset($relations['catalog_attributes']);
 
 //todo: отсечь привязку к категории,(в случае отсутствия категории выкидывает ошибку.)
         foreach($relations as $value){
