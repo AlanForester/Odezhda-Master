@@ -481,9 +481,13 @@ AddCharset utf-8 .atom .css .js .json .rss .vtt .xml
 # text/html editors and pose a great security danger, when anyone can access
 # them.
 <FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
-  Order allow,deny
-  Deny from all
-  Satisfy All
+#    apache 2.4
+    Require all denied
+
+#    apache 2.2
+  #Order allow,deny
+  #Deny from all
+  #Satisfy All
 </FilesMatch>
 
 # If your server is not already configured as such, the following directive
