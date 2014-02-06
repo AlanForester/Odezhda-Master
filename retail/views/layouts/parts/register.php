@@ -5,29 +5,51 @@
             <p>Регистрация</p>
             <form>
                 <div class="reg-input">
-                    <input type="text" name="name" placeholder="Имя, Фамилия*" />
-                    <input type="text" name="email" placeholder="E-mail*" />
+                    <input type="text" name="RetailLoginForm[name]" placeholder="Имя, Фамилия*" />
+                    <input type="text" name="RetailLoginForm[email]" placeholder="E-mail*" />
                 </div>
                 <div class="left-info">
                     <div class="date-birth">
                         <p>Дата рождения</p>
-                        <select name="day" class="intro-select-day">
-                            <option>дд</option>
-                            <option>мм</option>
-                            <option>гггг</option>
-                            <option>пол</option>
+                        <select id="day" name="RetailLoginForm[day]" class="intro-select-day">
+                            <?php
+                                $days='';
+                                for ($day=1; $day<=31; $day++){
+                                    $days.='<option value="'.$day.'">'.$day.'</option>';
+                                }
+                                echo $days;
+                            ?>
+<!--                            <option>дд</option>-->
+<!--                            <option>мм</option>-->
+<!--                            <option>гггг</option>-->
+<!--                            <option>пол</option>-->
                         </select>
-                        <select name="month" class="intro-select-month">
-                            <option>дд</option>
-                            <option>мм</option>
-                            <option>гггг</option>
-                            <option>пол</option>
+                        <select id="month" name="RetailLoginForm[month]" class="intro-select-month" onChange="rewrite_days();">
+                            <option value="1" selected>январь</option>
+                            <option value="2">февраль</option>
+                            <option value="3">март</option>
+                            <option value="4">апрель</option>
+                            <option value="5">май</option>
+                            <option value="6">июнь</option>
+                            <option value="7">июль</option>
+                            <option value="8">август</option>
+                            <option value="9">сентябрь</option>
+                            <option value="10">октябрь</option>
+                            <option value="11">ноябрь</option>
+                            <option value="12">декабрь</option>
                         </select>
-                        <select name="year" class="intro-select-year">
-                            <option>дд</option>
-                            <option>мм</option>
-                            <option>гггг</option>
-                            <option>пол</option>
+                        <select id="year" name="RetailLoginForm[year]" class="intro-select-year" onChange="rewrite_days();">
+                            <?php
+                            $years='';
+                            for ($year=1930; $year<= date('Y') - 14; $year++){
+                                $years.='<option value="'.$year.'">'.$year.'</option>';
+                            }
+                            echo $years;
+                            ?>
+<!--                            <option>дд</option>-->
+<!--                            <option>мм</option>-->
+<!--                            <option>гггг</option>-->
+<!--                            <option>пол</option>-->
                         </select>
                         <h6>Подарки и сюрпризы на день рождения от Lapana.ru</h6>
                     </div>
