@@ -8,7 +8,7 @@ $this->pageButton = [
     BackendPageButtons::cancel("/info_pages/index")
 ];
 ?>
-    <div class="span7">
+
         <?php
         /**
          * @var TbActiveForm $form
@@ -26,26 +26,12 @@ $this->pageButton = [
         ]
 
     );?>
+    <div class="span7">
         <fieldset>
             <legend>Учетная запись</legend>
             <?php
-            echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
 //            echo $form->textAreaControlGroup($item, 'description', ['span' => 10, 'rows' => 20]);
-            $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
-                'name' => 'InfoPage[description]',
-                'model' => $item,
-                'attribute' => 'description',
-                'pluginOptions'=>[
-                    'iframe'=>'true',
-                    'width'=>'10px',
-                ],
-                'htmlOptions' => [
-//                    'width'=>'10px',
-//                    'style' => 'margin-bottom: 20px',
-                ],
-
-            ]);
             echo $form->dropDownListControlGroup($item, 'language_id', $languages, []);
             echo $form->dropDownListControlGroup($item, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Опубликовано']);
             echo $form->textFieldControlGroup($item, 'sort_order', []);
@@ -53,7 +39,6 @@ $this->pageButton = [
 
         </fieldset>
         <input type="hidden" name="form_action" value="save">
-        <?php $this->endWidget(); ?>
     </div>
 
 <?php
@@ -80,3 +65,29 @@ if (!empty($item->id)) {
     </div>
 <?php
 }
+?>
+<div class="row-fluid">
+    <div class="span12">
+        <fieldset>
+            <?php
+            $this->widget('yiiwheels.widgets.redactor.WhRedactor', [
+                'name' => 'InfoPage[description]',
+                'model' => $item,
+//                'head'=>'123',
+                'attribute' => 'description',
+                'pluginOptions'=>[
+//                    'iframe'=>'true',
+                ],
+                'htmlOptions' => [
+//                    'label'=>'123'
+//                    'width'=>'10px',
+//                    'style' => 'margin-bottom: 20px',
+                ],
+
+            ]);
+            ?>
+     </fieldset>
+</div>
+</div>
+<br><br>
+<?php $this->endWidget(); ?>
