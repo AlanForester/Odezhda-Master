@@ -10,7 +10,10 @@ class CatalogController extends RetailController {
     public $catalogData;
     public $product;
     public $list;
+    public $count;
     public $categories=[];
+    public $currentCategory=[];
+    public $currentCategoryNumber;
     /**
      * Actions attached to this controller
      *
@@ -82,7 +85,49 @@ class CatalogController extends RetailController {
         $catalogModel = new CatalogModel();
         $filter=[];
 
-        $this->list = $catalogModel->frontCatalogList($params['offset'],$id);
+        $list_and_count = $catalogModel->frontCatalogList($params['offset'],$id);
+
+        $this->list=$list_and_count['list'];
+        $this->count=$list_and_count['count'];
+        $this->currentCategory=$list_and_count['current_category'];
+
+        // Определение номера категории
+        $this->currentCategoryNumber=0;
+//        print_r($this->categories);
+//        exit;
+        $i=0;
+        $break=0;
+        if($id!=0){
+            foreach($this->categories as $category){
+                if($category['id']==$id){
+                    $this->currentCategoryNumber=$i;
+                    break;
+                }
+                if(!empty($category['children'])){
+                    foreach($category['children'] as $child){
+                        if($child['id']==$id){
+                            $this->currentCategoryNumber=$i;
+                            $break=1;
+                            break;
+                        }
+                    }
+                }
+                if($break==1){
+                    break;
+                }
+                $i++;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
 
         if(!empty($params['offset'])){
             $this->renderPartial("/site/catalog_ajax");

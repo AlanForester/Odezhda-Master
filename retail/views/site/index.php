@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerPackage('index');
     <ul>
 <?php foreach($this->categories as $category){ ?>
         <li>
-            <a href="#"><?php echo $category['name']; ?></a><span>></span>
+            <a href="/catalog/list/<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a><span>></span>
             <?php if(!empty($category['children'])){  $i=0; ?>
 
                      <ul>
@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerPackage('index');
                             <?php if($i%16==0 && $i>0){ ?>
                                  </div><div class="catalog-box">
                             <?php }?>
-                                    <li><a href="#"><?php echo $child['name']; ?></a></li>
+                                    <li><a href="/catalog/list/<?php echo $child['id']; ?>"><?php echo $child['name']; ?></a></li>
                             <?php } ?>
                         </div>
                     </ul>
@@ -31,7 +31,7 @@ Yii::app()->clientScript->registerPackage('index');
         <?php } ?>
 
     </ul>
-    <a href="#" class="all-catalog">Весь каталог</a>
+    <a href="/catalog/list/" class="all-catalog">Весь каталог</a>
 </div>
 <div class="slider">
 
@@ -182,17 +182,17 @@ Yii::app()->clientScript->registerPackage('index');
     <div class="box1">
         <h2>1000 платьев</h2>
         <h3>на каждый день</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/452">смотреть</a>
     </div>
     <div class="box2">
         <h2>распродажа</h2>
         <h3>круглый год</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/590">смотреть</a>
     </div>
     <div class="box3">
         <h2>новинки</h2>
         <h3>каждый день</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/">смотреть</a>
     </div>
 </div>
 
@@ -216,7 +216,7 @@ Yii::app()->clientScript->registerPackage('index');
                 <?php foreach($this->catalogData['new_model'] as $product){ ?>
                     <div class="tab-var">
                         <img src="/images/kofta.png" alt="" />
-                        <a href="#"><?php echo $product['name'].' ('.$product['model'].')'; ?></a>
+                        <a href="/catalog/product/<?php echo $product['id'];?>"><?php echo $product['name'].' ('.$product['model'].')'; ?></a>
                         <span><?php echo round($product['price']).'р'; ?></span>
                         <h5><?php echo round($product['old_price']).'р'; ?></h5>
                         <div class="var-all">

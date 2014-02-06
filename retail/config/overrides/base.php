@@ -24,7 +24,8 @@ return [
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules
         'site' => 'RetailSiteController',
-        'info' => 'InfoPagesController'
+        'info' => 'InfoPagesController',
+        'cart' => 'CartController',
     ],
     'components' => [
         'errorHandler' => [

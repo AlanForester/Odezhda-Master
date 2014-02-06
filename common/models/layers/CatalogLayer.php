@@ -83,18 +83,19 @@ class CatalogLayer {
                 ['description'=>$data['description'],
                 'categories_description'=>$data['categories_description'],
                 'manufacturers',
-                'catalog_attributes']]);
+                'catalog_options_values']]);
 
 
         $criteria = new CDbCriteria($criteria_data);
         //TODO: костыль не отрабытывает лимит , переписать для data active , тоже БК
         if(empty($data['categories_description']['condition'])){
-              $criteria->limit=10;
+              $criteria->limit=100;
         }
 
 
 
         $list = CatalogLegacy::model()->findall($criteria);
+
 //        print_r($list);
 //        exit;
         foreach ($list as $key => $val) {
@@ -105,6 +106,7 @@ class CatalogLayer {
             if(!empty($val->manufacturers->attributes)){
                 $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
             }
+//            Через запятую
             $result[$key]['categories_list']='';
             foreach($val->categories_description as $key_up => $val_up){
 
@@ -115,8 +117,15 @@ class CatalogLayer {
                     $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
+
+            //Полная запись
+//            if(!empty($val->catalog_options_values)){
+//                foreach($val->catalog_options_values as $key_up => $val_up){
+//                     $result[$key]['catalog_options_values'][$key_up]=$val_up->attributes;
+//                }
+//            }
+
         }
-      //  print_r($result);
         return $result;
     }
 
@@ -423,18 +432,20 @@ class CatalogLayer {
 
 
     //front
-    public static function frontCatalogList($offset,$data){
+    public static function frontCatalogList($offset,$data_desc,$category_id=0){
         // $data['main'];
+//        print_r($data_desc);
+//        exit;
         $data= array_merge(
-            $data['new_model'],['with'=>
+            $data_desc['new_model'],['with'=>
             ['description'=>'description',
-                'categories_description'=>$data['categories_description'],
+                'categories_description'=>$data_desc['categories_description'],
                 'manufacturers'=>'manufacturers'
             ]
             ]);
 
-
         $criteria = new CDbCriteria($data);
+        $count = CatalogLegacy::model()->count($data);
         //todo:limit
         $criteria->limit=6;
         $criteria->offset=$offset;
@@ -442,6 +453,12 @@ class CatalogLayer {
 //            exit;
         $result=[];
         $list = CatalogLegacy::model()->findall($criteria);
+
+        $current_category = ShopCategoriesLegacy::model()->with('rel_description')->findByPk($category_id);
+        $current_category = $current_category->attributes +$current_category->rel_description->attributes;
+
+
+
             foreach ($list as $key => $val) {
                 $result[$key] = self::fieldMapConvert($val->attributes);
                 if(!empty($val->description->attributes)){
@@ -462,8 +479,13 @@ class CatalogLayer {
                 }
             }
 
-        return $result;
+
+        return ['list'=>$result,'count'=>$count,'current_category'=>$current_category];
     }
+
+
+
+
 
 
 

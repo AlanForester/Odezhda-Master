@@ -79,32 +79,30 @@ class CatalogModel extends CFormModel {
 
     public function frontCatalogList($offset,$category_id){
 
-        $data=[];
-        $data['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' ASC';
 
-        $condition=[];
-        $params=[];
+        $data['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' DESC';
+        $data_categories='categories_description';
+        $data['new_model']=[];
+//        $params=[];
         // фильтр по группе
         if ($category_id!=0) {
-            $condition = 'categories_description.categories_id' . '=:categories_id';
-            $params[':categories_id'] = $category_id;
+            $data_categories=[];
+            $data_categories['condition'] = 'categories_description.categories_id' . '=:categories_id';
+            $data_categories['params'][':categories_id'] = $category_id;
         }
 
-        $list=CatalogLayer::frontCatalogList($offset,
+        $list_and_count=CatalogLayer::frontCatalogList($offset,
             [
                 'new_model'=> [
                     'order' => $data['order_field']
                 ],
-                'categories_description'=> [
-                        'condition' =>  $condition,
-                        'params' => $params
-                 ]
-            ]
+                'categories_description'=> $data_categories
+            ],$category_id
         );
 
 
 
-        return $list;
+        return $list_and_count;
     }
 
     public function productById($id){

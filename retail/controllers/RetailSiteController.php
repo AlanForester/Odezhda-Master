@@ -32,13 +32,39 @@ class RetailSiteController extends RetailController {
 
     
     public function actionProduct() {
-
-
         $this->render("/site/product");
     }
 
-    public function actionCatalog()
-    {
+    public function actionCatalog(){
         $this->render('/site/catalog');
+    }
+
+    public function actionLogin(){
+
+        $user = Yii::app()->user;
+        $this->redirectAwayAlreadyAuthenticatedUsers($user);
+
+        $model = new RetailLoginForm();
+//        $this->respondIfAjaxRequest($request, $model);
+        $formData = Yii::app()->request->getPost(get_class($model), false);
+//        print_r($formData);exit;
+
+        if ($formData) {
+
+            //print_r($model->attributes); print_r($formData);exit;
+            $model->attributes = $formData;
+            //print_r($model->attributes);exit;
+            if ($model->validate(array('username', 'password')) && $model->login())
+                $this->controller->redirect($user->returnUrl);
+        }
+
+//        $this->controller->layout = '//layouts/blank';
+//        $this->controller->render('login', compact('model'));
+        $this->render('/site/index');
+    }
+
+    private function redirectAwayAlreadyAuthenticatedUsers($user) {
+        if (!$user->isGuest)
+            $this->controller->redirect(Yii::app()->request->baseUrl);
     }
 }

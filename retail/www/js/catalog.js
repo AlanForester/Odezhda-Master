@@ -4,7 +4,8 @@ offset=0;
 $(document).ready(function(){
     RetailCatalog.tooltip();
     RetailCatalog.sliders();
-    RetailCatalog.accordion();
+//  RetailCatalog.accordion();
+//  Accordion в каталоге
     RetailCatalog.tabs();
 //    RetailCatalog.moreButton();
     RetailCatalog.zoom();
@@ -38,6 +39,7 @@ RetailCatalog.sliders = function(){
             $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
         }
     });
+
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
         " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 
@@ -54,11 +56,10 @@ RetailCatalog.sliders = function(){
         " - $" + $( "#slider-range1" ).slider( "values", 1 ) );
 };
 
-RetailCatalog.accordion = function(){
-    $( "#accordion" ).accordion({
-        heightStyle: "content"
-    });
-};
+
+//RetailCatalog.accordion = function(){
+//
+//};
 
 RetailCatalog.tabs = function(){
     $("#example-one").organicTabs();

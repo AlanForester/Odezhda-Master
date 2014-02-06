@@ -1,10 +1,21 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
 ?>
-
+<?php
+//print_r($this->currentCategory);
+//exit;
+//?>
+<script>
+    $(document).ready(function(){
+        $( "#accordion" ).accordion({
+            heightStyle: "content",
+            active: <?php echo $this->currentCategoryNumber; ?>
+        });
+    });
+</script>
 <div class="catalog-title">
     <div class="title">
-        <p>женщинам</p>
+        <p><?php echo $this->currentCategory['categories_name'];?></p>
     </div>
 </div>
 
@@ -234,8 +245,20 @@ Yii::app()->clientScript->registerPackage('catalog');
         <div id="slider-range1"></div>
     </div>
 </div>
+
+<?php
+        function pluralForm($n, $form1, $form2, $form5)
+        {
+            $n = abs($n) % 100;
+            $n1 = $n % 10;
+            if ($n > 10 && $n < 20) return $form5;
+            if ($n1 > 1 && $n1 < 5) return $form2;
+            if ($n1 == 1) return $form1;
+            return $form5;
+        }
+?>
 <div class="sort-goods-catalog">
-    <p>Всего 6900 товаров</p>
+    <p>Всего <?php echo $this->count.' '.pluralForm($this->count, 'товар', 'товара', 'товаров'); ?></p>
     <div class="sort">
         <span>Сортировать по:</span>
         <select>

@@ -1,20 +1,22 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
+//Yii::app()->clientScript->registerPackage('catalog');
 ?>
 <div class="wrapper">
 
     <div class="breadcrumbs">
-        <a href=<?php echo(Yii::app()->baseUrl)?>>Главная</a><span>/</span>
+        <a href='/'>Главная</a><span>/</span>
         <span><?php echo($infoPage['name']) ?></span>
     </div>
+<!--    <div class="catalog-title">-->
+<!--        <div class="title">-->
+<!--            <p>--><?php //echo($infoPage['name']) ?><!--</p>-->
+<!--        </div>-->
+<!--    </div>-->
     <div class="karta-wrap" style="padding: 15px 20px;line-height: 20px;">
-
-
-                        <?php echo($infoPage['description']) ?>
+            <h1 style="text-align: center"><?php echo($infoPage['name']) ?></h1>
+            <?php echo($infoPage['description']) ?>
 
     </div>
-
-            <a href="#" class="jcarousel-control-prev"></a>
-            <a href="#" class="jcarousel-control-next"></a>
 
 </div>

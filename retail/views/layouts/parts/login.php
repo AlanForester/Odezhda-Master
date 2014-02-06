@@ -3,13 +3,13 @@
         <div class="box-modal_close arcticmodal-close">X</div>
         <div class="modal-login-left">
             <p>Постоянный клиент</p>
-            <form>
-                <input type="text" placeholder="E-mail" />
-                <input type="text" placeholder="Пароль" />
+            <form method="post" action="/site/login">
+                <input type="text" placeholder="E-mail" name="RetailLoginForm[email]" />
+                <input type="password" placeholder="Пароль" name="RetailLoginForm[password]" />
                 <div class="remember">
-                    <input type="checkbox"  /><span>Запомнить меня</span>
+                    <input type="checkbox" name="RetailLoginForm[rememberMe]" /><span>Запомнить меня</span>
                 </div>
-                <button>Войти</button>
+                <button type="submit">Войти</button>
             </form>
             <div class="line"></div>
             <h4>Войти как пользователь социальной сети</h4>
