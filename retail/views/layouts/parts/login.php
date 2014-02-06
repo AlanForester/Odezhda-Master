@@ -5,7 +5,7 @@
             <p>Постоянный клиент</p>
             <form method="post" action="/site/login">
                 <input type="text" placeholder="E-mail" name="RetailLoginForm[email]" />
-                <input type="text" placeholder="Пароль" name="RetailLoginForm[password]" />
+                <input type="password" placeholder="Пароль" name="RetailLoginForm[password]" />
                 <div class="remember">
                     <input type="checkbox" name="RetailLoginForm[rememberMe]" /><span>Запомнить меня</span>
                 </div>
