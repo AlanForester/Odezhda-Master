@@ -9,10 +9,9 @@
 class InfoPagesController extends RetailController {
 
 
-    public function actionIndex() {
-
+    public function actionIndex($id=null) {
         //принимаем id из поста или из гета
-        $id=Yii::app()->request->getParam('id');
+        $id=(!$id ? Yii::app()->request->getParam('id') : $id);
 
         if($id){
             $pageModel =new InfoPagesModel();
@@ -23,7 +22,15 @@ class InfoPagesController extends RetailController {
 
         }
 
+    }
 
+    /**
+     * Метод перенаправления на actionIndex, когда стучим на controller/id
+     * чтобы не изменять конфиг
+     * @param null $id
+     */
+    public function actionView ($id=null){
+        $this->actionIndex($id);
     }
 
 }
