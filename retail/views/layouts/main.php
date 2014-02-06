@@ -127,7 +127,7 @@
                     <a href="#" id="#example1" onclick="$('#exampleModal1').arcticmodal()" class="m-dotted">Вход</a>
                     <a href="#" id="#example2" onclick="$('#exampleModal2').arcticmodal()" class="m-dotted">Регистрация</a>
                     <?php else: ?>
-                    <a href="#" id="#example1" class="m-dotted">Вы вошли, как <?php echo Yii::app()->user->name;?></a>
+                    <span>Вы вошли как <?php echo Yii::app()->user->name;?></span>
                     <a href="/site/logout" id="#example2" class="m-dotted">Выход</a>
                     <?php endif; ?>
                 </div>
