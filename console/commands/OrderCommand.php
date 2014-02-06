@@ -32,7 +32,6 @@ class OrderCommand extends CConsoleCommand
      */
     public function init()
     {
-        Yii::import('application.common.models.layers.RetailOrdersLayer');
         $this->retailOrdersModel = new RetailOrdersLayer();
     }
 
@@ -62,11 +61,9 @@ EOD;
      */
     public function actionIndex()
     {
-        $retailOrdersCount = $this->retailOrdersModel->count('orders_id=NULL');
+        $retailOrdersCount = $this->retailOrdersModel->count('orders_id IS NULL');
         Console::output(
-            $this->note("Unassigned retail orders found:")
-                . $this->value($retailOrdersCount)
-                . "."
+            $this->note('Unassigned retail orders found: ' . $retailOrdersCount . '.')
         );
     }
 
@@ -85,8 +82,35 @@ EOD;
      */
     public function actionCompose()
     {
-        //$this->ordersModel = new OrdersLayer();
+        $this->ordersModel = new OrdersLayer();
+        $this->ordersModel->setAttributes(
+            [
 
+            ],
+            false
+        );
+        $success = $this->ordersModel->save();
+        $orderId = $this->ordersModel->id;
+
+        if($success) {
+            $updatedCount = $this->retailOrdersModel->updateAll(
+                [
+                    'orders_id'=>$orderId
+                ],
+                'orders_id IS NULL'
+            );
+
+            Console::output(
+                $this->note(
+                    $updatedCount > 0 ? : 'No'
+                        . ' retail orders was assigned to the new wholesale order (ID '.$orderId.').'
+                )
+            );
+
+        } else
+            Console::output(
+                $this->note('New wholesale order was not created.')
+            );
 
     }
 }
