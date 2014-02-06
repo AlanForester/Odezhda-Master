@@ -9,21 +9,18 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * User name
-     *
      * @var string
      */
     public $username;
 
     /**
      * User password
-     *
      * @var string
      */
     public $password;
 
     /**
      * Whether to login user for some amount of time or until end of session.
-     *
      * @var bool
      */
     public $rememberMe;
@@ -34,9 +31,7 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * Validation rules
-     *
      * @see CModel::rules()
-     *
      * @return array
      */
     public function rules() {
@@ -84,7 +79,7 @@ class RetailLoginForm extends CFormModel {
      */
     public function login() {
         if ($this->_identity === null) {
-            $this->_identity = new AdminIdentity($this->username, $this->password);
+            $this->_identity = new CustomerIdentity($this->username, $this->password);
             $this->_identity->authenticate();
         }
 

@@ -47,13 +47,13 @@ class RetailSiteController extends RetailController {
         $model = new RetailLoginForm();
 //        $this->respondIfAjaxRequest($request, $model);
         $formData = Yii::app()->request->getPost(get_class($model), false);
-//        print_r($formData);exit;
+
 
         if ($formData) {
 
             //print_r($model->attributes); print_r($formData);exit;
-            $model->attributes = $formData;
-            //print_r($model->attributes);exit;
+            $model->setAttributes($formData,false);
+
             if ($model->validate(array('username', 'password')) && $model->login())
                 $this->controller->redirect($user->returnUrl);
         }
