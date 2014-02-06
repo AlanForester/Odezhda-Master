@@ -1,10 +1,13 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
 ?>
-
+<?php
+//print_r($this->currentCategory);
+//exit;
+//?>
 <div class="catalog-title">
     <div class="title">
-        <p>женщинам</p>
+        <p><?php echo $this->currentCategory['categories_name'];?></p>
     </div>
 </div>
 

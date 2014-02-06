@@ -423,7 +423,7 @@ class CatalogLayer {
 
 
     //front
-    public static function frontCatalogList($offset,$data_desc){
+    public static function frontCatalogList($offset,$data_desc,$category_id=0){
         // $data['main'];
 //        print_r($data_desc);
 //        exit;
@@ -444,6 +444,9 @@ class CatalogLayer {
 //            exit;
         $result=[];
         $list = CatalogLegacy::model()->findall($criteria);
+
+        $current_category = ShopCategoriesLegacy::model()->with('rel_description')->findByPk($category_id);
+        $current_category = $current_category->attributes +$current_category->rel_description->attributes;
 
 
 
@@ -468,8 +471,12 @@ class CatalogLayer {
             }
 
 
-        return ['list'=>$result,'count'=>$count];
+        return ['list'=>$result,'count'=>$count,'current_category'=>$current_category];
     }
+
+
+
+
 
 
 
