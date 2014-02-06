@@ -10,7 +10,7 @@ Yii::app()->clientScript->registerPackage('index');
     <ul>
 <?php foreach($this->categories as $category){ ?>
         <li>
-            <a href="#"><?php echo $category['name']; ?></a><span>></span>
+            <a href="/catalog/list/<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a><span>></span>
             <?php if(!empty($category['children'])){  $i=0; ?>
 
                      <ul>
@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerPackage('index');
                             <?php if($i%16==0 && $i>0){ ?>
                                  </div><div class="catalog-box">
                             <?php }?>
-                                    <li><a href="#"><?php echo $child['name']; ?></a></li>
+                                    <li><a href="/catalog/list/<?php echo $child['id']; ?>"><?php echo $child['name']; ?></a></li>
                             <?php } ?>
                         </div>
                     </ul>
