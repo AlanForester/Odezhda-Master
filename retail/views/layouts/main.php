@@ -129,9 +129,9 @@
 
                 <div class="top-nav">
                     <ul>
-                        <li><a href="#">Как получить</a></li>
-                        <li><a href="#">Что с моим заказом?</a></li>
-                        <li><a href="#">Сервисы</a></li>
+                        <li><a href="/info?id=9">Как получить</a></li>
+                        <li><a href="/info?id=10">Что с моим заказом?</a></li>
+                        <li><a href="/info?id=11">Сервисы</a></li>
                     </ul>
                 </div>
             </div>
@@ -171,31 +171,31 @@
         <div class="footer">
             <div class="nav-bar">
                 <ul>
-                    <li><a href="#">LAPANA.RU</a></li>
-                    <li><a href="#">О нас</a></li>
-                    <li><a href="#">Вакансии</a></li>
-                    <li><a href="#">Партнерам</a></li>
-                    <li><a href="#">Контакты</a></li>
-                    <li><a href="#">Сертификаты</a></li>
-                    <li><a href="#">Наши скидки</a></li>
-                    <li><a href="#">Преимущества</a></li>
+                    <li><a href="/">LAPANA.RU</a></li>
+                    <li><a href="/info?id=12">О нас</a></li>
+                    <li><a href="/info?id=13">Вакансии</a></li>
+                    <li><a href="/info?id=14">Партнерам</a></li>
+                    <li><a href="/info?id=6">Контакты</a></li>
+                    <li><a href="/info?id=15">Сертификаты</a></li>
+                    <li><a href="/info?id=16">Наши скидки</a></li>
+                    <li><a href="/info?id=17">Преимущества</a></li>
                 </ul>
             </div>
             <div class="nav-bar">
                 <ul>
-                    <li><a href="#">СЕРВИС И ПОМОЩЬ</a></li>
-                    <li><a href="#">Как сделать заказ</a></li>
-                    <li><a href="#">Пункты самовывоза</a></li>
-                    <li><a href="#">Способы оплаты</a></li>
-                    <li><a href="#">Возврат</a></li>
-                    <li><a href="#">Правила продажи</a></li>
-                    <li><a href="#">Доставка</a></li>
+                    <li><a href="/info?id=11">СЕРВИС И ПОМОЩЬ</a></li>
+                    <li><a href="/info?id=7">Как сделать заказ</a></li>
+                    <li><a href="/info?id=18">Пункты самовывоза</a></li>
+                    <li><a href="/info?id=5">Способы оплаты</a></li>
+                    <li><a href="/info?id=2">Возврат</a></li>
+                    <li><a href="/info?id=19">Правила продажи</a></li>
+                    <li><a href="/info?id=2">Доставка</a></li>
                 </ul>
             </div>
             <div class="nav-bar">
                 <ul>
-                    <li><a href="#">ПАРТНЕРАМ</a></li>
-                    <li><a href="#">Франшиза</a></li>
+                    <li><a href="/info?id=14">ПАРТНЕРАМ</a></li>
+                    <li><a href="/info?id=20">Франшиза</a></li>
                 </ul>
             </div>
             <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>
