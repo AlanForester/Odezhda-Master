@@ -97,7 +97,7 @@ class CatalogModel extends CFormModel {
                     'order' => $data['order_field']
                 ],
                 'categories_description'=> $data_categories
-            ]
+            ],$category_id
         );
 
 

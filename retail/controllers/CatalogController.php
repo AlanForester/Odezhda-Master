@@ -12,6 +12,7 @@ class CatalogController extends RetailController {
     public $list;
     public $count;
     public $categories=[];
+    public $currentCategory=[];
     /**
      * Actions attached to this controller
      *
@@ -87,6 +88,7 @@ class CatalogController extends RetailController {
 
         $this->list=$list_and_count['list'];
         $this->count=$list_and_count['count'];
+        $this->currentCategory=$list_and_count['current_category'];
 
 
         if(!empty($params['offset'])){
