@@ -1,25 +1,9 @@
 <?php
 
 /**
- * Модель управления таблицей пользователей.
- *
- * Доступные свойства:
- * @property integer id
- * @property integer group_id
- * @property string firstname
- * @property string lastname
- * @property string email
- * @property string password
- * @property integer created
- * @property integer modified
- * @property integer logdate
- * @property integer lognum
- * @property string cat_access
- * @property string right_access
- *
- * @!method bool verifyPassword
+ * Модель управления таблицей пользователей сайта retail.
  */
-class User extends LegacyActiveRecord {
+class Customer extends LegacyActiveRecord {
     /** @var string Field to hold a new password when user updates it. */
 //    public $newPassword;
 
@@ -35,23 +19,19 @@ class User extends LegacyActiveRecord {
      * @return string
      */
     public function tableName() {
-        return 'admin';
+        return 'customers';
     }
 
     public function fieldMap() {
         return [
-            'admin_id' => 'id',
-            'admin_groups_id' => 'group_id',
-            'admin_firstname' => 'firstname',
-            'admin_lastname' => 'lastname',
-            'admin_email_address' => 'email',
-            'admin_password' => 'password',
-            'admin_created' => 'created',
-            'admin_modified' => 'modified',
-            'admin_logdate' => 'logdate',
-            'admin_lognum' => 'lognum',
-            'admin_cat_access' => 'cat_access',
-            'admin_right_access' => 'right_access',
+            'customers_id' => 'id',
+            'customers_dob' => 'dob',//day of birth
+            'customers_firstname' => 'firstname',
+            'customers_lastname' => 'lastname',
+            'customers_email_address' => 'email',
+            'customers_password' => 'password',
+            'customers_telephone' => 'telephone',
+            'customers_groups_id' => 'group_id',
         ];
     }
 

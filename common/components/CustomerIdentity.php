@@ -13,7 +13,6 @@ class CustomerIdentity extends CUserIdentity
 
     /**
      * Getter method for `id` property.
-     *
      * @return integer Internal database ID of the user, null if not set
      */
     public function getId()
@@ -26,12 +25,11 @@ class CustomerIdentity extends CUserIdentity
      * tries to authenticate the user using the User model.
      *
      * On successful authentication fills in its `id` and `username` properties from the User model.
-     *
      * @return boolean Whether we have such a user in database and password is correct or not.
      */
     public function authenticate()
     {
-        $user = UsersHelper::authenticate($this->username, $this->password);
+        $user = CustomersHelper::authenticate($this->username, $this->password);
 
         if (is_object($user)) {
             $this->makeAuthenticated($user);

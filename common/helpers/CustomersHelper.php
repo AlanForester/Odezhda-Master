@@ -4,125 +4,19 @@ class CustomersHelper {
 
     protected static $errors = [];
 
-    //=======
-    //>>>>>>> Stashed changes
-    //    public static function getList($data) {
-    //        $result = [];
-    //
-    //        $list = UserLegacy::model()->findall(new CDbCriteria($data));
-    //        foreach ($list as $val) {
-    //            $result[] = self::fieldMapConvert($val->attributes);
-    //        }
-    //
-    //        return $result;
-    //    }
 
     public static function getModel() {
-        return User::model();
-    }
-
-    /**
-     * Обновление значения параметра пользователя
-     *
-     * @param array $data массив данных для изменяемому полю бд. ключи: id - первичный ключ,field - название изменяемого поля,
-     * newValue - новое значение поля
-     *
-     * @return bool
-     */
-    public static function updateField($data) {
-        // реальное имя поля
-        $field = TbArray::getValue('field', $data, false); //self::getFieldName($data['field'], false);
-        $user_id = TbArray::getValue('id', $data, false); //(!empty($data['id']) ? $data['id'] : false);
-        $value = TbArray::getValue('value', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
-
-        // все все данные верны, сохраняем
-        if ($user_id && $field && $value) {
-            //            $user = self::getUser($user_id);
-            if (!$user = self::getUser($user_id)) {
-                return false;
-            }
-            $user->{$field} = $value;
-
-            return $user->save(true, [$field]);
-        }
-
-        return false;
-    }
-
-    /**
-     * Создание или обновление пользователя на основе данных из формы
-     *
-     * @param array $data исходные данные из формы
-     *
-     * @return bool|array массив данных пользователя или false
-     */
-    public static function save($data) {
-        $id = TbArray::getValue('id', $data); //isset($data['id']) ? $data['id'] : null;
-
-        // модель пользователя
-        $user = self::getUser($id, 'add');
-        if (!$user) {
-            return false;
-        }
-
-        if ($id) {
-            // обновление пользователя
-
-        } else {
-            // если есть пустой id в параметрах - удаяем
-            if (array_key_exists('id', $data)) {
-                unset($data['id']);
-            }
-
-            $data['created'] = new CDbExpression('NOW()');
-        }
-
-        // новый пользователь или новый пароль
-        if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
-            $data['password'] = $user->encrypt_password($data['password']);
-
-        } else {
-            unset ($data['password']);
-        }
-
-        $data['modified'] = new CDbExpression('NOW()');
-
-        // задаем значения, получаем реальные имена полей
-        $user->setAttributes($data, false);
-        //        $user->setAttributes(self::fieldMapConvert($data, true), false);
-        //print_r($user);exit;
-        if (!$user->save()) {
-            self::$errors = $user->getErrors();
-
-            return false;
-        }
-
-        return $user; //->attributes;
-        //        return self::fieldMapConvert($user->attributes);
-
-        // сохраняем и переворачиваем в виртуальные данные
-        //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
-    }
-
-    public static function delete($id) {
-        $user = self::getUser($id);
-        if ($user) {
-            return $user->delete();
-        }
-
-        return false;
+        return Customer::model();
     }
 
     /**
      * Модель пользователя
-     *
      * @param int $id [опционально] id пользователя. если не указан, вернет массив пустых данных
      * @param string $scenario [опционально] сценарий пользователя
-     *
      * @return User
      */
     public static function getUser($id = null, $scenario = null) {
-        $model = UsersHelper::getModel();
+        $model = self::getModel();
         return ($id ? $model->findByPk($id) : new $model($scenario));
 
         //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
@@ -140,31 +34,15 @@ class CustomersHelper {
      * @return CActiveRecord
      */
     public static function findByAttributes($attributes) {
-        return UsersHelper::getModel()->findByAttributes($attributes);
+        return self::getModel()->findByAttributes($attributes);
+//        return CustomersHelper::getModel()->findByAttributes($attributes);
     }
 
-    /**
-     * Поиск пользователя по имени
-     *
-     * @param string $username имя пользователя (username)
-     *
-     * @return User
-     */
-    //    public static function find($username) {
-    //        return UsersLayer::getModel()->find(
-    //            [
-    //                'condition' => '[[email]]=:username',
-    //                'params' => [':username' => $username]
-    //            ]
-    //        );
-    //    }
 
     /**
      * Проверка логина и пароля
-     *
      * @param string $username логин
      * @param string $password пароль
-     *
      * @return int 0 - пользователь не найден, 1 - не правильный пароль, AR- найденный пользователь
      */
     public static function authenticate($username, $password) {
