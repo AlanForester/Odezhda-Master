@@ -468,8 +468,9 @@ class CatalogLayer {
         $list = CatalogLegacy::model()->findall($criteria);
 
         $current_category = ShopCategoriesLegacy::model()->with('rel_description')->findByPk($category_id);
-        $current_category = $current_category->attributes +$current_category->rel_description->attributes;
-
+        if($category_id!=0){
+             $current_category = $current_category->attributes +$current_category->rel_description->attributes;
+        }
 
 
             foreach ($list as $key => $val) {
