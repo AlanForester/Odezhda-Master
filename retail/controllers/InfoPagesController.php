@@ -19,7 +19,7 @@ class InfoPagesController extends RetailController {
             $infoPage = $pageModel->getInfoPage($id);
             $this->render("/site/info", compact('infoPage'));
         } else {
-
+            //todo редирект на страницу оишбки
         }
 
     }
