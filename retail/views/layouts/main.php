@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <a href="#" class="logo"><img src="/images/logo.png" alt=""/></a>
+        <a href="/" class="logo"><img src="/images/logo.png" alt=""/></a>
 
         <div class="search">
             <input type="text"/>
@@ -159,12 +159,12 @@
     <div class="footer-box">
 
         <div class="draw-icon">
-            <a href="#"><img src="/images/dr1.png" alt=""/></a>
-            <a href="#"><img src="/images/dr2.png" alt=""/></a>
-            <a href="#"><img src="/images/dr3.png" alt=""/></a>
-            <a href="#"><img src="/images/dr4.png" alt=""/></a>
-            <a href="#"><img src="/images/dr5.png" alt=""/></a>
-            <a href="#"><img src="/images/dr6.png" alt=""/></a>
+            <a href="/catalog/list/931"><img src="/images/dr1.png" alt=""/></a>
+            <a href="/catalog/list/932"><img src="/images/dr2.png" alt=""/></a>
+            <a href="/catalog/list/452"><img src="/images/dr3.png" alt=""/></a>
+            <a href="/catalog/list/936"><img src="/images/dr4.png" alt=""/></a>
+            <a href="/catalog/list/1420"><img src="/images/dr5.png" alt=""/></a>
+            <a href="/catalog/list/835"><img src="/images/dr6.png" alt=""/></a>
             <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt=""/></a>
         </div>
 

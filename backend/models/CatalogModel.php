@@ -70,8 +70,7 @@ class CatalogModel extends CFormModel {
                         ' OR ',  [
                              't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
                              't.'.CatalogLayer::getFieldName('price', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('date_add', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('date_last', false) . ' LIKE :text',
+//
                             'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
                             'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
                             ]
