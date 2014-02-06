@@ -37,7 +37,6 @@ class Customer extends LegacyActiveRecord {
 
     //----------Функции из старой системы
     public function verifyPassword($originPassword) {
-        //echo($this->admin_password);exit;
         if ($this->val_not_null($originPassword) && $this->val_not_null($this->password)) {
             // split apart the hash / salt
             $stack = explode(':', $this->password);

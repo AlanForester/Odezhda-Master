@@ -31,9 +31,7 @@ class PasswordLoginAction extends CAction {
 
         if ($formData) {
 
-            //print_r($model->attributes); print_r($formData);exit;
             $model->attributes = $formData;
-            //print_r($model->attributes);exit;
             if ($model->validate(array('username', 'password')) && $model->login())
                 $this->controller->redirect($user->returnUrl);
         }

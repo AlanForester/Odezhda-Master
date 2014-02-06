@@ -17,6 +17,7 @@ class RetailSiteController extends RetailController {
     public function actions() {
         return [
             'error' => 'SimpleErrorAction',
+            'logout' => 'LogoutAction',
         ];
     }
 
@@ -40,7 +41,6 @@ class RetailSiteController extends RetailController {
     }
 
     public function actionLogin(){
-
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
 
@@ -51,20 +51,20 @@ class RetailSiteController extends RetailController {
 
         if ($formData) {
 
-            //print_r($model->attributes); print_r($formData);exit;
             $model->setAttributes($formData,false);
 
             if ($model->validate(array('username', 'password')) && $model->login())
-                $this->controller->redirect($user->returnUrl);
+                $this->redirect($user->returnUrl);
         }
 
 //        $this->controller->layout = '//layouts/blank';
 //        $this->controller->render('login', compact('model'));
-        $this->render('/site/index');
+//        $this->render('/site/index');
     }
 
     private function redirectAwayAlreadyAuthenticatedUsers($user) {
         if (!$user->isGuest)
-            $this->controller->redirect(Yii::app()->request->baseUrl);
+            $this->redirect('/');
+//            $this->redirect(Yii::app()->request->baseUrl);
     }
 }

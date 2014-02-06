@@ -43,22 +43,21 @@ class CustomerIdentity extends CUserIdentity
                 return $this->failureBecausePasswordInvalid();
         }
 
-
         return $this->isAuthenticated;
     }
 
 
-    /** @return User */
-    private function findUser()
-    {
-        return UsersHelper::find($this->username);
-//        return User::model()->find(
-//            [
-//                    'condition' => 'username=:username',
-//                'params' => [':username' => $this->username]
-//            ]
-//        );
-    }
+//    /** @return User */
+//    private function findUser()
+//    {
+//        return CustomersHelper::find($this->username);
+////        return User::model()->find(
+////            [
+////                    'condition' => 'username=:username',
+////                'params' => [':username' => $this->username]
+////            ]
+////        );
+//    }
 
     private function failureBecauseUserNotFound()
     {
@@ -80,7 +79,7 @@ class CustomerIdentity extends CUserIdentity
 //        $this->username = User::getUserName($user);
 //        $this->setState('vkey', $user->validation_key);
 
-        $data = UsersHelper::makeAuthenticated($user);
+        $data = CustomersHelper::makeAuthenticated($user);
         $this->id = $data['id'];
         $this->username = $data['username'];
         $this->setState('vkey', $data['validation_key']);
