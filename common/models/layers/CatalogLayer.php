@@ -117,6 +117,17 @@ class CatalogLayer {
                     $result[$key]['categories_list'].=$val_up['categories_name'];
                 }
             }
+//            Через запятую
+            $result[$key]['catalog_options_values']='';
+            foreach($val->catalog_options_values as $key_up => $val_up){
+
+                if(!empty($val_up['products_options_values_name'])){
+                    if($key_up!=0){
+                        $result[$key]['catalog_options_values'].=', ';
+                    }
+                    $result[$key]['catalog_options_values'].=$val_up['products_options_values_name'];
+                }
+            }
 
             //Полная запись
 //            if(!empty($val->catalog_options_values)){
@@ -126,6 +137,8 @@ class CatalogLayer {
 //            }
 
         }
+//
+
         return $result;
     }
 
@@ -144,7 +157,7 @@ class CatalogLayer {
     public static function getCatalog($id = null, $scenario = null) {
         if ($id){
             $catalog = CatalogLegacy::model()->findByPk($id);
-//            print_r($catalog);exit;
+
 
             if (!empty($catalog)){
                 $relations=$catalog->relations();
@@ -455,8 +468,9 @@ class CatalogLayer {
         $list = CatalogLegacy::model()->findall($criteria);
 
         $current_category = ShopCategoriesLegacy::model()->with('rel_description')->findByPk($category_id);
-        $current_category = $current_category->attributes +$current_category->rel_description->attributes;
-
+        if($category_id!=0){
+             $current_category = $current_category->attributes +$current_category->rel_description->attributes;
+        }
 
 
             foreach ($list as $key => $val) {

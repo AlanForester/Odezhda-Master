@@ -192,6 +192,14 @@ class CatalogModel extends CFormModel {
             $result['categories_id']=$mass;
 
 
+            $mass=[];
+            foreach($catalog->catalog_options_values as $array){
+                if(!empty($array)){
+                    $mass[$array->attributes['products_options_values_id']] = ['selected'=>'selected'];
+                }
+            }
+            $result['products_options_values_id']=$mass;
+
 
             // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
 

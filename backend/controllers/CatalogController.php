@@ -14,6 +14,7 @@ class CatalogController extends BackendController {
     public $model;
 
     public $categories = [];
+    public $options = [];
     public $manufacturers_list = [];
     public $languages_list = [];
 

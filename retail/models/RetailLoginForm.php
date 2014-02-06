@@ -9,21 +9,18 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * User name
-     *
      * @var string
      */
     public $username;
 
     /**
      * User password
-     *
      * @var string
      */
     public $password;
 
     /**
      * Whether to login user for some amount of time or until end of session.
-     *
      * @var bool
      */
     public $rememberMe;
@@ -34,9 +31,7 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * Validation rules
-     *
      * @see CModel::rules()
-     *
      * @return array
      */
     public function rules() {
@@ -48,9 +43,7 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * Returns attribute labels
-     *
      * @see CModel::attributeLabels()
-     *
      * @return array
      */
     public function attributeLabels() {
@@ -69,7 +62,7 @@ class RetailLoginForm extends CFormModel {
         if ($this->hasErrors())
             return;
 
-        $this->_identity = new AdminIdentity($this->username, $this->password);
+        $this->_identity = new CustomerIdentity($this->username, $this->password);
         if ($this->_identity->authenticate())
             return;
 
@@ -84,7 +77,7 @@ class RetailLoginForm extends CFormModel {
      */
     public function login() {
         if ($this->_identity === null) {
-            $this->_identity = new AdminIdentity($this->username, $this->password);
+            $this->_identity = new CustomerIdentity($this->username, $this->password);
             $this->_identity->authenticate();
         }
 
@@ -104,7 +97,7 @@ class RetailLoginForm extends CFormModel {
      */
     public function getUser() {
         if ($this->_user === null)
-            $this->_user = UsersHelper::findByAttributes(['[[email]]' => $this->username]);
+            $this->_user = CustomersHelper::findByAttributes(['[[email]]' => $this->username]);
 
         return $this->_user;
     }

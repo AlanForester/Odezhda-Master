@@ -120,6 +120,15 @@ $this->widget(
             ],
             [
                 'type' => 'text',
+                'header' => 'Размеры',
+                'name' => 'catalog_options_values',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
+            [
+                'type' => 'text',
                 'header' => 'Производитель',
                 'name' => 'manufacturers',
                 'headerHtmlOptions' => [
