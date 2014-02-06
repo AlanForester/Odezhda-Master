@@ -5,6 +5,14 @@ Yii::app()->clientScript->registerPackage('catalog');
 //print_r($this->currentCategory);
 //exit;
 //?>
+<script>
+    $(document).ready(function(){
+        $( "#accordion" ).accordion({
+            heightStyle: "content",
+            active: <?php echo $this->currentCategoryNumber; ?>
+        });
+    });
+</script>
 <div class="catalog-title">
     <div class="title">
         <p><?php echo $this->currentCategory['categories_name'];?></p>
