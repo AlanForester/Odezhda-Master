@@ -463,6 +463,7 @@ class CatalogLayer {
                 }
             }
 
+
         return $result;
     }
 

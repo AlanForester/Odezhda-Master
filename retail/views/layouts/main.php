@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <a href="#" class="logo"><img src="/images/logo.png" alt=""/></a>
+        <a href="/" class="logo"><img src="/images/logo.png" alt=""/></a>
 
         <div class="search">
             <input type="text"/>
