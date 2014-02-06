@@ -31,7 +31,7 @@ Yii::app()->clientScript->registerPackage('index');
         <?php } ?>
 
     </ul>
-    <a href="#" class="all-catalog">Весь каталог</a>
+    <a href="/catalog/list/" class="all-catalog">Весь каталог</a>
 </div>
 <div class="slider">
 
@@ -182,17 +182,17 @@ Yii::app()->clientScript->registerPackage('index');
     <div class="box1">
         <h2>1000 платьев</h2>
         <h3>на каждый день</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/452">смотреть</a>
     </div>
     <div class="box2">
         <h2>распродажа</h2>
         <h3>круглый год</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/590">смотреть</a>
     </div>
     <div class="box3">
         <h2>новинки</h2>
         <h3>каждый день</h3>
-        <a href="#">смотреть</a>
+        <a href="/catalog/list/">смотреть</a>
     </div>
 </div>
 

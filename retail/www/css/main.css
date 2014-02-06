@@ -56,6 +56,7 @@
 	z-index:9999;
 	width:940px;
     height:auto;
+    min-height:450px;
 	background:#fff;
 	border-radius:7px;
 	-moz-border-radius:7px;

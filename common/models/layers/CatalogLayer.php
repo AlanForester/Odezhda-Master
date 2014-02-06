@@ -423,16 +423,17 @@ class CatalogLayer {
 
 
     //front
-    public static function frontCatalogList($offset,$data){
+    public static function frontCatalogList($offset,$data_desc){
         // $data['main'];
+//        print_r($data_desc);
+//        exit;
         $data= array_merge(
-            $data['new_model'],['with'=>
+            $data_desc['new_model'],['with'=>
             ['description'=>'description',
-                'categories_description'=>$data['categories_description'],
+                'categories_description'=>$data_desc['categories_description'],
                 'manufacturers'=>'manufacturers'
             ]
             ]);
-
 
         $criteria = new CDbCriteria($data);
         //todo:limit
