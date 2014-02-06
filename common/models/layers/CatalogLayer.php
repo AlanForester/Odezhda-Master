@@ -436,6 +436,7 @@ class CatalogLayer {
             ]);
 
         $criteria = new CDbCriteria($data);
+        $count = CatalogLegacy::model()->count($data);
         //todo:limit
         $criteria->limit=6;
         $criteria->offset=$offset;
@@ -443,6 +444,9 @@ class CatalogLayer {
 //            exit;
         $result=[];
         $list = CatalogLegacy::model()->findall($criteria);
+
+
+
             foreach ($list as $key => $val) {
                 $result[$key] = self::fieldMapConvert($val->attributes);
                 if(!empty($val->description->attributes)){
@@ -464,7 +468,7 @@ class CatalogLayer {
             }
 
 
-        return $result;
+        return ['list'=>$result,'count'=>$count];
     }
 
 

@@ -91,7 +91,7 @@ class CatalogModel extends CFormModel {
             $data_categories['params'][':categories_id'] = $category_id;
         }
 
-        $list=CatalogLayer::frontCatalogList($offset,
+        $list_and_count=CatalogLayer::frontCatalogList($offset,
             [
                 'new_model'=> [
                     'order' => $data['order_field']
@@ -102,7 +102,7 @@ class CatalogModel extends CFormModel {
 
 
 
-        return $list;
+        return $list_and_count;
     }
 
     public function productById($id){

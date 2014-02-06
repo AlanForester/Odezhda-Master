@@ -10,6 +10,7 @@ class CatalogController extends RetailController {
     public $catalogData;
     public $product;
     public $list;
+    public $count;
     public $categories=[];
     /**
      * Actions attached to this controller
@@ -82,7 +83,11 @@ class CatalogController extends RetailController {
         $catalogModel = new CatalogModel();
         $filter=[];
 
-        $this->list = $catalogModel->frontCatalogList($params['offset'],$id);
+        $list_and_count = $catalogModel->frontCatalogList($params['offset'],$id);
+
+        $this->list=$list_and_count['list'];
+        $this->count=$list_and_count['count'];
+
 
         if(!empty($params['offset'])){
             $this->renderPartial("/site/catalog_ajax");
