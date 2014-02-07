@@ -1,7 +1,8 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 
-//print_r($this->categories);
+
+//    echo(Yii::app()->user->identityCookie);
 //exit;
 ?>
 

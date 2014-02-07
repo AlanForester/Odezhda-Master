@@ -28,7 +28,7 @@
         </div>
         <div class="modal-login-right">
             <p>Новый покупатель</p>
-            <button>Регистрация</button>
+            <button onclick="$('#exampleModal2').arcticmodal()">Регистрация</button>
             <img src="/images/modal-girl.png" alt="" />
         </div>
     </div>

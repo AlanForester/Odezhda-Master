@@ -19,23 +19,38 @@
 
 class RetailRegisterForm extends CFormModel {
 
+    public $name_surname;
+//    public $surname;
+    public $email;
+    public $phone;
+    public $day;
+    public $month;
+    public $year;
+    public $notes_email;
+    public $notes_sms;
+    public $promo;
+
+    public $rememberMe;
+
+    /** @var CUserIdentity */
+    private $_identity;
+
     /**
      * Validation rules
-     *
      * @see CModel
      * @return array
      */
     public function rules()
     {
         return [
-            ['name, email', 'required'],
+            ['name_surname, email', 'required'],
             ['email', 'email'],
-            ['name, month, phone, promo', 'type', 'type'=>'string'],
-            ['name', 'length', 'max'=>255],
+            ['name_surname, month, phone, promo', 'type', 'type'=>'string'],
+            ['name_surname', 'length', 'max'=>255],
             ['day', 'numerical', 'min'=>1, 'max'=>2],
-            ['month', 'length', 'min'=>3, 'max'=>9],
+            ['month', 'numerical', 'min'=>1, 'max'=>2],
             ['year', 'numerical', 'max'=>4],
-            ['notes_email, notes_sms, remember', 'boolean'],
+            ['notes_email, notes_sms, rememberMe', 'boolean'],
         ];
     }
 
@@ -59,5 +74,29 @@ class RetailRegisterForm extends CFormModel {
             'notes_sms' => 'Я хочу получать sms-уведомления',
             'remember' => 'Запомнить меня',
         ];
+    }
+
+    /**
+     * Registration
+     * @return bool
+     */
+    public function registration() {
+        if(CustomersHelper::save($this->attributes)){
+            return true;
+        }
+
+//        if ($this->_identity === null) {
+//            $this->_identity = new CustomerIdentity($this->username, $this->password);
+//            $this->_identity->authenticate();
+//        }
+//        if ($this->_identity->isAuthenticated) {
+//            $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
+//            Yii::app()->user->allowAutoLogin=true;
+//
+//            Yii::app()->user->login($this->_identity, $duration);
+//            return true;
+//        }
+//
+        return false;
     }
 }
