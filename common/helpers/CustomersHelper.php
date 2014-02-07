@@ -272,10 +272,9 @@ class CustomersHelper {
         }
         //todo сначала пароль 111 - изменить
         $userData['password']= $user->encrypt_password('111');
-//        $userData['id']= 40000;
             // задаем значения, получаем реальные имена полей
         $user->setAttributes($userData, false);
-        if (!$user->save(false)) {
+        if (!$user->save()) {
 
             self::$errors = $user->getErrors();
             return false;

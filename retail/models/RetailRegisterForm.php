@@ -45,7 +45,7 @@ class RetailRegisterForm extends CFormModel {
         return [
             ['name_surname, email', 'required'],
             ['email', 'email'],
-            ['name_surname, phone, promo', 'type', 'type'=>'string'],
+//            ['name_surname, phone, promo', 'type', 'type'=>'string'],
             ['name_surname', 'length', 'max'=>255],
             ['day', 'numerical', 'min'=>1, 'max'=>2],
             ['month', 'numerical', 'min'=>1, 'max'=>2],
@@ -60,21 +60,21 @@ class RetailRegisterForm extends CFormModel {
      * @see CModel
      * @return array
      */
-    public function attributeLabels()
-    {
-        return [
-            'name' => 'Имя, Фамилия',
-            'email' => 'E-mail',
-            'day' => 'день',
-            'month' => 'месяц',
-            'year' => 'год',
-            'phone' => 'Мобильный',
-            'promo' => 'Промо-код',
-            'notes_email' => 'Я хочу получать уведомления по электронной почте',
-            'notes_sms' => 'Я хочу получать sms-уведомления',
-            'remember' => 'Запомнить меня',
-        ];
-    }
+//    public function attributeLabels()
+//    {
+//        return [
+//            'name' => 'Имя, Фамилия',
+//            'email' => 'E-mail',
+//            'day' => 'день',
+//            'month' => 'месяц',
+//            'year' => 'год',
+//            'phone' => 'Мобильный',
+//            'promo' => 'Промо-код',
+//            'notes_email' => 'Я хочу получать уведомления по электронной почте',
+//            'notes_sms' => 'Я хочу получать sms-уведомления',
+//            'remember' => 'Запомнить меня',
+//        ];
+//    }
 
     /**
      * Registration
