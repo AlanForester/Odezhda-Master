@@ -110,13 +110,13 @@ class Customer extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
-            ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
-            ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
-            ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
-            ['firstname', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')],
-            ['lastname', 'default'],
-            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
-            ['password', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')]
+//            ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
+////            ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
+//            ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
+//            ['firstname', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')],
+//            ['lastname', 'default'],
+////            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
+//            ['password', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')]
         ];
     }
 

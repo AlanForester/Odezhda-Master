@@ -45,7 +45,7 @@ class RetailRegisterForm extends CFormModel {
         return [
             ['name_surname, email', 'required'],
             ['email', 'email'],
-            ['name_surname, month, phone, promo', 'type', 'type'=>'string'],
+            ['name_surname, phone, promo', 'type', 'type'=>'string'],
             ['name_surname', 'length', 'max'=>255],
             ['day', 'numerical', 'min'=>1, 'max'=>2],
             ['month', 'numerical', 'min'=>1, 'max'=>2],
