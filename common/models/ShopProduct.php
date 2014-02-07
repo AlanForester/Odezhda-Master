@@ -196,7 +196,15 @@ class ShopProduct extends LegacyActiveRecord {
 
     public function relations() {
         return [
-      //      'page_description' => [self::HAS_ONE, 'InfoPageDescription', 'pages_id'],
+            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id','together'=>true],
+
+            'manufacturers_description'=>array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id','together'=>true),
+            //связь с категориями many to many
+            'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id','together'=>true),
+            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product','together'=>true),
+            //связь с опциями
+            'catalog_attributes' => array(self::HAS_MANY, 'CatalogAtributes', 'products_id','together'=>true),
+            'catalog_options_values' => array(self::HAS_MANY, 'CatalogOptions', 'options_values_id', 'through' => 'catalog_attributes','together'=>true)
         ];
     }
 
