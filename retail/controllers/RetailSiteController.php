@@ -73,7 +73,13 @@ class RetailSiteController extends RetailController {
 
         $model = new RetailRegisterForm();
         $formData = Yii::app()->request->getPost(get_class($model), false);
-        print_r($formData);exit;
+
+        if ($formData) {
+
+            $model->setAttributes($formData,false);
+            if ($model->validate(array('username', 'password')) && $model->registration())
+                $this->redirect($user->returnUrl);
+        }
 
 //        $this->render("/site/index");
     }
