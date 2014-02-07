@@ -91,7 +91,9 @@ class ShopProductsHelper {
 //            'order' => $order_field . ($order_direct ? : ''),
 //        ];
         $criteria=[
-            'with'=>['product_description'=>'product_description'/*$relatedCriteria*/]
+            'with'=>['product_description'=>'product_description'/*$relatedCriteria*/,
+                     'manufacturers_description'=>'manufacturers_description'/*$relatedCriteria*/,
+                     'categories_description'=>'categories_description']
         ];
 
         // разрешаем перезаписать любые параметры критерии
