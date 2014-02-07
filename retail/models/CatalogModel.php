@@ -266,4 +266,30 @@ class CatalogModel extends CFormModel {
         return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 
+
+
+
+
+
+
+
+
+    public function getDataProvider($criteria = null) {
+        return ShopProductsHelper::getDataProvider($criteria);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
