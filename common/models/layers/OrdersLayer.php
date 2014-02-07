@@ -1,6 +1,6 @@
 <?php
 
-class OrdersLayer {
+class OrdersLayer extends OrdersLegacy {
     /**
      * @var array (поле БД => требуемое поле для модели)
      */
@@ -71,7 +71,8 @@ class OrdersLayer {
         'orders_discont_comment' => 'orders_discont_comment',*/
     ];
 
-    public static $errors = [];
+    //public static $errors = [];
+
     /**
      * @param $row массив соответствий
      * @param bool $reverse конвертировать в прямую или обратную сторону(по умолчанию -  прямую)
@@ -97,4 +98,57 @@ class OrdersLayer {
 
         return $row;
     }
+
+    public static function getFieldName($field, $direct = true) {
+        if ($direct) {
+            // old => new
+            return (array_key_exists($field, self::$field_map) ? self::$field_map[$field] : $field);
+        } else {
+            // new => old
+            return (array_search($field, self::$field_map) ? : $field);
+        }
+    }
+
+    public static function getList() {
+        $result = [];
+        $list = OrdersLegacy::model()->findAll();
+        foreach ($list as $val) {
+            $result[] = self::fieldMapConvert($val->attributes);
+        }
+
+        return $result;
+    }
+
+    /*public function setAttributes($values,$safeOnly=true)
+    {
+        return parent::setAttributes(self::fieldMapConvert($values, true), $safeOnly);
+    }*/
+
+    /**
+     * данные для валидации для внешнего использования
+     */
+    public function rules() {
+        $rules = parent::model()->rules();
+        foreach ($rules as &$r) {
+            $r[0] = join(
+                ',',
+                array_map(
+                    function ($el) {
+                        return self::getFieldName(trim($el));
+                    }, explode(',', $r[0])
+                )
+            );
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Карта название полей, вида "реальное поле бд" (old) => "используемое системой" (new)
+     * @return array
+     */
+    public function fieldMap() {
+        return self::$field_map;
+    }
+
 }
