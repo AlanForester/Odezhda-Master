@@ -90,19 +90,19 @@ class ShopProductsHelper {
 //            'params' => $params,
 //            'order' => $order_field . ($order_direct ? : ''),
 //        ];
-//        $criteria=[
-//            'with'=>['page_description'=>$relatedCriteria]
-//        ];
+        $criteria=[
+            'with'=>['product_description'=>'product_description'/*$relatedCriteria*/]
+        ];
 
         // разрешаем перезаписать любые параметры критерии
 //        if (isset($data['criteria'])) {
 //            $criteria = array_merge($criteria, $data['criteria']);
-//        }
+//       }
 
         return new CActiveDataProvider(
             'ShopProduct',
             [
-//                'criteria' => $criteria,
+                'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
