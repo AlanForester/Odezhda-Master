@@ -42,16 +42,16 @@ class RetailRegisterForm extends CFormModel {
      */
     public function rules()
     {
-        return [
-            ['name_surname, email', 'required'],
-            ['email', 'email'],
+//        return [
+//            ['name_surname, email', 'required'],
+//            ['email', 'email'],
 //            ['name_surname, phone, promo', 'type', 'type'=>'string'],
-            ['name_surname', 'length', 'max'=>255],
-            ['day', 'numerical', 'min'=>1, 'max'=>2],
-            ['month', 'numerical', 'min'=>1, 'max'=>2],
-            ['year', 'numerical', 'max'=>4],
-            ['notes_email, notes_sms, rememberMe', 'boolean'],
-        ];
+//            ['name_surname', 'length', 'max'=>255],
+//            ['day', 'numerical', 'min'=>1, 'max'=>2],
+//            ['month', 'numerical', 'min'=>1, 'max'=>2],
+//            ['year', 'numerical', 'max'=>4],
+//            ['notes_email, notes_sms, rememberMe', 'boolean'],
+//        ];
     }
 
     /**

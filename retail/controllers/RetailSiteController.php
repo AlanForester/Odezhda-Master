@@ -76,8 +76,7 @@ class RetailSiteController extends RetailController {
 
         if ($formData) {
 
-            $model->setAttributes($formData);
-//            print_r($model);exit;
+            $model->setAttributes($formData,false);
             if ($model->registration())
                 $this->redirect($user->returnUrl);
             else {

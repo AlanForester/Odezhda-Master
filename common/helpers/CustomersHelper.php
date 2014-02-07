@@ -243,6 +243,7 @@ class CustomersHelper {
             return false;
         }
         $userData=[];//массив даных пользователя из формы(обработанные) для записи в бд
+
         //получаем из пришедших данных имя и фамилию пользователя (записаны одной строкой)
 //        $name_surname = TbArray::getValue('name_surname', $data);
 //        if($name_surname){
@@ -257,6 +258,7 @@ class CustomersHelper {
 //            $userData['name'] = $name_surname[0];
 //            $userData['surname'] = $name_surname[1];
 //        }
+
         //тестовое решение
         $userData['firstname']=trim(TbArray::getValue('name_surname', $data));
         $userData['lastname']=trim(TbArray::getValue('name_surname', $data));
@@ -268,14 +270,16 @@ class CustomersHelper {
         if(!empty($day)&&!empty($month)&&!empty($year)){
             $date = new DateTime();
             $date->setDate($year,$month,$day);
+            $date->setTime(0,0,0);
             $userData['dob'] = $date->format('Y-m-d H:i:s');
         }
         //todo сначала пароль 111 - изменить
         $userData['password']= $user->encrypt_password('111');
             // задаем значения, получаем реальные имена полей
         $user->setAttributes($userData, false);
-        if (!$user->save()) {
 
+        if (!$user->save()) {
+            print_r($user->getErrors());exit;
             self::$errors = $user->getErrors();
             return false;
         }
