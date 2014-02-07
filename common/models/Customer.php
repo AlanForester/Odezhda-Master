@@ -119,7 +119,7 @@ class Customer extends LegacyActiveRecord {
 //            ['lastname', 'default'],
 //            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
             ['password', 'required','message' => Yii::t('validation', 'Пароль является обязательным')],
-            ['dob', 'date', 'message' => Yii::t('validation', "Некорректный дата рождения")],
+//            ['dob', 'date', 'message' => Yii::t('validation', "Некорректная дата рождения")],
         ];
     }
     //        return [

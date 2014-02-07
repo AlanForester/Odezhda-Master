@@ -96,7 +96,7 @@ class CustomersHelper {
     //        //        return UserLegacy::validate($attributes,$clearErrors);
     //    }
 
-    public static function getErrors($attributes = null) {
+    public static function getErrors() {
         //        print_r(UserLegacy::model());exit;
         //        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
@@ -279,7 +279,6 @@ class CustomersHelper {
         $user->setAttributes($userData, false);
 
         if (!$user->save()) {
-            print_r($user->getErrors());exit;
             self::$errors = $user->getErrors();
             return false;
         }

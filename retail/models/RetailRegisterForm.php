@@ -84,6 +84,7 @@ class RetailRegisterForm extends CFormModel {
         if(CustomersHelper::save($this->attributes)){
             return true;
         }
+        $this->addErrors(CustomersHelper::getErrors());
 
 //        if ($this->_identity === null) {
 //            $this->_identity = new CustomerIdentity($this->username, $this->password);
