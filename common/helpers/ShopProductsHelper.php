@@ -49,58 +49,60 @@ class ShopProductsHelper {
 //    }
 
     public static function getDataProvider($data = null) {
-        $condition = ['language_id=:language_id'];
-        $params = [':language_id'=>1];
+
+//        $condition = ['language_id=:language_id'];
+//        $params = [':language_id'=>1];
 
         // фильтр по тексту
-        if (!empty($data['text_search'])) {
-            $condition[] = '(' . join(
-                    ' OR ',
-                    [
-                        '[[name]] LIKE :text',
-                        '[[id]] LIKE :text',
-                    ]
-                ) . ')';
-
-            $params[':text'] = '%' . $data['text_search'] . '%';
-        }
+//        if (!empty($data['text_search'])) {
+//            $condition[] = '(' . join(
+//                    ' OR ',
+//                    [
+//                        '[[name]] LIKE :text',
+//                        '[[id]] LIKE :text',
+//                    ]
+//                ) . ')';
+//
+//            $params[':text'] = '%' . $data['text_search'] . '%';
+//        }
 
 
         // поле и направление сортировки
-        $order_direct = null;
-        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
-
-        if (isset($data['order_direct'])) {
-            switch ($data['order_direct']) {
-                case 'up':
-                    $order_direct = ' ASC';
-                    break;
-                case 'down':
-                    $order_direct = ' DESC';
-                    break;
-            }
-        }
+//        $order_direct = null;
+//        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
+//
+//        if (isset($data['order_direct'])) {
+//            switch ($data['order_direct']) {
+//                case 'up':
+//                    $order_direct = ' ASC';
+//                    break;
+//                case 'down':
+//                    $order_direct = ' DESC';
+//                    break;
+//            }
+//        }
 
         $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
-
-        $relatedCriteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
-            'order' => $order_field . ($order_direct ? : ''),
-        ];
-        $criteria=[
-            'with'=>['page_description'=>$relatedCriteria]
-        ];
+        $page_size=10;
+//
+//        $relatedCriteria = [
+//            'condition' => join(' AND ', $condition),
+//            'params' => $params,
+//            'order' => $order_field . ($order_direct ? : ''),
+//        ];
+//        $criteria=[
+//            'with'=>['page_description'=>$relatedCriteria]
+//        ];
 
         // разрешаем перезаписать любые параметры критерии
-        if (isset($data['criteria'])) {
-            $criteria = array_merge($criteria, $data['criteria']);
-        }
+//        if (isset($data['criteria'])) {
+//            $criteria = array_merge($criteria, $data['criteria']);
+//        }
 
         return new CActiveDataProvider(
-            'InfoPage',
+            'ShopProduct',
             [
-                'criteria' => $criteria,
+//                'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
