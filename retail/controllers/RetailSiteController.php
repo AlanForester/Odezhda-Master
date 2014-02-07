@@ -67,4 +67,14 @@ class RetailSiteController extends RetailController {
             $this->redirect('/');
 //            $this->redirect(Yii::app()->request->baseUrl);
     }
+    public function actionRegistration() {
+        $user = Yii::app()->user;
+        $this->redirectAwayAlreadyAuthenticatedUsers($user);
+
+        $model = new RetailRegisterForm();
+        $formData = Yii::app()->request->getPost(get_class($model), false);
+        print_r($formData);exit;
+
+//        $this->render("/site/index");
+    }
 }
