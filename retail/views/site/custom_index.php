@@ -2,14 +2,16 @@
 Yii::app()->clientScript->registerPackage('catalog');
 ?>
 <?php
-print_r($this->DataProvider->getData());
-exit;
-//?>
+//print_r($this->DataProvider->getData());
+
+//print_r($this->DataProvider->getTotalItemCount());
+//exit;
+?>
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({
             heightStyle: "content",
-            active: <?php echo $this->currentCategoryNumber; ?>
+<!--            active: --><?php //echo $this->currentCategoryNumber; ?>
         });
     });
 </script>
@@ -23,6 +25,7 @@ exit;
 <div class="left-option">
     <div class="accord-item">
         <div id="accordion">
+
 
 
 <!--            --><?php //foreach($this->categories as $category){ ?>
@@ -43,6 +46,8 @@ exit;
 <!--                --><?php //} ?>
 <!---->
 <!--            --><?php //} ?>
+
+
 
         </div>
 
@@ -193,7 +198,7 @@ exit;
         <div id="slider-range1"></div>
     </div>
 </div>
-
+<!---->
 <?php
 //        function pluralForm($n, $form1, $form2, $form5)
 //        {
@@ -221,25 +226,26 @@ exit;
 
 
 <div class="catalog-goods">
-<!---->
-<!--    --><?php //foreach($this->list as $product){ ?>
-<!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="/catalog/product/--><?php //echo $product['id'];?><!--">--><?php //echo $product['name'].' '.$product['model']?><!--</a>-->
+    <?php foreach($this->DataProvider->getData() as $product){ ?>
+
+    <div class="goods-var">
+        <img src="/images/kofta.png" alt="" />
+        <a href="/catalog/product/<?php echo $product['products_id'];?>"></a>
 <!--        <span>--><?php //echo round($product['price']).'р'; ?><!--</span>-->
 <!--        <h5>--><?php //echo round($product['old_price']).'р'; ?><!--</h5>-->
-<!--        <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    --><?php //}?>
+        <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
+        <div class="choice">
+            <select>
+                <option>Размер</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <button class="in-basket">в корзину</button>
+        </div>
+    </div>
+    <?php }?>
+
 </div>
 
 <div class="catalog-goods more">

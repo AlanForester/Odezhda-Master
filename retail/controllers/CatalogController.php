@@ -131,7 +131,8 @@ class CatalogController extends RetailController {
         $model = new CatalogModel();
         $this->DataProvider = $model->getDataProvider($criteria);
 
-        print_r($this->DataProvider);
+//        print_r($this->DataProvider->getData());
+
         $this->render('/site/custom_index', compact('page_size', 'criteria', 'DataProvider'));
     }
 

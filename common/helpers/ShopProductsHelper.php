@@ -93,7 +93,8 @@ class ShopProductsHelper {
         $criteria=[
             'with'=>['product_description'=>'product_description'/*$relatedCriteria*/,
                      'manufacturers_description'=>'manufacturers_description'/*$relatedCriteria*/,
-                     'categories_description'=>'categories_description']
+                     'categories_description'=>'categories_description',
+                     'product_options'=>'product_options']
         ];
 
         // разрешаем перезаписать любые параметры критерии
