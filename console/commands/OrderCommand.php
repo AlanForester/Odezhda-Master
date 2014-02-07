@@ -32,7 +32,7 @@ class OrderCommand extends CConsoleCommand
      */
     public function init()
     {
-        $this->retailOrdersModel = new RetailOrdersLayer();
+        $this->retailOrdersModel = RetailOrdersLayer::model();
     }
 
     /**
