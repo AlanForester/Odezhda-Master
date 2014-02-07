@@ -20,7 +20,7 @@ function rewrite_days()
         else
         {
             days.length = days_in_month[month.value-1];
-            for (var i = 29; i <= days.length; i++)
+            for (var i = 29; i < days.length; i++)
             {
                 days.item(i-1).value = i;
                 days.item(i-1).text = i;
@@ -152,8 +152,22 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 
                 <div class="reg">
                     <?php if(empty(Yii::app()->user->id)): ?>
-                    <a href="#" id="#example1" onclick="$('#exampleModal1').arcticmodal()" class="m-dotted">Вход</a>
-                    <a href="#" id="#example2" onclick="$('#exampleModal2').arcticmodal()" class="m-dotted">Регистрация</a>
+<!--                    <a href="#" id="#example1" onclick="$('#exampleModal1').arcticmodal()" class="m-dotted">Вход</a>-->
+<!--                    <a href="#" id="#example2" onclick="$('#exampleModal2').arcticmodal()" class="m-dotted">Регистрация</a>-->
+                        <a class="popup-with-form-login" href="#login">Вход</a>
+                        <?php
+                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
+                            'target' => '.popup-with-form-login',
+                            'type' => 'inline',
+                        ));
+                        ?>
+                        <a class="popup-with-form-registration" href="#registration">Регистрация</a>
+                        <?php
+                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
+                            'target' => '.popup-with-form-registration',
+                            'type' => 'inline',
+                        ));
+                        ?>
                     <?php else: ?>
                     <span>Вы вошли как: <strong><?php echo Yii::app()->user->name;?></strong></span>
                     <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>

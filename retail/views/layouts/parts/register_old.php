@@ -1,6 +1,6 @@
 <div class="g-hidden">
-    <div class="box-modal modal-reg" id="registration">
-<!--        <div class="box-modal_close arcticmodal-close modal-reg">X</div>-->
+    <div class="box-modal modal-reg" id="exampleModal2">
+        <div class="box-modal_close arcticmodal-close modal-reg">X</div>
         <div class="modal-login-left modal-reg">
             <p>Регистрация</p>
             <form  method="post" action="/site/registration">
