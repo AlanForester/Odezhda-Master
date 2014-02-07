@@ -19,10 +19,6 @@
                                 }
                                 echo $days;
                             ?>
-<!--                            <option>дд</option>-->
-<!--                            <option>мм</option>-->
-<!--                            <option>гггг</option>-->
-<!--                            <option>пол</option>-->
                         </select>
                         <select id="month" name="RetailLoginForm[month]" class="intro-select-month" onChange="rewrite_days();">
                             <option value="1" selected>январь</option>
@@ -46,10 +42,6 @@
                             }
                             echo $years;
                             ?>
-<!--                            <option>дд</option>-->
-<!--                            <option>мм</option>-->
-<!--                            <option>гггг</option>-->
-<!--                            <option>пол</option>-->
                         </select>
                         <h6>Подарки и сюрпризы на день рождения от Lapana.ru</h6>
                     </div>

@@ -22,8 +22,8 @@ function rewrite_days()
             days.length = days_in_month[month.value-1];
             for (var i = 29; i <= days.length; i++)
             {
-                days.item(i).value = i;
-                days.item(i).text = i;
+                days.item(i-1).value = i;
+                days.item(i-1).text = i;
             }
         }
 }
