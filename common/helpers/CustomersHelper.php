@@ -17,7 +17,7 @@ class CustomersHelper {
      */
     public static function getUser($id = null, $scenario = null) {
         $model = self::getModel();
-        return ($id ? $model->findByPk($id) : new $model($scenario));
+        return ($id ? $model->findByPk($id) : new Customer());
 
         //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
     }
@@ -227,5 +227,59 @@ class CustomersHelper {
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
+    }
+
+    /**
+     * Создание пользователя на основе данных из формы
+     * @param array $data исходные данные из формы
+     * @return bool|array массив данных пользователя или false
+     */
+    public static function save($data) {
+//        print_r($data);exit;
+
+        // модель пользователя
+        $user = self::getUser();
+        if (!$user) {
+            return false;
+        }
+        $userData=[];//массив даных пользователя из формы(обработанные) для записи в бд
+        //получаем из пришедших данных имя и фамилию пользователя (записаны одной строкой)
+//        $name_surname = TbArray::getValue('name_surname', $data);
+//        if($name_surname){
+//            $name_surname = explode(",", $name_surname);
+//            if(count($name_surname)==1){
+//
+//                $name_surname = explode(" ", trim($name_surname[0]));
+//
+//            }
+//            $name_surname = array_map(function ($el){return trim($el);},$name_surname);
+//
+//            $userData['name'] = $name_surname[0];
+//            $userData['surname'] = $name_surname[1];
+//        }
+        //тестовое решение
+        $userData['firstname']=trim(TbArray::getValue('name_surname', $data));
+        $userData['lastname']=trim(TbArray::getValue('name_surname', $data));
+        $userData['email']=TbArray::getValue('email', $data);
+        $userData['phone']=TbArray::getValue('phone', $data);
+        $day=TbArray::getValue('day', $data);
+        $month=TbArray::getValue('month', $data);
+        $year=TbArray::getValue('year', $data);
+        if(!empty($day)&&!empty($month)&&!empty($year)){
+            $date = new DateTime();
+            $date->setDate($year,$month,$day);
+            $userData['dob'] = $date->format('Y-m-d H:i:s');
+        }
+        //todo сначала пароль 111 - изменить
+        $userData['password']= $user->encrypt_password('111');
+//        $userData['id']= 40000;
+            // задаем значения, получаем реальные имена полей
+        $user->setAttributes($userData, false);
+        if (!$user->save(false)) {
+
+            self::$errors = $user->getErrors();
+            return false;
+        }
+        return $user;
     }
 }

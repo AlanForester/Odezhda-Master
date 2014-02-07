@@ -72,7 +72,6 @@ class RetailLoginForm extends CFormModel {
 
     /**
      * Login
-     *
      * @return bool
      */
     public function login() {
