@@ -143,12 +143,24 @@ class OrdersLayer extends OrdersLegacy {
         return $rules;
     }
 
-    /**
-     * Карта название полей, вида "реальное поле бд" (old) => "используемое системой" (new)
-     * @return array
-     */
+    protected function afterFind()
+    {
+        parent::afterFind();
+        //$this->setAttributes(self::fieldMapConvert($this->getAttributes(),true));
+    }
+
+    protected function afterSave() {
+        parent::afterSave();
+
+    }
+
     public function fieldMap() {
         return self::$field_map;
+    }
+
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
     }
 
 }

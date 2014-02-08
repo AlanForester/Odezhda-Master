@@ -5,6 +5,11 @@ class CommonHelper {
     public static function getDataProvider($data = null,$modelClass) {
         $condition = $params = [];
 
+        //дополнительные параметры condition
+        if (isset($data['condition']) && is_array($data['condition'])) {
+            $condition = $data['condition'];
+        }
+
         // фильтр по тексту
         if (!empty($data['text_search']['value']) && !empty($data['text_search']['columns'])) {
             $columnConditions = [];

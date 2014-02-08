@@ -17,6 +17,13 @@ class OrdersLegacy extends LegacyActiveRecord
         return 'orders';
     }
 
+    public function relations()
+    {
+        return array(
+
+        );
+    }
+
     /**
      * Validation rules for model attributes.
      *
@@ -31,6 +38,11 @@ class OrdersLegacy extends LegacyActiveRecord
             ['last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'update'],
             ['date_purchased, last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'add']
         ];
+    }
+
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
     }
 
 }

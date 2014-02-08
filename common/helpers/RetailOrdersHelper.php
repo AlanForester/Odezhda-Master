@@ -39,6 +39,10 @@ class RetailOrdersHelper extends CommonHelper {
                 'customers_fax'*/
             ];
 
+        $data['condition'] = [
+            'orders_id IS NULL'
+        ];
+
         return parent::getDataProvider($data,$modelClass);
     }
 
