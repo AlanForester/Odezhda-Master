@@ -35,7 +35,7 @@ class RetailOrdersProductsController extends BackendController {
                 $retailOrders[$order['id'].'&'] = $order['id'] . ' (' . $order['customers_name'] . ')';
             }
         }
-        //var_dump($retailOrders);die();
+
         $this->model = new RetailOrdersProductsLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);

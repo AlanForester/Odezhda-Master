@@ -79,11 +79,24 @@ class RetailOrdersController extends BackendController {
 
         foreach (CurrenciesLayer::model()->findAll() as $currency) {
             $currencies[$currency['id']] = $currency['name'];
+        }
+
+        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
+            $paymentMethods[$method['id']] = $method['name'];
         }*/
 
-        foreach (/*PaymentMethodsLayer::model()->findAll()*/ [['id'=>1,'name'=>1]] as $method) {
-            $paymentMethods[$method['id']] = $method['name'];
-        }
+        //todo: временно оставляю данные здесь, но лучше создать для PaymentMethods и Currencies таблицы в бд (как и для стран и областей)
+        foreach([
+            'Оплата (Для физических лиц)',
+            'Оплата наличными при получении',
+            'Оплата по квитанции Сбербанка РФ',
+            'После сборки заказа Вам будет выставлен счет (Для юридических лиц)',
+            'Предоплата на счёт',
+                ] as $method)
+            $paymentMethods[$method] = $method;
+
+        $currencies = ['RUR'=>'RUR'];
+
 
         $model = new RetailOrdersLayer($scenario);
         if (!$item = $model->getRetailOrder($id, $scenario)){
