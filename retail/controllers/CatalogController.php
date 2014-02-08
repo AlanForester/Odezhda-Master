@@ -14,6 +14,8 @@ class CatalogController extends RetailController {
     public $categories=[];
     public $currentCategory=[];
     public $currentCategoryNumber;
+
+    public $DataProvider;
     /**
      * Actions attached to this controller
      *
@@ -41,9 +43,6 @@ class CatalogController extends RetailController {
 
     public function actionProduct($id=null) {
 
-
-
-
         if($id!=null){
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
@@ -64,9 +63,7 @@ class CatalogController extends RetailController {
     }
 
 
-    /**
-     * @param int $id - category_id
-     */
+/*
     public function actionList($id=0) {
 
         $params['offset'] = Yii::app()->request->getPost('offset');
@@ -118,17 +115,6 @@ class CatalogController extends RetailController {
                 $i++;
             }
         }
-
-
-
-
-
-
-
-
-
-
-
         if(!empty($params['offset'])){
             $this->renderPartial("/site/catalog_ajax");
         }
@@ -136,10 +122,23 @@ class CatalogController extends RetailController {
             $this->render("/site/catalog");
         }
     }
+*/
+
+    public function actionList($id=0) {
+        // получение данных
+        $criteria=[];
+
+        $model = new CatalogModel();
+        $this->DataProvider = $model->getDataProvider($criteria);
+
+//        print_r($this->DataProvider->getData());
+
+        $this->render('/site/custom_index', compact('page_size', 'criteria', 'DataProvider'));
+    }
+
+
 
     public function actionError() {
-
-
         $this->render("/site/error");
     }
 }

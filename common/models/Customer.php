@@ -35,6 +35,7 @@ class Customer extends LegacyActiveRecord {
         ];
     }
 
+
     //----------Функции из старой системы
     public function verifyPassword($originPassword) {
         if ($this->val_not_null($originPassword) && $this->val_not_null($this->password)) {
@@ -113,12 +114,24 @@ class Customer extends LegacyActiveRecord {
             ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
             ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
             ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
-            ['firstname', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')],
-            ['lastname', 'default'],
-            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
-            ['password', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')]
+            ['firstname, lastname', 'required', 'message' => Yii::t('validation', 'Имя является обязательным')],
+            ['firstname, phone, lastname', 'type', 'type'=>'string'],
+//            ['lastname', 'default'],
+//            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
+            ['password', 'required','message' => Yii::t('validation', 'Пароль является обязательным')],
+//            ['dob', 'date', 'message' => Yii::t('validation', "Некорректная дата рождения")],
         ];
     }
+    //        return [
+//            ['name_surname, email', 'required'],
+//            ['email', 'email'],
+//            ['name_surname, phone, promo', 'type', 'type'=>'string'],
+//            ['name_surname', 'length', 'max'=>255],
+//            ['day', 'numerical', 'min'=>1, 'max'=>2],
+//            ['month', 'numerical', 'min'=>1, 'max'=>2],
+//            ['year', 'numerical', 'max'=>4],
+//            ['notes_email, notes_sms, rememberMe', 'boolean'],
+//        ];
 
     /**
      * Заголовки полей (поле=>заголовок)
@@ -132,7 +145,7 @@ class Customer extends LegacyActiveRecord {
             'firstname' => Yii::t('labels', 'Имя'),
             'lastname' => Yii::t('labels', 'Фамилия'),
             'email' => Yii::t('labels', 'E-mail'),
-            'password' => Yii::t('labels', ($this->scenario =='update'? 'Новый пароль' :'Пароль')),
+            'password' => Yii::t('labels','Пароль'),
 
             'lognum' => Yii::t('labels', 'Кол-во авторизаций'),
             'logdate' => Yii::t('labels', 'Последний визит'),

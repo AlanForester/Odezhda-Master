@@ -17,7 +17,7 @@ class CustomersHelper {
      */
     public static function getUser($id = null, $scenario = null) {
         $model = self::getModel();
-        return ($id ? $model->findByPk($id) : new $model($scenario));
+        return ($id ? $model->findByPk($id) : new Customer());
 
         //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
     }
@@ -96,7 +96,7 @@ class CustomersHelper {
     //        //        return UserLegacy::validate($attributes,$clearErrors);
     //    }
 
-    public static function getErrors($attributes = null) {
+    public static function getErrors() {
         //        print_r(UserLegacy::model());exit;
         //        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
@@ -235,51 +235,53 @@ class CustomersHelper {
      * @return bool|array массив данных пользователя или false
      */
     public static function save($data) {
-        print_r($data);exit;
-        $id = TbArray::getValue('id', $data); //isset($data['id']) ? $data['id'] : null;
+//        print_r($data);exit;
 
         // модель пользователя
-        $user = self::getUser($id, 'add');
+        $user = self::getUser();
         if (!$user) {
             return false;
         }
+        $userData=[];//массив даных пользователя из формы(обработанные) для записи в бд
 
-        if ($id) {
-            // обновление пользователя
+        //получаем из пришедших данных имя и фамилию пользователя (записаны одной строкой)
+//        $name_surname = TbArray::getValue('name_surname', $data);
+//        if($name_surname){
+//            $name_surname = explode(",", $name_surname);
+//            if(count($name_surname)==1){
+//
+//                $name_surname = explode(" ", trim($name_surname[0]));
+//
+//            }
+//            $name_surname = array_map(function ($el){return trim($el);},$name_surname);
+//
+//            $userData['name'] = $name_surname[0];
+//            $userData['surname'] = $name_surname[1];
+//        }
 
-        } else {
-            // если есть пустой id в параметрах - удаяем
-            if (array_key_exists('id', $data)) {
-                unset($data['id']);
-            }
-
-            $data['created'] = new CDbExpression('NOW()');
+        //тестовое решение
+        $userData['firstname']=trim(TbArray::getValue('name_surname', $data));
+        $userData['lastname']=trim(TbArray::getValue('name_surname', $data));
+        $userData['email']=TbArray::getValue('email', $data);
+        $userData['phone']=TbArray::getValue('phone', $data);
+        $day=TbArray::getValue('day', $data);
+        $month=TbArray::getValue('month', $data);
+        $year=TbArray::getValue('year', $data);
+        if(!empty($day)&&!empty($month)&&!empty($year)){
+            $date = new DateTime();
+            $date->setDate($year,$month,$day);
+            $date->setTime(0,0,0);
+            $userData['dob'] = $date->format('Y-m-d H:i:s');
         }
+        //todo сначала пароль 111 - изменить
+        $userData['password']= $user->encrypt_password('111');
+            // задаем значения, получаем реальные имена полей
+        $user->setAttributes($userData, false);
 
-        // новый пользователь или новый пароль
-        if ((!$id && !empty($data['password'])) || ($id && !empty($data['password']))) {
-            $data['password'] = $user->encrypt_password($data['password']);
-
-        } else {
-            unset ($data['password']);
-        }
-
-        $data['modified'] = new CDbExpression('NOW()');
-
-        // задаем значения, получаем реальные имена полей
-        $user->setAttributes($data, false);
-        //        $user->setAttributes(self::fieldMapConvert($data, true), false);
-        //print_r($user);exit;
         if (!$user->save()) {
             self::$errors = $user->getErrors();
-
             return false;
         }
-
-        return $user; //->attributes;
-        //        return self::fieldMapConvert($user->attributes);
-
-        // сохраняем и переворачиваем в виртуальные данные
-        //        return ($user->save() ? self::fieldMapConvert($user->attributes) : false);
+        return $user;
     }
 }

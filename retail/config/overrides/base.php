@@ -19,7 +19,8 @@ return [
         'common.helpers.*',
         'common.models.*',
 
-        'retail.models.*'
+        'retail.models.*',
+        'bootstrap.helpers.*',
     ],
     'controllerMap' => [
         // Overriding the controller ID so we have prettier URLs without meddling with URL rules

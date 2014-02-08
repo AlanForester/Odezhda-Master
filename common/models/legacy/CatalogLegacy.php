@@ -51,7 +51,7 @@ class CatalogLegacy extends CActiveRecord
             //связь с категориями many to many
             'category_to_catalog' => array(self::HAS_MANY, 'CatalogToCategoriesLegacy', 'products_id','together'=>true),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescriptionLegacy', 'categories_id', 'through' => 'category_to_catalog','together'=>true),
-            //связь с категориями many to many
+            //связь с опциями
             'catalog_attributes' => array(self::HAS_MANY, 'CatalogAtributesLegacy', 'products_id','together'=>true),
             'catalog_options_values' => array(self::HAS_MANY, 'CatalogOptionsLegacy', 'options_values_id', 'through' => 'catalog_attributes','together'=>true)
         );

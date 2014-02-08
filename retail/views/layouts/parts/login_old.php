@@ -1,6 +1,6 @@
 <div class="g-hidden">
-    <div class="box-modal" id="login">
-<!--        <div class="box-modal_close arcticmodal-close">X</div>-->
+    <div class="box-modal" id="exampleModal1">
+        <div class="box-modal_close arcticmodal-close">X</div>
         <div class="modal-login-left">
             <p>Постоянный клиент</p>
             <form method="post" action="/site/login">
