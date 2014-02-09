@@ -34,8 +34,8 @@ class CatalogLayer {
         //таблица описание товара
             'products_name' => 'name',
             'products_description' => 'description',
-        //таблица категории товара
-            'categories_name' =>'category',
+                //таблица категории товара
+                    'categories_name' =>'category',
         //таблица производителя товара
             'manufacturers_name' => 'manufacturers',
         //meta
@@ -405,13 +405,48 @@ class CatalogLayer {
     //front
     public static function frontCatalogData($data){
        // $data['main'];
-        $data= array_merge(
+        $temp= array_merge(
             $data['new_model'],['with'=>
                 ['description'=>['description'],
                     'categories_description'=>['categories_description'],
                     'manufacturers']]);
 
-        $criteria = new CDbCriteria($data);
+        $criteria = new CDbCriteria($temp);
+        $criteria->limit=6;
+
+
+        $list = CatalogLegacy::model()->findall($criteria);
+
+        foreach ($list as $key => $val) {
+            $result[$key] = self::fieldMapConvert($val->attributes);
+            if(!empty($val->description->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->description->attributes);
+            }
+            if(!empty($val->manufacturers->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
+            }
+            $result[$key]['categories_list']='';
+            foreach($val->categories_description as $key_up => $val_up){
+
+                if(!empty($val_up['categories_id'])){
+                    if($key_up!=0){
+                        $result[$key]['categories_list'].=', ';
+                    }
+                    $result[$key]['categories_list'].=$val_up['categories_name'];
+                }
+            }
+        }
+        $tabs['new_model']=$result;
+
+
+
+        $temp= array_merge(
+            $data['old_model'],['with'=>
+            ['description'=>['description'],
+                'categories_description'=>['categories_description'],
+                'manufacturers']]);
+
+        $criteria = new CDbCriteria($temp);
         $criteria->limit=6;
 
 
@@ -437,7 +472,41 @@ class CatalogLayer {
             }
         }
 
-        $tabs['new_model']=$result;
+        $tabs['old_model']=$result;
+
+        $temp= array_merge(
+            $data['leaders'],['with'=>
+            ['description'=>['description'],
+                'categories_description'=>['categories_description'],
+                'manufacturers']]);
+
+        $criteria = new CDbCriteria($temp);
+        $criteria->limit=6;
+
+
+        $list = CatalogLegacy::model()->findall($criteria);
+
+        foreach ($list as $key => $val) {
+            $result[$key] = self::fieldMapConvert($val->attributes);
+            if(!empty($val->description->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->description->attributes);
+            }
+            if(!empty($val->manufacturers->attributes)){
+                $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
+            }
+            $result[$key]['categories_list']='';
+            foreach($val->categories_description as $key_up => $val_up){
+
+                if(!empty($val_up['categories_id'])){
+                    if($key_up!=0){
+                        $result[$key]['categories_list'].=', ';
+                    }
+                    $result[$key]['categories_list'].=$val_up['categories_name'];
+                }
+            }
+        }
+
+        $tabs['leaders']=$result;
 
         return $tabs;
 
@@ -446,9 +515,6 @@ class CatalogLayer {
 
     //front
     public static function frontCatalogList($offset,$data_desc,$category_id=0){
-        // $data['main'];
-//        print_r($data_desc);
-//        exit;
         $data= array_merge(
             $data_desc['new_model'],['with'=>
             ['description'=>'description',
@@ -492,7 +558,6 @@ class CatalogLayer {
                     }
                 }
             }
-
 
         return ['list'=>$result,'count'=>$count,'current_category'=>$current_category];
     }
