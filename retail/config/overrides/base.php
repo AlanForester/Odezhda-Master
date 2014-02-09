@@ -54,6 +54,7 @@ return [
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
                         //lightbox
+                        'js/jquery.easing.1.3.js',
                         'js/lightbox/jquery.lightbox.min.js',
 
                         // Modal
