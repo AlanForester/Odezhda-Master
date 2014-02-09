@@ -491,6 +491,14 @@ line-height:25px;
 	position:relative;
 }
 
+.goods-var img{
+
+    width:176px;
+    height:241px;
+    border-radius:7px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+}
 .goods-var a {
 	text-align:center;
 	color:#9C9B9B;

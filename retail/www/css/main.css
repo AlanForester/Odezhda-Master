@@ -424,6 +424,13 @@
 	margin-top:5px;
 	margin-left:10px;
 }
+.tab-var img{
+    width:176px;
+    height:241px;
+    border-radius:7px;
+    -moz-border-radius:7px;
+    -webkit-border-radius:7px;
+}
 
 .tab-var a {
 	text-align:center;
