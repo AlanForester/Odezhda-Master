@@ -76,19 +76,7 @@ Yii::app()->clientScript->registerPackage('product');
             </div>
         </div>
 
-        <div class="para-ideal">
-            <h4>ИДЕАЛЬНАЯ ПАРА</h4>
-            <div class="para-box">
-                <a href="#"><img src="/images/para-img.png" alt=""></a>
-                <a href="#" class="name">Кофта</a>
-                <p>150 руб.</p>
-            </div>
-            <div class="para-box">
-                <a href="#"><img src="/images/para-img.png" alt=""></a>
-                <a href="#" class="name">Кофта</a>
-                <p>150 руб.</p>
-            </div>
-        </div>
+<!--        buy-lapiki-->
 
     </div>
 
@@ -110,7 +98,7 @@ Yii::app()->clientScript->registerPackage('product');
         </div>
         <div class="btn">
             <button class="basket">В КОРЗИНУ</button>
-            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>
+<!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
         </div>
     </div>
 

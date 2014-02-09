@@ -42,7 +42,8 @@
 
 .tovar-slider {
 	float:left;
-	width:510px;
+	width:650px;
+	/*width:510px;*/
 	height:auto;
 	padding:15px;
 }
