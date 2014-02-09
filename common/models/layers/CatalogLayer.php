@@ -566,12 +566,6 @@ class CatalogLayer {
         return ['list'=>$result,'count'=>$count,'current_category'=>$current_category];
     }
 
-
-
-
-
-
-
     public static function productById($id){
        $list = self::getCatalog($id);
 

@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
-Yii::app()->getClientScript()->registerScriptFile('/js/bootstrap-paginator.min.js');
-Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
+//Yii::app()->getClientScript()->registerScriptFile('/js/bootstrap-paginator.min.js');
+//Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
 // todo: почистить код
 ?>
 <script>
@@ -19,14 +19,18 @@ Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
                 else{
                      echo 1;
                 }?>,
-            totalPages:<?php echo $this->DataProvider->getTotalItemCount(); ?>/9,
-            pageUrl: function (type, page, current) {
-                return location.pathname + '?page=' + page;
-            }
+            totalPages:
+        <?php echo $this->DataProvider->getTotalItemCount(); ?>/9,
+            pageUrl
+        :
+        function (type, page, current) {
+            return location.pathname + '?page=' + page;
         }
+    }
 
-        $('#example').bootstrapPaginator(options);
-    });
+    $('#example').bootstrapPaginator(options);
+    })
+    ;
 
 </script>
 <!--            active: --><?php //echo $this->currentCategoryNumber; ?>
@@ -221,6 +225,7 @@ Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
         if ($n1 == 1) return $form1;
         return $form5;
     }
+
     ?>
     <div class="sort-goods-catalog">
         <p>

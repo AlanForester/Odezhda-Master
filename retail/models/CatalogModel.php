@@ -103,9 +103,7 @@ class CatalogModel extends CFormModel {
     }
 
     public function productById($id) {
-
-        $list = CatalogLayer::productById($id);
-        return $list;
+        return ShopProductsHelper::getProduct($id);
     }
 
     public function getListAndParams($data) {
