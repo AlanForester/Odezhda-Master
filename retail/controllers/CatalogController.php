@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Basic "kitchen sink" controller for frontend.
- * It was configured to be accessible by `/site` route, not the `/frontendSite` one!
- *
- * @package YiiBoilerplate\Frontend
- */
 class CatalogController extends RetailController {
     public $catalogData;
     public $product;
@@ -17,28 +11,33 @@ class CatalogController extends RetailController {
 
     public $DataProvider;
 
-    public function actionIndex() {
-
-        $catalogModel = new CatalogModel();
-        //        $this->catalogData = $catalogModel->frontCatalogData();
-        $this->render("/site/product");
-    }
+//    public function actionIndex() {
+//
+//        $catalogModel = new CatalogModel();
+//        //        $this->catalogData = $catalogModel->frontCatalogData();
+//        $this->render("/site/product");
+//    }
 
 
     public function actionProduct($id = null) {
-        if ($id != null) {
-            $categoriesModel = new ShopCategoriesModel();
-            $this->categories = $categoriesModel->getClearCategoriesList();
-
-            $catalogModel = new CatalogModel();
-            if ($this->product = $catalogModel->productById($id)) {
-                $this->render("/site/product");
-            } else {
-                $this->render("/site/error");
-            }
-        } else {
-            $this->render("/site/error");
+        $catalogModel = new CatalogModel();
+        if (!$product = $catalogModel->productById($id)) {
+            $this->error('Товар не найден',404);
         }
+        $this->render('/site/product',compact('product'));
+//        if ($id != null) {
+//            $categoriesModel = new ShopCategoriesModel();
+//            $this->categories = $categoriesModel->getClearCategoriesList();
+//
+//            $catalogModel = new CatalogModel();
+//            if ($this->product = $catalogModel->productById($id)) {
+//                $this->render("/site/product");
+//            } else {
+//                $this->render("/site/error");
+//            }
+//        } else {
+//            $this->render("/site/error");
+//        }
     }
 
     public function actionList($id = 0) {
@@ -63,7 +62,7 @@ class CatalogController extends RetailController {
     }
 
 
-    public function actionError() {
-        $this->render("/site/error");
-    }
+//    public function actionError() {
+//        $this->render("/site/error");
+//    }
 }
