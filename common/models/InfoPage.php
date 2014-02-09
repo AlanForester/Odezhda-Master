@@ -15,6 +15,16 @@
  */
 class InfoPage extends LegacyActiveRecord {
 
+//    public function afterConstruct(){
+//        $relations=$this->relations();
+//
+//        if (!empty($relations)){
+//            foreach($relations as $r_name => $r_value){
+//                $this->{$r_name} = new $r_value[1];
+//            }
+//        }
+//    }
+
 //    public $primaryKey = 'id';
 
     public function __get($name) {

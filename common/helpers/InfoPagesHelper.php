@@ -2,7 +2,7 @@
 
 class InfoPagesHelper {
 
-    private static $dataProvider;
+//    private static $dataProvider;
 
     private static $errors = [];
 
@@ -18,7 +18,10 @@ class InfoPagesHelper {
      */
     public static function getPage($id = null, $scenario = null) {
         if ($id){
-            $page = self::getModel()->findByPk($id);
+            // todo: вынести код в АР
+            if (!$page = self::getModel()->findByPk($id)){
+                return false;
+            }
             $relations=$page->relations();
             if (!empty($relations)){
                 foreach($relations as $r_name => $r_value){
@@ -33,20 +36,12 @@ class InfoPagesHelper {
             $relations=$page->relations();
             if (!empty($relations)){
                 foreach($relations as $r_name => $r_value){
-                    $r_class = $r_value[1];
-//                    $model = $r_class::model();
-                    $page->{$r_name} = new $r_class;
+                    $page->{$r_name} = new $r_value[1];
                 }
             }
         }
         return $page;
     }
-//    public static function getUser($id = null, $scenario = null) {
-//        $model = UsersHelper::getModel();
-//        return ($id ? $model->findByPk($id) : new $model($scenario));
-//
-//        //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
-//    }
 
     public static function getDataProvider($data = null) {
         $condition = ['language_id=:language_id'];
@@ -159,12 +154,10 @@ class InfoPagesHelper {
      * @return bool успешность удаления
      */
     public static function delete($id) {
-
         $page = self::getPage($id);
         if ($page) {
             return $page->delete();
         }
-
         return false;
     }
 
@@ -205,17 +198,18 @@ class InfoPagesHelper {
         return $page;
 
     }
-    public static function getInfoPage($id){
-        $pageObj = self::getPage($id);
 
-        $pageArr = $pageObj->getFieldMapArrayKeys($pageObj->attributes,true);
-        $relations=$pageObj->relations();
-        if (!empty($relations)){
-            foreach($relations as $r_name => $r_value){
-                $pageArr=array_merge($pageArr,$pageObj->$r_name->getFieldMapArrayKeys($pageObj->$r_name->attributes,true));
-            }
-        }
-        return $pageArr;
-    }
+//    public static function getInfoPage($id){
+//        $pageObj = self::getPage($id);
+//
+//        $pageArr = $pageObj->getFieldMapArrayKeys($pageObj->attributes,true);
+//        $relations=$pageObj->relations();
+//        if (!empty($relations)){
+//            foreach($relations as $r_name => $r_value){
+//                $pageArr=array_merge($pageArr,$pageObj->$r_name->getFieldMapArrayKeys($pageObj->$r_name->attributes,true));
+//            }
+//        }
+//        return $pageArr;
+//    }
 
 }

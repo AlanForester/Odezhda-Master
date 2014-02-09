@@ -4,10 +4,6 @@
  * Class Users
  */
 class UsersController extends BackendController {
-    /**
-     * @var
-     */
-    //    public $gridDataProvider;
 
     public $pageTitle = 'Менеджер пользователей: список';
     public $pageButton = [];
@@ -26,23 +22,12 @@ class UsersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        // пагинация
-//        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
-
         // получение данных
+        // todo: модель сделать локальной переменной, а не свойством контроллера
         $this->model = new UsersModel();
-        //        $users = $this->model->getList($criteria);
-        //        $this->gridDataProvider = new CArrayDataProvider($users, [
-        //            'keyField' => 'id',
-        //            'pagination' => [
-        //                'pageSize' => ($page_size == 'all' ? count($users) : $page_size),
-        //            ],
-        //        ]);
-
         $gridDataProvider = $this->model->getDataProvider($criteria); //UsersLayer::getActiveProvider();
 
         $groups_model = new GroupsModel();
-//        $groups[''] = '- По группе -';
         foreach ($groups_model->getList() as $g) {
             $groups[$g['id']] = $g['name'];
         }
@@ -72,15 +57,14 @@ class UsersController extends BackendController {
         }
 
         $model = new UsersModel($scenario);
-        if (!$item = $model->getUser($id, $scenario)){
+        if (!$item = $model->getUser($id, $scenario)) {
             $this->error('Ошибка получения данных пользователя');
         }
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes($model->getPostData(),false);
-//            $model->setAttributes($_POST['UsersModel'], false);
+            $item->setAttributes($model->getPostData(), false);
             // записываем данные
             $result = $model->save($model->getPostData());
 
@@ -90,9 +74,6 @@ class UsersController extends BackendController {
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' пользователя')
                 );
-                //$this->redirect(Yii::app()->request->urlReferrer);
-//                $this->render('edit', compact('item', 'groups'));
-//                return;
             } else {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
@@ -108,12 +89,6 @@ class UsersController extends BackendController {
                 }
             }
         }
-
-//        $user = $model->getUserData($id, $scenario);
-//        if ($user) {
-//            $model->setAttributes($user, false);
-//        } else
-//            $this->error();
 
         $this->render('edit', compact('item', 'groups'));
     }

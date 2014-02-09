@@ -78,7 +78,7 @@ class InfoPagesController extends BackendController {
 
         $model = new InfoPagesModel($scenario);
         if (!$item = $model->getPage($id, $scenario)){
-            $this->error('Ошибка получения данных пользователя');
+            $this->error('Ошибка получения данных информационной страницы');
         }
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
