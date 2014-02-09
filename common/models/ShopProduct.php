@@ -18,29 +18,53 @@ class ShopProduct extends LegacyActiveRecord {
 //    public $primaryKey = 'id';
 
     public function __get($name) {
+
         $relations=$this->relations();
         if(!empty($relations)){
+
             foreach ($relations as $relName => $relData){
+
                 if(!$this->hasRelated($relName))
                     continue;
 
                 $relation = $this->getRelated($relName);
 //                $is_column = isset($relation->getMetaData()->columns[$name]);
+                if(is_array($relation)){
+                    foreach($relation as $rel){
+                        $rel_name = $rel->getFieldMapName($name,false);
+                        $columns = $rel->getMetaData()->columns;
 
-                $rel_name = $relation->getFieldMapName($name,false);
-                $columns = $relation->getMetaData()->columns;
-                // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
-                if (array_key_exists($rel_name,$columns)){
-                    return $relation->{$name};
+
+                        // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                        if (array_key_exists($rel_name,$columns)){
+                            return $rel->{$name};
+                        }
+                    }
+
+
+
+                }else{
+
+                    $rel_name = $relation->getFieldMapName($name,false);
+                    $columns = $relation->getMetaData()->columns;
+
+
+                    // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                    if (array_key_exists($rel_name,$columns)){
+                        return $relation->{$name};
+                    }
                 }
 
             }
         }
 
+
+
         return parent::__get($this->getFieldMapName($name, false));
     }
 
     public function __isset($name) {
+
         $relations=$this->relations();
         if(!empty($relations)){
             foreach ($relations as $relName => $relData){

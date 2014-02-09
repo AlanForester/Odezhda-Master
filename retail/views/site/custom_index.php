@@ -3,19 +3,20 @@ Yii::app()->clientScript->registerPackage('catalog');
 // todo: почистить код
 ?>
 <?php
-//print_r($this->DataProvider->getData());
 
-//print_r($this->DataProvider->getTotalItemCount());
+
+//print_r($this->DataProvider->getData());
 //exit;
 ?>
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({
             heightStyle: "content",
-<!--            active: --><?php //echo $this->currentCategoryNumber; ?>
+            active:3
         });
     });
 </script>
+<!--            active: --><?php //echo $this->currentCategoryNumber; ?>
 <div class="catalog-title">
     <div class="title">
 <!--        <p>--><?php //echo $this->currentCategory['categories_name'];?><!--</p>-->
@@ -27,26 +28,24 @@ Yii::app()->clientScript->registerPackage('catalog');
     <div class="accord-item">
         <div id="accordion">
 
+            <?php foreach($this->categories as $category){ ?>
+                <?php if(!empty($category['children'])){?> <h3><?php echo $category['name']; ?></h3> <?php } ?>
+
+                <?php if(!empty($category['children'])){ ?>
+                    <div>
+                        <ul>
+
+                            <?php  foreach($category['children'] as $child){ ?>
+                                <li><a href="/catalog/list/<?php echo $child['id'];?>"><?php echo $child['name'];?></a></li>
+
+                            <?php } ?>
 
 
-<!--            --><?php //foreach($this->categories as $category){ ?>
-<!--                --><?php //if(!empty($category['children'])){?><!-- <h3>--><?php //echo $category['name']; ?><!--</h3> --><?php //} ?>
-<!---->
-<!--                --><?php //if(!empty($category['children'])){ ?>
-<!--                    <div>-->
-<!--                        <ul>-->
-<!---->
-<!--                            --><?php // foreach($category['children'] as $child){ ?>
-<!--                                <li><a href="/catalog/list/--><?php //echo $child['id'];?><!--">--><?php //echo $child['name'];?><!--</a></li>-->
-<!---->
-<!--                            --><?php //} ?>
-<!---->
-<!---->
-<!--                        </ul>-->
-<!--                    </div>-->
-<!--                --><?php //} ?>
-<!---->
-<!--            --><?php //} ?>
+                        </ul>
+                    </div>
+                <?php } ?>
+
+            <?php } ?>
 
 
 
@@ -201,29 +200,29 @@ Yii::app()->clientScript->registerPackage('catalog');
 <!--</div>-->
 <!---->
 <?php
-//        function pluralForm($n, $form1, $form2, $form5)
-//        {
-//            $n = abs($n) % 100;
-//            $n1 = $n % 10;
-//            if ($n > 10 && $n < 20) return $form5;
-//            if ($n1 > 1 && $n1 < 5) return $form2;
-//            if ($n1 == 1) return $form1;
-//            return $form5;
-//        }
-//?>
-<!--<div class="sort-goods-catalog">-->
-<!--    <p>Всего --><?php //echo $this->count.' '.pluralForm($this->count, 'товар', 'товара', 'товаров'); ?><!--</p>-->
-<!--    <div class="sort">-->
-<!--        <span>Сортировать по:</span>-->
-<!--        <select>-->
-<!--            <option>По популярности</option>-->
-<!--            <option>1</option>-->
-<!--            <option>2</option>-->
-<!--            <option>3</option>-->
-<!--        </select>-->
-<!--    </div>-->
-<!--    <button><i>x</i>Сбросить фильтры</button>-->
-<!--</div>-->
+        function pluralForm($n, $form1, $form2, $form5)
+        {
+            $n = abs($n) % 100;
+            $n1 = $n % 10;
+            if ($n > 10 && $n < 20) return $form5;
+            if ($n1 > 1 && $n1 < 5) return $form2;
+            if ($n1 == 1) return $form1;
+            return $form5;
+        }
+?>
+<div class="sort-goods-catalog">
+    <p>Всего <?php echo $this->DataProvider->getTotalItemCount().' '.pluralForm($this->DataProvider->getTotalItemCount(), 'товар', 'товара', 'товаров'); ?></p>
+    <div class="sort">
+        <span>Сортировать по:</span>
+        <select>
+            <option>По популярности</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+    </div>
+    <button><i>x</i>Сбросить фильтры</button>
+</div>
 
 
 <div class="catalog-goods">
@@ -231,9 +230,9 @@ Yii::app()->clientScript->registerPackage('catalog');
 
     <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
-        <a href="/catalog/product/<?php echo $product['products_id'];?>"></a>
-<!--        <span>--><?php //echo round($product['price']).'р'; ?><!--</span>-->
-<!--        <h5>--><?php //echo round($product['old_price']).'р'; ?><!--</h5>-->
+        <a href="/catalog/product/<?php echo $product->id;?>"><?php  echo $product->name.' '.$product->model; ;?></a>
+        <span><?php echo round($product->price).'р'; ?></span>
+        <?php if($product->old_price!=0){ ?><h5><?php echo round($product->old_price).'р'; ?></h5><?php } ?>
         <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
         <div class="choice">
             <select>
