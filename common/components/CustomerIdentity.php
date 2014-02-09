@@ -85,4 +85,13 @@ class CustomerIdentity extends CUserIdentity
         $this->setState('vkey', $data['validation_key']);
         $this->errorCode = self::ERROR_NONE;
     }
+
+    /**
+     * делает пользователя авторизированным после прохождения регистрации
+     */
+    public function registerAuthenticate($user)
+    {
+        $this->makeAuthenticated($user);
+        return $this->isAuthenticated;
+    }
 }
