@@ -125,6 +125,11 @@ class CatalogController extends RetailController {
 */
 
     public function actionList($id=0) {
+
+
+        //Категории
+        $categoriesModel = new ShopCategoriesModel();
+        $this->categories = $categoriesModel->getClearCategoriesList();
         // получение данных
         $criteria=[];
 

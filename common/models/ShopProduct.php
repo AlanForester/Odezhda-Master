@@ -18,9 +18,12 @@ class ShopProduct extends LegacyActiveRecord {
 //    public $primaryKey = 'id';
 
     public function __get($name) {
+
         $relations=$this->relations();
         if(!empty($relations)){
+
             foreach ($relations as $relName => $relData){
+
                 if(!$this->hasRelated($relName))
                     continue;
 
@@ -37,10 +40,13 @@ class ShopProduct extends LegacyActiveRecord {
             }
         }
 
+
+
         return parent::__get($this->getFieldMapName($name, false));
     }
 
     public function __isset($name) {
+
         $relations=$this->relations();
         if(!empty($relations)){
             foreach ($relations as $relName => $relData){

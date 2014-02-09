@@ -31,6 +31,7 @@ class ShopProductDescription extends LegacyActiveRecord {
     public function fieldMap() {
         return [
             //таблица описание товара
+            'products_id' => 'id',
             'products_name' => 'name',
             'products_description' => 'description',
         ];
