@@ -157,6 +157,7 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 <!--                    <a href="#" id="#example2" onclick="$('#exampleModal2').arcticmodal()" class="m-dotted">Регистрация</a>-->
                         <a class="popup-with-form-login" href="#login">Вход</a>
                         <?php
+                        // todo: выкинуть этот виджет, подключить jquery-lightbox-evolution
                         $this->widget("ext.magnific-popup.EMagnificPopup", array(
                             'target' => '.popup-with-form-login',
                             'type' => 'inline',
@@ -164,6 +165,7 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                         ?>
                         <a class="popup-with-form-registration" href="#registration">Регистрация</a>
                         <?php
+                        // todo: выкинуть этот виджет, подключить jquery-lightbox-evolution
                         $this->widget("ext.magnific-popup.EMagnificPopup", array(
                             'target' => '.popup-with-form-registration',
                             'type' => 'inline',
