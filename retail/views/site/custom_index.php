@@ -4,14 +4,6 @@ Yii::app()->getClientScript()->registerScriptFile('/js/bootstrap-paginator.min.j
 Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
 // todo: почистить код
 ?>
-<?php
-
-
-//print_r($this->DataProvider->pagination);
-//exit;
-
-?>
-
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({

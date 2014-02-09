@@ -125,16 +125,18 @@ class CatalogController extends RetailController {
 */
 
     public function actionList($id=0) {
-
-        $criteria=[];
-        $criteria['current_category']=$id;
-
-        //Пагинация
-        if(Yii::app()->request->getQuery('page')){
-            $criteria['current_page']=Yii::app()->request->getQuery('page');
-        }else{
-            $criteria['current_page']=1;
-        }
+        $criteria=[
+            'current_category'=>$id,
+            'current_page'=> (Yii::app()->request->getQuery('page')?:1)
+        ];
+//        $criteria['current_category']=$id;
+//
+//        //Пагинация
+//        if(Yii::app()->request->getQuery('page')){
+//            $criteria['current_page']=Yii::app()->request->getQuery('page');
+//        }else{
+//            $criteria['current_page']=1;
+//        }
 
         // Категории
         $categoriesModel = new ShopCategoriesModel();

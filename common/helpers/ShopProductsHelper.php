@@ -2,9 +2,9 @@
 
 class ShopProductsHelper {
 
-    private static $dataProvider;
+//    private static $dataProvider;
 
-    private static $errors = [];
+//    private static $errors = [];
 
     //    public static function getModel() {
     //        return InfoPage::model();
@@ -49,7 +49,7 @@ class ShopProductsHelper {
         );
     }
 
-    public static function getErrors($attributes = null) {
-        return self::$errors;
-    }
+//    public static function getErrors($attributes = null) {
+//        return self::$errors;
+//    }
 }

@@ -1,10 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
 ?>
-<?php
-//print_r($this->currentCategory);
-//exit;
-//?>
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({
