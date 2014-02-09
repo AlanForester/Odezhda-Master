@@ -331,9 +331,9 @@ Yii::app()->clientScript->registerPackage('index');
 
 </div>
 
-<div class="social-box">
-    <p>Давайте дружить!</p>
-    <img src="/images/social-box.png" alt=""/>
-</div>
+<!--<div class="social-box">-->
+<!--    <p>Давайте дружить!</p>-->
+<!--    <img src="/images/social-box.png" alt=""/>-->
+<!--</div>-->
 
 </div>
