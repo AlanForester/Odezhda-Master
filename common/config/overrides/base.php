@@ -27,11 +27,13 @@ return [
          'yiiwheels' => array(
             'class' => 'yiiwheels.YiiWheels',   
         ),
-        //'db' => [
-        //    'schemaCachingDuration' => PRODUCTION_MODE ? 86400000 : 0, // 86400000 == 60*60*24*1000 seconds == 1000 days
-        //    'enableParamLogging' => !PRODUCTION_MODE,
-        //    'charset' => 'utf8'
-        //],
+
+        // http://www.yiiframework.com/extension/email/
+        'email'=>array(
+            'class'=>'application.extensions.email.Email',
+            'delivery'=>'php',
+        ),
+
         'db' => [ 
 			'connectionString' => 'mysql:host=localhost;dbname=om',
 			'username' => 'om',
