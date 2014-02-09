@@ -51,9 +51,10 @@ return [
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
                         //lightbox
-                        'jquery-lightbox-evolution/js/lightbox/jquery.lightbox.min.js',
+                        'js/lightbox/jquery.lightbox.min.js',
 
                         // Modal
+                        // todo: удалить
                         'js/modal/jquery.arcticmodal-0.3.min.js',
 
                         'js/karta-slider/jquery.jqzoom-core-pack.js',
@@ -69,9 +70,10 @@ return [
                         'js/slider/settings.css',
                         'js/slider/style.css',
                         //lightbox
-                        'jquery-lightbox-evolution/js/lightbox/themes/default/jquery.lightbox.css',
+                        'js/lightbox/jquery.lightbox.css',
 
                         // Modal
+                        // todo: удалить
                         'js/modal/jquery.arcticmodal-0.3.css',
                         'js/modal/themes/simple.css',
 

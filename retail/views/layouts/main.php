@@ -6,7 +6,8 @@
 
 // разместить скрипт на странице
 //Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
-$js = "jQuery(document).ready(function($){
+$js = "
+jQuery(document).ready(function($){
     $('.lightbox').lightbox();
 });
 function reg() {
@@ -61,7 +62,7 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="#login" id="#example1" class="m-dotted lightbox">Вход</a>
-                        <a href="/site/registration?lightbox[width]=900&lightbox[height]=480&lightbox[modal]=true"
+                        <a href="/site/registration" data-options='{"width":900, "height":480, "modal": true}'
                            id="#example2" class="m-dotted lightbox">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
