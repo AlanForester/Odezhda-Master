@@ -1,20 +1,42 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
+Yii::app()->getClientScript()->registerScriptFile('/js/bootstrap-paginator.min.js');
+Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
 // todo: почистить код
 ?>
 <?php
 
 
-//print_r($this->DataProvider->getData());
+//print_r($this->DataProvider->pagination);
 //exit;
+
 ?>
+
 <script>
     $(document).ready(function(){
         $( "#accordion" ).accordion({
             heightStyle: "content",
             active:3
         });
+
+
+        var options = {
+            currentPage:
+            <?php
+                if(Yii::app()->request->getQuery('page')){
+                    echo Yii::app()->request->getQuery('page');}
+                else{
+                     echo 1;
+                }?>,
+            totalPages:<?php echo $this->DataProvider->getTotalItemCount(); ?>,
+            pageUrl: function(type, page, current){
+                return location.pathname+'?page='+page;
+            }
+        }
+
+        $('#example').bootstrapPaginator(options);
     });
+
 </script>
 <!--            active: --><?php //echo $this->currentCategoryNumber; ?>
 <div class="catalog-title">
@@ -247,7 +269,7 @@ Yii::app()->clientScript->registerPackage('catalog');
     <?php }?>
 
 </div>
-
+    <div id="example"></div>
 <div class="catalog-goods more">
     <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
@@ -347,7 +369,7 @@ Yii::app()->clientScript->registerPackage('catalog');
     </div>
 </div>
 
-<button class="any-goods">Показать еще</button>
+<!--<button class="any-goods">Показать еще</button>-->
 
 </div>
 </div>
