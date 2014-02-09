@@ -1,7 +1,7 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 ?>
-<div id="statusMsg">
+<!--<div id="statusMsg">-->
     <?php
     // todo: может все же проверять на стороне клиента?
 //    $this->widget(
@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerPackage('index');
 //        )
 //    );
     ?>
-</div>
+<!--</div>-->
 <div class="box-modal modal-reg" id="registration">
     <div class="modal-login-left modal-reg">
         <p>Регистрация</p>
