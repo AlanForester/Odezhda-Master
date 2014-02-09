@@ -14,7 +14,6 @@ return [
         'application.models.*'
     ],
     'aliases' => array(
-        'ext' => realpath(__DIR__ .'/../../extensions'),
         'bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap'), // change this if necessary
         'yiiwheels' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiiwheels'),
     ),
