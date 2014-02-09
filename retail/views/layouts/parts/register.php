@@ -16,11 +16,11 @@ Yii::app()->clientScript->registerPackage('index');
     <div class="modal-login-left modal-reg">
         <p>Регистрация</p>
 
-        <form id="reistr" method="post" action="javascript:void(null);" onsubmit="reg()">
+        <form id="registr" method="post" action="javascript:void(null);" onsubmit="reg()">
             <div class="reg-input">
             </div>
             <div class="left-info">
-                <input type="text" name="RetailRegisterForm[email]" placeholder="E-mail"/>
+                <input type="text" id="email" name="RetailRegisterForm[email]" placeholder="E-mail"/>
                 <input type="text" name="RetailRegisterForm[phone]" placeholder="Мобильный"/>
                 <h6>Для sms-уведомлений о состоянии заказа и связи с вами, когда вы заказываете доставку. Мы не берем за
                     это денег, не рассылаем спам и не раскрываем ваш номер сторонним организациям.</h6>
