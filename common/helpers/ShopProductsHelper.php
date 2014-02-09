@@ -82,18 +82,28 @@ class ShopProductsHelper {
 //            }
 //        }
 
-        $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
-        $page_size=10;
+//        $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
+
 //
 //        $relatedCriteria = [
 //            'condition' => join(' AND ', $condition),
 //            'params' => $params,
 //            'order' => $order_field . ($order_direct ? : ''),
 //        ];
+        // фильтр по группе
+        $data['categories_description']=[];
+        if($data['current_category']!=0){
+            $data['categories_description']['condition'] = 'categories_description.categories_id' . '=:categories_id';
+            $data['categories_description']['params'][':categories_id'] = $data['current_category'];
+        }
+
+
+
         $criteria=[
+            'order'=>'t.products_id ASC',
             'with'=>['product_description'=>'product_description'/*$relatedCriteria*/,
                      'manufacturers_description'=>'manufacturers_description'/*$relatedCriteria*/,
-                     'categories_description'=>'categories_description',
+                     'categories_description'=>$data['categories_description'],
                      'product_options'=>'product_options']
         ];
 
@@ -101,12 +111,12 @@ class ShopProductsHelper {
 //        if (isset($data['criteria'])) {
 //            $criteria = array_merge($criteria, $data['criteria']);
 //       }
-
+        $page_size=9;
         return new CActiveDataProvider(
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size,'currentPage'=>5]),
+                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size,'currentPage'=>$data['current_page']]),
             ]
         );
     }
