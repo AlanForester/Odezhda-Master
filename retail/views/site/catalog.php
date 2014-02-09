@@ -5,13 +5,13 @@ Yii::app()->clientScript->registerPackage('catalog');
     $(document).ready(function(){
         $( "#accordion" ).accordion({
             heightStyle: "content",
-            active: <?php echo $this->currentCategoryNumber; ?>
+            active: <?php //echo $this->currentCategoryNumber; ?>
         });
     });
 </script>
 <div class="catalog-title">
     <div class="title">
-        <p><?php echo $this->currentCategory['categories_name'];?></p>
+        <p><?php //echo $this->currentCategory['categories_name'];?></p>
     </div>
 </div>
 
@@ -20,77 +20,21 @@ Yii::app()->clientScript->registerPackage('catalog');
     <div class="accord-item">
         <div id="accordion">
 
-
-<!--            <h3>Одежда</h3>-->
-<!--            <div>-->
-<!--                <ul>-->
-<!--                    <li><a href="#">Item 11</a></li>-->
-<!--                    <li><a href="#">Item 12</a></li>-->
-<!--                    <li><a href="#">Item 13</a></li>-->
-<!--                    <li><a href="#">Item 14</a></li>-->
-<!--                    <li><a href="#">Item 11</a></li>-->
-<!--                    <li><a href="#">Item 12</a></li>-->
-<!--                    <li><a href="#">Item 13</a></li>-->
-<!--                    <li><a href="#">Item 14</a></li>-->
-<!--                </ul>-->
-<!--            </div>-->
-
-            <?php foreach($this->categories as $category){ ?>
+            <?php foreach($categories as $category){ ?>
                 <?php if(!empty($category['children'])){?> <h3><?php echo $category['name']; ?></h3> <?php } ?>
 
                 <?php if(!empty($category['children'])){ ?>
                     <div>
                         <ul>
-
                             <?php  foreach($category['children'] as $child){ ?>
                                 <li><a href="/catalog/list/<?php echo $child['id'];?>"><?php echo $child['name'];?></a></li>
 
                             <?php } ?>
-
-
                         </ul>
                     </div>
                 <?php } ?>
 
             <?php } ?>
-
-<!--            <h3>Обувь</h3>-->
-<!---->
-<!--            <div>-->
-<!--                <p>-->
-<!--                    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet-->
-<!--                    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor-->
-<!--                    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In-->
-<!--                    suscipit faucibus urna.-->
-<!--                </p>-->
-<!--            </div>-->
-<!---->
-<!---->
-<!--            <h3>Аксессуары</h3>-->
-<!--            <div>-->
-<!--                <p>-->
-<!--                    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.-->
-<!--                    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero-->
-<!--                    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis-->
-<!--                    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.-->
-<!--                </p>-->
-<!--                <ul>-->
-<!--                    <li>List item one</li>-->
-<!--                    <li>List item two</li>-->
-<!--                    <li>List item three</li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!---->
-<!---->
-<!--            <h3>Белье</h3>-->
-<!--            <div>-->
-<!--                <p>-->
-<!--                    Cras dictum. Pellentesque habitant morbi tristique senectus et netus-->
-<!--                    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in-->
-<!--                    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia-->
-<!--                    mauris vel est.-->
-<!--                </p>-->
-<!--            </div>-->
 
         </div>
 
@@ -242,19 +186,8 @@ Yii::app()->clientScript->registerPackage('catalog');
     </div>
 </div>
 
-<?php
-        function pluralForm($n, $form1, $form2, $form5)
-        {
-            $n = abs($n) % 100;
-            $n1 = $n % 10;
-            if ($n > 10 && $n < 20) return $form5;
-            if ($n1 > 1 && $n1 < 5) return $form2;
-            if ($n1 == 1) return $form1;
-            return $form5;
-        }
-?>
 <div class="sort-goods-catalog">
-    <p>Всего <?php echo $this->count.' '.pluralForm($this->count, 'товар', 'товара', 'товаров'); ?></p>
+    <p>Всего <?php //echo $this->count.' '.pluralForm($this->count, 'товар', 'товара', 'товаров'); ?></p>
     <div class="sort">
         <span>Сортировать по:</span>
         <select>
@@ -270,12 +203,14 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 <div class="catalog-goods">
 
-    <?php foreach($this->list as $product){ ?>
+    <?php foreach($dataProvider->getData() as $product){ ?>
     <div class="goods-var">
         <img src="/images/kofta.png" alt="" />
-        <a href="/catalog/product/<?php echo $product['id'];?>"><?php echo $product['name'].' '.$product['model']?></a>
-        <span><?php echo round($product['price']).'р'; ?></span>
-        <h5><?php echo round($product['old_price']).'р'; ?></h5>
+        <a href="/catalog/product/<?php echo $product->id; ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
+        <span><?php echo round($product->price) . 'р.'; ?></span>
+        <?php if ($product->old_price != 0) { ?>
+            <h5><?php echo round($product->old_price) . 'р.'; ?></h5>
+        <?php } ?>
         <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
         <div class="choice">
             <select>
@@ -288,190 +223,108 @@ Yii::app()->clientScript->registerPackage('catalog');
         </div>
     </div>
     <?php }?>
-
-
-    <!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="#">Кофта (75382936)</a>-->
-<!--        <span>350р</span>-->
-<!--        <h5>390р</h5>-->
-<!--        <button class="quick-view">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="#">Кофта (75382936)</a>-->
-<!--        <span>350р</span>-->
-<!--        <h5>390р</h5>-->
-<!--        <button class="quick-view">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="#">Кофта (75382936)</a>-->
-<!--        <span>350р</span>-->
-<!--        <h5>390р</h5>-->
-<!--        <button class="quick-view">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="#">Кофта (75382936)</a>-->
-<!--        <span>350р</span>-->
-<!--        <h5>390р</h5>-->
-<!--        <button class="quick-view">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="goods-var">-->
-<!--        <img src="/images/kofta.png" alt="" />-->
-<!--        <a href="#">Кофта (75382936)</a>-->
-<!--        <span>350р</span>-->
-<!--        <h5>390р</h5>-->
-<!--        <button class="quick-view">Быстрый просмотр</button>-->
-<!--        <div class="choice">-->
-<!--            <select>-->
-<!--                <option>Размер</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--            <button class="in-basket">в корзину</button>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
 
-<div class="catalog-goods more">
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="quick-view">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-    <div class="goods-var">
-        <img src="/images/kofta.png" alt="" />
-        <a href="#">Кофта (75382936)</a>
-        <span>350р</span>
-        <h5>390р</h5>
-        <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
-        <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <button class="in-basket">в корзину</button>
-        </div>
-    </div>
-</div>
+<!--<div class="catalog-goods more">-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="quick-view">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="goods-var">-->
+<!--        <img src="/images/kofta.png" alt="" />-->
+<!--        <a href="#">Кофта (75382936)</a>-->
+<!--        <span>350р</span>-->
+<!--        <h5>390р</h5>-->
+<!--        <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>-->
+<!--        <div class="choice">-->
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
+<!--            <button class="in-basket">в корзину</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
-<button class="any-goods">Показать еще</button>
+<!--<button class="any-goods">Показать еще</button>-->
 
 </div>
 </div>
