@@ -1,10 +1,8 @@
 <?php
+// todo: привести в порядок код - убрать комментированный код, добавить описание методам
 
 /**
- * Basic "kitchen sink" controller for frontend.
- * It was configured to be accessible by `/site` route, not the `/frontendSite` one!
- *
- * @package YiiBoilerplate\Frontend
+ * Контроллер по умолчанию
  */
 class RetailSiteController extends RetailController {
     public $catalogData;
@@ -67,6 +65,7 @@ class RetailSiteController extends RetailController {
             $this->redirect('/');
 //            $this->redirect(Yii::app()->request->baseUrl);
     }
+
     public function actionRegistration() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
@@ -87,5 +86,13 @@ class RetailSiteController extends RetailController {
 
 //        $this->redirect($user->returnUrl);
 //        $this->render("/site/index");
+    }
+
+
+    /**
+     * Обработка запроса на скидку
+     */
+    public function actionDiscountSend(){
+        $this->redirect('/');
     }
 }
