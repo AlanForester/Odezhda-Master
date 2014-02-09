@@ -9,6 +9,9 @@
  */
 class RetailController extends CController
 {
+
+    public $pageTitle = 'Лапана - много, выгодно, красиво';
+
     public $assets_retail;
     /**
      * What to do before rendering the view file.

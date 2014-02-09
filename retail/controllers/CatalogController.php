@@ -131,21 +131,19 @@ class CatalogController extends RetailController {
 
         //Пагинация
         if(Yii::app()->request->getQuery('page')){
-            $criteria['current_page']=Yii::app()->request->getQuery('page');}
-        else{
+            $criteria['current_page']=Yii::app()->request->getQuery('page');
+        }else{
             $criteria['current_page']=1;
         }
 
-
-        //Категории
+        // Категории
         $categoriesModel = new ShopCategoriesModel();
+        // todo: сделать переменной, а не свойством контроллера
         $this->categories = $categoriesModel->getClearCategoriesList();
-        // получение данных
 
+        // получение данных
         $model = new CatalogModel();
         $this->DataProvider = $model->getDataProvider($criteria);
-
-//        print_r($this->DataProvider->getData());
 
         $this->render('/site/custom_index', compact('page_size', 'criteria', 'DataProvider'));
     }

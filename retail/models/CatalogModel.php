@@ -6,43 +6,41 @@
  */
 class CatalogModel extends CFormModel {
 
-
-    public $id;
-
-    public $price;
-    public $old_price;
-
-    public $name;
-    public $description;
-    public $model;
-    public $category;
-    public $date_add;
-    public $date_last;
-
-    public $tax;
-    public $count_orders;
-    public $quantity;
-    public $weight;
-
-    public $order;
-
-    public $min_quantity;
-    public $step;
-    public $status;
-    public $xml;
-
-    public $manufacturers;
-    public $manufacturers_id;
-
-    public $languages_id;
-
-    public $meta_title;
-    public $meta_description;
-    public $meta_keywords;
-
-    public $image;
-
-
+    // зачем это?
+//    public $id;
+//
+//    public $price;
+//    public $old_price;
+//
+//    public $name;
+//    public $description;
+//    public $model;
+//    public $category;
+//    public $date_add;
+//    public $date_last;
+//
+//    public $tax;
+//    public $count_orders;
+//    public $quantity;
+//    public $weight;
+//
+//    public $order;
+//
+//    public $min_quantity;
+//    public $step;
+//    public $status;
+//    public $xml;
+//
+//    public $manufacturers;
+//    public $manufacturers_id;
+//
+//    public $languages_id;
+//
+//    public $meta_title;
+//    public $meta_description;
+//    public $meta_keywords;
+//
+//    public $image;
 
     /**
      * @var array массив всех пользователей.
@@ -51,103 +49,85 @@ class CatalogModel extends CFormModel {
     private $list = [];
     private $allCatalog = [];
 
-    public function frontCatalogData(){
+    public function frontCatalogData() {
 
-        $data=[];
-//        $data['new_model']['condition'] = '(' . join(
-//                ' OR ',  [
-//                    't.'.CatalogLayer::getFieldName('id', false) . ' =text',
-//                ]
-//
-//            ) . ')';
-//        DESC'
-        $data['new_model']['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' ASC';
+        $data = [];
+        //        $data['new_model']['condition'] = '(' . join(
+        //                ' OR ',  [
+        //                    't.'.CatalogLayer::getFieldName('id', false) . ' =text',
+        //                ]
+        //
+        //            ) . ')';
+        //        DESC'
+        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
 
 
-
-        $list=CatalogLayer::frontCatalogData(
-            ['new_model'=> [
+        $list = CatalogLayer::frontCatalogData(
+            ['new_model' => [
                 'order' => $data['new_model']['order_field']
-        ]]
+            ]]
         );
 
 
         return $list;
     }
 
+    public function frontCatalogList($offset, $category_id) {
 
 
-    public function frontCatalogList($offset,$category_id){
-
-
-        $data['order_field'] = 't.'.CatalogLayer::getFieldName('id', false).' DESC';
-        $data_categories='categories_description';
-        $data['new_model']=[];
-//        $params=[];
+        $data['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' DESC';
+        $data_categories = 'categories_description';
+        $data['new_model'] = [];
+        //        $params=[];
         // фильтр по группе
-        if ($category_id!=0) {
-            $data_categories=[];
+        if ($category_id != 0) {
+            $data_categories = [];
             $data_categories['condition'] = 'categories_description.categories_id' . '=:categories_id';
             $data_categories['params'][':categories_id'] = $category_id;
         }
 
-        $list_and_count=CatalogLayer::frontCatalogList($offset,
+        $list_and_count = CatalogLayer::frontCatalogList(
+            $offset,
             [
-                'new_model'=> [
+                'new_model' => [
                     'order' => $data['order_field']
                 ],
-                'categories_description'=> $data_categories
-            ],$category_id
+                'categories_description' => $data_categories
+            ], $category_id
         );
-
 
 
         return $list_and_count;
     }
 
-    public function productById($id){
+    public function productById($id) {
 
-        $list=CatalogLayer::productById($id);
+        $list = CatalogLayer::productById($id);
         return $list;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getListAndParams($data) {
 
         if (!$this->allCatalog) {
 
-            $condition = ['main'=>[],'description'=>[],'category_to_catalog'=>[],'categories_description'=>[]];
-            $params = ['main'=>[],'description'=>[],'category_to_catalog'=>[],'categories_description'=>[]];
+            $condition = ['main' => [], 'description' => [], 'category_to_catalog' => [], 'categories_description' => []];
+            $params = ['main' => [], 'description' => [], 'category_to_catalog' => [], 'categories_description' => []];
 
 
             // фильтр по тексту
             if (!empty($data['text_search'])) {
-            //    по основной таблице
+                //    по основной таблице
                 $condition['main'][] = '(' . join(
-                        ' OR ',  [
-                             't.'.CatalogLayer::getFieldName('id', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('price', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('date_add', false) . ' LIKE :text',
-                             't.'.CatalogLayer::getFieldName('date_last', false) . ' LIKE :text',
-                            'description.'.CatalogLayer::getFieldName('name', false) . ' LIKE :text',
-                            'description.'.CatalogLayer::getFieldName('description', false) . ' LIKE :text'
-                            ]
+                        ' OR ', [
+                                  't.' . CatalogLayer::getFieldName('id', false) . ' LIKE :text',
+                                  't.' . CatalogLayer::getFieldName('price', false) . ' LIKE :text',
+                                  't.' . CatalogLayer::getFieldName('date_add', false) . ' LIKE :text',
+                                  't.' . CatalogLayer::getFieldName('date_last', false) . ' LIKE :text',
+                                  'description.' . CatalogLayer::getFieldName('name', false) . ' LIKE :text',
+                                  'description.' . CatalogLayer::getFieldName('description', false) . ' LIKE :text'
+                              ]
 
-                             ) . ')';
+                    ) . ')';
 
                 $params['main'][':text'] = '%' . $data['text_search'] . '%';
 
@@ -155,20 +135,18 @@ class CatalogModel extends CFormModel {
 
             // поле и направление сортировки
             $order_direct = null;
-            $order_field = 't.'.CatalogLayer::getFieldName('id', false);
+            $order_field = 't.' . CatalogLayer::getFieldName('id', false);
 
-            if(!empty($data['order_field'])){
+            if (!empty($data['order_field'])) {
 
-                if($data['order_field']=='name'){
-                    $order_field = 'description.'.CatalogLayer::getFieldName($data['order_field'], false);
+                if ($data['order_field'] == 'name') {
+                    $order_field = 'description.' . CatalogLayer::getFieldName($data['order_field'], false);
+                } elseif ($data['order_field'] == 'manufacturers') {
+                    $order_field = 'manufacturers.' . CatalogLayer::getFieldName($data['order_field'], false);
+                } else {
+                    $order_field = 't.' . CatalogLayer::getFieldName($data['order_field'], false);
                 }
-                elseif($data['order_field']=='manufacturers'){
-                    $order_field = 'manufacturers.'.CatalogLayer::getFieldName($data['order_field'], false);
-                }
-                else{
-                    $order_field = 't.'.CatalogLayer::getFieldName($data['order_field'], false);
-                }
-              }
+            }
 
 
             if (isset($data['order_direct'])) {
@@ -180,9 +158,9 @@ class CatalogModel extends CFormModel {
                         $order_direct = ' DESC';
                         break;
                 }
-                }else{
-                    $order_direct = ' ASC';
-                }
+            } else {
+                $order_direct = ' ASC';
+            }
 
 
             // фильтр по группе
@@ -192,28 +170,27 @@ class CatalogModel extends CFormModel {
             }
 
             $this->allCatalog = CatalogLayer::getListAndParams(
-                //Основные
-               ['main'=> [
+            //Основные
+                ['main' => [
                     'condition' => join(' AND ', $condition['main']),
                     'params' => $params['main'],
                     'order' => $order_field . ($order_direct ? : '')
                 ],
-                //Описание
-                   'description'=> [
-                    'condition' => join(' AND ', $condition['description']),
-                    'params' => $params['description']
-                ],
-                //Категории
-               'categories_description'=> [
-                    'condition' => join(' AND ', $condition['categories_description']),
-                    'params' => $params['categories_description']
-                ]]
+                    //Описание
+                    'description' => [
+                        'condition' => join(' AND ', $condition['description']),
+                        'params' => $params['description']
+                    ],
+                    //Категории
+                    'categories_description' => [
+                        'condition' => join(' AND ', $condition['categories_description']),
+                        'params' => $params['categories_description']
+                    ]]
             );
 
         }
         return $this->allCatalog;
     }
-
 
     /**
      * @return array задает возвращает массив всех групп пользователей
@@ -225,7 +202,6 @@ class CatalogModel extends CFormModel {
         return $this->list;
     }
 
-
     public function getCatalog($id, $scenario) {
         return CatalogLayer::getCatalog($id, $scenario);
     }
@@ -235,61 +211,37 @@ class CatalogModel extends CFormModel {
 
         $catalog = self::getCatalog($id, $scenario);
 
-        if($scenario!='add'){
+        if ($scenario != 'add') {
 
             $result = $catalog->attributes + $catalog->description->attributes;
-            if(!empty($catalog->manufacturers->attributes)){
+            if (!empty($catalog->manufacturers->attributes)) {
                 $result += $catalog->manufacturers->attributes;
             }
-            /**
-             * Формирование массива используемых категорий в соответствующем формате [categories_id]=['selected']
-             */
-            $mass=[];
-            foreach($catalog->categories_description as $array){
-                if(!empty($array)){
-                     $mass[$array->attributes['categories_id']] = ['selected'=>'selected'];
+
+            // Формирование массива используемых категорий в соответствующем формате [categories_id]=['selected']
+            $mass = [];
+            foreach ($catalog->categories_description as $array) {
+                if (!empty($array)) {
+                    $mass[$array->attributes['categories_id']] = ['selected' => 'selected'];
                 }
             }
-            $result['categories_id']=$mass;
-
+            $result['categories_id'] = $mass;
 
 
             // todo: Написать цикл для заполнения полей  $catalog->categories_description[0]->attributes
 
-        }
-        else{
+        } else {
 
             $result = $catalog->attributes;
-            $result['categories_id']=[];
+            $result['categories_id'] = [];
         }
 
         return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
     }
 
-
-
-
-
-
-
-
-
     public function getDataProvider($criteria = null) {
         return ShopProductsHelper::getDataProvider($criteria);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
