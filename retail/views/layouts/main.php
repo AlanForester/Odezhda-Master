@@ -34,7 +34,24 @@
 $js = "jQuery(document).ready(function($){
     $('.lightbox').lightbox();
 });
+function reg() {
+      var msg   = $('#reistr').serialize();
+        $.ajax({
+          type: 'POST',
+          url: '/site/registration',
+          data: msg,
+          success: function(data) {
+            $('#registration').remove();
+            $('.jquery-lightbox-html').html(data);
+          },
+          error:  function(xhr, str){
+                alert('Возникла ошибка: ' + xhr.responseCode);
+            }
+        });
+
+    }
 ";
+
 Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

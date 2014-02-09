@@ -74,13 +74,17 @@ class RetailSiteController extends RetailController {
         $formData = Yii::app()->request->getPost(get_class($model), false);
 
         if ($formData) {
-
+//            print_r($formData);exit;
             $model->setAttributes($formData,false);
             if ($model->registration())
                 $this->redirect($user->returnUrl);
             else {
-                print_r($model->getErrors());
-                exit;
+                $errors=$model->errors;
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($model, 'Ошибка ')
+                );
+//                $this->renderPartial('/layouts/parts/register',compact('errors'));
             }
         }
 

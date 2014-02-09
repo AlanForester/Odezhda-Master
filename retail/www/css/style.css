@@ -1495,6 +1495,9 @@ border-radius: 0px 0px 7px 7px;
     height: 400px;
 
 }
+.remember {
+    margin-top: -5px !important;
+}
 
 
 
