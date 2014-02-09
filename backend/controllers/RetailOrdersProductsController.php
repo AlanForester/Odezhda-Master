@@ -73,9 +73,10 @@ class RetailOrdersProductsController extends BackendController {
         $item->retail_orders_id = $item->retail_orders_id ? : $orderId;
 
         $products = [];
-        /*foreach (CatalogLayer::getList() as $product) {
-            $products[$product['id']] = $product['products_name'];
-        }*/
+        $productsModel = new CatalogModel();
+        foreach ($productsModel->getListAndParams([]) as $product) {
+            $products[$product['id']] = $product['name'] . ' (' . $product['model'] . ')';
+        }
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
@@ -121,18 +122,18 @@ class RetailOrdersProductsController extends BackendController {
         }
     }
 
-    public function actionMass() {
+    public function actionMass($id) {
         $mass_action = Yii::app()->request->getParam('mass_action');
         $ids = array_unique(Yii::app()->request->getParam('ids'));
         switch ($mass_action) {
             case 'delete':
-                foreach ($ids as $id) {
-                    $this->actionDelete($id);
+                foreach ($ids as $productId) {
+                    $this->actionDelete($productId);
                 }
                 break;
         }
 
-        $this->actionIndex();
+        $this->actionOrder($id);
     }
 
 }

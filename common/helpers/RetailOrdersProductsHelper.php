@@ -6,14 +6,14 @@ class RetailOrdersProductsHelper extends CommonHelper {
 
         if(!empty($data['text_search']))
             $data['text_search']['columns'] = [
-                'products_model',
-                'products_name',
-                'products_price',
-                'final_price',
-                //'products_tax',
-                //'products_quantity',
+                'model',
+                'name',
+                'price',
+                'quantity',
+                /*'final_price',
+                'products_tax',
                 'products_sort',
-                'comment',
+                'comment',*/
             ];
 
         return parent::getDataProvider($data,$modelClass);

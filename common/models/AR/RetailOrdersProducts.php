@@ -27,8 +27,8 @@ class RetailOrdersProducts extends LegacyActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['retail_orders_id, products_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
-            ['products_name, products_model, products_quantity, products_price', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['retail_orders_id, products_id, quantity', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
+            ['name, model, quantity, price, products_id, retail_orders_id', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
         ];
     }
 
@@ -42,10 +42,10 @@ class RetailOrdersProducts extends LegacyActiveRecord {
             'id' => Yii::t('labels', 'ID'),
             'retail_orders_id' => Yii::t('labels', 'Розничный заказ'),
             'products_id' => Yii::t('labels', 'Товар'),
-            'products_model' => Yii::t('labels', 'Код модели'),
-            'products_name' => Yii::t('labels', 'Название'),
-            'products_quantity' => Yii::t('labels', 'Количество'),
-            'products_price' => Yii::t('labels', 'Цена (за единицу)'),
+            'model' => Yii::t('labels', 'Код модели'),
+            'name' => Yii::t('labels', 'Название'),
+            'quantity' => Yii::t('labels', 'Количество'),
+            'price' => Yii::t('labels', 'Цена (за единицу)'),
             /*'final_price' => Yii::t('labels', 'Полная цена (без налога)'),
             'products_tax' => Yii::t('labels', 'Налог'),
             'products_av' => Yii::t('labels', 'Наличие товара'),

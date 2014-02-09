@@ -12,6 +12,7 @@ if($item->id) {
     $this->widget(
         'backend.widgets.SubMenu',
         [
+            'id' => 'submenu',
             'submenu' => BackendSubMenu::retailOrder($item->id),
         ]
     );
@@ -44,7 +45,7 @@ if($item->id) {
                 echo $form->hiddenField($item, 'id', []);
                 echo $form->dropDownListControlGroup($item, 'retail_orders_statuses_id', $statuses, []);
                 //echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
-                echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => date("Y-m-d H:i:s")]);
+                echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
                 //echo $form->dropDownListControlGroup($item, 'default_provider', $defaultProviders, []);
                 echo $form->numberFieldControlGroup($item, 'booker_orders_id', []);
                 echo $form->dateFieldControlGroup($item, 'act_date', []);
@@ -53,7 +54,7 @@ if($item->id) {
 
                 echo $form->dropDownListControlGroup($item, 'payment_method', $paymentMethods, []);
                 echo $form->dropDownListControlGroup($item, 'currency', $currencies, []);
-                echo $form->numberFieldControlGroup($item, 'currency_value', ['value' => '1.000000']);
+                echo $form->numberFieldControlGroup($item, 'currency_value', ['value' => $item->currency_value ? : '1.000000']);
                 ?>
 
             </fieldset>
@@ -124,12 +125,3 @@ if($item->id) {
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
-
-
-
-<?php
-if (!empty($item->id)) {
-    ?>
-
-<?php
-}

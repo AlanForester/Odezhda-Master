@@ -32,8 +32,8 @@ if(Yii::app()->controller->action->id == 'order') {
 
 $this->pageButton = [
     BackendPageButtons::add("/retail_orders_products/add/".$id, [], $buttonLabels[0]),
-    BackendPageButtons::remove("/retail_orders_products/mass", [], $buttonLabels[1]),
-    BackendPageButtons::mass("/retail_orders_products/mass")
+    BackendPageButtons::remove("/retail_orders_products/mass/".$id, [], $buttonLabels[1]),
+    BackendPageButtons::mass("/retail_orders_products/mass/".$id)
 ];
 
 // таблица
@@ -65,7 +65,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'name' => 'products_name',
+                'name' => 'name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -79,7 +79,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'name' => 'products_model',
+                'name' => 'model',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -93,7 +93,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'name' => 'products_quantity',
+                'name' => 'quantity',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -107,7 +107,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'name' => 'products_price',
+                'name' => 'price',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

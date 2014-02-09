@@ -175,6 +175,7 @@ class Grid extends CWidget {
                 $this->widget(
                     'bootstrap.widgets.TbNav',
                     [
+                        'id' => $this->getId(),
                         'htmlOptions' => [
                             'class' => 'nav-list nav',
                         ],

@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Товары: ' . ($item->id ? 'редактирование информации о товаре в заказе (' . $item->products_name . ')' : 'новый товар в заказе');
+$this->pageTitle = 'Товары: ' . ($item->id ? 'редактирование информации о товаре в заказе (' . $item->name . ')' : 'новый товар в заказе');
 
 $this->pageButton = [
     BackendPageButtons::save(),
@@ -43,10 +43,10 @@ $this->pageButton = [
                     echo $form->hiddenField($item, 'retail_orders_id', []);
                     //echo $form->dropDownListControlGroup($item, 'retail_orders_id', $retailOrders, []);
                     echo $form->dropDownListControlGroup($item, 'products_id', $products, []);
-                    echo $form->textFieldControlGroup($item, 'products_name', []);
-                    echo $form->textFieldControlGroup($item, 'products_model', []);
-                    echo $form->numberFieldControlGroup($item, 'products_quantity', []);
-                    echo $form->numberFieldControlGroup($item, 'products_price', []);
+                    echo $form->textFieldControlGroup($item, 'name', []);
+                    echo $form->textFieldControlGroup($item, 'model', []);
+                    echo $form->numberFieldControlGroup($item, 'quantity', ['value' => $item->quantity ? : '1']);
+                    echo $form->numberFieldControlGroup($item, 'price', []);
                     ?>
 
                 </fieldset>
