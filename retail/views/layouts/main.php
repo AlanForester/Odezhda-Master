@@ -9,33 +9,45 @@
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
-});
-function reg() {
-      var msg   = $('#reistr').serialize();
-        $.ajax({
-          type: 'POST',
-          url: '/site/registration',
-          data: msg,
-          success: function(data) {
-            $('#registration').remove();
-            $('.jquery-lightbox-html').html(data);
-          },
-          error:  function(xhr, str){
-                alert('Возникла ошибка: ' + xhr.responseCode);
-            }
-        });
 
-    }
-";
-$redirect = "jQuery(document).ready(function($){
+//    another script ought to be added
     $('.jquery-lightbox-button-close').click(function() {
         location.reload();
-        console.log('sd');
     });
 });
+
+//    another script ought to be added
+function reg() {
+        if($('#email').val() != '') {
+            var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+            if(pattern.test($('#email').val())){
+                $('#email').css({'border' : '1px solid #569b44'});
+                    var msg   = $('#registr').serialize();
+                    $.ajax({
+                      type: 'POST',
+                      url: '/site/registration',
+                      data: msg,
+                      success: function(data) {
+                        $('#registration').remove();
+                        $('.jquery-lightbox-html').html(data);
+                      },
+                      error:  function(xhr, str){
+                            alert('Возникла ошибка: ' + xhr.responseCode);
+                        }
+                    });
+            } else {
+                $('#email').css({'border' : '2px solid #ff0000'});
+                $('#email').val('');
+                $('#email').attr('placeholder','Некорректный E-mail');
+            }
+        } else {
+            $('#email').css({'border' : '2px solid #ff0000'});
+            $('#email').val('');
+            $('#email').attr('placeholder','E-mail - обязательное поле');
+        }
+    }
 ";
 
-Yii::app()->getClientScript()->registerScript('redirect', $redirect, CClientScript::POS_END);
 Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
