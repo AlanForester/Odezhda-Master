@@ -58,7 +58,7 @@ return [
 
                         // Modal
                         // todo: удалить
-                        'js/modal/jquery.arcticmodal-0.3.min.js',
+                        //'js/modal/jquery.arcticmodal-0.3.min.js',
 
                         'js/karta-slider/jquery.jqzoom-core-pack.js',
                         'js/main.js'
@@ -77,7 +77,7 @@ return [
 
                         // Modal
                         // todo: удалить
-                        'js/modal/jquery.arcticmodal-0.3.css',
+                        //'js/modal/jquery.arcticmodal-0.3.css',
                         'js/modal/themes/simple.css',
 
                         'js/karta-slider/jquery.jqzoom.css',

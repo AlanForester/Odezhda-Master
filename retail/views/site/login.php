@@ -1,4 +1,4 @@
-<div class="g-hidden">
+<div class="">
     <div class="box-modal" id="login">
 <!--        <div class="box-modal_close arcticmodal-close">X</div>-->
         <div class="modal-login-left">
@@ -6,9 +6,9 @@
             <form method="post" action="/site/login">
                 <input type="text" placeholder="E-mail" name="RetailLoginForm[username]" />
                 <input type="password" placeholder="Пароль" name="RetailLoginForm[password]" />
-                <div class="remember">
-                    <input type="checkbox" name="RetailLoginForm[rememberMe]" value="1" /><span>Запомнить меня</span>
-                </div>
+<!--                <div class="remember">-->
+<!--                    <input type="checkbox" name="RetailLoginForm[rememberMe]" value="1" /><span>Запомнить меня</span>-->
+<!--                </div>-->
                 <button type="submit">Войти</button>
             </form>
 <!--            <div class="line"></div>-->
