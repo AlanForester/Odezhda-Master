@@ -85,14 +85,8 @@ class RetailSiteController extends RetailController {
         }
 
 //        $this->redirect($user->returnUrl);
-//        $this->render("/site/index");
+        $this->renderPartial('/layouts/parts/register');
     }
-
-    public function actionRegisterForm(){
-        $this->layout = 'lightbox';
-        $this->render('/layouts/parts/register');
-    }
-
 
     /**
      * Обработка запроса на скидку

@@ -50,6 +50,8 @@ return [
                         'js/slider/jquery.themepunch.revolution.min.js',
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
+                        //lightbox
+                        'jquery-lightbox-evolution/js/lightbox/jquery.lightbox.min.js',
 
                         // Modal
                         'js/modal/jquery.arcticmodal-0.3.min.js',
@@ -66,6 +68,8 @@ return [
                         'js/slider/captions.css',
                         'js/slider/settings.css',
                         'js/slider/style.css',
+                        //lightbox
+                        'jquery-lightbox-evolution/js/lightbox/themes/default/jquery.lightbox.css',
 
                         // Modal
                         'js/modal/jquery.arcticmodal-0.3.css',
