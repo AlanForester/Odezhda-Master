@@ -268,7 +268,7 @@ $this->renderPartial('/layouts/parts/login');
 $this->renderPartial('/layouts/parts/register');
 $this->renderPartial('/layouts/parts/basket');
 $this->renderPartial('/layouts/parts/productPreview');
-$this->renderPartial('/layouts/parts/social');
+//$this->renderPartial('/layouts/parts/social');
 
 ?>
 
