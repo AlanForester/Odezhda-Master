@@ -99,14 +99,14 @@ class RetailSiteController extends RetailController {
      * Обработка запроса на скидку
      */
     public function actionDiscountSend(){
-        $name = Yii::app()->request->getPost('name');
-        $email = Yii::app()->request->getPost('email');
-
-        $sender = Yii::app()->email;
-
-        $sender->to = 'admin@example.com';
-        $sender->subject = 'Запрос на скидку';
-        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
+//        $name = Yii::app()->request->getPost('name');
+//        $email = Yii::app()->request->getPost('email');
+//
+//        $sender = Yii::app()->email;
+//
+//        $sender->to = 'admin@example.com';
+//        $sender->subject = 'Запрос на скидку';
+//        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
 //        $sender->send();
 
         // todo: добавить увемоление о событии

@@ -19,7 +19,7 @@ Yii::app()->getClientScript()->registerCssFile('/css/bootstrap.pagination.css');
                 else{
                      echo 1;
                 }?>,
-            totalPages:<?php echo $this->DataProvider->getTotalItemCount(); ?>,
+            totalPages:<?php echo $this->DataProvider->getTotalItemCount(); ?>/9,
             pageUrl: function (type, page, current) {
                 return location.pathname + '?page=' + page;
             }

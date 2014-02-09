@@ -51,21 +51,29 @@ class CatalogModel extends CFormModel {
 
     public function frontCatalogData() {
 
-        $data = [];
-        //        $data['new_model']['condition'] = '(' . join(
-        //                ' OR ',  [
-        //                    't.'.CatalogLayer::getFieldName('id', false) . ' =text',
-        //                ]
-        //
-        //            ) . ')';
-        //        DESC'
-        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
-
+        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' DESC';
+        $data['old_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
+        $data['leaders']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+        $data['lapa']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+        $data['shoes']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
 
         $list = CatalogLayer::frontCatalogData(
             ['new_model' => [
                 'order' => $data['new_model']['order_field']
-            ]]
+            ],
+            'old_model' => [
+                 'order' => $data['old_model']['order_field']
+            ],
+            'leaders' => [
+                'order' => $data['leaders']['order_field']
+            ],
+            'lapa' => [
+                'order' => $data['lapa']['order_field']
+            ],
+            'shoes' => [
+                 'order' => $data['shoes']['order_field']
+            ]
+            ]
         );
 
 

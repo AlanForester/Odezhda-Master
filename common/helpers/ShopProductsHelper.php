@@ -35,7 +35,7 @@ class ShopProductsHelper {
         ];
 
         // разрешаем перезаписать любые параметры критерии
-        if (isset($data['criteria'])) {
+        if (isset($data['criteria'])){
             $criteria = array_merge($criteria, $data['criteria']);
         }
 

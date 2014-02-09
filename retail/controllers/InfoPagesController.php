@@ -19,6 +19,7 @@ class InfoPagesController extends RetailController {
             $this->render("/site/info", compact('infoPage'));
         }else{
             // todo: ошибка
+            $this->error('Страница не найдена',404);
         }
     }
 
