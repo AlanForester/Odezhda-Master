@@ -10,7 +10,7 @@
  */
 class RetailController extends CController {
 
-    public $pageTitle = 'Лапана - много, выгодно, красиво';
+    public $pageTitle;
 
     public $assets_retail;
 
@@ -26,6 +26,8 @@ class RetailController extends CController {
         $result = parent::beforeRender($view);
         $this->addGoogleAnalyticsCode();
         $this->registerAssets();
+
+        $this->setTitle($this->pageTitle);
         return $result;
     }
 
@@ -47,5 +49,9 @@ class RetailController extends CController {
 
     protected function error($msg = 'Ошибка',$code = 400) {
         throw new CHttpException($code, Yii::t('err', $msg));
+    }
+
+    public function setTitle($title){
+        $this->pageTitle = ($title?$title.' - ':'').Yii::app()->params['title'];
     }
 }

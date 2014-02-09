@@ -4,6 +4,9 @@
  * Base overrides for frontend application
  */
 return [
+    'params'=>[
+        'title'=>'Лапана'
+    ],
     // So our relative path aliases will resolve against the `/frontend` subdirectory and not nonexistent `/protected`
     'basePath' => 'retail',
     'import' => [
