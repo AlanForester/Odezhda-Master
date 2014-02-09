@@ -51,13 +51,6 @@ class CatalogModel extends CFormModel {
 
     public function frontCatalogData() {
 
-//        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' DESC';
-//        $data['old_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
-//        $data['leaders']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
-//        $data['lapa']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
-//        $data['shoes']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
-//        $condition['categories_description'][] = 'categories_description.categories_id=931';
-
         $list = CatalogLayer::frontCatalogData(
             ['new_model' => [
                 'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
@@ -75,10 +68,8 @@ class CatalogModel extends CFormModel {
             'shoes' => [
                 'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
                 'condition' => 'categories_description.categories_id=931'
-            ]
-            ]
+            ]]
         );
-
 
         return $list;
     }
