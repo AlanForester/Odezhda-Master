@@ -106,7 +106,7 @@ class ShopProductsHelper {
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
+                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size,'currentPage'=>5]),
             ]
         );
     }
