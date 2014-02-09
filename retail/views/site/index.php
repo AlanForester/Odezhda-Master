@@ -305,70 +305,70 @@ Yii::app()->clientScript->registerPackage('index');
 
 </div>
 
-<div class="skidki one">
-    <a href="#"><img src="/images/skidka1.jpg" alt="" /></a>
-</div>
-<div class="skidki two">
-    <a href="#"><img src="/images/skidka2.jpg" alt="" /></a>
-</div>
-<div class="skidki three">
-    <a href="#"><img src="/images/skidka3.jpg" alt="" /></a>
-</div>
+<!--<div class="skidki one">-->
+<!--    <a href="#"><img src="/images/skidka1.jpg" alt="" /></a>-->
+<!--</div>-->
+<!--<div class="skidki two">-->
+<!--    <a href="#"><img src="/images/skidka2.jpg" alt="" /></a>-->
+<!--</div>-->
+<!--<div class="skidki three">-->
+<!--    <a href="#"><img src="/images/skidka3.jpg" alt="" /></a>-->
+<!--</div>-->
 
-<div class="lookbook">
-    <h2>Хочу как в Лукбуке</h2>
-    <a href="#" class="lookbook-lap">ВСЕ ЛУКБУКИ LAPANA.RU<img src="/images/var-img-more.png" alt="" /></a>
-    <a href="#" class="lookbook-user">ЛУКБУКИ ПОКУПАТЕЛЕЙ<img src="/images/var-img-more.png" alt="" /></a>
-</div>
-
-<div class="slider-clothes">
-    <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-            <ul>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 1">
-                    </a>
-                    <div class="slider-info-box">
-                        <p>Пальто (12345) – 1500р</p>
-                        <p>Легинсы (16345) – 1500р</p>
-                        <p>Свитер (18345) – 1500р</p>
-                        <p>Туфли (22345) – 1500р</p>
-                        <p>Очки (22385) – 1500р</p>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 2">
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 3">
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 4">
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 5">
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 6">
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <a href="#" class="jcarousel-control-prev"></a>
-        <a href="#" class="jcarousel-control-next"></a>
-    </div>
-</div>
+<!--<div class="lookbook">-->
+<!--    <h2>Хочу как в Лукбуке</h2>-->
+<!--    <a href="#" class="lookbook-lap">ВСЕ ЛУКБУКИ LAPANA.RU<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--    <a href="#" class="lookbook-user">ЛУКБУКИ ПОКУПАТЕЛЕЙ<img src="/images/var-img-more.png" alt="" /></a>-->
+<!--</div>-->
+<!---->
+<!--<div class="slider-clothes">-->
+<!--    <div class="jcarousel-wrapper">-->
+<!--        <div class="jcarousel">-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 1">-->
+<!--                    </a>-->
+<!--                    <div class="slider-info-box">-->
+<!--                        <p>Пальто (12345) – 1500р</p>-->
+<!--                        <p>Легинсы (16345) – 1500р</p>-->
+<!--                        <p>Свитер (18345) – 1500р</p>-->
+<!--                        <p>Туфли (22345) – 1500р</p>-->
+<!--                        <p>Очки (22385) – 1500р</p>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 2">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 3">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl1.png" alt="Image 4">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl2.png" alt="Image 5">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">-->
+<!--                        <img src="/js/slider-clothes/img/sl3.png" alt="Image 6">-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!---->
+<!--        <a href="#" class="jcarousel-control-prev"></a>-->
+<!--        <a href="#" class="jcarousel-control-next"></a>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div class="social-box">
     <p>Давайте дружить!</p>

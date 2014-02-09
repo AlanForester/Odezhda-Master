@@ -246,16 +246,16 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                     <li><a href="/info/20">Франшиза</a></li>
                 </ul>
             </div>
-            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>
-            <img src="/images/modal-girl.png" class="footer-girl" alt=""/>
+<!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
+<!--            <img src="/images/modal-girl.png" class="footer-girl" alt=""/>-->
 
-            <div class="gift-card">
-                <span>
-                    ЧТО ПОДАРИТЬ И НЕ ПРОГАДАТЬ? Подарочная карта Lapana.ru – отличный подарок, который обязательно понравится!
-                </span>
-                <img src="/images/gift-card.png" alt=""/>
-                <button>купить</button>
-            </div>
+<!--            <div class="gift-card">-->
+<!--                <span>-->
+<!--                    ЧТО ПОДАРИТЬ И НЕ ПРОГАДАТЬ? Подарочная карта Lapana.ru – отличный подарок, который обязательно понравится!-->
+<!--                </span>-->
+<!--                <img src="/images/gift-card.png" alt=""/>-->
+<!--                <button>купить</button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>
