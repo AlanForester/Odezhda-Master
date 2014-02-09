@@ -7,9 +7,9 @@
 class RetailSiteController extends RetailController {
     public $catalogData;
     public $categories;
+
     /**
      * Actions attached to this controller
-     *
      * @return array
      */
     public function actions() {
@@ -38,14 +38,14 @@ class RetailSiteController extends RetailController {
         $this->render('/site/catalog');
     }
 
+    /**
+     * Авторизация пользователей
+     */
     public function actionLogin(){
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
-
         $model = new RetailLoginForm();
-//        $this->respondIfAjaxRequest($request, $model);
         $formData = Yii::app()->request->getPost(get_class($model), false);
-
 
         if ($formData) {
 
@@ -60,12 +60,20 @@ class RetailSiteController extends RetailController {
 //        $this->render('/site/index');
     }
 
+    /**
+     * Редирект авторизированных пользователей
+     * @param $user - модель пользователя
+     */
     private function redirectAwayAlreadyAuthenticatedUsers($user) {
         if (!$user->isGuest)
             $this->redirect('/');
 //            $this->redirect(Yii::app()->request->baseUrl);
     }
 
+    /**
+     * Регистрация пользователей.
+     * После регистрации пользователь становится авторизированным
+     */
     public function actionRegistration() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
@@ -74,7 +82,6 @@ class RetailSiteController extends RetailController {
         $formData = Yii::app()->request->getPost(get_class($model), false);
 
         if ($formData) {
-//            print_r($formData);exit;
             $model->setAttributes($formData,false);
             if ($model->registration()){
 //                $this->redirect($user->returnUrl);
@@ -82,16 +89,10 @@ class RetailSiteController extends RetailController {
                 Yii::app()->end();
             }
             else {
-                $errors=$model->errors;
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка регистрации')
-                );
+                //todo дописать
 //                $this->renderPartial('/layouts/parts/register',compact('errors'));
             }
         }
-
-//        $this->redirect($user->returnUrl);
         $this->renderPartial('/layouts/parts/register');
     }
 
