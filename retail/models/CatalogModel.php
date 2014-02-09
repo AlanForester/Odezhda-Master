@@ -69,7 +69,8 @@ class CatalogModel extends CFormModel {
                 'order' => 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC'
             ],
             'lapa' => [
-                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC'
+                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
+                'condition' => 'categories_description.categories_id=48'
             ],
             'shoes' => [
                 'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
