@@ -37,13 +37,10 @@ class CatalogController extends RetailController {
             } else {
                 $this->render("/site/error");
             }
-
-
         } else {
             $this->render("/site/error");
         }
     }
-
 
     /*
         public function actionList($id=0) {

@@ -3,52 +3,13 @@
  * @var RetailController $this
  * @var string $content
  */
-
-// разместить скрипт на странице
-//Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
-
-//    another script ought to be added
-    $('.jquery-lightbox-button-close').click(function() {
-        location.reload();
-    });
 });
-
-//    another script ought to be added
-function reg() {
-        if($('#email').val() != '') {
-            var pattern = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
-            if(pattern.test($('#email').val())){
-                $('#email').css({'border' : '1px solid #569b44'});
-                    var msg   = $('#registr').serialize();
-                    $.ajax({
-                      type: 'POST',
-                      url: '/site/registration',
-                      data: msg,
-                      success: function(data) {
-                        $('#registration').remove();
-                        $('.jquery-lightbox-html').html(data);
-                      },
-                      error:  function(xhr, str){
-                            alert('Возникла ошибка: ' + xhr.responseCode);
-                        }
-                    });
-            } else {
-                $('#email').css({'border' : '2px solid #ff0000'});
-                $('#email').val('');
-                $('#email').attr('placeholder','Некорректный E-mail');
-            }
-        } else {
-            $('#email').css({'border' : '2px solid #ff0000'});
-            $('#email').val('');
-            $('#email').attr('placeholder','E-mail - обязательное поле');
-        }
-    }
 ";
 
-Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -58,7 +19,6 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
     <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
 </head>
-
 <body>
 <div class="header-wrapper">
     <div class="header">
@@ -73,9 +33,9 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
-                        <a href="#login" id="#example1" class="m-dotted lightbox">Вход</a>
+                        <a href="/site/login" data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
                         <a href="/site/registration" data-options='{"width":900, "height":480, "modal": true}'
-                           id="#example2" class="m-dotted lightbox">Регистрация</a>
+                           class="m-dotted lightbox">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
                         <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
@@ -86,7 +46,8 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                 <div class="top-nav">
                     <ul>
                         <li><a href="<?php echo $this->createUrl('info/view', ['id' => '9']) ?>">Как получить</a></li>
-                        <li><a href="<?php echo $this->createUrl('info/view', ['id' => '10']) ?>">Что с моим заказом?</a></li>
+                        <li><a href="<?php echo $this->createUrl('info/view', ['id' => '10']) ?>">Что с моим
+                                заказом?</a></li>
                         <li><a href="<?php echo $this->createUrl('info/view', ['id' => '11']) ?>">Сервисы</a></li>
                     </ul>
                 </div>
@@ -99,13 +60,13 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
             <input type="text"/>
             <input type="submit" value=""/>
         </div>
-        <div class="basket">
-            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">
-                <img src="/images/basket.png" alt=""/>
-                <small>В корзине</small>
-                <span>4</span>
-            </a>
-        </div>
+<!--        <div class="basket">-->
+<!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
+<!--                <img src="/images/basket.png" alt=""/>-->
+<!--                <small>В корзине</small>-->
+<!--                <span>4</span>-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 </div>
 
@@ -173,10 +134,11 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 
 // todo: сделать корзинку в нижней панели
 //$this->renderPartial('/layouts/parts/bottomPanel');
-$this->renderPartial('/layouts/parts/login');
+
+//$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');
-$this->renderPartial('/layouts/parts/basket');
-$this->renderPartial('/layouts/parts/productPreview');
+//$this->renderPartial('/layouts/parts/basket');
+//$this->renderPartial('/layouts/parts/productPreview');
 //$this->renderPartial('/layouts/parts/social');
 
 ?>

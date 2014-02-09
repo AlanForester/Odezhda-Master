@@ -10,6 +10,7 @@ class RetailSiteController extends RetailController {
 
     /**
      * Actions attached to this controller
+     *
      * @return array
      */
     public function actions() {
@@ -23,57 +24,50 @@ class RetailSiteController extends RetailController {
 
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
-        $catalogModel =new CatalogModel();
-        $this->catalogData= $catalogModel->frontCatalogData();
+        $catalogModel = new CatalogModel();
+        $this->catalogData = $catalogModel->frontCatalogData();
 
         $this->render("/site/index");
     }
 
-    
-    public function actionProduct() {
-        $this->render("/site/product");
-    }
 
-    public function actionCatalog(){
-        $this->render('/site/catalog');
-    }
+    //    public function actionProduct() {
+    //        $this->render("/site/product");
+    //    }
+    //
+    //    public function actionCatalog(){
+    //        $this->render('/site/catalog');
+    //    }
 
-    /**
-     * Авторизация пользователей
-     */
-    public function actionLogin(){
+    public function actionLogin() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
+
         $model = new RetailLoginForm();
+        //        $this->respondIfAjaxRequest($request, $model);
         $formData = Yii::app()->request->getPost(get_class($model), false);
+
 
         if ($formData) {
 
-            $model->setAttributes($formData,false);
+            $model->setAttributes($formData, false);
 
             if ($model->validate(array('username', 'password')) && $model->login())
                 $this->redirect($user->returnUrl);
         }
 
-//        $this->controller->layout = '//layouts/blank';
-//        $this->controller->render('login', compact('model'));
-//        $this->render('/site/index');
+        //        $this->controller->layout = '//layouts/blank';
+        //        $this->controller->render('login', compact('model'));
+        $this->layout = false;
+        $this->render('/site/login');
     }
 
-    /**
-     * Редирект авторизированных пользователей
-     * @param $user - модель пользователя
-     */
     private function redirectAwayAlreadyAuthenticatedUsers($user) {
         if (!$user->isGuest)
             $this->redirect('/');
-//            $this->redirect(Yii::app()->request->baseUrl);
+        //            $this->redirect(Yii::app()->request->baseUrl);
     }
 
-    /**
-     * Регистрация пользователей.
-     * После регистрации пользователь становится авторизированным
-     */
     public function actionRegistration() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
@@ -82,33 +76,39 @@ class RetailSiteController extends RetailController {
         $formData = Yii::app()->request->getPost(get_class($model), false);
 
         if ($formData) {
-            $model->setAttributes($formData,false);
-            if ($model->registration()){
-//                $this->redirect($user->returnUrl);
+            //            print_r($formData);exit;
+            $model->setAttributes($formData, false);
+            if ($model->registration()) {
+                //                $this->redirect($user->returnUrl);
                 $this->renderPartial('/layouts/parts/successRegister');
                 Yii::app()->end();
-            }
-            else {
-                //todo дописать
-//                $this->renderPartial('/layouts/parts/register',compact('errors'));
+            } else {
+                $errors = $model->errors;
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($model, 'Ошибка регистрации')
+                );
+                //                $this->renderPartial('/layouts/parts/register',compact('errors'));
             }
         }
+
+        //        $this->redirect($user->returnUrl);
         $this->renderPartial('/layouts/parts/register');
     }
 
     /**
      * Обработка запроса на скидку
      */
-    public function actionDiscountSend(){
-//        $name = Yii::app()->request->getPost('name');
-//        $email = Yii::app()->request->getPost('email');
-//
-//        $sender = Yii::app()->email;
-//
-//        $sender->to = 'admin@example.com';
-//        $sender->subject = 'Запрос на скидку';
-//        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
-//        $sender->send();
+    public function actionDiscountSend() {
+        //        $name = Yii::app()->request->getPost('name');
+        //        $email = Yii::app()->request->getPost('email');
+        //
+        //        $sender = Yii::app()->email;
+        //
+        //        $sender->to = 'admin@example.com';
+        //        $sender->subject = 'Запрос на скидку';
+        //        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
+        //        $sender->send();
 
         // todo: добавить увемоление о событии
         $this->redirect('/');
