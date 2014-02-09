@@ -262,7 +262,8 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 
 <?php
 
-$this->renderPartial('/layouts/parts/bottomPanel');
+// todo: сделать корзинку в нижней панели
+//$this->renderPartial('/layouts/parts/bottomPanel');
 $this->renderPartial('/layouts/parts/login');
 $this->renderPartial('/layouts/parts/register');
 $this->renderPartial('/layouts/parts/basket');
