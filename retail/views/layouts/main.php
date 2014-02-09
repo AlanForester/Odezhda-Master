@@ -30,7 +30,7 @@
 //";
 
 // разместить скрипт на странице
-Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
+//Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -223,30 +223,30 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
             <div class="nav-bar">
                 <ul>
                     <li><a href="/">LAPANA.RU</a></li>
-                    <li><a href="/info/12">О нас</a></li>
-                    <li><a href="/info/13">Вакансии</a></li>
-                    <li><a href="/info/14">Партнерам</a></li>
-                    <li><a href="/info/6">Контакты</a></li>
-                    <li><a href="/info/15">Сертификаты</a></li>
-                    <li><a href="/info/16">Наши скидки</a></li>
-                    <li><a href="/info/17">Преимущества</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'12']) ?>">О нас</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'13']) ?>">Вакансии</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'14']) ?>">Партнерам</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'6']) ?>">Контакты</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'15']) ?>">Сертификаты</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'16']) ?>">Наши скидки</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'17']) ?>">Преимущества</a></li>
                 </ul>
             </div>
             <div class="nav-bar">
                 <ul>
-                    <li><a href="/info/11">СЕРВИС И ПОМОЩЬ</a></li>
-                    <li><a href="/info/7">Как сделать заказ</a></li>
-                    <li><a href="/info/18">Пункты самовывоза</a></li>
-                    <li><a href="/info/5">Способы оплаты</a></li>
-                    <li><a href="/info/2">Возврат</a></li>
-                    <li><a href="/info/19">Правила продажи</a></li>
-                    <li><a href="/info/2">Доставка</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'11']) ?>">СЕРВИС И ПОМОЩЬ</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'7']) ?>">Как сделать заказ</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'18']) ?>">Пункты самовывоза</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'5']) ?>">Способы оплаты</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'2']) ?>">Возврат</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'19']) ?>">Правила продажи</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'2']) ?>">Доставка</a></li>
                 </ul>
             </div>
             <div class="nav-bar">
                 <ul>
-                    <li><a href="/info/14">ПАРТНЕРАМ</a></li>
-                    <li><a href="/info/20">Франшиза</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'14']) ?>">ПАРТНЕРАМ</a></li>
+                    <li><a href="<?php echo $this->createUrl('info/index',['id'=>'20']) ?>">Франшиза</a></li>
                 </ul>
             </div>
 <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
