@@ -145,8 +145,11 @@ class CatalogController extends RetailController {
 
         // получение данных
         $model = new CatalogModel();
+        // todo: сделать переменной, а не свойством контроллера
         $this->DataProvider = $model->getDataProvider($criteria);
 
+        // todo: шаблон - catalog
+        // todo: criteria - ? DataProvider - ?
         $this->render('/site/custom_index', compact('page_size', 'criteria', 'DataProvider'));
     }
 
