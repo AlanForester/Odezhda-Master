@@ -155,10 +155,7 @@ class ShopProduct extends LegacyActiveRecord {
             //грппа checkbox
             'products_status' => 'status',
             'products_to_xml' => 'xml',
-            //meta
-            'products_head_title_tag' => 'meta_title',
-            'products_head_desc_tag' => 'meta_description',
-            'products_head_keywords_tag' => 'meta_keywords',
+
             //фото
             'products_image' => 'image'
         ];

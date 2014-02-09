@@ -227,7 +227,6 @@ Yii::app()->clientScript->registerPackage('index');
         </div>
 
         <div id="fragment_holder">
-
             <?php
             $i=1;
             foreach($this->catalogData as $catalog){ ?>
@@ -247,10 +246,7 @@ Yii::app()->clientScript->registerPackage('index');
                         </div>
                     <?php } $i++; ?>
                 </div>
-
             <?php } ?>
-
-            </div>
         </div>
         <div class="left-skidka">
             <form action="/site/discountsend">
