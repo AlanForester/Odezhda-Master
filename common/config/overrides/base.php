@@ -13,26 +13,26 @@ return [
         'application.components.*',
         'application.models.*'
     ],
-    'aliases' => array(
+    'aliases' => [
         'bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap'), // change this if necessary
         'yiiwheels' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiiwheels'),
-    ),
-    'import' => array(
+    ],
+    'import' => [
         'bootstrap.helpers.TbHtml',
-    ),
+    ],
     'components' => [ 
-        'bootstrap' => array(
+        'bootstrap' => [
             'class' => 'bootstrap.components.TbApi',   
-        ),
-         'yiiwheels' => array(
+        ],
+         'yiiwheels' => [
             'class' => 'yiiwheels.YiiWheels',   
-        ),
+        ],
 
         // http://www.yiiframework.com/extension/email/
-        'email'=>array(
-            'class'=>'application.extensions.email.Email',
-            'delivery'=>'php',
-        ),
+//        'email'=> [
+//            'class'=>'application.extensions.email.Email',
+//            'delivery'=>'php',
+//        ],
 
         'db' => [ 
 			'connectionString' => 'mysql:host=localhost;dbname=om',
