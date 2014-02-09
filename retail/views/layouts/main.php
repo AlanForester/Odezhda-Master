@@ -31,6 +31,11 @@
 
 // разместить скрипт на странице
 //Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
+$js = "jQuery(document).ready(function($){
+    $('.lightbox').lightbox();
+});
+";
+Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -153,8 +158,10 @@
 
                 <div class="reg">
                     <?php if(empty(Yii::app()->user->id)): ?>
-                    <a href="#" id="#example1" onclick="$('#login').arcticmodal()" class="m-dotted">Вход</a>
-                    <a href="#" id="#example2" onclick="$('#registration').arcticmodal()" class="m-dotted">Регистрация</a>
+<!--                    <a href="#" id="#example1" onclick="$('#login').arcticmodal()" class="m-dotted">Вход</a>-->
+                    <a href="#login" id="#example1" class="m-dotted lightbox">Вход</a>
+                    <a href="#registration" id="#example2" class="m-dotted lightbox">Регистрация</a>
+<!--                    <a href="#" id="#example2" onclick="$('#registration').arcticmodal()" class="m-dotted">Регистрация</a>-->
 <!--                        <a class="popup-with-form-login" href="#login">Вход</a>-->
 <!--                        --><?php
 //                        // todo: выкинуть этот виджет, подключить jquery-lightbox-evolution
