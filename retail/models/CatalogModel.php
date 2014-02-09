@@ -51,27 +51,29 @@ class CatalogModel extends CFormModel {
 
     public function frontCatalogData() {
 
-        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' DESC';
-        $data['old_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
-        $data['leaders']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
-        $data['lapa']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
-        $data['shoes']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+//        $data['new_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' DESC';
+//        $data['old_model']['order_field'] = 't.' . CatalogLayer::getFieldName('id', false) . ' ASC';
+//        $data['leaders']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+//        $data['lapa']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+//        $data['shoes']['order_field'] = 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC';
+//        $condition['categories_description'][] = 'categories_description.categories_id=931';
 
         $list = CatalogLayer::frontCatalogData(
             ['new_model' => [
-                'order' => $data['new_model']['order_field']
+                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
             ],
             'old_model' => [
-                 'order' => $data['old_model']['order_field']
+                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' ASC'
             ],
             'leaders' => [
-                'order' => $data['leaders']['order_field']
+                'order' => 't.' . CatalogLayer::getFieldName('count_orders', false) . ' DESC'
             ],
             'lapa' => [
-                'order' => $data['lapa']['order_field']
+                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC'
             ],
             'shoes' => [
-                 'order' => $data['shoes']['order_field']
+                'order' => 't.' . CatalogLayer::getFieldName('id', false) . ' DESC',
+                'condition' => 'categories_description.categories_id=931'
             ]
             ]
         );

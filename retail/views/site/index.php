@@ -265,7 +265,19 @@ Yii::app()->clientScript->registerPackage('index');
                 <?php } ?>
             </div>
             <div id="fragment-4" class="fragment">
+                <?php ?>
+                <?php foreach ($this->catalogData['shoes'] as $product) { ?>
+                    <div class="tab-var">
+                        <img src="/images/kofta.png" alt=""/>
+                        <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
+                        <span><?php echo round($product['price']) . 'р'; ?></span>
+                        <h5><?php echo round($product['old_price']) . 'р'; ?></h5>
 
+                        <div class="var-all">
+                            <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
             <div id="fragment-5" class="fragment">
                 <?php ?>
