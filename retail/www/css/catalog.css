@@ -36,7 +36,8 @@
 }
 
 .accord-item {
-	margin-top:-60px;
+	margin-top:15px;
+	/*margin-top:-60px;*/
 	float:left;
 	background:#fff;
 	border:solid 1px #ccc;
@@ -170,7 +171,8 @@
 	border-radius:7px;
 	-moz-border-radius:7px;
 	-webkit-border-radius:7px;
-	margin-top:15px;
+	margin-top:-60px;
+	/*margin-top:15px;*/
 }
 
 .item-options .title {

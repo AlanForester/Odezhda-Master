@@ -215,6 +215,7 @@ class ShopProduct extends LegacyActiveRecord {
         return [
             'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true],
 
+            // todo: половина тут лишнее
             'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true),
             //связь с категориями many to many
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
@@ -263,6 +264,14 @@ class ShopProduct extends LegacyActiveRecord {
             'withRelated' => array(
                 'class' => 'common.extensions.behaviors.WithRelatedBehavior',
             ),
+        ];
+    }
+
+    public function defaultScope() {
+        return [
+            'with' => [
+                'product_description' => 'product_description'
+            ]
         ];
     }
 
