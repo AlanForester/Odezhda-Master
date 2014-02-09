@@ -1,12 +1,23 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 ?>
+<div id="statusMsg">
+    <?php
+    $this->widget(
+        'bootstrap.widgets.TbAlert',
+        array(
+            'block'=>true,
+        ));
+    ?>
+</div>
 <!--<div class="g-hidden">-->
     <div class="box-modal modal-reg" id="registration">
+
 <!--        <div class="box-modal_close arcticmodal-close modal-reg">X</div>-->
         <div class="modal-login-left modal-reg">
             <p>Регистрация</p>
-            <form  method="post" action="/site/registration">
+<!--            <form  method="post" action="/site/registration">-->
+            <form id="reistr" method="post" action="javascript:void(null);" onsubmit="reg()">
                 <div class="reg-input">
 <!--                    <input type="text" name="RetailRegisterForm[name_surname]" placeholder="Имя, Фамилия*" />-->
                     <input type="text" name="RetailRegisterForm[email]" placeholder="E-mail*" />
@@ -55,13 +66,15 @@ Yii::app()->clientScript->registerPackage('index');
                 </div>
                 <div class="right-info">
                     <div class="remember">
-                        <p><input name="RetailRegisterForm[notes_email]" type="checkbox" value="1" /><span>Я хочу получать уведомления по электронной почте</span></p>
-                        <p><input name="RetailRegisterForm[notes_sms]" type="checkbox" value="1" /><span>Я хочу получать sms-уведомления</span></p>
-                        <p><input name="RetailRegisterForm[rememberMe]" type="checkbox" value="1" /><span>Запомнить меня</span></p>
+                        <p><input name="RetailRegisterForm[notes_email]" type="checkbox" value="1" checked="checked"/><span>Я хочу получать уведомления по электронной почте</span></p>
+                        <p><input name="RetailRegisterForm[notes_sms]" type="checkbox" value="1" checked="checked" /><span>Я хочу получать sms-уведомления</span></p>
+                        <p><input name="RetailRegisterForm[rememberMe]" type="checkbox" value="1" checked="checked"/><span>Запомнить меня</span></p>
                     </div>
                     <h6>чтобы автоматически входить на сайт при каждом посещении</h6>
                     <h6>Lapana.ru не передает и не продает персональную информацию. Нажимая кнопку "РЕГИСТРАЦИЯ" Вы соглашаетесь на обработку Ваших персональных данных в соответствии с ФЗ РФ от 27.07.2006 г. № 152-ФЗ (в ред. 25.07.2011 г.) "О персональных данных", а так же с нашей Политикой конфиденциальности и условиями договора публичной оферты.</h6>
-                    <button type="submit">Регистрация</button>
+                    <button type="submit" >Регистрация</button>
+<!--                    <a href="/site/registration?lightbox[width]=900&lightbox[height]=480&lightbox[modal]=true" id="#example2" class="m-dotted lightbox">Регистрация</a>-->
+
                 </div>
             </form>
         </div>
