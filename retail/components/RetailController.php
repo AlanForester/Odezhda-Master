@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Base class for controllers at frontend.
  *
@@ -7,12 +8,12 @@
  * @package YiiBoilerplate\Frontend
  *
  */
-class RetailController extends CController
-{
+class RetailController extends CController {
 
     public $pageTitle = 'Лапана - много, выгодно, красиво';
 
     public $assets_retail;
+
     /**
      * What to do before rendering the view file.
      *
@@ -21,31 +22,30 @@ class RetailController extends CController
      * @param string $view
      * @return bool
      */
-    public function beforeRender($view)
-    {
+    public function beforeRender($view) {
         $result = parent::beforeRender($view);
         $this->addGoogleAnalyticsCode();
         $this->registerAssets();
         return $result;
     }
 
-    private function addGoogleAnalyticsCode()
-    {
+    private function addGoogleAnalyticsCode() {
         $gaid = @Yii::app()->params['google.analytics.id'];
         if ($gaid)
             $this->widget('frontend.widgets.GoogleAnalytics.GoogleAnalyticsWidget', compact('gaid'));
     }
 
-    private function registerAssets()
-    {
+    private function registerAssets() {
         Yii::app()->bootstrap->register();
         $publisher = Yii::app()->assetManager;
-        $libraries = $publisher->publish(ROOT_DIR.'/common/packages');
+        $libraries = $publisher->publish(ROOT_DIR . '/common/packages');
 
-        $frontend = $publisher->publish(ROOT_DIR.'/frontend/packages');
+        $frontend = $publisher->publish(ROOT_DIR . '/frontend/packages');
 
-        $this->assets_retail = $publisher->publish(ROOT_DIR.'/retail/packages');
+        $this->assets_retail = $publisher->publish(ROOT_DIR . '/retail/packages');
+    }
 
-
+    protected function error($msg = 'Ошибка',$code = 400) {
+        throw new CHttpException($code, Yii::t('err', $msg));
     }
 }
