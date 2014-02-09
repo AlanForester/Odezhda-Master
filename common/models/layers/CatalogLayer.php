@@ -427,16 +427,16 @@ class CatalogLayer {
                 if(!empty($val->manufacturers->attributes)){
                     $result[$key]+=self::fieldMapConvert($val->manufacturers->attributes);
                 }
-                $result[$key]['categories_list']='';
-                foreach($val->categories_description as $key_up => $val_up){
-
-                    if(!empty($val_up['categories_id'])){
-                        if($key_up!=0){
-                            $result[$key]['categories_list'].=', ';
-                        }
-                        $result[$key]['categories_list'].=$val_up['categories_name'];
-                    }
-                }
+//                $result[$key]['categories_list']='';
+//                foreach($val->categories_description as $key_up => $val_up){
+//
+//                    if(!empty($val_up['categories_id'])){
+//                        if($key_up!=0){
+//                            $result[$key]['categories_list'].=', ';
+//                        }
+//                        $result[$key]['categories_list'].=$val_up['categories_name'];
+//                    }
+//                }
             }
 
             $tabs[$data_key]=$result;
