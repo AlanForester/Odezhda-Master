@@ -1,3 +1,6 @@
+<?php
+Yii::app()->clientScript->registerPackage('index');
+?>
 <div class="g-hidden">
     <div class="box-modal modal-reg" id="registration">
 <!--        <div class="box-modal_close arcticmodal-close modal-reg">X</div>-->

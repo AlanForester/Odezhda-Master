@@ -152,22 +152,26 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 
                 <div class="reg">
                     <?php if(empty(Yii::app()->user->id)): ?>
-<!--                    <a href="#" id="#example1" onclick="$('#exampleModal1').arcticmodal()" class="m-dotted">Вход</a>-->
-<!--                    <a href="#" id="#example2" onclick="$('#exampleModal2').arcticmodal()" class="m-dotted">Регистрация</a>-->
-                        <a class="popup-with-form-login" href="#login">Вход</a>
-                        <?php
-                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
-                            'target' => '.popup-with-form-login',
-                            'type' => 'inline',
-                        ));
-                        ?>
-                        <a class="popup-with-form-registration" href="#registration">Регистрация</a>
-                        <?php
-                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
-                            'target' => '.popup-with-form-registration',
-                            'type' => 'inline',
-                        ));
-                        ?>
+                    <a href="#" id="#example1" onclick="$('#login').arcticmodal()" class="m-dotted">Вход</a>
+                    <a href="#" id="#example2" onclick="$('#registration').arcticmodal()" class="m-dotted">Регистрация</a>
+<!--                        <a class="popup-with-form-login" href="#login">Вход</a>-->
+<!--                        --><?php
+//                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
+//                            'target' => '.popup-with-form-login',
+//                            'type' => 'inline',
+//                        ));
+//                        ?>
+<!--                        <a class="popup-with-form-registration" href="/site/registerform">Регистрация</a>-->
+<!--                        --><?php
+//                        $this->widget("ext.magnific-popup.EMagnificPopup", array(
+//                            'target' => '.popup-with-form-registration',
+//                            'type' => 'iframe',
+//                            'iframe' => [
+//                            'markup' =>
+//                            '<iframe class="register-iframe" frameborder="0" scroll allowfullscreen></iframe>',
+//                        ]
+//                        ));
+//                        ?>
                     <?php else: ?>
                     <span>Вы вошли как: <strong><?php echo Yii::app()->user->name;?></strong></span>
                     <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
