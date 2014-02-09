@@ -29,7 +29,8 @@ class ShopProductsHelper {
                 'product_description' => 'product_description' /*$relatedCriteria*/,
                 'manufacturers_description' => 'manufacturers_description' /*$relatedCriteria*/,
                 'categories_description' => $data['categories_description'],
-                'product_options' => 'product_options'
+                // todo: источник ошибки пагинации
+//                'product_options' => 'product_options'
             ]
         ];
 
@@ -38,13 +39,12 @@ class ShopProductsHelper {
             $criteria = array_merge($criteria, $data['criteria']);
         }
 
-        // todo: вынести в конфиг
-        $page_size = 9;
         return new CActiveDataProvider(
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size, 'currentPage' => $data['current_page']]),
+                // todo: вынести в конфиг pageSize
+                'pagination' => ['pageSize' => 9, 'currentPage' => $data['current_page']],
             ]
         );
     }
