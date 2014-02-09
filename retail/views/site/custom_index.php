@@ -1,5 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
+// todo: почистить код
 ?>
 <?php
 //print_r($this->DataProvider->getData());
@@ -163,41 +164,41 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 </div>
 <div class="catalog-item">
-<div class="filters">
-    <div class="select">
-        <h5>ЦВЕТ</h5>
-        <select>
-            <option>Все</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-    </div>
-    <div class="select">
-        <h5>размер</h5>
-        <select>
-            <option>Все</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-    </div>
-    <div class="select">
-        <h5>сезон</h5>
-        <select>
-            <option>Все</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-        </select>
-    </div>
-    <div class="price">
-        <p>
-            <input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <div id="slider-range1"></div>
-    </div>
-</div>
+<!--<div class="filters">-->
+<!--    <div class="select">-->
+<!--        <h5>ЦВЕТ</h5>-->
+<!--        <select>-->
+<!--            <option>Все</option>-->
+<!--            <option>1</option>-->
+<!--            <option>2</option>-->
+<!--            <option>3</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <div class="select">-->
+<!--        <h5>размер</h5>-->
+<!--        <select>-->
+<!--            <option>Все</option>-->
+<!--            <option>1</option>-->
+<!--            <option>2</option>-->
+<!--            <option>3</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <div class="select">-->
+<!--        <h5>сезон</h5>-->
+<!--        <select>-->
+<!--            <option>Все</option>-->
+<!--            <option>1</option>-->
+<!--            <option>2</option>-->
+<!--            <option>3</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <div class="price">-->
+<!--        <p>-->
+<!--            <input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">-->
+<!--        </p>-->
+<!--        <div id="slider-range1"></div>-->
+<!--    </div>-->
+<!--</div>-->
 <!---->
 <?php
 //        function pluralForm($n, $form1, $form2, $form5)

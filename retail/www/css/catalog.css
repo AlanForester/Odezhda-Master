@@ -532,6 +532,7 @@ line-height:25px;
 .catalog-goods {
 	float:left;
 	margin-left:-10px;
+    margin-top: 15px;
 }
 
 .goods-var .quick-view {
