@@ -160,7 +160,7 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                     <?php if(empty(Yii::app()->user->id)): ?>
 <!--                    <a href="#" id="#example1" onclick="$('#login').arcticmodal()" class="m-dotted">Вход</a>-->
                     <a href="#login" id="#example1" class="m-dotted lightbox">Вход</a>
-                    <a href="#registration" id="#example2" class="m-dotted lightbox">Регистрация</a>
+                    <a href="/site/registration?lightbox[width]=900&lightbox[height]=480&lightbox[modal]=true" id="#example2" class="m-dotted lightbox">Регистрация</a>
 <!--                    <a href="#" id="#example2" onclick="$('#registration').arcticmodal()" class="m-dotted">Регистрация</a>-->
 <!--                        <a class="popup-with-form-login" href="#login">Вход</a>-->
 <!--                        --><?php
@@ -275,7 +275,7 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
 // todo: сделать корзинку в нижней панели
 //$this->renderPartial('/layouts/parts/bottomPanel');
 $this->renderPartial('/layouts/parts/login');
-$this->renderPartial('/layouts/parts/register');
+//$this->renderPartial('/layouts/parts/register');
 $this->renderPartial('/layouts/parts/basket');
 $this->renderPartial('/layouts/parts/productPreview');
 //$this->renderPartial('/layouts/parts/social');

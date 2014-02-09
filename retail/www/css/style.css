@@ -1487,10 +1487,13 @@ border-radius: 0px 0px 7px 7px;
 }
 /*не родное*/
 #login {
-    margin: 7px auto 36px;
+    margin: 7px auto;
+    height: 250px;
 }
 #registration {
-    margin: 7px auto 36px
+    margin: 7px auto;
+    height: 400px;
+
 }
 
 
