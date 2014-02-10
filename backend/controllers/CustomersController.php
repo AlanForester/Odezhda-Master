@@ -57,6 +57,8 @@ class CustomersController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit') {
         $groups = [];
+        $genders = ['m'=>'Мужчина', 'f'=>'Женщина'];
+        $guestFlags = ['0'=>'Нет', '1'=>'Да'];
 
         /*foreach (CustomersGroups::model()->findAll() as $group) {
             $groups[$group['id']] = $group['name'];
@@ -66,7 +68,7 @@ class CustomersController extends BackendController {
         if (!$item = $model->getCustomer($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
         }
-        
+
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
@@ -96,7 +98,7 @@ class CustomersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'groups'));
+        $this->render('edit', compact('item', 'groups', 'genders', 'guestFlags'));
     }
 
     public function actionDelete($id) {

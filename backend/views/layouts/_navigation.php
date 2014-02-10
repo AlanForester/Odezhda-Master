@@ -111,8 +111,7 @@ $this->widget(
                             ],
                             [
                                 'label' => 'Клиенты',
-                                'url' => ['/articles/index'],
-                                'disabled'=>true
+                                'url' => ['/customers/index'],
                             ],
                             [
                                 'label' => 'Партнеры',
