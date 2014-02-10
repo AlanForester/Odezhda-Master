@@ -159,6 +159,10 @@ class Customer extends LegacyActiveRecord {
             'fax' => Yii::t('labels','Факс'),
             //'discount' => Yii::t('labels','?'),
             'status' => Yii::t('labels','Статус'),
+            'payment_allowed' => Yii::t('labels','Позволена оплата'),
+            'shipment_allowed' => Yii::t('labels','Позволена отправка'),
+            'referer' => Yii::t('labels','Реферер'),
+            'comment' => Yii::t('labels','Комментарий'),
 
             'lognum' => Yii::t('labels', 'Кол-во авторизаций'),
             'logdate' => Yii::t('labels', 'Последний визит'),

@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Менеджер покупателей: ' . ($item->id ? 'редактирование [' . $item->email . ']' : 'новый покупатель');
+$this->pageTitle = 'Менеджер клиентов: ' . ($item->id ? 'редактирование [' . $item->email . ']' : 'новый клиент');
 
 $this->pageButton = [
     BackendPageButtons::save(),

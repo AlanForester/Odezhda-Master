@@ -7,7 +7,7 @@ class CustomersController extends BackendController {
 
     public $gridDataProvider;
 
-    public $pageTitle = 'Покупатели: список';
+    public $pageTitle = 'Клиенты: список';
     public $pageButton = [];
     public $model;
 
@@ -32,9 +32,9 @@ class CustomersController extends BackendController {
 
         $groups = [];
 
-        /*foreach (CustomersGroups::model()->findAll() as $group) {
-            $groups[$group['id']] = $group['name'];
-        }*/
+        foreach (CustomerGroups::model()->findAll() as $group) {
+            $groups[$group['id'].'&'] = $group['name'];
+        }
 
         $this->render('index', compact('criteria','gridDataProvider', 'groups'));
     }
@@ -47,7 +47,7 @@ class CustomersController extends BackendController {
         $params['value'] = Yii::app()->request->getPost('value');
 
         if (!CustomersHelper::updateField($params,'Customer')) {
-            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
+            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных клиента'));
         }
     }
 
@@ -57,16 +57,16 @@ class CustomersController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit') {
         $groups = [];
-        $genders = ['m'=>'Мужчина', 'f'=>'Женщина'];
+        $genders = [''=>'Не указан', 'm'=>'Мужчина', 'f'=>'Женщина'];
         $guestFlags = ['0'=>'Нет', '1'=>'Да'];
 
-        /*foreach (CustomersGroups::model()->findAll() as $group) {
+        foreach (CustomerGroups::model()->findAll() as $group) {
             $groups[$group['id']] = $group['name'];
-        }*/
+        }
 
         $model = new CustomerLayer($scenario);
         if (!$item = $model->getCustomer($id, $scenario)){
-            $this->error('Ошибка получения данных розничного заказа');
+            $this->error('Ошибка получения данных клиента');
         }
 
         $form_action = Yii::app()->request->getPost('form_action');
@@ -80,13 +80,13 @@ class CustomersController extends BackendController {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' покупателя')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' клиента')
                 );
             } else {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Покупатель ' . ($id ? 'сохранен' : 'добавлен')
+                    'Клиент ' . ($id ? 'сохранен' : 'добавлен')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
@@ -108,7 +108,7 @@ class CustomersController extends BackendController {
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Покупатель удален'
+                'Клиент удален'
             );
         }
     }

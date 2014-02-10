@@ -10,21 +10,21 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => BackendSubMenu::customers(),
+        //'submenu' => BackendSubMenu::customers(),
 
         'filter' => [
             // фильтр по группам
             TbHtml::dropDownList(
                 'filter_groups',
-                !empty($criteria['filters']['groups_id']) ? : null,
-                array_merge([''=>'- По статусу -'],$groups),
+                !empty($criteria['filters']['group_id']) ? : null,
+                array_merge([''=>'- По категории -'],$groups),
                 [
                     'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
                         "whgrid",
                         {
                             data:{
-                                "filters[groups_id]":$("#filter_groups").val()
+                                "filters[group_id]":$("#filter_groups").val()
                             }
                         }
                     )
