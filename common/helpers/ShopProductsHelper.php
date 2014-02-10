@@ -73,6 +73,12 @@ class ShopProductsHelper {
         return $page;
     }
 
+    public static function pathToMidImg($image) {
+
+        return 'preview/w240_h320_'.str_replace("/", "_", $image);
+
+    }
+
     //    public static function getErrors($attributes = null) {
     //        return self::$errors;
     //    }
