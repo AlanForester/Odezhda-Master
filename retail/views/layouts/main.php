@@ -53,9 +53,12 @@ jQuery(document).ready(function($){
 //для формы логина
     $('#login #openRegForm').live('click',function(){
         $.lightbox().close();
-        $('#aReg').trigger('click');
+        setTimeout(function() {
+            $('#aReg').trigger('click');
+        }, 500);
     })
     });
+
 
     $('#login #login_submit').live('click',function(){
         $('#login button').attr('disabled','disabled');
