@@ -30,6 +30,24 @@ class BackendSubMenu {
     }
 
     /**
+     * Управление покупателями и группами покупателей
+     * @return array
+     */
+    public static function customers() {
+        return
+            [
+                [
+                    'label' => 'Покупатели',
+                    'url' => ['/customers/index']
+                ],
+                [
+                    'label' => 'Группы покупателей',
+                    'url' => ['/customer_groups/index']
+                ],
+            ];
+    }
+
+    /**
      * Разделы магазина
      * @return array
      */

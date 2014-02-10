@@ -135,7 +135,6 @@ class CustomersHelper extends CommonHelper {
                     'firstname',
                     'lastname',
                     'email',
-                    'password',
                     'phone',
                 ],
                 false
@@ -144,7 +143,6 @@ class CustomersHelper extends CommonHelper {
         /*$data['condition'] = [
             'a<b',
         ];*/
-        //print_r($data);die();
 
         return parent::getDataProvider($data,$modelClass);
 
