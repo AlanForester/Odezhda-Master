@@ -32,8 +32,15 @@ class CatalogController extends RetailController {
         // получение данных
         $model = new CatalogModel();
         $dataProvider = $model->getDataProvider($criteria);
+
+        // общее кол-во доступных товаров
         $totalCount = $dataProvider->getTotalItemCount();
 
-        $this->render('/site/catalog', compact('categories', 'dataProvider','totalCount'));
+        // пагинация
+        $pages = new CPagination($totalCount);
+        $pages->pageSize=12;
+        $dataProvider->setPagination($pages);
+
+        $this->render('/site/catalog', compact('categories','pages', 'dataProvider','totalCount'));
     }
 }

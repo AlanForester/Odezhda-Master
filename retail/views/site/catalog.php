@@ -152,48 +152,47 @@ Yii::app()->clientScript->registerPackage('catalog');
     </div>
 
 
-
 </div>
 <div class="catalog-item">
-<!--    <div class="filters">-->
-<!--        <div class="select">-->
-<!--            <h5>ЦВЕТ</h5>-->
-<!--            <select>-->
-<!--                <option>Все</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="select">-->
-<!--            <h5>размер</h5>-->
-<!--            <select>-->
-<!--                <option>Все</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="select">-->
-<!--            <h5>сезон</h5>-->
-<!--            <select>-->
-<!--                <option>Все</option>-->
-<!--                <option>1</option>-->
-<!--                <option>2</option>-->
-<!--                <option>3</option>-->
-<!--            </select>-->
-<!--        </div>-->
-<!--        <div class="price">-->
-<!--            <p>-->
-<!--                <input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">-->
-<!--            </p>-->
-<!---->
-<!--            <div id="slider-range1"></div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="filters">-->
+    <!--        <div class="select">-->
+    <!--            <h5>ЦВЕТ</h5>-->
+    <!--            <select>-->
+    <!--                <option>Все</option>-->
+    <!--                <option>1</option>-->
+    <!--                <option>2</option>-->
+    <!--                <option>3</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <div class="select">-->
+    <!--            <h5>размер</h5>-->
+    <!--            <select>-->
+    <!--                <option>Все</option>-->
+    <!--                <option>1</option>-->
+    <!--                <option>2</option>-->
+    <!--                <option>3</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <div class="select">-->
+    <!--            <h5>сезон</h5>-->
+    <!--            <select>-->
+    <!--                <option>Все</option>-->
+    <!--                <option>1</option>-->
+    <!--                <option>2</option>-->
+    <!--                <option>3</option>-->
+    <!--            </select>-->
+    <!--        </div>-->
+    <!--        <div class="price">-->
+    <!--            <p>-->
+    <!--                <input type="text" id="amount1" style="border:0; color:#f6931f; font-weight:bold;">-->
+    <!--            </p>-->
+    <!---->
+    <!--            <div id="slider-range1"></div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
     <div class="sort-goods-catalog">
-        <p>Всего <?php echo $totalCount.' '.FormatHelper::plural($totalCount, 'товар', 'товара', 'товаров'); ?></p>
+        <p>Всего <?php echo $totalCount . ' ' . FormatHelper::plural($totalCount, 'товар', 'товара', 'товаров'); ?></p>
 
         <div class="sort">
             <span>Сортировать по:</span>
@@ -204,14 +203,15 @@ Yii::app()->clientScript->registerPackage('catalog');
                 <option>3</option>
             </select>
         </div>
-<!--        <button><i>x</i>Сбросить фильтры</button>-->
+        <!--        <button><i>x</i>Сбросить фильтры</button>-->
     </div>
 
     <div class="catalog-goods">
         <?php foreach ($dataProvider->getData() as $product) { ?>
             <div class="goods-var">
-<!--                <img src="/images/kofta.png" alt=""/>-->
-                <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?=$product['image'] ?>" alt=""/>
+                <!--                <img src="/images/kofta.png" alt=""/>-->
+                <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
+                     alt=""/>
                 <a href="/catalog/product/<?php echo $product->id; ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
 
                 <span><?php echo round($product->price) . 'р.'; ?></span>
@@ -234,6 +234,19 @@ Yii::app()->clientScript->registerPackage('catalog');
             </div>
         <?php } ?>
     </div>
+
+    <?php
+    // todo: временное решение
+//    $pages = new CPagination($totalCount);
+//    $pages->pageSize=12;
+
+    $this->widget(
+        'CLinkPager',
+        [
+            'pages' =>$pages,
+        ]
+    )
+    ?>
 
 
 
