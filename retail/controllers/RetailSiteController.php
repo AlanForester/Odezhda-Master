@@ -24,6 +24,7 @@ class RetailSiteController extends RetailController {
 
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
+
         $catalogModel = new CatalogModel();
         $this->catalogData = $catalogModel->frontCatalogData();
 
