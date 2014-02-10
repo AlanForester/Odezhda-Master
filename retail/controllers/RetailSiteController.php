@@ -24,6 +24,7 @@ class RetailSiteController extends RetailController {
 
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
+
         $catalogModel = new CatalogModel();
         $this->catalogData = $catalogModel->frontCatalogData();
 
@@ -44,22 +45,15 @@ class RetailSiteController extends RetailController {
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
 
         $model = new RetailLoginForm();
-        //        $this->respondIfAjaxRequest($request, $model);
         $formData = Yii::app()->request->getPost(get_class($model), false);
-
-
         if ($formData) {
-
             $model->setAttributes($formData, false);
-
-            if ($model->validate(array('username', 'password')) && $model->login())
-                $this->redirect($user->returnUrl);
+            if (!$model->validate(array('username', 'password')) || !$model->login()){
+                echo json_encode($model->errors);
+            }
+            Yii::app()->end();
         }
-
-        //        $this->controller->layout = '//layouts/blank';
-        //        $this->controller->render('login', compact('model'));
-        $this->layout = false;
-        $this->render('/site/login');
+        $this->renderPartial('/layouts/parts/login');
     }
 
     private function redirectAwayAlreadyAuthenticatedUsers($user) {
@@ -76,23 +70,12 @@ class RetailSiteController extends RetailController {
         $formData = Yii::app()->request->getPost(get_class($model), false);
 
         if ($formData) {
-            //            print_r($formData);exit;
             $model->setAttributes($formData, false);
-            if ($model->registration()) {
-                //                $this->redirect($user->returnUrl);
-                $this->renderPartial('/layouts/parts/successRegister');
-                Yii::app()->end();
-            } else {
-                $errors = $model->errors;
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка регистрации')
-                );
-                //                $this->renderPartial('/layouts/parts/register',compact('errors'));
+            if (!$model->registration()) {
+                echo json_encode($model->errors);
             }
+            Yii::app()->end();
         }
-
-        //        $this->redirect($user->returnUrl);
         $this->renderPartial('/layouts/parts/register');
     }
 

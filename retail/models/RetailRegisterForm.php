@@ -92,22 +92,9 @@ class RetailRegisterForm extends CFormModel {
                 Yii::app()->user->login($this->_identity, $duration);
                 return true;
             }
-//            return true;
         }
         $this->addErrors(CustomersHelper::getErrors());
 
-//        if ($this->_identity === null) {
-//            $this->_identity = new CustomerIdentity($this->username, $this->password);
-//            $this->_identity->authenticate();
-//        }
-//        if ($this->_identity->isAuthenticated) {
-//            $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
-//            Yii::app()->user->allowAutoLogin=true;
-//
-//            Yii::app()->user->login($this->_identity, $duration);
-//            return true;
-//        }
-//
         return false;
     }
 }

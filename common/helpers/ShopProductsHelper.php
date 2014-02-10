@@ -73,6 +73,29 @@ class ShopProductsHelper {
         return $page;
     }
 
+    public static function pathToSmallImg($image) {
+        return 'preview/w50_'.str_replace("/", "_", $image);
+    }
+    public static function pathToMidImg($image) {
+        return 'preview/w240_h320_'.str_replace("/", "_", $image);
+    }
+    public static function pathToLargeImg($image) {
+        return 'images/'.$image;
+    }
+
+    public static function previewListImg($product) {
+        $prev_img=[];
+        for($i=1;$i<=6;$i++){
+            $img='products_image_sm_'.$i;
+            if(!empty($product->{$img})){
+                $prev_img[$i]=['small'=> ShopProductsHelper::pathToSmallImg($product->{$img}),
+                                'large'=> ShopProductsHelper::pathToLargeImg($product->{$img})
+                              ];
+            }
+        }
+        return $prev_img;
+    }
+
     //    public static function getErrors($attributes = null) {
     //        return self::$errors;
     //    }

@@ -6,7 +6,102 @@
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
-});
+//для формы регистрации
+    $('#registration #reg_submit').live('click',function(){
+        $('#registr button').attr('disabled','disabled');
+        $('#registr #reg_submit').hide();
+        $('#registr #reg_submit_process').show();
+        var validate=true;
+        $('#registration .required').each(function(){
+            validate=false;
+            $(this).toggleClass('error',($(this).val() == ''));
+
+        });
+        if($('#registration .required.error').length == 0){
+                $.ajax({
+                  type: 'POST',
+                  url: '/site/registration',
+                  data: $('#registr').serialize(),
+                  dataType:'json',
+                  success: function(data) {
+
+                        if (data){
+                              $('#reg_error').text('Ошибка:');
+                              var ul='<ul>';
+                              $.each(data,function (key, value){
+                                ul+='<li>'+value+'</li>'
+                              });
+                              ul+='</ul>';
+                              $('#reg_error').append(ul);
+                              $('#reg_error').css('display','block');
+                        }
+                        else {
+                            location.reload();
+                        }
+                  },
+                  error:  function(xhr, str){
+                        $('#reg_error').text('Ошибка соединения с сервером');
+                        $('#reg_error').css('display','block');
+                    }
+                });
+        }
+        $('#registr button').removeAttr('disabled');
+        $('#registr #reg_submit_process').hide();
+        $('#registr #reg_submit').show();
+    });
+
+//для формы логина
+    $('#login #openRegForm').live('click',function(){
+        $.lightbox().close();
+        setTimeout(function() {
+            $('#aReg').trigger('click');
+        }, 500);
+    })
+    });
+
+
+    $('#login #login_submit').live('click',function(){
+        $('#login button').attr('disabled','disabled');
+        $('#login #login_submit').hide();
+        $('#login #login_submit_process').show();
+        var validate=true;
+        $('#login .required').each(function(){
+            validate=false;
+            $(this).toggleClass('error',($(this).val() == ''));
+
+        });
+        if($('#login .required.error').length == 0){
+                $.ajax({
+                  type: 'POST',
+                  url: '/site/login',
+                  data: $('#log').serialize(),
+                  dataType:'json',
+                  success: function(data) {
+
+                        if (data){
+                              $('#login_error').text('Ошибка:');
+                              var ul='<ul>';
+                              $.each(data,function (key, value){
+                                ul+='<li>'+value+'</li>'
+                              });
+                              ul+='</ul>';
+                              $('#login_error').append(ul);
+                              $('#login_error').css('display','block');
+                        }
+                        else {
+                            location.reload();
+                        }
+                  },
+                  error:  function(xhr, str){
+                        $('#login_error').text('Ошибка соединения с сервером');
+                        $('#login_error').css('display','block');
+                    }
+                });
+        }
+        $('#login button').removeAttr('disabled');
+        $('#login #login_submit_process').hide();
+        $('#login #login_submit').show();
+    });
 ";
 
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
@@ -33,13 +128,16 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
-                        <a href="<?php echo $this->createUrl('site/login') ?>" data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
-                        <a href="<?php echo $this->createUrl('site/registration') ?>" data-options='{"width":900, "height":480, "modal": true}'
-                           class="m-dotted lightbox">Регистрация</a>
+                        <a href="<?php echo $this->createUrl('site/login') ?>"
+                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
+                        <a href="<?php echo $this->createUrl('site/registration') ?>"
+                           data-options='{"width":900, "height":480, "modal": true}'
+                           class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
                         <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
-                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2" class="m-dotted">Выход</a>
+                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2"
+                           class="m-dotted">Выход</a>
                     <?php } ?>
                 </div>
 
@@ -60,13 +158,13 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <input type="text"/>
             <input type="submit" value=""/>
         </div>
-<!--        <div class="basket">-->
-<!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-<!--                <img src="/images/basket.png" alt=""/>-->
-<!--                <small>В корзине</small>-->
-<!--                <span>4</span>-->
-<!--            </a>-->
-<!--        </div>-->
+        <!--        <div class="basket">-->
+        <!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
+        <!--                <img src="/images/basket.png" alt=""/>-->
+        <!--                <small>В корзине</small>-->
+        <!--                <span>4</span>-->
+        <!--            </a>-->
+        <!--        </div>-->
     </div>
 </div>
 
@@ -76,12 +174,18 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
     <div class="footer-box">
 
         <div class="draw-icon">
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '931']) ?>"><img src="/images/dr1.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '932']) ?>"><img src="/images/dr2.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '452']) ?>"><img src="/images/dr3.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '936']) ?>"><img src="/images/dr4.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '1420']) ?>"><img src="/images/dr5.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '835']) ?>"><img src="/images/dr6.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '931']) ?>"><img src="/images/dr1.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '932']) ?>"><img src="/images/dr2.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '452']) ?>"><img src="/images/dr3.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '936']) ?>"><img src="/images/dr4.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '1420']) ?>"><img src="/images/dr5.png"
+                                                                                            alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '835']) ?>"><img src="/images/dr6.png"
+                                                                                           alt=""/></a>
             <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt=""/></a>
         </div>
 
