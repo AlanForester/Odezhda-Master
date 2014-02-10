@@ -36,7 +36,6 @@ class CustomersController extends BackendController {
             $groups[$group['id']] = $group['name'];
         }*/
 
-        //echo '<pre>'.print_r($this->model->find(),1);die();
         $this->render('index', compact('criteria','gridDataProvider', 'groups'));
     }
 
@@ -67,7 +66,7 @@ class CustomersController extends BackendController {
         if (!$item = $model->getCustomer($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
         }
-
+        
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме

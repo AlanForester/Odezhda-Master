@@ -25,6 +25,7 @@ class Customer extends LegacyActiveRecord {
     public function fieldMap() {
         return [
             'customers_id' => 'id',
+            'customers_gender' => 'gender',
             'customers_dob' => 'dob',//day of birth
             'customers_firstname' => 'firstname',
             'customers_lastname' => 'lastname',
@@ -40,10 +41,11 @@ class Customer extends LegacyActiveRecord {
             'customers_newsletter' => 'newsletter',
             'customers_selected_template' => 'selected_template',
             'customers_discount' => 'discount',
-            'customers_groups_id' => 'groups_id',
             'customers_status' => 'status',
             'customers_payment_allowed' => 'payment_allowed',
             'customers_shipment_allowed' => 'shipment_allowed',
+            'delivery_adress_id' => 'delivery_address_id',
+            'pay_adress_id' => 'pay_address_id',
         ];
     }
 
@@ -123,6 +125,7 @@ class Customer extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
+            ['firstname, lastname, email, phone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
             ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
             ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
