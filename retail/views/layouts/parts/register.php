@@ -9,8 +9,8 @@ Yii::app()->clientScript->registerPackage('index');
             <div class="reg-input">
             </div>
             <div class="left-info">
-                <input type="text" id="email" name="RetailRegisterForm[email]" placeholder="E-mail"/>
-                <input type="text" id="phone" name="RetailRegisterForm[phone]" placeholder="Мобильный"/>
+                <input type="text" id="email" name="RetailRegisterForm[email]" placeholder="E-mail" class="required"/>
+                <input type="text" id="phone" name="RetailRegisterForm[phone]" placeholder="Мобильный" class="required"/>
                 <h6>Для sms-уведомлений о состоянии заказа и связи с вами, когда вы заказываете доставку. Мы не берем за
                     это денег, не рассылаем спам и не раскрываем ваш номер сторонним организациям.</h6>
                 <span id="reg_error"></span>

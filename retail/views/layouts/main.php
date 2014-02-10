@@ -8,8 +8,13 @@ jQuery(document).ready(function($){
     $('.lightbox').lightbox();
 
     $('#registration #reg_submit').live('click',function(){
-        if($('#email').val() != ''){
-            if($('#phone').val() != ''){
+//        $('.required').css({'border':'none'});
+        var validate=true;
+        $('#registration .required').each(function(){
+            $(this).toggleClass('error',($(this).val() == ''));
+
+        });
+        if(validate){
                 $.ajax({
                   type: 'POST',
                   url: '/site/registration',
@@ -17,25 +22,34 @@ jQuery(document).ready(function($){
                   dataType:'json',
                   success: function(data) {
                         if (data){
-                            $('#reg_error').text('(Ошибка: '+data+')');
-                            $('#reg_error').css('display','block');
+                              $('#reg_error').text('Ошибка:');
+                              var ul='<ul>';
+                              $.each(data,function (key, value){
+                                ul+='<li>'+value+'</li>'
+                              });
+                              ul+='</ul>';
+                              $('#reg_error').append(ul);
+                              $('#reg_error').css('display','block');
                         }
                         else {
                             location.reload();
                         }
                   },
                   error:  function(xhr, str){
-                        $('#reg_error').text('(Ошибка соединения с сервером)');
+                        $('#reg_error').text('Ошибка соединения с сервером');
                         $('#reg_error').css('display','block');
                     }
                 });
-            } else {
-                $('#phone').css({'border':'2px solid #E21A70'});
-            }
-        } else {
-              $('#email').css({'border':'2px solid #E21A70'});
         }
     });
+//
+//    $('#email').live('focus',function(){
+//        $('#email').css({'border':'none'});
+//    });
+//
+//    $('#phone').live('focus',function(){
+//        $('#phone').css({'border':'none'});
+//    });
 });
 ";
 
