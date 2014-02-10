@@ -248,6 +248,7 @@ Yii::app()->clientScript->registerPackage('index');
                                 <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
                             </div>
                         </div>
+
                     <?php } $i++; ?>
                 </div>
             <?php } ?>
