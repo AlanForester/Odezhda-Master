@@ -1,18 +1,19 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
 ?>
-<div class="box-modal modal-reg" id="registration">
+<div class="box-modal" id="registration">
     <div class="modal-login-left modal-reg">
         <p>Регистрация</p>
 
-        <form id="registr" method="post" action="javascript:void(null);" onsubmit="reg()">
+        <form id="registr" method="post" action="javascript:void(null);">
             <div class="reg-input">
             </div>
             <div class="left-info">
                 <input type="text" id="email" name="RetailRegisterForm[email]" placeholder="E-mail"/>
-                <input type="text" name="RetailRegisterForm[phone]" placeholder="Мобильный"/>
+                <input type="text" id="phone" name="RetailRegisterForm[phone]" placeholder="Мобильный"/>
                 <h6>Для sms-уведомлений о состоянии заказа и связи с вами, когда вы заказываете доставку. Мы не берем за
                     это денег, не рассылаем спам и не раскрываем ваш номер сторонним организациям.</h6>
+                <span id="reg_error"></span>
             </div>
             <div class="right-info">
                 <div class="remember">
@@ -30,7 +31,7 @@ Yii::app()->clientScript->registerPackage('index');
                     соглашаетесь на обработку Ваших персональных данных в соответствии с ФЗ РФ от 27.07.2006 г. № 152-ФЗ
                     (в ред. 25.07.2011 г.) "О персональных данных", а так же с нашей Политикой конфиденциальности и
                     условиями договора публичной оферты.</h6>
-                <button type="submit">Регистрация</button>
+                <button type="submit" id="reg_submit">Регистрация</button>
             </div>
         </form>
     </div>

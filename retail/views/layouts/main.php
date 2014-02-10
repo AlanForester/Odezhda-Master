@@ -6,6 +6,36 @@
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
+
+    $('#registration #reg_submit').live('click',function(){
+        if($('#email').val() != ''){
+            if($('#phone').val() != ''){
+                $.ajax({
+                  type: 'POST',
+                  url: '/site/registration',
+                  data: $('#registr').serialize(),
+                  dataType:'json',
+                  success: function(data) {
+                        if (data){
+                            $('#reg_error').text('(Ошибка: '+data+')');
+                            $('#reg_error').css('display','block');
+                        }
+                        else {
+                            location.reload();
+                        }
+                  },
+                  error:  function(xhr, str){
+                        $('#reg_error').text('(Ошибка соединения с сервером)');
+                        $('#reg_error').css('display','block');
+                    }
+                });
+            } else {
+                $('#phone').css({'border':'2px solid #E21A70'});
+            }
+        } else {
+              $('#email').css({'border':'2px solid #E21A70'});
+        }
+    });
 });
 ";
 
@@ -33,13 +63,16 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
-                        <a href="<?php echo $this->createUrl('site/login') ?>" data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
-                        <a href="<?php echo $this->createUrl('site/registration') ?>" data-options='{"width":900, "height":480, "modal": true}'
+                        <a href="<?php echo $this->createUrl('site/login') ?>"
+                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
+                        <a href="<?php echo $this->createUrl('site/registration') ?>"
+                           data-options='{"width":900, "height":480, "modal": true}'
                            class="m-dotted lightbox">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
                         <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
-                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2" class="m-dotted">Выход</a>
+                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2"
+                           class="m-dotted">Выход</a>
                     <?php } ?>
                 </div>
 
@@ -60,13 +93,13 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <input type="text"/>
             <input type="submit" value=""/>
         </div>
-<!--        <div class="basket">-->
-<!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-<!--                <img src="/images/basket.png" alt=""/>-->
-<!--                <small>В корзине</small>-->
-<!--                <span>4</span>-->
-<!--            </a>-->
-<!--        </div>-->
+        <!--        <div class="basket">-->
+        <!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
+        <!--                <img src="/images/basket.png" alt=""/>-->
+        <!--                <small>В корзине</small>-->
+        <!--                <span>4</span>-->
+        <!--            </a>-->
+        <!--        </div>-->
     </div>
 </div>
 
@@ -76,12 +109,18 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
     <div class="footer-box">
 
         <div class="draw-icon">
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '931']) ?>"><img src="/images/dr1.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '932']) ?>"><img src="/images/dr2.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '452']) ?>"><img src="/images/dr3.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '936']) ?>"><img src="/images/dr4.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '1420']) ?>"><img src="/images/dr5.png" alt=""/></a>
-            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '835']) ?>"><img src="/images/dr6.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '931']) ?>"><img src="/images/dr1.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '932']) ?>"><img src="/images/dr2.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '452']) ?>"><img src="/images/dr3.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '936']) ?>"><img src="/images/dr4.png"
+                                                                                           alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '1420']) ?>"><img src="/images/dr5.png"
+                                                                                            alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '835']) ?>"><img src="/images/dr6.png"
+                                                                                           alt=""/></a>
             <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt=""/></a>
         </div>
 
