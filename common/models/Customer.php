@@ -32,6 +32,18 @@ class Customer extends LegacyActiveRecord {
             'customers_password' => 'password',
             'customers_telephone' => 'phone',
             'customers_groups_id' => 'group_id',
+
+            'otchestvo' => 'middlename',
+            //'customers_mname' => 'middlename',
+            'customers_default_address_id' => 'default_address_id',
+            'customers_fax' => 'fax',
+            'customers_newsletter' => 'newsletter',
+            'customers_selected_template' => 'selected_template',
+            'customers_discount' => 'discount',
+            'customers_groups_id' => 'groups_id',
+            'customers_status' => 'status',
+            'customers_payment_allowed' => 'payment_allowed',
+            'customers_shipment_allowed' => 'shipment_allowed',
         ];
     }
 
@@ -136,6 +148,7 @@ class Customer extends LegacyActiveRecord {
             'lastname' => Yii::t('labels', 'Фамилия'),
             'email' => Yii::t('labels', 'E-mail'),
             'password' => Yii::t('labels','Пароль'),
+            'phone' => Yii::t('labels','Телефон'),
 
             'lognum' => Yii::t('labels', 'Кол-во авторизаций'),
             'logdate' => Yii::t('labels', 'Последний визит'),
