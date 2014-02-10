@@ -74,9 +74,17 @@ class ShopProductsHelper {
     }
 
     public static function pathToMidImg($image) {
-
         return 'preview/w240_h320_'.str_replace("/", "_", $image);
+    }
+    public static function pathToLargeImg($image) {
+        return 'images/'.$image;
+    }
 
+    public static function previewListImg() {
+        for($i=1;$i<=6;$i++){
+            $img[]='products_image_sm_'.$i;
+        }
+        return [];
     }
 
     //    public static function getErrors($attributes = null) {

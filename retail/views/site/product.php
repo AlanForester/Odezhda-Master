@@ -1,5 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
+
 ?>
 <div class="wrapper">
 
@@ -32,7 +33,7 @@ Yii::app()->clientScript->registerPackage('product');
                     </div>
                     <div class="clearfix">
                         <a href="/images/tovar1-big-b.png" class="jqzoom" rel='gal1' title="triumph">
-                            <img src="/images/tovar1-big.png" title="triumph" alt="">
+                            <img src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product['image']); ?>" title="triumph" alt="">
                         </a>
                     </div>
                 </div>
@@ -40,7 +41,7 @@ Yii::app()->clientScript->registerPackage('product');
         </div>
 
         <div class="tovar-info">
-            <p><?php echo $product->name . 'р' ?></p>
+            <p><?php echo $product->name ?></p>
             <span>Артикул <?php echo $product->model ?></span>
 
             <div class="color">
