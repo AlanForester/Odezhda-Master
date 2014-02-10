@@ -24,13 +24,16 @@ class CatalogController extends RetailController {
             'category' => $id,
             'page' => (Yii::app()->request->getQuery('page') ? : 1)
         ];
+        $model = new CatalogModel();
 
-        // Категории
+        // Категории для аккардеона
         $categoriesModel = new ShopCategoriesModel();
         $categories = $categoriesModel->getClearCategoriesList();
 
-        // получение данных
-        $model = new CatalogModel();
+        // текущая категория
+        $currentCetegory = $model->getCategory($id);
+
+        // получение товаров в категории
         $dataProvider = $model->getDataProvider($criteria);
 
         // общее кол-во доступных товаров
@@ -41,6 +44,6 @@ class CatalogController extends RetailController {
         $pages->pageSize=12;
         $dataProvider->setPagination($pages);
 
-        $this->render('/site/catalog', compact('categories','pages', 'dataProvider','totalCount'));
+        $this->render('/site/catalog', compact('categories','currentCetegory','pages', 'dataProvider','totalCount'));
     }
 }

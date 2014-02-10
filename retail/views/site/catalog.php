@@ -1,5 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
+// todo: название категории получаем через костыль - исправить
 ?>
 <script>
     $(document).ready(function () {
@@ -11,7 +12,7 @@ Yii::app()->clientScript->registerPackage('catalog');
 </script>
 <div class="catalog-title">
     <div class="title">
-        <p><?php //echo $this->currentCategory['categories_name'];?></p>
+        <p><?php echo $currentCetegory->rel_description->categories_name ;?></p>
     </div>
 </div>
 
@@ -237,9 +238,6 @@ Yii::app()->clientScript->registerPackage('catalog');
 
     <?php
     // todo: временное решение
-//    $pages = new CPagination($totalCount);
-//    $pages->pageSize=12;
-
     $this->widget(
         'CLinkPager',
         [
