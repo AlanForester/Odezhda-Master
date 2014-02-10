@@ -27,9 +27,21 @@ class CustomersController extends BackendController {
 
         $this->model = new Customer('update');
 
-        $gridDataProvider = $this->model->getDataProvider($criteria);
+        $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
         $this->render('index', compact('criteria','gridDataProvider'));
+    }
+
+    public function actionUpdate() {
+        $this->model = new Customer('update');
+
+        $params['field'] = $this->model->getFieldMapName(Yii::app()->request->getPost('name'), false);
+        $params['id'] = Yii::app()->request->getPost('pk');
+        $params['value'] = Yii::app()->request->getPost('value');
+
+        if (!CustomersHelper::updateField($params,'Customer')) {
+            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
+        }
     }
 }

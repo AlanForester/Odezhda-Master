@@ -1,6 +1,6 @@
 <?php
 
-class CustomersHelper {
+class CustomersHelper extends CommonHelper {
 
     protected static $errors = [];
 
@@ -124,8 +124,34 @@ class CustomersHelper {
 
     // -----------------------------------
 
-    public static function getDataProvider($data = null) {
-        $condition = [];
+    public static function getDataProvider($data = null, $modelClass = 'Customer') {
+
+        // =>   backend/controllers/CustomersController.php
+
+        $model = new $modelClass;
+        if(!empty($data['text_search']))
+            $data['text_search']['columns'] = $model->getFieldMapArray(
+                [
+                    'firstname',
+                    'lastname',
+                    'email',
+                    'password',
+                    'phone',
+                ],
+                false
+            );
+
+        /*$data['condition'] = [
+            'a<b',
+        ];*/
+        //print_r($data);die();
+
+        return parent::getDataProvider($data,$modelClass);
+
+
+
+
+        /*$condition = [];
         $params = [];
 
         // фильтр по тексту
@@ -226,7 +252,7 @@ class CustomersHelper {
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
-        );
+        );*/
     }
 
     /**
