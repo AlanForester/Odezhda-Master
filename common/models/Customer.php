@@ -148,6 +148,7 @@ class Customer extends LegacyActiveRecord {
             'lastname' => Yii::t('labels', 'Фамилия'),
             'email' => Yii::t('labels', 'E-mail'),
             'password' => Yii::t('labels','Пароль'),
+            'phone' => Yii::t('labels','Телефон'),
 
             'lognum' => Yii::t('labels', 'Кол-во авторизаций'),
             'logdate' => Yii::t('labels', 'Последний визит'),

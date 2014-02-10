@@ -308,4 +308,9 @@ class CustomersHelper extends CommonHelper {
         }
         return $user;
     }
+
+    public static function getCustomer($id = null, $scenario = null) {
+        $model = self::getModel();
+        return ($id ? $model->findByPk($id) : new $model($scenario));
+    }
 }

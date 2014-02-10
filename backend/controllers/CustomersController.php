@@ -32,10 +32,11 @@ class CustomersController extends BackendController {
 
         $groups = [];
 
-        /*foreach (RetailOrdersStatusesLayer::model()->findAll() as $group) {
+        /*foreach (CustomersGroups::model()->findAll() as $group) {
             $groups[$group['id']] = $group['name'];
         }*/
 
+        //echo '<pre>'.print_r($this->model->find(),1);die();
         $this->render('index', compact('criteria','gridDataProvider', 'groups'));
     }
 
@@ -56,47 +57,14 @@ class CustomersController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
+        $groups = [];
 
-        foreach (CustomersStatusesLayer::model()->findAll() as $status) {
-            $statuses[$status['id']] = $status['name'];
-        }
-
-        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
-            $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
-        }
-
-        /*foreach (DefaultProvidersLayer::model()->findAll() as $provider) {
-            $defaultProviders[$provider['id']] = $provider['name'];
-        }
-
-        foreach (SellersLayer::model()->findAll() as $seller) {
-            $sellers[$seller['id']] = $seller['ur'];
-        }
-
-        foreach (CurrenciesLayer::model()->findAll() as $currency) {
-            $currencies[$currency['id']] = $currency['name'];
-        }
-
-        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
-            $paymentMethods[$method['id']] = $method['name'];
+        /*foreach (CustomersGroups::model()->findAll() as $group) {
+            $groups[$group['id']] = $group['name'];
         }*/
 
-        //todo: временно оставляю данные здесь, но лучше создать для PaymentMethods и Currencies таблицы в бд (как и для стран и областей)
-        foreach([
-                    'Оплата (Для физических лиц)',
-                    'Оплата наличными при получении',
-                    'Оплата по квитанции Сбербанка РФ',
-                    'После сборки заказа Вам будет выставлен счет (Для юридических лиц)',
-                    'Предоплата на счёт',
-                ] as $method)
-            $paymentMethods[$method] = $method;
-
-        $currencies = ['RUR'=>'RUR'];
-
-
-        $model = new CustomersLayer($scenario);
-        if (!$item = $model->getRetailOrder($id, $scenario)){
+        $model = new CustomerLayer($scenario);
+        if (!$item = $model->getCustomer($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
         }
 
@@ -111,13 +79,13 @@ class CustomersController extends BackendController {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
+                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' покупателя')
                 );
             } else {
                 // выкидываем сообщение
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
-                    'Розничный заказ ' . ($id ? 'сохранен' : 'добавлен')
+                    'Покупатель ' . ($id ? 'сохранен' : 'добавлен')
                 );
                 if ($form_action == 'save') {
                     $this->redirect(['index']);
@@ -129,17 +97,17 @@ class CustomersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
+        $this->render('edit', compact('item', 'groups'));
     }
 
     public function actionDelete($id) {
-        $model = CustomersLayer::model()->findByPk($id);
+        $model = CustomerLayer::model()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {
             Yii::app()->user->setFlash(
                 TbHtml::ALERT_COLOR_INFO,
-                'Заказ удален'
+                'Покупатель удален'
             );
         }
     }
