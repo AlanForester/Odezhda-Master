@@ -44,7 +44,7 @@ class ShopProductsHelper {
             [
                 //                'criteria' => $criteria,
                 // todo: вынести в конфиг pageSize
-                'pagination' => ['pageSize' => 9],
+                'pagination' => ['pageSize' => 12],
                 //                'pagination' => ['pageSize' => 9, 'currentPage' => $data['page']],
             ]
         );

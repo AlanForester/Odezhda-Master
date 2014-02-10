@@ -32,8 +32,8 @@ class CatalogController extends RetailController {
         // получение данных
         $model = new CatalogModel();
         $dataProvider = $model->getDataProvider($criteria);
-//        print_r($dataProvider->getData());exit;
+        $totalCount = $dataProvider->getTotalItemCount();
 
-        $this->render('/site/catalog', compact('categories', 'dataProvider'));
+        $this->render('/site/catalog', compact('categories', 'dataProvider','totalCount'));
     }
 }

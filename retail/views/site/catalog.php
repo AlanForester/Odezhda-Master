@@ -193,7 +193,7 @@ Yii::app()->clientScript->registerPackage('catalog');
 <!--    </div>-->
 
     <div class="sort-goods-catalog">
-        <p>Всего <?php //echo $this->count.' '.pluralForm($this->count, 'товар', 'товара', 'товаров'); ?></p>
+        <p>Всего <?php echo $totalCount.' '.FormatHelper::plural($totalCount, 'товар', 'товара', 'товаров'); ?></p>
 
         <div class="sort">
             <span>Сортировать по:</span>
@@ -210,7 +210,8 @@ Yii::app()->clientScript->registerPackage('catalog');
     <div class="catalog-goods">
         <?php foreach ($dataProvider->getData() as $product) { ?>
             <div class="goods-var">
-                <img src="/images/kofta.png" alt=""/>
+<!--                <img src="/images/kofta.png" alt=""/>-->
+                <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?=$product['image'] ?>" alt=""/>
                 <a href="/catalog/product/<?php echo $product->id; ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
 
                 <span><?php echo round($product->price) . 'р.'; ?></span>
@@ -233,6 +234,8 @@ Yii::app()->clientScript->registerPackage('catalog');
             </div>
         <?php } ?>
     </div>
+
+
 
     <!--<div class="catalog-goods more">-->
     <!--    <div class="goods-var">-->

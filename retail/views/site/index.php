@@ -235,7 +235,7 @@ Yii::app()->clientScript->registerPackage('index');
                     <?php ?>
                     <?php foreach ($catalog as $product) { ?>
                         <div class="tab-var">
-                            <img height="231" src="http://old.om.codetek.ru//images/<?=$product['image'] ?>" alt=""/>
+                            <img class="tab-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?=$product['image'] ?>" alt=""/>
                             <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
                             <span><?php echo round($product['price']) . 'р'; ?></span>
                             <h5><?php echo round($product['old_price']) . 'р'; ?></h5>

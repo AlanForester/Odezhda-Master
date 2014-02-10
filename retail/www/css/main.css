@@ -425,11 +425,16 @@
 	margin-left:10px;
 }
 .tab-var img{
-    width:176px;
-    height:241px;
+    /*width:176px;*/
+    /*height:241px;*/
     border-radius:7px;
     -moz-border-radius:7px;
     -webkit-border-radius:7px;
+}
+
+.tab-var img.tab-var-image {
+    max-width:176px;
+    max-height:241px;
 }
 
 .tab-var a {
