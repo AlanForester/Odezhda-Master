@@ -9,12 +9,12 @@ Yii::app()->clientScript->registerPackage('product');
         <a href="#">Одежда</a><span>/</span>
         <span>Футболки</span>
     </div>
-
     <div class="karta-wrap">
         <div class="karta-box">
             <div class="tovar-slider">
                 <div class="clearfix" id="content">
-                    <?php ShopProductsHelper::previewListImg($product); ?>
+
+
                     <div class="clearfix">
 
                         <ul id="thumblist" class="clearfix">
@@ -59,10 +59,12 @@ Yii::app()->clientScript->registerPackage('product');
 
             <div class="color">
                 <span>ВЫБЕРИТЕ ЦВЕТ</span>
-                <a href="#"><img src="/images/tovar1.png" alt=""></a>
-                <a href="#"><img src="/images/tovar1.png" alt=""></a>
-                <a href="#"><img src="/images/tovar1.png" alt=""></a>
-                <a href="#"><img src="/images/tovar1.png" alt=""></a>
+                <?php foreach($list_image as $image){ ?>
+                <a href="#"><img src="<?= Yii::app()->params['staticUrl'].$image['small'] ?>" alt=""></a>
+                <?php } ?>
+<!--                <a href="#"><img src="http://odezhda-master.ru/preview/w50_img_7863.jpg" alt=""></a>-->
+<!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
+<!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
             </div>
             <div class="razmer">
                 <div class="title">
