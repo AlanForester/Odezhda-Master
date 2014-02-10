@@ -1,6 +1,8 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
 // todo: название категории получаем через костыль - исправить
+$catName = $currentCetegory->rel_description->categories_name;
+$this->setTitle($catName);
 ?>
 <script>
     $(document).ready(function () {
@@ -12,7 +14,7 @@ Yii::app()->clientScript->registerPackage('catalog');
 </script>
 <div class="catalog-title">
     <div class="title">
-        <p><?php echo $currentCetegory->rel_description->categories_name ;?></p>
+        <p><?php echo $catName ;?></p>
     </div>
 </div>
 
@@ -138,7 +140,7 @@ Yii::app()->clientScript->registerPackage('catalog');
                         <ul>
                             <?php foreach ($category['children'] as $child) { ?>
                                 <li>
-                                    <a href="/catalog/list/<?php echo $child['id']; ?>"><?php echo $child['name']; ?></a>
+                                    <a href="<?php echo $this->createUrl('catalog/list', ['id' => $child['id'] ]) ?>"><?php echo $child['name']; ?></a>
                                 </li>
 
                             <?php } ?>
@@ -213,7 +215,7 @@ Yii::app()->clientScript->registerPackage('catalog');
                 <!--                <img src="/images/kofta.png" alt=""/>-->
                 <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
                      alt=""/>
-                <a href="/catalog/product/<?php echo $product->id; ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
+                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
 
                 <span><?php echo round($product->price) . 'р.'; ?></span>
                 <?php if ($product->old_price != 0) { ?>

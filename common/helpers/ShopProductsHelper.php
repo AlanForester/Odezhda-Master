@@ -11,38 +11,34 @@ class ShopProductsHelper {
     }
 
     public static function getDataProvider($data = null) {
-        // todo: епт, что это ??
-        // фильтр по группе
-        //        $data['categories_description'] = [];
-        //
-        //        if ($data['current_category'] != 0) {
-        //            $data['categories_description'] = [
-        //                'condition' => 'categories_description.categories_id' . '=:categories_id',
-        //                'params' => [':categories_id' => $data['current_category']]
-        //            ];
-        //        }
-        //
-        //        $criteria = [
-        //            'order' => 't.products_id ASC',
-        //            // todo: ну и зачем тут явное указание связанной таблицы?
-        //            'with' => [
-        //                'product_description' => 'product_description' /*$relatedCriteria*/,
-        //                'manufacturers_description' => 'manufacturers_description' /*$relatedCriteria*/,
-        //                'categories_description' => $data['categories_description'],
-        //                // todo: источник ошибки пагинации
-        //                //                'product_options' => 'product_options'
-        //            ]
-        //        ];
-        //
-        //        // разрешаем перезаписать любые параметры критерии
-        //        if (isset($data['criteria'])) {
-        //            $criteria = array_merge($criteria, $data['criteria']);
-        //        }
+        $condition = [];
+        $params = [];
+
+        // фильтр по категории
+        if (isset($data['category'])) {
+            // todo: решить проблему с подстановкой имени связанной таблицы
+            $condition [] = 'categories_description.categories_id =:category';
+            $params[':category'] = $data['category'];
+        }
+
+        $criteria = [
+            'condition' => join(' AND ', $condition),
+            'params' => $params,
+//            'with'=>[
+//                'categories_description'
+//            ]
+            //            'order' => $order_field . ($order_direct ? : ''),
+        ];
+
+        // разрешаем перезаписать любые параметры критерии
+        if (isset($data['criteria'])) {
+            $criteria = array_merge($criteria, $data['criteria']);
+        }
 
         return new CActiveDataProvider(
             'ShopProduct',
             [
-                //                'criteria' => $criteria,
+                'criteria' => $criteria,
                 // todo: вынести в конфиг pageSize
                 'pagination' => ['pageSize' => 12],
                 //                'pagination' => ['pageSize' => 9, 'currentPage' => $data['page']],

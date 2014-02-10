@@ -26,12 +26,14 @@ class CatalogController extends RetailController {
         ];
         $model = new CatalogModel();
 
+        // текущая категория
+        if (!$currentCetegory = $model->getCategory($id)){
+            $this->error('Категория не найдена', 404);
+        }
+
         // Категории для аккардеона
         $categoriesModel = new ShopCategoriesModel();
         $categories = $categoriesModel->getClearCategoriesList();
-
-        // текущая категория
-        $currentCetegory = $model->getCategory($id);
 
         // получение товаров в категории
         $dataProvider = $model->getDataProvider($criteria);

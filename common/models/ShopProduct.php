@@ -270,7 +270,9 @@ class ShopProduct extends LegacyActiveRecord {
     public function defaultScope() {
         return [
             'with' => [
-                'product_description' => 'product_description'
+                'product_description',
+                'categories_description'
+
             ]
         ];
     }

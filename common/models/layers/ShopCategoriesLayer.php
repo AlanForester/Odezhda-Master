@@ -498,7 +498,10 @@ class ShopCategoriesLayer {
      */
     public static function getCategory($id = null, $scenario = null) {
         if ($id){
-            $category = ShopCategoriesLegacy::model()->findByPk($id);
+            if (!$category = ShopCategoriesLegacy::model()->findByPk($id)){
+                return false;
+            }
+
             //print_r($category->description);exit;
             $relations=$category->relations();
             if (!empty($relations)){
