@@ -14,26 +14,39 @@ Yii::app()->clientScript->registerPackage('product');
         <div class="karta-box">
             <div class="tovar-slider">
                 <div class="clearfix" id="content">
-
+                    <?php ShopProductsHelper::previewListImg($product); ?>
                     <div class="clearfix">
+
                         <ul id="thumblist" class="clearfix">
-                            <li><a class="zoomThumbActive" href='javascript:void(0);'
-                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img
-                                        src='/images/tovar1.png' alt=""></a></li>
-                            <li><a href='javascript:void(0);'
-                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img
-                                        src='/images/tovar1.png' alt=""></a></li>
-                            <li><a href='javascript:void(0);'
-                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img
-                                        src='/images/tovar1.png' alt=""></a></li>
-                            <li><a href='javascript:void(0);'
-                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img
-                                        src='/images/tovar1.png' alt=""></a></li>
+
+                            <?php $list_image=ShopProductsHelper::previewListImg($product); ?>
+                            <?php foreach($list_image as $image){ ?>
+                                <li><a class="zoomThumbActive" href='javascript:void(0);'
+                                       rel="{gallery: 'gal1', smallimage: '<?= Yii::app()->params['staticUrl'].$image['small'] ?>',largeimage: '<?= Yii::app()->params['staticUrl'].$image['large'] ?>"><img
+                                            src='<?= Yii::app()->params['staticUrl'].$image['small'] ?>' alt=""></a></li>
+
+
+                            <?php } ?>
+
+
+<!--                            <li><a class="zoomThumbActive" href='javascript:void(0);'-->
+<!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
+<!--                                        src='/images/tovar1.png' alt=""></a></li>-->
+<!--                            -->
+<!--                            <li><a href='javascript:void(0);'-->
+<!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
+<!--                                        src='/images/tovar1.png' alt=""></a></li>-->
+<!--                            <li><a href='javascript:void(0);'-->
+<!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
+<!--                                        src='/images/tovar1.png' alt=""></a></li>-->
+<!--                            <li><a href='javascript:void(0);'-->
+<!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
+<!--                                        src='/images/tovar1.png' alt=""></a></li>-->
                         </ul>
                     </div>
                     <div class="clearfix">
-                        <a href="/images/tovar1-big-b.png" class="jqzoom" rel='gal1' title="triumph">
-                            <img src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product['image']); ?>" title="triumph" alt="">
+                        <a href="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" class="jqzoom" rel='gal1' title="triumph">
+                            <img src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" title="triumph" alt="">
                         </a>
                     </div>
                 </div>
