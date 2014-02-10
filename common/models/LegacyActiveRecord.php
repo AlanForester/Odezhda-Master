@@ -6,7 +6,7 @@ abstract class LegacyActiveRecord extends CActiveRecord {
      * attribute name => attribute value
      * Необходимо для populateRecord()
      */
-    private $_attributes=array();
+//    private $_attributes=array();
 
     // todo: временно не используется
     public $withRealation = false;
@@ -184,6 +184,8 @@ abstract class LegacyActiveRecord extends CActiveRecord {
     }
 
     /**
+     * todo: включить голову
+     *
      * Перекрытие стандартного метода получения записей из бд при использовании find*
      * с корректировкой имен полей.
      * @param array $attributes attribute values (column name=>column value)
@@ -191,29 +193,29 @@ abstract class LegacyActiveRecord extends CActiveRecord {
      * @return CActiveRecord the newly created active record. The class of the object is the same as the model class.
      * Null is returned if the input data is false.
      */
-    public function populateRecord($attributes,$callAfterFind=true)
-    {
-        if($attributes!==false)
-        {
-            $record=$this->instantiate($attributes);
-            $record->setScenario('update');
-            $record->init();
-            $md=$record->getMetaData();
-            foreach($attributes as $name=>$value)
-            {
-                $newName = $this->getFieldMapName($name, true);
-                if(property_exists($record,$name))
-                    $record->$newName=$value;
-                elseif(isset($md->columns[$name]))
-                    $record->_attributes[$newName]=$value;
-            }
-            $record->_pk=$record->getPrimaryKey();
-            $record->attachBehaviors($record->behaviors());
-            if($callAfterFind)
-                $record->afterFind();
-            return $record;
-        }
-        else
-            return null;
-    }
+//    public function populateRecord($attributes,$callAfterFind=true)
+//    {
+//        if($attributes!==false)
+//        {
+//            $record=$this->instantiate($attributes);
+//            $record->setScenario('update');
+//            $record->init();
+//            $md=$record->getMetaData();
+//            foreach($attributes as $name=>$value)
+//            {
+//                $newName = $this->getFieldMapName($name, true);
+//                if(property_exists($record,$name))
+//                    $record->$newName=$value;
+//                elseif(isset($md->columns[$name]))
+//                    $record->_attributes[$newName]=$value;
+//            }
+//            $record->_pk=$record->getPrimaryKey();
+//            $record->attachBehaviors($record->behaviors());
+//            if($callAfterFind)
+//                $record->afterFind();
+//            return $record;
+//        }
+//        else
+//            return null;
+//    }
 }

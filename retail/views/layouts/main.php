@@ -8,20 +8,21 @@ jQuery(document).ready(function($){
     $('.lightbox').lightbox();
 
     $('#registration #reg_submit').live('click',function(){
-//        $('.required').css({'border':'none'});
+        $('#registr button').addClass('desable');
         var validate=true;
         $('#registration .required').each(function(){
             validate=false;
             $(this).toggleClass('error',($(this).val() == ''));
 
         });
-        if($('#registration .required.error').length == 0){
+        if(($('#registration .required.error').length == 0)  && ($('#registr button.desable').length != 0)){
                 $.ajax({
                   type: 'POST',
                   url: '/site/registration',
                   data: $('#registr').serialize(),
                   dataType:'json',
                   success: function(data) {
+
                         if (data){
                               $('#reg_error').text('Ошибка:');
                               var ul='<ul>';
@@ -42,15 +43,8 @@ jQuery(document).ready(function($){
                     }
                 });
         }
+//        $('#registr button').removeClass('desable');
     });
-//
-//    $('#email').live('focus',function(){
-//        $('#email').css({'border':'none'});
-//    });
-//
-//    $('#phone').live('focus',function(){
-//        $('#phone').css({'border':'none'});
-//    });
 });
 ";
 
