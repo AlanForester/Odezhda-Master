@@ -3,13 +3,14 @@
 <!--        <div class="box-modal_close arcticmodal-close">X</div>-->
         <div class="modal-login-left">
             <p>Постоянный клиент</p>
-            <form method="post" action="/site/login">
-                <input type="text" placeholder="E-mail" name="RetailLoginForm[username]" />
-                <input type="password" placeholder="Пароль" name="RetailLoginForm[password]" />
+            <form id="log" method="post" action="javascript:void(null);">
+                <input id="email" type="text" placeholder="E-mail" name="RetailLoginForm[username]" class="required" />
+                <input id="password" type="password" placeholder="Пароль" name="RetailLoginForm[password]" class="required" />
 <!--                <div class="remember">-->
 <!--                    <input type="checkbox" name="RetailLoginForm[rememberMe]" value="1" /><span>Запомнить меня</span>-->
 <!--                </div>-->
-                <button type="submit">Войти</button>
+                <button type="submit" id="login_submit">Войти</button>
+                <button type="submit" id="login_submit_process">Отправка запроса <img src="/img/loading.gif" /></button>
             </form>
 <!--            <div class="line"></div>-->
 <!--            <h4>Войти как пользователь социальной сети</h4>-->
@@ -28,7 +29,8 @@
         </div>
         <div class="modal-login-right">
             <p>Новый покупатель</p>
-            <button>Регистрация</button>
+            <button id="openRegForm">Регистрация</button>
+            <span id="login_error"></span>
 <!--            <img src="/images/modal-girl.png" alt="" />-->
         </div>
     </div>

@@ -45,22 +45,15 @@ class RetailSiteController extends RetailController {
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
 
         $model = new RetailLoginForm();
-        //        $this->respondIfAjaxRequest($request, $model);
         $formData = Yii::app()->request->getPost(get_class($model), false);
-
-
         if ($formData) {
-
             $model->setAttributes($formData, false);
-
-            if ($model->validate(array('username', 'password')) && $model->login())
-                $this->redirect($user->returnUrl);
+            if (!$model->validate(array('username', 'password')) || !$model->login()){
+                echo json_encode($model->errors);
+            }
+            Yii::app()->end();
         }
-
-        //        $this->controller->layout = '//layouts/blank';
-        //        $this->controller->render('login', compact('model'));
-        $this->layout = false;
-        $this->render('/site/login');
+        $this->renderPartial('/layouts/parts/login');
     }
 
     private function redirectAwayAlreadyAuthenticatedUsers($user) {

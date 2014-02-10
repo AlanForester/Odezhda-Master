@@ -67,7 +67,7 @@ class RetailLoginForm extends CFormModel {
             return;
 
         $this->addError('username', 'Неправильный e-mail или пароль');
-        $this->addError('password', 'Неправильный e-mail или пароль');
+//        $this->addError('password', 'Неправильный e-mail или пароль');
     }
 
     /**

@@ -362,7 +362,7 @@ z-index:999;
 
 .modal-login-left button {
 	float:right;
-	width:100px;
+	width:210px;
 	height:50px;
 	line-height:50px;
 	text-align:center;
@@ -1499,7 +1499,7 @@ border-radius: 0px 0px 7px 7px;
 .remember {
     margin-top: -5px !important;
 }
-#reg_error {
+#reg_error{
     color: #fff;
     font-size: 18px;
     /*display: block;*/
@@ -1512,6 +1512,13 @@ border-radius: 0px 0px 7px 7px;
     display: none;
 
 }
+#login_error {
+    color: #fff;
+    font-size: 18px;
+    margin-top: 181px;
+    width: 371px;
+    display: none;
+}
 .error{
     border: 2px solid #E21A70 !important;
 }
@@ -1519,8 +1526,13 @@ button.desable {
     background: none repeat scroll 0 0 #FFFFFF;
     color: #84E908;
 }
-#reg_submit_process {
+#reg_submit_process, #login_submit_process {
     display: none;
+}
+#reg_submit_process:hover,#login_submit_process:hover {
+    cursor:default;
+    background:#84E908;
+    color:#fff;
 }
 
 
