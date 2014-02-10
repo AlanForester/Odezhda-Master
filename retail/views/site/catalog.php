@@ -14,7 +14,7 @@ $this->setTitle($catName);
 </script>
 <div class="catalog-title">
     <div class="title">
-        <p><?php echo $catName ;?></p>
+        <p><?php echo $catName; ?></p>
     </div>
 </div>
 
@@ -131,24 +131,19 @@ $this->setTitle($catName);
 
     <div class="accord-item">
         <div id="accordion">
-
-            <?php foreach ($categories as $category) { ?>
-                <?php if (!empty($category['children'])) { ?> <h3><?php echo $category['name']; ?></h3> <?php } ?>
-
-                <?php if (!empty($category['children'])) { ?>
-                    <div>
-                        <ul>
-                            <?php foreach ($category['children'] as $child) { ?>
-                                <li>
-                                    <a href="<?php echo $this->createUrl('catalog/list', ['id' => $child['id'] ]) ?>"><?php echo $child['name']; ?></a>
-                                </li>
-
-                            <?php } ?>
-                        </ul>
-                    </div>
-                <?php } ?>
-
-            <?php } ?>
+            <?php
+            foreach ($categories as $category) {
+                echo '<h3>' . $category['name'] . '</h3>';
+                echo '<div><ul>';
+                if (isset($category['children'])) {
+                    foreach ($category['children'] as $child) {
+                        echo '<li><a href="' . $this->createUrl('catalog/list', ['id' => $child['id']]) . '">' . $child['name'] . '</a></li>';
+                    }
+                }
+                echo '<li class="all-items"><a href="' . $this->createUrl('catalog/list', ['id' => $category['id']]) . '">Все товары раздела</a></li>';
+                echo '</ul></div>';
+            }
+            ?>
 
         </div>
 
@@ -243,7 +238,7 @@ $this->setTitle($catName);
     $this->widget(
         'CLinkPager',
         [
-            'pages' =>$pages,
+            'pages' => $pages,
         ]
     )
     ?>
