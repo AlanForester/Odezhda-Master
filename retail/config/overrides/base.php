@@ -5,7 +5,8 @@
  */
 return [
     'params'=>[
-        'title'=>'Лапана'
+        'title'=>'Лапана',
+        'staticUrl'=>'http://old.om.codetek.ru/',
     ],
     // So our relative path aliases will resolve against the `/frontend` subdirectory and not nonexistent `/protected`
     'basePath' => 'retail',
@@ -54,6 +55,7 @@ return [
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
                         //lightbox
+                        'js/jquery.easing.1.3.js',
                         'js/lightbox/jquery.lightbox.min.js',
 
                         // Modal

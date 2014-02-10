@@ -34,6 +34,10 @@ class ShopProductDescription extends LegacyActiveRecord {
             'products_id' => 'id',
             'products_name' => 'name',
             'products_description' => 'description',
+            //meta
+            'products_head_title_tag' => 'meta_title',
+            'products_head_desc_tag' => 'meta_description',
+            'products_head_keywords_tag' => 'meta_keywords'
         ];
     }
 

@@ -227,73 +227,29 @@ Yii::app()->clientScript->registerPackage('index');
         </div>
 
         <div id="fragment_holder">
-            <div id="fragment-1" class="fragment displayed_tab_content">
+            <?php
+            $i=1;
+            foreach($this->catalogData as $catalog){ ?>
 
+                <div id="fragment-<?php echo $i; ?>" class="fragment <?php  if($i==1){echo 'displayed_tab_content'; }?> ">
+                    <?php ?>
+                    <?php foreach ($catalog as $product) { ?>
+                        <div class="tab-var">
+                            <img class="tab-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?=$product['image'] ?>" alt=""/>
+                            <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
 
-                <?php ?>
-                <?php foreach ($this->catalogData['new_model'] as $product) { ?>
-                    <div class="tab-var">
-                        <img src="/images/kofta.png" alt=""/>
-                        <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
-                        <span><?php echo round($product['price']) . 'р'; ?></span>
-                        <h5><?php echo round($product['old_price']) . 'р'; ?></h5>
+                            <span><?php echo round($product['price']) . 'р.'; ?></span>
+                            <?php if ($product['old_price'] != 0) { ?>
+                                <h5><?php echo round($product['old_price']) . 'р.'; ?></h5>
+                            <?php } ?>
 
-                        <div class="var-all">
-                            <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
+                            <div class="var-all">
+                                <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
+                            </div>
                         </div>
-                    </div>
-                <?php } ?>
-
-            </div>
-            <div id="fragment-2" class="fragment">
-                <p>Tab 2 content2</p>
-            </div>
-            <div id="fragment-3" class="fragment">
-
-                <?php ?>
-                <?php foreach ($this->catalogData['leaders'] as $product) { ?>
-                    <div class="tab-var">
-                        <img src="/images/kofta.png" alt=""/>
-                        <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
-                        <span><?php echo round($product['price']) . 'р'; ?></span>
-                        <h5><?php echo round($product['old_price']) . 'р'; ?></h5>
-
-                        <div class="var-all">
-                            <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-            <div id="fragment-4" class="fragment">
-                <?php ?>
-                <?php foreach ($this->catalogData['shoes'] as $product) { ?>
-                    <div class="tab-var">
-                        <img src="/images/kofta.png" alt=""/>
-                        <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
-                        <span><?php echo round($product['price']) . 'р'; ?></span>
-                        <h5><?php echo round($product['old_price']) . 'р'; ?></h5>
-
-                        <div class="var-all">
-                            <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
-            <div id="fragment-5" class="fragment">
-                <?php ?>
-                <?php foreach ($this->catalogData['old_model'] as $product) { ?>
-                    <div class="tab-var">
-                        <img src="/images/kofta.png" alt=""/>
-                        <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
-                        <span><?php echo round($product['price']) . 'р'; ?></span>
-                        <h5><?php echo round($product['old_price']) . 'р'; ?></h5>
-
-                        <div class="var-all">
-                            <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
+                    <?php } $i++; ?>
+                </div>
+            <?php } ?>
         </div>
         <div class="left-skidka">
             <form action="/site/discountsend">

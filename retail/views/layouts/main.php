@@ -33,13 +33,13 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
-                        <a href="/site/login" data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
-                        <a href="/site/registration" data-options='{"width":900, "height":480, "modal": true}'
+                        <a href="<?php echo $this->createUrl('site/login') ?>" data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
+                        <a href="<?php echo $this->createUrl('site/registration') ?>" data-options='{"width":900, "height":480, "modal": true}'
                            class="m-dotted lightbox">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
                         <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
-                        <a href="/site/logout" id="#example2" class="m-dotted">Выход</a>
+                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2" class="m-dotted">Выход</a>
                     <?php } ?>
                 </div>
 
@@ -76,12 +76,12 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
     <div class="footer-box">
 
         <div class="draw-icon">
-            <a href="/catalog/list/931"><img src="/images/dr1.png" alt=""/></a>
-            <a href="/catalog/list/932"><img src="/images/dr2.png" alt=""/></a>
-            <a href="/catalog/list/452"><img src="/images/dr3.png" alt=""/></a>
-            <a href="/catalog/list/936"><img src="/images/dr4.png" alt=""/></a>
-            <a href="/catalog/list/1420"><img src="/images/dr5.png" alt=""/></a>
-            <a href="/catalog/list/835"><img src="/images/dr6.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '931']) ?>"><img src="/images/dr1.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '932']) ?>"><img src="/images/dr2.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '452']) ?>"><img src="/images/dr3.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '936']) ?>"><img src="/images/dr4.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '1420']) ?>"><img src="/images/dr5.png" alt=""/></a>
+            <a href="<?php echo $this->createUrl('catalog/list', ['id' => '835']) ?>"><img src="/images/dr6.png" alt=""/></a>
             <a href="#" class="draw-arrow"><img src="/images/drow-arrow.png" alt=""/></a>
         </div>
 
