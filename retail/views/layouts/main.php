@@ -8,14 +8,17 @@ jQuery(document).ready(function($){
     $('.lightbox').lightbox();
 
     $('#registration #reg_submit').live('click',function(){
-        $('#registr button').addClass('desable');
+//        $('#registr button').addClass('desable');
+        $('#registr button').attr('disabled','disabled');
+        $('#registr #reg_submit').hide();
+        $('#registr #reg_submit_process').show();
         var validate=true;
         $('#registration .required').each(function(){
             validate=false;
             $(this).toggleClass('error',($(this).val() == ''));
 
         });
-        if(($('#registration .required.error').length == 0)  && ($('#registr button.desable').length != 0)){
+        if($('#registration .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
                   url: '/site/registration',
@@ -44,6 +47,9 @@ jQuery(document).ready(function($){
                 });
         }
 //        $('#registr button').removeClass('desable');
+        $('#registr button').removeAttr('disabled');
+        $('#registr #reg_submit_process').hide();
+        $('#registr #reg_submit').show();
     });
 });
 ";

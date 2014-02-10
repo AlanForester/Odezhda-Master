@@ -1515,6 +1515,13 @@ border-radius: 0px 0px 7px 7px;
 .error{
     border: 2px solid #E21A70 !important;
 }
+button.desable {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #84E908;
+}
+#reg_submit_process {
+    display: none;
+}
 
 
 

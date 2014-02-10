@@ -32,6 +32,7 @@ Yii::app()->clientScript->registerPackage('index');
                     (в ред. 25.07.2011 г.) "О персональных данных", а так же с нашей Политикой конфиденциальности и
                     условиями договора публичной оферты.</h6>
                 <button type="submit" id="reg_submit">Регистрация</button>
+                <button type="submit" id="reg_submit_process">Отправка запроса <img src="/img/loading.gif" /></button>
             </div>
         </form>
     </div>
