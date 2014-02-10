@@ -11,10 +11,11 @@ jQuery(document).ready(function($){
 //        $('.required').css({'border':'none'});
         var validate=true;
         $('#registration .required').each(function(){
+            validate=false;
             $(this).toggleClass('error',($(this).val() == ''));
 
         });
-        if(validate){
+        if($('#registration .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
                   url: '/site/registration',
