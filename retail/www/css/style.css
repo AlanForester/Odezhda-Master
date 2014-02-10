@@ -373,7 +373,7 @@ z-index:999;
 	color:#fff;
 	font-family:Verdana, Geneva, sans-serif;
 	font-size:18px;
-	background:#E21A70;
+	background:#84E908;
 	margin-right:10px;
 	margin-top:30px;
 	transition: background 0.3s ease;
@@ -385,7 +385,7 @@ z-index:999;
 .modal-login-left button:hover {
 	cursor:pointer;
 	background:#fff;
-	color:#E21A70;
+	color:#84E908;
 }
 
 .modal-login-left .line {
@@ -1499,7 +1499,22 @@ border-radius: 0px 0px 7px 7px;
 .remember {
     margin-top: -5px !important;
 }
-
+#reg_error {
+    color: #fff;
+    font-size: 18px;
+    /*display: block;*/
+    margin-top: 72px;
+    /*line-height: 50px;*/
+    /*background-color: #E21A70;*/
+    /*border-radius: 10px;*/
+    /*padding-left: 20px;*/
+    width: 371px;
+    display: none;
+    border: 2px solid #ffffff;
+}
+.error{
+    border: 2px solid #E21A70;
+}
 
 
 
