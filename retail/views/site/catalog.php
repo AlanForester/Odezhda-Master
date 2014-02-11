@@ -237,7 +237,7 @@ $this->setTitle($catName);
     // todo: временное решение
 
     $this->widget(
-        'CLinkPager',
+        'retail.widgets.LinkPager',
         [
             'pages' => $pages,
         ]

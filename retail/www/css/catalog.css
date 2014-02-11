@@ -921,3 +921,21 @@
     font-weight:bold;
     color: #00A9E2;
 }
+
+ul.yiiPager {
+    font-size: 11px !important;
+    display: block !important;
+    clear: both !important;
+    float: left !important;
+    padding-top: 25px !important;
+    margin-left: 2px !important;
+}
+
+ul.yiiPager a:link, ul.yiiPager a:visited{
+border: solid 1px #ccc !important;
+    padding: 6px 13px !important;
+    background:white;
+}
+ul.yiiPager .selected a {
+    background: #E1156F !important;
+}
