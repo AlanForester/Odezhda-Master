@@ -212,7 +212,6 @@ class Customer extends LegacyActiveRecord {
         return [
             'with' => [
                 'customers_info',
-
             ]
         ];
     }

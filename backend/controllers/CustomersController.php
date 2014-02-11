@@ -65,17 +65,17 @@ class CustomersController extends BackendController {
         }
 
         //$model = new CustomerLayer($scenario);
-        if (!$item = CustomersHelper::getCustomer($id, $scenario)){
+        if (!$item = CustomersHelper::getCustomerWithInfo($id, $scenario)){
             $this->error('Ошибка получения данных клиента');
         }
+        //echo '<pre>'.print_r($item,1);exit;
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
             $item->setAttributes(CustomersHelper::getPostData(),false);
             // записываем данные
-            $result = $item->save(CustomersHelper::getPostData());
-
+            $result = $item->save();
             if (!$result) {
                 // ошибка записи
                 Yii::app()->user->setFlash(

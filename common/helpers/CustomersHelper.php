@@ -254,8 +254,8 @@ class CustomersHelper extends CommonHelper {
         return ($id ? $model->findByPk($id) : new $model($scenario));
     }
 
-    public static function getCustomerInfo($id = null, $scenario = null) {
-        $model = self::getModel();
+    public static function getCustomerWithInfo($id = null, $scenario = null) {
+        $model = Customer::model()->with('customers_info');
         return ($id ? $model->findByPk($id) : new $model($scenario));
     }
 

@@ -69,11 +69,11 @@ if (!empty($item->id)) {
             $this->widget(
                 'yiiwheels.widgets.detail.WhDetailView',
                 [
-                    'data' => $item,
+                    'data' => $item->customers_info,
                     'attributes' => [
                         ['name' => 'id'],
-                        ['name' => 'lognum'],
-                        ['name' => 'logdate'],
+                        ['name' => 'logon_count'],
+                        ['name' => 'last_logon'],
                         ['name' => 'modified'],
                         ['name' => 'created'],
                     ],
