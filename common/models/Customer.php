@@ -25,6 +25,7 @@ class Customer extends LegacyActiveRecord {
     public function fieldMap() {
         return [
             'customers_id' => 'id',
+            'customers_gender' => 'gender',
             'customers_dob' => 'dob',//day of birth
             'customers_firstname' => 'firstname',
             'customers_lastname' => 'lastname',
@@ -40,10 +41,11 @@ class Customer extends LegacyActiveRecord {
             'customers_newsletter' => 'newsletter',
             'customers_selected_template' => 'selected_template',
             'customers_discount' => 'discount',
-            'customers_groups_id' => 'groups_id',
             'customers_status' => 'status',
             'customers_payment_allowed' => 'payment_allowed',
             'customers_shipment_allowed' => 'shipment_allowed',
+            'delivery_adress_id' => 'delivery_address_id',
+            'pay_adress_id' => 'pay_address_id',
         ];
     }
 
@@ -123,6 +125,7 @@ class Customer extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
+            ['firstname, lastname, email, phone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
             ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
             ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
@@ -145,10 +148,21 @@ class Customer extends LegacyActiveRecord {
             'id' => Yii::t('labels', 'ID'),
             'group_id' => Yii::t('labels', 'Группа'),
             'firstname' => Yii::t('labels', 'Имя'),
+            'middlename' => Yii::t('labels', 'Отчество'),
             'lastname' => Yii::t('labels', 'Фамилия'),
             'email' => Yii::t('labels', 'E-mail'),
             'password' => Yii::t('labels','Пароль'),
             'phone' => Yii::t('labels','Телефон'),
+            'dob' => Yii::t('labels','Дата рождения'),
+            'gender' => Yii::t('labels','Пол'),
+            'guest_flag' => Yii::t('labels','Гость'),
+            'fax' => Yii::t('labels','Факс'),
+            //'discount' => Yii::t('labels','?'),
+            'status' => Yii::t('labels','Статус'),
+            'payment_allowed' => Yii::t('labels','Позволена оплата'),
+            'shipment_allowed' => Yii::t('labels','Позволена отправка'),
+            'referer' => Yii::t('labels','Реферер'),
+            'comment' => Yii::t('labels','Комментарий'),
 
             'lognum' => Yii::t('labels', 'Кол-во авторизаций'),
             'logdate' => Yii::t('labels', 'Последний визит'),
