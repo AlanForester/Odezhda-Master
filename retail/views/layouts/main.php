@@ -6,6 +6,7 @@
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
+
 //для формы регистрации
     $('#registration #reg_submit').live('click',function(){
         $('#registr button').attr('disabled','disabled');
@@ -20,7 +21,7 @@ jQuery(document).ready(function($){
         if($('#registration .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '/site/registration',
+                  url: '".$this->createUrl('/site/registration')."',
                   data: $('#registr').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -73,7 +74,7 @@ jQuery(document).ready(function($){
         if($('#login .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '/site/login',
+                  url: '".$this->createUrl('/site/login')."',
                   data: $('#log').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -129,14 +130,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
+                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
                            data-options='{"width":900, "height":480, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
-                        <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
-                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2"
+                        <a href="#" class="m-dotted">Личный кабинет</a>
+                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#exit"
                            class="m-dotted">Выход</a>
                     <?php } ?>
                 </div>
@@ -158,16 +159,24 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <input type="text"/>
             <input type="submit" value=""/>
         </div>
-        <!--        <div class="basket">-->
-        <!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-        <!--                <img src="/images/basket.png" alt=""/>-->
-        <!--                <small>В корзине</small>-->
-        <!--                <span>4</span>-->
-        <!--            </a>-->
-        <!--        </div>-->
+<!--                <div class="basket">-->
+<!--                    <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
+<!--                        <img src="/images/basket.png" alt=""/>-->
+<!--                        <small>В корзине</small>-->
+<!--                        <span>4</span>-->
+<!--                    </a>-->
+<!--                </div>-->
     </div>
 </div>
-
+<?php if(isset($this->breadcrumbs)):?>
+    <div class="wrapper">
+    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+        'links'=>$this->breadcrumbs,
+        'homeLink'=>CHtml::link('Главная','/' ),
+        'separator'=>'/',
+    )); ?><!-- breadcrumbs -->
+    </div>
+<?php endif?>
 <?php echo $content ?>
 
 <div class="footer-wrapper">
@@ -237,7 +246,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <?php
 
 // todo: сделать корзинку в нижней панели
-//$this->renderPartial('/layouts/parts/bottomPanel');
+$this->renderPartial('/layouts/parts/bottomPanel');
 
 //$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');

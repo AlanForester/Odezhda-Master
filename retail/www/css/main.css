@@ -337,7 +337,9 @@
 	float:left;
 	width:270px;
 	height:auto;
-	padding:0px;
+    position: relative;
+    padding: 0px;
+    z-index: 1;
 }
 
 .ui-tabs .ui-tabs-nav li {

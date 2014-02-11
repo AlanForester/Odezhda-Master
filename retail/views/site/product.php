@@ -1,14 +1,14 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
-
+//print_r($product);exit;
+$this->breadcrumbs=array(
+    $product->categories_name => $this->createUrl('catalog/list', ['id' => $product->categories_id]),
+    $product->name.' ('.$product->model.')',
+);
 ?>
+
 <div class="wrapper">
 
-    <div class="breadcrumbs">
-        <a href="#">Женщины</a><span>/</span>
-        <a href="#">Одежда</a><span>/</span>
-        <span>Футболки</span>
-    </div>
     <div class="karta-wrap">
         <div class="karta-box">
             <div class="tovar-slider">
@@ -121,12 +121,18 @@ Yii::app()->clientScript->registerPackage('product');
         </div>
         <div class="price-main">
                 	<span>
-                    	  <?php echo round($product->price) ?> руб.
+                    	  <?=FormatHelper::markup($product['price']) ?>
                     </span>
-            <small><?php echo round($product->old_price) ?> руб.</small>
+            <?php if ($product['old_price'] != 0) { ?>
+                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
+            <?php } ?>
         </div>
         <div class="btn">
-            <button class="basket">В КОРЗИНУ</button>
+            <?php if(!Yii::app()->user->isGuest): ?>
+                <button class="basket">В КОРЗИНУ</button>
+            <?php else: ?>
+                <button class="basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
+            <?php endif; ?>
             <!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
         </div>
     </div>

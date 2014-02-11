@@ -1,6 +1,8 @@
 <?php
 
 class CatalogController extends RetailController {
+
+
     //    public $catalogData;
     //    public $product;
     //    public $list;
@@ -19,13 +21,26 @@ class CatalogController extends RetailController {
         $this->render('/site/product', compact('product'));
     }
 
-    public function actionList($id = 0) {
-        $criteria = [
-            'category' => $id,
-            'page' => (Yii::app()->request->getQuery('page') ? : 1)
-        ];
-        $model = new CatalogModel();
+    public function actionList($id=0) {
+        //Формирование критерии
+        $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
+        if($id!=0){$criteria['category'] = $id;}
 
+        switch(Yii::app()->request->getQuery('sort')){
+            case 'hits': $criteria['order'] = '[[count_orders]] DESC';
+            break;
+            case 'date':$criteria['order'] = '[[date_add]] DESC';
+            break;
+            case 'price_down': $criteria['order'] =  '[[price]] ASC';
+            break;
+                case 'price_up': $criteria['order'] =  '[[price]] DESC';
+            break;
+        }
+
+//        print_r($criteria);
+//        exit;
+
+        $model = new CatalogModel();
         // текущая категория
         if (!$currentCetegory = $model->getCategory($id)){
             $this->error('Категория не найдена', 404);
