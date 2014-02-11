@@ -6,6 +6,7 @@
 $js = "
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
+
 //для формы регистрации
     $('#registration #reg_submit').live('click',function(){
         $('#registr button').attr('disabled','disabled');
