@@ -14,24 +14,59 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
+
+        if($data['category']!=0){
+            $categories = Yii::app()->db->createCommand()
+                ->select('categories_id,parent_id')
+                ->from('categories')
+                ->where('parent_id=:id',[':id'=>$data['category']])
+                ->queryAll();
+        }
+
+
         // фильтр по категории
-        if (isset($data['category'])) {
+        if (isset($data['category']) && empty($categories)){
             // todo: решить проблему с подстановкой имени связанной таблицы
             $condition [] = 'categories_description.categories_id =:category';
             $params[':category'] = $data['category'];
         }
+        elseif(isset($data['category']) && !empty($categories)){
 
-        $criteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
+            foreach($categories as $category){
+                $condition_params[] ='categories_description.categories_id ='.$category['categories_id'];
+            }
+           // $condition_params[] ='categories_description.categories_id ='.$data['category'];
+            $condition[]= join(' OR ',$condition_params);
+        }
+/*     //Можно получать parent_id и понему делать запрос без перебора:
+        if($data['category']!=0){
+            $category = Yii::app()->db->createCommand()
+                ->select('categories_id,parent_id')
+                ->from('categories')
+                ->where('categories_id=:id',[':id'=>$data['category']])
+                ->queryRow();
+        }
 
-//            'with'=>[
-//                'categories_description'
-//            ]
-            //            'order' => $order_field . ($order_direct ? : ''),
-        ];
+        if (isset($data['category']) && empty($category)){
+            // todo: решить проблему с подстановкой имени связанной таблицы
+            $condition [] = 'categories_description.categories_id =:category';
+            $params[':category'] = $data['category'];
+        }
+        elseif(isset($data['category']) && !empty($category)){
+                $condition[] ='categories_description.parent_id ='.$category['parent_id'];
+        }
+*/
+        //Формирование критерии
+        $criteria = ['condition' => join(' AND ', $condition),
+                     'params' => $params];
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
+        }
+        if(!empty($data['limit'])){
+            $criteria['limit'] = $data['limit'];
+        }
+        if(!empty($data['random'])){
+            $criteria['order'] = new CDbExpression('RAND()');
         }
 
         // разрешаем перезаписать любые параметры критерии
@@ -42,6 +77,7 @@ class ShopProductsHelper {
         return new CActiveDataProvider(
             'ShopProduct',
             [
+
                 'criteria' => $criteria,
                 // todo: вынести в конфиг pageSize
                 'pagination' => ['pageSize' => 12],

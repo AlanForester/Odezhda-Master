@@ -1,4 +1,4 @@
-    <div class="box-modal modal-cart" id="cart">
+<div class="box-modal modal-cart" id="cart" xmlns="http://www.w3.org/1999/html">
         <p>В вашей корзине 4 товара</p>
         <button class="clear"><b>X</b>Очистить корзину</button>
         <div class="cart-goods">
@@ -6,12 +6,9 @@
                 <img src="/images/kofta.png" alt="" />
                 <a href="#" class="name-goods">Кофта (75382936)</a>
                 <span class="price">2 500руб.</span>
-                <select class="sel-count">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                </select>
+                <button class="changeCount left" id="minus">-</button>
+                <span class="sel-count" id="count">1</span>
+                <button class="changeCount right" id="plus">+</button>
                 <button class="del-goods">X</button>
             </div>
         </div>

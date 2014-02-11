@@ -103,6 +103,20 @@ jQuery(document).ready(function($){
         $('#login #login_submit_process').hide();
         $('#login #login_submit').show();
     });
+
+    //корзинка
+    $('#plus').live('click',function(){
+        var i=$('#count').text();
+        if (i<100){
+            $('#count').text(++i);
+        }
+    });
+    $('#minus').live('click',function(){
+        var i=$('#count').text();
+        if (i>1){
+            $('#count').text(--i);
+        }
+    });
 ";
 
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
