@@ -129,7 +129,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox">Вход</a>
+                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
                            data-options='{"width":900, "height":480, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>

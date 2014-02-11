@@ -128,7 +128,11 @@ $this->breadcrumbs=array(
             <?php } ?>
         </div>
         <div class="btn">
-            <button class="basket">В КОРЗИНУ</button>
+            <?php if(!Yii::app()->user->isGuest): ?>
+                <button class="basket">В КОРЗИНУ</button>
+            <?php else: ?>
+                <button class="basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
+            <?php endif; ?>
             <!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
         </div>
     </div>
