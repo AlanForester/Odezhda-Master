@@ -121,9 +121,11 @@ $this->breadcrumbs=array(
         </div>
         <div class="price-main">
                 	<span>
-                    	  <?php echo round($product->price) ?> руб.
+                    	  <?=FormatHelper::markup($product['price']) ?>
                     </span>
-            <small><?php echo round($product->old_price) ?> руб.</small>
+            <?php if ($product['old_price'] != 0) { ?>
+                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
+            <?php } ?>
         </div>
         <div class="btn">
             <button class="basket">В КОРЗИНУ</button>

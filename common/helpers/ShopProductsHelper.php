@@ -24,11 +24,15 @@ class ShopProductsHelper {
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
+
 //            'with'=>[
 //                'categories_description'
 //            ]
             //            'order' => $order_field . ($order_direct ? : ''),
         ];
+        if(!empty($data['order'])){
+            $criteria ['order'] = $data['order'];
+        }
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {

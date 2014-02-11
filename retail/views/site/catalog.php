@@ -10,7 +10,19 @@ $this->setTitle($catName);
             heightStyle: "content",
             active: 0<?php //echo $this->currentCategoryNumber; ?>
         });
+
+            $('#order').change(function(){
+                  $(this).val();
+                  location.href=location.pathname+'?sort='+$(this).val();
+            });
+        $('#order option').each(function(index,value) {
+            if($(this).val()=='<?php echo Yii::app()->request->getQuery('sort')?>'){
+                $(this).attr('selected','selected');
+            }
+        });
     });
+
+
 </script>
 <div class="catalog-title">
     <div class="title">
@@ -194,7 +206,7 @@ $this->setTitle($catName);
 
         <div class="sort">
             <span>Сортировать:</span>
-            <select name="order">
+            <select name="order" id='order'>
                 <option value="hits">По популярности</option>
                 <option value="date">По дате добавления</option>
                 <option value="price_down">От дешевых к дорогим</option>
@@ -212,16 +224,16 @@ $this->setTitle($catName);
                      alt=""/>
                 <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
 
-                <span><?php echo round($product->price) . 'р.'; ?></span>
+                <span><?=FormatHelper::markup($product->price) ?></span>
                 <?php if ($product->old_price != 0) { ?>
-                    <h5><?php echo round($product->old_price) . 'р.'; ?></h5>
+                    <h5><?=FormatHelper::markup($product->old_price) ?></h5>
                 <?php } ?>
 
                 <button class="m-dotted fixed-info quick-view" id="#example5"
                         onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр
                 </button>
                 <div class="choice">
-                    <select>
+                    <select id="filter_size">
                         <option>Размер</option>
                         <option>1</option>
                         <option>2</option>

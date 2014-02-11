@@ -8,6 +8,8 @@ return [
         'title'=>'Лапана',
         'staticUrl'=>'http://old.om.codetek.ru/',
 //        'staticUrl'=>'http://odezhda-master.ru/'
+            'markup'=>10
+        //наценка
     ],
     // So our relative path aliases will resolve against the `/frontend` subdirectory and not nonexistent `/protected`
     'basePath' => 'retail',

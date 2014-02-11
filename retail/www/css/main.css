@@ -337,7 +337,9 @@
 	float:left;
 	width:270px;
 	height:auto;
-	padding:0px;
+    position: relative;
+    padding: 0px;
+    z-index: 1;
 }
 
 .ui-tabs .ui-tabs-nav li {
@@ -423,6 +425,9 @@
 	text-align:center;
 	margin-top:5px;
 	margin-left:10px;
+    min-height: 394px;
+    position:relative;
+
 }
 .tab-var img{
     /*width:176px;*/
@@ -456,15 +461,18 @@
 
 .tab-var span {
 	float:left;
-	width:80px;
+    width: 120px;
 	height:35px;
 	line-height:35px;
-	text-align:center;
+	text-align:left;
 	color:#0072B0;
 	font-size:24px;
 	font-weight:bold;
 	margin-top:10px;
-	margin-left:15px;
+	margin-left:24px;
+    position: absolute;
+    bottom: 50px;
+    left:0px;
 }
 
 .tab-var h5 {
@@ -480,6 +488,8 @@
 	float:left;
 	width:100%;
     height: 50px;
+    position: absolute;
+    bottom: 0px;
 }
 
 .tab-var .var-all a {

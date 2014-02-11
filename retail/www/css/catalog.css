@@ -475,6 +475,7 @@
 .goods-var {
     float: left;
     width: 265px;
+    min-height: 394px;
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -563,6 +564,9 @@
     float: left;
     width: 115px;
     margin-top: 15px;
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
 }
 
 .goods-var .choice {
@@ -585,6 +589,9 @@
     font-size: 12px;
     text-transform: uppercase;
     margin-top: 15px;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
 }
 
 .catalog-item .any-goods {
