@@ -7,7 +7,7 @@
                 <a href="#" class="name-goods">Кофта (75382936)</a>
                 <span class="price">2 500руб.</span>
                 <button class="changeCount left" id="minus">-</button>
-                <span class="sel-count">100</span>
+                <span class="sel-count" id="count">1</span>
                 <button class="changeCount right" id="plus">+</button>
                 <button class="del-goods">X</button>
             </div>
