@@ -70,6 +70,7 @@ ul#thumblist li:first-child {
 
 ul#thumblist li a {
 	display:block;
+    height: 72px;
 	border:1px solid #f6f6f6;
 }
 
@@ -266,6 +267,7 @@ ul#thumblist li a.zoomThumbActive {
 	-webkit-border-radius:7px;
 	border:solid 1px #ccc;
 	width:100%;
+    height: 72px;
 }
 
 .bottom-price .price-main {

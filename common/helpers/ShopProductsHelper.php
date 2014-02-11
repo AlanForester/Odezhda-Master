@@ -20,18 +20,17 @@ class ShopProductsHelper {
             $condition [] = 'categories_description.categories_id =:category';
             $params[':category'] = $data['category'];
         }
-
-        $criteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
-
-//            'with'=>[
-//                'categories_description'
-//            ]
-            //            'order' => $order_field . ($order_direct ? : ''),
-        ];
+        //Формирование критерии
+        $criteria = ['condition' => join(' AND ', $condition),
+                     'params' => $params];
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
+        }
+        if(!empty($data['limit'])){
+            $criteria['limit'] = $data['limit'];
+        }
+        if(!empty($data['random'])){
+            $criteria['order'] = new CDbExpression('RAND()');
         }
 
         // разрешаем перезаписать любые параметры критерии
@@ -42,6 +41,7 @@ class ShopProductsHelper {
         return new CActiveDataProvider(
             'ShopProduct',
             [
+
                 'criteria' => $criteria,
                 // todo: вынести в конфиг pageSize
                 'pagination' => ['pageSize' => 12],

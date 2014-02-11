@@ -16,7 +16,17 @@ class CatalogController extends RetailController {
         if (!$product = $catalogModel->productById($id)) {
             $this->error('Товар не найден', 404);
         }
-        $this->render('/site/product', compact('product'));
+
+        //выборак случайных товаров
+        $model = new CatalogModel();
+        $criteria['limit']=15;
+        $criteria['order'] = '[[count_orders]] DESC';
+        if($product->categories_id!=0){$criteria['category'] = $product->categories_id;}
+        //getTopList
+        $dataProvider = $model->getDataProvider($criteria);
+
+
+        $this->render('/site/product', compact('product','dataProvider'));
     }
 
     public function actionList($id=0) {
@@ -34,9 +44,6 @@ class CatalogController extends RetailController {
                 case 'price_up': $criteria['order'] =  '[[price]] DESC';
             break;
         }
-
-//        print_r($criteria);
-//        exit;
 
         $model = new CatalogModel();
         // текущая категория
