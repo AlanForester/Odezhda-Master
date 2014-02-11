@@ -1,6 +1,8 @@
 <?php
 
 class CatalogController extends RetailController {
+
+
     //    public $catalogData;
     //    public $product;
     //    public $list;

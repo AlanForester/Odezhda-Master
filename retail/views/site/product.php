@@ -1,14 +1,14 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
-
+//print_r($product);exit;
+$this->breadcrumbs=array(
+    $product->categories_name => $this->createUrl('catalog/list', ['id' => $product->categories_id]),
+    $product->name.' ('.$product->model.')',
+);
 ?>
+
 <div class="wrapper">
 
-    <div class="breadcrumbs">
-        <a href="#">Женщины</a><span>/</span>
-        <a href="#">Одежда</a><span>/</span>
-        <span>Футболки</span>
-    </div>
     <div class="karta-wrap">
         <div class="karta-box">
             <div class="tovar-slider">

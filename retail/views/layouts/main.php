@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
         if($('#registration .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '/site/registration',
+                  url: '".$this->createUrl('/site/registration')."',
                   data: $('#registr').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -73,7 +73,7 @@ jQuery(document).ready(function($){
         if($('#login .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '/site/login',
+                  url: '".$this->createUrl('/site/login')."',
                   data: $('#log').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -167,7 +167,15 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
         <!--        </div>-->
     </div>
 </div>
-
+<?php if(isset($this->breadcrumbs)):?>
+    <div class="wrapper">
+    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
+        'links'=>$this->breadcrumbs,
+        'homeLink'=>CHtml::link('Главная','/' ),
+        'separator'=>'/',
+    )); ?><!-- breadcrumbs -->
+    </div>
+<?php endif?>
 <?php echo $content ?>
 
 <div class="footer-wrapper">
