@@ -15,7 +15,6 @@ class ShopProductsHelper {
         $params = [];
 
 
-        //Можно получать parent_id и понему делать запрос без перебора
         if($data['category']!=0){
             $categories = Yii::app()->db->createCommand()
                 ->select('categories_id,parent_id')
@@ -37,14 +36,26 @@ class ShopProductsHelper {
                 $condition_params[] ='categories_description.categories_id ='.$category['categories_id'];
             }
            // $condition_params[] ='categories_description.categories_id ='.$data['category'];
-
             $condition[]= join(' OR ',$condition_params);
-//            print_r($condition);exit;
+        }
+/*     //Можно получать parent_id и понему делать запрос без перебора:
+        if($data['category']!=0){
+            $category = Yii::app()->db->createCommand()
+                ->select('categories_id,parent_id')
+                ->from('categories')
+                ->where('categories_id=:id',[':id'=>$data['category']])
+                ->queryRow();
         }
 
-
-
-
+        if (isset($data['category']) && empty($category)){
+            // todo: решить проблему с подстановкой имени связанной таблицы
+            $condition [] = 'categories_description.categories_id =:category';
+            $params[':category'] = $data['category'];
+        }
+        elseif(isset($data['category']) && !empty($category)){
+                $condition[] ='categories_description.parent_id ='.$category['parent_id'];
+        }
+*/
         //Формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
                      'params' => $params];
