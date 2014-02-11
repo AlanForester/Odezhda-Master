@@ -210,7 +210,7 @@ $this->setTitle($catName);
                 <option value="hits">По популярности</option>
                 <option value="date">По дате добавления</option>
                 <option value="price_down">От дешевых к дорогим</option>
-<!--            <option value="price_up">От дорогих к дешевым</option>-->
+                <option value="price_up">От дорогих к дешевым</option>
             </select>
         </div>
         <!--        <button><i>x</i>Сбросить фильтры</button>-->

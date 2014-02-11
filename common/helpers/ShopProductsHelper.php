@@ -31,7 +31,7 @@ class ShopProductsHelper {
             //            'order' => $order_field . ($order_direct ? : ''),
         ];
         if(!empty($data['order'])){
-            $criteria = ['order' => $data['order']];
+            $criteria ['order'] = $data['order'];
         }
 
         // разрешаем перезаписать любые параметры критерии
