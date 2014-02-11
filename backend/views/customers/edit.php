@@ -51,10 +51,36 @@ $this->pageButton = [
         echo $form->textFieldControlGroup($item, 'shipment_allowed', []);
         echo $form->textFieldControlGroup($item, 'referer', []);
         //echo $form->dropDownListControlGroup($item, 'default_provider', $providers, []);
-        echo $form->textFieldControlGroup($item, 'comment', []);
+        echo $form->textAreaControlGroup($item, 'comment', []);
         ?>
 
     </fieldset>
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
+
+<?php
+if (!empty($item->id)) {
+    ?>
+    <div class="span6">
+        <fieldset>
+            <legend>Дополнительная информация</legend>
+            <?php
+            $this->widget(
+                'yiiwheels.widgets.detail.WhDetailView',
+                [
+                    'data' => $item,
+                    'attributes' => [
+                        ['name' => 'id'],
+                        ['name' => 'lognum'],
+                        ['name' => 'logdate'],
+                        ['name' => 'modified'],
+                        ['name' => 'created'],
+                    ],
+                ]
+            );
+            ?>
+        </fieldset>
+    </div>
+<?php
+}

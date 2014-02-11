@@ -118,7 +118,13 @@ $this->widget(
                     'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                 ]
             ],
-
+            /*[
+                'name' => 'id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],*/
 
         ],
 

@@ -125,7 +125,7 @@ class Customer extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
-            ['firstname, lastname, email, phone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['firstname, lastname, email, phone', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
             ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
             ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
@@ -133,7 +133,7 @@ class Customer extends LegacyActiveRecord {
 //            ['firstname, phone, lastname', 'type', 'type'=>'string'],
 //            ['lastname', 'default'],
 //            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
-            ['password', 'required','message' => Yii::t('validation', 'Пароль является обязательным')],
+            ['password', 'required','on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')],
 //            ['dob', 'date', 'message' => Yii::t('validation', "Некорректная дата рождения")],
         ];
     }
