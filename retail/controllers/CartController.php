@@ -8,4 +8,9 @@ class CartController extends RetailController {
         $this->render("/site/info", compact('cart'));
     }
 
+    public function actionShow() {
+
+        $this->renderPartial("/layouts/parts/basket", compact('cart'));
+    }
+
 }

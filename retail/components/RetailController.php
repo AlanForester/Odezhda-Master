@@ -9,7 +9,10 @@
  *
  */
 class RetailController extends CController {
+    /** @var array This will be pasted into breadcrumbs widget in layout */
+    public $breadcrumbs = [];
 
+    /** @var название страницы */
     public $pageTitle;
 
     public $assets_retail;
