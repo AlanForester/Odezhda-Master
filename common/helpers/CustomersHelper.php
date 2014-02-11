@@ -18,15 +18,7 @@ class CustomersHelper extends CommonHelper {
     public static function getUser($id = null, $scenario = null) {
         $model = self::getModel();
         return ($id ? $model->findByPk($id) : new Customer());
-
-        //        return ($id ? UserLegacy::model()->findByPk($id) : new UserLegacy($scenario));
     }
-
-    //    public static function findByPk($id, $params) {
-    //        return UserLegacy::model()
-    //            ->findByPk($id, $params);
-    //    }
-    //
 
     /**
      * Найти пользователя по заданным параметрам
@@ -52,27 +44,13 @@ class CustomersHelper extends CommonHelper {
         if (!$user = self::findByAttributes(['email' => $username])) {
             return 0;
         }
-
-        //$this->failureBecauseUserNotFound();
         if (!$user->verifyPassword($password)) {
             return 1;
         }
-
-        //$this->failureBecausePasswordInvalid();
-
         return $user;
-        //$this->makeAuthenticated($user);
-
-        //return $this->isAuthenticated;
     }
 
     public static function makeAuthenticated($user) {
-//        $user->regenerateValidationKey();
-        //        $this->id = User::getUserId($user);
-        //        $this->username = User::getUserName($user);
-        //        $this->setState('vkey', $user->validation_key);
-        //        $this->errorCode = self::ERROR_NONE;
-
         return [
             'id' => $user->id,
             'username' => $user->email,
@@ -80,47 +58,9 @@ class CustomersHelper extends CommonHelper {
         ];
     }
 
-    //    public static function getUserName($model) {
-    //        return $model->admin_email_address;
-    //    }
-
-    //    public static function getUserId($model) {
-    //        return $model->admin_id;
-    //    }
-
-    //    public static function validate($attributes = null, $clearErrors = true) {
-    //        //        $model = self::getUser();
-    //        //        $model->setAttributes(self::fieldMapConvert($attributes, true));
-    //        return UserLegacy::model()
-    //            ->validate($attributes, $clearErrors);
-    //        //        return UserLegacy::validate($attributes,$clearErrors);
-    //    }
-
     public static function getErrors() {
-        //        print_r(UserLegacy::model());exit;
-        //        return UserLegacy::model()->getErrors($attributes);
         return self::$errors;
     }
-
-    /**
-     * данные для валидации для внешнего использования
-     */
-    //    public static function rules() {
-    //        $rules = UserLegacy::model()
-    //            ->rules();
-    //        foreach ($rules as &$r) {
-    //            $r[0] = join(
-    //                ',',
-    //                array_map(
-    //                    function ($el) {
-    //                        return self::getFieldName(trim($el));
-    //                    }, explode(',', $r[0])
-    //                )
-    //            );
-    //        }
-    //
-    //        return $rules;
-    //    }
 
     // -----------------------------------
 
