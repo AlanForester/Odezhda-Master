@@ -245,7 +245,7 @@ Yii::app()->clientScript->registerPackage('index');
                             <?php } ?>
 
                             <div class="var-all">
-                                <a href="#">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
+                                <a href="/catalog/list/<?php echo $product['category'] ?>">Вся одежда<img src="/images/var-img-more.png" alt=""/></a>
                             </div>
                         </div>
 
@@ -253,15 +253,15 @@ Yii::app()->clientScript->registerPackage('index');
                 </div>
             <?php } ?>
         </div>
-        <div class="left-skidka">
-            <form action="/site/discountsend">
-                <p>ПОЛУЧИ СКИДКУ 10%</p>
-                <h6>ПОДПИШИТЕСЬ НА РАССЫЛКУ И ВЫ ПЕРВЫМИ БУДЕТЕ В КУРСЕ САМЫХ ВЫГОДНЫХ ПРЕДЛОЖЕНИЙ.</h6>
-                <input type="text" name="name" placeholder="Имя"/>
-                <input type="text" name="email" placeholder="E-mail"/>
-                <button>Отправить<img src="/images/var-img-more.png" alt=""/></button>
-            </form>
-        </div>
+<!--        <div class="left-skidka">-->
+<!--            <form action="/site/discountsend">-->
+<!--                <p>ПОЛУЧИ СКИДКУ 10%</p>-->
+<!--                <h6>ПОДПИШИТЕСЬ НА РАССЫЛКУ И ВЫ ПЕРВЫМИ БУДЕТЕ В КУРСЕ САМЫХ ВЫГОДНЫХ ПРЕДЛОЖЕНИЙ.</h6>-->
+<!--                <input type="text" name="name" placeholder="Имя"/>-->
+<!--                <input type="text" name="email" placeholder="E-mail"/>-->
+<!--                <button>Отправить<img src="/images/var-img-more.png" alt=""/></button>-->
+<!--            </form>-->
+<!--        </div>-->
     </div>
 
 

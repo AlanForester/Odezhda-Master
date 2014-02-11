@@ -414,7 +414,7 @@
 .tab-var {
 	float:right;
 	width:265px;
-	height:350px;
+	/*height:350px;*/
 	border-radius:7px;
 	-moz-border-radius:7px;
 	-webkit-border-radius:7px;
@@ -433,8 +433,9 @@
 }
 
 .tab-var img.tab-var-image {
-    max-width:176px;
-    max-height:241px;
+    max-width: 220px;
+    max-height: 250px;
+    margin-top: 20px;
 }
 
 .tab-var a {
@@ -478,6 +479,7 @@
 .tab-var .var-all {
 	float:left;
 	width:100%;
+    height: 50px;
 }
 
 .tab-var .var-all a {
@@ -650,7 +652,6 @@
 .social-box img {
 	margin-top:20px;
 }
-
 
 
 

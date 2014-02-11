@@ -235,12 +235,14 @@ $this->setTitle($catName);
 
     <?php
     // todo: временное решение
+
     $this->widget(
         'CLinkPager',
         [
             'pages' => $pages,
         ]
     )
+
     ?>
 
 

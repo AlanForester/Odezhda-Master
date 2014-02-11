@@ -475,7 +475,6 @@
 .goods-var {
     float: left;
     width: 265px;
-    height: 350px;
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -488,8 +487,9 @@
 }
 
 .goods-var img {
-    width: 176px;
-    height: 241px;
+    max-width: 200px;
+    max-height: 250px;
+    margin-top: 20px;
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
@@ -568,7 +568,7 @@
 .goods-var .choice {
     float: left;
     width: 93%;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 10px 20px 10px;
 }
 
 .goods-var .in-basket {
