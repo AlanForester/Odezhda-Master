@@ -194,6 +194,29 @@ class Customer extends LegacyActiveRecord {
 //        //$this->saveAttributes(compact('validation_key'));
 //    }
 
+    public function relations() {
+        return [
+            'customers_info' => [self::HAS_ONE, 'CustomerInfo', 'customers_info_id', 'together' => true],
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            'withRelated' => array(
+                'class' => 'common.extensions.behaviors.WithRelatedBehavior',
+            ),
+        ];
+    }
+
+    public function defaultScope() {
+        return [
+            'with' => [
+                'customers_info',
+
+            ]
+        ];
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.

@@ -64,23 +64,23 @@ class CustomersController extends BackendController {
             $groups[$group['id']] = $group['name'];
         }
 
-        $model = new CustomerLayer($scenario);
-        if (!$item = $model->getCustomer($id, $scenario)){
+        //$model = new CustomerLayer($scenario);
+        if (!$item = CustomersHelper::getCustomer($id, $scenario)){
             $this->error('Ошибка получения данных клиента');
         }
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes($model->getPostData(),false);
+            $item->setAttributes(CustomersHelper::getPostData(),false);
             // записываем данные
-            $result = $item->save($model->getPostData());
+            $result = $item->save(CustomersHelper::getPostData());
 
             if (!$result) {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' клиента')
+                    CHtml::errorSummary(CustomersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' клиента')
                 );
             } else {
                 // выкидываем сообщение
@@ -102,7 +102,7 @@ class CustomersController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = CustomerLayer::model()->findByPk($id);
+        $model = CustomersHelper::getModel()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {
