@@ -10,6 +10,7 @@ $(document).ready(function(){
 //    RetailCatalog.moreButton();
     RetailCatalog.zoom();
     RetailCatalog.loadData();
+//    RetailCatalog.sort();
 });
 
 RetailCatalog.tooltip = function(){
@@ -98,5 +99,4 @@ RetailCatalog.zoom = function(){
         alwaysOn:false
     });
 
-
-};
+}
