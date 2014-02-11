@@ -21,7 +21,6 @@ class RetailSiteController extends RetailController {
     }
 
     public function actionIndex() {
-
         $categoriesModel = new ShopCategoriesModel();
         $this->categories = $categoriesModel->getClearCategoriesList();
 
@@ -31,15 +30,10 @@ class RetailSiteController extends RetailController {
         $this->render("/site/index");
     }
 
-
-    //    public function actionProduct() {
-    //        $this->render("/site/product");
-    //    }
-    //
-    //    public function actionCatalog(){
-    //        $this->render('/site/catalog');
-    //    }
-
+    /**
+     * Авторизация пользователей
+     * Обращение к этому методу происходит через ajax
+     */
     public function actionLogin() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
@@ -49,8 +43,10 @@ class RetailSiteController extends RetailController {
         if ($formData) {
             $model->setAttributes($formData, false);
             if (!$model->validate(array('username', 'password')) || !$model->login()){
+                //отдаем виду ошибки для отображения
                 echo json_encode($model->errors);
             }
+            //завершаем приложение в любом случае
             Yii::app()->end();
         }
         $this->renderPartial('/layouts/parts/login');
@@ -62,18 +58,23 @@ class RetailSiteController extends RetailController {
         //            $this->redirect(Yii::app()->request->baseUrl);
     }
 
+    /**
+     * Регистрация пользователей
+     * Обращение к этому методу происходит через ajax
+     */
     public function actionRegistration() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
 
         $model = new RetailRegisterForm();
         $formData = Yii::app()->request->getPost(get_class($model), false);
-
         if ($formData) {
             $model->setAttributes($formData, false);
             if (!$model->registration()) {
+                //отдаем виду ошибки для отображения
                 echo json_encode($model->errors);
             }
+            //завершаем приложение в любом случае
             Yii::app()->end();
         }
         $this->renderPartial('/layouts/parts/register');
