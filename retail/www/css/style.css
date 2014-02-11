@@ -629,8 +629,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .box-modal.modal-cart.modal-cart .cart-goods{
 	width:100%;
 	float:left;
-	height:500px;
-	overflow-y:scroll;
+	/*height:500px;*/
+	/*overflow-y:scroll;*/
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one {
@@ -660,7 +660,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .price {
 	float:left;
 	margin-left:100px;
-	font-size:36px;
+	font-size:26px;
 	color:#9C9B9B;
 	line-height:110px;
 	font-weight:bold;
@@ -675,21 +675,24 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .del-goods {
-	float:left;
-	margin-top:42px;
-	font-size:14px;
-	padding:3px 5px 3px 5px;
-	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
-	color:#9D9D9C;
-	border:solid 1px #ccc;
-	margin-left:50px;
+    background: none repeat scroll 0 0 #E21A70;
+    border: 1px solid #E21A70;
+    border-radius: 5px;
+    color: #FFFFFF;
+    float: right;
+    font-size: 14px;
+    font-weight: bolder;
+    margin-left: 50px;
+    margin-top: 42px;
+    padding: 3px 5px;
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .del-goods:hover {
 	cursor:pointer;
 	background:#fff;
+    color: #E21A70;
 }
 
 .box-modal.modal-cart.modal-cart p {
@@ -700,7 +703,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 }
 
 .box-modal.modal-cart.modal-cart .clear {
-	float:left;
+	float:right;
 	font-size:14px;
 	color:#9D9D9C;
 	margin-left:20px;
@@ -755,14 +758,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 .box-modal.modal-cart.modal-cart .next-sale p {
 	font-size:18px;
 	float:left;
-	margin-left:50px;
+	/*margin-left:50px;*/
 	color:#9D9D9C;
 }
 
 .box-modal.modal-cart.modal-cart .next-sale span {
 	float:left;
 	margin-left:50px;
-	font-size:36px;
+	font-size:26px;
 	color:#9D9D9C;
 	font-weight:bold;
 }
@@ -1534,9 +1537,13 @@ button.desable {
     background:#84E908;
     color:#fff;
 }
-
-
-
+#openCart{
+    color: #FFFFFF;
+    float: left;
+    font-size: 14px;
+    line-height: 30px;
+    text-transform: uppercase;
+}
 
 
 
