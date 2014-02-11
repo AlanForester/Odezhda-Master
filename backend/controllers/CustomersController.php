@@ -72,28 +72,50 @@ class CustomersController extends BackendController {
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
+
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes(CustomersHelper::getPostData(),false);
-            // записываем данные
+            $data = CustomersHelper::getPostData();
+            if(isset($data['password']) && empty($data['password']))
+                unset($data['password']);
+            $item->setAttributes($data,false);
             $result = $item->save();
+
             if (!$result) {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary(CustomersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' клиента')
                 );
+                
             } else {
-                // выкидываем сообщение
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Клиент ' . ($id ? 'сохранен' : 'добавлен')
+                //$item->getPrimaryKey() и $item->id не срабатывают, видимо, из-за манипуляций LegacyAR.
+                //пришлось ставить Yii::app()->db->lastInsertID
+                $item->customers_info->setAttributes(
+                    [
+                        'id' => $id ? : Yii::app()->db->lastInsertID
+                    ],
+                    false
                 );
-                if ($form_action == 'save') {
-                    $this->redirect(['index']);
-                    return;
+
+                if (!$item->customers_info->save()) {
+                    // ошибка записи
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_ERROR,
+                        CHtml::errorSummary(CustomersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' информации о клиенте')
+                    );
                 } else {
-                    $this->redirect(['edit', 'id' => $item['id']]);
-                    return;
+                    // выкидываем сообщение
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_INFO,
+                        'Клиент ' . ($id ? 'сохранен' : 'добавлен')
+                    );
+                    if ($form_action == 'save') {
+                        $this->redirect(['index']);
+                        return;
+                    } else {
+                        $this->redirect(['edit', 'id' => $item['id']]);
+                        return;
+                    }
                 }
             }
         }
