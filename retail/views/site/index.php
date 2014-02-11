@@ -239,9 +239,9 @@ Yii::app()->clientScript->registerPackage('index');
                             <img class="tab-var-image" src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToMidImg($product['image']); ?>" alt=""/>
                             <a href="/catalog/product/<?php echo $product['id']; ?>"><?php echo $product['name'] . ' (' . $product['model'] . ')'; ?></a>
 
-                            <span><?php echo round($product['price']) . 'р.'; ?></span>
+                            <span><?=FormatHelper::markup($product['price']) ?></span>
                             <?php if ($product['old_price'] != 0) { ?>
-                                <h5><?php echo round($product['old_price']) . 'р.'; ?></h5>
+                                <h5><?=FormatHelper::markup($product['old_price']) ?><</h5>
                             <?php } ?>
 
                             <div class="var-all">

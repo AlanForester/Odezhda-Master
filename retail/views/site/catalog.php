@@ -212,9 +212,9 @@ $this->setTitle($catName);
                      alt=""/>
                 <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
 
-                <span><?php echo round($product->price) . 'р.'; ?></span>
+                <span><?=FormatHelper::markup($product->price) ?></span>
                 <?php if ($product->old_price != 0) { ?>
-                    <h5><?php echo round($product->old_price) . 'р.'; ?></h5>
+                    <h5><?=FormatHelper::markup($product->old_price) ?></h5>
                 <?php } ?>
 
                 <button class="m-dotted fixed-info quick-view" id="#example5"

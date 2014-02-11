@@ -19,4 +19,12 @@ class FormatHelper {
         return $form5;
     }
 
+    /**
+     * Определение цены с наценкой, округление до целых
+     * @param $price
+     */
+    public static function markup($price) {
+        return round($price*(1+Yii::app()->params['markup']/100)).' р.';
+    }
+
 }
