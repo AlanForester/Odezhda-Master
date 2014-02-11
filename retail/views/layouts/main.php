@@ -135,8 +135,8 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
-                        <a href="#" id="#example1" class="m-dotted">Личный кабинет</a>
-                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#example2"
+                        <a href="#" class="m-dotted">Личный кабинет</a>
+                        <a href="<?php echo $this->createUrl('site/logout') ?>" id="#exit"
                            class="m-dotted">Выход</a>
                     <?php } ?>
                 </div>
@@ -158,13 +158,13 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <input type="text"/>
             <input type="submit" value=""/>
         </div>
-        <!--        <div class="basket">-->
-        <!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-        <!--                <img src="/images/basket.png" alt=""/>-->
-        <!--                <small>В корзине</small>-->
-        <!--                <span>4</span>-->
-        <!--            </a>-->
-        <!--        </div>-->
+<!--                <div class="basket">-->
+<!--                    <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
+<!--                        <img src="/images/basket.png" alt=""/>-->
+<!--                        <small>В корзине</small>-->
+<!--                        <span>4</span>-->
+<!--                    </a>-->
+<!--                </div>-->
     </div>
 </div>
 <?php if(isset($this->breadcrumbs)):?>
@@ -245,7 +245,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <?php
 
 // todo: сделать корзинку в нижней панели
-//$this->renderPartial('/layouts/parts/bottomPanel');
+$this->renderPartial('/layouts/parts/bottomPanel');
 
 //$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');
