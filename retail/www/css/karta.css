@@ -258,6 +258,7 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .bottom-price {
+    height: 70px;
 	float:left;
 	margin-top:20px;
 	background:#fff;
@@ -483,7 +484,9 @@ ul#thumblist li a.zoomThumbActive {
     max-width:500px;
 }
 
-
+.pluso-wrap a {
+    margin: 0px 8px !important;
+}
 
 
 
