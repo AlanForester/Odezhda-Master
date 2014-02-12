@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый розничный заказ');
+$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый заказ');
 
 $this->pageButton = [
     BackendPageButtons::save(),
@@ -25,7 +25,7 @@ if($item->id) {
      * @var RetailOrdersController $this
      */
     $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm',
+        'backend.widgets.ActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
             //'enableAjaxValidation' => true,
@@ -45,10 +45,15 @@ if($item->id) {
                 echo $form->hiddenField($item, 'id', []);
                 echo $form->dropDownListControlGroup($item, 'retail_orders_statuses_id', $statuses, []);
                 //echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
-                echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
+                //echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
                 //echo $form->dropDownListControlGroup($item, 'default_provider', $defaultProviders, []);
                 echo $form->numberFieldControlGroup($item, 'booker_orders_id', []);
-                echo $form->dateFieldControlGroup($item, 'act_date', []);
+                echo $form->datePickerControlGroup($item, 'act_date', [
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd',
+                        'language' => 'ru'
+                    ],
+                ]);
                 echo $form->numberFieldControlGroup($item, 'act_number', []);
                 //echo $form->dropDownListControlGroup($item, 'seller_id', $sellers, []);
 
@@ -75,17 +80,18 @@ if($item->id) {
                 //echo $form->dropDownListControlGroup($item, 'customers_country_id', $countries, []);
                 echo $form->textFieldControlGroup($item, 'customers_country', []);
                 echo $form->textFieldControlGroup($item, 'customers_telephone', []);
-                echo $form->textFieldControlGroup($item, 'customers_email_address', []);
+                echo $form->emailFieldControlGroup($item, 'customers_email_address', []);
                 ?>
             </fieldset>
         </div>
     </div>
+    <!--
     <br><br>
     <div>
         <div class="span6">
             <legend>Адрес доставки</legend>
             <?php
-            echo $form->textFieldControlGroup($item, 'delivery_name', []);
+            /*echo $form->textFieldControlGroup($item, 'delivery_name', []);
             echo $form->textFieldControlGroup($item, 'delivery_middlename', []);
             echo $form->textFieldControlGroup($item, 'delivery_lastname', []);
             //echo $form->textFieldControlGroup($item, 'delivery_passport_serie', []);
@@ -100,7 +106,7 @@ if($item->id) {
             //echo $form->dropDownListControlGroup($item, 'delivery_state_id', $countryStates, []);
             echo $form->textFieldControlGroup($item, 'delivery_state', []);
             //echo $form->dropDownListControlGroup($item, 'delivery_country_id', $countries, []);
-            echo $form->textFieldControlGroup($item, 'delivery_country', []);
+            echo $form->textFieldControlGroup($item, 'delivery_country', []);*/
             ?>
             </fieldset>
         </div>
@@ -108,7 +114,7 @@ if($item->id) {
             <fieldset>
                 <legend>Адрес оплаты</legend>
                 <?php
-                echo $form->textFieldControlGroup($item, 'billing_name', []);
+                /*echo $form->textFieldControlGroup($item, 'billing_name', []);
                 //echo $form->textFieldControlGroup($item, 'billing_company', []);
                 echo $form->textFieldControlGroup($item, 'billing_street_address', []);
                 //echo $form->textFieldControlGroup($item, 'billing_suburb', []);
@@ -117,11 +123,12 @@ if($item->id) {
                 //echo $form->dropDownListControlGroup($item, 'billing_state_id', $countryStates, []);
                 echo $form->textFieldControlGroup($item, 'billing_state', []);
                 //echo $form->dropDownListControlGroup($item, 'billing_country_id', $countries, []);
-                echo $form->textFieldControlGroup($item, 'billing_country', []);
+                echo $form->textFieldControlGroup($item, 'billing_country', []);*/
                 ?>
             </fieldset>
         </div>
     </div>
+    -->
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>

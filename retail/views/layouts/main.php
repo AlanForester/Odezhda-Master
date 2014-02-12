@@ -218,7 +218,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><a href="/">LAPANA.RU</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '12']) ?>">О нас</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '13']) ?>">Вакансии</a></li>
-                    <li><a href="<?php echo $this->createUrl('info/view', ['id' => '14']) ?>">Партнерам</a></li>
+<!--                    <li><a href="--><?php //echo $this->createUrl('info/view', ['id' => '14']) ?><!--">Партнерам</a></li>-->
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '6']) ?>">Контакты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '15']) ?>">Сертификаты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '16']) ?>">Наши скидки</a></li>
@@ -241,6 +241,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <ul>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '14']) ?>">ПАРТНЕРАМ</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '20']) ?>">Франшиза</a></li>
+                </ul>
+            </div>
+
+            <div class ="nav-bar nav-last">
+                <ul>
+                    <li><span>Контакты</span></li>
+                    <li><span>8 (926) 021-7720</span></li>
+                    <li><span>г. Москва ул. Рудневка д. 9</span></li>
                 </ul>
             </div>
             <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
