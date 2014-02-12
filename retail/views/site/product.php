@@ -88,9 +88,9 @@ $this->breadcrumbs=array(
                     <div class="tab_container">
                         <div id="tab1" class="tab_content">
                             <p>СОСТАВ: шелк 100%;</p>
-
-                            <p>СТРАНА ПРОИЗВОДСТВА:   <?php echo $product->manufacturers ?> </p>
-
+                       <?php if($product->manufacturers_id){ ?>
+                            <p>СТРАНА ПРОИЗВОДСТВА:   <?=$product->manufacturers ?> </p>
+                            <?php } ?>
                             <p>ОБХВАТ ГРУДИ: 110см</p>
 
                             <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>
@@ -110,15 +110,28 @@ $this->breadcrumbs=array(
     </div>
 
     <div class="bottom-price">
+<!--        <div class="footer-social">-->
+<!--            <a href="#" class="soc-btn"><img src="/images/vk.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/facebook.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/twitter.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/google.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/odnoklassniki.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/youtube.png" alt=""/></a>-->
+<!--            <a href="#" class="soc-btn"><img src="/images/photo.png" alt=""/></a>-->
+<!--        </div>-->
         <div class="footer-social">
-            <a href="#" class="soc-btn"><img src="/images/vk.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/facebook.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/twitter.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/google.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/odnoklassniki.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/youtube.png" alt=""/></a>
-            <a href="#" class="soc-btn"><img src="/images/photo.png" alt=""/></a>
+            <script type="text/javascript">(function() {
+                    if (window.pluso)if (typeof window.pluso.start == "function") return;
+                    if (window.ifpluso==undefined) { window.ifpluso = 1;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript'; s.charset='UTF-8'; s.async = true;
+                        s.src = ('https:' == window.location.protocol ? 'https' : 'http')  + '://share.pluso.ru/pluso-like.js';
+                        var h=d[g]('body')[0];
+                        h.appendChild(s);
+                    }})();</script>
+            <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06" data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/" data-title="<?= Yii::app()->params['title'] ?>" data-description=""></div>
         </div>
+
         <div class="price-main">
                 	<span>
                     	  <?=FormatHelper::markup($product['price']) ?>
@@ -137,78 +150,25 @@ $this->breadcrumbs=array(
         </div>
     </div>
 
-    <p class="title-cart-like-tovar">Похожие товары</p>
+    <p class="title-cart-like-tovar">Популярные товары</p>
 
     <div class="slider-clothes">
         <div class="jcarousel-wrapper">
             <div class="jcarousel">
                 <ul>
+                    <?php foreach ($dataProvider->getData() as $product) { ?>
                     <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl1.png" alt="Image 1">
+                        <a href="/catalog/product/<?=$product->id ?>">
+                            <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToMidImg($product->image) ?>" alt="<?=$product->image ?>">
                         </a>
 
                         <div class="info">
-                            <a href="#" class="name">Кофта</a>
+                            <a href="/catalog/product/<?=$product->id ?>" class="name"><?=$product->name ?></a>
 
-                            <p>150 руб.</p>
+                            <p><?=FormatHelper::markup($product->price) ?></p>
                         </div>
                     </li>
-                    <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl2.png" alt="Image 2">
-                        </a>
-
-                        <div class="info">
-                            <a href="#" class="name">Кофта</a>
-
-                            <p>150 руб.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl3.png" alt="Image 3">
-                        </a>
-
-                        <div class="info">
-                            <a href="#" class="name">Кофта</a>
-
-                            <p>150 руб.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl1.png" alt="Image 4">
-                        </a>
-
-                        <div class="info">
-                            <a href="#" class="name">Кофта</a>
-
-                            <p>150 руб.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl2.png" alt="Image 5">
-                        </a>
-
-                        <div class="info">
-                            <a href="#" class="name">Кофта</a>
-
-                            <p>150 руб.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="/js/slider-clothes/img/sl3.png" alt="Image 6">
-                        </a>
-
-                        <div class="info">
-                            <a href="#" class="name">Кофта</a>
-
-                            <p>150 руб.</p>
-                        </div>
-                    </li>
+                    <?php } ?>
                 </ul>
             </div>
 

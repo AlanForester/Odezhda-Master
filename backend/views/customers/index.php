@@ -52,13 +52,6 @@ $this->widget(
 
         'gridColumns' => [
             [
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
-            [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'firstname',
@@ -113,6 +106,13 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/customers/update"),
                 ]
+            ],
+            [
+                'name' => 'id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
             ],
         ],
 

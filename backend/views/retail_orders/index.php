@@ -74,13 +74,6 @@ $this->widget(
 
         'gridColumns' => [
             [
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
-            [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'customers_name',
@@ -168,6 +161,13 @@ $this->widget(
             ],*/
             [
                 'name' => 'date_purchased',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
+            [
+                'name' => 'id',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

@@ -2,26 +2,17 @@
 /* CSS Document */
 
 .breadcrumbs {
-	/*float:left;*/
+	float:left;
+	width:100%;
 	height:35px;
 	line-height:35px;
-    /*padding-left: 7px;*/
-    margin: 7px 0;
-    width: 100%;
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #CCCCCC;
-    border-radius: 7px;
 }
 
 .breadcrumbs a {
-	/*float:left;*/
+	float:left;
 	padding:0px 5px 0px 5px;
 	color:#929496;
 	font-size:14px;
-}
-.breadcrumbs a:first-child {
-    padding-left: 15px;
-
 }
 
 .breadcrumbs a:hover {
@@ -29,7 +20,7 @@
 }
 
 .breadcrumbs span {
-	/*float:left;*/
+	float:left;
 	padding:0px 5px 0px 5px;
 	color:#929496;
 	font-size:14px;
@@ -267,6 +258,7 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .bottom-price {
+    height: 70px;
 	float:left;
 	margin-top:20px;
 	background:#fff;
@@ -275,7 +267,6 @@ ul#thumblist li a.zoomThumbActive {
 	-webkit-border-radius:7px;
 	border:solid 1px #ccc;
 	width:100%;
-    min-height: 70px;
 }
 
 .bottom-price .price-main {
@@ -493,10 +484,14 @@ ul#thumblist li a.zoomThumbActive {
     max-width:500px;
 }
 
+.pluso-wrap a {
+    margin: 0px 8px !important;
+}
 
-
-
-
+ul.yiiPager a {
+    font-weight: normal;
+    border-radius: 8px;
+}
 
 
 

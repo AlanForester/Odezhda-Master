@@ -253,4 +253,20 @@ class CustomersHelper extends CommonHelper {
         $model = self::getModel();
         return ($id ? $model->findByPk($id) : new $model($scenario));
     }
+
+    public static function getCustomerWithInfo($id = null, $scenario = null) {
+        $model = self::getModel();
+        if($id)
+            return $model->with('customers_info')->findByPk($id);
+        else {
+            $result = new $model($scenario);
+            $result->customers_info = new CustomerInfo($scenario);
+            return $result;
+        }
+    }
+
+    public static function getPostData() {
+        $name = get_class(self::getModel());
+        return $_POST[$name];
+    }
 }

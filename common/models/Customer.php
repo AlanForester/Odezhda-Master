@@ -125,7 +125,7 @@ class Customer extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
-            ['firstname, lastname, email, phone', 'required', 'on' => 'update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['firstname, lastname, email, phone', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['email', 'email', 'message' => Yii::t('validation', "Некорректный E-mail")],
             ['email', 'unique', 'message' => Yii::t('validation', "E-mail должен быть уникальным")],
             ['email', 'required', 'message' => Yii::t('validation', 'E-mail является обязательным')],
@@ -133,7 +133,7 @@ class Customer extends LegacyActiveRecord {
 //            ['firstname, phone, lastname', 'type', 'type'=>'string'],
 //            ['lastname', 'default'],
 //            ['group_id', 'required', 'message' => Yii::t('validation', 'Группа является обязательной')],
-            ['password', 'required','message' => Yii::t('validation', 'Пароль является обязательным')],
+            ['password', 'required','on' => 'add', 'message' => Yii::t('validation', 'Пароль является обязательным')],
 //            ['dob', 'date', 'message' => Yii::t('validation', "Некорректная дата рождения")],
         ];
     }
@@ -193,6 +193,28 @@ class Customer extends LegacyActiveRecord {
 //        $validation_key = md5(mt_rand() . mt_rand() . mt_rand());
 //        //$this->saveAttributes(compact('validation_key'));
 //    }
+
+    public function relations() {
+        return [
+            'customers_info' => [self::HAS_ONE, 'CustomerInfo', 'customers_info_id', 'together' => true],
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            'withRelated' => array(
+                'class' => 'common.extensions.behaviors.WithRelatedBehavior',
+            ),
+        ];
+    }
+
+    public function defaultScope() {
+        return [
+            'with' => [
+                'customers_info',
+            ]
+        ];
+    }
 
     /**
      * Returns the static model of the specified AR class.

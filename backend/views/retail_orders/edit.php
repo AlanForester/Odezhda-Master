@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id . ' от ' . $item->date_purchased : 'новый розничный заказ');
+$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый розничный заказ');
 
 $this->pageButton = [
     BackendPageButtons::save(),
