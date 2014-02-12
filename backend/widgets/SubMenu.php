@@ -1,5 +1,5 @@
 <?php
-Yii::import('application.widgets.Grid');
+/*Yii::import('application.widgets.Grid');
 
 class SubMenu extends Grid {
 
@@ -15,4 +15,4 @@ class SubMenu extends Grid {
     }
 
 
-}
+}*/

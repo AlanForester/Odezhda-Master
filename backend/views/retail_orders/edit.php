@@ -106,9 +106,9 @@ $this->pageButton = [
                         ]
                     );*/
 
-                } else {
-                    echo $form->dropDownListControlGroup($item, 'customers_id', $customers, []);
                 }
+                echo ' ';
+                echo BackendPageButtons::selectCustomer();
                 ?>
 
                 <?php
