@@ -12,7 +12,12 @@
                 <option>2</option>
                 <option>3</option>
             </select>
-            <button class="in-basket">в корзину</button>
+            <?php if(!Yii::app()->user->isGuest): ?>
+                <button class="in-basket addToCart">в корзину</button>
+            <?php else: ?>
+                <button class="in-basket" onclick="$('#aLog').trigger('click');">в корзину</button>
+            <?php endif; ?>
+            <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
         </div>
     </div>
     <?php }?>

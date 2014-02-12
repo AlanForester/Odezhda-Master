@@ -236,7 +236,7 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .tovar-info ul.tabs li:last-child {
-	margin-left:40px;
+	/*margin-left:40px;*/
 }
 
 .tovar-info ul.tabs li a:hover {

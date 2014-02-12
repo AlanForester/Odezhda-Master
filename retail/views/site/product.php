@@ -106,8 +106,8 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <div class="tovar-more-info">
                 <div id="tabs" class="tab1">
                     <ul class="tabs">
-                        <li><a href="#tab1">ОПИСАНИЕ</a></li>
-                        <li><a href="#tab2">ДОСТАВКА</a></li>
+                        <li><!--<a href="#tab1">-->ОПИСАНИЕ<!--</a>--></li>
+<!--                        <li><a href="#tab2">ДОСТАВКА</a></li>-->
 
                     </ul>
                     <div class="tab_container">
@@ -120,11 +120,11 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
 
                             <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>
                         </div>
-                        <div id="tab2" class="tab_content">
-                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom
-                                title close to the jQZoom Window.
-                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
-                        </div>
+<!--                        <div id="tab2" class="tab_content">-->
+<!--                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom-->
+<!--                                title close to the jQZoom Window.-->
+<!--                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
