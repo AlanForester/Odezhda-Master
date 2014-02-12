@@ -8,7 +8,7 @@
         <div class="cart-goods">
             <?php $sum=0; foreach($products as $product) { ?>
             <div class="goods-one">
-                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToMidImg($product->image) ?>" alt="<?=$product->name ?>">
+                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>">
                 <a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?> (<?= $product->model ?>)</a>
                 <button class="del-goods">X</button>
                 <button class="changeCount right" id="plus">+</button>

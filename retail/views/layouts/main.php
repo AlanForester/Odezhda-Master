@@ -119,6 +119,31 @@ jQuery(document).ready(function($){
     });
 ";
 
+$basket = "
+jQuery(document).ready(function($){
+    //корзинка
+    $('.addToCart').live('click',function(){
+        $.ajax({
+                  type: 'POST',
+                  url: '".$this->createUrl('/cart/add')."',
+                  data: ({
+                        product_id : $(this).next('.product_id').val(),
+                        params : '',
+                  }),
+                  success: function(data) {
+                        if (data){
+                              $('#panel').html(data);
+                              $('.bottom-panel').effect('highlight', {}, 2000);
+                        }
+
+                  }
+              });
+    });
+});
+";
+
+Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
+
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

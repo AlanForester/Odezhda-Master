@@ -37,10 +37,11 @@ $this->breadcrumbs=array(
               <?=FormatHelper::markup($product['price']) ?>
            </span>
            <?php if(!Yii::app()->user->isGuest): ?>
-               <button class="basket prev_basket">В КОРЗИНУ</button>
+               <button class="basket prev_basket addToCart">В КОРЗИНУ</button>
            <?php else: ?>
                <button class="basket prev_basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
            <?php endif; ?>
+           <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
        </div>
 
 </div>
