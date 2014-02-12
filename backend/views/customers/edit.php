@@ -15,7 +15,7 @@ $this->pageButton = [
      * @var UsersController $this
      */
     $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm',
+        'backend.widgets.ActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
             //'enableAjaxValidation' => true,
@@ -36,7 +36,13 @@ $this->pageButton = [
         echo $form->textFieldControlGroup($item, 'lastname', []);
         echo $form->passwordFieldControlGroup($item, 'password', ['autocomplete' => 'off', 'value' => '']);
         echo $form->dropDownListControlGroup($item, 'gender', $genders, []);
-        echo $form->dateFieldControlGroup($item, 'dob', []);
+        //echo $form->dateFieldControlGroup($item, 'dob', []);
+        echo $form->dateTimePickerControlGroup($item, 'dob', [
+            'pluginOptions' => [
+                'format' => 'yyyy-MM-dd hh:mm:ss',
+                'language' => 'ru'
+            ],
+        ]);
         echo $form->textFieldControlGroup($item, 'email', []);
         echo $form->textFieldControlGroup($item, 'phone', []);
         echo $form->textFieldControlGroup($item, 'fax', []);

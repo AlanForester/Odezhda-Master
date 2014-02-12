@@ -1,6 +1,6 @@
 <?php
 
-$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый розничный заказ');
+$this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый заказ');
 
 $this->pageButton = [
     BackendPageButtons::save(),
@@ -85,12 +85,13 @@ if($item->id) {
             </fieldset>
         </div>
     </div>
+    <!--
     <br><br>
     <div>
         <div class="span6">
             <legend>Адрес доставки</legend>
             <?php
-            echo $form->textFieldControlGroup($item, 'delivery_name', []);
+            /*echo $form->textFieldControlGroup($item, 'delivery_name', []);
             echo $form->textFieldControlGroup($item, 'delivery_middlename', []);
             echo $form->textFieldControlGroup($item, 'delivery_lastname', []);
             //echo $form->textFieldControlGroup($item, 'delivery_passport_serie', []);
@@ -105,7 +106,7 @@ if($item->id) {
             //echo $form->dropDownListControlGroup($item, 'delivery_state_id', $countryStates, []);
             echo $form->textFieldControlGroup($item, 'delivery_state', []);
             //echo $form->dropDownListControlGroup($item, 'delivery_country_id', $countries, []);
-            echo $form->textFieldControlGroup($item, 'delivery_country', []);
+            echo $form->textFieldControlGroup($item, 'delivery_country', []);*/
             ?>
             </fieldset>
         </div>
@@ -113,7 +114,7 @@ if($item->id) {
             <fieldset>
                 <legend>Адрес оплаты</legend>
                 <?php
-                echo $form->textFieldControlGroup($item, 'billing_name', []);
+                /*echo $form->textFieldControlGroup($item, 'billing_name', []);
                 //echo $form->textFieldControlGroup($item, 'billing_company', []);
                 echo $form->textFieldControlGroup($item, 'billing_street_address', []);
                 //echo $form->textFieldControlGroup($item, 'billing_suburb', []);
@@ -122,11 +123,12 @@ if($item->id) {
                 //echo $form->dropDownListControlGroup($item, 'billing_state_id', $countryStates, []);
                 echo $form->textFieldControlGroup($item, 'billing_state', []);
                 //echo $form->dropDownListControlGroup($item, 'billing_country_id', $countries, []);
-                echo $form->textFieldControlGroup($item, 'billing_country', []);
+                echo $form->textFieldControlGroup($item, 'billing_country', []);*/
                 ?>
             </fieldset>
         </div>
     </div>
+    -->
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
