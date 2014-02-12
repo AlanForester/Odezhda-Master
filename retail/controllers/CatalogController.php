@@ -18,7 +18,6 @@ class CatalogController extends RetailController {
         if (!$product = $catalogModel->productById($id)) {
             $this->error('Товар не найден', 404);
         }
-
         //выборак случайных товаров
         $model = new CatalogModel();
         $criteria['limit']=15;
