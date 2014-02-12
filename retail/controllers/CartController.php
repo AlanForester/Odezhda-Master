@@ -20,9 +20,11 @@ class CartController extends RetailController {
                         $products[]=$product;
                     }
                 }
-                $this->renderPartial("/layouts/parts/basket", compact('cart'));
+                $this->renderPartial("/layouts/parts/basket", compact('products','product_ids'));
+                Yii::app()->end();
             }
             $this->renderPartial("/layouts/parts/emptyBasket");
+            Yii::app()->end();
         }
         $error='Ошибка : неизвестный пользователь';
         $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));

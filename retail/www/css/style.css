@@ -672,7 +672,7 @@ button:hover {
     /*background-color: #D0D0CF;*/
     border: 1px solid #ccc;
     /*border-radius: 7px;*/
-    float: left;
+    float: right;
     line-height: 25px;
     margin-left: 7px;
     margin-top: 42px;
@@ -1563,7 +1563,7 @@ button.desable {
 .changeCount {
     background: none repeat scroll 0 0 #ECECEB;
     border: 1px solid #ccc;
-    float: left;
+    float: right;
     font-size: 14px;
     margin-top: 42px;
     padding: 3px 5px;
