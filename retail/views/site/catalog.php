@@ -34,6 +34,7 @@ $this->setTitle($catName);
 
 <div class="wrapper">
 <div class="left-option">
+    <form id='left_options'>
     <div class="item-options">
         <div class="title">
             <h6>ЦВЕТ</h6>
@@ -141,6 +142,7 @@ $this->setTitle($catName);
 
             <div id="slider-range"></div>
         </div>
+        </form>
     </div>
 
     <div class="accord-item">
@@ -235,7 +237,7 @@ $this->setTitle($catName);
 <!--                <button class="m-dotted fixed-info quick-view" id="#example5"-->
 <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
 <!--                </button>-->
-                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=800&lightbox[height]=600' class='lightbox quick-view'>Быстрый просмотр</a>
+                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=800&lightbox[height]=450' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
                     <select id="filter_size">
                         <option>Размер</option>
