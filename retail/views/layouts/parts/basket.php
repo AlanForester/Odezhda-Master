@@ -10,11 +10,11 @@
             <div class="goods-one">
                 <img src="/images/kofta.png" alt="" />
                 <a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?> (<?= $product->model ?>)</a>
-                <span class="price"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
                 <button class="del-goods">X</button>
                 <button class="changeCount right" id="plus">+</button>
                 <span class="sel-count" id="count"><?=$product_ids[$product->id] ?></span>
                 <button class="changeCount left" id="minus">-</button>
+                <span class="price"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
             </div>
             <?php } ?>
         </div>
