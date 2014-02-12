@@ -112,13 +112,14 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     </ul>
                     <div class="tab_container">
                         <div id="tab1" class="tab_content">
-                            <p>СОСТАВ: шелк 100%;</p>
+<!--                            <p>СОСТАВ: шелк 100%;</p>-->
+                            <?=$product->description ?>
                        <?php if($product->manufacturers_id){ ?>
                             <p>СТРАНА ПРОИЗВОДСТВА:   <?=$product->manufacturers ?> </p>
                             <?php } ?>
-                            <p>ОБХВАТ ГРУДИ: 110см</p>
-
-                            <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>
+<!--                            <p>ОБХВАТ ГРУДИ: 110см</p>-->
+<!---->
+<!--                            <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>-->
                         </div>
 <!--                        <div id="tab2" class="tab_content">-->
 <!--                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom-->

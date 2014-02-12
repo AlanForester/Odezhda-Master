@@ -26,12 +26,11 @@ $this->breadcrumbs=array(
            <a href="#" class="razmer-one">32</a>
            <a href="#" class="razmer-one">39</a>
            <div class='prev_info'>
-               <p>СОСТАВ: шелк 100%;</p>
+               <p><?=$product->description ?></p>
                 <?php if($product->manufacturers_id){ ?>
                    <p>СТРАНА ПРОИЗВОДСТВА: <?=$product->manufacturers ?> </p>
                <?php } ?>
-               <p>ОБХВАТ ГРУДИ: 110см</p>
-               <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>
+
            </div>
            <span class='prev_price'>
               <?=FormatHelper::markup($product['price']) ?>
