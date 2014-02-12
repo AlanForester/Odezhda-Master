@@ -260,7 +260,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <?php
 
 if(!Yii::app()->user->isGuest){ ?>
-<div class="bottom-panel">
+<div id="panel">
 <?php $this->renderPartial('/layouts/parts/bottomPanel');?>
 </div>
 <?php }

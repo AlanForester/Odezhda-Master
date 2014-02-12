@@ -900,6 +900,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	z-index:99999;
 }
 
+.bottom-panel.err {
+    background: red;
+}
+
 .bottom-panel-wrapper {
 	width:1115px;
 	margin:0 auto;

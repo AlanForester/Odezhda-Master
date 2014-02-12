@@ -1,4 +1,5 @@
 <?php $count=isset($count) ? $count :0;?>
+<div class="bottom-panel">
     <div class="bottom-panel-wrapper">
         <div class="see-goods">
             <a href="<?php echo $this->createUrl('cart/show')?>"
@@ -9,3 +10,4 @@
             <h5><?php echo($count);?></h5>
         </div>
     </div>
+</div>
