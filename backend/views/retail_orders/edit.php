@@ -25,7 +25,7 @@ if($item->id) {
      * @var RetailOrdersController $this
      */
     $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm',
+        'backend.widgets.OMActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
             //'enableAjaxValidation' => true,
@@ -45,10 +45,22 @@ if($item->id) {
                 echo $form->hiddenField($item, 'id', []);
                 echo $form->dropDownListControlGroup($item, 'retail_orders_statuses_id', $statuses, []);
                 //echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
-                echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
+                //echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
                 //echo $form->dropDownListControlGroup($item, 'default_provider', $defaultProviders, []);
                 echo $form->numberFieldControlGroup($item, 'booker_orders_id', []);
-                echo $form->dateFieldControlGroup($item, 'act_date', []);
+                echo $form->datePickerControlGroup($item, 'act_date', []);
+                /*$datePicker = $this->widget(
+                    'yiiwheels.widgets.datepicker.WhDatePicker',
+                    [
+                        'model' => $item,
+                        'attribute' => 'act_date',
+                        'pluginOptions' => [
+                            'format' => 'yyyy-mm-dd',
+                            'language' => 'ru'
+                        ]
+                    ]
+                );
+                echo TbHtml::customActiveControlGroup($datePicker, $item, 'act_date', []);*/
                 echo $form->numberFieldControlGroup($item, 'act_number', []);
                 //echo $form->dropDownListControlGroup($item, 'seller_id', $sellers, []);
 
@@ -75,7 +87,7 @@ if($item->id) {
                 //echo $form->dropDownListControlGroup($item, 'customers_country_id', $countries, []);
                 echo $form->textFieldControlGroup($item, 'customers_country', []);
                 echo $form->textFieldControlGroup($item, 'customers_telephone', []);
-                echo $form->textFieldControlGroup($item, 'customers_email_address', []);
+                echo $form->emailFieldControlGroup($item, 'customers_email_address', []);
                 ?>
             </fieldset>
         </div>
