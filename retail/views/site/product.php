@@ -157,14 +157,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06" data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/" data-title="<?= Yii::app()->params['title'] ?>" data-description=""></div>
         </div>
 
-        <div class="price-main">
-                	<span>
-                    	  <?=FormatHelper::markup($product['price']) ?>
-                    </span>
-            <?php if ($product['old_price'] != 0) { ?>
-                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
-            <?php } ?>
-        </div>
         <div class="btn">
             <?php if(!Yii::app()->user->isGuest): ?>
                 <button class="basket" id="addToCart">В КОРЗИНУ</button>
@@ -173,6 +165,16 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <?php endif; ?>
             <!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
         </div>
+
+        <div class="price-main">
+                	<span>
+                    	  <?=FormatHelper::markup($product['price']) ?>
+                    </span>
+            <?php if ($product['old_price'] != 0) { ?>
+                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
+            <?php } ?>
+        </div>
+
     </div>
 
     <p class="title-cart-like-tovar">Популярные товары</p>

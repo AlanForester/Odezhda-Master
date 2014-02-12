@@ -55,6 +55,7 @@
     margin-top: -20px;
     width: 20px;
     height: 40px;
+    outline-style: none;
 }
 
 .jcarousel-control-prev {
