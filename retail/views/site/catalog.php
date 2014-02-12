@@ -228,10 +228,11 @@ $this->setTitle($catName);
                 <?php if ($product->old_price != 0) { ?>
                     <h5><?=FormatHelper::markup($product->old_price) ?></h5>
                 <?php } ?>
-
-                <button class="m-dotted fixed-info quick-view" id="#example5"
-                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр
-                </button>
+<!---->
+<!--                <button class="m-dotted fixed-info quick-view" id="#example5"-->
+<!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
+<!--                </button>-->
+                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=800&lightbox[height]=600' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
                     <select id="filter_size">
                         <option>Размер</option>
