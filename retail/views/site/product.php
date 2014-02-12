@@ -19,8 +19,8 @@ jQuery(document).ready(function($){
                   }),
                   success: function(data) {
                         if (data){
-                              $('.bottom-panel').html(data);
-                              $('.bottom-panel').effect('highlight', {}, 3000);
+                              $('#panel').html(data);
+                              $('.bottom-panel').effect('highlight', {}, 2000);
                         }
 
                   }

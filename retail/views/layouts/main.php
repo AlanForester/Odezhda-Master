@@ -243,6 +243,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '20']) ?>">Франшиза</a></li>
                 </ul>
             </div>
+
+            <div class ="nav-bar nav-last">
+                <ul>
+                    <li><span>Контакты</span></li>
+                    <li><span>8 (926) 021-7720</span></li>
+                    <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                </ul>
+            </div>
             <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
             <!--            <img src="/images/modal-girl.png" class="footer-girl" alt=""/>-->
 
@@ -260,7 +268,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <?php
 
 if(!Yii::app()->user->isGuest){ ?>
-<div class="bottom-panel">
+<div id="panel">
 <?php $this->renderPartial('/layouts/parts/bottomPanel');?>
 </div>
 <?php }
