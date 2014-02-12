@@ -488,8 +488,10 @@ ul#thumblist li a.zoomThumbActive {
     margin: 0px 8px !important;
 }
 
-
-
+ul.yiiPager a {
+    font-weight: normal;
+    border-radius: 8px;
+}
 
 
 
