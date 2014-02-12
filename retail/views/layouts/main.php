@@ -218,7 +218,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><a href="/">LAPANA.RU</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '12']) ?>">О нас</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '13']) ?>">Вакансии</a></li>
-                    <li><a href="<?php echo $this->createUrl('info/view', ['id' => '14']) ?>">Партнерам</a></li>
+<!--                    <li><a href="--><?php //echo $this->createUrl('info/view', ['id' => '14']) ?><!--">Партнерам</a></li>-->
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '6']) ?>">Контакты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '15']) ?>">Сертификаты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '16']) ?>">Наши скидки</a></li>
