@@ -27,6 +27,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                                $.lightbox().shake();
                               $('#reg_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -80,6 +81,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                                $.lightbox().shake();
                               $('#login_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
