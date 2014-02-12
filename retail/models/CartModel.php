@@ -81,7 +81,7 @@ class CartModel {
      */
     public static function countProducts(){
         $customer_id=Yii::app()->user->id;
-        $count=0;
+//        $count=0;
         if (!empty($customer_id)){
             $count = Yii::app()->db->createCommand()
                 ->select('SUM(count) AS c')
@@ -89,6 +89,28 @@ class CartModel {
                 ->where('customer_id=:id', array(':id'=>$customer_id))
                 ->queryRow()['c'];
         }
-        return $count;
+        return (isset($count) ? $count : 0);
+    }
+
+    /**
+     * Метод нахождения товаров в корзине пользователя
+     * если в корзине есть товары возвращает ассоциативный массив id_товара => количество
+     * если в корзине товаров нет - false
+     * @param $customer_id
+     * @return bool
+     */
+    public function getUserProducts($customer_id){
+        $product_ids = Yii::app()->db->createCommand()
+            ->select('product_id, count')
+            ->from($this->tableName)
+            ->where('customer_id=:id', array(':id'=>$customer_id))
+            ->queryAll();
+        if(!empty($product_ids)){
+            foreach($product_ids as $val){
+                $ids[$val['product_id']]=$val['count'];
+            }
+            return $ids;
+        }
+        return false;
     }
 }
