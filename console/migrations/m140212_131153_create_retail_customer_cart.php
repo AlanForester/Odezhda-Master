@@ -13,7 +13,7 @@ class m140212_131153_create_retail_customer_cart extends CDbMigration
               `customers_id` int(11) unsigned NOT NULL,
               `products_id` int(11) unsigned NOT NULL,
               `products_count` int(11) unsigned NOT NULL,
-              `products_size` varchar(64) NOT NULL,
+              `products_params` varchar(255) NOT NULL,
               `date_added` date NOT NULL
               )
         ");

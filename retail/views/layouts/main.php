@@ -259,8 +259,11 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
 <?php
 
-// todo: сделать корзинку в нижней панели
-$this->renderPartial('/layouts/parts/bottomPanel');
+if(!Yii::app()->user->isGuest){ ?>
+<div class="bottom-panel">
+<?php $this->renderPartial('/layouts/parts/bottomPanel');?>
+</div>
+<?php }
 
 //$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');
