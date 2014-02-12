@@ -125,6 +125,7 @@ button:hover {
     margin-top: 15px;
     width: 260px;
     text-align:center;
+    outline-style: none;
 }
 
 .contact {
