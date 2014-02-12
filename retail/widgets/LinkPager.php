@@ -11,9 +11,9 @@ class LinkPager extends CLinkPager {
         if($this->prevPageLabel===null)
             $this->prevPageLabel=Yii::t('yii','&lt;');
         if($this->firstPageLabel===null)
-            $this->firstPageLabel=Yii::t('yii','&lt;&lt; First');
+            $this->firstPageLabel=Yii::t('yii','&lt;&lt;');
         if($this->lastPageLabel===null)
-            $this->lastPageLabel=Yii::t('yii','Last &gt;&gt;');
+            $this->lastPageLabel=Yii::t('yii','&gt;&gt;');
         if(!isset($this->htmlOptions['id']))
             $this->htmlOptions['id']=$this->getId();
         if(!isset($this->htmlOptions['class']))
@@ -30,7 +30,7 @@ class LinkPager extends CLinkPager {
         $buttons=array();
 
         // first page
-        $buttons[]=$this->createPageButton('<<',0,'',$currentPage<=0,false);
+        $buttons[]=$this->createPageButton($this->firstPageLabel,0,'',$currentPage<=0,false);
 
         // prev page
         if(($page=$currentPage-1)<0)
@@ -47,7 +47,7 @@ class LinkPager extends CLinkPager {
         $buttons[]=$this->createPageButton($this->nextPageLabel,$page,$this->nextPageCssClass,$currentPage>=$pageCount-1,false);
 
         // last page
-        $buttons[]=$this->createPageButton(">>",$pageCount-1,'',$currentPage>=$pageCount-1,false);
+        $buttons[]=$this->createPageButton($this->lastPageLabel,$pageCount-1,'',$currentPage>=$pageCount-1,false);
 
         return $buttons;
     }

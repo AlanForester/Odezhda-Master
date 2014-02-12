@@ -40,7 +40,14 @@
 	float:left;
 	height:auto;
 	background:#fff;
-	padding-bottom:15px;
+	padding:15px;
+}
+
+.karta-wrap h1{
+    text-align: center;
+    color: #000000;
+    /*float: left;*/
+    font-size: 30px;
 }
 
 .karta-wrap .karta-box {
@@ -295,10 +302,15 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .bottom-price .price-main {
-	float:left;
+	float:right;
 	margin-top:10px;
 	width:200px;
-	margin-left:60px;
+	margin-right:60px;
+}
+
+.bottom-price .btn {
+    float:right;
+    margin-right: 10px;
 }
 
 .bottom-price .price-main span {

@@ -3,6 +3,8 @@ Yii::app()->clientScript->registerPackage('catalog');
 // todo: название категории получаем через костыль - исправить
 $catName = $currentCetegory->rel_description->categories_name;
 $this->setTitle($catName);
+
+
 ?>
 <script>
     $(document).ready(function () {
@@ -222,6 +224,7 @@ $this->setTitle($catName);
         <?php foreach ($dataProvider->getData() as $product) { ?>
             <div class="goods-var">
                 <!--                <img src="/images/kofta.png" alt=""/>-->
+
                 <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
                      alt=""/>
                 <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
@@ -242,7 +245,13 @@ $this->setTitle($catName);
                         <option>2</option>
                         <option>3</option>
                     </select>
-                    <button class="in-basket">в корзину</button>
+<!--                    <button class="in-basket">в корзину</button>-->
+                    <?php if(!Yii::app()->user->isGuest): ?>
+                        <button class="in-basket addToCart">в корзину</button>
+                    <?php else: ?>
+                        <button class="in-basket" onclick="$('#aLog').trigger('click');">в корзину</button>
+                    <?php endif; ?>
+                    <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
                 </div>
             </div>
         <?php } ?>

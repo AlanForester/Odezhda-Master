@@ -2,7 +2,7 @@ var RetailCatalog = {};
 offset=0;
 
 $(document).ready(function(){
-    RetailCatalog.tooltip();
+//    RetailCatalog.tooltip();
     RetailCatalog.sliders();
 //  RetailCatalog.accordion();
 //  Accordion в каталоге

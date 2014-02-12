@@ -121,6 +121,31 @@ jQuery(document).ready(function($){
     });
 ";
 
+$basket = "
+jQuery(document).ready(function($){
+    //корзинка
+    $('.addToCart').live('click',function(){
+        $.ajax({
+                  type: 'POST',
+                  url: '".$this->createUrl('/cart/add')."',
+                  data: ({
+                        product_id : $(this).next('.product_id').val(),
+                        params : '',
+                  }),
+                  success: function(data) {
+                        if (data){
+                              $('#panel').html(data);
+                              $('.bottom-panel').effect('highlight', {}, 2000);
+                        }
+
+                  }
+              });
+    });
+});
+";
+
+Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
+
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -128,8 +153,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
+    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
+
 </head>
 <body>
 <div class="header-wrapper">
@@ -251,6 +277,11 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><span>Контакты</span></li>
                     <li><span>8 (926) 021-7720</span></li>
                     <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                    <li><span>&nbsp;</span></li>
+                    <li><span>&nbsp;</span></li>
+                    <li><span>&nbsp;</span></li>
+                    <li>&copy; 2014 lapana.ru</li>
+
                 </ul>
             </div>
             <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
