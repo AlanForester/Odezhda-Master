@@ -15,7 +15,7 @@ $this->pageButton = [
      * @var UsersController $this
      */
     $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm',
+        'backend.widgets.ActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
             //'enableAjaxValidation' => true,
@@ -36,7 +36,13 @@ $this->pageButton = [
         echo $form->textFieldControlGroup($item, 'lastname', []);
         echo $form->passwordFieldControlGroup($item, 'password', ['autocomplete' => 'off', 'value' => '']);
         echo $form->dropDownListControlGroup($item, 'gender', $genders, []);
-        echo $form->dateFieldControlGroup($item, 'dob', []);
+        //echo $form->dateFieldControlGroup($item, 'dob', []);
+        echo $form->dateTimePickerControlGroup($item, 'dob', [
+            'pluginOptions' => [
+                'format' => 'yyyy-MM-dd hh:mm:ss',
+                'language' => 'ru'
+            ],
+        ]);
         echo $form->textFieldControlGroup($item, 'email', []);
         echo $form->textFieldControlGroup($item, 'phone', []);
         echo $form->textFieldControlGroup($item, 'fax', []);
@@ -45,10 +51,10 @@ $this->pageButton = [
         //echo $form->dropDownListControlGroup($item, 'pay_address_id', $addresses, []);
         //echo $form->dropDownListControlGroup($item, 'newsletter', $newsletters, []);
         //echo $form->textFieldControlGroup($item, 'selected_template', []);
-        echo $form->dropDownListControlGroup($item, 'guest_flag', $guestFlags, []);
+        echo $form->dropDownListControlGroup($item, 'guest_flag', $yesNo, []);
         //echo $form->dropDownListControlGroup($item, 'status', $statuses, []);
-        echo $form->textFieldControlGroup($item, 'payment_allowed', []);
-        echo $form->textFieldControlGroup($item, 'shipment_allowed', []);
+        echo $form->dropDownListControlGroup($item, 'payment_allowed', $yesNo, []);
+        echo $form->dropDownListControlGroup($item, 'shipment_allowed', $yesNo, []);
         echo $form->textFieldControlGroup($item, 'referer', []);
         //echo $form->dropDownListControlGroup($item, 'default_provider', $providers, []);
         echo $form->textAreaControlGroup($item, 'comment', []);

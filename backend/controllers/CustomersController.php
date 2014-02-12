@@ -25,7 +25,7 @@ class CustomersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        $this->model = new Customer('update');
+        //$this->model = new Customer('update');
 
         $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
@@ -58,7 +58,7 @@ class CustomersController extends BackendController {
     public function actionEdit($id, $scenario = 'edit') {
         $groups = [];
         $genders = [''=>'Не указан', 'm'=>'Мужчина', 'f'=>'Женщина'];
-        $guestFlags = ['0'=>'Нет', '1'=>'Да'];
+        $yesNo = ['1'=>'Да', '0'=>'Нет'];
 
         foreach (CustomerGroups::model()->findAll() as $group) {
             $groups[$group['id']] = $group['name'];
@@ -86,7 +86,7 @@ class CustomersController extends BackendController {
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary(CustomersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' клиента')
                 );
-                
+
             } else {
                 //$item->getPrimaryKey() и $item->id не срабатывают, видимо, из-за манипуляций LegacyAR.
                 //пришлось ставить Yii::app()->db->lastInsertID
@@ -120,7 +120,7 @@ class CustomersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'groups', 'genders', 'guestFlags'));
+        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo'));
     }
 
     public function actionDelete($id) {

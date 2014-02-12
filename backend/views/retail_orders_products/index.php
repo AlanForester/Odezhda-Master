@@ -40,7 +40,7 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => $submenu,
+        //'submenu' => $submenu,
 
         'filter' => $filter,
 

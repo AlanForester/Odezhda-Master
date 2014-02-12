@@ -179,6 +179,10 @@
 	height:auto;
 }
 
+.info-user > div {
+    padding-top: 10px;
+}
+
 .info-user .box1 {
 	float:left;
 	width:365px;
@@ -255,6 +259,22 @@
 	float:left;
 	width:100%;
 	height:auto;
+}
+
+.main-tabs .tab-menu ul {
+    margin-top: 5px;
+    border-radius: 0;
+    border-left:1px solid #ccc;
+    border-right:1px solid #ccc;
+    border-top:1px solid #ccc;
+}
+
+.ui-tabs .ui-tabs-nav li:hover{
+    background:#B1B0B0;
+    /*border:0;*/
+
+    border-color: #9C9B9B;
+    border-radius: 0;
 }
 
 .left-skidka {
@@ -340,6 +360,7 @@
     position: relative;
     padding: 0px;
     z-index: 1;
+    border:0;
 }
 
 .ui-tabs .ui-tabs-nav li {
@@ -347,7 +368,12 @@
 	width:270px;
 	height:70px;
 	margin:0px;
-	background:url(../images/tabs-bg1.jpg);
+	background: #E8E8E8;
+
+    border:0;
+    border-bottom: 1px solid #ccc;
+    /*outline-style: none;*/
+/*url(../images/tabs-bg1.jpg);*/
 }
 
 .ui-tabs .ui-tabs-nav li a {
@@ -355,12 +381,13 @@
 	width:270px;
 	height:70px;
 	padding:0px;
-	line-height:80px;
+	line-height:70px;
 	font-size:24px;
 	font-weight:bold;
 	color:#414042;
 	text-indent:15px;
 	text-transform:uppercase;
+    outline-style: none;
 }
 
 #tabs {
@@ -376,18 +403,21 @@
 	margin:0px;
 	padding:0px;
 	position:relative;
+    border:0;
 }
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-active a{
 	margin:0px;
 	padding:0px;
-	background:url(../images/active-tab.png) no-repeat;
+	background:url(../images/active-tab.png) -14px 50% no-repeat;
 	position:absolute;
 	width:390px;
 	height:70px;
-	left:-2px;
-	top:-1px;
+    line-height: 70px;
+	left: 0px;
+	top: 0px;
     outline: none;
+    color:#fff;
 }
 
 .ui-tabs .ui-tabs-panel {

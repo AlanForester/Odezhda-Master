@@ -1,3 +1,4 @@
+<?php $count=isset($count) ? $count :0;?>
 <div class="bottom-panel">
     <div class="bottom-panel-wrapper">
         <div class="see-goods">
@@ -6,7 +7,7 @@
                class="lightbox" id="openCart">
                 В корзине
             </a>
-            <h5>5</h5>
+            <h5><?php echo(CartModel::countProducts());?></h5>
         </div>
     </div>
 </div>

@@ -55,6 +55,22 @@ class RetailOrdersHelper extends CommonHelper {
         return ($id ? $model->findByPk($id) : new $model($scenario));
     }
 
+    public static function getRetailOrderWithInfo($id = null, $scenario = null) {
+        $model = self::getModel();
+        if($id)
+            return $model->with('customer')->findByPk($id);
+        else {
+            $result = new $model($scenario);
+            $result->customer = new AddressBook($scenario);
+            return $result;
+        }
+    }
+
+    public static function getPostData() {
+        $name = get_class(self::getModel());
+        return $_POST[$name];
+    }
+
     public static function getModel() {
         return RetailOrders::model();
     }

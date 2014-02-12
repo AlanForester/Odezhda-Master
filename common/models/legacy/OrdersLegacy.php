@@ -1,4 +1,5 @@
 <?php
+//более не используется, см. Orders
 
 /**
  * This is the model class for table "{{orders}}".

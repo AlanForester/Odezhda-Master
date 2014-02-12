@@ -5,6 +5,31 @@ $this->breadcrumbs=array(
     $product->categories_name => $this->createUrl('catalog/list', ['id' => $product->categories_id]),
     $product->name.' ('.$product->model.')',
 );
+
+$cart = "
+jQuery(document).ready(function($){
+    //корзинка
+    $('#addToCart').live('click',function(){
+        $.ajax({
+                  type: 'POST',
+                  url: '".$this->createUrl('/cart/add')."',
+                  data: ({
+                        product_id : '".$product->id."',
+                        params : '',
+                  }),
+                  success: function(data) {
+                        if (data){
+                              $('#panel').html(data);
+                              $('.bottom-panel').effect('highlight', {}, 2000);
+                        }
+
+                  }
+              });
+    });
+});
+";
+
+Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_END);
 ?>
 
 <div class="wrapper">
@@ -142,7 +167,7 @@ $this->breadcrumbs=array(
         </div>
         <div class="btn">
             <?php if(!Yii::app()->user->isGuest): ?>
-                <button class="basket">В КОРЗИНУ</button>
+                <button class="basket" id="addToCart">В КОРЗИНУ</button>
             <?php else: ?>
                 <button class="basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
             <?php endif; ?>

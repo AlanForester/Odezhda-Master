@@ -1,5 +1,5 @@
 <?php
-
+//более не используется, см. Orders
 class OrdersLayer extends OrdersLegacy {
     /**
      * @var array (поле БД => требуемое поле для модели)
@@ -143,7 +143,7 @@ class OrdersLayer extends OrdersLegacy {
         return $rules;
     }
 
-    protected function afterFind()
+    /*protected function afterFind()
     {
         parent::afterFind();
         //$this->setAttributes(self::fieldMapConvert($this->getAttributes(),true));
@@ -152,7 +152,7 @@ class OrdersLayer extends OrdersLegacy {
     protected function afterSave() {
         parent::afterSave();
 
-    }
+    }*/
 
     public function fieldMap() {
         return self::$field_map;
