@@ -277,6 +277,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><span>Контакты</span></li>
                     <li><span>8 (926) 021-7720</span></li>
                     <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                    <li><a href="mailto:info@lapana.ru">info@lapana.ru</a></li>
                     <li><span>&nbsp;</span></li>
                     <li><span>&nbsp;</span></li>
                     <li><span>&nbsp;</span></li>

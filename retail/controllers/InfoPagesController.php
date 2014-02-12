@@ -16,7 +16,7 @@ class InfoPagesController extends RetailController {
         $pageModel = new InfoPagesModel();
         $infoPage = $pageModel->getInfoPage($id);
         if ($infoPage){
-            $this->setTitle($infoPage->name);
+            $this->pageTitle = $infoPage->name;
             $this->render("/site/info", compact('infoPage'));
         }else{
             // todo: ошибка
