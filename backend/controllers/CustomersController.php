@@ -36,7 +36,9 @@ class CustomersController extends BackendController {
             $groups[$group['id'].'&'] = $group['name'];
         }
 
-        $this->render('index', compact('criteria','gridDataProvider', 'groups'));
+        $view = Yii::app()->request->getQuery('from') == 'bootbox' ? 'bootbox' : 'index';
+
+        $this->render($view, compact('criteria','gridDataProvider', 'groups'));
     }
 
     public function actionUpdate() {

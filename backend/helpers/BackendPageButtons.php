@@ -178,7 +178,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/customers/index/') . '?ajax=whgrid",
+                                    url: "' . Yii::app()->createUrl('/customers/index/') . '?ajax=whgrid&from=bootbox",
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         bootbox.dialog({
@@ -202,7 +202,7 @@ class BackendPageButtons {
                                                 }
                                             }
                                         });
-                                        jQuery("#whgrid").yiiGridView({
+                                        /*jQuery("#whgrid").yiiGridView({
                                             "ajaxUpdate":["whgrid"],
                                             "ajaxVar":"ajax",
                                             "pagerClass":"pagination",
@@ -219,7 +219,7 @@ class BackendPageButtons {
                                                 (function(){
                                                     $("#whgrid").trigger("ajaxUpdateTree");
                                                 }).apply(this, arguments);
-                                        }});
+                                        }});*/
                                     }
                                 });
                             })()'
