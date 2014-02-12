@@ -123,6 +123,8 @@ button:hover {
 .logo {
     float: left;
     margin-top: 15px;
+    width: 260px;
+    text-align:center;
 }
 
 .contact {
@@ -1086,7 +1088,7 @@ button:hover {
     width: 250px;
     height: auto;
     margin-left: 15px;
-    border-right:1px solid #ccc;
+    border-right:1px solid #E8E8E8;
     height:175px;
 }
 
@@ -1501,12 +1503,12 @@ button:hover {
 /*не родное*/
 #login {
     margin: 7px auto;
-    height: 250px;
+    height: 275px;
 }
 
 #registration {
     margin: 7px auto;
-    height: 400px;
+    height: 330px;
 
 }
 

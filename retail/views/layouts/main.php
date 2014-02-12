@@ -27,6 +27,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                                $.lightbox().shake();
                               $('#reg_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -80,6 +81,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                                $.lightbox().shake();
                               $('#login_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -169,9 +171,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
+                           data-options='{"width":900, "height":355, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
-                           data-options='{"width":900, "height":480, "modal": true}'
+                           data-options='{"width":900, "height":410, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
