@@ -25,7 +25,7 @@ if($item->id) {
      * @var RetailOrdersController $this
      */
     $form = $this->beginWidget(
-        'backend.widgets.OMActiveForm',
+        'backend.widgets.ActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
             //'enableAjaxValidation' => true,
@@ -48,19 +48,12 @@ if($item->id) {
                 //echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
                 //echo $form->dropDownListControlGroup($item, 'default_provider', $defaultProviders, []);
                 echo $form->numberFieldControlGroup($item, 'booker_orders_id', []);
-                echo $form->datePickerControlGroup($item, 'act_date', []);
-                /*$datePicker = $this->widget(
-                    'yiiwheels.widgets.datepicker.WhDatePicker',
-                    [
-                        'model' => $item,
-                        'attribute' => 'act_date',
-                        'pluginOptions' => [
-                            'format' => 'yyyy-mm-dd',
-                            'language' => 'ru'
-                        ]
-                    ]
-                );
-                echo TbHtml::customActiveControlGroup($datePicker, $item, 'act_date', []);*/
+                echo $form->datePickerControlGroup($item, 'act_date', [
+                    'pluginOptions' => [
+                        'format' => 'yyyy-mm-dd',
+                        'language' => 'ru'
+                    ],
+                ]);
                 echo $form->numberFieldControlGroup($item, 'act_number', []);
                 //echo $form->dropDownListControlGroup($item, 'seller_id', $sellers, []);
 

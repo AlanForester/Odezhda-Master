@@ -45,10 +45,10 @@ $this->pageButton = [
         //echo $form->dropDownListControlGroup($item, 'pay_address_id', $addresses, []);
         //echo $form->dropDownListControlGroup($item, 'newsletter', $newsletters, []);
         //echo $form->textFieldControlGroup($item, 'selected_template', []);
-        echo $form->dropDownListControlGroup($item, 'guest_flag', $guestFlags, []);
+        echo $form->dropDownListControlGroup($item, 'guest_flag', $yesNo, []);
         //echo $form->dropDownListControlGroup($item, 'status', $statuses, []);
-        echo $form->textFieldControlGroup($item, 'payment_allowed', []);
-        echo $form->textFieldControlGroup($item, 'shipment_allowed', []);
+        echo $form->dropDownListControlGroup($item, 'payment_allowed', $yesNo, []);
+        echo $form->dropDownListControlGroup($item, 'shipment_allowed', $yesNo, []);
         echo $form->textFieldControlGroup($item, 'referer', []);
         //echo $form->dropDownListControlGroup($item, 'default_provider', $providers, []);
         echo $form->textAreaControlGroup($item, 'comment', []);
