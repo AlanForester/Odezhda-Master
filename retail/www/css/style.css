@@ -640,6 +640,7 @@ button:hover {
     width: 100%;
     height: 110px;
     padding-bottom: 10px;
+    padding-top: 10px;
     border-bottom: solid 1px #ccc;
 }
 
@@ -650,6 +651,7 @@ button:hover {
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one img {
     float: left;
     width: 75px;
+    height: 110px;
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .name-goods {

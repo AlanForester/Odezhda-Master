@@ -6,9 +6,9 @@
         </p>
         <button class="clear"><b>X</b>Очистить корзину</button>
         <div class="cart-goods">
-            <?php foreach($products as $product) { ?>
+            <?php $sum=0; foreach($products as $product) { ?>
             <div class="goods-one">
-                <img src="/images/kofta.png" alt="" />
+                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToMidImg($product->image) ?>" alt="<?=$product->name ?>">
                 <a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?> (<?= $product->model ?>)</a>
                 <button class="del-goods">X</button>
                 <button class="changeCount right" id="plus">+</button>
@@ -16,11 +16,11 @@
                 <button class="changeCount left" id="minus">-</button>
                 <span class="price"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
             </div>
-            <?php } ?>
+            <?php $sum+=$product->price*$product_ids[$product->id]; } ?>
         </div>
         <div class="next-sale">
             <p>Стоимость заказа</p>
-            <span>5 050 руб.</span>
+            <span><?=FormatHelper::markup($sum) ?></span>
             <button>Оформить заказ</button>
         </div>
     </div>
