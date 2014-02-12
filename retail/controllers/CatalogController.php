@@ -30,6 +30,24 @@ class CatalogController extends RetailController {
        $this->render('/site/product', compact('product','dataProvider'));
     }
 
+    public function actionPreview($id = null) {
+        $catalogModel = new CatalogModel();
+        if (!$product = $catalogModel->productById($id)) {
+            $this->error('Товар не найден', 404);
+        }
+
+        //выборак случайных товаров
+        $model = new CatalogModel();
+        $criteria['limit']=15;
+        $criteria['order'] = '[[count_orders]] DESC';
+        if($product->categories_id!=0){$criteria['category'] = $product->categories_id;}
+        //getTopList
+        $dataProvider = $model->getDataProvider($criteria);
+
+//        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
+        $this->renderPartial('/site/preview', compact('product','dataProvider'));
+    }
+
     public function actionList($id=0) {
         //Формирование критерии
         $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
