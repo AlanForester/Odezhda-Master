@@ -123,6 +123,8 @@ button:hover {
 .logo {
     float: left;
     margin-top: 15px;
+    width: 260px;
+    text-align:center;
 }
 
 .contact {
