@@ -5,6 +5,7 @@
  */
 class CartModel {
     private $tableName='retail_customer_cart';
+    private static  $tblName='retail_customer_cart';
     /**
      * Метод для добавления или обновелния товара в корзине
      * @param $data - массив данных для добавления
@@ -78,12 +79,16 @@ class CartModel {
      * @param $id идентификатор пользователя
      * @return int
      */
-    public function countProducts($id){
-        $count = Yii::app()->db->createCommand()
-            ->select('SUM(count) AS c')
-            ->from($this->tableName)
-            ->where('customer_id=:id', array(':id'=>$id))
-            ->queryRow();
-        return (!empty($count['c']) ? $count['c'] : 0);
+    public static function countProducts(){
+        $customer_id=Yii::app()->user->id;
+        $count=0;
+        if (!empty($customer_id)){
+            $count = Yii::app()->db->createCommand()
+                ->select('SUM(count) AS c')
+                ->from(self::$tblName)
+                ->where('customer_id=:id', array(':id'=>$customer_id))
+                ->queryRow()['c'];
+        }
+        return $count;
     }
 }

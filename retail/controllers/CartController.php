@@ -21,8 +21,8 @@ class CartController extends RetailController {
             $data['added'] = new CDbExpression('NOW()');
             $model = new CartModel();
             if($model->addToCart($data)){
-                $count = $model->countProducts($data['customer_id']);
-                $this->renderPartial("/layouts/parts/bottomPanel", compact('count'));
+//                $count = $model->countProducts($data['customer_id']);
+                $this->renderPartial("/layouts/parts/bottomPanel");
                 Yii::app()->end();
             }
             $error='Ошибка добавления товара в корзину';
