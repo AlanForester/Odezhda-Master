@@ -149,4 +149,22 @@ class BackendPageButtons {
             );
     }
 
+    public static function edit($url = '', $option = [], $title = 'Редактировать') {
+        return
+            TbHtml::linkButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_USER,
+                        'buttonType' => 'link',
+                        'url' => Yii::app()
+                            ->createUrl($url),
+                        //'type'=>TbHtml::BUTTON_TYPE_LINK,
+                        'class' => 'btn-small',
+                        'color' => TbHtml::BUTTON_COLOR_INFO,
+                    ], $option
+                )
+            );
+    }
+
 }

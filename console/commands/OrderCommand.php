@@ -32,7 +32,7 @@ class OrderCommand extends CConsoleCommand
      */
     public function init()
     {
-        $this->retailOrdersModel = RetailOrdersLayer::model();
+        $this->retailOrdersModel = RetailOrders::model();
     }
 
     /**
@@ -87,7 +87,7 @@ EOD;
     public function actionCompose()
     {
         if($this->countRetailOrders()) {
-            $this->ordersModel = new OrdersLayer();
+            $this->ordersModel = new Orders();
             $this->ordersModel->setAttributes(
                 [
                     'ur_or_fiz' => 'f',
@@ -158,6 +158,7 @@ EOD;
             );
             $success = $this->ordersModel->save();
             $orderId = $this->ordersModel->getPrimaryKey();
+            //$orderId = Yii::app()->db->lastInsertID;
 
             if($success) {
                 $updatedCount = $this->retailOrdersModel->updateAll(

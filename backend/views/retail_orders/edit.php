@@ -87,6 +87,24 @@ $this->pageButton = [
                             ],
                         ]
                     );
+                    echo BackendPageButtons::edit("/customers/edit/".$item->customer->id);
+                    /*echo TbHtml::dropDownList(
+                        'customer_id',
+                        $item->customer->id,
+                        array_merge([''=>'- Клиенты -'],$customers),
+                        [
+                            'onChange' => 'js: (function(){
+                                $.fn.yiiGridView.update(
+                                    "whgrid",
+                                    {
+                                        data:{
+                                            customer_id:$("#customer_id").val()
+                                        }
+                                    }
+                                )
+                            })()'
+                        ]
+                    );*/
 
                 } else {
                     echo $form->dropDownListControlGroup($item, 'customers_id', $customers, []);
