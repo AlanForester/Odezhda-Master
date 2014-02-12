@@ -15,7 +15,7 @@ class ShopProductsHelper {
         $params = [];
 
 
-        if($data['category']!=0){
+        if(!empty($data['category'])){
             $categories = Yii::app()->db->createCommand()
                 ->select('categories_id,parent_id')
                 ->from('categories')

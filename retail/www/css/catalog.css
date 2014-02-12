@@ -524,6 +524,9 @@
     margin-top: 10px;
     margin-left: 15px;
     width: 110px;
+    position: absolute;
+    left: 0px;
+    bottom: 55px;
 }
 
 .goods-var h5 {

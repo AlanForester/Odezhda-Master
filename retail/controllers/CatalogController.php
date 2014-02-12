@@ -28,7 +28,7 @@ class CatalogController extends RetailController {
         $dataProvider = $model->getDataProvider($criteria);
 
 
-        $this->render('/site/product', compact('product','dataProvider'));
+       $this->render('/site/product', compact('product','dataProvider'));
     }
 
     public function actionList($id=0) {
