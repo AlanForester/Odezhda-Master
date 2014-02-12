@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Модель управления таблицей пользователей сайта retail.
+ * Модель управления таблицей адресной книгой.
  */
-class Customer extends LegacyActiveRecord {
+class AddressBook extends LegacyActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -76,6 +76,32 @@ class Customer extends LegacyActiveRecord {
             'state' => Yii::t('labels', 'Регион'),
             'country_id' => Yii::t('labels', 'Страна'),
             //'zone_id' => Yii::t('labels', '?'),
+        ];
+    }
+
+    public function relations() {
+        return [
+            //'default_address' => [self::BELONGS_TO, 'Customer', 'default_address_id', 'together' => true],
+            //'delivery_address' => [self::BELONGS_TO, 'Customer', 'delivery_address_id', 'together' => true],
+            //'pay_address' => [self::BELONGS_TO, 'Customer', 'pay_address_id', 'together' => true],
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            'withRelated' => array(
+                'class' => 'common.extensions.behaviors.WithRelatedBehavior',
+            ),
+        ];
+    }
+
+    public function defaultScope() {
+        return [
+            'with' => [
+                //'default_address',
+                //'delivery_address',
+                //'pay_address',
+            ]
         ];
     }
 

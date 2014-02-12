@@ -25,18 +25,18 @@ class RetailOrdersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        $this->model = new RetailOrdersLayer('update');
+        //$this->model = new RetailOrders('update');
 
-        $gridDataProvider = $this->model->getDataProvider($criteria);
+        $gridDataProvider = RetailOrdersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
         $statuses = $deliveryPoints = [];
 
-        foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
+        foreach (RetailOrdersStatuses::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
 
-        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
+        foreach (DeliveryPoints::model()->findAll() as $deliveryPoint) {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }
 
@@ -59,7 +59,12 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
+        $customers = $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
+
+        /*$customersModel = new Customer();
+        foreach ($customersModel->findAll() as $customer) {
+            $customers[$customer['id']] = $customer['firstname'].' '.$customer['lastname'].' ('.$customer['email'].')';
+        }*/
 
         foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
@@ -98,15 +103,15 @@ class RetailOrdersController extends BackendController {
         $currencies = ['RUR'=>'RUR'];
 
 
-        $model = new RetailOrdersLayer($scenario);
-        if (!$item = $model->getRetailOrder($id, $scenario)){
+        //$model = new RetailOrdersLayer($scenario);
+        if (!$item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
         }
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes($model->getPostData(),false);
+            $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
 
@@ -114,7 +119,7 @@ class RetailOrdersController extends BackendController {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
+                    CHtml::errorSummary(RetailOrdersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
             } else {
                 // выкидываем сообщение
@@ -132,7 +137,7 @@ class RetailOrdersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'statuses', 'paymentMethods', 'currencies'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies'));
     }
 
     public function actionDelete($id) {

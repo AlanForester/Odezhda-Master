@@ -8,7 +8,7 @@ $this->pageButton = [
     BackendPageButtons::cancel("/retail_orders/index")
 ];
 
-if($item->id) {
+/*if($item->id) {
     $this->widget(
         'backend.widgets.SubMenu',
         [
@@ -16,7 +16,7 @@ if($item->id) {
             'submenu' => BackendSubMenu::retailOrder($item->id),
         ]
     );
-}
+}*/
 ?>
 <div class="span10">
     <?php
@@ -38,7 +38,7 @@ if($item->id) {
     );
     ?>
     <div class="span12">
-        <div class="span6">
+        <div class="span7">
             <fieldset>
                 <legend>Основные параметры заказа</legend>
                 <?php
@@ -65,11 +65,36 @@ if($item->id) {
             </fieldset>
         </div>
 
-        <div class="span6">
+        <div class="span5">
             <fieldset>
                 <legend>Покупатель</legend>
+
                 <?php
-                echo $form->textFieldControlGroup($item, 'customers_name', []);
+                if($item->customer) {
+                    $this->widget(
+                        'yiiwheels.widgets.detail.WhDetailView',
+                        [
+                            'data' => $item->customer,
+                            'attributes' => [
+                                ['name' => 'id'],
+                                ['name' => 'firstname'],
+                                ['name' => 'middlename'],
+                                ['name' => 'lastname'],
+                                ['name' => 'gender'],
+                                ['name' => 'dob'],
+                                ['name' => 'email'],
+                                ['name' => 'phone'],
+                            ],
+                        ]
+                    );
+
+                } else {
+                    echo $form->dropDownListControlGroup($item, 'customers_id', $customers, []);
+                }
+                ?>
+
+                <?php
+                /*echo $form->textFieldControlGroup($item, 'customers_name', []);
                 //echo $form->textFieldControlGroup($item, 'customers_company', []);
                 echo $form->textFieldControlGroup($item, 'customers_street_address', []);
                 //echo $form->textFieldControlGroup($item, 'customers_suburb', []);
@@ -80,7 +105,7 @@ if($item->id) {
                 //echo $form->dropDownListControlGroup($item, 'customers_country_id', $countries, []);
                 echo $form->textFieldControlGroup($item, 'customers_country', []);
                 echo $form->textFieldControlGroup($item, 'customers_telephone', []);
-                echo $form->emailFieldControlGroup($item, 'customers_email_address', []);
+                echo $form->emailFieldControlGroup($item, 'customers_email_address', []);*/
                 ?>
             </fieldset>
         </div>

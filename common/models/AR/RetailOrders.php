@@ -54,6 +54,7 @@ class RetailOrders extends LegacyActiveRecord {
         return [
             'id' => Yii::t('labels', 'ID'),
             'orders_id' => Yii::t('labels', 'Оптовый заказ'),
+            'customers_id' => Yii::t('labels', 'Покупатель'),
             'delivery_points_id' => Yii::t('labels', 'Точка доставки'),
             'retail_orders_statuses_id' => Yii::t('labels', 'Статус'),
             'customers_name' => Yii::t('labels', 'Имя'),
@@ -96,6 +97,28 @@ class RetailOrders extends LegacyActiveRecord {
             'seller_id' => Yii::t('labels', 'Продавец'),
             'customers_fax' => Yii::t('labels', 'Факс'),
             //'orders_discont_comment' => Yii::t('labels', '?'),
+        ];
+    }
+
+    public function relations() {
+        return [
+            'customer' => [self::BELONGS_TO, 'Customer', 'customers_id', 'together' => true],
+        ];
+    }
+
+    public function behaviors() {
+        return [
+            'withRelated' => array(
+                'class' => 'common.extensions.behaviors.WithRelatedBehavior',
+            ),
+        ];
+    }
+
+    public function defaultScope() {
+        return [
+            'with' => [
+                'customer',
+            ]
         ];
     }
 

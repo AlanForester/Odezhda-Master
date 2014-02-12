@@ -25,7 +25,7 @@ class CustomersController extends BackendController {
             'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
-        $this->model = new Customer('update');
+        //$this->model = new Customer('update');
 
         $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
