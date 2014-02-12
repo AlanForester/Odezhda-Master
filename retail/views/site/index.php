@@ -210,7 +210,7 @@ Yii::app()->clientScript->registerPackage('index');
         <h2>новинки</h2>
 
         <h3>каждый день</h3>
-        <a href="/catalog/list/">смотреть</a>
+        <a href="/catalog/list/?sort=date">смотреть</a>
     </div>
 </div>
 
