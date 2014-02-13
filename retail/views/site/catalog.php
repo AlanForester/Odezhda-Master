@@ -29,16 +29,16 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
         range: true,
         min: 0,
         max: 17000,
-        values: [ <?=Yii::app()->request->getQuery('min_price')?:0?>, <?=Yii::app()->request->getQuery('max_price')?:7000?> ],
+        values: [ <?=Yii::app()->request->getQuery('min_price')?:$limitPrice['min_price']?>, <?=Yii::app()->request->getQuery('max_price')?:$limitPrice['max_price']?> ],
         slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $( "#amount" ).val( ui.values[ 0 ] + "р. - " + ui.values[ 1 ] +" р." );
             $('#min_price').val(ui.values[ 0 ]);
             $('#max_price').val(ui.values[ 1 ]);
         }
     });
 
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+        "р. - " + $( "#slider-range" ).slider( "values", 1 ) +"р." );
 
     });
 
@@ -93,8 +93,8 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
         <div class="price">
             <p>
                 <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-                <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?>'>
-                <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?>'>
+                <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?:$limitPrice['min_price']?>'>
+                <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?:$limitPrice['min_price']?>'>
             </p>
 
             <div id="slider-range"></div>

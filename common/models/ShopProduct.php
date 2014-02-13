@@ -14,6 +14,9 @@
  */
 class ShopProduct extends LegacyActiveRecord {
 
+    public $min_price;
+    public $max_price;
+
     //    public $primaryKey = 'id';
 
     public function __get($name) {
