@@ -7,7 +7,7 @@
                class="lightbox" id="openCart">
                 В корзине
             </a>
-            <h5><?php echo($count);?></h5>
+            <h5><?php echo(CartModel::countProducts());?></h5>
         </div>
     </div>
 </div>

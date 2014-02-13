@@ -11,8 +11,8 @@ $this->breadcrumbs=array(
 <!--    </div>-->
 
 <!--    <div class="karta-wrap" style="padding: 15px 20px;line-height: 20px;">-->
-    <div class="karta-wrap"">
-            <h1 style="text-align: center"><?php echo $infoPage->name ?></h1>
+    <div class="karta-wrap">
+            <h1><?php echo $infoPage->name ?></h1>
             <?php echo $infoPage->description ?>
     </div>
 </div>

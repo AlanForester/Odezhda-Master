@@ -5,6 +5,7 @@
  */
 class CartModel {
     private $tableName='retail_customer_cart';
+    private static  $tblName='retail_customer_cart';
     /**
      * Метод для добавления или обновелния товара в корзине
      * @param $data - массив данных для добавления
@@ -42,19 +43,29 @@ class CartModel {
     }
 
     /**
-     * Если у пользователя есть в корзине товар, то увеличиваем поле count на 1
+     * Если у пользователя есть в корзине товар, то изменяем поле count на 1
      * @param $customer_id пользователь
      * @param $product_id товар
+     * @param $change как изменять(увеличивать или уменьшать)
+     * по-умолчанию - увеличиваем
      */
-    public function updateProduct($customer_id, $product_id){
+    public function updateProduct($customer_id, $product_id, $change='plus'){
         $count= Yii::app()->db->createCommand()
             ->select('count')
             ->from($this->tableName)
             ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
             ->queryRow()
             ['count'];
+        switch ($change) {
+            case 'plus':
+                $count++;
+                break;
+            case 'minus':
+                $count--;
+                break;
+        }
         return Yii::app()->db->createCommand()->update($this->tableName, array(
-            'count'=> ++$count,
+            'count'=> $count,
         ), 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
     }
 
@@ -75,15 +86,77 @@ class CartModel {
 
     /**
      * Метод для нахождения количества товаров в корзине текущего пользователя
-     * @param $id идентификатор пользователя
      * @return int
      */
-    public function countProducts($id){
-        $count = Yii::app()->db->createCommand()
-            ->select('SUM(count) AS c')
+    public static function countProducts(){
+        $customer_id=Yii::app()->user->id;
+//        $count=0;
+        if (!empty($customer_id)){
+            $count = Yii::app()->db->createCommand()
+                ->select('SUM(count) AS c')
+                ->from(self::$tblName)
+                ->where('customer_id=:id', array(':id'=>$customer_id))
+                ->queryRow()['c'];
+        }
+        return (isset($count) ? $count : 0);
+    }
+
+    /**
+     * Метод для нахождения количества единиц одного товаров в корзине текущего пользователя
+     * @param $product_id идентификатор товара
+     * @return int
+     */
+    public function countItemsOfProduct($product_id){
+        $customer_id=Yii::app()->user->id;
+//        $count=0;
+        if (!empty($customer_id)){
+            $count = Yii::app()->db->createCommand()
+                ->select('count AS c')
+                ->from($this->tableName)
+                ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+                ->queryRow()['c'];
+        }
+        return $count;
+    }
+
+    /**
+     * Метод нахождения товаров в корзине пользователя
+     * если в корзине есть товары возвращает ассоциативный массив id_товара => количество
+     * если в корзине товаров нет - false
+     * @param $customer_id
+     * @return bool
+     */
+    public function getUserProducts($customer_id){
+        $product_ids = Yii::app()->db->createCommand()
+            ->select('product_id, count')
             ->from($this->tableName)
-            ->where('customer_id=:id', array(':id'=>$id))
-            ->queryRow();
-        return (!empty($count['c']) ? $count['c'] : 0);
+            ->where('customer_id=:id', array(':id'=>$customer_id))
+            ->queryAll();
+        if(!empty($product_ids)){
+            foreach($product_ids as $val){
+                $ids[$val['product_id']]=$val['count'];
+            }
+            return $ids;
+        }
+        return false;
+    }
+
+    /**
+     * Метод для удаления одного товара из корзины
+     * @param $customer_id
+     * @param $product_id
+     */
+    public function deleteProduct($customer_id, $product_id){
+        return Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+    }
+
+    /**
+     * Метод для удаления всех товаров из корзины
+     * @param $customer_id
+     */
+    public function deleteAll($customer_id){
+        return Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
     }
 }

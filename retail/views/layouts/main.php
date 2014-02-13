@@ -27,6 +27,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                              $.lightbox().shake();
                               $('#reg_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -80,6 +81,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
+                              $.lightbox().shake();
                               $('#login_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -105,19 +107,122 @@ jQuery(document).ready(function($){
     });
 
     //корзинка
-    $('#plus').live('click',function(){
-        var i=$('#count').text();
-        if (i<100){
-            $('#count').text(++i);
+    //увеличение количества товара в корзине
+    $('.plus').live('click',function(){
+       var counter=$(this);
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'plus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.next('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
         }
+     });
+
+    //уменьшение количества товара в корзине
+    $('.minus').live('click',function(){
+       var counter=$(this);
+       if ($(this).prev('.count').text()>1){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'minus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.prev('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+       }
     });
-    $('#minus').live('click',function(){
-        var i=$('#count').text();
-        if (i>1){
-            $('#count').text(--i);
+
+    //удаление товара из корзины
+    $('.del-goods').live('click',function(){
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/deleteProduct')."',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                          }),
+                          success: function(data) {
+                                if ($(data)[0]){
+                                      $('.jquery-lightbox-html').html($(data)[0]);
+                                }
+                                if ($(data)[1]){
+                                      $('#panel').html($(data));
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
         }
-    });
+     });
+
+     //удаление всех товаров из корзины
+    $('.clear').live('click',function(){
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/deleteAll')."',
+                          success: function(data) {
+                                if ($(data)[0]){
+                                      $('.jquery-lightbox-html').html($(data)[0]);
+                                }
+                                if ($(data)[1]){
+                                      $('#panel').html($(data));
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+        }
+     });
 ";
+
+$basket = "
+jQuery(document).ready(function($){
+    //корзинка
+    $('.addToCart').live('click',function(){
+        $.ajax({
+                  type: 'POST',
+                  url: '".$this->createUrl('/cart/add')."',
+                  data: ({
+                        product_id : $(this).next('.product_id').val(),
+                        params : '',
+                  }),
+                  success: function(data) {
+                        if (data){
+                              $('#panel').html(data);
+                              $('.bottom-panel').effect('highlight', {}, 2000);
+                        }
+
+                  }
+              });
+    });
+});
+";
+
+Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
 
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
 ?>
@@ -126,8 +231,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
+    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
+
 </head>
 <body>
 <div class="header-wrapper">
@@ -144,9 +250,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":330, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
+                           data-options='{"width":900, "height":355, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
-                           data-options='{"width":900, "height":480, "modal": true}'
+                           data-options='{"width":900, "height":410, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
@@ -247,8 +353,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <div class ="nav-bar nav-last">
                 <ul>
                     <li><span>Контакты</span></li>
-                    <li><span>8 (926) 021-7720</span></li>
-                    <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                    <li><span>тел.: 222-962, +7 (4932) 343-588</span></li>
+                    <li><span>email: <a href="mailto:info@lapana.ru">info@lapana.ru</a></span></li>
+                    <li><span>г. Иваново, Проспект Ленина д.98</span></li>
+                    <li><a href="/map/">Карта проезда</a></li>
+                    <li><span>&nbsp;</span></li>
+
+                    <li>&copy; 2014 lapana.ru</li>
+
                 </ul>
             </div>
             <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->

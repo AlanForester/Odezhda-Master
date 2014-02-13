@@ -2,18 +2,26 @@
 
 class CatalogController extends RetailController {
 
-
-    //    public $catalogData;
-    //    public $product;
-    //    public $list;
-    //    public $count;
-    //    public $categories = [];
-    //    public $currentCategory = [];
-    //    public $currentCategoryNumber;
-    //
-    //    public $DataProvider;
-
     public function actionProduct($id = null) {
+        $catalogModel = new CatalogModel();
+        if (!$product = $catalogModel->productById($id)) {
+            $this->error('Товар не найден', 404);
+        }
+        //выборак случайных товаров
+        $model = new CatalogModel();
+        $criteria['limit'] = 15;
+        $criteria['order'] = '[[count_orders]] DESC';
+        if ($product->categories_id != 0) {
+            $criteria['category'] = $product->categories_id;
+        }
+        //getTopList
+        $dataProvider = $model->getDataProvider($criteria);
+        $this->pageTitle = $product->name.' ('.$product->model.')';
+
+        $this->render('/site/product', compact('product', 'dataProvider'));
+    }
+
+    public function actionPreview($id = null) {
         $catalogModel = new CatalogModel();
         if (!$product = $catalogModel->productById($id)) {
             $this->error('Товар не найден', 404);
@@ -21,35 +29,53 @@ class CatalogController extends RetailController {
 
         //выборак случайных товаров
         $model = new CatalogModel();
-        $criteria['limit']=15;
+        $criteria['limit'] = 15;
         $criteria['order'] = '[[count_orders]] DESC';
-        if($product->categories_id!=0){$criteria['category'] = $product->categories_id;}
+        if ($product->categories_id != 0) {
+            $criteria['category'] = $product->categories_id;
+        }
         //getTopList
         $dataProvider = $model->getDataProvider($criteria);
 
-
-       $this->render('/site/product', compact('product','dataProvider'));
+        //        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
+        $this->renderPartial('/site/preview', compact('product', 'dataProvider'));
     }
 
-    public function actionList($id=0) {
+    public function actionList($id = 0) {
+        $filter = [
+            'color'=>Yii::app()->request->getQuery('color',[]),
+            'size'=>Yii::app()->request->getQuery('size',[]),
+        ];
+
         //Формирование критерии
         $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
-        if($id!=0){$criteria['category'] = $id;}
+        $criteria['min_price'] = (Yii::app()->request->getQuery('min_price') ? : false);
+        $criteria['max_price'] = (Yii::app()->request->getQuery('max_price') ? : false);
 
-        switch(Yii::app()->request->getQuery('sort')){
-            case 'hits': $criteria['order'] = '[[count_orders]] DESC';
-            break;
-            case 'date':$criteria['order'] = '[[date_add]] DESC';
-            break;
-            case 'price_down': $criteria['order'] =  '[[price]] ASC';
-            break;
-                case 'price_up': $criteria['order'] =  '[[price]] DESC';
-            break;
+        if ($id != 0) {
+            $criteria['category'] = $id;
+        }
+
+        switch (Yii::app()->request->getQuery('order')) {
+//            case true:
+//                $url['sort'] = Yii::app()->request->getQuery('sort');
+            case 'hits':
+                $criteria['order'] = '[[count_orders]] DESC';
+                break;
+            case 'date':
+                $criteria['order'] = '[[date_add]] DESC';
+                break;
+            case 'price_down':
+                $criteria['order'] = '[[price]] ASC';
+                break;
+            case 'price_up':
+                $criteria['order'] = '[[price]] DESC';
+                break;
         }
 
         $model = new CatalogModel();
         // текущая категория
-        if (!$currentCetegory = $model->getCategory($id)){
+        if (!$currentCetegory = $model->getCategory($id)) {
             $this->error('Категория не найдена', 404);
         }
 
@@ -65,9 +91,15 @@ class CatalogController extends RetailController {
 
         // пагинация
         $pages = new CPagination($totalCount);
-        $pages->pageSize=12;
+        $pages->pageSize = 12;
         $dataProvider->setPagination($pages);
 
-        $this->render('/site/catalog', compact('categories','currentCetegory','pages', 'dataProvider','totalCount'));
+        // todo: название категории получаем через костыль - исправить
+        $catName = $currentCetegory->rel_description->categories_name?:'Весь каталог';
+
+        // титл страницы
+        $this->pageTitle = $catName;
+
+        $this->render('/site/catalog', compact('filter','categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
     }
 }

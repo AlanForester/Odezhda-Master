@@ -48,7 +48,7 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($model, 'id', ['value' => $model->id]);
             echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название *']);
-            echo $form->textFieldControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
+            echo $form->textAreaControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
             echo $form->textFieldControlGroup($model, 'model', ['value' => $model->model, 'label' => 'Код товара']);
             echo '<br/>';
             echo $form->textFieldControlGroup($model, 'quantity', ['value' => $model->quantity, 'label' => 'Количество']);

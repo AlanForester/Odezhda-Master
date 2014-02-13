@@ -14,6 +14,12 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
+        if(!empty($data['min_price']) && !empty($data['max_price'])){
+            $condition[]='t.[[price]]>=:min_price';
+            $condition[]='t.[[price]]<=:max_price';
+            $params[':min_price'] = $data['min_price'];
+            $params[':max_price'] = $data['max_price'];
+        }
 
         if(!empty($data['category'])){
             $categories = Yii::app()->db->createCommand()
@@ -36,7 +42,7 @@ class ShopProductsHelper {
                 $condition_params[] ='categories_description.categories_id ='.$category['categories_id'];
             }
            // $condition_params[] ='categories_description.categories_id ='.$data['category'];
-            $condition[]= join(' OR ',$condition_params);
+            $condition[]= '( '.join(' OR ',$condition_params).' )';
         }
 /*     //Можно получать parent_id и понему делать запрос без перебора:
         if($data['category']!=0){

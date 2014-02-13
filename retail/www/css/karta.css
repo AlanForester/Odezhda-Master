@@ -40,7 +40,14 @@
 	float:left;
 	height:auto;
 	background:#fff;
-	padding-bottom:15px;
+	/*padding:15px;*/
+}
+
+.karta-wrap h1{
+    text-align: center;
+    color: #000000;
+    /*float: left;*/
+    font-size: 30px;
 }
 
 .karta-wrap .karta-box {
@@ -151,31 +158,30 @@ ul#thumblist li a.zoomThumbActive {
 	opacity:1;
 }
 
-.tovar-info .razmer {
+.razmer {
 	float:left;
 	width:360px;
 	margin-top:15px;
 }
 
-.tovar-info .razmer .title {
+.razmer .title {
 	float:left;
 	width:100%;
 }
-
-.tovar-info .razmer span {
+.razmer span {
 	text-transform:uppercase;
 	float:left;
 	width:100px;
 }
 
-.tovar-info .razmer a {
+.razmer a {
 	text-align:right;
 	margin-top:15px;
 	float:left;
 	margin-left:20px;
 }
 
-.tovar-info .razmer .razmer-one {
+.razmer .razmer-one {
 	color:#000;
 	font-size:21px;
 	float:left;
@@ -185,11 +191,11 @@ ul#thumblist li a.zoomThumbActive {
 	padding:3px;
 }
 
-.tovar-info .razmer .razmer-one:first-child {
+.razmer .razmer-one:first-child {
 	margin-left:0px;
 }
 
-.tovar-info .razmer .razmer-one-del {
+.razmer .razmer-one-del {
 	color:#ccc;
 	font-size:21px;
 	float:left;
@@ -223,14 +229,14 @@ ul#thumblist li a.zoomThumbActive {
 .tovar-info ul.tabs li a {
 	text-decoration: none;
 	color: #929496;
-	display: block;
-	font-size: 18px;
+	display: bck;
+	font-size: 1x;
 	outline: none;
 	text-align:left;
 }
 
 .tovar-info ul.tabs li:last-child {
-	margin-left:40px;
+	/*margin-left:40px;*/
 }
 
 .tovar-info ul.tabs li a:hover {
@@ -277,12 +283,34 @@ ul#thumblist li a.zoomThumbActive {
 	border:solid 1px #ccc;
 	width:100%;
 }
+.prev_basket{
+    font-size: 24px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+    width: 220px;
+    height: 50px;
+    background: #E1156F;
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    line-height: 30px;
+    margin-top: 10px;
+    display:block;
+    float: none;
+}
 
 .bottom-price .price-main {
-	float:left;
+	float:right;
 	margin-top:10px;
 	width:200px;
-	margin-left:60px;
+	margin-right:60px;
+}
+
+.bottom-price .btn {
+    float:right;
+    margin-right: 10px;
 }
 
 .bottom-price .price-main span {
@@ -503,12 +531,38 @@ ul.yiiPager a {
 }
 
 
+.prev_img{
+    width:350px;
+    border-radius:10px;
+}
 
+.prev_price{
+    font-size: 36px;
+    color: #E1156F;
+    font-weight: bold;
+    display: block;
+    width:100% !important;
+    float: none !important;
+}
 
+.prev_razmer{
+    float: left;
+    width: 360px;
+    margin-top: 15px;
+    margin-left: 12px;
+}
 
+.prev_info{
+    font-size: 14px;
+    color: #231F20;
+    line-height: 30px;
+    display:block;
+    clear:both;
+}
 
-
-
+.prev_title span{
+    margin-top:15px;
+}
 
 
 

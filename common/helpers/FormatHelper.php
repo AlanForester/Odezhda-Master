@@ -27,4 +27,12 @@ class FormatHelper {
         return round($price*(1+Yii::app()->params['markup']/100)).' р.';
     }
 
+    /**
+     * Определение общей(умножение на количество товаров) цены с наценкой, округление до целых
+     * @param $price
+     */
+    public static function markupSummary($price, $count) {
+        return round($count*$price*(1+Yii::app()->params['markup']/100)).' р.';
+    }
+
 }

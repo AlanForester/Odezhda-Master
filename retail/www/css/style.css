@@ -123,6 +123,9 @@ button:hover {
 .logo {
     float: left;
     margin-top: 15px;
+    width: 260px;
+    text-align:center;
+    outline-style: none;
 }
 
 .contact {
@@ -640,6 +643,7 @@ button:hover {
     width: 100%;
     height: 110px;
     padding-bottom: 10px;
+    padding-top: 10px;
     border-bottom: solid 1px #ccc;
 }
 
@@ -650,6 +654,7 @@ button:hover {
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one img {
     float: left;
     width: 75px;
+    height: 110px;
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .name-goods {
@@ -660,8 +665,8 @@ button:hover {
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .price {
-    float: left;
-    margin-left: 100px;
+    float: right;
+    margin-right: 50px;
     font-size: 26px;
     color: #9C9B9B;
     line-height: 110px;
@@ -672,9 +677,10 @@ button:hover {
     /*background-color: #D0D0CF;*/
     border: 1px solid #ccc;
     /*border-radius: 7px;*/
-    float: left;
+    float: right;
     line-height: 25px;
     margin-left: 7px;
+    margin-right: 7px;
     margin-top: 42px;
     text-align: center;
     width: 40px;
@@ -1083,7 +1089,7 @@ button:hover {
     width: 250px;
     height: auto;
     margin-left: 15px;
-    border-right:1px solid #ccc;
+    border-right:1px solid #E8E8E8;
     height:175px;
 }
 
@@ -1096,7 +1102,7 @@ button:hover {
 }
 
 .footer .nav-bar ul li a {
-    float: left;
+    /*float: left;*/
     font-size: 14px;
     /*margin-top: 10px;*/
     line-height: 25px;
@@ -1498,12 +1504,12 @@ button:hover {
 /*не родное*/
 #login {
     margin: 7px auto;
-    height: 250px;
+    height: 275px;
 }
 
 #registration {
     margin: 7px auto;
-    height: 400px;
+    height: 330px;
 
 }
 
@@ -1563,7 +1569,7 @@ button.desable {
 .changeCount {
     background: none repeat scroll 0 0 #ECECEB;
     border: 1px solid #ccc;
-    float: left;
+    float: right;
     font-size: 14px;
     margin-top: 42px;
     padding: 3px 5px;
@@ -1575,13 +1581,13 @@ button.desable {
 .changeCount.left {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
-    margin-left: 50px;
+    /*margin-left: 50px;*/
 }
 
 .changeCount.right {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-    margin-left: 7px;
+    margin-right: 20px;
 }
 
 
