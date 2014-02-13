@@ -196,7 +196,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 <!--                <button class="m-dotted fixed-info quick-view" id="#example5"-->
 <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
 <!--                </button>-->
-                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=900&lightbox[height]=450' class='lightbox quick-view'>Быстрый просмотр</a>
+                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>' data-options='{"width":900, "height":450, "modal": true}' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
                     <select id="filter_size">
                         <option>Размер</option>
