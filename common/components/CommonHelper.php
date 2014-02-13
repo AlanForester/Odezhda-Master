@@ -79,7 +79,7 @@ class CommonHelper {
         $rowId = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);
 
-        if ($rowId && $field && $value) {
+        if ($rowId && $field && $value !== false) {
             if (!$model = $modelClass::model()->findByPk($rowId)) {
                 return false;
             }

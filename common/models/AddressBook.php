@@ -81,9 +81,9 @@ class AddressBook extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            //'default_address' => [self::BELONGS_TO, 'Customer', 'default_address_id', 'together' => true],
-            //'delivery_address' => [self::BELONGS_TO, 'Customer', 'delivery_address_id', 'together' => true],
-            //'pay_address' => [self::BELONGS_TO, 'Customer', 'pay_address_id', 'together' => true],
+            //'default_person' => [self::HAS_ONE, 'Customer', 'default_address_id', 'together' => true],
+            //'delivery_person' => [self::HAS_ONE, 'Customer', 'delivery_address_id', 'together' => true],
+            //'pay_person' => [self::HAS_ONE, 'Customer', 'pay_address_id', 'together' => true],
         ];
     }
 
@@ -98,9 +98,9 @@ class AddressBook extends LegacyActiveRecord {
     public function defaultScope() {
         return [
             'with' => [
-                //'default_address',
-                //'delivery_address',
-                //'pay_address',
+                //'default_person',
+                //'delivery_person',
+                //'pay_person',
             ]
         ];
     }

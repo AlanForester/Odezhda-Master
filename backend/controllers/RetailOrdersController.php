@@ -47,6 +47,7 @@ class RetailOrdersController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
+        //var_dump($params);exit;
 
         //$this->model = new RetailOrders('update');
         if (!RetailOrdersHelper::updateField($params)) {

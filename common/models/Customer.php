@@ -198,8 +198,8 @@ class Customer extends LegacyActiveRecord {
         return [
             'customers_info' => [self::HAS_ONE, 'CustomerInfo', 'customers_info_id', 'together' => true],
             'default_address' => [self::BELONGS_TO, 'AddressBook', 'customers_default_address_id', 'together' => true],
-            //'delivery_address' => [self::HAS_ONE, 'AddressBook', 'delivery_address_id', 'together' => true],
-            //'pay_address' => [self::HAS_ONE, 'AddressBook', 'pay_address_id', 'together' => true],
+            //'delivery_address' => [self::BELONGS_TO, 'AddressBook', 'delivery_address_id', 'together' => true],
+            //'pay_address' => [self::BELONGS_TO, 'AddressBook', 'pay_address_id', 'together' => true],
         ];
     }
 

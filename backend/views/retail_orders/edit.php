@@ -18,7 +18,7 @@ $this->pageButton = [
     );
 }*/
 ?>
-<div class="span10">
+<div class="span12">
     <?php
     /**
      * @var TbActiveForm $form
@@ -64,7 +64,7 @@ $this->pageButton = [
 
 
 
-                //todo временная форма, аякс-обновление - переделать
+                //todo переделать: временная форма, аякс-обновление
                 //поля, необходимые для отображения в index
                 echo $form->hiddenField($item, 'customers_name', []);
                 echo $form->hiddenField($item, 'customers_city', []);
@@ -123,8 +123,8 @@ $this->pageButton = [
                     ?>
 
                 </span>
-                <?php
-                echo BackendPageButtons::selectCustomer();
+                <?=
+                BackendPageButtons::selectCustomer();
                 ?>
 
                 <?php
@@ -189,6 +189,110 @@ $this->pageButton = [
         </div>
     </div>
     -->
+    <div class="row-fluid">
+        <div class="span12">
+                <?php
+                $this->widget(
+                    'backend.widgets.Grid',
+                    [
+                        //'submenu' => $submenu,
+
+                        /*'filter' => $filter,
+
+                        'order' => [
+                            'active' => $criteria['order']['field'],
+                            'fields' => [
+                                'products_name' => 'Название',
+                                'products_model' => 'Код',
+                                'products_quantity' => 'Количество',
+                                'products_price' => 'Цена',
+                            ],
+                            'direct' => $criteria['order']['direction']
+                        ],*/
+
+                        'pageSize' => $criteria['page_size'],
+
+                        //'textSearch' => $criteria['text_search'],
+
+                        'dataProvider' => $gridDataProvider,
+
+                        'gridColumns' => [
+                            [
+                                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                'type' => 'text',
+                                'name' => 'name',
+                                'headerHtmlOptions' => [
+                                ],
+                                'htmlOptions' => [
+                                ],
+                                'editable' => [
+                                    'placement' => 'right',
+                                    'emptytext' => 'не задано',
+                                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                ]
+                            ],
+                            [
+                                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                'type' => 'text',
+                                'name' => 'model',
+                                'headerHtmlOptions' => [
+                                ],
+                                'htmlOptions' => [
+                                ],
+                                'editable' => [
+                                    'placement' => 'right',
+                                    'emptytext' => 'не задано',
+                                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                ]
+                            ],
+                            [
+                                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                'type' => 'text',
+                                'name' => 'quantity',
+                                'headerHtmlOptions' => [
+                                ],
+                                'htmlOptions' => [
+                                ],
+                                'editable' => [
+                                    'placement' => 'right',
+                                    'emptytext' => 'не задано',
+                                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                ]
+                            ],
+                            [
+                                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                'type' => 'text',
+                                'name' => 'price',
+                                'headerHtmlOptions' => [
+                                ],
+                                'htmlOptions' => [
+                                ],
+                                'editable' => [
+                                    'placement' => 'right',
+                                    'emptytext' => 'не задано',
+                                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                ]
+                            ],
+                            /*[
+                                'name' => 'id',
+                                'headerHtmlOptions' => [
+                                ],
+                                'htmlOptions' => [
+                                ],
+                            ],*/
+
+                        ],
+
+                        'gridButtonsUrl' => [
+                            'edit' => 'Yii::app()->createUrl("/retail_orders_products/edit", array("id"=>$data["id"]))',
+                            'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
+                        ]
+                    ]
+                );
+                ?>
+        </div>
+    </div>
+    <br><br>
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
