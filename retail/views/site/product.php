@@ -112,13 +112,14 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     </ul>
                     <div class="tab_container">
                         <div id="tab1" class="tab_content">
-                            <p>СОСТАВ: шелк 100%;</p>
+<!--                            <p>СОСТАВ: шелк 100%;</p>-->
+                            <?=$product->description ?>
                        <?php if($product->manufacturers_id){ ?>
                             <p>СТРАНА ПРОИЗВОДСТВА:   <?=$product->manufacturers ?> </p>
                             <?php } ?>
-                            <p>ОБХВАТ ГРУДИ: 110см</p>
-
-                            <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>
+<!--                            <p>ОБХВАТ ГРУДИ: 110см</p>-->
+<!---->
+<!--                            <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>-->
                         </div>
 <!--                        <div id="tab2" class="tab_content">-->
 <!--                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom-->
@@ -157,14 +158,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06" data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/" data-title="<?= Yii::app()->params['title'] ?>" data-description=""></div>
         </div>
 
-        <div class="price-main">
-                	<span>
-                    	  <?=FormatHelper::markup($product['price']) ?>
-                    </span>
-            <?php if ($product['old_price'] != 0) { ?>
-                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
-            <?php } ?>
-        </div>
         <div class="btn">
             <?php if(!Yii::app()->user->isGuest): ?>
                 <button class="basket" id="addToCart">В КОРЗИНУ</button>
@@ -173,6 +166,16 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <?php endif; ?>
             <!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
         </div>
+
+        <div class="price-main">
+                	<span>
+                    	  <?=FormatHelper::markup($product['price']) ?>
+                    </span>
+            <?php if ($product['old_price'] != 0) { ?>
+                 <small><?=FormatHelper::markup($product['old_price']) ?></small>
+            <?php } ?>
+        </div>
+
     </div>
 
     <p class="title-cart-like-tovar">Популярные товары</p>

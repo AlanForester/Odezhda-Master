@@ -186,8 +186,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
+    <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
+
 </head>
 <body>
 <div class="header-wrapper">
@@ -307,8 +308,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <div class ="nav-bar nav-last">
                 <ul>
                     <li><span>Контакты</span></li>
-                    <li><span>8 (926) 021-7720</span></li>
-                    <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                    <li><span>тел.: 222-962, +7 (4932) 343-588</span></li>
+                    <li><span>email: <a href="mailto:info@lapana.ru">info@lapana.ru</a></span></li>
+                    <li><span>г. Иваново, Проспект Ленина д.98</span></li>
+                    <li><a href="/map/">Карта проезда</a></li>
+                    <li><span>&nbsp;</span></li>
+
+                    <li>&copy; 2014 lapana.ru</li>
+
                 </ul>
             </div>
             <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
