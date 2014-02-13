@@ -27,8 +27,8 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
     $( "#slider-range" ).slider({
         range: true,
-        min: 0,
-        max: 17000,
+        min: <?=$limitPrice['min_price']?>,
+        max: <?=$limitPrice['max_price']?>,
         values: [ <?=Yii::app()->request->getQuery('min_price')?:$limitPrice['min_price']?>, <?=Yii::app()->request->getQuery('max_price')?:$limitPrice['max_price']?> ],
         slide: function( event, ui ) {
             $( "#amount" ).val( ui.values[ 0 ] + "р. - " + ui.values[ 1 ] +" р." );

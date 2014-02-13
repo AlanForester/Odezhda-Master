@@ -15,7 +15,8 @@ class CatalogController extends RetailController {
             $criteria['category'] = $product->categories_id;
         }
         //getTopList
-        $dataProvider = $model->getDataProvider($criteria);
+        $data = $model->getDataProvider($criteria);
+        $dataProvider=$data['dataProvider'];
         $this->pageTitle = $product->name.' ('.$product->model.')';
 
         $this->render('/site/product', compact('product', 'dataProvider'));
@@ -35,7 +36,8 @@ class CatalogController extends RetailController {
             $criteria['category'] = $product->categories_id;
         }
         //getTopList
-        $dataProvider = $model->getDataProvider($criteria);
+        $data = $model->getDataProvider($criteria);
+        $dataProvider=$data['dataProvider'];
 
         //        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
         $this->renderPartial('/site/preview', compact('product', 'dataProvider'));
