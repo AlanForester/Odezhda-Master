@@ -15,8 +15,8 @@ class ShopProductsHelper {
         $params = [];
 
         if(!empty($data['min_price']) && !empty($data['max_price'])){
-            $condition[]='t.[[price]]>:min_price';
-            $condition[]='t.[[price]]<:max_price';
+            $condition[]='t.[[price]]>=:min_price';
+            $condition[]='t.[[price]]<=:max_price';
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
