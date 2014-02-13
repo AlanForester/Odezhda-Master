@@ -57,66 +57,19 @@ $this->pageButton = [
                 ]);
                 echo $form->numberFieldControlGroup($item, 'act_number', []);
                 //echo $form->dropDownListControlGroup($item, 'seller_id', $sellers, []);
-
                 echo $form->dropDownListControlGroup($item, 'payment_method', $paymentMethods, []);
                 echo $form->dropDownListControlGroup($item, 'currency', $currencies, []);
                 echo $form->numberFieldControlGroup($item, 'currency_value', ['value' => $item->currency_value ? : '1.000000']);
-                ?>
 
-            </fieldset>
-        </div>
 
-        <div class="span5">
-            <fieldset>
-                <legend>Покупатель</legend>
 
-                <?php
-                if($item->customer && $item->customer->id) {
-                    $this->widget(
-                        'yiiwheels.widgets.detail.WhDetailView',
-                        [
-                            'data' => $item->customer,
-                            'attributes' => [
-                                ['name' => 'id'],
-                                ['name' => 'firstname'],
-                                //['name' => 'middlename'],
-                                ['name' => 'lastname'],
-                                //['name' => 'gender'],
-                                //['name' => 'dob'],
-                                ['name' => 'email'],
-                                ['name' => 'phone'],
-                            ],
-                        ]
-                    );
-                    echo BackendPageButtons::edit("/customers/edit/".$item->customer->id);
-                    /*echo TbHtml::dropDownList(
-                        'customer_id',
-                        $item->customer->id,
-                        array_merge([''=>'- Клиенты -'],$customers),
-                        [
-                            'onChange' => 'js: (function(){
-                                $.fn.yiiGridView.update(
-                                    "whgrid",
-                                    {
-                                        data:{
-                                            customer_id:$("#customer_id").val()
-                                        }
-                                    }
-                                )
-                            })()'
-                        ]
-                    );*/
 
-                }
-                echo ' '.BackendPageButtons::selectCustomer();
-                ?>
-
-                <?php
                 //todo временная форма, аякс-обновление - переделать
+                //поля, необходимые для отображения в index
                 echo $form->hiddenField($item, 'customers_name', []);
                 echo $form->hiddenField($item, 'customers_city', []);
                 echo $form->hiddenField($item, 'customers_telephone', []);
-
+                //поля not null
                 echo $form->hiddenField($item, 'customers_street_address', ['value'=>'1']);
                 echo $form->hiddenField($item, 'customers_postcode', ['value'=>'1']);
                 echo $form->hiddenField($item, 'customers_state', ['value'=>'1']);
@@ -138,6 +91,43 @@ $this->pageButton = [
                 echo $form->hiddenField($item, 'billing_country', ['value'=>'1']);
 
 
+                ?>
+
+            </fieldset>
+        </div>
+
+        <div class="span5">
+            <fieldset >
+                <legend>Покупатель</legend>
+                <span id="customer_info">
+                    <?php
+                    if($item->customer && $item->customer->id) {
+                        $this->widget(
+                            'yiiwheels.widgets.detail.WhDetailView',
+                            [
+                                'data' => $item->customer,
+                                'attributes' => [
+                                    ['name' => 'id'],
+                                    ['name' => 'firstname'],
+                                    //['name' => 'middlename'],
+                                    ['name' => 'lastname'],
+                                    //['name' => 'gender'],
+                                    //['name' => 'dob'],
+                                    ['name' => 'email'],
+                                    ['name' => 'phone'],
+                                ],
+                            ]
+                        );
+                        echo BackendPageButtons::edit("/customers/edit/".$item->customer->id);
+                    }
+                    ?>
+
+                </span>
+                <?php
+                echo BackendPageButtons::selectCustomer();
+                ?>
+
+                <?php
                 /*  //старая форма
                 echo $form->textFieldControlGroup($item, 'customers_name', []);
                 //echo $form->textFieldControlGroup($item, 'customers_company', []);
