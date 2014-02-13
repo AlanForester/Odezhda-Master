@@ -20,6 +20,11 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
+        if(!empty($data['text_search'])){
+            $condition[]='[[name]]  LIKE :text_search';
+            $condition[]='[[description]]  LIKE :text_search';
+            $params[':text_search'] = '%'.$data['text_search'].'%';
+        }
 
         if(!empty($data['category'])){
             $categories = Yii::app()->db->createCommand()

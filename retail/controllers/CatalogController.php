@@ -51,7 +51,7 @@ class CatalogController extends RetailController {
         $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
         $criteria['min_price'] = (Yii::app()->request->getQuery('min_price') ? : false);
         $criteria['max_price'] = (Yii::app()->request->getQuery('max_price') ? : false);
-
+        $criteria['text_search'] = (Yii::app()->request->getQuery('text_search') ? : false);
         if ($id != 0) {
             $criteria['category'] = $id;
         }
@@ -86,7 +86,7 @@ class CatalogController extends RetailController {
         // получение товаров в категории
         $dataProvider = $model->getDataProvider($criteria);
 
-        // общее кол-во доступных товаров
+        // общее кол-во доступнdх товаров
         $totalCount = $dataProvider->getTotalItemCount();
 
         // пагинация

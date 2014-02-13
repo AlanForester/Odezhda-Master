@@ -276,8 +276,10 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
         <a href="/" class="logo"><img src="/images/logo.png" alt=""/></a>
 
         <div class="search">
-            <input type="text"/>
-            <input type="submit" value=""/>
+            <form id='text-search' action='/catalog/list/' method='get'>
+                <input name='text_search' type="text" value='<?=(Yii::app()->request->getQuery('text_search') ? : '')?>'/>
+                <input type="submit" value=""/>
+            </form>
         </div>
 <!--                <div class="basket">-->
 <!--                    <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
