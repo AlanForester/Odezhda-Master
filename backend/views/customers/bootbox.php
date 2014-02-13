@@ -4,7 +4,7 @@ $this->widget(
     'backend.widgets.CompactGrid',
     [
 
-        'pageSize' => $criteria['page_size'],
+        'pageSize' => 10,   //$criteria['page_size'],
 
         'dataProvider' => $gridDataProvider,
 
@@ -48,7 +48,7 @@ $this->widget(
     ]
 );
 ?>
-<script>
+<!--<script>
     jQuery(function($) {
         //console.log(jQuery("#whgrid"));
         jQuery("#whgrid").yiiGridView({
@@ -70,4 +70,4 @@ $this->widget(
                 }).apply(this, arguments);
         }});
     });
-</script>
+</script>-->

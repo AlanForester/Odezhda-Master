@@ -182,8 +182,7 @@ class BackendPageButtons {
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         bootbox.dialog({
-                                            message: "<div>" + data +
-                                                "</div>",
+                                            message: data,
                                             title: "Выбор покупателя",
                                             buttons: {
                                                 success: {
@@ -202,24 +201,29 @@ class BackendPageButtons {
                                                 }
                                             }
                                         });
-                                        /*jQuery("#whgrid").yiiGridView({
-                                            "ajaxUpdate":["whgrid"],
-                                            "ajaxVar":"ajax",
-                                            "pagerClass":"pagination",
-                                            "loadingClass":"grid-view-loading",
-                                            "filterClass":"filters",
-                                            "tableClass":"table-bordered items table table-striped table-bordered",
-                                            "selectableRows":2,
-                                            "enableHistory":false,
-                                            "updateSelector":"{page}, {sort}",
-                                            "filterSelector":"{filter}",
-                                            "pageVar":"Customer_page",
-                                            "afterAjaxUpdate": function(id, data) {
-                                                $("#whgrid").trigger("ajaxUpdate.editable");
-                                                (function(){
-                                                    $("#whgrid").trigger("ajaxUpdateTree");
-                                                }).apply(this, arguments);
-                                        }});*/
+                                        //todo: сразу не срабатывает. возможно, потому, что whgrid в этот момент еще не отрисован.
+                                        //позже переделаю
+                                        setTimeout(function() {
+                                            console.log(jQuery("#whgrid"));
+                                            jQuery("#whgrid").yiiGridView({
+                                                "ajaxUpdate":["whgrid"],
+                                                "ajaxVar":"ajax",
+                                                "pagerClass":"pagination",
+                                                "loadingClass":"grid-view-loading",
+                                                "filterClass":"filters",
+                                                "tableClass":"table-bordered items table table-striped table-bordered",
+                                                "selectableRows":2,
+                                                "enableHistory":false,
+                                                "updateSelector":"{page}, {sort}",
+                                                "filterSelector":"{filter}",
+                                                "pageVar":"Customer_page",
+                                                "afterAjaxUpdate": function(id, data) {
+                                                    $("#whgrid").trigger("ajaxUpdate.editable");
+                                                    (function(){
+                                                        $("#whgrid").trigger("ajaxUpdateTree");
+                                                    }).apply(this, arguments);
+                                            }});
+                                        }, 1000);
                                     }
                                 });
                             })()'
