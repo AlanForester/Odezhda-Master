@@ -107,17 +107,50 @@ jQuery(document).ready(function($){
     });
 
     //корзинка
-    $('#plus').live('click',function(){
-        var i=$('#count').text();
-        if (i<100){
-            $('#count').text(++i);
+    $('.plus').live('click',function(){
+       var counter=$(this);
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'plus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.next('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
         }
-    });
-    $('#minus').live('click',function(){
-        var i=$('#count').text();
-        if (i>1){
-            $('#count').text(--i);
-        }
+     });
+
+    $('.minus').live('click',function(){
+       var counter=$(this);
+       if ($(this).prev('.count').text()>1){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'minus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.prev('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+       }
     });
 ";
 
