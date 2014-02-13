@@ -659,9 +659,11 @@ button:hover {
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .name-goods {
     float: left;
-    margin-left: 100px;
+    margin-left: 70px;
     font-size: 18px;
-    line-height: 110px;
+    /*line-height: 110px;*/
+    margin-top: 45px;
+    width: 300px;
 }
 
 .box-modal.modal-cart.modal-cart .cart-goods .goods-one .price {

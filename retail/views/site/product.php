@@ -159,12 +159,21 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
         </div>
 
         <div class="btn">
+<!--            --><?php //if(!Yii::app()->user->isGuest): ?>
+<!--                <a class="basket" id="addToCart">В КОРЗИНУ</a>-->
+<!--            --><?php //else: ?>
+<!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
+<!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
+<!--            --><?php //endif; ?>
+<!---->
+
             <?php if(!Yii::app()->user->isGuest): ?>
-                <button class="basket" id="addToCart">В КОРЗИНУ</button>
+                <a class="basket addToCart">В КОРЗИНУ</a>
             <?php else: ?>
-                <button class="basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
+                <a href="<?php echo $this->createUrl('site/login') ?>"
+                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>
             <?php endif; ?>
-            <!--            <button class="buy-lapiki">КУПИТЬ ЗА ЛАПИКИ<img src="/images/icon-btn-lapiki.png" alt=""></button>-->
+            <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
         </div>
 
         <div class="price-main">

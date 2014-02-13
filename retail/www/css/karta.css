@@ -283,22 +283,27 @@ ul#thumblist li a.zoomThumbActive {
 	border:solid 1px #ccc;
 	width:100%;
 }
-.prev_basket{
+.prev_basket, a.prev_basket{
     font-size: 24px;
     color: #fff;
     text-transform: uppercase;
     text-align: center;
-    border: none;
+    /*border: none;*/
+    border:solid 1px #fff;
     width: 220px;
     height: 50px;
     background: #E1156F;
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
-    line-height: 30px;
+    line-height: 50px;
     margin-top: 10px;
     display:block;
     float: none;
+    margin-left: 0;
+}
+a.prev_basket:hover{
+    cursor: pointer;
 }
 
 .bottom-price .price-main {
@@ -332,7 +337,7 @@ ul#thumblist li a.zoomThumbActive {
     display:block;
 }
 
-.bottom-price button.basket {
+.bottom-price button.basket, .bottom-price a.basket {
 	float:left;
 	font-size:24px;
 	color:#fff;
@@ -347,6 +352,13 @@ ul#thumblist li a.zoomThumbActive {
 	-webkit-border-radius:7px;
 	line-height:30px;
 	margin-top:10px;
+}
+.bottom-price a.basket {
+    line-height:50px !important;
+}
+
+.bottom-price a.basket:hover {
+    cursor: pointer;
 }
 
 .bottom-price button.buy-lapiki {

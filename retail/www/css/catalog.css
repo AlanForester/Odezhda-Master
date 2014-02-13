@@ -600,6 +600,12 @@
     position: absolute;
     bottom: 20px;
     right: 10px;
+    text-decoration: none;
+    line-height: 25px;
+}
+
+.goods-var a.in-basket:hover {
+    cursor: pointer;
 }
 
 .catalog-item .any-goods {

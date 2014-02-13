@@ -205,11 +205,12 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
                             <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
                          <?php }?>
                     </select>
-<!--                    <button class="in-basket">в корзину</button>-->
+
                     <?php if(!Yii::app()->user->isGuest): ?>
-                        <button class="in-basket addToCart">в корзину</button>
+                        <a class="in-basket addToCart">в корзину</a>
                     <?php else: ?>
-                        <button class="in-basket" onclick="$('#aLog').trigger('click');">в корзину</button>
+                        <a href="<?php echo $this->createUrl('site/login') ?>"
+                           data-options='{"width":900, "height":355, "modal": true}' class="in-basket lightbox">в корзину</a>
                     <?php endif; ?>
                     <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
                 </div>

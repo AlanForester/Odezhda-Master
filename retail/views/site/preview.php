@@ -35,10 +35,12 @@ $this->breadcrumbs=array(
            <span class='prev_price'>
               <?=FormatHelper::markup($product['price']) ?>
            </span>
+
            <?php if(!Yii::app()->user->isGuest): ?>
-               <button class="basket prev_basket addToCart">В КОРЗИНУ</button>
+               <a class="basket prev_basket addToCart">В КОРЗИНУ</a>
            <?php else: ?>
-               <button class="basket prev_basket" onclick="$('#aLog').trigger('click');">В КОРЗИНУ</button>
+               <a href="<?php echo $this->createUrl('site/login') ?>"
+                  data-options='{"width":900, "height":355, "modal": true}' class="basket prev_basket">В КОРЗИНУ</a>
            <?php endif; ?>
            <input type="hidden" class="product_id" value="<?=$product->id ?>"/>
        </div>
