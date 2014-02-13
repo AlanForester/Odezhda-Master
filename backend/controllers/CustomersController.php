@@ -22,7 +22,8 @@ class CustomersController extends BackendController {
                 'field' => $this->userStateParam('order_field'),
                 'direction' => $this->userStateParam('order_direct'),
             ],
-            'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+            'page_size' => Yii::app()->request->getQuery('from') == 'bootbox' ? 10 :
+                $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
         //$this->model = new Customer('update');
@@ -149,5 +150,13 @@ class CustomersController extends BackendController {
         }
 
         $this->actionIndex();
+    }
+
+    public function actionInfo($id) {
+        $model = CustomersHelper::getCustomerWithAddress($id);
+        $response['customer'] = $model;
+        $response['default_address'] = $model->default_address;
+        echo CJSON::encode($response);
+        Yii::app()->end();
     }
 }

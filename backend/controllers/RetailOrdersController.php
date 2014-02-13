@@ -48,9 +48,9 @@ class RetailOrdersController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $this->model = new RetailOrdersLayer('update');
-        if (!$this->model->updateField($params)) {
-            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных розничного заказа'));
+        //$this->model = new RetailOrders('update');
+        if (!RetailOrdersHelper::updateField($params)) {
+            $this->error(CHtml::errorSummary(RetailOrdersHelper::getModel(), 'Ошибка изменения данных розничного заказа'));
         }
     }
 
@@ -141,7 +141,7 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = RetailOrdersLayer::model()->findByPk($id);
+        $model = RetailOrders::model()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {

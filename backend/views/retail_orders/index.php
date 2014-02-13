@@ -74,32 +74,32 @@ $this->widget(
 
         'gridColumns' => [
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
+                /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',*/
                 'name' => 'customers_name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                 ],
-                'editable' => [
+                /*'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/retail_orders/update"),
-                ]
+                ]*/
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
+                /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',*/
                 'name' => 'customers_telephone',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                 ],
-                'editable' => [
+                /*'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/retail_orders/update"),
-                ]
+                ]*/
             ],
             /*[
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -116,18 +116,18 @@ $this->widget(
                 ]
             ],*/
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
+                /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',*/
                 'name' => 'customers_city',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                 ],
-                'editable' => [
+                /*'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/retail_orders/update"),
-                ]
+                ]*/
             ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',

@@ -43,6 +43,7 @@ $this->pageButton = [
                 <legend>Основные параметры заказа</legend>
                 <?php
                 echo $form->hiddenField($item, 'id', []);
+                echo $form->hiddenField($item, 'customers_id', []);
                 echo $form->dropDownListControlGroup($item, 'retail_orders_statuses_id', $statuses, []);
                 //echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
                 //echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
@@ -78,10 +79,10 @@ $this->pageButton = [
                             'attributes' => [
                                 ['name' => 'id'],
                                 ['name' => 'firstname'],
-                                ['name' => 'middlename'],
+                                //['name' => 'middlename'],
                                 ['name' => 'lastname'],
-                                ['name' => 'gender'],
-                                ['name' => 'dob'],
+                                //['name' => 'gender'],
+                                //['name' => 'dob'],
                                 ['name' => 'email'],
                                 ['name' => 'phone'],
                             ],
@@ -107,11 +108,15 @@ $this->pageButton = [
                     );*/
 
                 }
-                echo ' ';
-                echo BackendPageButtons::selectCustomer();
+                echo ' '.BackendPageButtons::selectCustomer();
                 ?>
 
                 <?php
+                //todo переделать
+                echo $form->hiddenField($item, 'customers_name', []);
+                echo $form->hiddenField($item, 'customers_city', []);
+                echo $form->hiddenField($item, 'customers_telephone', []);
+
                 /*echo $form->textFieldControlGroup($item, 'customers_name', []);
                 //echo $form->textFieldControlGroup($item, 'customers_company', []);
                 echo $form->textFieldControlGroup($item, 'customers_street_address', []);

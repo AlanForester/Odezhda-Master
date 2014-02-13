@@ -370,7 +370,7 @@ class CompactGrid extends CWidget {
                         'class' => 'grid-view dataTables_wrapper'
                     ],
 
-                    'selectableRows' => 2, // если 0 или 1 - чекбоксы перестают работать
+                    'selectableRows' => 1, // если 0 или 1 - чекбоксы перестают работать
 
                     'emptyText' => 'Нет данных для отображения',
 

@@ -185,13 +185,13 @@ class BackendPageButtons {
                                             message: data,
                                             title: "Выбор покупателя",
                                             buttons: {
-                                                success: {
+                                                /*success: {
                                                     label: "Выбрать",
                                                     className: "btn-small btn-success",
                                                     callback: function() {
 
                                                     }
-                                                },
+                                                },*/
                                                 cancel: {
                                                     label: "Отмена",
                                                     className: "btn-small btn-danger",

@@ -16,7 +16,7 @@ $this->widget(
             // фильтр по группам
             TbHtml::dropDownList(
                 'filter_groups',
-                !empty($criteria['filters']['group_id']) ? : null,
+                !empty($criteria['filters']['group_id']) ? $criteria['filters']['group_id'] : null,
                 array_merge([''=>'- По категории -'],$groups),
                 [
                     'onChange' => 'js: (function(){

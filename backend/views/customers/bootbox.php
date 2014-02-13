@@ -1,4 +1,5 @@
 <?php
+//todo откорректировать
 // таблица
 $this->widget(
     'backend.widgets.CompactGrid',
@@ -14,6 +15,30 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        //var event=event||window.event;
+                        var target=event.target||event.srcElement;
+                        var customerId = $(target).closest("tr").find("input[name=\'gridids[]\']").val();
+                        $("input[name=\'RetailOrders[customers_id]\']").val(customerId);
+                        $("table#yw2").hide();
+                        $.getJSON("' . Yii::app()->createUrl('/customers/info/') . '", {
+                            id: customerId
+                        }, function(json){
+                            $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
+                            $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
+                            $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                        });
+                        bootbox.hideAll();
+                        /*$.fn.yiiGridView.update(
+                            "whgrid",
+                            {
+                                data:{
+                                    "filters[group_id]":$("#filter_groups").val()
+                                }
+                            }
+                        )*/
+                    })()',
+                    //'class' => 'clickable-el',
                 ],
             ],
             [
@@ -21,6 +46,13 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        //var event=event||window.event;
+                        var target=event.target||event.srcElement;
+                        $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
+                        $("table#yw2").hide();
+                        bootbox.hideAll();
+                    })()',
                 ],
             ],
             [
@@ -28,6 +60,13 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        //var event=event||window.event;
+                        var target=event.target||event.srcElement;
+                        $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
+                        $("table#yw2").hide();
+                        bootbox.hideAll();
+                    })()',
                 ],
             ],
             [
@@ -35,6 +74,13 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        //var event=event||window.event;
+                        var target=event.target||event.srcElement;
+                        $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
+                        $("table#yw2").hide();
+                        bootbox.hideAll();
+                    })()',
                 ],
             ],
             [
@@ -42,6 +88,13 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        //var event=event||window.event;
+                        var target=event.target||event.srcElement;
+                        $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
+                        $("table#yw2").hide();
+                        bootbox.hideAll();
+                    })()',
                 ],
             ],
         ],

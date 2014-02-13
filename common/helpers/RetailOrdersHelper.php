@@ -2,7 +2,7 @@
 
 class RetailOrdersHelper extends CommonHelper {
 
-    public static function getDataProvider($data = null, $modelClass = 'RetailOrdersLayer') {
+    public static function getDataProvider($data = null, $modelClass = 'RetailOrders') {
 
         if(!empty($data['text_search']))
             $data['text_search']['columns'] = [
@@ -43,10 +43,11 @@ class RetailOrdersHelper extends CommonHelper {
             'orders_id IS NULL'
         ];
 
+        //$modelClass = RetailOrdersHelper::getRetailOrderWithInfo();
         return parent::getDataProvider($data,$modelClass);
     }
 
-    public static function updateField($data = [], $modelClass = 'RetailOrdersLayer') {
+    public static function updateField($data = [], $modelClass = 'RetailOrders') {
         return parent::updateField($data, $modelClass);
     }
 

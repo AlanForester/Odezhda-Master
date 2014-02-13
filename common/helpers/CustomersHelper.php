@@ -265,6 +265,17 @@ class CustomersHelper extends CommonHelper {
         }
     }
 
+    public static function getCustomerWithAddress($id = null, $scenario = null) {
+        $model = self::getModel();
+        if($id)
+            return $model->with('default_address')->findByPk($id);
+        else {
+            $result = new $model($scenario);
+            $result->default_address = new AddressBook($scenario);
+            return $result;
+        }
+    }
+
     public static function getPostData() {
         $name = get_class(self::getModel());
         return $_POST[$name];
