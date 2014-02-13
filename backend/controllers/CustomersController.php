@@ -104,7 +104,7 @@ class CustomersController extends BackendController {
                     // ошибка записи
                     Yii::app()->user->setFlash(
                         TbHtml::ALERT_COLOR_ERROR,
-                        CHtml::errorSummary(CustomersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' информации о клиенте')
+                        CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' информации о клиенте')
                     );
                 } else {
                     // выкидываем сообщение

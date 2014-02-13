@@ -119,7 +119,7 @@ class RetailOrdersController extends BackendController {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary(RetailOrdersHelper::getModel(), 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
+                    CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
             } else {
                 // выкидываем сообщение

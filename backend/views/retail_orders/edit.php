@@ -71,7 +71,7 @@ $this->pageButton = [
                 <legend>Покупатель</legend>
 
                 <?php
-                if($item->customer) {
+                if($item->customer->id) {
                     $this->widget(
                         'yiiwheels.widgets.detail.WhDetailView',
                         [
@@ -112,12 +112,34 @@ $this->pageButton = [
                 ?>
 
                 <?php
-                //todo переделать
+                //todo временная форма, аякс-обновление - переделать
                 echo $form->hiddenField($item, 'customers_name', []);
                 echo $form->hiddenField($item, 'customers_city', []);
                 echo $form->hiddenField($item, 'customers_telephone', []);
 
-                /*echo $form->textFieldControlGroup($item, 'customers_name', []);
+                echo $form->hiddenField($item, 'customers_street_address', ['value'=>'1']);
+                echo $form->hiddenField($item, 'customers_postcode', ['value'=>'1']);
+                echo $form->hiddenField($item, 'customers_state', ['value'=>'1']);
+                echo $form->hiddenField($item, 'customers_country', ['value'=>'1']);
+                echo $form->hiddenField($item, 'customers_email_address', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_name', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_middlename', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_lastname', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_street_address', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_city', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_postcode', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_state', ['value'=>'1']);
+                echo $form->hiddenField($item, 'delivery_country', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_name', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_street_address', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_city', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_postcode', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_state', ['value'=>'1']);
+                echo $form->hiddenField($item, 'billing_country', ['value'=>'1']);
+
+
+                /*  //старая форма
+                echo $form->textFieldControlGroup($item, 'customers_name', []);
                 //echo $form->textFieldControlGroup($item, 'customers_company', []);
                 echo $form->textFieldControlGroup($item, 'customers_street_address', []);
                 //echo $form->textFieldControlGroup($item, 'customers_suburb', []);
