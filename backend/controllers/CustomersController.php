@@ -22,7 +22,7 @@ class CustomersController extends BackendController {
                 'field' => $this->userStateParam('order_field'),
                 'direction' => $this->userStateParam('order_direct'),
             ],
-            'page_size' => Yii::app()->request->getQuery('from') == 'bootbox' ? 10 :
+            'page_size' => Yii::app()->request->getQuery('from') == 'bootbox' ? 5 :
                 $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
 
@@ -30,7 +30,7 @@ class CustomersController extends BackendController {
 
         $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
-
+        //echo '<pre>'.print_r($gridDataProvider,1);exit;
         $groups = [];
 
         foreach (CustomerGroups::model()->findAll() as $group) {

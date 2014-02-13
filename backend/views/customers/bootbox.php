@@ -27,6 +27,10 @@ $this->widget(
                             $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
                             $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
                             $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                            $("table#yw2").remove();
+                            var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
+                            console.log(button);
+                            $(button).before("<table id=\"yw2\" class=\"detail-view table table-striped table-condensed\"><tbody><tr class=\"odd\"><th>ID</th><td>"+customerId+"</td></tr><tr class=\"even\"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class=\"odd\"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class=\"even\"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class=\"odd\"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
                         });
                         bootbox.hideAll();
                         /*$.fn.yiiGridView.update(
@@ -51,6 +55,17 @@ $this->widget(
                         var target=event.target||event.srcElement;
                         $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
                         $("table#yw2").hide();
+                        $.getJSON("' . Yii::app()->createUrl('/customers/info/') . '", {
+                            id: customerId
+                        }, function(json){
+                            $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
+                            $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
+                            $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                            $("table#yw2").remove();
+                            var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
+                            console.log(button);
+                            $(button).before("<table id=\"yw2\" class=\"detail-view table table-striped table-condensed\"><tbody><tr class=\"odd\"><th>ID</th><td>"+customerId+"</td></tr><tr class=\"even\"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class=\"odd\"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class=\"even\"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class=\"odd\"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
+                        });
                         bootbox.hideAll();
                     })()',
                 ],
@@ -65,6 +80,17 @@ $this->widget(
                         var target=event.target||event.srcElement;
                         $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
                         $("table#yw2").hide();
+                        $.getJSON("' . Yii::app()->createUrl('/customers/info/') . '", {
+                            id: customerId
+                        }, function(json){
+                            $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
+                            $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
+                            $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                            $("table#yw2").remove();
+                            var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
+                            console.log(button);
+                            $(button).before("<table id=\"yw2\" class=\"detail-view table table-striped table-condensed\"><tbody><tr class=\"odd\"><th>ID</th><td>"+customerId+"</td></tr><tr class=\"even\"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class=\"odd\"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class=\"even\"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class=\"odd\"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
+                        });
                         bootbox.hideAll();
                     })()',
                 ],
@@ -79,6 +105,17 @@ $this->widget(
                         var target=event.target||event.srcElement;
                         $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
                         $("table#yw2").hide();
+                        $.getJSON("' . Yii::app()->createUrl('/customers/info/') . '", {
+                            id: customerId
+                        }, function(json){
+                            $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
+                            $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
+                            $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                            $("table#yw2").remove();
+                            var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
+                            console.log(button);
+                            $(button).before("<table id=\"yw2\" class=\"detail-view table table-striped table-condensed\"><tbody><tr class=\"odd\"><th>ID</th><td>"+customerId+"</td></tr><tr class=\"even\"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class=\"odd\"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class=\"even\"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class=\"odd\"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
+                        });
                         bootbox.hideAll();
                     })()',
                 ],
@@ -93,6 +130,17 @@ $this->widget(
                         var target=event.target||event.srcElement;
                         $("input[name=\'RetailOrders[customers_id]\']").val($(target).closest("tr").find("input[name=\'gridids[]\']").val());
                         $("table#yw2").hide();
+                        $.getJSON("' . Yii::app()->createUrl('/customers/info/') . '", {
+                            id: customerId
+                        }, function(json){
+                            $("input[name=\'RetailOrders[customers_name]\']").val(json.customer.customers_firstname + " " + json.customer.customers_lastname);
+                            $("input[name=\'RetailOrders[customers_city]\']").val(json.default_address.entry_city);
+                            $("input[name=\'RetailOrders[customers_telephone]\']").val(json.customer.customers_telephone);
+                            $("table#yw2").remove();
+                            var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
+                            console.log(button);
+                            $(button).before("<table id=\"yw2\" class=\"detail-view table table-striped table-condensed\"><tbody><tr class=\"odd\"><th>ID</th><td>"+customerId+"</td></tr><tr class=\"even\"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class=\"odd\"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class=\"even\"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class=\"odd\"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
+                        });
                         bootbox.hideAll();
                     })()',
                 ],
