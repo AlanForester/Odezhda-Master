@@ -332,7 +332,7 @@ ul#thumblist li a.zoomThumbActive {
     display:block;
 }
 
-.bottom-price button.basket {
+.bottom-price button.basket, .bottom-price a.basket {
 	float:left;
 	font-size:24px;
 	color:#fff;
@@ -347,6 +347,13 @@ ul#thumblist li a.zoomThumbActive {
 	-webkit-border-radius:7px;
 	line-height:30px;
 	margin-top:10px;
+}
+.bottom-price a.basket {
+    line-height:50px !important;
+}
+
+.bottom-price a.basket:hover {
+    cursor: pointer;
 }
 
 .bottom-price button.buy-lapiki {
