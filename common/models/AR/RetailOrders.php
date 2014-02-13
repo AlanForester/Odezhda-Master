@@ -103,7 +103,7 @@ class RetailOrders extends LegacyActiveRecord {
     public function relations() {
         return [
             'customer' => [self::BELONGS_TO, 'Customer', 'customers_id', 'together' => true],
-            'products' => [self::HAS_MANY, 'RetailOrdersProducts', 'retail_orders_id', 'together' => true],
+            //'products' => [self::HAS_MANY, 'RetailOrdersProducts', 'retail_orders_id', 'together' => true],
         ];
     }
 
@@ -119,7 +119,7 @@ class RetailOrders extends LegacyActiveRecord {
         return [
             'with' => [
                 'customer',
-                'products',
+                //'products',
             ]
         ];
     }

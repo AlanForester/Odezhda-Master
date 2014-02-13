@@ -240,4 +240,40 @@ class CatalogController extends BackendController {
         }
     }
 
+
+
+    //todo: совместить с index
+    public function actionBootbox() {
+        $criteria = [
+            'text_search' => $this->userStateParam('text_search'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct'),
+            'filter_category' => $this->userStateParam('filter_category')
+        ];
+
+        // пагинация
+        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+
+        // получение данных
+        //todo Alex: Заместо CformModel  используем AR
+        $this->model = new CatalogModel();
+        $catalog = $this->model->getListAndParams($criteria);
+
+        $this->gridDataProvider = new CArrayDataProvider($catalog, [
+            'keyField' => 'id',
+            'pagination' => [
+                'pageSize' => ($page_size == 'all' ? count($catalog) : $page_size),
+            ],
+        ]);
+        //todo Alex: Заместо CformModel  используем AR
+        $categories_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+
+        foreach ($categories_model->getCategoriesList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
+
+        $this->render('bootbox', ['page_size' => $page_size, 'criteria' => $criteria]);
+    }
+
 }

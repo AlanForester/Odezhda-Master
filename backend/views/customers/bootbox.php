@@ -5,7 +5,7 @@ $this->widget(
     'backend.widgets.CompactGrid',
     [
 
-        'pageSize' => 10,   //$criteria['page_size'],
+        'pageSize' => $criteria['page_size'],
 
         'dataProvider' => $gridDataProvider,
 
