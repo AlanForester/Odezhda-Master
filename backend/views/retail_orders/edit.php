@@ -71,7 +71,7 @@ $this->pageButton = [
                 <legend>Покупатель</legend>
 
                 <?php
-                if($item->customer->id) {
+                if($item->customer && $item->customer->id) {
                     $this->widget(
                         'yiiwheels.widgets.detail.WhDetailView',
                         [
