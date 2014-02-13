@@ -159,4 +159,15 @@ class CartModel {
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
     }
+
+    /**
+     * Метод для оформления заказа
+     * удаляем данные из таблицы корзинки и перемещаем в таблицы заказов
+     * @param $customer_id
+     */
+    public function makeOrder($customer_id){
+        return Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+
+    }
 }

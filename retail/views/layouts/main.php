@@ -106,7 +106,7 @@ jQuery(document).ready(function($){
         $('#login #login_submit').show();
     });
 
-    //корзинка
+//корзинка
     //увеличение количества товара в корзине
     $('.plus').live('click',function(){
        var counter=$(this);
@@ -123,7 +123,7 @@ jQuery(document).ready(function($){
                                 if (data){
                                       counter.next('.count').text(data.items);
                                       $('#panel .see-goods h5').text(data.products);
-                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
                           }
@@ -147,7 +147,7 @@ jQuery(document).ready(function($){
                                 if (data){
                                       counter.prev('.count').text(data.items);
                                       $('#panel .see-goods h5').text(data.products);
-                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
                           }
@@ -170,7 +170,7 @@ jQuery(document).ready(function($){
                                 }
                                 if ($(data)[1]){
                                       $('#panel').html($(data));
-                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
                           }
@@ -190,7 +190,28 @@ jQuery(document).ready(function($){
                                 }
                                 if ($(data)[1]){
                                       $('#panel').html($(data));
-                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+                                }
+
+                          }
+                      });
+        }
+     });
+
+    //оформление заказа
+    $('#makeOrder').live('click',function(){
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/makeOrder')."',
+                          dataType:'json',
+                          success: function(data) {
+                                if (data.lightbox){
+                                      $('.jquery-lightbox-html').html(data.lightbox);
+                                }
+                                if (data.bottomPanel){
+                                      $('#panel').html(data.bottomPanel);
+                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
                           }
@@ -213,7 +234,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
                         if (data){
                               $('#panel').html(data);
-                              $('.bottom-panel').effect('highlight', {}, 2000);
+                              $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                         }
 
                   }
