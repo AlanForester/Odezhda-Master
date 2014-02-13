@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
-                                $.lightbox().shake();
+                              $.lightbox().shake();
                               $('#reg_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -81,7 +81,7 @@ jQuery(document).ready(function($){
                   success: function(data) {
 
                         if (data){
-                                $.lightbox().shake();
+                              $.lightbox().shake();
                               $('#login_error').text('Ошибка:');
                               var ul='<ul>';
                               $.each(data,function (key, value){
@@ -107,6 +107,7 @@ jQuery(document).ready(function($){
     });
 
     //корзинка
+    //увеличение количества товара в корзине
     $('.plus').live('click',function(){
        var counter=$(this);
        if ($(this).next('.count').text()<100){
@@ -130,6 +131,7 @@ jQuery(document).ready(function($){
         }
      });
 
+    //уменьшение количества товара в корзине
     $('.minus').live('click',function(){
        var counter=$(this);
        if ($(this).prev('.count').text()>1){
@@ -152,6 +154,49 @@ jQuery(document).ready(function($){
                       });
        }
     });
+
+    //удаление товара из корзины
+    $('.del-goods').live('click',function(){
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/deleteProduct')."',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                          }),
+                          success: function(data) {
+                                if ($(data)[0]){
+                                      $('.jquery-lightbox-html').html($(data)[0]);
+                                }
+                                if ($(data)[1]){
+                                      $('#panel').html($(data));
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+        }
+     });
+
+     //удаление всех товаров из корзины
+    $('.clear').live('click',function(){
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/deleteAll')."',
+                          success: function(data) {
+                                if ($(data)[0]){
+                                      $('.jquery-lightbox-html').html($(data)[0]);
+                                }
+                                if ($(data)[1]){
+                                      $('#panel').html($(data));
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+        }
+     });
 ";
 
 $basket = "

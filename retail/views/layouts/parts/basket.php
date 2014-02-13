@@ -16,6 +16,7 @@
                 <button class="changeCount left minus">-</button>
                 <span class="price"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
                 <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
+
             </div>
             <?php $sum+=$product->price*$product_ids[$product->id]; } ?>
         </div>

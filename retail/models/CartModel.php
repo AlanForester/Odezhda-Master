@@ -140,4 +140,23 @@ class CartModel {
         }
         return false;
     }
+
+    /**
+     * Метод для удаления одного товара из корзины
+     * @param $customer_id
+     * @param $product_id
+     */
+    public function deleteProduct($customer_id, $product_id){
+        return Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+    }
+
+    /**
+     * Метод для удаления всех товаров из корзины
+     * @param $customer_id
+     */
+    public function deleteAll($customer_id){
+        return Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+    }
 }

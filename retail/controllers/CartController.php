@@ -8,7 +8,7 @@ class CartController extends RetailController {
         $this->render("/site/info", compact('cart'));
     }
 
-    public function actionShow() {
+    public function actionShow($showBottomPanel=false) {
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
             $model = new CartModel();
@@ -21,9 +21,15 @@ class CartController extends RetailController {
                     }
                 }
                 $this->renderPartial("/layouts/parts/basket", compact('products','product_ids'));
+                if($showBottomPanel){
+                    $this->renderPartial("/layouts/parts/bottomPanel");
+                }
                 Yii::app()->end();
             }
             $this->renderPartial("/layouts/parts/emptyBasket");
+            if($showBottomPanel){
+                $this->renderPartial("/layouts/parts/bottomPanel");
+            }
             Yii::app()->end();
         }
         $error='Ошибка : неизвестный пользователь';
@@ -63,6 +69,27 @@ class CartController extends RetailController {
                 $data['products'] = CartModel::countProducts();
                 echo json_encode($data);
                 Yii::app()->end();
+            }
+        }
+    }
+
+    public function actionDeleteProduct(){
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $product_id = Yii::app()->request->getParam('product_id');
+            $model = new CartModel();
+            if($model->deleteProduct($customer_id,$product_id)){
+                $this->actionShow(true);
+            }
+        }
+    }
+
+    public function actionDeleteAll(){
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $model = new CartModel();
+            if($model->deleteAll($customer_id)){
+                $this->actionShow(true);
             }
         }
     }
