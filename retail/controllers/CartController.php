@@ -52,4 +52,19 @@ class CartController extends RetailController {
 
     }
 
+    public function actionChangeCounter() {
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $product_id = Yii::app()->request->getParam('product_id');
+            $change = Yii::app()->request->getParam('change');
+            $model = new CartModel();
+            if($model->updateProduct($customer_id,$product_id,$change)){
+                $data['items'] = $model->countItemsOfProduct($product_id);
+                $data['products'] = CartModel::countProducts();
+                echo json_encode($data);
+                Yii::app()->end();
+            }
+        }
+    }
+
 }

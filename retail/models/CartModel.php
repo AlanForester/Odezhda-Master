@@ -43,19 +43,29 @@ class CartModel {
     }
 
     /**
-     * Если у пользователя есть в корзине товар, то увеличиваем поле count на 1
+     * Если у пользователя есть в корзине товар, то изменяем поле count на 1
      * @param $customer_id пользователь
      * @param $product_id товар
+     * @param $change как изменять(увеличивать или уменьшать)
+     * по-умолчанию - увеличиваем
      */
-    public function updateProduct($customer_id, $product_id){
+    public function updateProduct($customer_id, $product_id, $change='plus'){
         $count= Yii::app()->db->createCommand()
             ->select('count')
             ->from($this->tableName)
             ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
             ->queryRow()
             ['count'];
+        switch ($change) {
+            case 'plus':
+                $count++;
+                break;
+            case 'minus':
+                $count--;
+                break;
+        }
         return Yii::app()->db->createCommand()->update($this->tableName, array(
-            'count'=> ++$count,
+            'count'=> $count,
         ), 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
     }
 
@@ -76,7 +86,6 @@ class CartModel {
 
     /**
      * Метод для нахождения количества товаров в корзине текущего пользователя
-     * @param $id идентификатор пользователя
      * @return int
      */
     public static function countProducts(){
@@ -90,6 +99,24 @@ class CartModel {
                 ->queryRow()['c'];
         }
         return (isset($count) ? $count : 0);
+    }
+
+    /**
+     * Метод для нахождения количества единиц одного товаров в корзине текущего пользователя
+     * @param $product_id идентификатор товара
+     * @return int
+     */
+    public function countItemsOfProduct($product_id){
+        $customer_id=Yii::app()->user->id;
+//        $count=0;
+        if (!empty($customer_id)){
+            $count = Yii::app()->db->createCommand()
+                ->select('count AS c')
+                ->from($this->tableName)
+                ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+                ->queryRow()['c'];
+        }
+        return $count;
     }
 
     /**

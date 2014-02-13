@@ -16,7 +16,7 @@ class CatalogController extends RetailController {
         }
         //getTopList
         $dataProvider = $model->getDataProvider($criteria);
-        $this->setTitle($product->name);
+        $this->pageTitle = $product->name.' ('.$product->model.')';
 
         $this->render('/site/product', compact('product', 'dataProvider'));
     }
@@ -87,6 +87,12 @@ class CatalogController extends RetailController {
         $pages->pageSize = 12;
         $dataProvider->setPagination($pages);
 
-        $this->render('/site/catalog', compact('categories', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
+        // todo: название категории получаем через костыль - исправить
+        $catName = $currentCetegory->rel_description->categories_name?:'Весь каталог';
+
+        // титл страницы
+        $this->pageTitle = $catName;
+
+        $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
     }
 }

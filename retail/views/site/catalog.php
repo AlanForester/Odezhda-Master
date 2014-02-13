@@ -1,16 +1,11 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
-// todo: название категории получаем через костыль - исправить
-$catName = $currentCetegory->rel_description->categories_name;
-$this->setTitle($catName);
-
-
 ?>
 <script>
     $(document).ready(function () {
         $("#accordion").accordion({
             heightStyle: "content",
-            active: 0<?php //echo $this->currentCategoryNumber; ?>
+            active: 99<?php //echo $this->currentCategoryNumber; ?>
         });
 
             $('#order').change(function(){

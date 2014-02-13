@@ -107,17 +107,50 @@ jQuery(document).ready(function($){
     });
 
     //корзинка
-    $('#plus').live('click',function(){
-        var i=$('#count').text();
-        if (i<100){
-            $('#count').text(++i);
+    $('.plus').live('click',function(){
+       var counter=$(this);
+       if ($(this).next('.count').text()<100){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'plus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.next('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
         }
-    });
-    $('#minus').live('click',function(){
-        var i=$('#count').text();
-        if (i>1){
-            $('#count').text(--i);
-        }
+     });
+
+    $('.minus').live('click',function(){
+       var counter=$(this);
+       if ($(this).prev('.count').text()>1){
+            $.ajax({
+                          type: 'POST',
+                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          dataType:'json',
+                          data: ({
+                                product_id : $(this).nextAll('.prod_id').val(),
+                                change : 'minus',
+                          }),
+                          success: function(data) {
+                                if (data){
+                                      counter.prev('.count').text(data.items);
+                                      $('#panel .see-goods h5').text(data.products);
+                                      $('.bottom-panel').effect('highlight', {}, 1000);
+                                }
+
+                          }
+                      });
+       }
     });
 ";
 
@@ -275,11 +308,12 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <div class ="nav-bar nav-last">
                 <ul>
                     <li><span>Контакты</span></li>
-                    <li><span>8 (926) 021-7720</span></li>
-                    <li><span>г. Москва ул. Рудневка д. 9</span></li>
+                    <li><span>тел.: 222-962, +7 (4932) 343-588</span></li>
+                    <li><span>email: <a href="mailto:info@lapana.ru">info@lapana.ru</a></span></li>
+                    <li><span>г. Иваново, Проспект Ленина д.98</span></li>
+                    <li><a href="/map/">Карта проезда</a></li>
                     <li><span>&nbsp;</span></li>
-                    <li><span>&nbsp;</span></li>
-                    <li><span>&nbsp;</span></li>
+
                     <li>&copy; 2014 lapana.ru</li>
 
                 </ul>
