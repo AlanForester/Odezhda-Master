@@ -1,5 +1,8 @@
 <?php
 Yii::app()->clientScript->registerPackage('catalog');
+
+$colors = ['grey','violet','green','magent','yellow','blue','white','black','l-magent','red','orange','purple'];
+$sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 ?>
 <script>
     $(document).ready(function () {
@@ -9,12 +12,15 @@ Yii::app()->clientScript->registerPackage('catalog');
         });
 
             $('#order').change(function(){
-                  $(this).val();
-                  location.href=location.href+'?sort='+$(this).val();
+                  //$(this).val();
+                //  location.href=location.href+'?sort='+$(this).val();
+                //location.href =
+//                $('#filter_order').val($(this).val());
+                $('#left_options').submit();
             });
 
         $('#order option').each(function(index,value) {
-            if($(this).val()=='<?php echo Yii::app()->request->getQuery('sort')?>'){
+            if($(this).val()=='<?php echo Yii::app()->request->getQuery('order')?>'){
                 $(this).attr('selected','selected');
             }
         });
@@ -23,7 +29,7 @@ Yii::app()->clientScript->registerPackage('catalog');
         range: true,
         min: 0,
         max: 17000,
-        values: [ <?=Yii::app()->request->getQuery('min_price')?:700?>, <?=Yii::app()->request->getQuery('max_price')?:7000?> ],
+        values: [ <?=Yii::app()->request->getQuery('min_price')?:0?>, <?=Yii::app()->request->getQuery('max_price')?:7000?> ],
         slide: function( event, ui ) {
             $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
             $('#min_price').val(ui.values[ 0 ]);
@@ -38,7 +44,8 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 
 </script>
-<form id='left_options' method="get" action=''>
+<form id='left_options' method="get" action='<?php echo Yii::app()->createAbsoluteUrl(Yii::app()->request->url) ?>'>
+
 <div class="catalog-title">
     <div class="title">
         <p><?php echo $catName; ?></p>
@@ -53,96 +60,32 @@ Yii::app()->clientScript->registerPackage('catalog');
             <button id='clear_color'>сбросить х</button>
         </div>
         <div class="color">
-            <div>
-                <a href="#" class="grey" title="grey"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="violet" title="violet"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="green" title="green"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="magent" title="magent"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="yellow" title="yellow"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="blue" title="blue"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="white" title="white"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="black" title="black"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="l-magent" title="l-magent"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="red" title="red"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="orange" title="orange"></a>
-                <input type="checkbox"/>
-            </div>
-            <div>
-                <a href="#" class="purple" title="purple"></a>
-                <input type="checkbox"/>
-            </div>
+            <?php
+            foreach($colors as $color){
+                echo '
+                <div>
+                    <a href="#" class="'.$color.'" title="'.$color.'"></a>
+                    <input name="color[]" value="'.$color.'" type="checkbox" '.(in_array($color,$filter['color'])?'checked':'' ).' />
+                </div>
+                ';
+            }
+            ?>
         </div>
         <div class="title">
             <h6>размер</h6>
             <button  id='clear_size'>сбросить х</button>
         </div>
         <div class="razmer">
-            <div>
-                <input type="checkbox"/><span>XXXL</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>XXL</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>XL</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>M</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>S</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>40</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>42</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>44</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>46</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>48</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>50</span>
-            </div>
-            <div>
-                <input type="checkbox"/><span>52</span>
-            </div>
+            <?php
+            foreach($sizes as $size){
+                echo '
+                <div>
+                    <input name="size[]" value="'.$size.'" type="checkbox" '.(in_array($size,$filter['size'])?'checked':'' ).' />
+                    <span>'.$size.'</span>
+                </div>
+                ';
+            }
+            ?>
         </div>
         <div class="title">
             <h6>цена</h6>
@@ -150,7 +93,7 @@ Yii::app()->clientScript->registerPackage('catalog');
         <div class="price">
             <p>
                 <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
-                <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?><?=Yii::app()->request->getQuery('min_price')?>'>
+                <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?>'>
                 <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?>'>
             </p>
 

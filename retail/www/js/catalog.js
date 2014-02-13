@@ -113,7 +113,7 @@ RetailCatalog.inputOptions = function(){
         $('.razmer input:checkbox').removeAttr('checked');
     });
 
-    $('#left_options').attr('action',location.href);
+//    $('#left_options').attr('action',location.href);
 }
 
 
