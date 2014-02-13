@@ -1,15 +1,15 @@
 var RetailCatalog = {};
 offset=0;
-
 $(document).ready(function(){
 //    RetailCatalog.tooltip();
-    RetailCatalog.sliders();
+//    RetailCatalog.sliders();
 //  RetailCatalog.accordion();
 //  Accordion в каталоге
     RetailCatalog.tabs();
 //    RetailCatalog.moreButton();
     RetailCatalog.zoom();
     RetailCatalog.loadData();
+    RetailCatalog.inputOptions();
 //    RetailCatalog.sort();
 });
 
@@ -29,33 +29,37 @@ RetailCatalog.tooltip = function(){
         }
     });
 };
-
-RetailCatalog.sliders = function(){
-    $( "#slider-range" ).slider({
-        range: true,
-        min: 0,
-        max: 17000,
-        values: [ 700, 7000 ],
-        slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
-    });
-
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-
-    $( "#slider-range1" ).slider({
-        range: true,
-        min: 0,
-        max: 17000,
-        values: [ 700, 7000 ],
-        slide: function( event, ui ) {
-            $( "#amount1" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
-    });
-    $( "#amount1" ).val( "$" + $( "#slider-range1" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range1" ).slider( "values", 1 ) );
-};
+//
+//RetailCatalog.sliders = function(){
+//    $( "#slider-range" ).slider({
+//        range: true,
+//        min: 0,
+//        max: 17000,
+//        values: [ 700, 7000 ],
+//        slide: function( event, ui ) {
+//            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+//            $('#min_price').val(ui.values[ 0 ]);
+//            $('#max_price').val(ui.values[ 1 ]);
+//        }
+//    });
+//
+//    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+//        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+//
+////    $( "#slider-range1" ).slider({
+////        range: true,
+////        min: 0,
+////        max: 17000,
+////        values: [ 700, 7000 ],
+////        slide: function( event, ui ) {
+////            $( "#amount1" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+////            $('#min_price').val(ui.values[ 0 ]);
+////            $('#max_price').val(ui.values[ 1 ]);
+////        }
+////    });
+////    $( "#amount1" ).val( "$" + $( "#slider-range1" ).slider( "values", 0 ) +
+////        " - $" + $( "#slider-range1" ).slider( "values", 1 ) );
+//};
 
 
 //RetailCatalog.accordion = function(){
@@ -98,5 +102,18 @@ RetailCatalog.zoom = function(){
         preloadImages: false,
         alwaysOn:false
     });
-
 }
+
+RetailCatalog.inputOptions = function(){
+    $('#clear_color').click(function(){
+        $('.color input:checkbox').removeAttr('checked');
+    });
+
+    $('#clear_size').click(function(){
+        $('.razmer input:checkbox').removeAttr('checked');
+    });
+
+//    $('#left_options').attr('action',location.href);
+}
+
+

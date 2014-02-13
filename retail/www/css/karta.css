@@ -40,7 +40,7 @@
 	float:left;
 	height:auto;
 	background:#fff;
-	padding:15px;
+	/*padding:15px;*/
 }
 
 .karta-wrap h1{
@@ -229,8 +229,8 @@ ul#thumblist li a.zoomThumbActive {
 .tovar-info ul.tabs li a {
 	text-decoration: none;
 	color: #929496;
-	display: block;
-	font-size: 18px;
+	display: bck;
+	font-size: 1x;
 	outline: none;
 	text-align:left;
 }

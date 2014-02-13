@@ -42,13 +42,23 @@ class CatalogController extends RetailController {
     }
 
     public function actionList($id = 0) {
+        $filter = [
+            'color'=>Yii::app()->request->getQuery('color',[]),
+            'size'=>Yii::app()->request->getQuery('size',[]),
+        ];
+
         //Формирование критерии
         $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
+        $criteria['min_price'] = (Yii::app()->request->getQuery('min_price') ? : false);
+        $criteria['max_price'] = (Yii::app()->request->getQuery('max_price') ? : false);
+
         if ($id != 0) {
             $criteria['category'] = $id;
         }
 
-        switch (Yii::app()->request->getQuery('sort')) {
+        switch (Yii::app()->request->getQuery('order')) {
+//            case true:
+//                $url['sort'] = Yii::app()->request->getQuery('sort');
             case 'hits':
                 $criteria['order'] = '[[count_orders]] DESC';
                 break;
@@ -90,6 +100,6 @@ class CatalogController extends RetailController {
         // титл страницы
         $this->pageTitle = $catName;
 
-        $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
+        $this->render('/site/catalog', compact('filter','categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
     }
 }
