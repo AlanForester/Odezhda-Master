@@ -104,10 +104,10 @@ class CartController extends RetailController {
                 echo json_encode($data);
                 Yii::app()->end();
             }
-            $error='Ошибка овормления заказа.';
+            $error='Ошибка оформления заказа.';
 
         } else {
-            $error='Ошибка овормления заказа: неизвестный пользователь. Пожалуйста, авторизируйтесь.';
+            $error='Ошибка оформления заказа: неизвестный пользователь. Пожалуйста, авторизируйтесь.';
         }
         $data['bottomPanel']=$this->renderPartial("/layouts/parts/bottomPanelError", compact('error'),true);
         echo json_encode($data);
