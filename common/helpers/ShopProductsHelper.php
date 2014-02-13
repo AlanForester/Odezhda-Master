@@ -20,9 +20,12 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
+
         if(!empty($data['text_search'])){
-            $condition[]='[[name]]  LIKE :text_search';
-            $condition[]='[[description]]  LIKE :text_search';
+            $condition_params[]='[[name]]  LIKE :text_search';
+            $condition_params[]='t.[[model]]  LIKE :text_search';
+            $condition_params[]='[[description]]  LIKE :text_search';
+            $condition[]= '( '.join(' OR ',$condition_params).' )';
             $params[':text_search'] = '%'.$data['text_search'].'%';
         }
 
@@ -33,7 +36,6 @@ class ShopProductsHelper {
                 ->where('parent_id=:id',[':id'=>$data['category']])
                 ->queryAll();
         }
-
 
         // фильтр по категории
         if (isset($data['category']) && empty($categories)){
@@ -85,7 +87,8 @@ class ShopProductsHelper {
             $criteria = array_merge($criteria, $data['criteria']);
         }
 
-        return new CActiveDataProvider(
+
+        $dataProvider=new CActiveDataProvider(
             'ShopProduct',
             [
 
@@ -95,6 +98,13 @@ class ShopProductsHelper {
                 //                'pagination' => ['pageSize' => 9, 'currentPage' => $data['page']],
             ]
         );
+        $criteria_data = new CDbCriteria($criteria);
+        $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
+        $priceLimit = self::getModel()->find($criteria_data);
+        return [
+            'dataProvider'=>$dataProvider,
+            'priceLimit'=>$priceLimit
+        ];
     }
 
     public static function getProduct($id = null, $scenario = null) {

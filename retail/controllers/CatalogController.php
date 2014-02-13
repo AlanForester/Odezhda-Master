@@ -15,7 +15,8 @@ class CatalogController extends RetailController {
             $criteria['category'] = $product->categories_id;
         }
         //getTopList
-        $dataProvider = $model->getDataProvider($criteria);
+        $data = $model->getDataProvider($criteria);
+        $dataProvider=$data['dataProvider'];
         $this->pageTitle = $product->name.' ('.$product->model.')';
 
         $this->render('/site/product', compact('product', 'dataProvider'));
@@ -35,7 +36,8 @@ class CatalogController extends RetailController {
             $criteria['category'] = $product->categories_id;
         }
         //getTopList
-        $dataProvider = $model->getDataProvider($criteria);
+        $data = $model->getDataProvider($criteria);
+        $dataProvider=$data['dataProvider'];
 
         //        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
         $this->renderPartial('/site/preview', compact('product', 'dataProvider'));
@@ -84,9 +86,12 @@ class CatalogController extends RetailController {
         $categories = $categoriesModel->getClearCategoriesList();
 
         // получение товаров в категории
-        $dataProvider = $model->getDataProvider($criteria);
-
-        // общее кол-во доступнdх товаров
+        $data = $model->getDataProvider($criteria);
+        $dataProvider=$data['dataProvider'];
+        $limitPrice=$data['priceLimit'];
+//        print_r($limitPrice);
+//        exit;
+        // общее кол-во доступных товаров
         $totalCount = $dataProvider->getTotalItemCount();
 
         // пагинация
@@ -100,6 +105,6 @@ class CatalogController extends RetailController {
         // титл страницы
         $this->pageTitle = $catName;
 
-        $this->render('/site/catalog', compact('filter','categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount'));
+        $this->render('/site/catalog', compact('filter','categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice'));
     }
 }
