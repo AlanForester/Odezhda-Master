@@ -14,12 +14,7 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
-        if(!empty($data['min_price']) && !empty($data['max_price'])){
-            $condition[]='t.[[price]]>=:min_price';
-            $condition[]='t.[[price]]<=:max_price';
-            $params[':min_price'] = $data['min_price'];
-            $params[':max_price'] = $data['max_price'];
-        }
+
 
         if(!empty($data['text_search'])){
             $condition_params[]='[[name]]  LIKE :text_search';
@@ -72,6 +67,7 @@ class ShopProductsHelper {
         //Формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
                      'params' => $params];
+
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
         }
@@ -82,10 +78,28 @@ class ShopProductsHelper {
             $criteria['order'] = new CDbExpression('RAND()');
         }
 
+        $criteria_data = new CDbCriteria($criteria);
+        $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
+        $priceLimit = self::getModel()->find($criteria_data);
+
+
+        if(!empty($data['min_price']) && !empty($data['max_price'])){
+            $condition[]='t.[[price]]>=:min_price';
+            $condition[]='t.[[price]]<=:max_price';
+            $params[':min_price'] = $data['min_price'];
+            $params[':max_price'] = $data['max_price'];
+        }
+
+        //Повторное формирование критерии
+        $criteria = ['condition' => join(' AND ', $condition),
+                     'params' => $params];
+
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
+
+
 
 
         $dataProvider=new CActiveDataProvider(
@@ -98,9 +112,7 @@ class ShopProductsHelper {
                 //                'pagination' => ['pageSize' => 9, 'currentPage' => $data['page']],
             ]
         );
-        $criteria_data = new CDbCriteria($criteria);
-        $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
-        $priceLimit = self::getModel()->find($criteria_data);
+
         return [
             'dataProvider'=>$dataProvider,
             'priceLimit'=>$priceLimit

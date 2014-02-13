@@ -3,6 +3,8 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 $colors = ['grey','violet','green','magent','yellow','blue','white','black','l-magent','red','orange','purple'];
 $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
+
+//print_r($dataProvider->getData());
 ?>
 <script>
     $(document).ready(function () {
@@ -55,22 +57,22 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 <div class="left-option">
 
     <div class="item-options">
-        <div class="title">
-            <h6>ЦВЕТ</h6>
-            <button id='clear_color'>сбросить х</button>
-        </div>
-        <div class="color">
-            <?php
-            foreach($colors as $color){
-                echo '
-                <div>
-                    <a href="#" class="'.$color.'" title="'.$color.'"></a>
-                    <input name="color[]" value="'.$color.'" type="checkbox" '.(in_array($color,$filter['color'])?'checked':'' ).' />
-                </div>
-                ';
-            }
-            ?>
-        </div>
+<!--        <div class="title">-->
+<!--            <h6>ЦВЕТ</h6>-->
+<!--            <button id='clear_color'>сбросить х</button>-->
+<!--        </div>-->
+<!--        <div class="color">-->
+<!--            --><?php
+//            foreach($colors as $color){
+//                echo '
+//                <div>
+//                    <a href="#" class="'.$color.'" title="'.$color.'"></a>
+//                    <input name="color[]" value="'.$color.'" type="checkbox" '.(in_array($color,$filter['color'])?'checked':'' ).' />
+//                </div>
+//                ';
+//            }
+//            ?>
+<!--        </div>-->
         <div class="title">
             <h6>размер</h6>
             <button  id='clear_size'>сбросить х</button>
@@ -186,7 +188,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
                 <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
                      alt=""/>
-                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model;; ?></a>
+                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model; ?></a>
 
                 <span><?=FormatHelper::markup($product->price) ?></span>
                 <?php if ($product->old_price != 0) { ?>
@@ -199,10 +201,9 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
                     <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>' data-options='{"width":900, "height":450, "modal": true}' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
                     <select id="filter_size">
-                        <option>Размер</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
+                         <?php foreach ($product->product_options as $option) { ?>
+                            <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                         <?php }?>
                     </select>
 
                     <?php if(!Yii::app()->user->isGuest): ?>
