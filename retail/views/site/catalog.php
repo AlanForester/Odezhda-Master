@@ -15,30 +15,47 @@ $this->setTitle($catName);
 
             $('#order').change(function(){
                   $(this).val();
-                  location.href=location.pathname+'?sort='+$(this).val();
+                  location.href=location.href+'?sort='+$(this).val();
             });
+
         $('#order option').each(function(index,value) {
             if($(this).val()=='<?php echo Yii::app()->request->getQuery('sort')?>'){
                 $(this).attr('selected','selected');
             }
         });
+
+    $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 17000,
+        values: [ <?=Yii::app()->request->getQuery('min_price')?:700?>, <?=Yii::app()->request->getQuery('max_price')?:7000?> ],
+        slide: function( event, ui ) {
+            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+            $('#min_price').val(ui.values[ 0 ]);
+            $('#max_price').val(ui.values[ 1 ]);
+        }
+    });
+
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
     });
 
 
 </script>
+<form id='left_options' method="get" action=''>
 <div class="catalog-title">
     <div class="title">
         <p><?php echo $catName; ?></p>
     </div>
 </div>
-
 <div class="wrapper">
 <div class="left-option">
-    <form id='left_options'>
+
     <div class="item-options">
         <div class="title">
             <h6>ЦВЕТ</h6>
-            <button>сбросить х</button>
+            <button id='clear_color'>сбросить х</button>
         </div>
         <div class="color">
             <div>
@@ -92,7 +109,7 @@ $this->setTitle($catName);
         </div>
         <div class="title">
             <h6>размер</h6>
-            <button>сбросить х</button>
+            <button  id='clear_size'>сбросить х</button>
         </div>
         <div class="razmer">
             <div>
@@ -138,11 +155,15 @@ $this->setTitle($catName);
         <div class="price">
             <p>
                 <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+                <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?><?=Yii::app()->request->getQuery('min_price')?>'>
+                <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?>'>
             </p>
 
             <div id="slider-range"></div>
         </div>
-        </form>
+<!--        <button id='send_left_options'>Отправить</button>-->
+        <input type='submit' id='send_left_options' value='Отправить' >
+
     </div>
 
     <div class="accord-item">
@@ -237,7 +258,7 @@ $this->setTitle($catName);
 <!--                <button class="m-dotted fixed-info quick-view" id="#example5"-->
 <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
 <!--                </button>-->
-                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=800&lightbox[height]=450' class='lightbox quick-view'>Быстрый просмотр</a>
+                    <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>?lightbox[width]=900&lightbox[height]=450' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
                     <select id="filter_size">
                         <option>Размер</option>
@@ -374,3 +395,4 @@ $this->setTitle($catName);
 
 </div>
 </div>
+</form>

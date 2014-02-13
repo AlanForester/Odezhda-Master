@@ -44,6 +44,9 @@ class CatalogController extends RetailController {
     public function actionList($id = 0) {
         //Формирование критерии
         $criteria['page'] = (Yii::app()->request->getQuery('page') ? : 1);
+        $criteria['min_price'] = (Yii::app()->request->getQuery('min_price') ? : false);
+        $criteria['max_price'] = (Yii::app()->request->getQuery('max_price') ? : false);
+
         if ($id != 0) {
             $criteria['category'] = $id;
         }

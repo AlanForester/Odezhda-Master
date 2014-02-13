@@ -958,3 +958,18 @@ ul.yiiPager .selected a {
 .prev_img{
     width:350px;
 }
+
+#send_left_options{
+    border-radius: 7px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border: none;
+    text-align: center;
+    color: #fff;
+    background: #E1156F;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin: 26px 38px 0px;
+    padding: 5px 25px;
+    width: 140px;
+}
