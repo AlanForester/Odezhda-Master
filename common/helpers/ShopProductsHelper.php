@@ -80,17 +80,18 @@ class ShopProductsHelper {
 //            }
 //            $criteria['with']['product_options']['condition']= '( '.join(' OR ',$condition_params).' )';
 //        }
-
+//        print_r($criteria);
+//        exit;
 
         //Повторное формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
-                     'params' => $params];
+                     'params' => $params,
+                      'order'=>$criteria['order']];
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
-
 
 
 
