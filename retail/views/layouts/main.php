@@ -288,7 +288,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
-                        <a href="#" class="m-dotted">Личный кабинет</a>
+                        <a href="<?= $this->createUrl('customer/index') ?>" class="m-dotted">Личный кабинет</a>
                         <a href="<?php echo $this->createUrl('site/logout') ?>" id="#exit"
                            class="m-dotted">Выход</a>
                     <?php } ?>
