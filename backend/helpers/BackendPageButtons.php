@@ -150,7 +150,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function edit($url = '', $option = [], $title = 'Редактировать') {
+    public static function editCustomer($url = '', $urlParams = '', $option = [], $title = 'Редактировать') {
         return
             TbHtml::linkButton(
                 $title,
@@ -158,8 +158,7 @@ class BackendPageButtons {
                     [
                         'icon' => TbHtml::ICON_USER,
                         'buttonType' => 'link',
-                        'url' => Yii::app()
-                            ->createUrl($url),
+                        'url' => Yii::app()->createUrl($url) . $urlParams,
                         //'type'=>TbHtml::BUTTON_TYPE_LINK,
                         'class' => 'btn-small',
                         'color' => TbHtml::BUTTON_COLOR_INFO,
@@ -168,7 +167,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function selectCustomer(/*$url = '',*/ $option = [], $title = 'Выбрать покупателя') {
+    public static function selectCustomer($url = '', $option = [], $title = 'Выбрать покупателя') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -179,7 +178,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/customers/index/') . '?ajax=customers_grid&from=bootbox",
+                                    url: "' . Yii::app()->createUrl($url) . '?ajax=customers_grid",
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         gridBox("customers_grid", data, "Выбор покупателя");
@@ -191,7 +190,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить товар') {
+    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -211,6 +210,50 @@ class BackendPageButtons {
                                     }
                                 });
                             })()'
+                    ], $option
+                )
+            );
+    }
+
+    public static function removeProduct($url = '', $option = [], $title = 'Удалить') {
+        return
+            TbHtml::htmlButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_REMOVE,
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
+                        'url' => '#',
+                        'class' => 'btn-small',
+                        'onClick' => 'js: (function(){
+                            var cb = $("input[name=\'gridids[]\']:checked");
+                            var ids = [];
+
+                            if (cb.length==0){
+                                bootbox.alert({message:"Выберите минимум один обьект в списке",title:"Ошибка"});
+                            }else{
+                                bootbox.confirm(
+                                    "Вы уверены, что хотите удалить выбраные пункты?",
+                                    function(options){
+                                        if (options){
+                                            cb.each(function(){
+                                                ids.push($(this).val());
+                                            });
+                                            $.fn.yiiGridView.update(
+                                                "whgrid",
+                                                {
+                                                    url:"' . Yii::app()->createUrl($url) . '",
+                                                    data:{
+                                                        mass_action:"delete",
+                                                        ids:ids
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    }
+                                );
+                            }
+                        })()'
                     ], $option
                 )
             );

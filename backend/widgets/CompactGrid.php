@@ -89,6 +89,12 @@ class CompactGrid extends CWidget {
      */
     public $gridId;
 
+    /**
+     * ID для html-контейнера списка
+     * @var int
+     */
+    public $selectableRows;
+
     public function init() {
         // todo: сделать перепроверку собственных обязательных свойств
 
@@ -111,6 +117,7 @@ class CompactGrid extends CWidget {
         );*/
 
         $this->gridId = $this->gridId ? : 'whgrid';
+        $this->selectableRows = $this->selectableRows ? : 0;
     }
 
     public function run() {
@@ -378,7 +385,7 @@ class CompactGrid extends CWidget {
                         'class' => 'grid-view dataTables_wrapper'
                     ],
 
-                    'selectableRows' => 0, // если 0 или 1 - чекбоксы перестают работать
+                    'selectableRows' => $this->selectableRows, // если 0 или 1 - чекбоксы перестают работать
 
                     'emptyText' => 'Нет данных для отображения',
 

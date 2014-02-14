@@ -125,53 +125,6 @@ Yii::app()->getClientScript()->registerScript('some_name', $js, CClientScript::P
                 }
             }
         });
-
-        function gridBox(id, data, title){
-            bootbox.dialog({
-                message: data,
-                title: title,
-                buttons: {
-                    /*success: {
-                     label: "Выбрать",
-                     className: "btn-small btn-success",
-                     callback: function() {
-
-                     }
-                     },*/
-                    cancel: {
-                        label: "Отмена",
-                        className: "btn-small btn-danger",
-                        callback: function() {
-
-                        }
-                    }
-                }
-            });
-            //todo: сразу не срабатывает. возможно, потому, что grid в этот момент еще не отрисован.
-            //позже переделаю
-            setTimeout(function() {
-                //console.log(jQuery("#"+id));
-                jQuery("#"+id).yiiGridView({
-                    "ajaxUpdate":[id],
-                    "ajaxVar":"ajax",
-                    "pagerClass":"pagination",
-                    "loadingClass":"grid-view-loading",
-                    "filterClass":"filters",
-                    "tableClass":"table-bordered items table table-striped table-bordered",
-                    "selectableRows":2,
-                    "enableHistory":false,
-                    "updateSelector":"{page}, {sort}",
-                    "filterSelector":"{filter}",
-                    "pageVar":"Customer_page",
-                    "afterAjaxUpdate": function(id, data) {
-                        $("#"+id).trigger("ajaxUpdate.editable");
-                        (function(){
-                            $("#"+id).trigger("ajaxUpdateTree");
-                        }).apply(this, arguments);
-                    }
-                });
-            }, 1000);
-        }
     </script>
 </head>
 

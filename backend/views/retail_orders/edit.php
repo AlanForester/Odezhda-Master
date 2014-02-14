@@ -1,6 +1,7 @@
 <?php
 
 Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/retailorder.css');
+Yii::app()->getClientScript()->registerScriptFile($this->assets_backend . '/retailorder.js');
 
 $this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый заказ');
 
@@ -120,12 +121,12 @@ $this->pageButton = [
                                 ],
                             ]
                         );
-                        echo BackendPageButtons::edit("/customers/edit/".$item->customer->id);
+                        echo BackendPageButtons::editCustomer("/customers/edit/".$item->customer->id, '?from=retail_order&fromId='.$item->id);
                     }
                     ?>
 
                 </span>
-                <?= BackendPageButtons::selectCustomer() ?>
+                <?= BackendPageButtons::selectCustomer('/customers/bootbox/'.$item->id) ?>
 
                 <?php
                 /*  //старая форма
@@ -197,7 +198,7 @@ $this->pageButton = [
                     <div style="padding-bottom: 16px" class="span12 pull-left button-block">
                         <?=
                         BackendPageButtons::addProduct() .
-                        BackendPageButtons::remove("/customers/mass") .
+                        BackendPageButtons::removeProduct("/customers/mass") .
                         BackendPageButtons::mass("/customers/mass")
                         ?>
                     </div>
@@ -210,6 +211,8 @@ $this->pageButton = [
                         'backend.widgets.CompactGrid',
                         [
                             'gridId' => 'ropgrid',
+
+                            'selectableRows' => 2,
 
                             'pageSize' => $productsCriteria['page_size'],
 

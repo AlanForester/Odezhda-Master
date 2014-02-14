@@ -55,11 +55,11 @@ class RetailOrdersController extends BackendController {
         }
     }
 
-    public function actionAdd() {
-        $this->actionEdit(null, 'add');
+    public function actionAdd($from = 'retail_orders', $fromId = 0) {
+        $this->actionEdit(null, $from, $fromId, 'add');
     }
 
-    public function actionEdit($id, $scenario = 'edit') {
+    public function actionEdit($id, $from = 'retail_orders', $fromId = 0, $scenario = 'edit') {
         $customers = $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
@@ -123,8 +123,19 @@ class RetailOrdersController extends BackendController {
         $productsGridDataProvider->setSort(false);
 
 
-        //$model = new RetailOrdersLayer($scenario);
-        if (!$item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario)){
+        if($from == 'customer') {
+            $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
+            $item->customer = CustomersHelper::getCustomerWithInfo($fromId, $scenario);
+            if($id === null && $fromId) {
+                $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
+                $item->customers_city = $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
+                $item->customers_telephone = $item->customer->customers_telephone;
+            }
+        } else {
+            $item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario);
+        }
+
+        if (!$item){
             $this->error('Ошибка получения данных розничного заказа');
         }
 

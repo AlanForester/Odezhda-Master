@@ -62,7 +62,7 @@ class RetailOrdersHelper extends CommonHelper {
             return $model->with('customer')->findByPk($id);
         else {
             $result = new $model($scenario);
-            $result->customer = new AddressBook($scenario);
+            $result->customer = new Customer($scenario);
             return $result;
         }
     }
