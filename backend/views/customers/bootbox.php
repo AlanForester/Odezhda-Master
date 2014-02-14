@@ -47,7 +47,6 @@ $this->widget(
                             }
                         )*/
                     })()',
-                    //'class' => 'clickable-el',
                 ],
             ],
             [

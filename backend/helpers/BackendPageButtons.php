@@ -26,6 +26,7 @@ class BackendPageButtons {
                 array_merge(
                     [
                         'icon' => TbHtml::ICON_REMOVE,
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
@@ -196,7 +197,8 @@ class BackendPageButtons {
                 $title,
                 array_merge(
                     [
-                        'icon' => TbHtml::ICON_USER,
+                        'icon' => TbHtml::ICON_PLUS,
+                        'color' => TbHtml::BUTTON_COLOR_SUCCESS,
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){

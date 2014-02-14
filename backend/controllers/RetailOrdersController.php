@@ -115,7 +115,7 @@ class RetailOrdersController extends BackendController {
             ],*/
             'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
         ];
-        $productsCriteria['filters']['retail_orders_id'] = $id === null ? 0 : $id;
+        $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
         //todo убрать layer
         $productsModel = new RetailOrdersProductsLayer('update');

@@ -192,34 +192,26 @@ $this->pageButton = [
     <div class="row-fluid">
         <fieldset>
             <legend>Товары в заказе: список</legend>
-            <?= BackendPageButtons::addProduct() ?>
-            <br>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div style="padding-bottom: 16px" class="span12 pull-left button-block">
+                        <?=
+                        BackendPageButtons::addProduct() .
+                        BackendPageButtons::remove("/customers/mass") .
+                        BackendPageButtons::mass("/customers/mass")
+                        ?>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="span12">
                     <?php
                     $this->widget(
-                        'backend.widgets.Grid',
+                        'backend.widgets.CompactGrid',
                         [
                             'gridId' => 'ropgrid',
 
-                            //'submenu' => $submenu,
-
-                            /*'filter' => $filter,
-
-                            'order' => [
-                                'active' => $criteria['order']['field'],
-                                'fields' => [
-                                    'products_name' => 'Название',
-                                    'products_model' => 'Код',
-                                    'products_quantity' => 'Количество',
-                                    'products_price' => 'Цена',
-                                ],
-                                'direct' => $criteria['order']['direction']
-                            ],*/
-
                             'pageSize' => $productsCriteria['page_size'],
-
-                            //'textSearch' => $criteria['text_search'],
 
                             'dataProvider' => $productsGridDataProvider,
 

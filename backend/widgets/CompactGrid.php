@@ -114,10 +114,10 @@ class CompactGrid extends CWidget {
     }
 
     public function run() {
-        if ($this->controller->isAjax) {
+        //if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
-        }
+        //}
 
         /*
         // определеяем, нужно ли показывать 2 колонки
@@ -403,11 +403,42 @@ class CompactGrid extends CWidget {
                                 'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
                                 'value' => $this->gridIdData,
                                 'checked' => null,
-                            ]
+                            ],
                         ],
+                        $this->gridColumns,
 
-                        $this->gridColumns
+                        $this->gridButtonsUrl ?
+                            [
+                                [
+                                    'header' => 'Действие',
+                                    'htmlOptions' => [
+                                        'class' => 'action-buttons',
+                                        'width' => '50px'
+                                    ],
+                                    'deleteButtonOptions' => [
+                                        'class' => 'red bigger-130',
+                                        'title' => 'Удалить',
+                                    ],
+                                    'updateButtonOptions' => [
+                                        'class' => 'green bigger-130',
+                                        'title' => 'Изменить',
+                                    ],
+                                    'viewButtonOptions' => [
+                                        'class' => 'bigger-130',
+                                        'title' => 'Просмотр',
+                                        'onClick' => 'js: (function(){
+                                            bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
+                                        })()'
+                                    ],
+                                    'class' => 'bootstrap.widgets.TbButtonColumn',
+                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
+                                    'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                                    'updateButtonUrl' => $this->gridButtonsUrl['edit'],
+                                    'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
+                                ]
+                            ] :
+                            []
                     )
                 ]
             ),
