@@ -13,18 +13,20 @@ class CustomersController extends BackendController {
 
     public function actionIndex() {
 
-        $criteria = [
-            'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],
-            'page_size' => Yii::app()->request->getQuery('from') == 'bootbox' ? 5 :
-                $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
-        ];
+        $criteria =
+            Yii::app()->request->getQuery('from') == 'bootbox' ?
+            ['page_size' => 10] :
+            [
+                'text_search' => [
+                    'value' => $this->userStateParam('text_search'),
+                ],
+                'filters' => $this->userStateParam('filters'),
+                'order' => [
+                    'field' => $this->userStateParam('order_field'),
+                    'direction' => $this->userStateParam('order_direct'),
+                ],
+                'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+            ];
 
         //$this->model = new Customer('update');
 

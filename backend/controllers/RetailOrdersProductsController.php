@@ -44,9 +44,9 @@ class RetailOrdersProductsController extends BackendController {
         $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
     }
 
-    public function actionOrder($id) {
+    /*public function actionOrder($id) {
         $this->actionIndex($id);
-    }
+    }*/
 
     public function actionUpdate() {
         $params['field'] = Yii::app()->request->getPost('name');

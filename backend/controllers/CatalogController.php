@@ -252,7 +252,7 @@ class CatalogController extends BackendController {
         ];
 
         // пагинация
-        $page_size = 5;     //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+        $page_size = 10;     //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
         //todo Alex: Заместо CformModel  используем AR

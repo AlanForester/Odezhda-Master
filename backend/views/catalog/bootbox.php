@@ -54,7 +54,7 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
             ],
-            [
+            /*[
                 'header' => 'Количество',
                 'name' => 'quantity',
             ],
@@ -86,7 +86,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                 ],
-            ],
+            ],*/
             [
                 'header' => 'Наличие',
                 'name' => 'status',

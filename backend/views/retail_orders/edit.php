@@ -1,5 +1,7 @@
 <?php
 
+Yii::app()->getClientScript()->registerCssFile($this->assets_backend . '/retailorder.css');
+
 $this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'редактирование заказа номер ' . $item->id : 'новый заказ');
 
 $this->pageButton = [
@@ -123,9 +125,7 @@ $this->pageButton = [
                     ?>
 
                 </span>
-                <?=
-                BackendPageButtons::selectCustomer();
-                ?>
+                <?= BackendPageButtons::selectCustomer() ?>
 
                 <?php
                 /*  //старая форма
@@ -192,11 +192,11 @@ $this->pageButton = [
     <div class="row-fluid">
         <fieldset>
             <legend>Товары в заказе: список</legend>
-            <?=
-            BackendPageButtons::addProduct();
-            ?>
-            <div class="span12" id="products_grid">
-
+            <?= BackendPageButtons::addProduct() ?>
+            <br>
+            <div>
+                <div class="span12" id="rop_grid">
+                </div>
             </div>
         </fieldset>
     </div>
@@ -204,3 +204,19 @@ $this->pageButton = [
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
+<script type="text/javascript">
+    //todo: перенести в более подходящее место
+    $(document).ready(function() {
+        var ropGrid = $("#rop_grid");
+        if(ropGrid.length>0) {
+            $.ajax({
+                url: "<?= Yii::app()->createUrl('/retail_orders_products/index/').$item->id ?>?ajax=rop_grid",
+                dataType : "html",
+                success: function (data, textStatus) {
+                    $(ropGrid).html(data);
+                }
+            });
+        }
+
+    });
+</script>
