@@ -41,7 +41,6 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
     $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
         "р. - " + $( "#slider-range" ).slider( "values", 1 ) +"р." );
-
     });
 
 
@@ -73,22 +72,22 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 //            }
 //            ?>
 <!--        </div>-->
-        <div class="title">
-            <h6>размер</h6>
-            <button  id='clear_size'>сбросить х</button>
-        </div>
-        <div class="razmer">
-            <?php
-            foreach($sizes as $size){
-                echo '
-                <div>
-                    <input name="size[]" value="'.$size.'" type="checkbox" '.(in_array($size,$filter['size'])?'checked':'' ).' />
-                    <span>'.$size.'</span>
-                </div>
-                ';
-            }
-            ?>
-        </div>
+<!--        <div class="title">-->
+<!--            <h6>размер</h6>-->
+<!--            <button  id='clear_size'>сбросить х</button>-->
+<!--        </div>-->
+<!--        <div class="razmer">-->
+<!--            --><?php
+//            foreach($sizes as $size){
+//                echo '
+//                <div>
+//                    <input name="size[]" value="'.$size.'" type="checkbox" '.(in_array($size,$criteria['filter']['size'])?'checked':'' ).' />
+//                    <span>'.$size.'</span>
+//                </div>
+//                ';
+//            }
+//            ?>
+<!--        </div>-->
         <div class="title">
             <h6>цена</h6>
         </div>

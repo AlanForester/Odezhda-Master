@@ -82,27 +82,34 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <p><?php echo $product->name ?></p>
             <span>Артикул <?php echo $product->model ?></span>
 
-            <div class="color">
-                <span>ВЫБЕРИТЕ ЦВЕТ</span>
-                <?php foreach($list_image as $image){ ?>
-                <a href="#"><img src="<?= Yii::app()->params['staticUrl'].$image['small'] ?>" alt=""></a>
-                <?php } ?>
+<!--            <div class="color">-->
+<!--                <span>ВЫБЕРИТЕ ЦВЕТ</span>-->
+<!--                --><?php //foreach($list_image as $image){ ?>
+<!--                <a href="#"><img src="//= Yii::app()->params['staticUrl'].$image['small']" alt=""></a>-->
+<!--                --><?php //} ?>
 <!--                <a href="#"><img src="http://odezhda-master.ru/preview/w50_img_7863.jpg" alt=""></a>-->
 <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
 <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
-            </div>
-            <div class="razmer">
-                <div class="title">
-                    <span>РАЗМЕРЫ</span>
-                    <a href="#">Таблица размеров</a>
-                </div>
-                <a href="#" class="razmer-one">45</a>
-                <a href="#" class="razmer-one">56</a>
-                <a href="#" class="razmer-one">41</a>
-                <a href="#" class="razmer-one-del">48</a>
-                <a href="#" class="razmer-one">32</a>
-                <a href="#" class="razmer-one">39</a>
-            </div>
+<!--            </div>-->
+<!--            <div class="razmer">-->
+<!--                <div class="title">-->
+<!--                    <span>РАЗМЕРЫ</span>-->
+<!--                    <a href="#">Таблица размеров</a>-->
+<!--                </div>-->
+<!--                <a href="#" class="razmer-one">45</a>-->
+<!--                <a href="#" class="razmer-one">56</a>-->
+<!--                <a href="#" class="razmer-one">41</a>-->
+<!--                <a href="#" class="razmer-one-del">48</a>-->
+<!--                <a href="#" class="razmer-one">32</a>-->
+<!--                <a href="#" class="razmer-one">39</a>-->
+<!--            </div>-->
+
+            <select id="filter_size">
+                <?php foreach ($product->product_options as $option) { ?>
+                    <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                <?php }?>
+            </select>
+
             <div class="tovar-more-info">
                 <div id="tabs" class="tab1">
                     <ul class="tabs">
