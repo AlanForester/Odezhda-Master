@@ -84,8 +84,8 @@ class Grid extends CWidget {
     //    public $controller;
 
     /**
-     * PHP код, отвечающий для получения идентификатора данных из дата-провайдера для записи
-     * @var string
+     * ID для html-контейнера списка
+     * @var int
      */
     public $gridId;
 

@@ -83,6 +83,12 @@ class CompactGrid extends CWidget {
      */
     //    public $controller;
 
+    /**
+     * ID для html-контейнера списка
+     * @var int
+     */
+    public $gridId;
+
     public function init() {
         // todo: сделать перепроверку собственных обязательных свойств
 
@@ -103,6 +109,8 @@ class CompactGrid extends CWidget {
                 'direct' => '',
             ], $this->order
         );*/
+
+        $this->gridId = $this->gridId ? : 'whgrid';
     }
 
     public function run() {
@@ -354,7 +362,7 @@ class CompactGrid extends CWidget {
             array_merge(
                 $this->gridOptions,
                 [
-                    'id' => 'whgrid',
+                    'id' => $this->gridId,
                     //        'CssClass'=>'dataTables_wrapper',
                     'dataProvider' => $this->dataProvider,
                     'itemsCssClass' => 'table-bordered items',
@@ -378,8 +386,8 @@ class CompactGrid extends CWidget {
                     'template' => '
                     <div class="table-block">{items}</div>
                     <div class="row pager-block">
-                        <div class="span4 pull-right">{summary}</div>
-                        <div class="span8 pull-left">{pager}</div>
+                        <div class="span3 pull-right">{summary}</div>
+                        <div class="span9 pull-left">{pager}</div>
                     </div>
                     ',
                     'summaryText' => 'Записи: {start}-{end} из {count}',

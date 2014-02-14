@@ -190,7 +190,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function selectProduct(/*$url = '',*/ $option = [], $title = 'Выбрать товар') {
+    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить товар') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -201,10 +201,11 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/customers/index/') . '?ajax=customers_grid&from=bootbox",
+                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . '?ajax=catalog_grid",
+                                        //?ajax=catalog_grid&from=bootbox",
                                     dataType : "html",
                                     success: function (data, textStatus) {
-                                        gridBox("customers_grid", data, "Выбор товара");
+                                        gridBox("catalog_grid", data, "Выбор товара");
                                     }
                                 });
                             })()'

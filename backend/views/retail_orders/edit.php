@@ -190,9 +190,15 @@ $this->pageButton = [
     </div>
     -->
     <div class="row-fluid">
-        <div class="span12" id="products_grid">
+        <fieldset>
+            <legend>Товары в заказе: список</legend>
+            <?=
+            BackendPageButtons::addProduct();
+            ?>
+            <div class="span12" id="products_grid">
 
-        </div>
+            </div>
+        </fieldset>
     </div>
     <br><br>
     <input type="hidden" name="form_action" value="save">

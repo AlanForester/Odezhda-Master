@@ -245,14 +245,14 @@ class CatalogController extends BackendController {
     //todo: совместить с index
     public function actionBootbox() {
         $criteria = [
-            'text_search' => $this->userStateParam('text_search'),
+            /*'text_search' => $this->userStateParam('text_search'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
-            'filter_category' => $this->userStateParam('filter_category')
+            'filter_category' => $this->userStateParam('filter_category')*/
         ];
 
         // пагинация
-        $page_size = $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+        $page_size = 5;     //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
 
         // получение данных
         //todo Alex: Заместо CformModel  используем AR

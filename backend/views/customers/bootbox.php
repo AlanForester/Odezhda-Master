@@ -4,6 +4,7 @@
 $this->widget(
     'backend.widgets.CompactGrid',
     [
+        'gridId' => 'customers_grid',
 
         'pageSize' => $criteria['page_size'],
 
