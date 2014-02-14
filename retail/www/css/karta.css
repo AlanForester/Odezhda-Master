@@ -163,6 +163,10 @@ ul#thumblist li a.zoomThumbActive {
 	width:360px;
 	margin-top:15px;
 }
+.razmer .product_size{
+    width:115px;
+    margin-top:10px;
+}
 
 .razmer .title {
 	float:left;

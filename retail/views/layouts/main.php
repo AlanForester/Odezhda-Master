@@ -224,6 +224,10 @@ $basket = "
 jQuery(document).ready(function($){
     //корзинка
     $('.addToCart').live('click',function(){
+        var size = $(this).siblings('.product_size');
+//        if(size.length==0){
+            console.log(size.length);
+//        }
         $.ajax({
                   type: 'POST',
                   url: '".$this->createUrl('/cart/add')."',

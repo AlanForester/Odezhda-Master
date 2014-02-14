@@ -490,10 +490,12 @@
 .goods-var img {
     max-width: 200px;
     max-height: 250px;
-    margin-top: 20px;
+    margin-top: 20px !important;
+    margin-right: 0 !important;
     border-radius: 7px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
+    float: none !important;
 }
 
 .goods-var a {

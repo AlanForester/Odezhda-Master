@@ -186,8 +186,8 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
             <div class="goods-var">
                 <!--                <img src="/images/kofta.png" alt=""/>-->
 
-                <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
-                     alt=""/>
+                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
+                     alt=""/></a>
                 <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model; ?></a>
 
                 <span><?=FormatHelper::markup($product->price) ?></span>
@@ -200,7 +200,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 <!--                </button>-->
                     <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>' data-options='{"width":900, "height":450, "modal": true}' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
-                    <select id="filter_size">
+                    <select class="product_size">
                          <?php foreach ($product->product_options as $option) { ?>
                             <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
                          <?php }?>

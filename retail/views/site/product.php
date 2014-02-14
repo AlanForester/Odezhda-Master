@@ -96,12 +96,17 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     <span>РАЗМЕРЫ</span>
                     <a href="#">Таблица размеров</a>
                 </div>
-                <a href="#" class="razmer-one">45</a>
-                <a href="#" class="razmer-one">56</a>
-                <a href="#" class="razmer-one">41</a>
-                <a href="#" class="razmer-one-del">48</a>
-                <a href="#" class="razmer-one">32</a>
-                <a href="#" class="razmer-one">39</a>
+                <select class="product_size">
+                    <?php foreach ($product->product_options as $option) { ?>
+                        <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                    <?php }?>
+                </select>
+<!--                <a href="#" class="razmer-one">45</a>-->
+<!--                <a href="#" class="razmer-one">56</a>-->
+<!--                <a href="#" class="razmer-one">41</a>-->
+<!--                <a href="#" class="razmer-one-del">48</a>-->
+<!--                <a href="#" class="razmer-one">32</a>-->
+<!--                <a href="#" class="razmer-one">39</a>-->
             </div>
             <div class="tovar-more-info">
                 <div id="tabs" class="tab1">
