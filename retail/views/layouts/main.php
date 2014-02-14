@@ -236,7 +236,7 @@ jQuery(document).ready(function($){
                       url: '".$this->createUrl('/cart/add')."',
                       data: ({
                             product_id : $(this).next('.product_id').val(),
-                            params : '',
+                            params : size.val(),
                       }),
                       success: function(data) {
                             if (data){
