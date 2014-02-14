@@ -14,7 +14,7 @@ $form = $this->beginWidget(
     [
 //                'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
         //'enableAjaxValidation' => true,
-        'action'=>$this->createUrl('customer/save'),
+//        'action'=>$this->createUrl('customer/save'),
         'enableClientValidation' => true,
         'clientOptions' => [
             'validateOnSubmit' => true,
@@ -78,7 +78,7 @@ $form = $this->beginWidget(
             echo $form->textField($customer,'fax');
             echo $form->error($customer,'fax'); ?>
         </div>
-
+        <input type="hidden" name="form_action" value="save">
         <?php echo CHtml::submitButton('Сохранить изменения'); ?>
 
     </fieldset>
