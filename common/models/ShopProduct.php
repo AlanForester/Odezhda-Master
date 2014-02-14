@@ -216,16 +216,16 @@ class ShopProduct extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true],
+            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true,'joinType'=>'INNER JOIN'],
 
             // todo: половина тут лишнее
-            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true),
+            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true,'joinType'=>'INNER JOIN'),
             //связь с категориями many to many
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
-            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true),
+            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true,'joinType'=>'INNER JOIN'),
             //связь с опциями
-            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id'),
-            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes')
+            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id','joinType'=>'INNER JOIN'),
+            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes','joinType'=>'INNER JOIN')
         ];
     }
 

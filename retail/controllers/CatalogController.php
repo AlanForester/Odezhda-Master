@@ -104,7 +104,7 @@ class CatalogController extends RetailController {
 
         // титл страницы
         $this->pageTitle = $catName;
-
-        $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria'));
+      //  print_r($dataProvider->getData());
+            $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria'));
     }
 }
