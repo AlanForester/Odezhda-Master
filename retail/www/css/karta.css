@@ -120,6 +120,7 @@ ul#thumblist li a.zoomThumbActive {
 	color:#929496;
 	margin-top:15px;
 	width:360px;
+    margin-bottom: 10px;
 }
 
 .tovar-info .color {

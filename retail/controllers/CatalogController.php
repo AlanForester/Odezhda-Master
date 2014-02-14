@@ -44,7 +44,7 @@ class CatalogController extends RetailController {
     }
 
     public function actionList($id = 0) {
-        $filter = [
+        $criteria['filter']= [
             'color'=>Yii::app()->request->getQuery('color',[]),
             'size'=>Yii::app()->request->getQuery('size',[]),
         ];
@@ -104,7 +104,7 @@ class CatalogController extends RetailController {
 
         // титл страницы
         $this->pageTitle = $catName;
-
-        $this->render('/site/catalog', compact('filter','categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice'));
+      //  print_r($dataProvider->getData());
+            $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria'));
     }
 }

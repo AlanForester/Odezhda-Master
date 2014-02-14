@@ -14,22 +14,15 @@ $this->breadcrumbs=array(
            <p ><?php echo $product->name ?></p>
            <span>Артикул <?php echo $product->model ?></span>
        </div>
+
        <div class="razmer prev_razmer">
-           <div class="title prev_title">
-               <span>РАЗМЕРЫ</span>
-               <a href="#">Таблица размеров</a>
-           </div>
-           <select class="product_size">
+
+           <select id="filter_size">
                <?php foreach ($product->product_options as $option) { ?>
                    <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
                <?php }?>
            </select>
-<!--           <a href="#" class="razmer-one">45</a>-->
-<!--           <a href="#" class="razmer-one">56</a>-->
-<!--           <a href="#" class="razmer-one">41</a>-->
-<!--           <a href="#" class="razmer-one-del">48</a>-->
-<!--           <a href="#" class="razmer-one">32</a>-->
-<!--           <a href="#" class="razmer-one">39</a>-->
+
            <div class='prev_info'>
                <p><?=$product->description ?></p>
                 <?php if($product->manufacturers_id){ ?>

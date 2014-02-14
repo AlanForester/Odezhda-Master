@@ -82,58 +82,41 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <p><?php echo $product->name ?></p>
             <span>Артикул <?php echo $product->model ?></span>
 
-            <div class="color">
-                <span>ВЫБЕРИТЕ ЦВЕТ</span>
-                <?php foreach($list_image as $image){ ?>
-                <a href="#"><img src="<?= Yii::app()->params['staticUrl'].$image['small'] ?>" alt=""></a>
-                <?php } ?>
+<!--            <div class="color">-->
+<!--                <span>ВЫБЕРИТЕ ЦВЕТ</span>-->
+<!--                --><?php //foreach($list_image as $image){ ?>
+<!--                <a href="#"><img src="//= Yii::app()->params['staticUrl'].$image['small']" alt=""></a>-->
+<!--                --><?php //} ?>
 <!--                <a href="#"><img src="http://odezhda-master.ru/preview/w50_img_7863.jpg" alt=""></a>-->
 <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
 <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
+            <div class="tovar-more-info">
+                ОПИСАНИЕ
+                <?=$product->description ?>
+                <?php if($product->manufacturers_id){ ?>
+                    <p>СТРАНА ПРОИЗВОДСТВА:   <?=$product->manufacturers ?> </p>
+                <?php } ?>
             </div>
-            <div class="razmer">
-                <div class="title">
-                    <span>РАЗМЕРЫ</span>
-                    <a href="#">Таблица размеров</a>
-                </div>
-                <select class="product_size">
-                    <?php foreach ($product->product_options as $option) { ?>
-                        <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
-                    <?php }?>
-                </select>
+            <select id="filter_size">
+                <?php foreach ($product->product_options as $option) { ?>
+                    <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                <?php }?>
+            </select>
+            </div>
+
+<!--            <div class="razmer">-->
+<!--                <div class="title">-->
+<!--                    <span>РАЗМЕРЫ</span>-->
+<!--                    <a href="#">Таблица размеров</a>-->
+<!--                </div>-->
 <!--                <a href="#" class="razmer-one">45</a>-->
 <!--                <a href="#" class="razmer-one">56</a>-->
 <!--                <a href="#" class="razmer-one">41</a>-->
 <!--                <a href="#" class="razmer-one-del">48</a>-->
 <!--                <a href="#" class="razmer-one">32</a>-->
 <!--                <a href="#" class="razmer-one">39</a>-->
-            </div>
-            <div class="tovar-more-info">
-                <div id="tabs" class="tab1">
-                    <ul class="tabs">
-                        <li><!--<a href="#tab1">-->ОПИСАНИЕ<!--</a>--></li>
-<!--                        <li><a href="#tab2">ДОСТАВКА</a></li>-->
+<!--            </div>-->
 
-                    </ul>
-                    <div class="tab_container">
-                        <div id="tab1" class="tab_content">
-<!--                            <p>СОСТАВ: шелк 100%;</p>-->
-                            <?=$product->description ?>
-                       <?php if($product->manufacturers_id){ ?>
-                            <p>СТРАНА ПРОИЗВОДСТВА:   <?=$product->manufacturers ?> </p>
-                            <?php } ?>
-<!--                            <p>ОБХВАТ ГРУДИ: 110см</p>-->
-<!---->
-<!--                            <p>ДЛИНА ИЗДЕЛИЯ: 80см</p>-->
-                        </div>
-<!--                        <div id="tab2" class="tab_content">-->
-<!--                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom-->
-<!--                                title close to the jQZoom Window.-->
-<!--                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>-->
-<!--                        </div>-->
-                    </div>
-                </div>
-            </div>
         </div>
 
         <!--        buy-lapiki-->

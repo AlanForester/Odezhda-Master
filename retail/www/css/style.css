@@ -36,7 +36,9 @@ a.u {
 a:hover {
     color: #0097BF;
 }
-
+#filter_size{
+    margin-top: 5px;
+}
 select {
     padding-top: 2px;
     padding-left: 5px;
