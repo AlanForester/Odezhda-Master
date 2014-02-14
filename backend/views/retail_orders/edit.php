@@ -6,7 +6,7 @@ $this->pageTitle = 'Розничные заказы: ' . ($item->id ? 'реда�
 
 $this->pageButton = [
     BackendPageButtons::save(),
-    BackendPageButtons::apply(),
+    $item->id ? BackendPageButtons::apply() : '',
     BackendPageButtons::cancel("/retail_orders/index")
 ];
 
@@ -66,7 +66,7 @@ $this->pageButton = [
 
 
 
-                //todo переделать: временная форма, аякс-обновление
+                //todo переделать: временная форма, таблица бд, аякс-обновление
                 //поля, необходимые для отображения в index
                 echo $form->hiddenField($item, 'customers_name', []);
                 echo $form->hiddenField($item, 'customers_city', []);
@@ -195,7 +195,108 @@ $this->pageButton = [
             <?= BackendPageButtons::addProduct() ?>
             <br>
             <div>
-                <div class="span12" id="rop_grid">
+                <div class="span12">
+                    <?php
+                    $this->widget(
+                        'backend.widgets.Grid',
+                        [
+                            'gridId' => 'ropgrid',
+
+                            //'submenu' => $submenu,
+
+                            /*'filter' => $filter,
+
+                            'order' => [
+                                'active' => $criteria['order']['field'],
+                                'fields' => [
+                                    'products_name' => 'Название',
+                                    'products_model' => 'Код',
+                                    'products_quantity' => 'Количество',
+                                    'products_price' => 'Цена',
+                                ],
+                                'direct' => $criteria['order']['direction']
+                            ],*/
+
+                            'pageSize' => $productsCriteria['page_size'],
+
+                            //'textSearch' => $criteria['text_search'],
+
+                            'dataProvider' => $productsGridDataProvider,
+
+                            'gridColumns' => [
+                                [
+                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'type' => 'text',
+                                    'name' => 'name',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                    'editable' => [
+                                        'placement' => 'right',
+                                        'emptytext' => 'не задано',
+                                        'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                    ]
+                                ],
+                                [
+                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'type' => 'text',
+                                    'name' => 'model',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                    'editable' => [
+                                        'placement' => 'right',
+                                        'emptytext' => 'не задано',
+                                        'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                    ]
+                                ],
+                                [
+                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'type' => 'text',
+                                    'name' => 'quantity',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                    'editable' => [
+                                        'placement' => 'right',
+                                        'emptytext' => 'не задано',
+                                        'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                    ]
+                                ],
+                                [
+                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'type' => 'text',
+                                    'name' => 'price',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                    'editable' => [
+                                        'placement' => 'right',
+                                        'emptytext' => 'не задано',
+                                        'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                    ]
+                                ],
+                                /*[
+                                    'name' => 'id',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                ],*/
+
+                            ],
+
+                            'gridButtonsUrl' => [
+                                'edit' => 'Yii::app()->createUrl("/retail_orders_products/edit", array("id"=>$data["id"]))',
+                                'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
+                            ]
+                        ]
+                    );
+                    ?>
                 </div>
             </div>
         </fieldset>
@@ -206,11 +307,11 @@ $this->pageButton = [
 </div>
 <script type="text/javascript">
     //todo: перенести в более подходящее место
-    $(document).ready(function() {
+    /*$(document).ready(function() {
         var ropGrid = $("#rop_grid");
         if(ropGrid.length>0) {
             $.ajax({
-                url: "<?= Yii::app()->createUrl('/retail_orders_products/index/').$item->id ?>?ajax=rop_grid",
+                url: "<?= Yii::app()->createUrl('/retail_orders_products/index/').($item->id ? : 0) ?>?ajax=rop_grid",
                 dataType : "html",
                 success: function (data, textStatus) {
                     $(ropGrid).html(data);
@@ -218,5 +319,5 @@ $this->pageButton = [
             });
         }
 
-    });
+    });*/
 </script>

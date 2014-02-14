@@ -15,7 +15,15 @@
     overflow: hidden;
 }
 
-.bootbox.modal #customers_grid tr,
-.bootbox.modal #catalog_grid tr {
+.bootbox.modal #customers_grid tbody tr,
+.bootbox.modal #catalog_grid tbody tr {
     cursor: pointer;
+}
+
+.bootbox .modal-body .tableFloatingHeaderOriginal {
+    visibility: visible !important;
+}
+
+.bootbox .modal-body .tableFloatingHeader {
+    visibility: hidden !important;
 }

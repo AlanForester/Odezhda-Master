@@ -104,6 +104,25 @@ class RetailOrdersController extends BackendController {
         $currencies = ['RUR'=>'RUR'];
 
 
+        $productsCriteria = [
+            /*'text_search' => [
+                'value' => $this->userStateParam('text_search'),
+            ],
+            'filters' => $this->userStateParam('filters'),
+            'order' => [
+                'field' => $this->userStateParam('order_field'),
+                'direction' => $this->userStateParam('order_direct'),
+            ],*/
+            'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+        ];
+        $productsCriteria['filters']['retail_orders_id'] = $id === null ? 0 : $id;
+
+        //todo убрать layer
+        $productsModel = new RetailOrdersProductsLayer('update');
+        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
+        $productsGridDataProvider->setSort(false);
+
+
         //$model = new RetailOrdersLayer($scenario);
         if (!$item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario)){
             $this->error('Ошибка получения данных розничного заказа');
@@ -138,7 +157,7 @@ class RetailOrdersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {

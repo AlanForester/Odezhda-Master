@@ -27,7 +27,7 @@ class RetailOrdersProductsController extends BackendController {
 
         $retailOrders = [];
 
-        if($id) {
+        if($id !== null) {
             $criteria['filters']['retail_orders_id'] = $id;
 
         } else {
