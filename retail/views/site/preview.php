@@ -14,6 +14,7 @@ $this->breadcrumbs=array(
            <p ><?php echo $product->name ?></p>
            <span>Артикул <?php echo $product->model ?></span>
        </div>
+
        <div class="razmer prev_razmer">
 
            <select id="filter_size">
