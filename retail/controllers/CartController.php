@@ -52,7 +52,7 @@ class CartController extends RetailController {
             }
             $error='Ошибка добавления товара в корзину';
         } else {
-            $error='Ошибка добавления в корзину : неизвестный пользователь';
+            $error='Ошибка добавления в корзину : неизвестный пользователь. Пожалуйста, авторизируйтесь.';
         }
         $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));
 
@@ -92,6 +92,25 @@ class CartController extends RetailController {
                 $this->actionShow(true);
             }
         }
+    }
+
+    public function actionMakeOrder(){
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $model = new CartModel();
+            if($model->makeOrder($customer_id)){
+                $data['lightbox']=$this->renderPartial("/layouts/parts/order",null,true);
+                $data['bottomPanel']=$this->renderPartial("/layouts/parts/bottomPanel",null,true);
+                echo json_encode($data);
+                Yii::app()->end();
+            }
+            $error='Ошибка оформления заказа.';
+
+        } else {
+            $error='Ошибка оформления заказа: неизвестный пользователь. Пожалуйста, авторизируйтесь.';
+        }
+        $data['bottomPanel']=$this->renderPartial("/layouts/parts/bottomPanelError", compact('error'),true);
+        echo json_encode($data);
     }
 
 }

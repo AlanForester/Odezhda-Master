@@ -5,6 +5,7 @@
  */
 class CartModel {
     private $tableName='retail_customer_cart';
+    private $orderTables=['retail_orders','retail_orders_products','retail_orders_statuses'];
     private static  $tblName='retail_customer_cart';
     /**
      * Метод для добавления или обновелния товара в корзине
@@ -158,5 +159,39 @@ class CartModel {
     public function deleteAll($customer_id){
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+    }
+
+    /**
+     * Метод для оформления заказа
+     * удаляем данные из таблицы корзинки и перемещаем в таблицы заказов
+     * @param $customer_id
+     */
+    public function makeOrder($customer_id){
+        $products = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from($this->tableName)
+            ->where('customer_id=:id', array(':id'=>$customer_id))
+            ->queryAll();
+        if(!empty($products)){
+            Yii::app()->db->createCommand()
+                ->insert($this->orderTables[0], [
+                    'customers_id'=>$customer_id,
+                ]);
+            $order_id=Yii::app()->db->getLastInsertID();
+            if ($order_id){
+                foreach($products as $product){
+                    Yii::app()->db->createCommand()
+                        ->insert($this->orderTables[1], [
+                            'retail_orders_id'=>$order_id,
+                            'products_id'=>$product['product_id'],
+                            'products_quantity'=>$product['count'],
+                        ]);
+                }
+                return Yii::app()->db->createCommand()
+                    ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+
+            }
+        }
+        return false;
     }
 }

@@ -23,6 +23,6 @@
         <div class="next-sale">
             <p>Стоимость заказа</p>
             <span><?=FormatHelper::markup($sum) ?></span>
-            <button>Оформить заказ</button>
+            <a id="makeOrder">Оформить заказ</a>
         </div>
     </div>

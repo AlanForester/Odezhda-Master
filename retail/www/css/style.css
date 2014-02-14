@@ -786,10 +786,12 @@ button:hover {
     font-weight: bold;
 }
 
-.box-modal.modal-cart.modal-cart .next-sale button {
+.box-modal.modal-cart.modal-cart .next-sale button,
+.box-modal.modal-cart.modal-cart .next-sale a {
     float: right;
     width: 185px;
     height: 50px;
+    line-height: 50px;
     color: #fff;
     font-size: 18px;
     text-align: center;
@@ -799,6 +801,7 @@ button:hover {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     margin-top: -10px;
+    cursor: pointer;
 }
 
 .box-modal.modal-cart.modal-cart .next-sale button:hover {
