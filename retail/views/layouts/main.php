@@ -225,24 +225,31 @@ jQuery(document).ready(function($){
     //корзинка
     $('.addToCart').live('click',function(){
         var size = $(this).siblings('.product_size');
-//        if(size.length==0){
-            console.log(size.length);
-//        }
-        $.ajax({
-                  type: 'POST',
-                  url: '".$this->createUrl('/cart/add')."',
-                  data: ({
-                        product_id : $(this).next('.product_id').val(),
-                        params : '',
-                  }),
-                  success: function(data) {
-                        if (data){
-                              $('#panel').html(data);
-                              $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
-                        }
+        if(size.length==0){
+//            console.log(size.val());
+            size =$('.product_size');
+        }
+        console.log(size.val());
+        if(size.val()!=0 && size.val()!='' && size.val()!=null) {
+            $.ajax({
+                      type: 'POST',
+                      url: '".$this->createUrl('/cart/add')."',
+                      data: ({
+                            product_id : $(this).next('.product_id').val(),
+                            params : '',
+                      }),
+                      success: function(data) {
+                            if (data){
+                                  $('#panel').html(data);
+                                  $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+                            }
 
-                  }
-              });
+                      }
+                  });
+        }
+        else{
+            alert ('Выберите, пожалуйста, размер товара.');
+        }
     });
 });
 ";
