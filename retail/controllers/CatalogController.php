@@ -16,8 +16,8 @@ class CatalogController extends RetailController {
         }
         //getTopList
         $data = $model->getDataProvider($criteria);
-        $dataProvider=$data['dataProvider'];
-        $this->pageTitle = $product->name.' ('.$product->model.')';
+        $dataProvider = $data['dataProvider'];
+        $this->pageTitle = $product->name . ' (' . $product->model . ')';
 
         $this->render('/site/product', compact('product', 'dataProvider'));
     }
@@ -37,16 +37,16 @@ class CatalogController extends RetailController {
         }
         //getTopList
         $data = $model->getDataProvider($criteria);
-        $dataProvider=$data['dataProvider'];
+        $dataProvider = $data['dataProvider'];
 
         //        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
         $this->renderPartial('/site/preview', compact('product', 'dataProvider'));
     }
 
     public function actionList($id = 0) {
-        $criteria['filter']= [
-            'color'=>Yii::app()->request->getQuery('color',[]),
-            'size'=>Yii::app()->request->getQuery('size',[]),
+        $criteria['filter'] = [
+            'color' => Yii::app()->request->getQuery('color', []),
+            'size' => Yii::app()->request->getQuery('size', []),
         ];
 
         //Формирование критерии
@@ -59,8 +59,9 @@ class CatalogController extends RetailController {
         }
 
         switch (Yii::app()->request->getQuery('order')) {
-//            case true:
-//                $url['sort'] = Yii::app()->request->getQuery('sort');
+            //            case true:
+            //                $url['sort'] = Yii::app()->request->getQuery('sort');
+            default:
             case 'hits':
                 $criteria['order'] = '[[count_orders]] DESC';
                 break;
@@ -87,10 +88,10 @@ class CatalogController extends RetailController {
 
         // получение товаров в категории
         $data = $model->getDataProvider($criteria);
-        $dataProvider=$data['dataProvider'];
-        $limitPrice=$data['priceLimit'];
-//        print_r($limitPrice);
-//        exit;
+        $dataProvider = $data['dataProvider'];
+        $limitPrice = $data['priceLimit'];
+        //        print_r($limitPrice);
+        //        exit;
         // общее кол-во доступных товаров
         $totalCount = $dataProvider->getTotalItemCount();
 
@@ -100,11 +101,11 @@ class CatalogController extends RetailController {
         $dataProvider->setPagination($pages);
 
         // todo: название категории получаем через костыль - исправить
-        $catName = $currentCetegory->rel_description->categories_name?:'Весь каталог';
+        $catName = $currentCetegory->rel_description->categories_name ? : 'Весь каталог';
 
         // титл страницы
         $this->pageTitle = $catName;
-      //  print_r($dataProvider->getData());
-            $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria'));
+        //  print_r($dataProvider->getData());
+        $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount', 'limitPrice', 'criteria'));
     }
 }
