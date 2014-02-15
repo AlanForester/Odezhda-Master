@@ -14,17 +14,16 @@ class CustomersController extends BackendController {
     public function actionIndex() {
 
         $criteria = [
-            'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],
-            'page_size' => Yii::app()->request->getQuery('from') == 'bootbox' ? 5 :
-                $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
-        ];
+                'text_search' => [
+                    'value' => $this->userStateParam('text_search'),
+                ],
+                'filters' => $this->userStateParam('filters'),
+                'order' => [
+                    'field' => $this->userStateParam('order_field'),
+                    'direction' => $this->userStateParam('order_direct'),
+                ],
+                'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+            ];
 
         //$this->model = new Customer('update');
 
@@ -37,9 +36,7 @@ class CustomersController extends BackendController {
             $groups[$group['id'].'&'] = $group['name'];
         }
 
-        $view = Yii::app()->request->getQuery('from') == 'bootbox' ? 'bootbox' : 'index';
-
-        $this->render($view, compact('criteria','gridDataProvider', 'groups'));
+        $this->render('index', compact('criteria','gridDataProvider', 'groups'));
     }
 
     public function actionUpdate() {
@@ -55,10 +52,10 @@ class CustomersController extends BackendController {
     }
 
     public function actionAdd() {
-        $this->actionEdit(null, 'add');
+        $this->actionEdit(null, 'customers', 0, 'add');
     }
 
-    public function actionEdit($id, $scenario = 'edit') {
+    public function actionEdit($id, $from = 'customers', $fromId = 0, $scenario = 'edit') {
         $groups = [];
         $genders = [''=>'Не указан', 'm'=>'Мужчина', 'f'=>'Женщина'];
         $yesNo = ['1'=>'Да', '0'=>'Нет'];
@@ -112,18 +109,32 @@ class CustomersController extends BackendController {
                         TbHtml::ALERT_COLOR_INFO,
                         'Клиент ' . ($id ? 'сохранен' : 'добавлен')
                     );
-                    if ($form_action == 'save') {
-                        $this->redirect(['index']);
-                        return;
-                    } else {
-                        $this->redirect(['edit', 'id' => $item['id']]);
-                        return;
+                    if($from == 'customers') {
+                        if ($form_action == 'save') {
+                            $this->redirect(['index']);
+                            return;
+                        } else {
+                            $this->redirect(['edit', 'id' => $item['id']]);
+                            return;
+                        }
+
+                    } elseif($from == 'retail_order') {
+                        if ($form_action == 'save') {
+                            if($fromId == 0)
+                                $this->redirect(['retail_orders/add', 'id' => $fromId, 'from'=>'customer', 'fromId'=>$item['id']]);
+                            else
+                                $this->redirect(['retail_orders/edit', 'id' => $fromId, 'from'=>'customer', 'fromId'=>$item['id']]);
+                            return;
+                        } else {
+                            $this->redirect(['edit', 'id' => $item['id'], 'from'=>$from, 'fromId'=>$fromId]);
+                            return;
+                        }
                     }
                 }
             }
         }
 
-        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo'));
+        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo', 'from', 'fromId'));
     }
 
     public function actionDelete($id) {
@@ -158,5 +169,15 @@ class CustomersController extends BackendController {
         $response['default_address'] = $model->default_address;
         echo CJSON::encode($response);
         Yii::app()->end();
+    }
+
+    public function actionBootbox($id = null) {
+
+        $criteria = ['page_size' => 10];
+
+        $gridDataProvider = CustomersHelper::getDataProvider($criteria);
+        $gridDataProvider->setSort(false);
+
+        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
     }
 }

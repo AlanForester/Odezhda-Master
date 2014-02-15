@@ -21,7 +21,7 @@ jQuery(document).ready(function($){
         if($('#registration .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '".$this->createUrl('/site/registration')."',
+                  url: '" . $this->createUrl('/site/registration') . "',
                   data: $('#registr').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -75,7 +75,7 @@ jQuery(document).ready(function($){
         if($('#login .required.error').length == 0){
                 $.ajax({
                   type: 'POST',
-                  url: '".$this->createUrl('/site/login')."',
+                  url: '" . $this->createUrl('/site/login') . "',
                   data: $('#log').serialize(),
                   dataType:'json',
                   success: function(data) {
@@ -113,7 +113,7 @@ jQuery(document).ready(function($){
        if ($(this).next('.count').text()<100){
             $.ajax({
                           type: 'POST',
-                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          url: '" . $this->createUrl('/cart/changeCounter') . "',
                           dataType:'json',
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
@@ -137,7 +137,7 @@ jQuery(document).ready(function($){
        if ($(this).prev('.count').text()>1){
             $.ajax({
                           type: 'POST',
-                          url: '".$this->createUrl('/cart/changeCounter')."',
+                          url: '" . $this->createUrl('/cart/changeCounter') . "',
                           dataType:'json',
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
@@ -160,7 +160,7 @@ jQuery(document).ready(function($){
        if ($(this).next('.count').text()<100){
             $.ajax({
                           type: 'POST',
-                          url: '".$this->createUrl('/cart/deleteProduct')."',
+                          url: '" . $this->createUrl('/cart/deleteProduct') . "',
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
                           }),
@@ -183,7 +183,7 @@ jQuery(document).ready(function($){
        if ($(this).next('.count').text()<100){
             $.ajax({
                           type: 'POST',
-                          url: '".$this->createUrl('/cart/deleteAll')."',
+                          url: '" . $this->createUrl('/cart/deleteAll') . "',
                           success: function(data) {
                                 if ($(data)[0]){
                                       $('.jquery-lightbox-html').html($(data)[0]);
@@ -203,7 +203,7 @@ jQuery(document).ready(function($){
        if ($(this).next('.count').text()<100){
             $.ajax({
                           type: 'POST',
-                          url: '".$this->createUrl('/cart/makeOrder')."',
+                          url: '" . $this->createUrl('/cart/makeOrder') . "',
                           dataType:'json',
                           success: function(data) {
                                 if (data.lightbox){
@@ -233,7 +233,7 @@ jQuery(document).ready(function($){
         if(size.val()!=0 && size.val()!='' && size.val()!=null) {
             $.ajax({
                       type: 'POST',
-                      url: '".$this->createUrl('/cart/add')."',
+                      url: '" . $this->createUrl('/cart/add') . "',
                       data: ({
                             product_id : $(this).next('.product_id').val(),
                             params : size.val(),
@@ -282,13 +282,14 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":355, "modal": true}' class="m-dotted lightbox" id="aLog">Вход</a>
+                           data-options='{"width":900, "height":355, "modal": true}' class="m-dotted lightbox"
+                           id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
                            data-options='{"width":900, "height":410, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>
-                        <a href="#" class="m-dotted">Личный кабинет</a>
+                        <a href="<?= $this->createUrl('customer/index') ?>" class="m-dotted">Личный кабинет</a>
                         <a href="<?php echo $this->createUrl('site/logout') ?>" id="#exit"
                            class="m-dotted">Выход</a>
                     <?php } ?>
@@ -309,28 +310,24 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
         <div class="search">
             <form id='text-search' action='/catalog/list/' method='get'>
-                <input name='text_search' type="text" value='<?=(Yii::app()->request->getQuery('text_search') ? : '')?>'/>
+                <input name='text_search' type="text"
+                       value='<?= (Yii::app()->request->getQuery('text_search') ? : '') ?>'/>
                 <input type="submit" value=""/>
             </form>
         </div>
-<!--                <div class="basket">-->
-<!--                    <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-<!--                        <img src="/images/basket.png" alt=""/>-->
-<!--                        <small>В корзине</small>-->
-<!--                        <span>4</span>-->
-<!--                    </a>-->
-<!--                </div>-->
     </div>
 </div>
-<?php if(isset($this->breadcrumbs)):?>
+<?php if (isset($this->breadcrumbs)): ?>
     <div class="wrapper">
-    <?php $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links'=>$this->breadcrumbs,
-        'homeLink'=>CHtml::link('Главная','/' ),
-        'separator'=>'/',
-    )); ?><!-- breadcrumbs -->
+        <?php $this->widget(
+            'zii.widgets.CBreadcrumbs', array(
+                                          'links' => $this->breadcrumbs,
+                                          'homeLink' => CHtml::link('Главная', '/'),
+                                          'separator' => '/',
+                                      )
+        ); ?><!-- breadcrumbs -->
     </div>
-<?php endif?>
+<?php endif ?>
 <?php echo $content ?>
 
 <div class="footer-wrapper">
@@ -358,7 +355,8 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><a href="/">LAPANA.RU</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '12']) ?>">О нас</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '13']) ?>">Вакансии</a></li>
-<!--                    <li><a href="--><?php //echo $this->createUrl('info/view', ['id' => '14']) ?><!--">Партнерам</a></li>-->
+                    <!--                    <li><a href="-->
+                    <?php //echo $this->createUrl('info/view', ['id' => '14']) ?><!--">Партнерам</a></li>-->
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '6']) ?>">Контакты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '15']) ?>">Сертификаты</a></li>
                     <li><a href="<?php echo $this->createUrl('info/view', ['id' => '16']) ?>">Наши скидки</a></li>
@@ -384,7 +382,7 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 </ul>
             </div>
 
-            <div class ="nav-bar nav-last">
+            <div class="nav-bar nav-last">
                 <ul>
                     <li><span>Контакты</span></li>
                     <li><span>тел.: 222-962, +7 (4932) 343-588</span></li>
@@ -392,32 +390,22 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                     <li><span>г. Иваново, Проспект Ленина д.98</span></li>
                     <li><a href="/map/">Карта проезда</a></li>
                     <li><span>&nbsp;</span></li>
-
                     <li>&copy; 2014 lapana.ru</li>
-
                 </ul>
             </div>
-            <!--            <span>Я одеваюсь в Лапана бесплатно. Хотите знать как?</span>-->
-            <!--            <img src="/images/modal-girl.png" class="footer-girl" alt=""/>-->
-
-            <!--            <div class="gift-card">-->
-            <!--                <span>-->
-            <!--                    ЧТО ПОДАРИТЬ И НЕ ПРОГАДАТЬ? Подарочная карта Lapana.ru – отличный подарок, который обязательно понравится!-->
-            <!--                </span>-->
-            <!--                <img src="/images/gift-card.png" alt=""/>-->
-            <!--                <button>купить</button>-->
-            <!--            </div>-->
         </div>
     </div>
 </div>
 
 <?php
 
-if(!Yii::app()->user->isGuest){ ?>
-<div id="panel">
-<?php $this->renderPartial('/layouts/parts/bottomPanel');?>
-</div>
-<?php }
+if (!Yii::app()->user->isGuest) {
+    ?>
+    <div id="panel">
+        <?php $this->renderPartial('/layouts/parts/bottomPanel'); ?>
+    </div>
+<?php
+}
 
 //$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');

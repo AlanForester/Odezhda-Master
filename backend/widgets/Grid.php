@@ -83,6 +83,12 @@ class Grid extends CWidget {
      */
     //    public $controller;
 
+    /**
+     * ID для html-контейнера списка
+     * @var int
+     */
+    public $gridId;
+
     public function init() {
         // todo: сделать перепроверку собственных обязательных свойств
 
@@ -103,6 +109,8 @@ class Grid extends CWidget {
                 'direct' => '',
             ], $this->order
         );
+
+        $this->gridId = $this->gridId ? : 'whgrid';
     }
 
     public function run() {
@@ -225,7 +233,7 @@ class Grid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "'.$this->gridId.'",
                                     {
                                         data:{
                                             text_search:$("#text_search").val()
@@ -244,7 +252,7 @@ class Grid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "'.$this->gridId.'",
                                     {
                                         data:{
                                             text_search:""
@@ -270,7 +278,7 @@ class Grid extends CWidget {
                     'style' => 'width:150px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "'.$this->gridId.'",
                             {
                                 data:{
                                     order_field:$("#order_field").val()
@@ -297,7 +305,7 @@ class Grid extends CWidget {
                     'style' => 'width:200px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "'.$this->gridId.'",
                             {
                                 data:{
                                     order_direct:$("#order_direct").val()
@@ -330,7 +338,7 @@ class Grid extends CWidget {
                     'style' => 'width:70px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "'.$this->gridId.'",
                             {
                                 data:{
                                     page_size:$("#page_size").val()
@@ -353,12 +361,12 @@ class Grid extends CWidget {
             array_merge(
                 $this->gridOptions,
                 [
-                    'id' => 'whgrid',
+                    'id' => $this->gridId,
                     //        'CssClass'=>'dataTables_wrapper',
                     'dataProvider' => $this->dataProvider,
                     'itemsCssClass' => ($this->gridTree ? 'tree table-bordered items' : 'table-bordered items'),
                     'afterAjaxUpdate'=>'function(){
-                        $("#whgrid").trigger("ajaxUpdateTree");
+                        $("#'.$this->gridId.'").trigger("ajaxUpdateTree");
                     }',
                     //    'filter'=>$this->model,
                     'fixedHeader' => true,

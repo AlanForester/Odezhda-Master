@@ -47,6 +47,7 @@ class RetailOrdersController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
+        //var_dump($params);exit;
 
         //$this->model = new RetailOrders('update');
         if (!RetailOrdersHelper::updateField($params)) {
@@ -54,11 +55,11 @@ class RetailOrdersController extends BackendController {
         }
     }
 
-    public function actionAdd() {
-        $this->actionEdit(null, 'add');
+    public function actionAdd($from = 'retail_orders', $fromId = 0) {
+        $this->actionEdit(null, $from, $fromId, 'add');
     }
 
-    public function actionEdit($id, $scenario = 'edit') {
+    public function actionEdit($id, $from = 'retail_orders', $fromId = 0, $scenario = 'edit') {
         $customers = $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
@@ -103,8 +104,38 @@ class RetailOrdersController extends BackendController {
         $currencies = ['RUR'=>'RUR'];
 
 
-        //$model = new RetailOrdersLayer($scenario);
-        if (!$item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario)){
+        $productsCriteria = [
+            /*'text_search' => [
+                'value' => $this->userStateParam('text_search'),
+            ],
+            'filters' => $this->userStateParam('filters'),
+            'order' => [
+                'field' => $this->userStateParam('order_field'),
+                'direction' => $this->userStateParam('order_direct'),
+            ],*/
+            'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+        ];
+        $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
+
+        //todo убрать layer
+        $productsModel = new RetailOrdersProductsLayer('update');
+        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
+        $productsGridDataProvider->setSort(false);
+
+
+        if($from == 'customer') {
+            $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
+            $item->customer = CustomersHelper::getCustomerWithInfo($fromId, $scenario);
+            if($id === null && $fromId) {
+                $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
+                $item->customers_city = $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
+                $item->customers_telephone = $item->customer->customers_telephone;
+            }
+        } else {
+            $item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario);
+        }
+
+        if (!$item){
             $this->error('Ошибка получения данных розничного заказа');
         }
 
@@ -137,7 +168,7 @@ class RetailOrdersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {

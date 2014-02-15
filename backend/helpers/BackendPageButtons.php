@@ -26,6 +26,7 @@ class BackendPageButtons {
                 array_merge(
                     [
                         'icon' => TbHtml::ICON_REMOVE,
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
@@ -149,7 +150,25 @@ class BackendPageButtons {
             );
     }
 
-    public static function edit($url = '', $option = [], $title = 'Редактировать') {
+    public static function cancelCustomer($url = '', $urlParams = '', $option = [], $title = 'Отмена') {
+        return
+            TbHtml::linkButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_REMOVE,
+                        'buttonType' => 'link',
+                        'url' => Yii::app()
+                            ->createUrl($url) . $urlParams,
+                        //            'type'=>TbHtml::BUTTON_TYPE_LINK,
+                        'class' => 'btn-small',
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
+                    ], $option
+                )
+            );
+    }
+
+    public static function editCustomer($url = '', $urlParams = '', $option = [], $title = 'Редактировать') {
         return
             TbHtml::linkButton(
                 $title,
@@ -157,8 +176,7 @@ class BackendPageButtons {
                     [
                         'icon' => TbHtml::ICON_USER,
                         'buttonType' => 'link',
-                        'url' => Yii::app()
-                            ->createUrl($url),
+                        'url' => Yii::app()->createUrl($url) . $urlParams,
                         //'type'=>TbHtml::BUTTON_TYPE_LINK,
                         'class' => 'btn-small',
                         'color' => TbHtml::BUTTON_COLOR_INFO,
@@ -167,7 +185,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function selectCustomer(/*$url = '',*/ $option = [], $title = 'Выбрать покупателя') {
+    public static function selectCustomer($url = '', $option = [], $title = 'Выбрать покупателя') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -178,55 +196,82 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/customers/index/') . '?ajax=whgrid&from=bootbox",
+                                    url: "' . Yii::app()->createUrl($url) . '?ajax=customers_grid",
                                     dataType : "html",
                                     success: function (data, textStatus) {
-                                        bootbox.dialog({
-                                            message: data,
-                                            title: "Выбор покупателя",
-                                            buttons: {
-                                                /*success: {
-                                                    label: "Выбрать",
-                                                    className: "btn-small btn-success",
-                                                    callback: function() {
-
-                                                    }
-                                                },*/
-                                                cancel: {
-                                                    label: "Отмена",
-                                                    className: "btn-small btn-danger",
-                                                    callback: function() {
-
-                                                    }
-                                                }
-                                            }
-                                        });
-                                        //todo: сразу не срабатывает. возможно, потому, что whgrid в этот момент еще не отрисован.
-                                        //позже переделаю
-                                        setTimeout(function() {
-                                            console.log(jQuery("#whgrid"));
-                                            jQuery("#whgrid").yiiGridView({
-                                                "ajaxUpdate":["whgrid"],
-                                                "ajaxVar":"ajax",
-                                                "pagerClass":"pagination",
-                                                "loadingClass":"grid-view-loading",
-                                                "filterClass":"filters",
-                                                "tableClass":"table-bordered items table table-striped table-bordered",
-                                                "selectableRows":2,
-                                                "enableHistory":false,
-                                                "updateSelector":"{page}, {sort}",
-                                                "filterSelector":"{filter}",
-                                                "pageVar":"Customer_page",
-                                                "afterAjaxUpdate": function(id, data) {
-                                                    $("#whgrid").trigger("ajaxUpdate.editable");
-                                                    (function(){
-                                                        $("#whgrid").trigger("ajaxUpdateTree");
-                                                    }).apply(this, arguments);
-                                            }});
-                                        }, 1000);
+                                        gridBox("customers_grid", data, "Выбор покупателя");
                                     }
                                 });
                             })()'
+                    ], $option
+                )
+            );
+    }
+
+    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить') {
+        return
+            TbHtml::htmlButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_PLUS,
+                        'color' => TbHtml::BUTTON_COLOR_SUCCESS,
+                        'url' => '#',
+                        'class' => 'btn-small',
+                        'onClick' => 'js: (function(){
+                                $.ajax({
+                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . '?ajax=catalog_grid",
+                                        //?ajax=catalog_grid&from=bootbox",
+                                    dataType : "html",
+                                    success: function (data, textStatus) {
+                                        gridBox("catalog_grid", data, "Выбор товара");
+                                    }
+                                });
+                            })()'
+                    ], $option
+                )
+            );
+    }
+
+    public static function removeProduct($url = '', $option = [], $title = 'Удалить') {
+        return
+            TbHtml::htmlButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_REMOVE,
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
+                        'url' => '#',
+                        'class' => 'btn-small',
+                        'onClick' => 'js: (function(){
+                            var cb = $("input[name=\'gridids[]\']:checked");
+                            var ids = [];
+
+                            if (cb.length==0){
+                                bootbox.alert({message:"Выберите минимум один обьект в списке",title:"Ошибка"});
+                            }else{
+                                bootbox.confirm(
+                                    "Вы уверены, что хотите удалить выбраные пункты?",
+                                    function(options){
+                                        if (options){
+                                            cb.each(function(){
+                                                ids.push($(this).val());
+                                            });
+                                            $.fn.yiiGridView.update(
+                                                "whgrid",
+                                                {
+                                                    url:"' . Yii::app()->createUrl($url) . '",
+                                                    data:{
+                                                        mass_action:"delete",
+                                                        ids:ids
+                                                    }
+                                                }
+                                            )
+                                        }
+                                    }
+                                );
+                            }
+                        })()'
                     ], $option
                 )
             );

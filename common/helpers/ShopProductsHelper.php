@@ -54,7 +54,6 @@ class ShopProductsHelper {
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
         }
-
         if(!empty($data['limit'])){
             $criteria['limit'] = $data['limit'];
         }

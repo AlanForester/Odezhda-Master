@@ -83,6 +83,18 @@ class CompactGrid extends CWidget {
      */
     //    public $controller;
 
+    /**
+     * ID для html-контейнера списка
+     * @var int
+     */
+    public $gridId;
+
+    /**
+     * ID для html-контейнера списка
+     * @var int
+     */
+    public $selectableRows;
+
     public function init() {
         // todo: сделать перепроверку собственных обязательных свойств
 
@@ -103,13 +115,16 @@ class CompactGrid extends CWidget {
                 'direct' => '',
             ], $this->order
         );*/
+
+        $this->gridId = $this->gridId ? : 'whgrid';
+        $this->selectableRows = $this->selectableRows ? : 0;
     }
 
     public function run() {
-        if ($this->controller->isAjax) {
+        //if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
-        }
+        //}
 
         /*
         // определеяем, нужно ли показывать 2 колонки
@@ -354,7 +369,7 @@ class CompactGrid extends CWidget {
             array_merge(
                 $this->gridOptions,
                 [
-                    'id' => 'whgrid',
+                    'id' => $this->gridId,
                     //        'CssClass'=>'dataTables_wrapper',
                     'dataProvider' => $this->dataProvider,
                     'itemsCssClass' => 'table-bordered items',
@@ -370,7 +385,7 @@ class CompactGrid extends CWidget {
                         'class' => 'grid-view dataTables_wrapper'
                     ],
 
-                    'selectableRows' => 1, // если 0 или 1 - чекбоксы перестают работать
+                    'selectableRows' => $this->selectableRows, // если 0 или 1 - чекбоксы перестают работать
 
                     'emptyText' => 'Нет данных для отображения',
 
@@ -378,8 +393,8 @@ class CompactGrid extends CWidget {
                     'template' => '
                     <div class="table-block">{items}</div>
                     <div class="row pager-block">
-                        <div class="span4 pull-right">{summary}</div>
-                        <div class="span8 pull-left">{pager}</div>
+                        <div class="span3 pull-right">{summary}</div>
+                        <div class="span9 pull-left">{pager}</div>
                     </div>
                     ',
                     'summaryText' => 'Записи: {start}-{end} из {count}',
@@ -395,11 +410,42 @@ class CompactGrid extends CWidget {
                                 'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
                                 'value' => $this->gridIdData,
                                 'checked' => null,
-                            ]
+                            ],
                         ],
+                        $this->gridColumns,
 
-                        $this->gridColumns
+                        $this->gridButtonsUrl ?
+                            [
+                                [
+                                    'header' => 'Действие',
+                                    'htmlOptions' => [
+                                        'class' => 'action-buttons',
+                                        'width' => '50px'
+                                    ],
+                                    'deleteButtonOptions' => [
+                                        'class' => 'red bigger-130',
+                                        'title' => 'Удалить',
+                                    ],
+                                    'updateButtonOptions' => [
+                                        'class' => 'green bigger-130',
+                                        'title' => 'Изменить',
+                                    ],
+                                    'viewButtonOptions' => [
+                                        'class' => 'bigger-130',
+                                        'title' => 'Просмотр',
+                                        'onClick' => 'js: (function(){
+                                            bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
+                                        })()'
+                                    ],
+                                    'class' => 'bootstrap.widgets.TbButtonColumn',
+                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
+                                    'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                                    'updateButtonUrl' => $this->gridButtonsUrl['edit'],
+                                    'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
+                                ]
+                            ] :
+                            []
                     )
                 ]
             ),

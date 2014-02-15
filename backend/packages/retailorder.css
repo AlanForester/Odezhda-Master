@@ -1,0 +1,29 @@
+/* bootbox */
+
+.bootbox.modal {
+    width: 800px;
+    left: 38%;
+    top: 2%;
+}
+
+.bootbox.modal.fade.in {
+    top: 2%;
+}
+
+.bootbox .modal-body {
+    max-height: 700px;
+    overflow: hidden;
+}
+
+.bootbox.modal #customers_grid tbody tr,
+.bootbox.modal #catalog_grid tbody tr {
+    cursor: pointer;
+}
+
+.bootbox .modal-body .tableFloatingHeaderOriginal {
+    visibility: visible !important;
+}
+
+.bootbox .modal-body .tableFloatingHeader {
+    visibility: hidden !important;
+}

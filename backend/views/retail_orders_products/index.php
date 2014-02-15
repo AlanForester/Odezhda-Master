@@ -17,7 +17,7 @@ if(Yii::app()->controller->action->id == 'order') {
             [
                 'onChange' => 'js: (function(){
                     $.fn.yiiGridView.update(
-                        "whgrid",
+                        "ropgrid",
                         {
                             data:{
                                 "filters[retail_orders_id]":$("#filter_retail_order").val()
@@ -40,6 +40,8 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
+        'gridId' => 'ropgrid',
+
         //'submenu' => $submenu,
 
         'filter' => $filter,

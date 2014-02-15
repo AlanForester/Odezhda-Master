@@ -240,4 +240,43 @@ class CatalogController extends BackendController {
         }
     }
 
+
+
+
+    public function actionInfo($id) {
+        //todo Alex: Заместо CformModel  используем AR
+        $this->model = new CatalogModel();
+        $model = $this->model->getCatalogData($id,'edit');
+        $response['catalog'] = $model;
+        //$response['with'] = $model->with;
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
+    //todo: совместить с index
+    public function actionBootbox($id = null) {
+
+        $criteria = ['page_size' => 10];
+
+        //todo Alex: Заместо CformModel  используем AR
+        $this->model = new CatalogModel();
+        $catalog = $this->model->getListAndParams($criteria);
+
+        $gridDataProvider = new CArrayDataProvider($catalog, [
+            'keyField' => 'id',
+            'pagination' => [
+                'pageSize' => $criteria['page_size'],
+            ],
+        ]);
+        //todo Alex: Заместо CformModel  используем AR
+        $categories_model = new ShopCategoriesModel();
+        $this->categories[''] = '- По категории -';
+
+        foreach ($categories_model->getCategoriesList() as $g) {
+            $this->categories[$g['id']] = $g['name'];
+        }
+
+        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
+    }
+
 }
