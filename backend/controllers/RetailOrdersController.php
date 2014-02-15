@@ -131,8 +131,8 @@ class RetailOrdersController extends BackendController {
             $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
-            $id = Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
-            
+            $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
+
             $productResult = $productsModel->saveProducts(Yii::app()->request->getPost('RetailOrdersProducts'), $id);
 
             if (!$result) {
