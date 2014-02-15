@@ -98,7 +98,7 @@ class RetailOrdersProductsController extends BackendController {
                     'Товар ' . ($id ? 'сохранен' : 'добавлен')
                 );
                 if ($form_action == 'save') {
-                    $this->redirect(['order', 'id' => $item['retail_orders_id']]);
+                    $this->redirect(['retail_orders/edit', 'id' => $item['retail_orders_id']]);
                     return;
                 } else {
                     $this->redirect(['edit', 'id' => $item['id']]);
@@ -123,17 +123,30 @@ class RetailOrdersProductsController extends BackendController {
     }
 
     public function actionMass($id) {
+        $productsToSave = Yii::app()->request->getParam('RetailOrdersProducts');
         $mass_action = Yii::app()->request->getParam('mass_action');
-        $ids = array_unique(Yii::app()->request->getParam('ids'));
+        $ids = array_unique(Yii::app()->request->getParam('gridids'));
         switch ($mass_action) {
             case 'delete':
-                foreach ($ids as $productId) {
-                    $this->actionDelete($productId);
-                }
+                if(is_array($ids))
+                    foreach ($ids as $productId) {
+                        if($productId>0)
+                            $this->actionDelete($productId);
+                    }
+                if(is_array($productsToSave))
+                    foreach ($productsToSave as $key => $product) {
+                        if(!in_array($key, $ids)) {
+                            //если виртуальный продукт не намечен для удаления, то сохраняем
+                            //todo убрать layer
+                            $productsModel = new RetailOrdersProductsLayer('update');
+                            $productResult = $productsModel->saveProducts([$product], $id);
+                        }
+                    }
                 break;
         }
 
-        $this->actionOrder($id);
+        //$this->actionIndex($id);
+        //$this->redirect(['retail_orders/edit', 'id' => $id, 'ajax' => 'ropgrid']);
     }
 
 }

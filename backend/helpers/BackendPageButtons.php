@@ -233,7 +233,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function removeProduct($url = '', $option = [], $title = 'Удалить') {
+    public static function removeProduct($url = '', $orderId = null, $option = [], $title = 'Удалить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -244,29 +244,42 @@ class BackendPageButtons {
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
-                            var cb = $("input[name=\'gridids[]\']:checked");
+                            var cb = $("#ropgrid input[name=\'gridids[]\']:checked");
                             var ids = [];
+                            //var formValues = $("#yw0").serialize();
 
                             if (cb.length==0){
                                 bootbox.alert({message:"Выберите минимум один обьект в списке",title:"Ошибка"});
                             }else{
                                 bootbox.confirm(
-                                    "Вы уверены, что хотите удалить выбраные пункты?",
+                                    "Вы уверены, что хотите удалить выбранные пункты?",
                                     function(options){
                                         if (options){
-                                            cb.each(function(){
+                                            /*cb.each(function(){
                                                 ids.push($(this).val());
-                                            });
-                                            $.fn.yiiGridView.update(
-                                                "whgrid",
-                                                {
-                                                    url:"' . Yii::app()->createUrl($url) . '",
-                                                    data:{
-                                                        mass_action:"delete",
-                                                        ids:ids
-                                                    }
+                                            });*/
+                                            $.ajax({
+                                                url: "' . Yii::app()->createUrl($url) . $orderId . '",
+                                                    //?ajax=catalog_grid&from=bootbox",
+                                                dataType : "html",
+                                                data: $("#yw0").serialize()
+                                                        + "&mass_action=delete"
+                                                        + "&ajax=ropgrid",
+                                                success: function (data, textStatus) {
+                                                    //$("#ropgrid").html(data);
+                                                    registerGrid("ropgrid");
+                                                    jQuery("#ropgrid").yiiGridView("update");
                                                 }
-                                            )
+                                            });
+                                            /*$.fn.yiiGridView.update(
+                                                "ropgrid",
+                                                {
+                                                    url:"' . Yii::app()->createUrl($url) . $orderId . '",
+                                                    data: $("#yw0").serialize()
+                                                        + "&mass_action=delete"
+                                                        //+ "&ids=" + ids
+                                                }
+                                            )*/
                                         }
                                     }
                                 );

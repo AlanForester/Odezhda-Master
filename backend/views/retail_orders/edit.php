@@ -196,10 +196,10 @@ $this->pageButton = [
             <div class="container-fluid">
                 <div class="row-fluid">
                     <div style="padding-bottom: 16px" class="span12 pull-left button-block">
-                        <?=
-                        BackendPageButtons::addProduct() .
-                        BackendPageButtons::removeProduct("/customers/mass") .
-                        BackendPageButtons::mass("/customers/mass")
+                        <?php
+                        echo BackendPageButtons::addProduct()
+                        . BackendPageButtons::removeProduct("/retail_orders_products/mass/", $item->id)
+                        . BackendPageButtons::mass("/retail_orders_products/mass/".$item->id)
                         ?>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ $this->pageTitle = 'Товары: ' . ($item->id ? 'редактирование
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/retail_orders_products/order/".$item->retail_orders_id)
+    BackendPageButtons::cancel("/retail_orders/edit/".$item->retail_orders_id)
 ];
 
 /*$this->widget(

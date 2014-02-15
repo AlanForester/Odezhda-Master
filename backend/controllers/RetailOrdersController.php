@@ -104,29 +104,11 @@ class RetailOrdersController extends BackendController {
         $currencies = ['RUR'=>'RUR'];
 
 
-        $productsCriteria = [
-            /*'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],*/
-            'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
-        ];
-        $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
-
-        //todo убрать layer
-        $productsModel = new RetailOrdersProductsLayer('update');
-        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
-        $productsGridDataProvider->setSort(false);
-
-
         if($from == 'customer') {
             $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
             $item->customer = CustomersHelper::getCustomerWithInfo($fromId, $scenario);
-            if($id === null && $fromId) {
+            if($fromId) {
+                $item->customers_id = $fromId;
                 $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
                 $item->customers_city = $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
                 $item->customers_telephone = $item->customer->customers_telephone;
@@ -139,18 +121,31 @@ class RetailOrdersController extends BackendController {
             $this->error('Ошибка получения данных розничного заказа');
         }
 
+        //todo убрать layer
+        $productsModel = new RetailOrdersProductsLayer('update');
+
+
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
             $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
+            $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
+
+            $productResult = $productsModel->saveProducts(Yii::app()->request->getPost('RetailOrdersProducts'), $id);
 
             if (!$result) {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
+                );
+            } elseif ($productResult !== true) {
+                // ошибка записи
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_ERROR,
+                    CHtml::errorSummary($productResult, 'Ошибка сохранения товаров розничного заказа')
                 );
             } else {
                 // выкидываем сообщение
@@ -167,6 +162,24 @@ class RetailOrdersController extends BackendController {
                 }
             }
         }
+
+
+        $productsCriteria = [
+            /*'text_search' => [
+                'value' => $this->userStateParam('text_search'),
+            ],
+            'filters' => $this->userStateParam('filters'),
+            'order' => [
+                'field' => $this->userStateParam('order_field'),
+                'direction' => $this->userStateParam('order_direct'),
+            ],*/
+            'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+        ];
+        $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
+
+        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
+        $productsGridDataProvider->setSort(false);
+
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }
