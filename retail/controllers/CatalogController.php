@@ -73,6 +73,8 @@ class CatalogController extends RetailController {
             case 'price_up':
                 $criteria['order'] = '[[price]] DESC';
                 break;
+            default:
+                $criteria['order'] = '[[date_add]] DESC';
         }
 
         $model = new CatalogModel();
@@ -84,6 +86,39 @@ class CatalogController extends RetailController {
         // Категории для аккардеона
         $categoriesModel = new ShopCategoriesModel();
         $categories = $categoriesModel->getClearCategoriesList();
+
+
+        // Определение номера категории
+        $currentCategoryNumber=0;
+//        print_r($this->categories);
+//        exit;
+        $i=0;
+        $break=0;
+        if($id!=0){
+            foreach($categories as $category){
+                if($category['id']==$id){
+                    $currentCategoryNumber=$i;
+                    break;
+                }
+                if(!empty($category['children'])){
+                    foreach($category['children'] as $child){
+                        if($child['id']==$id){
+                            $currentCategoryNumber=$i;
+                            $break=1;
+                            break;
+                        }
+                    }
+                }
+                if($break==1){
+                    break;
+                }
+                $i++;
+            }
+        }
+
+
+
+
 
         // получение товаров в категории
         $data = $model->getDataProvider($criteria);
@@ -105,6 +140,6 @@ class CatalogController extends RetailController {
         // титл страницы
         $this->pageTitle = $catName;
       //  print_r($dataProvider->getData());
-            $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria'));
+            $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria','currentCategoryNumber'));
     }
 }

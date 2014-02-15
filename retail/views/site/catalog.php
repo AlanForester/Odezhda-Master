@@ -199,12 +199,13 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 <!--                </button>-->
                     <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>' data-options='{"width":900, "height":450, "modal": true}' class='lightbox quick-view'>Быстрый просмотр</a>
                 <div class="choice">
+                    <?php if(!empty($product->product_options)){ ?>
                     <select class="product_size">
                          <?php foreach ($product->product_options as $option) { ?>
                             <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
                          <?php }?>
                     </select>
-
+                <?php } ?>
                     <?php if(!Yii::app()->user->isGuest): ?>
                         <a class="in-basket addToCart">в корзину</a>
                     <?php else: ?>
