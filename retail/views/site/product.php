@@ -38,7 +38,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
         <div class="karta-box">
             <div class="tovar-slider">
                 <div class="clearfix" id="content">
-
                     <div class="clearfix">
                         <ul id="thumblist" class="clearfix">
                             <?php $list_image = ShopProductsHelper::previewListImg($product); ?>
@@ -48,21 +47,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                                             src='<?= Yii::app()->params['staticUrl'] . $image['small'] ?>' alt=""></a>
                                 </li>
                             <?php } ?>
-
-
-                            <!--                            <li><a class="zoomThumbActive" href='javascript:void(0);'-->
-                            <!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
-                            <!--                                        src='/images/tovar1.png' alt=""></a></li>-->
-                            <!--                            -->
-                            <!--                            <li><a href='javascript:void(0);'-->
-                            <!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
-                            <!--                                        src='/images/tovar1.png' alt=""></a></li>-->
-                            <!--                            <li><a href='javascript:void(0);'-->
-                            <!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
-                            <!--                                        src='/images/tovar1.png' alt=""></a></li>-->
-                            <!--                            <li><a href='javascript:void(0);'-->
-                            <!--                                   rel="{gallery: 'gal1', smallimage: '/images/tovar1-big.png',largeimage: '/images/tovar1-big-b.png'}"><img-->
-                            <!--                                        src='/images/tovar1.png' alt=""></a></li>-->
                         </ul>
                     </div>
                     <div class="clearfix">
@@ -75,66 +59,35 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="tovar-info">
-            <p><?php echo $product->name ?></p>
-            <span>Артикул <?php echo $product->model ?></span>
 
-            <!--            <div class="color">-->
-            <!--                <span>ВЫБЕРИТЕ ЦВЕТ</span>-->
-            <!--                --><?php //foreach($list_image as $image){ ?>
-            <!--                <a href="#"><img src="//= Yii::app()->params['staticUrl'].$image['small']" alt=""></a>-->
-            <!--                --><?php //} ?>
-            <!--                <a href="#"><img src="http://odezhda-master.ru/preview/w50_img_7863.jpg" alt=""></a>-->
-            <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
-            <!--                <a href="#"><img src="/images/tovar1.png" alt=""></a>-->
-            <div class="tovar-more-info">
-                ОПИСАНИЕ
-                <?= $product->description ?>
-                <?php if ($product->manufacturers_id) { ?>
-                    <p>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?> </p>
+
+            <div class="tovar-info">
+                <p><?php echo $product->name ?></p>
+                <span>Артикул <?php echo $product->model ?></span>
+                <div class="tovar-more-info">
+                    ОПИСАНИЕ
+                    <?= $product->description ?>
+                    <?php if ($product->manufacturers_id) { ?>
+                        <p>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?> </p>
+                    <?php } ?>
+                </div>
+                <?php if(!empty($product->product_options[0])){ ?>
+                <select id="filter_size">
+                    <?php foreach ($product->product_options as $option) { ?>
+                        <option
+                            value='<?= $option->products_options_values_id ?>'><?= $option->products_options_values_name ?></option>
+                    <?php } ?>
+                </select>
                 <?php } ?>
             </div>
-            <?php if(!empty($product->product_options)){ ?>
-            <select id="filter_size">
-                <?php foreach ($product->product_options as $option) { ?>
-                    <option
-                        value='<?= $option->products_options_values_id ?>'><?= $option->products_options_values_name ?></option>
-                <?php } ?>
-            </select>
-            <?php } ?>
         </div>
-
-        <!--            <div class="razmer">-->
-        <!--                <div class="title">-->
-        <!--                    <span>РАЗМЕРЫ</span>-->
-        <!--                    <a href="#">Таблица размеров</a>-->
-        <!--                </div>-->
-        <!--                <a href="#" class="razmer-one">45</a>-->
-        <!--                <a href="#" class="razmer-one">56</a>-->
-        <!--                <a href="#" class="razmer-one">41</a>-->
-        <!--                <a href="#" class="razmer-one-del">48</a>-->
-        <!--                <a href="#" class="razmer-one">32</a>-->
-        <!--                <a href="#" class="razmer-one">39</a>-->
-        <!--            </div>-->
-
     </div>
 
     <!--        buy-lapiki-->
 
-</div>
 
 <div class="bottom-price">
-    <!--        <div class="footer-social">-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/vk.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/facebook.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/twitter.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/google.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/odnoklassniki.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/youtube.png" alt=""/></a>-->
-    <!--            <a href="#" class="soc-btn"><img src="/images/photo.png" alt=""/></a>-->
-    <!--        </div>-->
     <div class="footer-social">
         <script type="text/javascript">(function () {
                 if (window.pluso)if (typeof window.pluso.start == "function") return;
@@ -211,5 +164,5 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
         <a href="#" class="jcarousel-control-next"></a>
     </div>
 </div>
-
-<!--</div>-->
+</div>
+</div>

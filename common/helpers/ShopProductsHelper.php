@@ -136,6 +136,7 @@ class ShopProductsHelper {
                 }
             }
         }
+
         return $page;
     }
 
