@@ -16,13 +16,13 @@ $this->breadcrumbs=array(
        </div>
 
        <div class="razmer prev_razmer">
-
+           <?php if(!empty($product->product_options)){ ?>
            <select id="filter_size">
                <?php foreach ($product->product_options as $option) { ?>
                    <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
                <?php }?>
            </select>
-
+           <?php } ?>
            <div class='prev_info'>
                <p><?=$product->description ?></p>
                 <?php if($product->manufacturers_id){ ?>
