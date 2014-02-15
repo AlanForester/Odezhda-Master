@@ -248,6 +248,22 @@ $this->pageButton = [
                                     ]
                                 ],
                                 [
+                                    'header' => 'Размер',
+                                    'value' => '',
+                                    /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'type' => 'text',
+                                    'name' => 'size',
+                                    'headerHtmlOptions' => [
+                                    ],
+                                    'htmlOptions' => [
+                                    ],
+                                    'editable' => [
+                                        'placement' => 'right',
+                                        'emptytext' => 'не задано',
+                                        'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                                    ]*/
+                                ],
+                                [
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'quantity',

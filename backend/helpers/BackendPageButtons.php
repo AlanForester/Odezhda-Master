@@ -150,6 +150,24 @@ class BackendPageButtons {
             );
     }
 
+    public static function cancelCustomer($url = '', $urlParams = '', $option = [], $title = 'Отмена') {
+        return
+            TbHtml::linkButton(
+                $title,
+                array_merge(
+                    [
+                        'icon' => TbHtml::ICON_REMOVE,
+                        'buttonType' => 'link',
+                        'url' => Yii::app()
+                            ->createUrl($url) . $urlParams,
+                        //            'type'=>TbHtml::BUTTON_TYPE_LINK,
+                        'class' => 'btn-small',
+                        'color' => TbHtml::BUTTON_COLOR_DANGER,
+                    ], $option
+                )
+            );
+    }
+
     public static function editCustomer($url = '', $urlParams = '', $option = [], $title = 'Редактировать') {
         return
             TbHtml::linkButton(

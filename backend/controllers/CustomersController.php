@@ -134,7 +134,7 @@ class CustomersController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo'));
+        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo', 'from', 'fromId'));
     }
 
     public function actionDelete($id) {

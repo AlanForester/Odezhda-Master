@@ -5,7 +5,9 @@ $this->pageTitle = 'Менеджер клиентов: ' . ($item->id ? 'ред�
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/customers/index")
+    $from == 'retail_order' ?
+        BackendPageButtons::cancelCustomer("/retail_orders/".($fromId == 0 ? 'add/' : 'edit/').$fromId, '?from=customer&fromId='.$item->id) :
+        BackendPageButtons::cancelCustomer("/customers/index")
 ];
 ?>
 <div class="span6">

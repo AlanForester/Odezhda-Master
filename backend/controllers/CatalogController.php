@@ -242,27 +242,30 @@ class CatalogController extends BackendController {
 
 
 
+
+    public function actionInfo($id) {
+        //todo Alex: Заместо CformModel  используем AR
+        $this->model = new CatalogModel();
+        $model = $this->model->getCatalogData($id,'edit');
+        $response['catalog'] = $model;
+        //$response['with'] = $model->with;
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
     //todo: совместить с index
-    public function actionBootbox() {
-        $criteria = [
-            /*'text_search' => $this->userStateParam('text_search'),
-            'order_field' => $this->userStateParam('order_field'),
-            'order_direct' => $this->userStateParam('order_direct'),
-            'filter_category' => $this->userStateParam('filter_category')*/
-        ];
+    public function actionBootbox($id = null) {
 
-        // пагинация
-        $page_size = 10;     //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE);
+        $criteria = ['page_size' => 10];
 
-        // получение данных
         //todo Alex: Заместо CformModel  используем AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
 
-        $this->gridDataProvider = new CArrayDataProvider($catalog, [
+        $gridDataProvider = new CArrayDataProvider($catalog, [
             'keyField' => 'id',
             'pagination' => [
-                'pageSize' => ($page_size == 'all' ? count($catalog) : $page_size),
+                'pageSize' => $criteria['page_size'],
             ],
         ]);
         //todo Alex: Заместо CformModel  используем AR
@@ -273,7 +276,7 @@ class CatalogController extends BackendController {
             $this->categories[$g['id']] = $g['name'];
         }
 
-        $this->render('bootbox', ['page_size' => $page_size, 'criteria' => $criteria]);
+        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
     }
 
 }

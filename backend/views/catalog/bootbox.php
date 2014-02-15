@@ -6,9 +6,9 @@ $this->widget(
     [
         'gridId' => 'catalog_grid',
 
-        'pageSize' => $page_size,
+        'pageSize' => $criteria['page_size'],
 
-        'dataProvider' => $this->gridDataProvider,
+        'dataProvider' => $gridDataProvider,
 
         'gridColumns' => [
             [
@@ -17,6 +17,14 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ], [
                 'header' => 'Код',
@@ -24,6 +32,14 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ],
             [
@@ -32,6 +48,14 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ],
             [
@@ -40,6 +64,14 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ],
             [
@@ -47,11 +79,31 @@ $this->widget(
                 'name' => 'manufacturers',
                 'headerHtmlOptions' => [
                 ],
+                'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
+                ],
             ],
             [
                 'header' => 'Цена (руб.)',
                 'name' => 'price',
                 'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ],
             /*[
@@ -93,6 +145,14 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
                 ],
             ],
             [
@@ -101,7 +161,15 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
-                ]
+                    'onClick' => 'js: (function(){
+                        addRetailOrdersProduct(
+                            event,
+                            ' . ($id ? : 0) . ',
+                            "' . Yii::app()->createUrl('/catalog/info/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                        );
+                    })()',
+                ],
             ]
         ],
     ]
