@@ -69,7 +69,7 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     ОПИСАНИЕ
                     <?= $product->description ?>
                     <?php if ($product->manufacturers_id) { ?>
-                        <p>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?> </p>
+                        <br>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?>
                     <?php } ?>
                 </div>
                 <?php if(!empty($product->product_options[0])){ ?>
