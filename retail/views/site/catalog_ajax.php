@@ -6,12 +6,17 @@
         <h5><?php echo round($product['old_price']).'р'; ?></h5>
         <button class="m-dotted fixed-info quick-view" id="#example5" onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр</button>
         <div class="choice">
-            <select>
-                <option>Размер</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
+            <select class="product_size">
+                <?php foreach ($product->product_options as $option) { ?>
+                    <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                <?php }?>
             </select>
+<!--            <select>-->
+<!--                <option>Размер</option>-->
+<!--                <option>1</option>-->
+<!--                <option>2</option>-->
+<!--                <option>3</option>-->
+<!--            </select>-->
             <?php if(!Yii::app()->user->isGuest): ?>
                 <a class="in-basket addToCart">в корзину</a>
             <?php else: ?>
