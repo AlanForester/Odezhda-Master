@@ -226,10 +226,8 @@ jQuery(document).ready(function($){
     $('.addToCart').live('click',function(){
         var size = $(this).siblings('.product_size');
         if(size.length==0){
-//            console.log(size.val());
             size =$('#filter_size');
         }
-        console.log(size.val());
         if(size.val()!=0 && size.val()!='' && size.val()!=null) {
             $.ajax({
                       type: 'POST',
@@ -241,7 +239,17 @@ jQuery(document).ready(function($){
                       success: function(data) {
                             if (data){
                                   $('#panel').html(data);
+                                  $('#jqeasypanel').jqEasyPanel({
+                                        position: 'bottom'
+                                  });
+                                  $('.open').click(function(){
+                                        $('#jqeasytrigger').animate({bottom:'246px'});
+                                  });
+                                  $('.close').click(function(){
+                                        $('#jqeasytrigger').animate({bottom:'0px'});
+                                  });
                                   $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+
                             }
 
                       }

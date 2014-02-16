@@ -1,12 +1,15 @@
 <?php
 
 /**
- * This is the model class for table "{{delivery_points}}".
+ * Модель управления таблицей доставки.
  *
- * The followings are the available columns in table '{{delivery_points}}':
- * @property integer $id
+ * Доступные свойства:
+ * @property integer id
+ * @property string name
+ * @property string description
+ *
  */
-class DeliveryPoints extends LegacyActiveRecord {
+class RetailDelivery extends LegacyActiveRecord {
 
     /**
      * Name of the database table associated with this ActiveRecord
@@ -14,6 +17,7 @@ class DeliveryPoints extends LegacyActiveRecord {
      * @return string
      */
     public function tableName() {
+        // todo: переименовать в retail_delivery
         return 'delivery_points';
     }
 
@@ -38,7 +42,7 @@ class DeliveryPoints extends LegacyActiveRecord {
      * Mandatory method for ActiveRecord descendants.
      *
      * @param string $className
-     * @return DeliveryPoints the static model class
+     * @return RetailDelivery the static model class
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);

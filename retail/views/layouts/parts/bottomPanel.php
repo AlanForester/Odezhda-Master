@@ -58,9 +58,17 @@ if (!empty($customer_id)){
                         <p class="image"><a href="/catalog/product/<?=$product->id ?>">
                                 <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
                             </a>
-                            <button class="changeCount right plus">+</button>
-                            <span class="sel-count count"><?=$product_ids[$product->id] ?></span>
-                            <button class="changeCount left minus">-</button>
+                            <select class="goods-count">
+                                <?php for($i=1;$i<100;$i++){
+                                    if($i==$product_ids[$product->id]){?>
+                                        <option selected="selected"><?=$i?></option>
+                                    <?php continue;}?>
+                                <option><?=$i?></option>
+                                <?php }?>
+                            </select>
+<!--                            <button class="changeCount right plus">+</button>-->
+<!--                            <span class="sel-count count">--><?//=$product_ids[$product->id] ?><!--</span>-->
+<!--                            <button class="changeCount left minus">-</button>-->
                         </p>
                         <h3><a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?></a></h3>
                         <span class="artikul"><?= $product->model ?></span>
