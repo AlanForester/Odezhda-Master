@@ -86,7 +86,14 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
 
             <div class='inner_price  bottom-price'>
 
-
+                <div class="price-main">
+                       <span>
+                            <?= FormatHelper::markup($product['price']) ?>
+                       </span>
+                    <?php if($product['old_price'] != 0){ ?>
+                        <small><?= FormatHelper::markup($product['old_price']) ?></small>
+                    <?php } ?>
+                </div>
 
                 <div class="btn">
                     <!--            --><?php //if(!Yii::app()->user->isGuest): ?>
@@ -105,15 +112,8 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                     <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
                 </div>
 
-                <div class="price-main">
-                       <span>
-                            <?= FormatHelper::markup($product['price']) ?>
-                       </span>
-                    <?php if($product['old_price'] != 0){ ?>
-                        <small><?= FormatHelper::markup($product['old_price']) ?></small>
-                    <?php } ?>
-                </div>
-                `
+
+
                 <div class="footer-social">
                     <script type="text/javascript">(function () {
                             if (window.pluso)if (typeof window.pluso.start == "function") return;
@@ -175,7 +175,7 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
 <!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
 <!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
 <!--            --><?php //endif; ?>
-<!--            <input type="hidden" class="product_id" value="--><?php /*echo $product->id;*/ ?><!--"/>-->
+<!--            <input type="hidden" class="product_id" value="--><?php /*echo $product->id; */?><!--"/>-->
 <!--        </div>-->
 <!---->
 <!--        <div class="price-main">-->
