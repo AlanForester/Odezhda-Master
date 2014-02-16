@@ -1,9 +1,24 @@
-<?php $count=isset($count) ? $count :0;?>
+<?php $count=isset($count) ? $count :0;
+//todo что-то с этим решить
+//$products=CartHelper::getCart();
+$customer_id=Yii::app()->user->id;
+$products=0;
+if (!empty($customer_id)){
+    $model = new CartModel();
+    $product_ids=$model->getUserProducts($customer_id);
+    if($product_ids){
+        $catalogModel = new CatalogModel();
+        foreach($product_ids as $id=>$count){
+            if ($product = $catalogModel->productById($id)) {
+                $products[]=$product;
+            }
+        }
+    }
+}
+?>
+
 <div id="jqeasytrigger" class="bottom bottom-panel">
-    <!--    <a href="--><?php //echo $this->createUrl('cart/show')?><!--"-->
-    <!--       data-options='{"width":900, "height":480, "modal": true}'-->
-    <!--       class="lightbox" id="openCart">-->
-    <!--        В корзине</a>-->
+
     <a href="#" class="open" style="display: block;">
         <img src="../../../images/bottom-basket-icon.png" alt="" />
 
@@ -22,177 +37,36 @@
     </a>
 </div>
 
-<div id="jqeasypanel" class="bottom" style="height: 80px; display: none;">
-    <p>В вашей корзине 4 товара</p>
+<div id="jqeasypanel" class="bottom" style="height: 80px;">
+    <?php if($products!=0) {?>
+    <p>В вашей корзине
+        <?php
+        $n=CartModel::countProducts();
+        echo($n.' '.FormatHelper::plural($n,'товар','товара','товаров'));
+        ?>
+    </p>
     <button class="clear"><b>X</b>Очистить корзину</button>
-    <p class="open-basket"><input type="checkbox"  /><span>Не открывать корзину при каждой покупке</span></p>
+    <!--    <p class="open-basket"><input type="checkbox"  /><span>Не открывать корзину при каждой покупке</span></p>-->
 
     <div class="goods-slider">
         <div id="container">
-
-
             <ul id="items">
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-                <li>
-                    <p class="image"><a href="#"><img src="images/kofta.png" alt="Template preview" /></a>
-                        <select class="goods-count">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                        </select>
-                    </p>
-                    <h3>Кофта</h3>
-                    <span class="artikul">43534634</span>
-                    <span class="price-g">1500р.</span>
-                    <span class="price-b">3000р.</span>
-
-                </li>
-
-
+                <?php $sum=0; foreach($products as $product) { ?>
+                    <li>
+                        <p class="image"><a href="/catalog/product/<?=$product->id ?>">
+                                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
+                            </a>
+                            <button class="changeCount right plus">+</button>
+                            <span class="sel-count count"><?=$product_ids[$product->id] ?></span>
+                            <button class="changeCount left minus">-</button>
+                        </p>
+                        <h3><a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?></a></h3>
+                        <span class="artikul"><?= $product->model ?></span>
+                        <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
+                        <span class="price-b"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
+                        <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
+                    </li>
+                    <?php $sum+=$product->price*$product_ids[$product->id]; } ?>
             </ul>
 
         </div>
@@ -203,7 +77,10 @@
             <a href="#" class="close">x</a>
         </div>
         <p class="title-price">Стоимость заказа</p>
-        <span class="end-price">10 000р</span>
-        <a href="#" class="zakaz">Оформить заказ</a>
+        <span class="end-price"><?=FormatHelper::markup($sum) ?></span>
+        <a href="#" class="zakaz" id="makeOrder">Оформить заказ</a>
     </div>
+    <?php } else{?>
+    <p>Ваша корзина пуста</p>
+    <?php }?>
 </div>

@@ -2,12 +2,6 @@
 
 class CartController extends RetailController {
 
-
-    public function actionIndex() {
-
-        $this->render("/site/info", compact('cart'));
-    }
-
     public function actionShow($showBottomPanel=false) {
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
@@ -21,15 +15,9 @@ class CartController extends RetailController {
                     }
                 }
                 $this->renderPartial("/layouts/parts/basket", compact('products','product_ids'));
-                if($showBottomPanel){
-                    $this->renderPartial("/layouts/parts/bottomPanel");
-                }
                 Yii::app()->end();
             }
             $this->renderPartial("/layouts/parts/emptyBasket");
-            if($showBottomPanel){
-                $this->renderPartial("/layouts/parts/bottomPanel");
-            }
             Yii::app()->end();
         }
         $error='Ошибка : неизвестный пользователь';
