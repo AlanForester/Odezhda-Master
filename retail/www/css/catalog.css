@@ -986,3 +986,8 @@ ul.yiiPager .selected a {
     color: #f6931f !important;
     font-weight:bold;
 }
+
+.good-var-name{
+    position: absolute;
+    bottom: 95px;
+}

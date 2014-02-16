@@ -36,8 +36,10 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
 
     <div class="karta-wrap">
         <div class="karta-box">
+
             <div class="tovar-slider">
                 <div class="clearfix" id="content">
+
                     <div class="clearfix">
                         <ul id="thumblist" class="clearfix">
                             <?php $list_image = ShopProductsHelper::previewListImg($product); ?>
@@ -49,6 +51,7 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                             <?php } ?>
                         </ul>
                     </div>
+
                     <div class="clearfix">
                         <a href="<?= Yii::app()->params['staticUrl'] ?><?= ShopProductsHelper::pathToLargeImg($product->image); ?>"
                            class="jqzoom" rel='gal1' title="triumph">
@@ -57,10 +60,9 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                                 title="triumph" alt="">
                         </a>
                     </div>
+
                 </div>
             </div>
-
-
 
             <div class="tovar-info">
                 <p><?php echo $product->name ?></p>
@@ -81,88 +83,84 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                 </select>
                 <?php } ?>
             </div>
+
         </div>
     </div>
 
-    <!--        buy-lapiki-->
-
-
-<div class="bottom-price">
-    <div class="footer-social">
-        <script type="text/javascript">(function () {
-                if (window.pluso)if (typeof window.pluso.start == "function") return;
-                if (window.ifpluso == undefined) {
-                    window.ifpluso = 1;
-                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-                    s.type = 'text/javascript';
-                    s.charset = 'UTF-8';
-                    s.async = true;
-                    s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
-                    var h = d[g]('body')[0];
-                    h.appendChild(s);
-                }
-            })();</script>
-        <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06"
-             data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/"
-             data-title="<?= Yii::app()->params['title'] ?>" data-description=""></div>
-    </div>
-
-    <div class="btn">
-        <!--            --><?php //if(!Yii::app()->user->isGuest): ?>
-        <!--                <a class="basket" id="addToCart">В КОРЗИНУ</a>-->
-        <!--            --><?php //else: ?>
-        <!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
-        <!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
-        <!--            --><?php //endif; ?>
-        <!---->
-
-        <?php if (!Yii::app()->user->isGuest): ?>
-            <a class="basket addToCart">В КОРЗИНУ</a>
-        <?php else: ?>
-            <a href="<?php echo $this->createUrl('site/login') ?>"
-               data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>
-        <?php endif; ?>
-        <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
-    </div>
-
-    <div class="price-main">
-                	<span>
-                    	  <?= FormatHelper::markup($product['price']) ?>
-                    </span>
-        <?php if ($product['old_price'] != 0) { ?>
-            <small><?= FormatHelper::markup($product['old_price']) ?></small>
-        <?php } ?>
-    </div>
-
-</div>
-
-<p class="title-cart-like-tovar">Популярные товары</p>
-
-<div class="slider-clothes">
-    <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-            <ul>
-                <?php foreach ($dataProvider->getData() as $product) { ?>
-                    <li>
-                        <a href="/catalog/product/<?= $product->id ?>">
-                            <img
-                                src="<?= Yii::app()->params['staticUrl'] . ShopProductsHelper::pathToMidImg($product->image) ?>"
-                                alt="<?= $product->image ?>">
-                        </a>
-
-                        <div class="info">
-                            <a href="/catalog/product/<?= $product->id ?>" class="name"><?= $product->name ?></a>
-
-                            <p><?= FormatHelper::markup($product->price) ?></p>
-                        </div>
-                    </li>
-                <?php } ?>
-            </ul>
+    <div class="bottom-price">
+        <div class="footer-social">
+            <script type="text/javascript">(function () {
+                    if (window.pluso)if (typeof window.pluso.start == "function") return;
+                    if (window.ifpluso == undefined) {
+                        window.ifpluso = 1;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('body')[0];
+                        h.appendChild(s);
+                    }
+                })();
+            </script>
+            <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06"
+                 data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/"
+                 data-title="<?= Yii::app()->params['title'] ?>" data-description="">
+            </div>
         </div>
 
-        <a href="#" class="jcarousel-control-prev"></a>
-        <a href="#" class="jcarousel-control-next"></a>
+        <div class="btn">
+            <!--            --><?php //if(!Yii::app()->user->isGuest): ?>
+            <!--                <a class="basket" id="addToCart">В КОРЗИНУ</a>-->
+            <!--            --><?php //else: ?>
+            <!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
+            <!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
+            <!--            --><?php //endif; ?>
+            <!---->
+            <?php if (!Yii::app()->user->isGuest): ?>
+                <a class="basket addToCart">В КОРЗИНУ</a>
+            <?php else: ?>
+                <a href="<?php echo $this->createUrl('site/login') ?>"
+                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>
+            <?php endif; ?>
+            <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
+        </div>
+
+        <div class="price-main">
+           <span>
+                <?= FormatHelper::markup($product['price']) ?>
+           </span>
+            <?php if($product['old_price'] != 0){ ?>
+                <small><?= FormatHelper::markup($product['old_price']) ?></small>
+            <?php } ?>
+        </div>
     </div>
-</div>
-</div>
+
+    <p class="title-cart-like-tovar">Популярные товары</p>
+
+    <div class="slider-clothes">
+        <div class="jcarousel-wrapper">
+            <div class="jcarousel">
+                <ul>
+                    <?php foreach ($dataProvider->getData() as $product) { ?>
+                        <li>
+                            <a href="/catalog/product/<?= $product->id ?>">
+                                <img
+                                    src="<?= Yii::app()->params['staticUrl'] . ShopProductsHelper::pathToMidImg($product->image) ?>"
+                                    alt="<?= $product->image ?>">
+                            </a>
+
+                            <div class="info">
+                                <a href="/catalog/product/<?= $product->id ?>" class="name"><?= $product->name ?></a>
+
+                                <p><?= FormatHelper::markup($product->price) ?></p>
+                            </div>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <a href="#" class="jcarousel-control-prev"></a>
+            <a href="#" class="jcarousel-control-next"></a>
+        </div>
+    </div>
 </div>
