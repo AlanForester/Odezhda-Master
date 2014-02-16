@@ -185,11 +185,17 @@ jQuery(document).ready(function($){
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/deleteAll') . "',
                           success: function(data) {
-                                if ($(data)[0]){
-                                      $('.jquery-lightbox-html').html($(data)[0]);
-                                }
-                                if ($(data)[1]){
-                                      $('#panel').html($(data));
+                                if (data){
+                                      $('#panel').html(data);
+                                      $('#jqeasypanel').jqEasyPanel({
+                                            position: 'bottom'
+                                      });
+                                      $('.open').click(function(){
+                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+                                      });
+                                      $('.close').click(function(){
+                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                      });
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
@@ -243,10 +249,10 @@ jQuery(document).ready(function($){
                                         position: 'bottom'
                                   });
                                   $('.open').click(function(){
-                                        $('#jqeasytrigger').animate({bottom:'246px'});
+                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
                                   });
                                   $('.close').click(function(){
-                                        $('#jqeasytrigger').animate({bottom:'0px'});
+                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
                                   });
                                   $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
 
