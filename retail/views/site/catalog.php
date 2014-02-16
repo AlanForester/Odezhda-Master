@@ -195,7 +195,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
                 <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
                      alt=""/></a>
-                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model; ?></a>
+                <a class='good-var-name' href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model; ?></a>
 
                 <span><?=FormatHelper::markup($product->price) ?></span>
                 <?php if ($product->old_price != 0) { ?>
