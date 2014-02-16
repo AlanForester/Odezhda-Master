@@ -109,7 +109,11 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
         <div id="accordion">
             <?php
             foreach ($categories as $category) {
+            if($currentCetegory->rel_description->categories_id==$category['id']){
+                echo '<h3 class="active_elem">' . $category['name'] . '</h3>';
+            }else{
                 echo '<h3>' . $category['name'] . '</h3>';
+            }
                 echo '<div><ul>';
                 if (isset($category['children'])) {
                     foreach ($category['children'] as $child) {
