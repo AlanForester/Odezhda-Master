@@ -1,65 +1,18 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/users/add"),
-    BackendPageButtons::remove("/users/mass"),
-    BackendPageButtons::mass("/users/mass")
+    BackendPageButtons::add("/retail_delivery/add"),
+    BackendPageButtons::remove("/retail_delivery/mass"),
+    BackendPageButtons::mass("/retail_delivery/mass")
 ];
 
 // таблица
 $this->widget(
     'backend.widgets.Grid',
     [
-        'submenu' => BackendSubMenu::users(),
+        'submenu' => BackendSubMenu::retail(),
 
-        'filter' => [
-            // фильтр по группе
-            TbHtml::dropDownList(
-                'filter_groups',
-                $criteria['filter_groups'],
-                array_merge([''=>'- По группе -'],$groups),
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_groups:$("#filter_groups").val()
-                            }
-                        }
-                    )
-                })()'
-                ]
-            ),
-
-            // фильтр по дате регистрации
-            TbHtml::dropDownList(
-                'filter_created',
-                $criteria['filter_created'],
-                [
-                    '0' => '- По дате регистрации -',
-                    'today' => 'сегодня',
-                    'past_week' => 'за прошлую неделю',
-                    'past_1month' => 'за прошлый месяц',
-                    'past_3month' => 'последние 3 месяца',
-                    'past_6month' => 'последние 6 месяцев',
-                    'past_year' => 'за прошлый год',
-                    'post_year' => 'больше года назад',
-                ],
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_created:$("#filter_created").val()
-                            }
-                        }
-                    )
-                })()'
-                ]
-            )
-        ],
+        'filter' => [],
 
         'order' => [
             'active' => $criteria['order_field'],
@@ -125,22 +78,6 @@ $this->widget(
                     'placement' => 'right',
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/users/update"),
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-//                'header' => 'Группа',
-                'name' => 'group_id',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'type' => 'select',
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                    'source' => $groups //$this->createUrl('groups/list'),
                 ]
             ],
             [
