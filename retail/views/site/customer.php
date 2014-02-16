@@ -79,7 +79,7 @@ $form = $this->beginWidget(
             echo $form->error($customer,'fax'); ?>
         </div>
         <input type="hidden" name="form_action" value="save">
-        <?php echo CHtml::submitButton('Сохранить изменения'); ?>
+        <?php echo CHtml::submitButton('Сохранить изменения',['id'=>'saveCustomer']); ?>
 
     </fieldset>
 <?php $this->endWidget(); ?>
