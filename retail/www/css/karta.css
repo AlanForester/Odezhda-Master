@@ -56,6 +56,7 @@
     float: left;
     height: auto;
     margin: 0 auto;
+    width: 100%;
 }
 
 .tovar-slider {
@@ -582,5 +583,30 @@ ul.yiiPager a {
 }
 
 .prev_title span {
+    margin-top: 15px;
+}
+
+.inner_price.bottom-price {
+    float: left;
+    border: none;
+    height: 100%;
+    width: 400px;
+    clear: none;
+}
+.inner_price.bottom-price .btn {
+    float: left;
+    margin-left: 15px;
+}
+
+.inner_price.bottom-price .price-main {
+    float: left;
+margin-left: 15px;
+}
+
+.inner_price.bottom-price .price-main {
+    float: left;
+    margin-top: 10px;
+    width: 140px;
+    margin-right: 0px;
     margin-top: 15px;
 }
