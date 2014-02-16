@@ -21,7 +21,7 @@ class RetailDeliveryController extends BackendController {
         ];
 
         // получение данных
-        $model = new UsersModel();
+        $model = new RetailDeliveryModel();
         $gridDataProvider = $model->getDataProvider($criteria);
 
         $this->render('index', compact('criteria', 'gridDataProvider'));
