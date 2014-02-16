@@ -912,7 +912,7 @@ button:hover {
     height: 30px;
     background: #F89A2F;
     bottom: 0px;
-    left: 0px;
+    /*left: 0px;*/
     z-index: 99999;
 }
 

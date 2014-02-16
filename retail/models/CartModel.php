@@ -103,6 +103,34 @@ class CartModel {
     }
 
     /**
+     * Метод для нахождения общей суммы товаров в корзине текущего пользователя
+     * @return int
+     */
+    public static function countPrices(){
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $cartModel = new CartModel();
+            $product_ids=$cartModel->getUserProducts($customer_id);
+            $sum = 0;
+            if($product_ids){
+                $catalogModel = new CatalogModel();
+                foreach($product_ids as $id=>$count){
+                    if ($product = $catalogModel->productById($id)) {
+                        $sum+=$product->price*$count;
+                    }
+                }
+            }
+//            $count = Yii::app()->db->createCommand()
+//                ->select('SUM(count) AS c')
+//                ->from(self::$tblName)
+//                ->where('customer_id=:id', array(':id'=>$customer_id))
+//                ->queryRow()['c'];
+        }
+//        return (isset($count) ? $count : 0);
+        return FormatHelper::markup($sum);
+    }
+
+    /**
      * Метод для нахождения количества единиц одного товаров в корзине текущего пользователя
      * @param $product_id идентификатор товара
      * @return int
