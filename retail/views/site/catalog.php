@@ -113,7 +113,11 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
                 echo '<div><ul>';
                 if (isset($category['children'])) {
                     foreach ($category['children'] as $child) {
-                        echo '<li><a href="' . $this->createUrl('catalog/list', ['id' => $child['id']]) . '">' . $child['name'] . '</a></li>';
+                        if($currentCetegory->rel_description->categories_id==$child['id']){
+                            echo '<li><a class="active_elem" href="' . $this->createUrl('catalog/list', ['id' => $child['id']]) . '">' . $child['name'] . '</a></li>';
+                        }else{
+                            echo '<li><a href="' . $this->createUrl('catalog/list', ['id' => $child['id']]) . '">' . $child['name'] . '</a></li>';
+                        }
                     }
                 }
                 echo '<li class="all-items"><a href="' . $this->createUrl('catalog/list', ['id' => $category['id']]) . '">Все товары раздела</a></li>';
