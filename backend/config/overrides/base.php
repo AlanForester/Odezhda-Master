@@ -36,6 +36,7 @@ return [
         'groups' => 'GroupsController',
         'categories' => 'ShopCategoriesController',
         'info_pages' => 'InfoPagesController',
+        'retail_delivery' => 'RetailDeliveryController',
         'retail_orders' => 'RetailOrdersController',
         'retail_orders_products' => 'RetailOrdersProductsController',
 
