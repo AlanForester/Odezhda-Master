@@ -1,31 +1,24 @@
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#jqeasypanel').jqEasyPanel({
-            position: 'bottom'
-        });
-        $(".open").click(function(){
-            $("#jqeasytrigger").animate({bottom:'246px'});
-        });
-        $(".close").click(function(){
-            $("#jqeasytrigger").animate({bottom:'0px'});
-        });
-    });
-</script>
-
-<div id="jqeasytrigger" class="bottom">
+<?php $count=isset($count) ? $count :0;?>
+<div id="jqeasytrigger" class="bottom bottom-panel">
+    <!--    <a href="--><?php //echo $this->createUrl('cart/show')?><!--"-->
+    <!--       data-options='{"width":900, "height":480, "modal": true}'-->
+    <!--       class="lightbox" id="openCart">-->
+    <!--        В корзине</a>-->
     <a href="#" class="open" style="display: block;">
-        <img src="images/bottom-basket-icon.png" alt="" />
+        <img src="../../../images/bottom-basket-icon.png" alt="" />
+
         <p>корзина</p>
-        <span>5</span>
-        <p>2570р</p>
+        <span><?php echo(CartModel::countProducts());?></span>
+        <p><?php echo(CartModel::countPrices());?></p>
+
     </a>
     <a href="#" class="close" style="display: none;">
-        <img src="images/bottom-basket-icon.png" alt="" />
+        <img src="../../../images/bottom-basket-icon.png" alt="" />
         <p>корзина</p>
         <!-- Если корзина пустая -->
-        <span class="null">5</span>
-        <p>2570р</p>
-        <img src="images/bottom-basket-arrow.png" alt="" class="bottom-basket-arrow" />
+        <span class="null"><?php echo(CartModel::countProducts());?></span>
+        <p><?php echo(CartModel::countPrices());?></p>
+        <img src="../../../images/bottom-basket-arrow.png" alt="" class="bottom-basket-arrow" />
     </a>
 </div>
 
@@ -34,17 +27,6 @@
     <button class="clear"><b>X</b>Очистить корзину</button>
     <p class="open-basket"><input type="checkbox"  /><span>Не открывать корзину при каждой покупке</span></p>
 
-    <script type="text/javascript">
-
-        jQuery(function($){
-
-            $('.goods-slider ul#items').easyPaginate({
-                step:4
-            });
-
-        });
-
-    </script>
     <div class="goods-slider">
         <div id="container">
 
