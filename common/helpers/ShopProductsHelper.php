@@ -43,13 +43,17 @@ class ShopProductsHelper {
             foreach($categories as $category){
                 $condition_params[] ='categories_description.categories_id ='.$category['categories_id'];
             }
-           // $condition_params[] ='categories_description.categories_id ='.$data['category'];
+            // $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[]= '( '.join(' OR ',$condition_params).' )';
         }
 
         //Формирование критерии
-        $criteria = ['condition' => join(' AND ', $condition),
-                     'params' => $params];
+        if(!empty($condition)){
+            $criteria['condition']  = join(' AND ', $condition);
+        }
+        if(!empty($params)){
+            $criteria['params'] = $params;
+        }
 
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
@@ -60,10 +64,12 @@ class ShopProductsHelper {
         if(!empty($data['random'])){
             $criteria['order'] = new CDbExpression('RAND()');
         }
-
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
         $priceLimit = self::getModel()->find($criteria_data);
+
+//        print_r($criteria);
+//        exit;
 
 
         if(!empty($data['min_price']) && !empty($data['max_price'])){
@@ -80,13 +86,14 @@ class ShopProductsHelper {
 //            }
 //            $criteria['with']['product_options']['condition']= '( '.join(' OR ',$condition_params).' )';
 //        }
-//        print_r($criteria);
-//        exit;
+
 
         //Повторное формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
-                     'params' => $params,
-                      'order'=>$criteria['order']];
+            'params' => $params,
+            'order'=>$criteria['order']
+        ];
+
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
@@ -156,8 +163,8 @@ class ShopProductsHelper {
             $img='products_image_sm_'.$i;
             if(!empty($product->{$img})){
                 $prev_img[$i]=['small'=> ShopProductsHelper::pathToSmallImg($product->{$img}),
-                                'large'=> ShopProductsHelper::pathToLargeImg($product->{$img})
-                              ];
+                    'large'=> ShopProductsHelper::pathToLargeImg($product->{$img})
+                ];
             }
         }
         return $prev_img;
