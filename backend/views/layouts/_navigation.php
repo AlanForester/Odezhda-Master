@@ -90,9 +90,19 @@ $this->widget(
                                 'label' => 'Категории',
                                 'url' => ['/categories/index']
                             ],
+                            TbHtml::menuDivider(),
                             [
                                 'label' => 'Розничные заказы',
                                 'url' => ['/retail_orders/index']
+                            ],
+                            [
+                                'label' => 'Отделения доставки',
+                                'url' => ['/retail_delivery/index']
+                            ],
+                            TbHtml::menuDivider(),
+                            [
+                                'label' => 'Клиенты',
+                                'url' => ['/customers/index'],
                             ],
                             [
                                 'label' => 'Бухгалтерия',
@@ -108,10 +118,6 @@ $this->widget(
                                 'label' => 'Сертификаты, купоны',
                                 'url' => ['/articles/index'],
                                 'disabled'=>true
-                            ],
-                            [
-                                'label' => 'Клиенты',
-                                'url' => ['/customers/index'],
                             ],
                             [
                                 'label' => 'Партнеры',
