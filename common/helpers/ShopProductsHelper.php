@@ -48,8 +48,12 @@ class ShopProductsHelper {
         }
 
         //Формирование критерии
-        $criteria = ['condition' => join(' AND ', $condition),
-                     'params' => $params];
+        if(!empty($condition)){
+            $criteria['condition']  = join(' AND ', $condition);
+        }
+        if(!empty($params)){
+             $criteria['params'] = $params;
+        }
 
         if(!empty($data['order'])){
             $criteria ['order'] = $data['order'];
@@ -60,10 +64,12 @@ class ShopProductsHelper {
         if(!empty($data['random'])){
             $criteria['order'] = new CDbExpression('RAND()');
         }
-
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
         $priceLimit = self::getModel()->find($criteria_data);
+
+//        print_r($criteria);
+//        exit;
 
 
         if(!empty($data['min_price']) && !empty($data['max_price'])){
@@ -80,13 +86,14 @@ class ShopProductsHelper {
 //            }
 //            $criteria['with']['product_options']['condition']= '( '.join(' OR ',$condition_params).' )';
 //        }
-//        print_r($criteria);
-//        exit;
+
 
         //Повторное формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
                      'params' => $params,
-                      'order'=>$criteria['order']];
+                      'order'=>$criteria['order']
+        ];
+
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
