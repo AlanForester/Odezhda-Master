@@ -76,7 +76,7 @@
         if (typeof data !== "string" || !data)
         {
           return null;
-        }    
+        }
 
         data = $.trim(data);
 
@@ -93,7 +93,7 @@
       }
     });
   };
-    
+
   // for jQuery 1.3;
   $.extend($.fx.prototype, {
     update: function()
@@ -105,7 +105,7 @@
       ($.fx.step[this.prop] || $.fx.step._default)(this);
     }
   });
-	
+
   // jQuery Easing v1.3;
   $.extend($.easing, {
     easeOutBack: function (x, t, b, c, d, s)
@@ -274,7 +274,7 @@
           url: "http://view.vzaar.com/%id%.flashplayer?autoplay=true&amp;border=none"
         }
       },
-      
+
       mapsreg: {
         bing: {
           reg: /bing\.com\/maps/i,
@@ -301,9 +301,9 @@
           url: "http://maps.google.com/maps?%id%&amp;output=embed"
         }
       },
-      
+
       imgsreg: /\.(?:jp[e]?g|gif|png|bmp|tiff)/i,
-      
+
       overlay : {
         create: function(options) {
           this.options = options;
@@ -331,7 +331,7 @@
             }
             e.preventDefault();
           }, this));
-          
+
           this.hidden = true;
           this.inject();
           return this;
@@ -389,12 +389,12 @@
           if (this.shim) { this.shim.css({ 'height': 0, 'width': 0 }); };
 
           var win = { x: $(document).width(), y: $(document).height() };
-          
+
           this.element.css({
             'width'   : '100%',
             'height'  : y || win.y
           });
-          
+
           if (this.shim)
           {
             this.shim.css({ 'height': 0, 'width': 0 });
@@ -424,7 +424,7 @@
             this.element.trigger('show');
             if ($.isFunction(callback)) { callback(); };
           }, this));
-          
+
           return this;
         },
 
@@ -450,7 +450,7 @@
         this.options = $.extend(true, this.defaults, options);
 
         var name     = this.options.name;
-        var lightbox = $('<div class="'+name+' '+name+'-mode-image"><div class="'+name+'-border-top-left"></div><div class="'+name+'-border-top-middle"></div><div class="'+name+'-border-top-right"></div><a class="'+name+'-button-close" href="#close"><span>Close</span></a><div class="'+name+'-navigator"><a class="'+name+'-button-left" href="#"><span>Previous</span></a><a class="'+name+'-button-right" href="#"><span>Next</span></a></div><div class="'+name+'-buttons"><div class="'+name+'-buttons-init"></div><a class="'+name+'-button-left" href="#"><span>Previous</span></a><a class="'+name+'-button-max" href="#"><span>Maximize</span></a><div class="'+name+'-buttons-custom"></div><a class="'+name+'-button-right" href="#"><span>Next</span></a><div class="'+name+'-buttons-end"></div></div><div class="'+name+'-background"></div><div class="'+name+'-html"></div><div class="'+name+'-border-bottom-left"></div><div class="'+name+'-border-bottom-middle"></div><div class="'+name+'-border-bottom-right"></div></div>');
+        var lightbox = $('<div class="'+name+' '+name+'-mode-image"><div class="'+name+'-border-top-left"></div><div class="'+name+'-border-top-middle"></div><div class="'+name+'-border-top-right"></div><a class="'+name+'-button-close" href="#close">X<span>Close</span></a><div class="'+name+'-navigator"><a class="'+name+'-button-left" href="#"><span>Previous</span></a><a class="'+name+'-button-right" href="#"><span>Next</span></a></div><div class="'+name+'-buttons"><div class="'+name+'-buttons-init"></div><a class="'+name+'-button-left" href="#"><span>Previous</span></a><a class="'+name+'-button-max" href="#"><span>Maximize</span></a><div class="'+name+'-buttons-custom"></div><a class="'+name+'-button-right" href="#"><span>Next</span></a><div class="'+name+'-buttons-end"></div></div><div class="'+name+'-background"></div><div class="'+name+'-html"></div><div class="'+name+'-border-bottom-left"></div><div class="'+name+'-border-bottom-middle"></div><div class="'+name+'-border-bottom-right"></div></div>');
         var e        = this.esqueleto;
 
         this.overlay.create({
@@ -462,7 +462,7 @@
           showDuration  : (is_smartphone ? 2 : this.options.animation.show.duration),
           closeDuration : (is_smartphone ? 2 : this.options.animation.close.duration)
         });
-        
+
         e.lightbox       = lightbox;
         e.navigator      = $('.'+name+'-navigator', lightbox);
         e.buttons.div    = $('.'+name+'-buttons', lightbox);
@@ -479,12 +479,12 @@
           'z-index'  : this.options.style.zIndex,
           'top'      : -999
         }).append(lightbox);
-        
+
         $('body').append(e.move);
 
         // this.win = (window!=window.top) ? window.top : window;
         this.win = $(window);
-        
+
         this.addevents();
         return lightbox;
       },
@@ -494,10 +494,10 @@
         var $win  = this.win;
 
         $win[0].onorientationchange = function()
-        { 
+        {
           $win.trigger('resize');
         };
-        
+
         $win.bind('resize', this.proxy(function()
         {
           if (this.visible)
@@ -543,18 +543,18 @@
             }
           }
         ));
-        
+
         this.esqueleto.buttons.close.bind('click touchend', {"fn": "close"}, this.proxy(this.fn));
 
         this.esqueleto.buttons.max.bind('click touchend', {"fn": "maximinimize"}, this.proxy(this.fn));
-        
+
         // heredamos los eventos, desde el overlay:
         this.overlay.element.bind('show', this.proxy(function()
           {
             $(this).triggerHandler('show');
           }
         ));
-        
+
         this.overlay.element.bind('hide', this.proxy(function()
           {
             $(this).triggerHandler('close');
@@ -572,7 +572,7 @@
       {
         return $.proxy(fn, this);
       },
-      
+
       ex: function(ob, href, options)
       {
         var tmp = {
@@ -610,7 +610,7 @@
 
         return tmp;
       },
-      
+
       create_gallery: function(collection, options)
       {
         var me    = this;
@@ -652,7 +652,7 @@
           $next.hide();
         }
       },
-      
+
       custombuttons: function(buttons, anchor)
       {
         var esqueleto = this.esqueleto;
@@ -677,7 +677,7 @@
 
         esqueleto.buttons.div.show();
       },
-      
+
       show: function(collection, options, callback)
       {
         // Si collection esta vacio no tenemos nada mas que hacer:
@@ -734,13 +734,13 @@
           'onOpen'     : function() {},
           'onClose'    : function() {}
         }, options || {}, me);
-        
+
         // Eventos
         this.options.onOpen   = options.onOpen;
         this.options.onClose  = options.onClose;
 
         this.options.cufon    = options.cufon;
-        
+
         // A veces las opciones vienen en la URL:
         var urloptions = this.unserialize(href);
         options        = $.extend({}, options, urloptions);
@@ -755,7 +755,7 @@
         {
           options.height = Math.round((size.y-20) * options.height.substring(0, options.height.indexOf("p")) / 100);
         }
-        
+
         this.overlay.options.modal = options.modal;
 
         esqueleto.buttons.max.removeClass(this.options.name+'-button-min').addClass(this.options.name+'-button-max');
@@ -766,14 +766,14 @@
         {
           this.custombuttons(options.buttons, me.element);
         }
-        
+
         if (this.esqueleto.buttons.custom.is(":empty") === false)
         {
           this.esqueleto.buttons.div.show();
         }
 
         esqueleto.buttons.max.hide();
-        
+
         if (this.utils.isEmpty(options.force) === false)
         {
           type = options.force;
@@ -829,12 +829,12 @@
             {
               var image = this.esqueleto.image;
               $(image).unbind('load');
-              
+
               if (this.visible === false)
               {
                 return false
               }
-              
+
               // Si el tamaño viene definido en los parametros:
               if (options.width)
               {
@@ -875,12 +875,12 @@
               this.resize(width, height);
             }
           ));
-          
+
           this.esqueleto.image.onerror = this.proxy(function()
           {
             this.error("The requested image cannot be loaded. Please try again later.");
           });
-          
+
           this.esqueleto.image.src = href;
         }
         else if (type=='flash' || type=='inline' || type=='ajax' || type=='element')
@@ -983,7 +983,7 @@
             }
 
             background.append(esqueleto.image);
-            
+
             if (is_ie6 || is_smartphone)
             {
               background.removeClass(classloading);
@@ -1004,7 +1004,7 @@
           }
         ));
       },
-            
+
       swf2html: function(href, width, height, flashvars)
       {
         var options = $.extend(true, {
@@ -1041,7 +1041,7 @@
 
         return strFlash;
       },
-      
+
       appendhtml: function(obj, width, height, mode)
       {
         var me         = this;
@@ -1049,7 +1049,7 @@
         var esqueleto  = me.esqueleto;
         var background = esqueleto.background;
         me.changemode("html");
-        
+
         me.resize(width + 30, height + 20);
 
         background.bind('complete', function()
@@ -1072,7 +1072,7 @@
           options.onOpen.apply(this);
         });
       },
-      
+
       movebox: function(w, h)
       {
         var size   = {
@@ -1108,7 +1108,7 @@
         {
           y = (scroll.y - height) - 14;
         }
-        
+
         if (this.visible)
         {
           if (!this.animations.move)
@@ -1134,7 +1134,7 @@
 
       morph: function(el, prop, mode, callback, queue)
       {
-        
+
         if (parseFloat($.fn.jquery) < 1.8)
         {
 
@@ -1188,7 +1188,7 @@
           });
         }
       },
-      
+
       resize: function(x, y)
       {
         var esqueleto = this.esqueleto;
@@ -1206,12 +1206,12 @@
 
           var left   = (scroll.x + (size.x - (x + 14)) / 2);
           var top    = (scroll.y + (size.y - (y + 14)) / 2);
-          
+
           if ($.browser.msie || ($.browser.mozilla && (parseFloat($.browser.version) < 1.9)))
           {
             y += 4;
           }
-          
+
           this.animations.move = true;
 
           this.morph(esqueleto.move.stop(), {
@@ -1233,15 +1233,15 @@
           esqueleto.navigator.css({ 'width': x, 'height': 90 });
         }
       },
-      
+
       close: function(param)
       {
         var esqueleto = this.esqueleto;
         this.visible = false;
         this.gallery = {};
-        
+
         this.options.onClose();
-        
+
         if ($.browser.msie || is_smartphone)
         {
           esqueleto.background.empty();
@@ -1267,7 +1267,7 @@
             }))
           });
         }
-        
+
         this.overlay.hide(this.proxy(function() {
           if ($.isFunction(this.callback))
           {
@@ -1277,7 +1277,7 @@
 
         esqueleto.background.stop(true, false).unbind("complete");
       },
-      
+
       open: function()
       {
         this.visible = true;
@@ -1315,7 +1315,7 @@
         e.animate({left: l+x}, d, t);
         e.animate({left: l},   d, t);
       },
-      
+
       changemode: function(mode)
       {
         if (mode != this.mode)
@@ -1328,13 +1328,13 @@
 
         this.esqueleto.move.css("overflow", "visible");
       },
-      
+
       error: function(msg)
       {
         alert(msg);
         this.close();
       },
-      
+
       unserialize: function(data)
       {
         var regex       = /lightbox\[([^\]]*)?\]$/i;
@@ -1346,13 +1346,13 @@
         }
 
         data = data.slice(data.indexOf('?') + 1).split("&");
-        
+
         $.each(data, function()
           {
             var properties = this.split("=");
             var key        = properties[0];
             var value      = properties[1];
-            
+
             if (key.match(regex))
             {
               if (isFinite(value))
@@ -1374,7 +1374,7 @@
 
         return serialised;
       },
-      
+
       calculate: function(x, y)
       {
         // Resizing large images
@@ -1511,7 +1511,7 @@
           var before = [];
           var after  = [];
           var found  = false;
-          
+
           // Escanea todo el DOM en busca de otros elementos con el mismo rel:
           $("a[" + relEntity + "], area[" + relEntity + "]", this.ownerDocument).filter("[" + relEntity + "=\"" + rel + "\"]").each($.proxy(function(i, el)
             {
@@ -1548,9 +1548,9 @@
           if (Object.prototype.toString.call(obj) === '[object String]' || $.type(obj) === "array") return obj.length === 0;
         }
       }
-      
+
     }, // ------------------- end class object
-   
+
     lightbox: function(url, options, callback)
     {
       var temp = [];
@@ -1605,9 +1605,9 @@
 
       return $.LightBoxObject.show(temp, options, callback);
     }
-    
+
   });
-  
+
   $.fn.lightbox = function(options, callback)
   {
     var args     = {
@@ -1624,7 +1624,7 @@
       }
     );
   };
-  
+
   $(function()
     {
       // Solo funciona con jQuery 1.3+. Si tenemos una version mas vieja, tiramos error:
@@ -1638,5 +1638,5 @@
       }
     }
   );
-  
+
 })(jQuery, window, document);

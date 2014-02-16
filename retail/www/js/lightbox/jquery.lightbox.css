@@ -9,68 +9,68 @@
   padding:17px 0;
 }
 
-.jquery-lightbox-border-top-left,
-.jquery-lightbox-border-top-right,
-.jquery-lightbox-border-bottom-left,
-.jquery-lightbox-border-bottom-right
-{
-  position:absolute;
-  height:17px;
-  width:12%;
-  z-index:7000;
-}
+/*.jquery-lightbox-border-top-left,*/
+/*.jquery-lightbox-border-top-right,*/
+/*.jquery-lightbox-border-bottom-left,*/
+/*.jquery-lightbox-border-bottom-right*/
+/*{*/
+  /*position:absolute;*/
+  /*height:17px;*/
+  /*width:12%;*/
+  /*z-index:7000;*/
+/*}*/
 
-.jquery-lightbox-border-top-left
-{
-  background: url(images/jquery-lightbox-theme.png) no-repeat 0 0;
-  top:0;
-  left:0;
-}
+/*.jquery-lightbox-border-top-left*/
+/*{*/
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat 0 0;*/
+  /*top:0;*/
+  /*left:0;*/
+/*}*/
 
-.jquery-lightbox-border-top-right
-{
-  background: url(images/jquery-lightbox-theme.png) no-repeat right 0;
-  top:0;
-  right:0;
-}
+/*.jquery-lightbox-border-top-right*/
+/*{*/
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat right 0;*/
+  /*top:0;*/
+  /*right:0;*/
+/*}*/
 
-.jquery-lightbox-border-top-middle
-{
-  background:#2b2b2b;
-  position:absolute;
-  height:7px;
-  width:78%;
-  top:0;
-  left:12%;
-  z-index:7000;
-  overflow:hidden;
-}
+/*.jquery-lightbox-border-top-middle*/
+/*{*/
+  /*background:#2b2b2b;*/
+  /*position:absolute;*/
+  /*height:7px;*/
+  /*width:78%;*/
+  /*top:0;*/
+  /*left:12%;*/
+  /*z-index:7000;*/
+  /*overflow:hidden;*/
+/*}*/
 
-.jquery-lightbox-border-bottom-left
-{
-  background: url(images/jquery-lightbox-theme.png) no-repeat 0 bottom;
-  bottom:0;
-  left:0;
-}
+/*.jquery-lightbox-border-bottom-left*/
+/*{*/
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat 0 bottom;*/
+  /*bottom:0;*/
+  /*left:0;*/
+/*}*/
 
-.jquery-lightbox-border-bottom-right
-{
-  background: url(images/jquery-lightbox-theme.png) no-repeat right bottom;
-  bottom:0;
-  right:0;
-}
+/*.jquery-lightbox-border-bottom-right*/
+/*{*/
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat right bottom;*/
+  /*bottom:0;*/
+  /*right:0;*/
+/*}*/
 
-.jquery-lightbox-border-bottom-middle
-{
-  background:#2b2b2b;
-  height:7px;
-  width:78%;
-  position:absolute;
-  bottom:0;
-  left:12%;
-  z-index:7000;
-  overflow:hidden;
-}
+/*.jquery-lightbox-border-bottom-middle*/
+/*{*/
+  /*background:#2b2b2b;*/
+  /*height:7px;*/
+  /*width:78%;*/
+  /*position:absolute;*/
+  /*bottom:0;*/
+  /*left:12%;*/
+  /*z-index:7000;*/
+  /*overflow:hidden;*/
+/*}*/
 
 .jquery-lightbox-title
 {
@@ -92,9 +92,9 @@
   z-index:7000;
   position:relative;
   border:0;
-  border-left:7px solid #2b2b2b;
-  border-right:7px solid #2b2b2b;
-  padding:0px 15px;
+  /*border-left:7px solid #2b2b2b;*/
+  /*border-right:7px solid #2b2b2b;*/
+  /*padding:0px 15px;*/
   vertical-align:top;
 }
 
@@ -133,10 +133,10 @@
   padding:0;
 }
 
-.jquery-lightbox-mode-html .jquery-lightbox-background
-{
-  background:#FFFFFF;
-}
+/*.jquery-lightbox-mode-html .jquery-lightbox-background*/
+/*{*/
+  /*background:#FFFFFF;*/
+/*}*/
 
 .jquery-lightbox-mode-html .jquery-lightbox-html
 {
@@ -151,17 +151,33 @@
 
 .jquery-lightbox-button-close
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -190px -115px;
-  position:absolute;
-  top:12px;
-  right:-26px;
-  width:29px;
-  height:29px;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -190px -115px;*/
+  /*position:absolute;*/
+  /*top:12px;*/
+  /*right:-26px;*/
+  /*width:29px;*/
+  /*height:29px;*/
+    background: none repeat scroll 0 0 #F39A22;
+    border-radius: 50px;
+    color: #000000;
+    cursor: pointer;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    height: 60px;
+    line-height: 60px;
+    position: absolute;
+    right: -60px;
+    text-align: center;
+    top: -40px;
+    width: 60px;
+    display: block;
 }
 
 .jquery-lightbox-button-close:hover
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -220px -115px;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -220px -115px;*/
+    color: #fff;
 }
 
 .jquery-lightbox-button-close span,

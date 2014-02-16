@@ -59,7 +59,7 @@ return [
                         'js/slider-clothes/jcarousel.responsive.js',
                         //lightbox
                         'js/jquery.easing.1.3.js',
-                        'js/lightbox/jquery.lightbox.min.js',
+                        'js/lightbox/jquery.lightbox.js',
 
                         // Modal
                         // todo: удалить
