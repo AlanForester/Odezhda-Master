@@ -77,7 +77,8 @@ class CartController extends RetailController {
         if (!empty($customer_id)){
             $model = new CartModel();
             if($model->deleteAll($customer_id)){
-                $this->actionShow(true);
+//                $this->actionShow(true);
+                $this->renderPartial("/layouts/parts/bottomPanel");
             }
         }
     }
