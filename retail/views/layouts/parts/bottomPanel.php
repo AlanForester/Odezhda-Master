@@ -2,14 +2,16 @@
 //todo что-то с этим решить
 //$products=CartHelper::getCart();
 $customer_id=Yii::app()->user->id;
-$products=0;
+$products=[];
 if (!empty($customer_id)){
     $model = new CartModel();
     $product_ids=$model->getUserProducts($customer_id);
     if($product_ids){
         $catalogModel = new CatalogModel();
+//        print_r($product_ids);exit;
         foreach($product_ids as $id=>$count){
             if ($product = $catalogModel->productById($id)) {
+
                 $products[]=$product;
             }
         }
@@ -38,7 +40,7 @@ if (!empty($customer_id)){
 </div>
 
 <div id="jqeasypanel" class="bottom" style="height: 80px;">
-    <?php if($products!=0) {?>
+    <?php if(!empty($products)) {?>
     <p>В вашей корзине
         <?php
         $n=CartModel::countProducts();

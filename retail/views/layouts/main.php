@@ -227,7 +227,7 @@ jQuery(document).ready(function($){
         var size = $(this).siblings('.product_size');
         if(size.length==0){
 //            console.log(size.val());
-            size =$('.product_size');
+            size =$('#filter_size');
         }
         console.log(size.val());
         if(size.val()!=0 && size.val()!='' && size.val()!=null) {
