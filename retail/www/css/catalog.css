@@ -981,3 +981,8 @@ ul.yiiPager .selected a {
     padding: 5px 25px;
     width: 140px;
 }
+
+.active_elem{
+    color: #f6931f !important;
+    font-weight:bold;
+}

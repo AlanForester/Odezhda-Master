@@ -60,7 +60,7 @@
 
 .tovar-slider {
     float: left;
-    width: 650px;
+    /*width: 650px;*/
     /*width:510px;*/
     height: auto;
     padding: 15px;
@@ -530,6 +530,10 @@ a.prev_basket:hover {
     float: left;
 }
 
+.zoomPad > img {
+    max-width: 400px;
+}
+
 .slider-clothes .jcarousel li .info .name {
     width: 100%;
     padding-top: 10px;
@@ -537,10 +541,6 @@ a.prev_basket:hover {
     font-size: 18px;
     color: #9C9B9B;
     float: left;
-}
-
-.zoomPad > img {
-    max-width: 500px;
 }
 
 .pluso-wrap a {
@@ -553,7 +553,7 @@ ul.yiiPager a {
 }
 
 .prev_img {
-    width: 350px;
+    width: 300px;
     border-radius: 10px;
 }
 
