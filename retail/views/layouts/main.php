@@ -252,14 +252,28 @@ jQuery(document).ready(function($){
         }
     });
 });
+
+$(document).ready(function() {
+        $('#jqeasypanel').jqEasyPanel({
+            position: 'bottom'
+        });
+        $('.open').click(function(){
+            $('#jqeasytrigger').animate({bottom:'246px'});
+        });
+        $('.close').click(function(){
+            $('#jqeasytrigger').animate({bottom:'0px'});
+        });
+        $('.goods-slider ul#items').easyPaginate({
+                step:4
+        });
+    });
 ";
 
 Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
 
 Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::POS_END);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -282,10 +296,10 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
                 <div class="reg">
                     <?php if (empty(Yii::app()->user->id)) { ?>
                         <a href="<?php echo $this->createUrl('site/login') ?>"
-                           data-options='{"width":900, "height":355, "modal": true}' class="m-dotted lightbox"
+                           data-options='{"width":860, "height":355, "modal": true}' class="m-dotted lightbox"
                            id="aLog">Вход</a>
                         <a href="<?php echo $this->createUrl('site/registration') ?>"
-                           data-options='{"width":900, "height":410, "modal": true}'
+                           data-options='{"width":860, "height":410, "modal": true}'
                            class="m-dotted lightbox" id="aReg">Регистрация</a>
                     <?php } else { ?>
                         <span>Вы вошли как: <strong><?php echo Yii::app()->user->name; ?></strong></span>

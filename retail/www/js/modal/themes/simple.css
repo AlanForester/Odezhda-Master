@@ -4,7 +4,7 @@
 	height:700px;
 	padding: 30px;
 	background: #00A9E2;
-	/*box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);*/
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
 	border-radius: 6px;
 }
 
@@ -14,7 +14,7 @@
 	height:700px;
 	padding: 30px;
 	background: #F39A22;
-	/*box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);*/
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
 	border-radius: 6px;
 }
 
@@ -24,8 +24,9 @@
 	height:auto;
 	padding: 10px 30px 10px 30px;
 	background: #fff;
-	/*box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);*/
+	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
 	border-radius: 6px;
+    overflow: hidden;;
 }
 
 .box-modal.more-goods {

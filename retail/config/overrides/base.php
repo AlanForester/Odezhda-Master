@@ -57,9 +57,13 @@ return [
                         'js/slider/jquery.themepunch.revolution.min.js',
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
+                        //bottom-panel
+                        'js/bottom-panel/jquery.jqEasyPanel.min.js',
+                        'js/bottom-panel/easypaginate.js',
+
                         //lightbox
                         'js/jquery.easing.1.3.js',
-                        'js/lightbox/jquery.lightbox.min.js',
+                        'js/lightbox/jquery.lightbox.js',
 
                         // Modal
                         // todo: удалить
@@ -72,6 +76,9 @@ return [
                         'css/reset.css',
                         'css/flick/jquery-ui-1.10.3.custom.css',
                         'css/style.css',
+
+                        //bottom-panel
+                        'js/bottom-panel/jqeasypanel.css',
 
                         // Slider
                         'js/slider/captions.css',
