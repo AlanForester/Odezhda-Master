@@ -89,9 +89,8 @@ class CatalogController extends RetailController {
 
 
         // Определение номера категории
-        $currentCategoryNumber=0;
-//        print_r($this->categories);
-//        exit;
+        $currentCategoryNumber=false;
+
         $i=0;
         $break=0;
         if($id!=0){
@@ -115,7 +114,6 @@ class CatalogController extends RetailController {
                 $i++;
             }
         }
-
 
         // получение товаров в категории
         $data = $model->getDataProvider($criteria);
