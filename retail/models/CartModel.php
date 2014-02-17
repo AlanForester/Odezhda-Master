@@ -211,8 +211,18 @@ class CartModel {
      * Метод для оформления заказа
      * удаляем данные из таблицы корзинки и перемещаем в таблицы заказов
      * @param $customer_id
+     * @param $params параметры из формы подтверждения
      */
-    public function makeOrder($customer_id){
+    public function makeOrder($customer_id, $params){
+//        print_r($params);exit;
+        $customerModel=new CustomerModel();
+        $customer=$customerModel->getCustomer($customer_id);
+        $customer->setAttributes(['phone'=>$params['phone']],false);
+        if(!$customer->save()){
+            return false;
+        }
+        //todo переделать 5 foreign key
+        $delivery=($params['delivery']=='post'? 5 :$params['pickup_method']);
         $products = Yii::app()->db->createCommand()
             ->select('*')
             ->from($this->tableName)
@@ -222,6 +232,7 @@ class CartModel {
             Yii::app()->db->createCommand()
                 ->insert($this->orderTables[0], [
                     'customers_id'=>$customer_id,
+                    'delivery_points_id'=>$delivery,
                 ]);
             $order_id=Yii::app()->db->getLastInsertID();
             if ($order_id){

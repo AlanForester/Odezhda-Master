@@ -100,8 +100,12 @@ class CartController extends RetailController {
     public function actionMakeOrder(){
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
+            $params = Yii::app()->request->getParam('order');
+//            if($params['delivery']=='post'){
+//                unset ($params['pickup_method']);
+//            }
             $model = new CartModel();
-            if($model->makeOrder($customer_id)){
+            if($model->makeOrder($customer_id,$params)){
                 $data['lightbox']=$this->renderPartial("/layouts/parts/order",null,true);
                 $data['bottomPanel']=$this->renderPartial("/layouts/parts/bottomPanel",null,true);
                 echo json_encode($data);

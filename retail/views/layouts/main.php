@@ -235,7 +235,7 @@ jQuery(document).ready(function($){
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/makeOrder') . "',
                           data: $('#order_step1').serialize(),
-//                          dataType:'json',
+                          dataType:'json',
                           success: function(data) {
                                 if (data.lightbox){
                                       $('.jquery-lightbox-html').html(data.lightbox);
@@ -244,6 +244,18 @@ jQuery(document).ready(function($){
                                       $('#panel').html(data.bottomPanel);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
+                                $('#jqeasypanel').jqEasyPanel({
+                                        position: 'bottom'
+                                  });
+                                  $('.open').click(function(){
+                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+                                  });
+                                  $('.close').click(function(){
+                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                  });
+                                  $('.goods-slider ul#items').easyPaginate({
+                                         step:4
+                                  });
                           }
                       });
      });
@@ -309,8 +321,8 @@ $(document).ready(function() {
                 step:4
         });
 
-        $('input:radio[name=delivery]').live('change',function(){
-            if($('input:radio[name=delivery]:checked').val() == 'pickup'){
+        $('#order_step1 input:radio').live('change',function(){
+            if($('#order_step1 input:radio:checked').val() == 'pickup'){
                $('#pickup_method').show();
             } else{
                 $('#pickup_method').hide();
