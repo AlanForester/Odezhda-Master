@@ -86,13 +86,13 @@ class ShopProductsHelper {
             $params[':max_price'] = $data['max_price'];
         }
 
-//        if(!empty($data['filter']['size'])){
-//            foreach($data['filter']['size'] as $size){
-//                $condition_params[]="product_options.products_options_values_name='".$size."'";
-//            //    print_r($size);
-//            }
-//            $criteria['with']['product_options']['condition']= '( '.join(' OR ',$condition_params).' )';
-//        }
+        if(!empty($data['filter']['size'])){
+            foreach($data['filter']['size'] as $size){
+                $condition_params[]="products_new_option_values.value='".$size."'";
+            //    print_r($size);
+            }
+            $condition[]= '( '.join(' OR ',$condition_params).' )';
+        }
 
 
         //Повторное формирование критерии
@@ -106,8 +106,9 @@ class ShopProductsHelper {
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
-
-
+//
+//        print_r($criteria);
+//        exit;
 
 
         $dataProvider=new CActiveDataProvider(
@@ -121,6 +122,8 @@ class ShopProductsHelper {
             ]
         );
 
+//        print_r($dataProvider->getData());
+//       exit;
         return [
             'dataProvider'=>$dataProvider,
             'priceLimit'=>$priceLimit
