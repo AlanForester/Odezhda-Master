@@ -54,11 +54,28 @@ function selectCustomer(event, orderId, infoPath, editPath) {
     registerGrid('ropgrid');
 }
 
-function addRetailOrdersProduct(event, orderId, infoPath, editPath) {
+function addRetailOrdersProduct(event, orderId, infoPath, queuePath, quantity, attributes) {
     //var event=event||window.event;
     var target=event.target||event.srcElement;
     var productId = $(target).closest("tr").find("input[name='gridids[]']").val();
-    $.getJSON(infoPath, {
+    $.ajax({
+        url: queuePath,
+        type: 'POST',
+        //dataType : "json",
+        data: {
+            productId: productId,
+            orderId: orderId
+        },
+        success: function (data, textStatus) {
+            //$("#ropgrid").html(data);
+            //registerGrid("ropgrid");
+            //jQuery("#ropgrid").yiiGridView("update");
+        }
+    });
+
+
+
+    /*$.getJSON(infoPath, {
         id: productId
     }, function(json){
         var newRowClass = $("#ropgrid table tbody tr:last-child").hasClass("even") ? 'odd' : 'even';
@@ -83,9 +100,10 @@ function addRetailOrdersProduct(event, orderId, infoPath, editPath) {
                 + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][price]" value="'+json.catalog.price+'">'+json.catalog.price+'</td>'
                 + '<td width="50px" class="action-buttons"><a href="#" onclick="$(this).closest(\'tr\').remove(); return false;" rel="tooltip" title="" class="red bigger-130" data-original-title="Удалить"><i class="icon-trash"></i></a></td></tr>'
         );
-    });
+    });*/
     bootbox.hideAll();
     registerGrid('ropgrid');
+    jQuery("#ropgrid").yiiGridView("update");
 }
 
 function registerGrid(id) {

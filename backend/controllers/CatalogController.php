@@ -253,7 +253,7 @@ class CatalogController extends BackendController {
         Yii::app()->end();
     }
 
-    //todo: совместить с index
+    //todo: возможно, стоит совместить с index (скопировано оттуда)
     public function actionBootbox($id = null) {
 
         $criteria = ['page_size' => 10];

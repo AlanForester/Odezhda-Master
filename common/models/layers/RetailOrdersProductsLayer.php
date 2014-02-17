@@ -1,6 +1,6 @@
 <?php
 
-class RetailOrdersProductsLayer extends RetailOrdersProducts {
+/*class RetailOrdersProductsLayer extends RetailOrdersProducts {
 
     public function getDataProvider($criteria = null) {
         return RetailOrdersProductsHelper::getDataProvider($criteria);
@@ -32,6 +32,6 @@ class RetailOrdersProductsLayer extends RetailOrdersProducts {
         }
         return true;
     }
-}
+}*/
 
 ?>

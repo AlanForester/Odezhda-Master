@@ -121,9 +121,6 @@ class RetailOrdersController extends BackendController {
             $this->error('Ошибка получения данных розничного заказа');
         }
 
-        //todo убрать layer
-        $productsModel = new RetailOrdersProductsLayer('update');
-
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
@@ -133,7 +130,9 @@ class RetailOrdersController extends BackendController {
             $result = $item->save();
             $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            $productsResult = $productsModel->saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id);
+            $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
+                RetailOrdersProductsHelper::saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                true;
 
             if (!$result) {
                 // ошибка записи
@@ -177,7 +176,7 @@ class RetailOrdersController extends BackendController {
         ];
         $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
+        $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
         $productsGridDataProvider->setSort(false);
 
 

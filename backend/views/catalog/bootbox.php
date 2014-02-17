@@ -22,7 +22,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -37,7 +37,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -53,7 +53,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -69,7 +69,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -85,7 +85,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -101,7 +101,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -150,7 +150,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -166,7 +166,7 @@ $this->widget(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
