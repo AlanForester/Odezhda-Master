@@ -172,7 +172,7 @@ class RetailDeliveryHelper {
     }
 
     public static function getAllDeliveries(){
-        self::getModel()->findAll();
+        return self::getModel()->findAll();
     }
 
 }

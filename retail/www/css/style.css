@@ -1673,21 +1673,7 @@ button.desable {
 #order{
    height: 300px;
 }
-/*#delivery{*/
-    /*border: 2px solid #FFFFFF;*/
-    /*border-radius: 10px;*/
-    /*color: #C6C6C5;*/
-    /*font-size: 18px;*/
-    /*height: 50px;*/
-    /*margin-top: 20px;*/
-    /*text-indent: 10px;*/
-    /*width: 390px;*/
-/*}*/
-/*#order input[type=radio] {*/
-    /*float: left;*/
-    /*display: block;*/
-    /*color: #fff;*/
-/*}*/
+
 #order .delivery{
     display: block;
     color: #fff;
@@ -1699,6 +1685,10 @@ button.desable {
 
 #order .delivery span{
     padding-left: 10px;
+}
+#pickup_method{
+    margin-top: 10px;
+    width: 200px;
 }
 
 
