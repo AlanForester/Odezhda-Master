@@ -208,7 +208,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить') {
+    public static function addProduct(/*$url = '',*/ $orderId = null, $option = [], $title = 'Добавить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -220,7 +220,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . '?ajax=catalog_grid",
+                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '",
                                         //?ajax=catalog_grid&from=bootbox",
                                     dataType : "html",
                                     success: function (data, textStatus) {

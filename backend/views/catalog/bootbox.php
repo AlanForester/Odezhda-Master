@@ -58,7 +58,7 @@ $this->widget(
                     })()',
                 ],
             ],
-            [
+            /*[
                 'header' => 'Размеры',
                 'name' => 'catalog_options_values',
                 'headerHtmlOptions' => [
@@ -73,7 +73,7 @@ $this->widget(
                         );
                     })()',
                 ],
-            ],
+            ],*/
             [
                 'header' => 'Производитель',
                 'name' => 'manufacturers',

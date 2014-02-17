@@ -254,15 +254,15 @@ class CatalogController extends BackendController {
 
     public function actionSelectOptions($id) {
         $productOptions = [];
-        $product = ShopProduct::model()->with('product_options')->findByPk($id);
-        //echo '<pre>'.print_r($product->product_options,1);exit;
+        $product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        //echo '<pre>'.print_r($product,1);exit;
 
-        if(!empty($product->product_options)) {
-            foreach ($product->product_options as $option) {
-                $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
+        if(!empty($product->products_new_option_values)) {
+            foreach ($product->products_new_option_values as $option) {
+                $productOptions[$option['id']] = $option['value'];
             }
         }
-        $this->renderPartial('select_options', compact('productOptions','id'));
+        $this->renderPartial('select_options', compact('product','productOptions','id'));
         Yii::app()->end();
     }
 
@@ -289,7 +289,7 @@ class CatalogController extends BackendController {
             $this->categories[$g['id']] = $g['name'];
         }
 
-        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
+        $this->renderPartial('bootbox', compact('criteria','gridDataProvider','id'));
     }
 
 }

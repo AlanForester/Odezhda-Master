@@ -20,8 +20,9 @@
     ?>
     <fieldset>
         <?php
-        echo $form->dropDownListControlGroup($item, 'size', $productOptions, ['label'=>'Размер', 'value'=>'']);
-        echo $form->textFieldControlGroup($item, 'quantity', ['label'=>'Количество']);
+        //$item = null;
+        echo $form->dropDownListControlGroup($product, 'size', $productOptions, ['label'=>'Размер', 'value'=>'']);
+        echo $form->numberFieldControlGroup($product, 'quantity', ['label'=>'Количество', 'value'=>'1']);
         ?>
     </fieldset>
     <?php $this->endWidget(); ?>
