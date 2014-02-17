@@ -54,14 +54,14 @@ class RetailDeliveryHelper {
 
         $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
 
-        $relatedCriteria = [
+        $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
             'order' => $order_field . ($order_direct ? : ''),
         ];
-        $criteria=[
+//        $criteria=[
 //            'with'=>['page_description'=>$relatedCriteria]
-        ];
+//        ];
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
