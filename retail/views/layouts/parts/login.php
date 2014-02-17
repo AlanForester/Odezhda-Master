@@ -9,6 +9,7 @@
 <!--                <div class="remember">-->
 <!--                    <input type="checkbox" name="RetailLoginForm[rememberMe]" value="1" /><span>Запомнить меня</span>-->
 <!--                </div>-->
+                <a href="#" id="reset_pass">Забыли пароль?</a>
                 <button type="submit" id="login_submit">Войти</button>
                 <button type="submit" id="login_submit_process">Отправка запроса <img src="/img/loading.gif" /></button>
             </form>

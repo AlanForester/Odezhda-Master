@@ -61,6 +61,12 @@ jQuery(document).ready(function($){
     })
     });
 
+    $('#login #reset_pass').live('click',function(){
+        $.lightbox().shake();
+        //$.lightbox().close();
+
+    });
+
 
     $('#login #login_submit').live('click',function(){
         $('#login button').attr('disabled','disabled');
