@@ -42,11 +42,11 @@ class RetailDeliveryController extends BackendController {
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-//        $groups_model = new GroupsModel();
-//        $groups = [];
-//        foreach ($groups_model->getList() as $g) {
-//            $groups[$g['id']] = $g['name'];
-//        }
+        //        $groups_model = new GroupsModel();
+        //        $groups = [];
+        //        foreach ($groups_model->getList() as $g) {
+        //            $groups[$g['id']] = $g['name'];
+        //        }
 
         $model = new RetailDeliveryModel($scenario);
         if (!$item = $model->getDelivery($id, $scenario)) {
@@ -102,17 +102,17 @@ class RetailDeliveryController extends BackendController {
         }
     }
 
-    //    public function actionMass() {
-    //        $mass_action = Yii::app()->request->getParam('mass_action');
-    //        $ids = array_unique(Yii::app()->request->getParam('ids'));
-    //        switch ($mass_action) {
-    //            case 'delete':
-    //                foreach ($ids as $id) {
-    //                    $this->actionDelete($id);
-    //                }
-    //                break;
-    //        }
-    //
-    //        $this->actionIndex();
-    //    }
+    public function actionMass() {
+        $mass_action = Yii::app()->request->getParam('mass_action');
+        $ids = array_unique(Yii::app()->request->getParam('ids'));
+        switch ($mass_action) {
+            case 'delete':
+                foreach ($ids as $id) {
+                    $this->actionDelete($id);
+                }
+                break;
+        }
+
+        $this->actionIndex();
+    }
 }
