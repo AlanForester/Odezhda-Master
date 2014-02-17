@@ -21,7 +21,7 @@
 .box-modal.modal-cart {
 	position: relative;
 	width: auto;
-	height:auto;
+	height:350px;
 	padding: 10px 30px 10px 30px;
 	background: #fff;
 	box-shadow: 0 0 0 6px rgba(153, 153, 153, .3);
