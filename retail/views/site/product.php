@@ -54,10 +54,11 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
 
                     <div class="clearfix">
                         <a href="<?= Yii::app()->params['staticUrl'] ?><?= ShopProductsHelper::pathToLargeImg($product->image); ?>"
-                           class="jqzoom" rel='gal1' title="triumph">
+                           class="lightbox" rel='gal1' title="<?php echo $product->name.', '.$product->model.', '.FormatHelper::markup($product['price']) ?>">
                             <img
+                                class="product_img"
                                 src="<?= Yii::app()->params['staticUrl'] ?><?= ShopProductsHelper::pathToLargeImg($product->image); ?>"
-                                title="triumph" alt="">
+                                title="<?php echo $product->name.', '.$product->model.', '.FormatHelper::markup($product['price']) ?>" alt="">
                         </a>
                     </div>
 
