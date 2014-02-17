@@ -41,6 +41,7 @@ class BackendSubMenu {
                     'url' => ['/customers/index']
                 ],
                 [
+                    // todo: лишнее?
                     'label' => 'Группы покупателей',
                     'url' => ['/customer_groups/index']
                 ],
@@ -66,20 +67,39 @@ class BackendSubMenu {
             ];
     }
 
-    public static function retailOrder($id) {
+    /**
+     * Разделы розничного магазина
+     * @return array
+     */
+    public static function retail() {
         return
             [
                 [
-                    'label' => 'Информация о заказе',
-                    'url' => ['/retail_orders/edit/'.$id],
-                    'strict' => false
+                    'label' => 'Розничные заказы',
+                    'url' => ['/retail_orders/index']
                 ],
                 [
-                    'label' => 'Товары в заказе',
-                    'url' => ['/retail_orders_products/order/'.$id],
-                    'strict' => false
-                ],
+                    'label' => 'Отделения доставки',
+                    'url' => ['/retail_delivery/index'],
+
+                ]
             ];
     }
+
+//    public static function retailOrder($id) {
+//        return
+//            [
+//                [
+//                    'label' => 'Информация о заказе',
+//                    'url' => ['/retail_orders/edit/'.$id],
+//                    'strict' => false
+//                ],
+//                [
+//                    'label' => 'Товары в заказе',
+//                    'url' => ['/retail_orders_products/order/'.$id],
+//                    'strict' => false
+//                ],
+//            ];
+//    }
 
 }

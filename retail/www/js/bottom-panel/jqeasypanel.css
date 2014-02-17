@@ -162,6 +162,8 @@ ul.panelbuttons li a img {
 	background: none;
 	border: none;
 	margin-top: 7px;
+    position: relative;
+    z-index: 1;
 }
 
 #jqeasypanel .open-basket {
