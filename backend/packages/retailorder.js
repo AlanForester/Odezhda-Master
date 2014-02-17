@@ -54,10 +54,43 @@ function selectCustomer(event, orderId, infoPath, editPath) {
     registerGrid('ropgrid');
 }
 
-function addRetailOrdersProduct(event, orderId, infoPath, queuePath, quantity, attributes) {
+function selectRetailOrdersProductAttributes(event, orderId, infoPath, queuePath) {
+    bootbox.hideAll();
     //var event=event||window.event;
-    var target=event.target||event.srcElement;
-    var productId = $(target).closest("tr").find("input[name='gridids[]']").val();
+    var target = event.target||event.srcElement,
+        productId = $(target).closest("tr").find("input[name='gridids[]']").val();
+
+    var data = '';
+
+    bootbox.dialog({
+        message: data,
+        title: 'Выбор параметров товара',
+        buttons: {
+            success: {
+                label: "ОК",
+                className: "btn-small btn-success",
+                callback: function() {
+                    addRetailOrdersProduct(
+                        productId,
+                        orderId,
+                        quantity,
+                        attributes,
+                        queuePath
+                    );
+                }
+            },
+            cancel: {
+                label: "Отмена",
+                className: "btn-small btn-danger",
+                callback: function() {
+
+                }
+            }
+        }
+    });
+}
+
+function addRetailOrdersProduct(productId, orderId, quantity, attributes, queuePath) {
     $.ajax({
         url: queuePath,
         type: 'POST',

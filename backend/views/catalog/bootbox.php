@@ -18,7 +18,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -33,7 +33,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -49,7 +49,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -65,7 +65,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -81,7 +81,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -97,7 +97,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -146,7 +146,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",
@@ -162,7 +162,7 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductAttributes(
                             event,
                             ' . ($id ? : 0) . ',
                             "' . Yii::app()->createUrl('/catalog/info/') . '",

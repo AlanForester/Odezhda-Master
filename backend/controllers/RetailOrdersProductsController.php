@@ -154,6 +154,7 @@ class RetailOrdersProductsController extends BackendController {
             $model = new CatalogModel();
             $product = $model->getCatalogData($input['productId'],'edit');
             $retailProduct = [
+                'retail_orders_id' => null,
                 'products_id' => $input['productId'],
                 'model' => $product['model'],
                 'name' => $product['name'],
@@ -168,9 +169,9 @@ class RetailOrdersProductsController extends BackendController {
 
                 }
             } else {
-                $products = Yii::app()->session['RetailOrdersProductsQueue'];
-                $products[] = $product;
-                Yii::app()->session['RetailOrdersProductsQueue'] = $products;
+                $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+                $retailProducts[] = $retailProduct;
+                Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
                 //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
             }
         }
