@@ -118,15 +118,15 @@ $this->widget(
                 'htmlOptions' => [
                 ],
             ],
-            [
-                'type' => 'text',
-                'header' => 'Размеры',
-                'name' => 'catalog_options_values',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
+//            [
+//                'type' => 'text',
+//                'header' => 'Размеры',
+//                'name' => 'catalog_options_values',
+//                'headerHtmlOptions' => [
+//                ],
+//                'htmlOptions' => [
+//                ],
+//            ],
             [
                 'type' => 'text',
                 'header' => 'Производитель',
@@ -166,22 +166,22 @@ $this->widget(
                 'header' => 'Покупок',
                 'name' => 'count_orders'
             ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Вес (кг)',
-                'name' => 'weight',
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
-                ]
-            ],
-            [
-                'header' => 'Дата поступления',
-                'name' => 'date_add'
-
-            ],
+//            [
+//                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+//                'type' => 'text',
+//                'header' => 'Вес (кг)',
+//                'name' => 'weight',
+//                'editable' => [
+//                    'placement' => 'top',
+//                    'emptytext' => 'не задано',
+//                    'url' => Yii::app()->createUrl("/catalog/update")
+//                ]
+//            ],
+//            [
+//                'header' => 'Дата поступления',
+//                'name' => 'date_add'
+//
+//            ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
