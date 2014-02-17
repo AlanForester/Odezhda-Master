@@ -204,5 +204,10 @@ class CatalogModel extends CFormModel {
         return ShopProductsHelper::getDataProvider($criteria);
     }
 
+    public function dayProduct($category) {
+        return ShopProductsHelper::dayProduct($category);
+    }
+
+
 
 }

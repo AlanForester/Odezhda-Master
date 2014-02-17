@@ -4,6 +4,8 @@ Yii::app()->clientScript->registerPackage('index');
 
 //    echo(Yii::app()->user->identityCookie);
 //exit;
+//print_r($day_data);
+//exit;
 ?>
 
 <div class="wrapper">
@@ -188,10 +190,10 @@ Yii::app()->clientScript->registerPackage('index');
 </div>
 <div class="tovar-day">
     <p>товар дня</p>
-    <img src="/images/tovar-day.png" alt="Товар дня">
-    <a href="#">Кофта (75382936)</a>
-    <span>350р</span>
-    <h5>390р</h5>
+    <img src="<?= Yii::app()->params['staticUrl'] ?><?= ShopProductsHelper::pathToMidImg($day_data->image); ?>" alt="Товар дня">
+    <a href="/catalog/product/<?php echo $day_data->id; ?>"><?php echo $day_data->name . ' (' . $day_data->model . ')'; ?></a>
+    <span><?=FormatHelper::markup($day_data->price) ?></span>
+    <h5><?=FormatHelper::markup($day_data->old_price) ?></h5>
 </div>
 <div class="info-user">
     <div class="box1">

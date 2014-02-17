@@ -126,6 +126,15 @@ class ShopProductsHelper {
             'priceLimit'=>$priceLimit
         ];
     }
+public static function dayProduct($category){
+    $criteria=['condition'=>'category_to_product.categories_id='.$category,
+                'limit'=>1,
+                'order' => new CDbExpression('RAND()')
+                ];
+    $priceLimit = self::getModel()->find($criteria);
+    return $priceLimit;
+}
+
 
     public static function getProduct($id = null, $scenario = null) {
         if ($id) {

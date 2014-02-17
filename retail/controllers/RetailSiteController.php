@@ -27,7 +27,12 @@ class RetailSiteController extends RetailController {
         $catalogModel = new CatalogModel();
         $this->catalogData = $catalogModel->frontCatalogData();
 
-        $this->render("/site/index");
+
+        //выбор товара дня из категории "акции" 1435
+        $categoryAcciy=1435;
+        $day_data = $catalogModel->dayProduct($categoryAcciy);
+
+        $this->render("/site/index",compact('day_data'));
     }
 
     /**
