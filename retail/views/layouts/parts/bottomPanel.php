@@ -8,7 +8,6 @@ if (!empty($customer_id)){
     $product_ids=$model->getUserProducts($customer_id);
     if($product_ids){
         $catalogModel = new CatalogModel();
-//        print_r($product_ids);exit;
         foreach($product_ids as $id=>$count){
             if ($product = $catalogModel->productById($id)) {
 
@@ -91,7 +90,11 @@ if (!empty($customer_id)){
         </div>
         <p class="title-price">Стоимость заказа</p>
         <span class="end-price"><?=FormatHelper::markup($sum) ?></span>
-        <a href="#" class="zakaz" id="makeOrder">Оформить заказ</a>
+        <a href="<?php echo $this->createUrl('cart/orderStep1')?>"
+                       data-options='{"width":900, "height":400, "modal": true}'
+                       class="lightbox zakaz" id="makeOrder" onclick="$('.close').trigger('click')">
+                        Оформить заказ
+                    </a>
     </div>
     <?php } else{?>
     <p>Ваша корзина пуста</p>

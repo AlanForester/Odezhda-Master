@@ -224,25 +224,23 @@ jQuery(document).ready(function($){
      });
 
     //оформление заказа
-    $('#makeOrder').live('click',function(){
-       if ($(this).next('.count').text()<100){
-            $.ajax({
-                          type: 'POST',
-                          url: '" . $this->createUrl('/cart/makeOrder') . "',
-                          dataType:'json',
-                          success: function(data) {
-                                if (data.lightbox){
-                                      $('.jquery-lightbox-html').html(data.lightbox);
-                                }
-                                if (data.bottomPanel){
-                                      $('#panel').html(data.bottomPanel);
-                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
-                                }
-
-                          }
-                      });
-        }
-     });
+//    $('#makeOrder').live('click',function(){
+//            $.ajax({
+//                          type: 'POST',
+//                          url: '" . $this->createUrl('/cart/orderStep1') . "',
+//                          dataType:'json',
+//                          success: function(data) {
+//                                if (data.lightbox){
+//                                      $('.jquery-lightbox-html').html(data.lightbox);
+//                                }
+//                                if (data.bottomPanel){
+//                                      $('#panel').html(data.bottomPanel);
+//                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+//                                }
+//
+//                          }
+//                      });
+//     });
 ";
 
 $basket = "

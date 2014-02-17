@@ -86,6 +86,18 @@ class CartController extends RetailController {
         }
     }
 
+    public function actionOrderStep1(){
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $model = new CustomerModel();
+            $customer = $model->getCustomer($customer_id);
+            $deliveries =RetailDeliveryHelper:: getAllDeliveries();
+            $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
+
+
+        }
+    }
+
     public function actionMakeOrder(){
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
