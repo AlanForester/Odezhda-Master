@@ -90,8 +90,8 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
                             addRetailOrdersProduct(
                                 productId,
                                 orderId,
-                                $().val(),  //quantity,
-                                $().val(),  //attributes,
+                                $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
+                                $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
                                 queuePath
                             );
                         }
@@ -110,19 +110,21 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
 
 }
 
-function addRetailOrdersProduct(productId, orderId, quantity, attributes, queuePath) {
+function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
     $.ajax({
         url: queuePath,
         type: 'POST',
         //dataType : "json",
         data: {
-            productId: productId,
-            orderId: orderId
+            'RetailOrdersProducts[productId]': productId,
+            'RetailOrdersProducts[orderId]': orderId,
+            'RetailOrdersProducts[quantity]': quantity,
+            'RetailOrdersProducts[size]': size
         },
         success: function (data, textStatus) {
             //$("#ropgrid").html(data);
-            //registerGrid("ropgrid");
-            //jQuery("#ropgrid").yiiGridView("update");
+            registerGrid("ropgrid");
+            jQuery("#ropgrid").yiiGridView("update");
         }
     });
 
@@ -155,8 +157,8 @@ function addRetailOrdersProduct(productId, orderId, quantity, attributes, queueP
         );
     });*/
     bootbox.hideAll();
-    registerGrid('ropgrid');
-    jQuery("#ropgrid").yiiGridView("update");
+    //registerGrid('ropgrid');
+    //jQuery("#ropgrid").yiiGridView("update");
 }
 
 function registerGrid(id) {

@@ -184,6 +184,17 @@ class RetailOrdersController extends BackendController {
         $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
         $productsGridDataProvider->setSort(false);
 
+        if(!$id) {
+            //прибавляем из сессии товары, подготовленные для сохранения
+            $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
+                [
+                    $productsGridDataProvider,
+                    Yii::app()->session['RetailOrdersProductsQueue']
+                ],
+                $productsCriteria['page_size']
+            );
+        }
+
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }

@@ -8,7 +8,6 @@
         'backend.widgets.ActiveForm',
         [
             'layout' => TbHtml::FORM_LAYOUT_HORIZONTAL,
-            'strictModelUsing' => false,
             'enableAjaxValidation' => true,
             'enableClientValidation' => false,
             'clientOptions' => [

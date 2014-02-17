@@ -154,19 +154,20 @@ class RetailOrdersProductsController extends BackendController {
             $model = new CatalogModel();
             $product = $model->getCatalogData($input['productId'],'edit');
             $retailProduct = [
+                'id' => null,
                 'retail_orders_id' => null,
                 'products_id' => $input['productId'],
                 'model' => $product['model'],
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'quantity' => $input['quantity'],
+                //'size' => $input['size'],
             ];
-            //size=
 
             if(!empty($input['orderId'])) {
                 $productsResult = RetailOrdersProductsHelper::saveProducts([$retailProduct], $input['orderId']);
                 if($productsResult !== true) {
-
+                    //saving error
                 }
             } else {
                 $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];

@@ -220,6 +220,7 @@ $this->pageButton = [
 
                             'gridColumns' => [
                                 [
+                                    'header' => 'Название',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'name',
@@ -234,6 +235,7 @@ $this->pageButton = [
                                     ]
                                 ],
                                 [
+                                    'header' => 'Код модели',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'model',
@@ -264,6 +266,7 @@ $this->pageButton = [
                                     ]*/
                                 ],
                                 [
+                                    'header' => 'Количество',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'quantity',
@@ -278,6 +281,7 @@ $this->pageButton = [
                                     ]
                                 ],
                                 [
+                                    'header' => 'Цена (за единицу)',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'price',
@@ -291,13 +295,14 @@ $this->pageButton = [
                                         'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                                     ]
                                 ],
-                                /*[
+                                [
+                                    'header' => 'ID',
                                     'name' => 'id',
                                     'headerHtmlOptions' => [
                                     ],
                                     'htmlOptions' => [
                                     ],
-                                ],*/
+                                ],
 
                             ],
 
