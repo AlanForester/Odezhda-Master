@@ -40,7 +40,8 @@ class RetailDelivery extends LegacyActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('labels', 'ID'),
-            'name' => Yii::t('labels', 'Название')
+            'name' => Yii::t('labels', 'Название'),
+            'description' => Yii::t('labels', 'Описание'),
         ];
     }
 

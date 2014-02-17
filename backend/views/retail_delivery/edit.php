@@ -1,11 +1,11 @@
 <?php
 
-$this->pageTitle = 'Отделения доставки: ' . ($item->id ? 'редактирование [' . $item->email . ']' : 'новое отделение');
+$this->pageTitle = 'Отделения доставки: ' . ($item->id ? 'редактирование [' . $item->name . ']' : 'новое отделение');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/users/index")
+    BackendPageButtons::cancel("/retail_delivery/index")
 ];
 ?>
     <div class="span6">
@@ -27,14 +27,10 @@ $this->pageButton = [
 
     );?>
         <fieldset>
-            <legend>Учетная запись</legend>
+            <legend>Основные данные</legend>
             <?php
-            echo $form->hiddenField($item, 'id', []);
-            echo $form->dropDownListControlGroup($item, 'group_id', $groups, []);
-            echo $form->textFieldControlGroup($item, 'firstname', []);
-            echo $form->textFieldControlGroup($item, 'lastname', []);
-            echo $form->textFieldControlGroup($item, 'email', []);
-            echo $form->passwordFieldControlGroup($item, 'password', ['autocomplete' => 'off', 'value' => '']);
+            echo $form->textFieldControlGroup($item, 'name', []);
+            echo $form->textAreaControlGroup($item, 'description', []);
             ?>
 
         </fieldset>
@@ -54,11 +50,7 @@ if (!empty($item->id)) {
                 [
                     'data' => $item,
                     'attributes' => [
-                        ['name' => 'id'],
-                        ['name' => 'lognum'],
-                        ['name' => 'logdate'],
-                        ['name' => 'modified'],
-                        ['name' => 'created'],
+                        ['name' => 'id']
                     ],
                 ]
             );
