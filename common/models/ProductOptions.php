@@ -4,7 +4,7 @@ class ProductOptions extends LegacyActiveRecord {
 
 
     public function tableName() {
-        return 'products_new_options_values';
+        return 'products_options_values';
     }
 
 
