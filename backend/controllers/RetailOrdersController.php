@@ -133,7 +133,7 @@ class RetailOrdersController extends BackendController {
             $result = $item->save();
             $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            $productResult = $productsModel->saveProducts(Yii::app()->request->getPost('RetailOrdersProducts'), $id);
+            $productsResult = $productsModel->saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id);
 
             if (!$result) {
                 // ошибка записи
@@ -141,11 +141,11 @@ class RetailOrdersController extends BackendController {
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
-            } elseif ($productResult !== true) {
+            } elseif ($productsResult !== true) {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($productResult, 'Ошибка сохранения товаров розничного заказа')
+                    CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
                 );
             } else {
                 // выкидываем сообщение

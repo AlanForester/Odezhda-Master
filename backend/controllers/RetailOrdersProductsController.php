@@ -36,6 +36,7 @@ class RetailOrdersProductsController extends BackendController {
             }
         }
 
+        //todo избавиться от layers
         $this->model = new RetailOrdersProductsLayer('update');
 
         $gridDataProvider = $this->model->getDataProvider($criteria);
@@ -147,6 +148,20 @@ class RetailOrdersProductsController extends BackendController {
 
         //$this->actionIndex($id);
         //$this->redirect(['retail_orders/edit', 'id' => $id, 'ajax' => 'ropgrid']);
+    }
+
+    //добавляет товар для создаваемого заказа (который еще не имеет id) в очередь на сохранение.
+    //товары в очереди будут сохранены при сохранении создаваемого заказа
+    public function actionQueue() {
+        //todo избавиться от layers
+        $model = new RetailOrdersProductsLayer('update');
+        $product = $model->getPostData();
+        if($product) {
+            $products = Yii::app()->session['RetailOrdersProductsQueue'];
+            $products[] = $product;
+            Yii::app()->session['RetailOrdersProductsQueue'] = $products;
+            //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
+        }
     }
 
 }

@@ -12,7 +12,7 @@ class RetailOrdersProductsLayer extends RetailOrdersProducts {
 
     public function getPostData() {
         $name = get_class(RetailOrdersProductsHelper::getModel());
-        return $_POST[$name];
+        return isset($_POST[$name]) ? $_POST[$name] : [];
     }
 
     public function getRetailOrdersProduct($id, $scenario = null) {
