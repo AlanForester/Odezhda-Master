@@ -450,9 +450,9 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
             <div class="nav-bar nav-last">
                 <ul>
                     <li><span>Контакты</span></li>
-                    <li><span>тел.: 222-962, +7 (4932) 343-588</span></li>
-                    <li><span>email: <a href="mailto:info@lapana.ru">info@lapana.ru</a></span></li>
-                    <li><span>г. Иваново, Проспект Ленина д.98</span></li>
+                    <li><span>тел.: <?= Yii::app()->params['contactTel'] ?></span></li>
+                    <li><span>email: <a href="mailto:<?= Yii::app()->params['contactEmail'] ?>"><?= Yii::app()->params['contactEmail'] ?></a></span></li>
+                    <li><span><?= Yii::app()->params['contactAddress'] ?></span></li>
                     <li><a href="/map/">Карта проезда</a></li>
                     <li><span>&nbsp;</span></li>
                     <li>&copy; 2014 lapana.ru</li>

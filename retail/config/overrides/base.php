@@ -7,6 +7,9 @@ return [
     'params'=>[
         'title'=>'Лапана',
         'staticUrl'=>'http://old.om.codetek.ru/',
+        'contactEmail'=>'info@lapana.ru',
+        'contactTel'=>'222-962, +7 (4932) 343-588',
+        'contactAddress'=>'г. Иваново, Проспект Ленина д.98',
 //        'staticUrl'=>'http://odezhda-master.ru/'
             'markup'=>10
         //наценка
