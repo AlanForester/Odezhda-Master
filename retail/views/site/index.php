@@ -269,6 +269,17 @@ Yii::app()->clientScript->registerPackage('index');
 
 </div>
 
+<?php
+foreach ($banners as $n=>$b){
+    $num = $n == 0? 'one' : ($n == 1? 'two' : 'three');
+    echo '<div class="skidki '.$num.'">';
+    if ($b){
+        echo '<a href="'.$b->url.'"><img src="'.$b->images.'" alt="'.$b->name.'" /></a>';
+    }
+    echo '</div>';
+}
+?>
+
 <!--<div class="social-box">-->
 <!--    <p>Давайте дружить!</p>-->
 <!--    <img src="/images/social-box.png" alt=""/>-->

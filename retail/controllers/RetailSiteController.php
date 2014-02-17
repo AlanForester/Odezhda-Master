@@ -32,7 +32,15 @@ class RetailSiteController extends RetailController {
         $categoryAcciy=1435;
         $day_data = $catalogModel->dayProduct($categoryAcciy);
 
-        $this->render("/site/index",compact('day_data'));
+        // todo: вынести в настройки?
+        // баннеры
+        $banners = [
+            0=>RetailBannersHelper::getBanner(1),
+            1=>RetailBannersHelper::getBanner(2),
+            2=>RetailBannersHelper::getBanner(3),
+        ];
+
+        $this->render("/site/index",compact('day_data','banners'));
     }
 
     /**
