@@ -128,37 +128,42 @@ class RetailOrdersController extends BackendController {
             $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
-            $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
-                RetailOrdersProductsHelper::saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
-                true;
+            if ($result) {
+                $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            if (!$result) {
+                $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
+                    RetailOrdersProductsHelper::saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                    true;
+
+                if ($productsResult !== true) {
+                    // ошибка записи
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_ERROR,
+                        CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
+                    );
+                } else {
+                    unset(Yii::app()->session['RetailOrdersProductsQueue']);
+                    // выкидываем сообщение
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_INFO,
+                        'Розничный заказ ' . ($id ? 'сохранен' : 'добавлен')
+                    );
+                    if ($form_action == 'save') {
+                        $this->redirect(['index']);
+                        return;
+                    } else {
+                        $this->redirect(['edit', 'id' => $item['id']]);
+                        return;
+                    }
+                }
+
+            } else {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
-            } elseif ($productsResult !== true) {
-                // ошибка записи
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
-                );
-            } else {
-                // выкидываем сообщение
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Розничный заказ ' . ($id ? 'сохранен' : 'добавлен')
-                );
-                if ($form_action == 'save') {
-                    $this->redirect(['index']);
-                    return;
-                } else {
-                    $this->redirect(['edit', 'id' => $item['id']]);
-                    return;
-                }
             }
         }
 

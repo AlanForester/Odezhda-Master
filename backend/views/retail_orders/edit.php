@@ -198,7 +198,7 @@ $this->pageButton = [
                     <div style="padding-bottom: 16px" class="span12 pull-left button-block">
                         <?php
                         echo BackendPageButtons::addProduct()
-                        . BackendPageButtons::removeProduct("/retail_orders_products/mass/", $item->id)
+                        . BackendPageButtons::removeProducts("/retail_orders_products/mass/", $item->id)
                         . BackendPageButtons::mass("/retail_orders_products/mass/".$item->id)
                         ?>
                     </div>
