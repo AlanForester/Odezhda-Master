@@ -55,7 +55,7 @@ if (!empty($customer_id)){
             <ul id="items">
                 <?php $sum=0; foreach($products as $product) { ?>
                     <li>
-                        <p class="image"><a href="/catalog/product/<?=$product->id ?>">
+                        <p class="image"><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>">
                                 <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
                             </a>
 <!--                            <select class="goods-count">-->
@@ -68,7 +68,7 @@ if (!empty($customer_id)){
 <!--                            </select>-->
 
                         </p>
-                        <h3><a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?></a></h3>
+                        <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?=$product->name ?></a></h3>
                         <span class="artikul"><?= $product->model ?></span>
                         <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
                         <span class="price-b"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
@@ -91,7 +91,8 @@ if (!empty($customer_id)){
         <p class="title-price">Стоимость заказа</p>
         <span class="end-price"><?=FormatHelper::markup($sum) ?></span>
         <a href="<?php echo $this->createUrl('cart/orderStep1')?>"
-                       data-options='{"width":900, "height":400, "modal": true}'
+                       data-options='{"width":860, "height":380, "modal": true}'
+                       data-options='{"width":860, "height":380, "modal": true}'
                        class="lightbox zakaz" id="makeOrder" onclick="$('.close').trigger('click')">
                         Оформить заказ
                     </a>

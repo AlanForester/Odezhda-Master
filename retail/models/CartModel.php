@@ -221,6 +221,7 @@ class CartModel {
         if(!$customer->save()){
             return false;
         }
+
         //todo переделать 5 foreign key
         $delivery=($params['delivery']=='post'? 5 :$params['pickup_method']);
         $products = Yii::app()->db->createCommand()

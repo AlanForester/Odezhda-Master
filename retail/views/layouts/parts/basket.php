@@ -24,7 +24,7 @@
                             <span class="sel-count count"><?= $product_ids[$product->id] ?></span>
                             <button class="changeCount left minus">-</button>
                         </p>
-                        <h3><a href="/catalog/product/<?= $product->id ?>" class="name-goods"><?= $product->name ?></a>
+                        <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?= $product->name ?></a>
                         </h3>
                         <span class="artikul"><?= $product->model ?></span>
                         <span class="price-g"><?= FormatHelper::markup($product->price) ?></span>
