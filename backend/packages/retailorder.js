@@ -54,19 +54,29 @@ function selectCustomer(event, orderId, infoPath, editPath) {
     registerGrid('ropgrid');
 }
 
-function selectRetailOrdersProductAttributes(event, orderId, attributesSelectionViewPath, queuePath) {
+function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPath, queuePath) {
     bootbox.hideAll();
     //var event=event||window.event;
     var target = event.target||event.srcElement,
         productId = $(target).closest("tr").find("input[name='gridids[]']").val();
 
+    /*$.getJSON(infoPath, {
+        id: productId
+    }, function(json){
+        if(json.catalog.products_options_values_id != null) {
+            $.each(json.catalog.products_options_values_id, function( index, value ) {
+
+            });
+        }
+    });*/
+
     $.ajax({
-        url: attributesSelectionViewPath,
-        type: 'POST',
+        url: optionsSelectionViewPath + productId,
+        type: 'GET',
         //dataType : "json",
         data: {
-            productId: productId,
-            orderId: orderId
+            //productId: productId,
+            //orderId: orderId
         },
         success: function (data, textStatus) {
             bootbox.dialog({

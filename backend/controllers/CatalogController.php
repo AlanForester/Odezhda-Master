@@ -243,13 +243,26 @@ class CatalogController extends BackendController {
 
 
 
-    public function actionInfo($id) {
-        //todo Alex: Заместо CformModel  используем AR
+    /*public function actionInfo($id) {
         $this->model = new CatalogModel();
         $model = $this->model->getCatalogData($id,'edit');
         $response['catalog'] = $model;
         //$response['with'] = $model->with;
         echo CJSON::encode($response);
+        Yii::app()->end();
+    }*/
+
+    public function actionSelectOptions($id) {
+        $productOptions = [];
+        $product = ShopProduct::model()->with('product_options')->findByPk($id);
+        //echo '<pre>'.print_r($product->product_options,1);exit;
+
+        if(!empty($product->product_options)) {
+            foreach ($product->product_options as $option) {
+                $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
+            }
+        }
+        $this->renderPartial('select_options', compact('productOptions','id'));
         Yii::app()->end();
     }
 
@@ -258,7 +271,7 @@ class CatalogController extends BackendController {
 
         $criteria = ['page_size' => 10];
 
-        //todo Alex: Заместо CformModel  используем AR
+        //todo CformModel => AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
 
@@ -268,7 +281,7 @@ class CatalogController extends BackendController {
                 'pageSize' => $criteria['page_size'],
             ],
         ]);
-        //todo Alex: Заместо CformModel  используем AR
+        //todo CformModel => AR
         $categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
 
