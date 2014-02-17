@@ -29,6 +29,7 @@ $this->pageButton = [
         <fieldset>
             <legend>Основные данные</legend>
             <?php
+            echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
             echo $form->textAreaControlGroup($item, 'description', []);
             ?>
