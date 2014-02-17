@@ -5,12 +5,13 @@ $colors = ['grey','violet','green','magent','yellow','blue','white','black','l-m
 $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
 //print_r($dataProvider->getData());
+//print_r($currentCategoryNumber);exit;
 ?>
 <script>
     $(document).ready(function () {
         $("#accordion").accordion({
             heightStyle: "content",
-            active: <?=($currentCategoryNumber)?:999 ?>
+            active: <?= $currentCategoryNumber!==false?$currentCategoryNumber:999 ?>
         });
 
             $('#catalog_order').change(function(){
