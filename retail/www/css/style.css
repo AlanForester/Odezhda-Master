@@ -1671,8 +1671,7 @@ button.desable {
     top: 0;
 }
 #order{
-   height: 300px;
-    /*height: 320px;*/
+    height: 320px;
     margin: 7px auto
 }
 
