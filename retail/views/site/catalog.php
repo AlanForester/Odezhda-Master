@@ -232,7 +232,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
                     <select class="product_size">
                         <?php foreach ($product->product_options as $option) { ?>
                             <option
-                                value='<?= $option->products_options_values_id ?>'><?= $option->products_options_values_name ?></option>
+                                value='<?= $option->products_options_values_id ?>'><?= $option->products_new_options_values_name ?></option>
                         <?php } ?>
                     </select>
                 <?php } ?>

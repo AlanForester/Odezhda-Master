@@ -19,7 +19,7 @@ $this->breadcrumbs=array(
            <?php if(!empty($product->product_options[0])){ ?>
            <select id="filter_size">
                <?php foreach ($product->product_options as $option) { ?>
-                   <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
+                   <option value='<?=$option->products_options_values_id ?>'><?=$option->products_new_options_values_name ?></option>
                <?php }?>
            </select>
            <?php } ?>
