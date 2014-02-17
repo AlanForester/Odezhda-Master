@@ -131,6 +131,24 @@ class CartModel {
     }
 
     /**
+     * Метод для нахождения общей суммы единицы товара в корзине текущего пользователя
+     * @return int
+     */
+    public function countPriceOfProduct($product_id){
+        $customer_id=Yii::app()->user->id;
+        $sum=0;
+        if (!empty($customer_id)){
+            $catalogModel = new CatalogModel();
+            $count=$this->countItemsOfProduct($product_id);
+                if ($product = $catalogModel->productById($product_id)) {
+//                    print_r($product);exit;
+                    $sum=$product->price*$count;
+        }
+        }
+        return $sum;
+    }
+
+    /**
      * Метод для нахождения количества единиц одного товаров в корзине текущего пользователя
      * @param $product_id идентификатор товара
      * @return int

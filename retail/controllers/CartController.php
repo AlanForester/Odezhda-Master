@@ -55,6 +55,8 @@ class CartController extends RetailController {
             if($model->updateProduct($customer_id,$product_id,$change)){
                 $data['items'] = $model->countItemsOfProduct($product_id);
                 $data['products'] = CartModel::countProducts();
+                $data['total_price']=CartModel::countPrices();
+                $data['price']=$model->countPriceOfProduct($product_id);
                 echo json_encode($data);
                 Yii::app()->end();
             }

@@ -110,7 +110,7 @@ jQuery(document).ready(function($){
     //увеличение количества товара в корзине
     $('.plus').live('click',function(){
        var counter=$(this);
-       if ($(this).next('.count').text()<100){
+       if ($(this).prev('.count').text()<100){
             $.ajax({
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/changeCounter') . "',
@@ -121,8 +121,11 @@ jQuery(document).ready(function($){
                           }),
                           success: function(data) {
                                 if (data){
-                                      counter.next('.count').text(data.items);
-                                      $('#panel .see-goods h5').text(data.products);
+                                      counter.prev('.count').text(data.items);
+                                      $('#jqeasytrigger .col').text(data.products);
+                                      $('#jqeasytrigger .sum').text(data.total_price);
+                                      $('#jqeasypanel .cart_title').text(data.products);
+                                      $('#jqeasypanel .price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
@@ -134,7 +137,7 @@ jQuery(document).ready(function($){
     //уменьшение количества товара в корзине
     $('.minus').live('click',function(){
        var counter=$(this);
-       if ($(this).prev('.count').text()>1){
+       if ($(this).next('.count').text()>1){
             $.ajax({
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/changeCounter') . "',
@@ -145,8 +148,11 @@ jQuery(document).ready(function($){
                           }),
                           success: function(data) {
                                 if (data){
-                                      counter.prev('.count').text(data.items);
-                                      $('#panel .see-goods h5').text(data.products);
+                                      counter.next('.count').text(data.items);
+                                      $('#jqeasytrigger .col').text(data.products);
+                                      $('#jqeasytrigger .sum').text(data.total_price);
+                                      $('#jqeasypanel .cart_title').text(data.products);
+                                      $('#jqeasypanel .price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
