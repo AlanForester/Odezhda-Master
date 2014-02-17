@@ -69,7 +69,8 @@ class CartController extends RetailController {
             $product_id = Yii::app()->request->getParam('product_id');
             $model = new CartModel();
             if($model->deleteProduct($customer_id,$product_id)){
-                $this->actionShow(true);
+//                $this->actionShow(true);
+                $this->renderPartial("/layouts/parts/bottomPanel");
             }
         }
     }

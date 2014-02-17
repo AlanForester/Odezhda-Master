@@ -76,6 +76,7 @@ if (!empty($customer_id)){
                         <button class="changeCount left minus">-</button>
                         <span class="sel-count count"><?=$product_ids[$product->id] ?></span>
                         <button class="changeCount right plus">+</button>
+                        <span class="del-good">x</span>
                         <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
                     </li>
                     <?php $sum+=$product->price*$product_ids[$product->id]; } ?>

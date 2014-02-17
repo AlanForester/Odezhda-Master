@@ -162,8 +162,7 @@ jQuery(document).ready(function($){
     });
 
     //удаление товара из корзины
-    $('.del-goods').live('click',function(){
-       if ($(this).next('.count').text()<100){
+    $('.del-good').live('click',function(){
             $.ajax({
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/deleteProduct') . "',
@@ -171,17 +170,26 @@ jQuery(document).ready(function($){
                                 product_id : $(this).nextAll('.prod_id').val(),
                           }),
                           success: function(data) {
-                                if ($(data)[0]){
-                                      $('.jquery-lightbox-html').html($(data)[0]);
-                                }
-                                if ($(data)[1]){
-                                      $('#panel').html($(data));
+                                if (data){
+                                      $('#panel').html(data);
+                                      $('#jqeasypanel').jqEasyPanel({
+                                            position: 'bottom'
+                                      });
+                                      $('.open').click(function(){
+                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+                                      });
+                                      $('.close').click(function(){
+                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                      });
+                                      $('.goods-slider ul#items').easyPaginate({
+                                             step:4
+                                      });
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+                                      $('.open').trigger('click');
                                 }
 
                           }
                       });
-        }
      });
 
      //удаление всех товаров из корзины
