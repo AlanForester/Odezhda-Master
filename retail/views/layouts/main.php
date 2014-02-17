@@ -125,7 +125,7 @@ jQuery(document).ready(function($){
                                       $('#jqeasytrigger .col').text(data.products);
                                       $('#jqeasytrigger .sum').text(data.total_price);
                                       $('#jqeasypanel .cart_title').text(data.products);
-                                      $('#jqeasypanel .price-b').text(data.price);
+                                      counter.prevAll('.price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
@@ -152,7 +152,7 @@ jQuery(document).ready(function($){
                                       $('#jqeasytrigger .col').text(data.products);
                                       $('#jqeasytrigger .sum').text(data.total_price);
                                       $('#jqeasypanel .cart_title').text(data.products);
-                                      $('#jqeasypanel .price-b').text(data.price);
+                                      counter.prevAll('.price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
