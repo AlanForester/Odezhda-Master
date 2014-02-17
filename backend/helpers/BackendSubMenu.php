@@ -91,6 +91,21 @@ class BackendSubMenu {
             ];
     }
 
+    public static function retailInfo() {
+        return
+            [
+                [
+                    'label' => 'Информационные страницы',
+                    'url' => ['/info_pages/index']
+                ],
+                [
+                    'label' => 'Баннеры',
+                    'url' => ['/retail_banners/index'],
+
+                ]
+            ];
+    }
+
 //    public static function retailOrder($id) {
 //        return
 //            [

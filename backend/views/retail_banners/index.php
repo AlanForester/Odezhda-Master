@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/info_pages/add"),
-    BackendPageButtons::remove("/info_pages/mass"),
-    BackendPageButtons::mass("/info_pages/mass")
+    BackendPageButtons::add("/retail_banners/add"),
+    BackendPageButtons::remove("/retail_banners/mass"),
+    BackendPageButtons::mass("/retail_banners/mass")
 ];
 
 // таблица
@@ -11,13 +11,14 @@ $this->widget(
     'backend.widgets.Grid',
     [
         'submenu' => BackendSubMenu::retailInfo(),
+
+        'filter' => [],
+
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
-
                 'name' => 'Название',
                 'id' => 'ID',
-
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -40,12 +41,13 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/info_pages/update"),
+                    'url' => Yii::app()->createUrl("/retail_banners/update"),
                 ]
             ],
             [
                 'name' => 'id',
                 'headerHtmlOptions' => [
+                    'width'=>'50'
                 ],
                 'htmlOptions' => [
                 ],
@@ -53,8 +55,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/info_pages/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/info_pages/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/retail_banners/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/retail_banners/delete", array("id"=>$data["id"]))',
         ]
     ]
 );

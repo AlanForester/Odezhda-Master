@@ -1,23 +1,23 @@
 <?php
 
-class RetailDeliveryHelper {
+class RetailBannersHelper {
 
     private static $errors = [];
 
     public static function getModel() {
-        return RetailDelivery::model();
+        return RetailBanner::model();
     }
 
     /**
      * Модель точки доставки
      * @param int $id [опционально] id точки. если не указан, вернет массив пустых данных
      * @param string $scenario [опционально] сценарий модели
-     * @return RetailDelivery
+     * @return RetailBanner
      */
-    public static function getDelivery($id = null, $scenario = null) {
+    public static function getBanner($id = null, $scenario = null) {
         $model = self::getModel();
         // todo: завернуть название модели
-        return ($id ? $model->findByPk($id) : new RetailDelivery($scenario));
+        return ($id ? $model->findByPk($id) : new RetailBanner($scenario));
     }
 
     public static function getDataProvider($data = null) {
@@ -30,6 +30,8 @@ class RetailDeliveryHelper {
                     ' OR ',
                     [
                         '[[name]] LIKE :text',
+                        '[[url]] LIKE :text',
+                        '[[images]] LIKE :text',
                         '[[description]] LIKE :text',
                         '[[id]] LIKE :text',
                     ]
@@ -70,7 +72,7 @@ class RetailDeliveryHelper {
         }
 
         return new CActiveDataProvider(
-            'RetailDelivery',
+            'RetailBanner',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
@@ -86,7 +88,7 @@ class RetailDeliveryHelper {
      * данные для валидации для внешнего использования
      */
     public static function rules() {
-        return RetailDelivery::model()->getRules();
+        return RetailBanner::model()->getRules();
 //        $rules = array_merge(InfoPage::model()->getRules(),InfoPageDescription::model()->getRules());
 //        foreach ($rules as &$r) {
 //            $r[0] = join(',', array_map(function ($el) {
@@ -109,7 +111,7 @@ class RetailDeliveryHelper {
 
         // все все данные верны, сохраняем
         if ($id && $field && $value) {
-            if (!$item = self::getDelivery($id)) {
+            if (!$item = self::getBanner($id)) {
                 return false;
             }
             $item->setAttributes([$field=>$value],false);
@@ -126,7 +128,7 @@ class RetailDeliveryHelper {
      * @return bool успешность удаления
      */
     public static function delete($id) {
-        $item = self::getDelivery($id);
+        $item = self::getBanner($id);
         if ($item) {
             return $item->delete();
         }
@@ -142,7 +144,7 @@ class RetailDeliveryHelper {
         $id = TbArray::getValue('id', $data);
 
         // модель пользователя
-        $item = self::getDelivery($id, 'add');
+        $item = self::getBanner($id, 'add');
         if (!$item) {
             return false;
         }
@@ -169,10 +171,6 @@ class RetailDeliveryHelper {
 
         return $item;
 
-    }
-
-    public static function getAllDeliveries(){
-        self::getModel()->findAll();
     }
 
 }
