@@ -57,7 +57,7 @@ $this->widget(
                         'label' => 'Материалы',
                         'url' => '#',
                         'items'=>[
-                            TbHtml::menuHeader('Розница'),
+                            TbHtml::menuHeader('Розничный&nbsp;магазин'),
                             [
                                 'label' => 'Информационные страницы',
                                 'url' => ['/info_pages/index'],
@@ -88,6 +88,7 @@ $this->widget(
                         'label' => 'Магазин',
                         'url' => '#',
                         'items' => [
+                            TbHtml::menuHeader('Основное'),
                             [
                                 'label' => 'Товары',
                                 'url' => ['/catalog/index']
@@ -101,7 +102,7 @@ $this->widget(
                                 'url' => ['/customers/index'],
                             ],
                             TbHtml::menuDivider(),
-                            TbHtml::menuHeader('Розница'),
+                            TbHtml::menuHeader('Розничный&nbsp;магазин'),
                             [
                                 'label' => 'Розничные заказы',
                                 'url' => ['/retail_orders/index']
@@ -111,6 +112,7 @@ $this->widget(
                                 'url' => ['/retail_delivery/index']
                             ],
                             TbHtml::menuDivider(),
+                            TbHtml::menuHeader('Дополнительно'),
                             [
                                 'label' => 'Бухгалтерия',
                                 'url' => ['/articles/index'],
