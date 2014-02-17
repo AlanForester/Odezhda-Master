@@ -224,10 +224,10 @@ class ShopProduct extends LegacyActiveRecord {
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true,'joinType'=>'INNER JOIN'),
             //связь с опциями
-            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id'),
-            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes'),
-            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options'),
-            'products_new_option_values' => array(self::HAS_ONE, 'ProductNewOptions', 'products_options_values_id', 'through' => 'products_to_new_options')
+            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
+            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
+            'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
         ];
     }
 
