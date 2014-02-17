@@ -9,7 +9,7 @@ class m140217_093821_create_new_options extends CDbMigration
 
 	public function up()
 	{
-        $this->execute("CREATE TABLE `products_new_options_values (
+        $this->execute("CREATE TABLE `products_new_options_values` (
               `products_options_values_id` int(11) unsigned NOT NULL,
               `language_id` int(11) unsigned NOT NULL,
               `products_options_values_name` varchar(255),
