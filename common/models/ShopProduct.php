@@ -227,7 +227,7 @@ class ShopProduct extends LegacyActiveRecord {
             'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id'),
             'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes'),
             'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options'),
-            'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'options_values_id', 'through' => 'product_attributes')
+            'products_new_option_values' => array(self::HAS_ONE, 'ProductNewOptions', 'products_options_values_id', 'through' => 'products_to_new_options')
         ];
     }
 
@@ -277,7 +277,8 @@ class ShopProduct extends LegacyActiveRecord {
             'with' => [
                 'product_description',
                 'categories_description',
-                'product_options'
+                'product_options',
+                'products_new_option_values'
             ]
         ];
     }
