@@ -92,7 +92,6 @@ if (!empty($customer_id)){
         <span class="end-price"><?=FormatHelper::markup($sum) ?></span>
         <a href="<?php echo $this->createUrl('cart/orderStep1')?>"
                        data-options='{"width":860, "height":380, "modal": true}'
-                       data-options='{"width":860, "height":380, "modal": true}'
                        class="lightbox zakaz" id="makeOrder" onclick="$('.close').trigger('click')">
                         Оформить заказ
                     </a>
