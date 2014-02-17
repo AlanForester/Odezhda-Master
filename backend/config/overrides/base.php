@@ -39,7 +39,7 @@ return [
         'retail_delivery' => 'RetailDeliveryController',
         'retail_orders' => 'RetailOrdersController',
         'retail_orders_products' => 'RetailOrdersProductsController',
-
+        'retail_banners' => 'RetailBannersController',
     ],
     'components' => [
         // Backend uses the YiiBooster package for its UI

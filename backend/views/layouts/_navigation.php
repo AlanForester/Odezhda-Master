@@ -57,14 +57,20 @@ $this->widget(
                         'label' => 'Материалы',
                         'url' => '#',
                         'items'=>[
+                            TbHtml::menuHeader('Розница'),
+                            [
+                                'label' => 'Информационные страницы',
+                                'url' => ['/info_pages/index'],
+                            ],
+                            [
+                                'label' => 'Баннеры',
+                                'url' => ['/retail_banners/index'],
+                            ],
+                            TbHtml::menuDivider(),
                             [
                                 'label' => 'Статьи',
                                 'url' => ['/articles/index'],
                                 'disabled'=>true
-                            ],
-                            [
-                                'label' => 'Информационные страницы',
-                                'url' => ['/info_pages/index'],
                             ],
                             [
                                 'label' => 'Новости',
