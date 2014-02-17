@@ -308,7 +308,16 @@ $(document).ready(function() {
         $('.goods-slider ul#items').easyPaginate({
                 step:4
         });
-    });
+
+        $('input:radio[name=delivery]').live('change',function(){
+            if($('input:radio[name=delivery]:checked').val() == 'pickup'){
+               $('#pickup_method').show();
+            } else{
+                $('#pickup_method').hide();
+            }
+
+        });
+});
 ";
 
 Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);

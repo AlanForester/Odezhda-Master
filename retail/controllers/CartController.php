@@ -94,7 +94,6 @@ class CartController extends RetailController {
             $deliveries =RetailDeliveryHelper:: getAllDeliveries();
             $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
 
-
         }
     }
 

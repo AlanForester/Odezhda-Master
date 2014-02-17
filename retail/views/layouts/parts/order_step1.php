@@ -6,9 +6,10 @@
                 <input id="phone" type="text" placeholder="Телефон" name="phone" value="<?=$customer->phone?>"/><br />
                 <span class="delivery"><input type="radio" name="delivery" value="post" checked/><span>Доставка почтой России</span></span>
                 <span class="delivery"><input type="radio" name="delivery" value="pickup"/><span>Самовывоз</span></span>
-                <select id="pickup_method">
-                    <option selected>Доставка почт Россииой</option>
-                    <option>Самовывоз</option>
+                <select id="pickup_method" style="display: none">
+                    <?php foreach($deliveries as $delivery) {?>
+                    <option><?=$delivery->name?></option>
+                    <?php }?>
                 </select>
                 <button type="submit" id="login_submit">Продолжить</button>
 <!--            </form>-->
