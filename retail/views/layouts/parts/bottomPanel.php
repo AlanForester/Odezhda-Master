@@ -25,27 +25,28 @@ if (!empty($customer_id)){
         <img src="../../../images/bottom-basket-icon.png" alt="" />
 
         <p>корзина</p>
-        <span><?php echo(CartModel::countProducts());?></span>
-        <p><?php echo(CartModel::countPrices());?></p>
+        <span class="col"><?php echo(CartModel::countProducts());?></span>
+        <p class="sum"><?php echo(CartModel::countPrices());?></p>
 
     </a>
     <a href="#" class="close" style="display: none;">
         <img src="../../../images/bottom-basket-icon.png" alt="" />
         <p>корзина</p>
         <!-- Если корзина пустая -->
-        <span class="null"><?php echo(CartModel::countProducts());?></span>
-        <p><?php echo(CartModel::countPrices());?></p>
+        <span class="null col"><?php echo(CartModel::countProducts());?></span>
+        <p class="sum"><?php echo(CartModel::countPrices());?></p>
         <img src="../../../images/bottom-basket-arrow.png" alt="" class="bottom-basket-arrow" />
     </a>
 </div>
 
 <div id="jqeasypanel" class="bottom" style="height: 80px;">
     <?php if(!empty($products)) {?>
-    <p>В вашей корзине
+    <p>В вашей корзине <span class="cart_title">
         <?php
         $n=CartModel::countProducts();
         echo($n.' '.FormatHelper::plural($n,'товар','товара','товаров'));
         ?>
+    </span>
     </p>
     <button class="clear"><b>X</b>Очистить корзину</button>
     <!--    <p class="open-basket"><input type="checkbox"  /><span>Не открывать корзину при каждой покупке</span></p>-->
@@ -58,22 +59,23 @@ if (!empty($customer_id)){
                         <p class="image"><a href="/catalog/product/<?=$product->id ?>">
                                 <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
                             </a>
-                            <select class="goods-count">
-                                <?php for($i=1;$i<100;$i++){
-                                    if($i==$product_ids[$product->id]){?>
-                                        <option selected="selected"><?=$i?></option>
-                                    <?php continue;}?>
-                                <option><?=$i?></option>
-                                <?php }?>
-                            </select>
-<!--                            <button class="changeCount right plus">+</button>-->
-<!--                            <span class="sel-count count">--><?//=$product_ids[$product->id] ?><!--</span>-->
-<!--                            <button class="changeCount left minus">-</button>-->
+<!--                            <select class="goods-count">-->
+<!--                                --><?php //for($i=1;$i<100;$i++){
+//                                    if($i==$product_ids[$product->id]){?>
+<!--                                        <option selected="selected">--><?//=$i?><!--</option>-->
+<!--                                    --><?php //continue;}?>
+<!--                                <option>--><?//=$i?><!--</option>-->
+<!--                                --><?php //}?>
+<!--                            </select>-->
+
                         </p>
                         <h3><a href="/catalog/product/<?=$product->id ?>" class="name-goods"><?=$product->name ?></a></h3>
                         <span class="artikul"><?= $product->model ?></span>
                         <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
                         <span class="price-b"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
+                        <button class="changeCount left minus">-</button>
+                        <span class="sel-count count"><?=$product_ids[$product->id] ?></span>
+                        <button class="changeCount right plus">+</button>
                         <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
                     </li>
                     <?php $sum+=$product->price*$product_ids[$product->id]; } ?>
