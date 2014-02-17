@@ -46,7 +46,7 @@ class ShopProductsHelper {
             // $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[]= '( '.join(' OR ',$condition_params).' )';
         }
-
+        $criteria=[];
         //Формирование критерии
         if(!empty($condition)){
             $criteria['condition']  = join(' AND ', $condition);
@@ -54,22 +54,29 @@ class ShopProductsHelper {
         if(!empty($params)){
             $criteria['params'] = $params;
         }
-
-        if(!empty($data['order'])){
-            $criteria ['order'] = $data['order'];
-        }
         if(!empty($data['limit'])){
             $criteria['limit'] = $data['limit'];
         }
-        if(!empty($data['random'])){
-            $criteria['order'] = new CDbExpression('RAND()');
-        }
+
+
+
+
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
         $priceLimit = self::getModel()->find($criteria_data);
 
+
+        if(!empty($data['order'])){
+            $criteria ['order'] = $data['order'];
+        }
+
+        if(!empty($data['random'])){
+            $criteria['order'] = new CDbExpression('RAND()');
+        }
+
 //        print_r($criteria);
 //        exit;
+
 
 
         if(!empty($data['min_price']) && !empty($data['max_price'])){
@@ -99,6 +106,7 @@ class ShopProductsHelper {
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
+
 
 
 
