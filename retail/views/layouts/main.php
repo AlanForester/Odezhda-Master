@@ -124,6 +124,7 @@ jQuery(document).ready(function($){
                                       counter.prev('.count').text(data.items);
                                       $('#jqeasytrigger .col').text(data.products);
                                       $('#jqeasytrigger .sum').text(data.total_price);
+                                      $('.end-price').text(data.total_price);
                                       $('#jqeasypanel .cart_title').text(data.products);
                                       counter.prevAll('.price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
@@ -151,6 +152,7 @@ jQuery(document).ready(function($){
                                       counter.next('.count').text(data.items);
                                       $('#jqeasytrigger .col').text(data.products);
                                       $('#jqeasytrigger .sum').text(data.total_price);
+                                      $('.end-price').text(data.total_price);
                                       $('#jqeasypanel .cart_title').text(data.products);
                                       counter.prevAll('.price-b').text(data.price);
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
