@@ -10,7 +10,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
     $(document).ready(function () {
         $("#accordion").accordion({
             heightStyle: "content",
-            active: <?=($currentCategoryNumber)?:1 ?>
+            active: <?=($currentCategoryNumber)?:0 ?>
         });
 
             $('#order').change(function(){
