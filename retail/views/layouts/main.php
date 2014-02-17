@@ -196,6 +196,9 @@ jQuery(document).ready(function($){
                                       $('.close').click(function(){
                                             $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
                                       });
+                                      $('.goods-slider ul#items').easyPaginate({
+                                             step:4
+                                      });
                                       $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                                 }
 
@@ -253,6 +256,9 @@ jQuery(document).ready(function($){
                                   });
                                   $('.close').click(function(){
                                         $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                  });
+                                  $('.goods-slider ul#items').easyPaginate({
+                                         step:4
                                   });
                                   $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
 
