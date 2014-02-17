@@ -30,16 +30,16 @@ class RetailDeliveryController extends BackendController {
     /**
      * Метод для редактирования одного поля пользователя
      */
-//    public function actionUpdate() {
-//        $params['field'] = Yii::app()->request->getPost('name');
-//        $params['id'] = Yii::app()->request->getPost('pk');
-//        $params['value'] = Yii::app()->request->getPost('value');
-//
-//        $model = new UsersModel();
-//        if (!$model->updateField($params)) {
-//            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных пользователя'));
-//        }
-//    }
+    public function actionUpdate() {
+        $params['field'] = Yii::app()->request->getPost('name');
+        $params['id'] = Yii::app()->request->getPost('pk');
+        $params['value'] = Yii::app()->request->getPost('value');
+
+        $model = new RetailDeliveryModel();
+        if (!$model->updateField($params)) {
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных отделения доставки'));
+        }
+    }
 //
 //    public function actionEdit($id, $scenario = 'edit') {
 //        $groups_model = new GroupsModel();
@@ -89,19 +89,19 @@ class RetailDeliveryController extends BackendController {
 //        $this->actionEdit(null, 'add');
 //    }
 //
-//    public function actionDelete($id) {
-//        $model = new UsersModel();
-//
-//        if (!$model->delete($id)) {
-//            $this->error();
-//        } else {
-//            Yii::app()->user->setFlash(
-//                TbHtml::ALERT_COLOR_INFO,
-//                'Пользователь удален'
-//            );
-//        }
-//    }
-//
+    public function actionDelete($id) {
+        $model = new RetailDeliveryModel();
+
+        if (!$model->delete($id)) {
+            $this->error();
+        } else {
+            Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Отделение доставки удалено'
+            );
+        }
+    }
+
 //    public function actionMass() {
 //        $mass_action = Yii::app()->request->getParam('mass_action');
 //        $ids = array_unique(Yii::app()->request->getParam('ids'));

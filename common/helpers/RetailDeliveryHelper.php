@@ -96,30 +96,23 @@ class RetailDeliveryHelper {
     }
 
     /**
-     * Обновление значения параметра пользователя
-     * @param array $data массив данных для изменяемому полю бд. ключи: pk - первичные ключи(в том числе и связанных таблиц),field - название изменяемого поля,
-     * value - новое значение поля
+     * Обновление значения параметра пункта доставки
+     * @param array $data массив данных для изменяемому полю бд
      * @return bool
      */
     public static function updateField($data) {
         // реальное имя поля
-        $field = TbArray::getValue('field', $data, false); //self::getFieldName($data['field'], false);
-        $pk = (TbArray::getValue('pk', $data, false)); //(!empty($data['id']) ? $data['id'] : false);
-        if ($pk){
-            $id=$pk[RetailDelivery::model()->getFieldMapName('id',false)];
-        }
-        $value = TbArray::getValue('value', $data, false); //(!empty($data['newValue']) ? $data['newValue'] : false);
+        $field = TbArray::getValue('field', $data, false);
+        $id = TbArray::getValue('id', $data, false);
+        $value = TbArray::getValue('value', $data, false);
+
         // все все данные верны, сохраняем
         if ($id && $field && $value) {
             if (!$item = self::getDelivery($id)) {
                 return false;
             }
-            $dataToSave=[
-                $field=>$value,
-                //RetailDelivery::model()->getFieldMapName('modified',false)=>new CDbExpression('NOW()')
-            ];
-            $item->setAttributes($dataToSave,false);
-            return $item->save(true);
+            $item->setAttributes([$field=>$value],false);
+            return $item->save(true,[$field]);
         }
 
         return false;
