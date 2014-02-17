@@ -140,54 +140,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
         </div>
     </div>
 
-<!--    <div class="bottom-price">-->
-<!--        <div class="footer-social">-->
-<!--            <script type="text/javascript">(function () {-->
-<!--                    if (window.pluso)if (typeof window.pluso.start == "function") return;-->
-<!--                    if (window.ifpluso == undefined) {-->
-<!--                        window.ifpluso = 1;-->
-<!--                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';-->
-<!--                        s.type = 'text/javascript';-->
-<!--                        s.charset = 'UTF-8';-->
-<!--                        s.async = true;-->
-<!--                        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';-->
-<!--                        var h = d[g]('body')[0];-->
-<!--                        h.appendChild(s);-->
-<!--                    }-->
-<!--                })();-->
-<!--            </script>-->
-<!--            <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06"-->
-<!--                 data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/"-->
-<!--                 data-title="--><?php //// echo Yii::app()->params['title'] ?><!--" data-description="">-->
-<!--            </div>-->
-<!--        </div>-->
-<!---->
-<!--        <div class="btn">-->
-<!--            <!--            --><?php ////if(!Yii::app()->user->isGuest): ?>
-<!--            <!--                <a class="basket" id="addToCart">В КОРЗИНУ</a>-->
-<!--            <!--            --><?php ////else: ?>
-<!--            <!--                <a href="--><?php ////echo $this->createUrl('site/login') ?><!--<!--"-->
-<!--            <!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
-<!--            <!--            --><?php ////endif; ?>
-<!--            <!---->
-<!--            --><?php //if (!Yii::app()->user->isGuest): ?>
-<!--                <a class="basket addToCart">В КОРЗИНУ</a>-->
-<!--            --><?php //else: ?>
-<!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
-<!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
-<!--            --><?php //endif; ?>
-<!--            <input type="hidden" class="product_id" value="--><?php /*echo $product->id; */?><!--"/>-->
-<!--        </div>-->
-<!---->
-<!--        <div class="price-main">-->
-<!--           <span>-->
-<!--                --><?//= FormatHelper::markup($product['price']) ?>
-<!--           </span>-->
-<!--            --><?php //if($product['old_price'] != 0){ ?>
-<!--                <small>--><?php//=echo FormatHelper::markup($product['old_price']) ?><!--</small>-->
-<!--            --><?php //} ?>
-<!--        </div>-->
-<!--    </div>-->
 
     <p class="title-cart-like-tovar">Популярные товары</p>
 
