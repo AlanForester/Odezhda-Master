@@ -37,6 +37,13 @@ class RetailDelivery extends LegacyActiveRecord {
         ];
     }
 
+    public function attributeLabels() {
+        return [
+            'id' => Yii::t('labels', 'ID'),
+            'name' => Yii::t('labels', 'Название')
+        ];
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.

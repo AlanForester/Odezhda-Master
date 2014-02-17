@@ -17,11 +17,7 @@ $this->widget(
         'order' => [
             'active' => $criteria['order_field'],
             'fields' => [
-                'firstname' => 'Имя',
-                'lastname' => 'Фамилия',
-                'email' => 'E-Mail',
-                'group_id' => 'Группа',
-                'logdate' => 'Последний визит',
+                'name' => 'Название',
                 'id' => 'ID',
             ],
             'direct' => $criteria['order_direct']
@@ -37,8 +33,7 @@ $this->widget(
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-//                'header' => 'Имя',
-                'name' => 'firstname',
+                'name' => 'name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -46,52 +41,13 @@ $this->widget(
                 'editable' => [
                     'placement' => 'right',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                    //'source'   => $this->createUrl('users/update'),
+                    'url' => Yii::app()->createUrl("/retail_delivery/update"),
                 ]
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-//                'header' => 'Фамилия',
-                'name' => 'lastname',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                ]
-            ],
-            [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-//                'header' => 'E-mail',
-                'name' => 'email',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/users/update"),
-                ]
-            ],
-            [
-//                'header' => 'Последний визит',
-                'name' => 'logdate',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
-            [
-//                'header' => 'Id',
                 'name' => 'id',
                 'headerHtmlOptions' => [
+                    'width'=>'50'
                 ],
                 'htmlOptions' => [
                 ],
@@ -99,8 +55,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/users/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/users/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/retail_delivery/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/retail_delivery/delete", array("id"=>$data["id"]))',
         ]
     ]
 );
