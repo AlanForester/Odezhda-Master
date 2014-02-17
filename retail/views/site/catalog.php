@@ -13,7 +13,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
             active: <?=($currentCategoryNumber)?:999 ?>
         });
 
-            $('#order').change(function(){
+            $('#catalog_order').change(function(){
                   //$(this).val();
                 //  location.href=location.href+'?sort='+$(this).val();
                 //location.href =
@@ -95,7 +95,7 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
             <p>
                 <p id="amount" style="border:0; color:#f6931f; font-weight:bold;text-align:center;"> </p>
                 <input type="hidden" id="min_price" name='min_price' value='<?=Yii::app()->request->getQuery('min_price')?:$limitPrice['min_price']?>'>
-                <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?:$limitPrice['min_price']?>'>
+                <input type="hidden" id="max_price" name='max_price' value='<?=Yii::app()->request->getQuery('max_price')?:$limitPrice['max_price']?>'>
             </p>
 
             <div id="slider-range"></div>
@@ -178,12 +178,21 @@ $sizes = ['XXXL','XXL','XL','M','S','40','42','44','46','48','50','52'];
 
         <div class="sort">
             <span>Сортировать:</span>
-            <select name="order" id='order'>
-                <option value="hits">По популярности</option>
-                <option value="date">По дате добавления</option>
-                <option value="price_down">От дешевых к дорогим</option>
-                <option value="price_up">От дорогих к дешевым</option>
-            </select>
+            <?php
+            echo CHtml::dropDownList(
+                'order',
+                Yii::app()->request->getQuery('order'),
+                [
+                    'hits'=>'По популярности',
+                    'date'=>'По дате добавления',
+                    'price_down'=>'От дешевых к дорогим',
+                    'price_up'=>'От дорогих к дешевым'
+                ],
+                [
+                    'id'=>'catalog_order'
+                ]
+            );
+            ?>
         </div>
         <!--        <button><i>x</i>Сбросить фильтры</button>-->
     </div>

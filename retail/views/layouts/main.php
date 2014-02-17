@@ -257,13 +257,15 @@ jQuery(document).ready(function($){
         if(size.length==0){
             size =$('#filter_size');
         }
-        if(size.val()!=0 && size.val()!='' && size.val()!=null) {
+        var params = size[0]?size.val():0;
+
+        if(!size[0] || params) {
             $.ajax({
                       type: 'POST',
                       url: '" . $this->createUrl('/cart/add') . "',
                       data: ({
                             product_id : $(this).next('.product_id').val(),
-                            params : size.val(),
+                            params : params,
                       }),
                       success: function(data) {
                             if (data){
