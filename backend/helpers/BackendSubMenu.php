@@ -63,6 +63,11 @@ class BackendSubMenu {
                     'label' => 'Категории',
                     'url' => ['/categories/index'],
 
+                ],
+                [
+                    'label' => 'Клиенты',
+                    'url' => ['/customers/index'],
+
                 ]
             ];
     }

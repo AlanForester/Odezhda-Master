@@ -48,8 +48,8 @@ class RetailDeliveryModel extends CFormModel {
      * @param string $scenario сценарий для правил
      * @return RetailDelivery
      */
-    public function getUser($id, $scenario = null) {
-        return RetailDeliveryHelper::getUser($id, $scenario);
+    public function getDelivery($id, $scenario = null) {
+        return RetailDeliveryHelper::getDelivery($id, $scenario);
     }
 
     public function delete($id) {

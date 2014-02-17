@@ -1576,25 +1576,40 @@ button.desable {
 .changeCount {
     background: none repeat scroll 0 0 #ECECEB;
     border: 1px solid #ccc;
-    float: right;
+    float: left;
     font-size: 14px;
-    margin-top: 42px;
-    padding: 3px 5px;
-    width: 30px;
+    margin-top: 15px;
+    /*padding: 3px 5px;*/
+    width: 20px;
     color: #9D9D9C;
     font-weight: bolder;
+    position: relative;
+    left: -85px;
+    height: 20px;
+
 }
 
 .changeCount.left {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
-    /*margin-left: 50px;*/
 }
 
 .changeCount.right {
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
     margin-right: 20px;
+}
+
+.sel-count {
+    float: left;
+    width: 30px;
+    text-align: center;
+    color: #6a6a6a;
+    font-size: 20px;
+    /*line-height: 42px;*/
+    position: relative;
+    left: -85px;
+    margin-top: 15px;
 }
 
 .row {
@@ -1646,6 +1661,14 @@ button.desable {
     height: 36px;
     text-align: center;
     transition: background 0.3s ease 0s;
+}
+#jqeasypanel .del-good {
+    color: #E21A70;
+    cursor: pointer;
+    font-weight: bold;
+    left: -25px;
+    position: relative;
+    top: 0;
 }
 
 

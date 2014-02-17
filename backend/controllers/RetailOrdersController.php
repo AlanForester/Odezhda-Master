@@ -71,7 +71,7 @@ class RetailOrdersController extends BackendController {
             $statuses[$status['id']] = $status['name'];
         }
 
-        foreach (DeliveryPointsLayer::model()->findAll() as $deliveryPoint) {
+        foreach (RetailDelivery::model()->findAll() as $deliveryPoint) {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }
 
