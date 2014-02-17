@@ -610,3 +610,8 @@ margin-left: 15px;
     margin-right: 0px;
     margin-top: 15px;
 }
+
+.karta-wrap img.product_img {
+    max-height: 600px;
+    max-width: 600px;
+}

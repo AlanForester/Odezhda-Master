@@ -693,22 +693,10 @@
 	margin-top:20px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+a#reset_pass {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 14px;
+    margin: 60px 0 10px;
+}
