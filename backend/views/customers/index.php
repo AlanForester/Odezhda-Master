@@ -10,7 +10,7 @@ $this->pageButton = [
 $this->widget(
     'backend.widgets.Grid',
     [
-        //'submenu' => BackendSubMenu::customers(),
+        'submenu' => BackendSubMenu::shop(),
 
         'filter' => [
             // фильтр по группам

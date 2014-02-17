@@ -90,7 +90,12 @@ $this->widget(
                                 'label' => 'Категории',
                                 'url' => ['/categories/index']
                             ],
+                            [
+                                'label' => 'Клиенты',
+                                'url' => ['/customers/index'],
+                            ],
                             TbHtml::menuDivider(),
+                            TbHtml::menuHeader('Розница'),
                             [
                                 'label' => 'Розничные заказы',
                                 'url' => ['/retail_orders/index']
@@ -100,10 +105,6 @@ $this->widget(
                                 'url' => ['/retail_delivery/index']
                             ],
                             TbHtml::menuDivider(),
-                            [
-                                'label' => 'Клиенты',
-                                'url' => ['/customers/index'],
-                            ],
                             [
                                 'label' => 'Бухгалтерия',
                                 'url' => ['/articles/index'],
