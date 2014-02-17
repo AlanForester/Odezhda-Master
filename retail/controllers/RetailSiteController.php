@@ -28,7 +28,7 @@ class RetailSiteController extends RetailController {
         $this->catalogData = $catalogModel->frontCatalogData();
 
 
-        //выбор товара дня из категории "акции" 1435
+        //выбор товара дня из категории "акции" 1435 или Спецпредложение 590
         $categoryAcciy=1435;
         $day_data = $catalogModel->dayProduct($categoryAcciy);
 
