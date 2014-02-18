@@ -32,7 +32,7 @@ $this->pageButton = [
         <fieldset>
             <legend>Основные данные</legend>
             <?php
-
+            $selectOldOptions=[];
             foreach($item->products_option_values as $elem){
                 $selectOldOptions[$elem->old_id]=['selected'=>'selected'];
             }
