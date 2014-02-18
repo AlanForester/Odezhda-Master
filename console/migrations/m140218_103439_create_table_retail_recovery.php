@@ -10,7 +10,7 @@ class m140218_103439_create_table_retail_recovery extends CDbMigration
     {
         $this->execute("CREATE TABLE `retail_recovery` (
               `customer_id` int(11) unsigned NOT NULL,
-              `hash` varchar(255) NOT NULL,
+              `hash` varchar(255) NOT NULL
               )
         ");
     }
