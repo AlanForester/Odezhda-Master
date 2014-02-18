@@ -43,10 +43,10 @@ class SizeController extends BackendController {
         if (!$item = $model->getId($id, $scenario)) {
             $this->error('Ошибка получения данных баннера');
         }
-
+        print_r($model->getPostData());
+        exit;
         $form_action = Yii::app()->request->getPost('form_action');
-//        print_r($model->getPostData());
-//           exit;
+
 
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
