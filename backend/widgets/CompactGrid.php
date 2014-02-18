@@ -363,6 +363,9 @@ class CompactGrid extends CWidget {
     }*/
 
     public function renderGrid() {
+        
+        //$buttonsColumn = ;
+
 
         return $this->widget(
             'yiiwheels.widgets.grid.WhGridView',
@@ -412,40 +415,40 @@ class CompactGrid extends CWidget {
                                 'checked' => null,
                             ],
                         ],
+
                         $this->gridColumns,
 
-                        $this->gridButtonsUrl ?
+                        $this->gridButtonsUrl ? [
                             [
-                                [
-                                    'header' => 'Действие',
-                                    'htmlOptions' => [
-                                        'class' => 'action-buttons',
-                                        'width' => '50px'
-                                    ],
-                                    'deleteButtonOptions' => [
-                                        'class' => 'red bigger-130',
-                                        'title' => 'Удалить',
-                                    ],
-                                    'updateButtonOptions' => [
-                                        'class' => 'green bigger-130',
-                                        'title' => 'Изменить',
-                                    ],
-                                    'viewButtonOptions' => [
-                                        'class' => 'bigger-130',
-                                        'title' => 'Просмотр',
-                                        'onClick' => 'js: (function(){
+                                'header' => 'Действие',
+                                'htmlOptions' => [
+                                    'class' => 'action-buttons',
+                                    'width' => '70px'
+                                ],
+                                'class' => 'bootstrap.widgets.TbButtonColumn',
+                                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+
+                                'deleteButtonOptions' => [
+                                    'class' => 'red bigger-130',
+                                    'title' => 'Удалить',
+                                ],
+                                'updateButtonOptions' => [
+                                    'class' => 'green bigger-130',
+                                    'title' => 'Изменить',
+                                ],
+                                'viewButtonOptions' => [
+                                    'class' => 'bigger-130',
+                                    'title' => 'Просмотр',
+                                    'onClick' => 'js: (function(){
                                             bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
                                         })()'
-                                    ],
-                                    'class' => 'bootstrap.widgets.TbButtonColumn',
-                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                                ],
 
-                                    'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
-                                    'updateButtonUrl' => $this->gridButtonsUrl['edit'],
-                                    'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
-                                ]
-                            ] :
-                            []
+                                'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                                'updateButtonUrl' => isset($this->gridButtonsUrl['edit']) ? $this->gridButtonsUrl['edit'] : null,
+                                'deleteButtonUrl' => isset($this->gridButtonsUrl['delete']) ? $this->gridButtonsUrl['delete'] : null,
+                            ]
+                        ] : []
                     )
                 ]
             ),

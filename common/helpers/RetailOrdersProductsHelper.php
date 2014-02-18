@@ -37,10 +37,11 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return isset($_POST[$name]) ? $_POST[$name] : [];
     }
 
-    public static function saveProducts($products, $orderId) {
+    public static function saveNewProducts($products, $orderId) {
         if($products && $orderId) {
             //echo '<pre>'.print_r($products,1);exit;
             foreach($products as $product) {
+                $product['id'] = null;
                 $model = new RetailOrdersProducts('add');
                 $model->setAttributes($product);
                 $model->retail_orders_id = $orderId;

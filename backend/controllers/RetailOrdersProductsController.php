@@ -165,12 +165,13 @@ class RetailOrdersProductsController extends BackendController {
             ];
 
             if(!empty($input['orderId'])) {
-                $productsResult = RetailOrdersProductsHelper::saveProducts([$retailProduct], $input['orderId']);
+                $productsResult = RetailOrdersProductsHelper::saveNewProducts([$retailProduct], $input['orderId']);
                 if($productsResult !== true) {
                     //saving error
                 }
             } else {
                 $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+                $retailProduct['id'] = count($retailProducts) + 1;
                 $retailProducts[] = $retailProduct;
                 Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
                 //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
