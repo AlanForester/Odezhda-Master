@@ -99,13 +99,19 @@ class RetailSiteController extends RetailController {
     public function actionRecovery(){
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
-        $formData = Yii::app()->request->getPost('email', false);
-        if($formData){
+        $email = Yii::app()->request->getPost('email', false);
+        if($email){
+            $customer_model = new CustomerModel();
+            $customer = $customer_model->getCustomerByEmail($email);
+//            print_r($customer);exit;
             $model = new RecoverModel();
-            if (!$model->registration()) {
-                //отдаем виду ошибки для отображения
-
+            if ($model->recover($email)) {
+                //отдаем виду сообщение для отображения
+                $message='Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
+            } else{
+                $message='Ошибка. Попытайтесь еще раз';
             }
+            $this->renderPartial('/layouts/parts/recovery_responce',compact('message'));
             //завершаем приложение в любом случае
             Yii::app()->end();
         }
