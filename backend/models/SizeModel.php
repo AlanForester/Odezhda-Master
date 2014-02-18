@@ -43,14 +43,18 @@ class SizeModel extends CFormModel {
         return SizeHelper::updateField($params);
     }
 
+    public function getOldOptionsList(){
+        return SizeHelper::getOldOptionsList();
+    }
+
     /**
      * АР модель пользователя на основе id
      * @param int $id id пользователя
      * @param string $scenario сценарий для правил
      * @return Size
      */
-    public function getBanner($id, $scenario = null) {
-        return SizeHelper::getBanner($id, $scenario);
+    public function getId($id, $scenario = null) {
+        return SizeHelper::getId($id, $scenario);
     }
 
     public function delete($id) {

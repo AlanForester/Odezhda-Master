@@ -27,13 +27,13 @@ class SizeController extends BackendController {
     /**
      * Метод для редактирования одного поля пользователя
      */
-    public function actionUpdate() {
+    public function actionUpdate(){
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
         $model = new SizeModel();
-        if (!$model->updateField($params)) {
+        if (!$model->updateField($params)){
             $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных баннера'));
         }
     }
@@ -73,7 +73,8 @@ class SizeController extends BackendController {
             }
         }
 
-        $this->render('edit', compact('item'));
+        $oldOptionList=$model->getOldOptionsList();
+        $this->render('edit', compact('item','model','oldOptionList'));
     }
 
     public function actionAdd() {
