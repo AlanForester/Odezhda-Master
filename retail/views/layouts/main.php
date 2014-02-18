@@ -78,7 +78,7 @@ jQuery(document).ready(function($){
                           data: $('#rec').serialize(),
                           success: function(data) {
                                 if (data){
-                                      $('.jquery-lightbox-html').html();
+                                      $('.jquery-lightbox-html').html(data);
                                 }
                           }
             });
