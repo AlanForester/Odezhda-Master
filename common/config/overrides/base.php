@@ -11,15 +11,17 @@ return [
         // The following two imports are polymorphic and will resolve against wherever the `basePath` is pointing to.
         // We have components and models in all entry points anyway
         'application.components.*',
-        'application.models.*'
+        'application.models.*',
+        'extensions.mail.YiiMailMessage',
+        'bootstrap.helpers.TbHtml'
     ],
     'aliases' => [
         'bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap'), // change this if necessary
         'yiiwheels' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiiwheels'),
     ],
-    'import' => [
-        'bootstrap.helpers.TbHtml',
-    ],
+//    'import' => [
+//        'bootstrap.helpers.TbHtml',
+//    ],
     'components' => [ 
         'bootstrap' => [
             'class' => 'bootstrap.components.TbApi',   
@@ -27,6 +29,14 @@ return [
          'yiiwheels' => [
             'class' => 'yiiwheels.YiiWheels',   
         ],
+
+        'mail' => [
+ 			'class' => 'ext.yii-mail.YiiMail',
+ 			'transportType' => 'php',
+ 			'viewPath' => 'application.views.mail',
+ 			'logging' => true,
+ 			'dryRun' => false
+ 		],
 
         // http://www.yiiframework.com/extension/email/
 //        'email'=> [
