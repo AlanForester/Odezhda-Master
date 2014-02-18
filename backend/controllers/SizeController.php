@@ -19,8 +19,8 @@ class SizeController extends BackendController {
         // получение данных
         $model = new SizeModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-        print_r($gridDataProvider->getData());
-        exit;
+//        print_r($gridDataProvider->getData());
+//        exit;
         $this->render('index', compact('criteria', 'gridDataProvider'));
     }
 
@@ -40,7 +40,7 @@ class SizeController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit') {
         $model = new SizeModel($scenario);
-        if (!$item = $model->getBanner($id, $scenario)) {
+        if (!$item = $model->getId($id, $scenario)) {
             $this->error('Ошибка получения данных баннера');
         }
 

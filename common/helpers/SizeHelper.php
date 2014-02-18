@@ -5,7 +5,7 @@ class SizeHelper {
     private static $errors = [];
 
     public static function getModel() {
-        return ProductOptions::model();
+        return ProductNewOptions::model();
     }
 
     /**
@@ -14,10 +14,10 @@ class SizeHelper {
      * @param string $scenario [опционально] сценарий модели
      * @return Size
      */
-    public static function getBanner($id = null, $scenario = null) {
+    public static function getId($id = null, $scenario = null) {
         $model = self::getModel();
         // todo: завернуть название модели
-        return ($id ? $model->findByPk($id) : new ProductOptions($scenario));
+        return ($id ? $model->findByPk($id) : new ProductNewOptions($scenario));
     }
 
     public static function getDataProvider($data = null) {
@@ -30,9 +30,6 @@ class SizeHelper {
                     ' OR ',
                     [
                         '[[name]] LIKE :text',
-                        '[[url]] LIKE :text',
-                        '[[images]] LIKE :text',
-                        '[[description]] LIKE :text',
                         '[[id]] LIKE :text',
                     ]
                 ) . ')';
@@ -56,12 +53,11 @@ class SizeHelper {
         }
 
         $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
-        $criteria=[];
-//        $criteria = [
-//            'condition' => join(' AND ', $condition),
-//            'params' => $params,
-//            'order' => $order_field . ($order_direct ? : ''),
-//        ];
+        $criteria = [
+            'condition' => join(' AND ', $condition),
+            'params' => $params,
+            'order' => $order_field . ($order_direct ? : ''),
+        ];
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
@@ -69,7 +65,7 @@ class SizeHelper {
         }
 
         return new CActiveDataProvider(
-            'ProductOptions',
+            'ProductNewOptions',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
@@ -109,7 +105,7 @@ class SizeHelper {
 
         // все все данные верны, сохраняем
         if ($id && $field && $value) {
-            if (!$item = self::getBanner($id)) {
+            if (!$item = self::getId($id)) {
                 return false;
             }
             $item->setAttributes([$field=>$value],false);
@@ -126,7 +122,7 @@ class SizeHelper {
      * @return bool успешность удаления
      */
     public static function delete($id) {
-        $item = self::getBanner($id);
+        $item = self::getId($id);
         if ($item) {
             return $item->delete();
         }
@@ -142,7 +138,7 @@ class SizeHelper {
         $id = TbArray::getValue('id', $data);
 
         // модель пользователя
-        $item = self::getBanner($id, 'add');
+        $item = self::getId($id, 'add');
         if (!$item) {
             return false;
         }
