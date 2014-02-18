@@ -32,14 +32,19 @@ $this->pageButton = [
         <fieldset>
             <legend>Основные данные</legend>
             <?php
+
+            foreach($item->products_option_values as $elem){
+                $selectOldOptions[$elem->old_id]=['selected'=>'selected'];
+            }
+
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
-            echo $form->dropDownListControlGroup($this,'products_option_values', $oldOptionList,[
-                'options' =>'',
+            echo $form->dropDownListControlGroup($item,'rel_old_id', $oldOptionList,[
+                'options' =>$selectOldOptions,
                 'multiple'=>'multiple',
                 'size'=>'10',
                 'label' => 'Категории',
-
+                'style' => 'width:100%;'
             ]);
             ?>
 

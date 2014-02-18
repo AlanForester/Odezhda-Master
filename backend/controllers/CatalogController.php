@@ -144,9 +144,6 @@ class CatalogController extends BackendController {
 //                print_r($_FILES);exit;
 //
 //                $data['images']=$_FILES['CatalogModel'];
-
-
-
             }
 
 
@@ -154,6 +151,7 @@ class CatalogController extends BackendController {
 //            print_r($_POST['CatalogModel']);
 //            exit;
             $result = $model->save($data);
+
 
             if (!$result) {
                 Yii::app()->user->setFlash(
@@ -184,14 +182,16 @@ class CatalogController extends BackendController {
 
         if ($catalog) {
             $model->setAttributes($catalog, false);
-        } else
+        } else{
             $this->error();
-
+        }
 
 
 
         $this->render('edit', compact('model', 'catalog'));
     }
+
+
 
     public function actionAdd() {
         $this->actionEdit(null, 'add');
