@@ -94,6 +94,15 @@ class RetailSiteController extends RetailController {
     }
 
     /**
+     * Восстановление пользователя (забыл пароль)
+     */
+    public function actionRecovery(){
+        $user = Yii::app()->user;
+        $this->redirectAwayAlreadyAuthenticatedUsers($user);
+        $this->renderPartial('/layouts/parts/recovery');
+    }
+
+    /**
      * Обработка запроса на скидку
      */
     public function actionDiscountSend() {

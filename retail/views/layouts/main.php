@@ -60,10 +60,12 @@ jQuery(document).ready(function($){
         }, 500);
     })
     });
-
+//восстановление пароля
     $('#login #reset_pass').live('click',function(){
-        $.lightbox().shake();
-        //$.lightbox().close();
+        $.lightbox().close();
+        setTimeout(function() {
+            $.lightbox('" . $this->createUrl('/site/recovery') . "',{'width':600, 'height':300, 'modal': true});
+        }, 500);
 
     });
 
@@ -259,6 +261,7 @@ jQuery(document).ready(function($){
                           }
                       });
      });
+
 ";
 
 $basket = "
