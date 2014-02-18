@@ -64,7 +64,7 @@ jQuery(document).ready(function($){
     $('#login #reset_pass').live('click',function(){
         $.lightbox().close();
         setTimeout(function() {
-            $.lightbox('" . $this->createUrl('/site/recovery') . "',{'width':600, 'height':300, 'modal': true});
+            $.lightbox('" . $this->createUrl('/site/recovery') . "',{'width':600, 'height':325, 'modal': true});
         }, 500);
 
     });
