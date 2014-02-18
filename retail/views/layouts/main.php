@@ -60,7 +60,7 @@ jQuery(document).ready(function($){
         }, 500);
     })
     });
-//восстановление пароля
+//восстановление пароля - получение формочки
     $('#login #reset_pass').live('click',function(){
         $.lightbox().close();
         setTimeout(function() {
@@ -69,6 +69,25 @@ jQuery(document).ready(function($){
 
     });
 
+   //восстановление пароля
+    $('#recover_submit').live('click',function(){
+        if($('#email').val().length!=0){
+            $.ajax({
+                          type: 'POST',
+                          url: '" . $this->createUrl('/site/recovery') . "',
+                          data: $('#rec').serialize(),
+                          success: function(data) {
+                                if (data){
+                                      $('.jquery-lightbox-html').html();
+                                }
+                          }
+            });
+        }
+        else  {
+            $.lightbox().shake();
+            $('#email').css('border','1px solid #E2136F');
+        }
+    });
 
     $('#login #login_submit').live('click',function(){
         $('#login button').attr('disabled','disabled');

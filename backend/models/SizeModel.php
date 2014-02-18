@@ -49,8 +49,8 @@ class SizeModel extends CFormModel {
      * @param string $scenario сценарий для правил
      * @return Size
      */
-    public function getId($id, $scenario = null) {
-        return SizeHelper::getId($id, $scenario);
+    public function getBanner($id, $scenario = null) {
+        return SizeHelper::getBanner($id, $scenario);
     }
 
     public function delete($id) {

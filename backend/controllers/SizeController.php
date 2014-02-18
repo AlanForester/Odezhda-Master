@@ -19,16 +19,6 @@ class SizeController extends BackendController {
         // получение данных
         $model = new SizeModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-
-        foreach($gridDataProvider->getData() as $string){
-            $string->oldSizeString=1;
-            $data='';
-            foreach($string->products_option_values as $key => $products_old){
-                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
-
-            }
-            $string->oldSizeString=$data;
-        }
 //        print_r($gridDataProvider->getData());
 //        exit;
         $this->render('index', compact('criteria', 'gridDataProvider'));

@@ -99,6 +99,8 @@ class RetailSiteController extends RetailController {
     public function actionRecovery(){
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
+
+        $model = new RetailRegisterForm();
         $this->renderPartial('/layouts/parts/recovery');
     }
 
