@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/retail_banners/add"),
-    BackendPageButtons::remove("/retail_banners/mass"),
-    BackendPageButtons::mass("/retail_banners/mass")
+    BackendPageButtons::add("/size/add"),
+    BackendPageButtons::remove("/size/mass"),
+    BackendPageButtons::mass("/size/mass")
 ];
 
 // таблица
