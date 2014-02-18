@@ -79,15 +79,15 @@ class RetailOrdersProductsController extends BackendController {
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes($model->getPostData(),false);
+            $item->setAttributes(RetailOrdersProductsHelper::getPostData(),false);
             // записываем данные
-            $result = $item->save($model->getPostData());
+            $result = $item->save();
 
             if (!$result) {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($model, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' товара')
+                    CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' товара')
                 );
             } else {
                 // выкидываем сообщение
@@ -137,18 +137,21 @@ class RetailOrdersProductsController extends BackendController {
         }
     }
 
-    public function actionMass() {
+    public function actionMass($id = null) {
         $mass_action = Yii::app()->request->getParam('mass_action');
-        $ids = array_unique(Yii::app()->request->getParam('ids'));
+        $productIds = array_unique(Yii::app()->request->getParam('ids'));
         switch ($mass_action) {
             case 'delete':
-                foreach ($ids as $id) {
-                    $this->actionDelete($id);
+                foreach ($productIds as $productId) {
+                    $this->actionDelete($productId);
                 }
                 break;
         }
 
-        $this->actionIndex();
+        if($id) {
+            $this->actionIndex($id);
+        } else
+            $this->forward('retail_orders/add');
     }
 
     //добавляет товар для создаваемого заказа (который еще не имеет id) в очередь на сохранение.
