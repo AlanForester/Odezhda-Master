@@ -1,11 +1,11 @@
 <?php
 
-$this->pageTitle = 'Менеджер баннеров: ' . ($item->id ? 'редактирование [' . $item->name . ']' : 'новый баннер');
+$this->pageTitle = 'Менеджер размеров: ' . ($item->id ? 'редактирование [' . $item->name . ']' : 'новый размер');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/retail_banners/index")
+    BackendPageButtons::cancel("/size/index")
 ];
 ?>
     <div class="span6">
@@ -31,16 +31,6 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
-//            echo $form->textFieldControlGroup($item, 'url', []);
-//            echo $form->textFieldControlGroup($item, 'images', []);
-//            echo $form->textAreaControlGroup($item, 'description', []);
-            echo $form->dropDownListControlGroup($model,'category', $this->categories,[
-                'options' =>$catalog['categories_id'],
-                'multiple'=>'multiple',
-                'size'=>'10',
-                'label' => 'Старые категории',
-
-            ]);
             ?>
 
         </fieldset>

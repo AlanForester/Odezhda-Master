@@ -12,12 +12,13 @@ return [
         // We have components and models in all entry points anyway
         'application.components.*',
         'application.models.*',
-        'common.extensions.mail.YiiMailMessage',
+        'ext.mail.YiiMailMessage',
         'bootstrap.helpers.TbHtml'
     ],
     'aliases' => [
         'bootstrap' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiistrap'), // change this if necessary
         'yiiwheels' => realpath(__DIR__ .'/../../lib/vendor/2amigos/yiiwheels'),
+        'ext' => realpath(__DIR__ .'/../../extensions'),
     ],
 //    'import' => [
 //        'bootstrap.helpers.TbHtml',
@@ -31,7 +32,7 @@ return [
         ],
 
         'mail' => [
- 			'class' => 'ext.yii-mail.YiiMail',
+ 			'class' => 'ext.mail.YiiMail',
  			'transportType' => 'php',
  			'viewPath' => 'application.views.mail',
  			'logging' => true,

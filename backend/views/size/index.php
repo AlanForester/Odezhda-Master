@@ -1,9 +1,9 @@
 <?php
 // кнопки страницы
 $this->pageButton = [
-    BackendPageButtons::add("/retail_banners/add"),
-    BackendPageButtons::remove("/retail_banners/mass"),
-    BackendPageButtons::mass("/retail_banners/mass")
+    BackendPageButtons::add("/size/add"),
+    BackendPageButtons::remove("/size/mass"),
+    BackendPageButtons::mass("/size/mass")
 ];
 
 // таблица
@@ -45,22 +45,8 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/size/update"),
                 ]
-            ],[
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                'type' => 'text',
-                'header' => 'Старые размеры',
-                'name' => 'oldSizeString',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                    'style'=>'font-size:9px;'
-                ],
-                'editable' => [
-                    'placement' => 'top',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/size/update"),
-                ]
-            ],[
+            ],
+            [
                 'name' => 'id',
                 'headerHtmlOptions' => [
                     'width'=>'50'
