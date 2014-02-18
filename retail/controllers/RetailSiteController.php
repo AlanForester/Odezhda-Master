@@ -101,7 +101,6 @@ class RetailSiteController extends RetailController {
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
         $email = Yii::app()->request->getPost('email', false);
         if($email){
-
             $model = new RecoverModel();
             //проверяем, сущесвтует ли пользователь по имейлу
             if ($model->isCustomerExist($email)){
@@ -112,12 +111,14 @@ class RetailSiteController extends RetailController {
                     $body = '
                     Здравствуйте!
                     На ваш email было оформлено восстановление пароля.
-                    Если вы действительно хотите восстановить пароль, перейдите, пожалуйста по ссылке'.$this->createAbsoluteUrl('customer/restoreCustomer',['code'=>$hash]).'.
-                    Если вы не жедаете восстанавливать ваш пароль на сайте, проигнорируйте это сообщение.
+                    Если вы действительно хотите восстановить пароль, перейдите, пожалуйста по ссылке '
+                    .$this->createAbsoluteUrl('site/restoreCustomer',['code'=>$hash]).'.
+                    Если вы не желаете восстанавливать ваш пароль на сайте, проигнорируйте это сообщение.
                     ';
-                    $message->setBody('Cообщение');
+                    $message->setBody($body);
                     $message->setTo($email);
-//                    $message->setFrom('dmitriy@maybeworks.com');
+                    $message->setFrom('dmitriy@maybeworks.com');
+//                    $message->setFrom(Yii::app()->params['adminEmail']);
                     $ii=Yii::app()->mail->send($message);
                     //сообщение для отображения
                     $responce='Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
@@ -133,22 +134,15 @@ class RetailSiteController extends RetailController {
         }
         $this->renderPartial('/layouts/parts/recovery');
     }
-
-    /**
-     * Обработка запроса на скидку
-     */
-    public function actionDiscountSend() {
-        //        $name = Yii::app()->request->getPost('name');
-        //        $email = Yii::app()->request->getPost('email');
-        //
-        //        $sender = Yii::app()->email;
-        //
-        //        $sender->to = 'admin@example.com';
-        //        $sender->subject = 'Запрос на скидку';
-        //        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
-        //        $sender->send();
-
-        // todo: добавить увемоление о событии
+    public function actionRestoreCustomer(){
+        $hash = Yii::app()->request->getQuery('code', false);
+        if (!empty($hash)) {
+            $model = new RecoverModel();
+            if($model->restoreCustomer($hash)){
+                $this->redirect($this->createUrl('/customer/index'));
+            }
+        }
         $this->redirect('/');
     }
+
 }
