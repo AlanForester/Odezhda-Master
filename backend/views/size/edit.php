@@ -7,6 +7,9 @@ $this->pageButton = [
     BackendPageButtons::apply(),
     BackendPageButtons::cancel("/size/index")
 ];
+
+//print_r($item->products_option_values);
+//exit;
 ?>
     <div class="span6">
         <?php
@@ -31,6 +34,13 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
+            echo $form->dropDownListControlGroup($this,'products_option_values', $oldOptionList,[
+                'options' =>'',
+                'multiple'=>'multiple',
+                'size'=>'10',
+                'label' => 'Категории',
+
+            ]);
             ?>
 
         </fieldset>

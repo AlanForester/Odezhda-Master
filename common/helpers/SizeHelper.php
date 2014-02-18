@@ -20,6 +20,13 @@ class SizeHelper {
         return ($id ? $model->findByPk($id) : new ProductNewOptions($scenario));
     }
 
+    public static function getOldOptionsList(){
+        $old_sizes = Yii::app()->db->createCommand()
+            ->select('products_options_values_id,products_options_values_name')
+            ->from('products_options_values')
+            ->queryAll();
+        return $old_sizes;
+    }
     public static function getDataProvider($data = null) {
         $condition = [];
         $params = [];
@@ -73,9 +80,26 @@ class SizeHelper {
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
-//        $dataProvider->getData();
+
+        foreach($dataProvider->getData() as $string){
+            $string->oldSizeString=1;
+            $data='';
+            foreach($string->products_option_values as $key => $products_old){
+                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+
+            }
+            $string->oldSizeString=$data;
+        }
+
+
+       // $dataProvider->getData()->oldSizesList=$old_sizes;
+
+//        print_r($old_sizes);
+//        exit;
+
         return $dataProvider;
     }
+
 
 
     public static function getErrors($attributes = null) {
