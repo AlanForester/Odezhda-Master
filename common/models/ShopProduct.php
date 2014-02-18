@@ -19,6 +19,8 @@ class ShopProduct extends LegacyActiveRecord {
 
     //    public $primaryKey = 'id';
 
+    public $size;
+
     public function __get($name) {
 
         $relations = $this->relations();
@@ -224,8 +226,10 @@ class ShopProduct extends LegacyActiveRecord {
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true,'joinType'=>'INNER JOIN'),
             //связь с опциями
-            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id'),
-            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes')
+            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
+            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
+            'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
         ];
     }
 
@@ -275,7 +279,8 @@ class ShopProduct extends LegacyActiveRecord {
             'with' => [
                 'product_description',
                 'categories_description',
-                'product_options'
+                'product_options',
+                'products_new_option_values'
             ]
         ];
     }

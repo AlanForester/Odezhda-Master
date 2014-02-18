@@ -243,22 +243,35 @@ class CatalogController extends BackendController {
 
 
 
-    public function actionInfo($id) {
-        //todo Alex: Заместо CformModel  используем AR
+    /*public function actionInfo($id) {
         $this->model = new CatalogModel();
         $model = $this->model->getCatalogData($id,'edit');
         $response['catalog'] = $model;
         //$response['with'] = $model->with;
         echo CJSON::encode($response);
         Yii::app()->end();
+    }*/
+
+    public function actionSelectOptions($id) {
+        $productOptions = [];
+        $product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        //echo '<pre>'.print_r($product,1);exit;
+
+        if(!empty($product->products_new_option_values)) {
+            foreach ($product->products_new_option_values as $option) {
+                $productOptions[$option['id']] = $option['value'];
+            }
+        }
+        $this->renderPartial('select_options', compact('product','productOptions','id'));
+        Yii::app()->end();
     }
 
-    //todo: совместить с index
+    //todo: возможно, стоит совместить с index (скопировано оттуда)
     public function actionBootbox($id = null) {
 
         $criteria = ['page_size' => 10];
 
-        //todo Alex: Заместо CformModel  используем AR
+        //todo CformModel => AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
 
@@ -268,7 +281,7 @@ class CatalogController extends BackendController {
                 'pageSize' => $criteria['page_size'],
             ],
         ]);
-        //todo Alex: Заместо CformModel  используем AR
+        //todo CformModel => AR
         $categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
 
@@ -276,7 +289,7 @@ class CatalogController extends BackendController {
             $this->categories[$g['id']] = $g['name'];
         }
 
-        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
+        $this->renderPartial('bootbox', compact('criteria','gridDataProvider','id'));
     }
 
 }

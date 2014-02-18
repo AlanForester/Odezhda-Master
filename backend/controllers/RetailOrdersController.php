@@ -121,9 +121,6 @@ class RetailOrdersController extends BackendController {
             $this->error('Ошибка получения данных розничного заказа');
         }
 
-        //todo убрать layer
-        $productsModel = new RetailOrdersProductsLayer('update');
-
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
@@ -131,35 +128,42 @@ class RetailOrdersController extends BackendController {
             $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
-            $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            $productResult = $productsModel->saveProducts(Yii::app()->request->getPost('RetailOrdersProducts'), $id);
+            if ($result) {
+                $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-            if (!$result) {
+                $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
+                    RetailOrdersProductsHelper::saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                    true;
+
+                if ($productsResult !== true) {
+                    // ошибка записи
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_ERROR,
+                        CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
+                    );
+                } else {
+                    unset(Yii::app()->session['RetailOrdersProductsQueue']);
+                    // выкидываем сообщение
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_INFO,
+                        'Розничный заказ ' . ($id ? 'сохранен' : 'добавлен')
+                    );
+                    if ($form_action == 'save') {
+                        $this->redirect(['index']);
+                        return;
+                    } else {
+                        $this->redirect(['edit', 'id' => $item['id']]);
+                        return;
+                    }
+                }
+
+            } else {
                 // ошибка записи
                 Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_ERROR,
                     CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
-            } elseif ($productResult !== true) {
-                // ошибка записи
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($productResult, 'Ошибка сохранения товаров розничного заказа')
-                );
-            } else {
-                // выкидываем сообщение
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Розничный заказ ' . ($id ? 'сохранен' : 'добавлен')
-                );
-                if ($form_action == 'save') {
-                    $this->redirect(['index']);
-                    return;
-                } else {
-                    $this->redirect(['edit', 'id' => $item['id']]);
-                    return;
-                }
             }
         }
 
@@ -177,8 +181,19 @@ class RetailOrdersController extends BackendController {
         ];
         $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        $productsGridDataProvider = $productsModel->getDataProvider($productsCriteria);
+        $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
         $productsGridDataProvider->setSort(false);
+
+        if(!$id) {
+            //прибавляем из сессии товары, подготовленные для сохранения
+            $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
+                [
+                    $productsGridDataProvider,
+                    Yii::app()->session['RetailOrdersProductsQueue']
+                ],
+                $productsCriteria['page_size']
+            );
+        }
 
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));

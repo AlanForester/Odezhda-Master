@@ -101,6 +101,10 @@ $this->widget(
                                 'label' => 'Клиенты',
                                 'url' => ['/customers/index'],
                             ],
+                            [
+                                'label' => 'Размеры',
+                                'url' => ['/size/index'],
+                            ],
                             TbHtml::menuDivider(),
                             TbHtml::menuHeader('Розничный&nbsp;магазин'),
                             [
