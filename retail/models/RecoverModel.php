@@ -28,11 +28,12 @@ class RecoverModel {
      */
     public function recover() {
         $hash=md5($this->customer->email.time());
-         return Yii::app()->db->createCommand()
+        $result = Yii::app()->db->createCommand()
             ->insert($this->tableName, [
                 'customer_id'=>$this->customer->id,
                 'hash'=>$hash,
             ]);
+        return $result ? $hash : false;
     }
 
     /**

@@ -105,15 +105,20 @@ class RetailSiteController extends RetailController {
             $model = new RecoverModel();
             //проверяем, сущесвтует ли пользователь по имейлу
             if ($model->isCustomerExist($email)){
-                if ($model->recover()) {
+                if ($hash = $model->recover()) {
                     $message = new YiiMailMessage;
 //                    $message->view = 'registrationFollowup';
-                    $message->setSubject('Your subject');
+                    $message->setSubject('Восстановление пароля на сайте Lapana');
+                    $body = '
+                    Здравствуйте!
+                    На ваш email было оформлено восстановление пароля.
+                    Если вы действительно хотите восстановить пароль, перейдите, пожалуйста по ссылке'.$this->createAbsoluteUrl('customer/restoreCustomer',['code'=>$hash]).'.
+                    Если вы не жедаете восстанавливать ваш пароль на сайте, проигнорируйте это сообщение.
+                    ';
                     $message->setBody('Cообщение');
                     $message->setTo($email);
-                    $message->setFrom('dmitriy@maybeworks.com');
+//                    $message->setFrom('dmitriy@maybeworks.com');
                     $ii=Yii::app()->mail->send($message);
-//                    print_r($message);exit;
                     //сообщение для отображения
                     $responce='Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
                 } else{
