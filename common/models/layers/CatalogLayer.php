@@ -213,7 +213,9 @@ class CatalogLayer {
     public static function save($data) {
 
         //fileupload
+
         if(!empty($data['images'])){
+
             $upload=new upload($data['images']);
 
             try{
@@ -251,6 +253,7 @@ class CatalogLayer {
             {
                 echo($excp);
             }
+
         }
 
 

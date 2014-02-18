@@ -1,7 +1,7 @@
 <?php
 
 class SizeHelper {
-
+    private static $old_id;
     private static $errors = [];
 
     public static function getModel() {
@@ -22,10 +22,14 @@ class SizeHelper {
 
     public static function getOldOptionsList(){
         $old_sizes = Yii::app()->db->createCommand()
-            ->select('products_options_values_id,products_options_values_name')
+            ->select('products_options_values_id as id,products_options_values_name as name')
             ->from('products_options_values')
             ->queryAll();
-        return $old_sizes;
+        foreach($old_sizes  as  $elem){
+            $oldSizesList[$elem['id']]=$elem['name'];
+        }
+
+        return $oldSizesList;
     }
     public static function getDataProvider($data = null) {
         $condition = [];

@@ -5,6 +5,62 @@ class ProductNewOptions extends LegacyActiveRecord {
     public static $oldSizeString;
     public static $oldSizesList;
 
+    public function __get($name) {
+
+        $relations = $this->relations();
+        if (!empty($relations)) {
+
+            foreach ($relations as $relName => $relData) {
+                if (!$this->hasRelated($relName))
+                    continue;
+
+                $relation = $this->getRelated($relName);
+                if (is_array($relation)) {
+                    foreach ($relation as $rel) {
+                        if (method_exists($rel, 'getFieldMapName')) {
+                            $rel_name = $rel->getFieldMapName($name, false);
+                            $columns = $rel->getMetaData()->columns;
+
+                            // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                            if (array_key_exists($rel_name, $columns)) {
+                                return $rel->{$name};
+                            }
+                        }
+                    }
+                } else {
+                    if (method_exists($relation, 'getFieldMapName')) {
+                        $rel_name = $relation->getFieldMapName($name, false);
+                        $columns = $relation->getMetaData()->columns;
+
+                        // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                        if (array_key_exists($rel_name, $columns)) {
+                            return $relation->{$name};
+                        }
+                    }
+                }
+            }
+        }
+
+        return parent::__get($this->getFieldMapName($name, false));
+    }
+
+    public function __isset($name) {
+
+        $relations = $this->relations();
+        if (!empty($relations)) {
+            foreach ($relations as $relName => $relData) {
+                if (!$this->hasRelated($relName))
+                    continue;
+
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})) {
+                    return true;
+                }
+            }
+        }
+
+        return parent::__isset($this->getFieldMapName($name, false));
+    }
 
     public function tableName() {
         return 'products_new_option_values';

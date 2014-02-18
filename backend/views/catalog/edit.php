@@ -75,7 +75,6 @@ $this->pageButton = [
             echo $form->textFieldControlGroup($model, 'order', ['value' => $model->order, 'label' => 'Порядок сортировки']);
 
 
-
             echo $form->dropDownListControlGroup($model, 'languages_id',  $this->languages_list, ['label' => 'Язык']);
             echo $form->dropDownListControlGroup($model, 'manufacturers_id',  $this->manufacturers_list, ['label' => 'Производитель']);
             echo $form->dropDownListControlGroup($model,'category', $this->categories,[
