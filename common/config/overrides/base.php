@@ -12,7 +12,7 @@ return [
         // We have components and models in all entry points anyway
         'application.components.*',
         'application.models.*',
-        'extensions.mail.YiiMailMessage',
+        'common.extensions.mail.YiiMailMessage',
         'bootstrap.helpers.TbHtml'
     ],
     'aliases' => [
