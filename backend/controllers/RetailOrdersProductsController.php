@@ -109,40 +109,46 @@ class RetailOrdersProductsController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = RetailOrdersProducts::model()->findByPk($id);
-        if (!$model->delete()) {
-            $this->error();
+        if($id > 0) {
+            $model = RetailOrdersProducts::model()->findByPk($id);
+            if (!$model->delete()) {
+                $this->error();
+            } else {
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_INFO,
+                    'Товар удален из заказа'
+                );
+            }
+
         } else {
-            Yii::app()->user->setFlash(
-                TbHtml::ALERT_COLOR_INFO,
-                'Товар удален из заказа'
-            );
+            $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+            foreach($retailProducts as $key => $product) {
+                //echo $product['id'].'='.$id.'<br>';
+                if($product['id'] == $id) {
+                    unset($retailProducts[$key]);
+                    Yii::app()->user->setFlash(
+                        TbHtml::ALERT_COLOR_INFO,
+                        'Товар удален из заказа'
+                    );
+                    break;
+                }
+            }
+            Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
         }
     }
 
-    public function actionMass($id) {
-        $productsToSave = Yii::app()->request->getParam('RetailOrdersProducts');
+    public function actionMass() {
         $mass_action = Yii::app()->request->getParam('mass_action');
-        $ids = array_unique(Yii::app()->request->getParam('gridids'));
+        $ids = array_unique(Yii::app()->request->getParam('ids'));
         switch ($mass_action) {
             case 'delete':
-                if(is_array($ids))
-                    foreach ($ids as $productId) {
-                        if($productId>0)
-                            $this->actionDelete($productId);
-                    }
-                if(is_array($productsToSave))
-                    foreach ($productsToSave as $key => $product) {
-                        if(!in_array($key, $ids)) {
-                            //если виртуальный продукт не намечен для удаления, то сохраняем
-                            $productResult = RetailOrdersProductsHelper::saveProducts([$product], $id);
-                        }
-                    }
+                foreach ($ids as $id) {
+                    $this->actionDelete($id);
+                }
                 break;
         }
 
-        //$this->actionIndex($id);
-        //$this->redirect(['retail_orders/edit', 'id' => $id, 'ajax' => 'ropgrid']);
+        $this->actionIndex();
     }
 
     //добавляет товар для создаваемого заказа (который еще не имеет id) в очередь на сохранение.
@@ -171,7 +177,8 @@ class RetailOrdersProductsController extends BackendController {
                 }
             } else {
                 $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
-                $retailProduct['id'] = count($retailProducts) + 1;
+                $lastSavedRetailProduct = $retailProducts === null ? false : end($retailProducts);
+                $retailProduct['id'] = $lastSavedRetailProduct === false ? -1 : $lastSavedRetailProduct['id']-1;  //(count($retailProducts) + 1) * -1;
                 $retailProducts[] = $retailProduct;
                 Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
                 //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
