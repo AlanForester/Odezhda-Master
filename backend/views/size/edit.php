@@ -31,9 +31,16 @@ $this->pageButton = [
             <?php
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
-            echo $form->textFieldControlGroup($item, 'url', []);
-            echo $form->textFieldControlGroup($item, 'images', []);
-            echo $form->textAreaControlGroup($item, 'description', []);
+//            echo $form->textFieldControlGroup($item, 'url', []);
+//            echo $form->textFieldControlGroup($item, 'images', []);
+//            echo $form->textAreaControlGroup($item, 'description', []);
+            echo $form->dropDownListControlGroup($model,'category', $this->categories,[
+                'options' =>$catalog['categories_id'],
+                'multiple'=>'multiple',
+                'size'=>'10',
+                'label' => 'Старые категории',
+
+            ]);
             ?>
 
         </fieldset>

@@ -64,13 +64,17 @@ class SizeHelper {
             $criteria = array_merge($criteria, $data['criteria']);
         }
 
-        return new CActiveDataProvider(
+
+
+        $dataProvider=new CActiveDataProvider(
             'ProductNewOptions',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
+//        $dataProvider->getData();
+        return $dataProvider;
     }
 
 
