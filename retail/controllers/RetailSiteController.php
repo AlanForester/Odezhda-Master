@@ -101,17 +101,28 @@ class RetailSiteController extends RetailController {
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
         $email = Yii::app()->request->getPost('email', false);
         if($email){
-            $customer_model = new CustomerModel();
-            $customer = $customer_model->getCustomerByEmail($email);
-//            print_r($customer);exit;
+
             $model = new RecoverModel();
-            if ($model->recover($email)) {
-                //отдаем виду сообщение для отображения
-                $message='Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
-            } else{
-                $message='Ошибка. Попытайтесь еще раз';
+            //проверяем, сущесвтует ли пользователь по имейлу
+            if ($model->isCustomerExist($email)){
+                if ($model->recover()) {
+                    $message = new YiiMailMessage;
+//                    $message->view = 'registrationFollowup';
+                    $message->setSubject('Your subject');
+                    $message->setBody('Cообщение');
+                    $message->setTo($email);
+                    $message->setFrom('dmitriy@maybeworks.com');
+                    $ii=Yii::app()->mail->send($message);
+//                    print_r($message);exit;
+                    //сообщение для отображения
+                    $responce='Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
+                } else{
+                    $responce='Ошибка. Попытайтесь еще раз';
+                }
+            } else {
+                $responce = 'Указанного пользователя не существует';
             }
-            $this->renderPartial('/layouts/parts/recovery_responce',compact('message'));
+            $this->renderPartial('/layouts/parts/recovery_responce',compact('responce'));
             //завершаем приложение в любом случае
             Yii::app()->end();
         }

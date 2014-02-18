@@ -18,15 +18,33 @@
  */
 
 class RecoverModel {
+
+    public $customer;
+    private $tableName='retail_recovery';
+
     /**
-     * Registration
+     * Генрируем хеш восстановления и делаем запись в таблицу восстановления
      * @return bool
      */
-    public function recover($formData) {
-        Yii::app()->db->createCommand()
-            ->insert($this->orderTables[1], [
-                'customer_id'=>$order_id,
+    public function recover() {
+        $hash=md5($this->customer->email.time());
+         return Yii::app()->db->createCommand()
+            ->insert($this->tableName, [
+                'customer_id'=>$this->customer->id,
                 'hash'=>$hash,
             ]);
+    }
+
+    /**
+     * Проверяем существует ли пользователь
+     * да - возвращаем id пользователя
+     * нет - аозвращаем false
+     * @param $email
+     * @return bool
+     */
+    public function isCustomerExist($email){
+        $customer_model = new CustomerModel();
+        $this->customer = $customer_model->getCustomerByEmail($email);
+        return !empty($this->customer)? true : false;
     }
 }
