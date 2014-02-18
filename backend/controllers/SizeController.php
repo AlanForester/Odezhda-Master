@@ -47,11 +47,15 @@ class SizeController extends BackendController {
 //        exit;
         $form_action = Yii::app()->request->getPost('form_action');
 
+//        print_r($model->getPostData());
+//        exit;
 
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
+
             $item->setAttributes($model->getPostData(), false);
             // записываем данные
+
             $result = $model->save($model->getPostData());
 
             if (!$result) {

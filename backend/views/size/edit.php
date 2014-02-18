@@ -39,7 +39,7 @@ $this->pageButton = [
 
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
-            echo $form->dropDownListControlGroup($item,'rel_old_id', $oldOptionList,[
+            echo $form->dropDownListControlGroup($item,'rel_old_list', $oldOptionList,[
                 'options' =>$selectOldOptions,
                 'multiple'=>'multiple',
                 'size'=>'10',

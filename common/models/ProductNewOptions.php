@@ -4,6 +4,7 @@ class ProductNewOptions extends LegacyActiveRecord {
 
     public static $oldSizeString;
     public static $oldSizesList=[];
+    public static $rel_old_list;
     protected $_allData = [];
     public function __get($name) {
 
@@ -88,7 +89,7 @@ class ProductNewOptions extends LegacyActiveRecord {
         return [
             'with' => [
                'products_to_new_options',
-                'products_option_values'
+               'products_option_values'
             ]
         ];
     }
@@ -115,6 +116,7 @@ class ProductNewOptions extends LegacyActiveRecord {
 
         if(!empty($values['rel_old_id'])){
             $this->oldSizesList=$values['rel_old_id'];
+            unset($values['rel_old_id']);
         }
 
         if(!is_array($values))
@@ -145,27 +147,22 @@ class ProductNewOptions extends LegacyActiveRecord {
             }
         }
     }
-
-
     protected function afterSave() {
         //    parent::afterSave();
         if(!empty($this->oldSizesList)){ $list = $this->oldSizesList;}
         $id=$this->id;
-//print_r($this->oldSizesList);
-//        exit;
         if(!empty($list)){
-             ProductOldToNewOptions::model()->deleteAll('products_new_value_id=:products_new_value_id',[':products_new_value_id'=>$id]);
-             foreach($list as $option){
-                Yii::app()->db->createCommand()->insert('products_to_new_options',
-                    [
-                        'products_options_values_id'=>$option,
-                        'products_new_value_id'=>$id,
-                    ]
-                );
-             }
-         }
+            ProductOldToNewOptions::model()->deleteAll('products_new_value_id=:products_new_value_id',[':products_new_value_id'=>$id]);
+//            foreach($list as $key => $option){
+//                Yii::app()->db->createCommand()->insert('products_to_new_options',
+//                    [
+//                        'products_options_values_id'=>$option,
+//                        'products_new_value_id'=>$id,
+//                    ]
+//                );
+//            }
+        }
     }
-
 
     public function behaviors(){
         return [
