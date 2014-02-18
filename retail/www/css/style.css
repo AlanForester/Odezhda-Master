@@ -1517,7 +1517,25 @@ button:hover {
 #registration {
     margin: 7px auto;
     height: 330px;
-
+}
+#recover {
+    margin: 7px auto;
+    height: 225px;
+    width: 395px;
+}
+#recover h6 {
+    color: #FFFFFF;
+    float: left;
+    font-family: Verdana,Geneva,sans-serif;
+    font-size: 12px;
+    margin-top: 15px;
+}
+#recover .modal-login-left{
+    width: 395px;
+    height: 225px;
+}
+#recover_submit{
+    margin-right: 0;
 }
 
 .remember {

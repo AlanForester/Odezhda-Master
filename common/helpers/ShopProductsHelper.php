@@ -58,7 +58,14 @@ class ShopProductsHelper {
             $criteria['limit'] = $data['limit'];
         }
 
-
+        if(!empty($data['filter']['size'])){
+            foreach($data['filter']['size'] as $size){
+                $condition_params[]="products_new_option_values.value='".$size."'";
+                //    print_r($size);
+            }
+            $criteria['condition']= '( '.join(' OR ',$condition_params).' )';
+            $condition[]= '( '.join(' OR ',$condition_params).' )';
+        }
 
 
         $criteria_data = new CDbCriteria($criteria);
@@ -85,15 +92,6 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
-
-        if(!empty($data['filter']['size'])){
-            foreach($data['filter']['size'] as $size){
-                $condition_params[]="products_new_option_values.value='".$size."'";
-            //    print_r($size);
-            }
-            $condition[]= '( '.join(' OR ',$condition_params).' )';
-        }
-
 
         //Повторное формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),

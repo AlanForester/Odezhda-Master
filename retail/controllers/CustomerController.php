@@ -60,4 +60,5 @@ class CustomerController extends RetailController {
         throw new CHttpException($code, Yii::t('err', $msg));
     }
 
+
 }
