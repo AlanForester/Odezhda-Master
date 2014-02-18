@@ -105,7 +105,7 @@ class CompactGrid extends CWidget {
                 'edit' => null,
                 'delete' => null
             ], $this->gridButtonsUrl
-        );
+        );*/
 
         // ключи всех параметров сортировки должны существовать
         $this->order = array_merge(
@@ -114,17 +114,17 @@ class CompactGrid extends CWidget {
                 'fields' => [],
                 'direct' => '',
             ], $this->order
-        );*/
+        );
 
         $this->gridId = $this->gridId ? : 'whgrid';
         $this->selectableRows = $this->selectableRows ? : 0;
     }
 
     public function run() {
-        //if ($this->controller->isAjax) {
+        if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
-        //}
+        }
 
         /*
         // определеяем, нужно ли показывать 2 колонки
@@ -136,15 +136,15 @@ class CompactGrid extends CWidget {
             <div class="span2">
                 <div id="sidebar" class="sidebar">' . $this->renderSubmenu() . $this->renderFilter() . '</div>
             </div>';
-        }
+        }*/
 
         // основная колонка
         echo '
-            <div class="span' . ($twoColumn ? '10' : '12') . '">
+            <div class="span12">
                 <div>' . $this->renderTop() . $this->renderGrid() . '</div>
             </div>
         ';
-        */
+
     }
 
     /**
@@ -223,7 +223,7 @@ class CompactGrid extends CWidget {
      * Генерация html кода
      * @return string
      */
-    /*public function renderTop() {
+    public function renderTop() {
         return
             TbHtml::textField(
                 'text_search',
@@ -360,12 +360,9 @@ class CompactGrid extends CWidget {
 
             '   </div>
             </div>';
-    }*/
+    }
 
     public function renderGrid() {
-        
-        //$buttonsColumn = ;
-
 
         return $this->widget(
             'yiiwheels.widgets.grid.WhGridView',

@@ -1,6 +1,4 @@
 <?php
-//todo откорректировать
-// таблица
 $this->widget(
     'backend.widgets.CompactGrid',
     [

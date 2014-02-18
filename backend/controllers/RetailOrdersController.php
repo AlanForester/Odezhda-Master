@@ -196,7 +196,7 @@ class RetailOrdersController extends BackendController {
         }
 
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {
