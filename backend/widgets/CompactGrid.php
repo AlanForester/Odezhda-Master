@@ -105,7 +105,7 @@ class CompactGrid extends CWidget {
                 'edit' => null,
                 'delete' => null
             ], $this->gridButtonsUrl
-        );*/
+        );
 
         // ключи всех параметров сортировки должны существовать
         $this->order = array_merge(
@@ -114,17 +114,17 @@ class CompactGrid extends CWidget {
                 'fields' => [],
                 'direct' => '',
             ], $this->order
-        );
+        );*/
 
         $this->gridId = $this->gridId ? : 'whgrid';
         $this->selectableRows = $this->selectableRows ? : 0;
     }
 
     public function run() {
-        if ($this->controller->isAjax) {
+        /*if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
-        }
+        }*/
 
         /*
         // определеяем, нужно ли показывать 2 колонки
@@ -139,11 +139,9 @@ class CompactGrid extends CWidget {
         }*/
 
         // основная колонка
-        echo '
-            <div class="span12">
-                <div>' . $this->renderTop() . $this->renderGrid() . '</div>
-            </div>
-        ';
+        echo '<div>' .
+            ($this->textSearch || $this->order ? $this->renderTop() : '') .
+            $this->renderGrid() . '</div>';
 
     }
 
@@ -226,7 +224,7 @@ class CompactGrid extends CWidget {
     public function renderTop() {
         return
             TbHtml::textField(
-                'text_search',
+                $this->gridId . '_text_search',
                 '',
                 [
                     'rel' => 'tooltip',
@@ -242,10 +240,10 @@ class CompactGrid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "' . $this->gridId . '",
                                     {
                                         data:{
-                                            text_search:$("#text_search").val()
+                                            text_search:$("#' . $this->gridId . '_text_search").val()
                                         }
                                     }
                                 )
@@ -261,14 +259,14 @@ class CompactGrid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "' . $this->gridId . '",
                                     {
                                         data:{
                                             text_search:""
                                         }
                                     }
                                 )
-                                $("#text_search").val("");
+                                $("#' . $this->gridId . '_text_search").val("");
                             })()'
                             ]
                         )
@@ -279,7 +277,7 @@ class CompactGrid extends CWidget {
                 <div class="btn-group">
             ' .
             TbHtml::dropDownList(
-                'order_field',
+                $this->gridId . '_order_field',
                 $this->order['active'],
                 array_merge(['' => '- Поле -'], $this->order['fields']),
                 [
@@ -287,10 +285,10 @@ class CompactGrid extends CWidget {
                     'style' => 'width:150px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    order_field:$("#order_field").val()
+                                    order_field:$("#' . $this->gridId . '_order_field").val()
                                 }
                             }
                         )
@@ -301,7 +299,7 @@ class CompactGrid extends CWidget {
             <div class="btn-group">' .
 
             TbHtml::dropDownList(
-                'order_direct',
+                $this->gridId . '_order_direct',
                 $this->order['direct'],
                 [
                     '' => '- Направление -',
@@ -314,10 +312,10 @@ class CompactGrid extends CWidget {
                     'style' => 'width:200px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    order_direct:$("#order_direct").val()
+                                    order_direct:$("#' . $this->gridId . '_order_direct").val()
                                 }
                             }
                         )
@@ -325,11 +323,11 @@ class CompactGrid extends CWidget {
                 ]
             ) .
 
-            '   </div>
+            /*'   </div>
             <div class="btn-group">' .
 
             TbHtml::dropDownList(
-                'page_size',
+                $this->gridId . '_page_size',
                 $this->pageSize,
                 [
                     '5' => '5',
@@ -347,16 +345,16 @@ class CompactGrid extends CWidget {
                     'style' => 'width:70px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    page_size:$("#page_size").val()
+                                    page_size:$("#' . $this->gridId . '_page_size").val()
                                 }
                             }
                         )
                     })()'
                 ]
-            ) .
+            ) .*/
 
             '   </div>
             </div>';
@@ -394,7 +392,7 @@ class CompactGrid extends CWidget {
                     <div class="table-block">{items}</div>
                     <div class="row pager-block">
                         <div class="span3 pull-right">{summary}</div>
-                        <div class="span9 pull-left">{pager}</div>
+                        <div class="span5 pull-left">{pager}</div>
                     </div>
                     ',
                     'summaryText' => 'Записи: {start}-{end} из {count}',

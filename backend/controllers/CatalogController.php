@@ -268,8 +268,13 @@ class CatalogController extends BackendController {
 
     //todo: возможно, стоит совместить с index (скопировано оттуда)
     public function actionBootbox($id = null) {
-
-        $criteria = ['page_size' => 10];
+        $criteria = [
+            'text_search' => $this->userStateParam('text_search'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct'),
+            //'filter_category' => $this->userStateParam('filter_category'),
+            'page_size' => 10
+        ];
 
         //todo CformModel => AR
         $this->model = new CatalogModel();
@@ -282,12 +287,12 @@ class CatalogController extends BackendController {
             ],
         ]);
         //todo CformModel => AR
-        $categories_model = new ShopCategoriesModel();
+        /*$categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
 
         foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
-        }
+        }*/
 
         $this->renderPartial('bootbox', compact('criteria','gridDataProvider','id'));
     }

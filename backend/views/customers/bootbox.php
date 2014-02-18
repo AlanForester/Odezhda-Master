@@ -4,7 +4,7 @@ $this->widget(
     [
         'gridId' => 'customers_grid',
 
-        /*'order' => [
+        'order' => [
             'active' => $criteria['order']['field'],
             'fields' => [
                 'firstname' => 'Имя',
@@ -15,7 +15,7 @@ $this->widget(
             'direct' => $criteria['order']['direction']
         ],
 
-        'textSearch' => $criteria['text_search'],*/
+        'textSearch' => $criteria['text_search'],
 
         'pageSize' => $criteria['page_size'],
 
