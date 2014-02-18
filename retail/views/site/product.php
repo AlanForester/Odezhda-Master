@@ -61,7 +61,6 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                                 title="<?php echo $product->name.', '.$product->model.', '.FormatHelper::markup($product['price']) ?>" alt="">
                         </a>
                     </div>
-
                 </div>
             </div>
 
