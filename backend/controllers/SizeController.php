@@ -3,15 +3,11 @@
 /**
  * Class Users
  */
-class ProductsSizeController extends BackendController {
+class SizeController extends BackendController {
 
     public $pageTitle = 'Менеджер размеров: список';
     public $pageButton = [];
-    //    public $model;
-
-
-    //    public $groups = [];
-
+    
     public function actionIndex() {
         $criteria = [
             'text_search' => $this->userStateParam('text_search'),
@@ -21,9 +17,10 @@ class ProductsSizeController extends BackendController {
         ];
 
         // получение данных
-        $model = new ProductsSizeModel();
+        $model = new SizeModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-
+        print_r($gridDataProvider->getData());
+        exit;
         $this->render('index', compact('criteria', 'gridDataProvider'));
     }
 
@@ -35,14 +32,14 @@ class ProductsSizeController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $model = new ProductsSizeModel();
+        $model = new SizeModel();
         if (!$model->updateField($params)) {
             $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных баннера'));
         }
     }
 
     public function actionEdit($id, $scenario = 'edit') {
-        $model = new ProductsSizeModel($scenario);
+        $model = new SizeModel($scenario);
         if (!$item = $model->getBanner($id, $scenario)) {
             $this->error('Ошибка получения данных баннера');
         }
@@ -84,7 +81,7 @@ class ProductsSizeController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = new ProductsSizeModel();
+        $model = new SizeModel();
 
         if (!$model->delete($id)) {
             $this->error();
