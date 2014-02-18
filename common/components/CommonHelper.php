@@ -91,4 +91,20 @@ class CommonHelper {
         return false;
     }
 
+    //http://www.yiiframework.com/wiki/517/multiple-cactivedataproviders-in-one-cgridview/
+    public static function mergeDataProviders($dataProviders, $pageSize) {
+        $resultData = [];
+        foreach($dataProviders as $dataProvider) {
+            $data = $dataProvider instanceof CActiveDataProvider ? $dataProvider->data :
+                (is_array($dataProvider) ? $dataProvider : []);
+            $resultData = array_merge($resultData, $data);
+        }
+
+        return new CArrayDataProvider($resultData,
+            array(
+                'pagination' => array('pageSize' => $pageSize)
+            )
+        );
+    }
+
 }

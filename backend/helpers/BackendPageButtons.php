@@ -208,7 +208,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function addProduct(/*$url = '',*/ $option = [], $title = 'Добавить') {
+    public static function addProduct(/*$url = '',*/ $orderId = null, $option = [], $title = 'Добавить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -220,7 +220,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . '?ajax=catalog_grid",
+                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '",
                                         //?ajax=catalog_grid&from=bootbox",
                                     dataType : "html",
                                     success: function (data, textStatus) {
@@ -233,7 +233,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function removeProduct($url = '', $orderId = null, $option = [], $title = 'Удалить') {
+    public static function removeProducts($url = '', $orderId = null, $option = [], $title = 'Удалить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -255,10 +255,21 @@ class BackendPageButtons {
                                     "Вы уверены, что хотите удалить выбранные пункты?",
                                     function(options){
                                         if (options){
-                                            /*cb.each(function(){
+                                            cb.each(function(){
                                                 ids.push($(this).val());
-                                            });*/
-                                            $.ajax({
+                                            });
+                                            $.fn.yiiGridView.update(
+                                                "ropgrid",
+                                                {
+                                                    url:"' . Yii::app()->createUrl($url) . $orderId . '",
+                                                    data:{
+                                                        mass_action:"delete",
+                                                        ids:ids
+                                                    }
+                                                }
+                                            );
+
+                                            /*$.ajax({
                                                 url: "' . Yii::app()->createUrl($url) . $orderId . '",
                                                     //?ajax=catalog_grid&from=bootbox",
                                                 dataType : "html",
@@ -270,7 +281,7 @@ class BackendPageButtons {
                                                     registerGrid("ropgrid");
                                                     jQuery("#ropgrid").yiiGridView("update");
                                                 }
-                                            });
+                                            });*/
                                             /*$.fn.yiiGridView.update(
                                                 "ropgrid",
                                                 {

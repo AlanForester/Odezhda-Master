@@ -2,7 +2,7 @@
 
 class RetailOrdersProductsHelper extends CommonHelper {
 
-    public static function getDataProvider($data = null, $modelClass = 'RetailOrdersProductsLayer') {
+    public static function getDataProvider($data = null, $modelClass = 'RetailOrdersProducts') {
 
         if(!empty($data['text_search']))
             $data['text_search']['columns'] = [
@@ -19,7 +19,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return parent::getDataProvider($data,$modelClass);
     }
 
-    public static function updateField($data = [], $modelClass = 'RetailOrdersProductsLayer') {
+    public static function updateField($data = [], $modelClass = 'RetailOrdersProducts') {
         return parent::updateField($data, $modelClass);
     }
 
@@ -30,5 +30,24 @@ class RetailOrdersProductsHelper extends CommonHelper {
 
     public static function getModel() {
         return RetailOrdersProducts::model();
+    }
+
+    public static function getPostData() {
+        $name = get_class(RetailOrdersProductsHelper::getModel());
+        return isset($_POST[$name]) ? $_POST[$name] : [];
+    }
+
+    public static function saveProducts($products, $orderId) {
+        if($products && $orderId) {
+            //echo '<pre>'.print_r($products,1);exit;
+            foreach($products as $product) {
+                $model = new RetailOrdersProducts('add');
+                $model->setAttributes($product);
+                $model->retail_orders_id = $orderId;
+                if(!$model->save())
+                    return $model;
+            }
+        }
+        return true;
     }
 }

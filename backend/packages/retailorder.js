@@ -54,11 +54,83 @@ function selectCustomer(event, orderId, infoPath, editPath) {
     registerGrid('ropgrid');
 }
 
-function addRetailOrdersProduct(event, orderId, infoPath, editPath) {
+function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPath, queuePath) {
+    bootbox.hideAll();
     //var event=event||window.event;
-    var target=event.target||event.srcElement;
-    var productId = $(target).closest("tr").find("input[name='gridids[]']").val();
-    $.getJSON(infoPath, {
+    var target = event.target||event.srcElement,
+        productId = $(target).closest("tr").find("input[name='gridids[]']").val();
+
+    /*$.getJSON(infoPath, {
+        id: productId
+    }, function(json){
+        if(json.catalog.products_options_values_id != null) {
+            $.each(json.catalog.products_options_values_id, function( index, value ) {
+
+            });
+        }
+    });*/
+
+    $.ajax({
+        url: optionsSelectionViewPath + productId,
+        type: 'GET',
+        //dataType : "json",
+        data: {
+            //productId: productId,
+            //orderId: orderId
+        },
+        success: function (data, textStatus) {
+            bootbox.dialog({
+                message: data,
+                title: 'Выбор параметров товара',
+                buttons: {
+                    success: {
+                        label: "ОК",
+                        className: "btn-small btn-success",
+                        callback: function() {
+                            addRetailOrdersProduct(
+                                productId,
+                                orderId,
+                                $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
+                                $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
+                                queuePath
+                            );
+                        }
+                    },
+                    cancel: {
+                        label: "Отмена",
+                        className: "btn-small btn-danger",
+                        callback: function() {
+
+                        }
+                    }
+                }
+            });
+        }
+    });
+
+}
+
+function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
+    $.ajax({
+        url: queuePath,
+        type: 'POST',
+        //dataType : "json",
+        data: {
+            'RetailOrdersProducts[productId]': productId,
+            'RetailOrdersProducts[orderId]': orderId,
+            'RetailOrdersProducts[quantity]': quantity,
+            'RetailOrdersProducts[size]': size
+        },
+        success: function (data, textStatus) {
+            //$("#ropgrid").html(data);
+            registerGrid("ropgrid");
+            jQuery("#ropgrid").yiiGridView("update");
+        }
+    });
+
+
+
+    /*$.getJSON(infoPath, {
         id: productId
     }, function(json){
         var newRowClass = $("#ropgrid table tbody tr:last-child").hasClass("even") ? 'odd' : 'even';
@@ -83,9 +155,10 @@ function addRetailOrdersProduct(event, orderId, infoPath, editPath) {
                 + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][price]" value="'+json.catalog.price+'">'+json.catalog.price+'</td>'
                 + '<td width="50px" class="action-buttons"><a href="#" onclick="$(this).closest(\'tr\').remove(); return false;" rel="tooltip" title="" class="red bigger-130" data-original-title="Удалить"><i class="icon-trash"></i></a></td></tr>'
         );
-    });
+    });*/
     bootbox.hideAll();
-    registerGrid('ropgrid');
+    //registerGrid('ropgrid');
+    //jQuery("#ropgrid").yiiGridView("update");
 }
 
 function registerGrid(id) {

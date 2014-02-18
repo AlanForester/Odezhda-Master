@@ -36,9 +36,7 @@ class RetailOrdersProductsController extends BackendController {
             }
         }
 
-        $this->model = new RetailOrdersProductsLayer('update');
-
-        $gridDataProvider = $this->model->getDataProvider($criteria);
+        $gridDataProvider = RetailOrdersProductsHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
         $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
@@ -53,8 +51,8 @@ class RetailOrdersProductsController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $this->model = new RetailOrdersProductsLayer('update');
-        if (!$this->model->updateField($params)) {
+        $this->model = new RetailOrdersProducts('update');
+        if (!RetailOrdersProductsHelper::updateField($params)) {
             $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
         }
     }
@@ -65,8 +63,8 @@ class RetailOrdersProductsController extends BackendController {
 
     public function actionEdit($id, $scenario = 'edit', $orderId = null) {
 
-        $model = new RetailOrdersProductsLayer($scenario);
-        if (!$item = $model->getRetailOrdersProduct($id, $scenario)){
+        $model = new RetailOrdersProducts($scenario);
+        if (!$item = RetailOrdersProductsHelper::getRetailOrdersProduct($id, $scenario)){
             $this->error('Ошибка получения данных товара');
         }
 
@@ -111,7 +109,7 @@ class RetailOrdersProductsController extends BackendController {
     }
 
     public function actionDelete($id) {
-        $model = RetailOrdersProductsLayer::model()->findByPk($id);
+        $model = RetailOrdersProducts::model()->findByPk($id);
         if (!$model->delete()) {
             $this->error();
         } else {
@@ -137,9 +135,7 @@ class RetailOrdersProductsController extends BackendController {
                     foreach ($productsToSave as $key => $product) {
                         if(!in_array($key, $ids)) {
                             //если виртуальный продукт не намечен для удаления, то сохраняем
-                            //todo убрать layer
-                            $productsModel = new RetailOrdersProductsLayer('update');
-                            $productResult = $productsModel->saveProducts([$product], $id);
+                            $productResult = RetailOrdersProductsHelper::saveProducts([$product], $id);
                         }
                     }
                 break;
@@ -147,6 +143,39 @@ class RetailOrdersProductsController extends BackendController {
 
         //$this->actionIndex($id);
         //$this->redirect(['retail_orders/edit', 'id' => $id, 'ajax' => 'ropgrid']);
+    }
+
+    //добавляет товар для создаваемого заказа (который еще не имеет id) в очередь на сохранение.
+    //товары в очереди будут сохранены при сохранении создаваемого заказа
+    public function actionQueue() {
+        $input = RetailOrdersProductsHelper::getPostData();
+        if(!empty($input['productId'])) {
+            //todo CformModel => AR
+            $model = new CatalogModel();
+            $product = $model->getCatalogData($input['productId'],'edit');
+            $retailProduct = [
+                'id' => null,
+                'retail_orders_id' => null,
+                'products_id' => $input['productId'],
+                'model' => $product['model'],
+                'name' => $product['name'],
+                'price' => $product['price'],
+                'quantity' => $input['quantity'],
+                //'size' => $input['size'],
+            ];
+
+            if(!empty($input['orderId'])) {
+                $productsResult = RetailOrdersProductsHelper::saveProducts([$retailProduct], $input['orderId']);
+                if($productsResult !== true) {
+                    //saving error
+                }
+            } else {
+                $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+                $retailProducts[] = $retailProduct;
+                Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+                //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
+            }
+        }
     }
 
 }

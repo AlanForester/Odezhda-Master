@@ -18,11 +18,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -33,11 +33,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -49,31 +49,31 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
             ],
-            [
+            /*[
                 'header' => 'Размеры',
                 'name' => 'catalog_options_values',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
-            ],
+            ],*/
             [
                 'header' => 'Производитель',
                 'name' => 'manufacturers',
@@ -81,11 +81,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -97,11 +97,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -146,11 +146,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],
@@ -162,11 +162,11 @@ $this->widget(
                 ],
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
-                        addRetailOrdersProduct(
+                        selectRetailOrdersProductOptions(
                             event,
                             ' . ($id ? : 0) . ',
-                            "' . Yii::app()->createUrl('/catalog/info/') . '",
-                            "'. Yii::app()->createUrl('/retail_orders_products/edit/') .'"
+                            "' . Yii::app()->createUrl('/catalog/selectoptions/') . '",
+                            "'. Yii::app()->createUrl('/retail_orders_products/queue/') .'"
                         );
                     })()',
                 ],

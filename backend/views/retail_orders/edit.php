@@ -197,8 +197,8 @@ $this->pageButton = [
                 <div class="row-fluid">
                     <div style="padding-bottom: 16px" class="span12 pull-left button-block">
                         <?php
-                        echo BackendPageButtons::addProduct()
-                        . BackendPageButtons::removeProduct("/retail_orders_products/mass/", $item->id)
+                        echo BackendPageButtons::addProduct($item->id)
+                        . BackendPageButtons::removeProducts("/retail_orders_products/mass/", $item->id)
                         . BackendPageButtons::mass("/retail_orders_products/mass/".$item->id)
                         ?>
                     </div>
@@ -220,6 +220,7 @@ $this->pageButton = [
 
                             'gridColumns' => [
                                 [
+                                    'header' => 'Название',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'name',
@@ -234,6 +235,7 @@ $this->pageButton = [
                                     ]
                                 ],
                                 [
+                                    'header' => 'Код модели',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'model',
@@ -264,6 +266,7 @@ $this->pageButton = [
                                     ]*/
                                 ],
                                 [
+                                    'header' => 'Количество',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'quantity',
@@ -278,6 +281,7 @@ $this->pageButton = [
                                     ]
                                 ],
                                 [
+                                    'header' => 'Цена (за единицу)',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
                                     'name' => 'price',
@@ -291,13 +295,14 @@ $this->pageButton = [
                                         'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                                     ]
                                 ],
-                                /*[
+                                [
+                                    'header' => 'ID',
                                     'name' => 'id',
                                     'headerHtmlOptions' => [
                                     ],
                                     'htmlOptions' => [
                                     ],
-                                ],*/
+                                ],
 
                             ],
 
