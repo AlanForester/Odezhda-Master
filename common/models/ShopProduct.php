@@ -228,8 +228,8 @@ class ShopProduct extends LegacyActiveRecord {
             //связь с опциями
             'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
             'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
-            'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
+      //      'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
+       //     'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
         ];
     }
 
@@ -280,7 +280,7 @@ class ShopProduct extends LegacyActiveRecord {
                 'product_description',
                 'categories_description',
                 'product_options',
-                'products_new_option_values'
+             //   'products_new_option_values'
             ]
         ];
     }

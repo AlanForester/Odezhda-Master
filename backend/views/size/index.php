@@ -45,6 +45,12 @@ $this->widget(
                     'emptytext' => 'не задано',
                     'url' => Yii::app()->createUrl("/size/update"),
                 ]
+            ],[
+                'header' => 'Старые размеры',
+                'name' => 'oldSizeString',
+                'htmlOptions' => [
+                    'style'=>'font-size:9px;'
+                ],
             ],
             [
                 'name' => 'id',

@@ -2,6 +2,65 @@
 
 class ProductNewOptions extends LegacyActiveRecord {
 
+    public static $oldSizeString;
+    public static $oldSizesList=[];
+    public static $rel_old_list;
+    protected $_allData = [];
+    public function __get($name) {
+
+        $relations = $this->relations();
+        if (!empty($relations)) {
+
+            foreach ($relations as $relName => $relData) {
+                if (!$this->hasRelated($relName))
+                    continue;
+
+                $relation = $this->getRelated($relName);
+                if (is_array($relation)) {
+                    foreach ($relation as $rel) {
+                        if (method_exists($rel, 'getFieldMapName')) {
+                            $rel_name = $rel->getFieldMapName($name, false);
+                            $columns = $rel->getMetaData()->columns;
+
+                            // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                            if (array_key_exists($rel_name, $columns)) {
+                                return $rel->{$name};
+                            }
+                        }
+                    }
+                } else {
+                    if (method_exists($relation, 'getFieldMapName')) {
+                        $rel_name = $relation->getFieldMapName($name, false);
+                        $columns = $relation->getMetaData()->columns;
+
+                        // проходим ТОЛЬКО при наличии такого поля в бд связанной таблицы
+                        if (array_key_exists($rel_name, $columns)) {
+                            return $relation->{$name};
+                        }
+                    }
+                }
+            }
+        }
+        return parent::__get($this->getFieldMapName($name, false));
+    }
+
+    public function __isset($name) {
+
+        $relations = $this->relations();
+        if (!empty($relations)) {
+            foreach ($relations as $relName => $relData) {
+                if (!$this->hasRelated($relName))
+                    continue;
+
+                $relation = $this->getRelated($relName);
+                if (isset($relation->{$name})) {
+                    return true;
+                }
+            }
+        }
+
+        return parent::__isset($this->getFieldMapName($name, false));
+    }
 
     public function tableName() {
         return 'products_new_option_values';
@@ -20,17 +79,18 @@ class ProductNewOptions extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            //связь с опциями
-           // 'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id', 'together' => true),
-            //'products_new_option_values' => array(self::HAS_ONE, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
+//            связь с опциями
+           'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_new_value_id', 'together' => true),
+           'products_option_values' => array(self::HAS_MANY, 'ProductOptions', 'products_options_values_id', 'through' => 'products_to_new_options', 'together' => true)
         ];
     }
 
     public function defaultScope() {
         return [
-//            'with' => [
-//                'products_new_option_values'
-//            ]
+            'with' => [
+               'products_to_new_options',
+               'products_option_values'
+            ]
         ];
     }
 
@@ -41,16 +101,35 @@ class ProductNewOptions extends LegacyActiveRecord {
         ]);
     }
 
-    public function setAttributes($values, $safeOnly = true) {
-        parent::setAttributes($values, $safeOnly);
-        $relations=$this->relations();
-        if (!empty($relations)){
-            foreach($relations as $relName => $relData){
-                $this->{$relName}->setAttributes($values,$safeOnly);
-            }
+//    public function setAttributes($values, $safeOnly = true) {
+//        parent::setAttributes($values, $safeOnly);
+//        $relations=$this->relations();
+//        if (!empty($relations)){
+//            foreach($relations as $relName => $relData){
+//                $this->{$relName}->setAttributes($values,$safeOnly);
+//            }
+//        }
+//    }
+
+    public function setAttributes($values,$safeOnly=true)
+    {
+
+        if(!empty($values['rel_old_id'])){
+            $this->oldSizesList=$values['rel_old_id'];
+            unset($values['rel_old_id']);
+        }
+
+        if(!is_array($values))
+            return;
+        $attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
+        foreach($values as $name=>$value)
+        {
+            if(isset($attributes[$name]))
+                $this->$name=$value;
+            elseif($safeOnly)
+                $this->onUnsafeAttribute($name,$value);
         }
     }
-
 
     /**
      * Удаление всех связанных таблиц
@@ -68,7 +147,22 @@ class ProductNewOptions extends LegacyActiveRecord {
             }
         }
     }
-
+    protected function afterSave() {
+        //    parent::afterSave();
+        if(!empty($this->oldSizesList)){ $list = $this->oldSizesList;}
+        $id=$this->id;
+        if(!empty($list)){
+            ProductOldToNewOptions::model()->deleteAll('products_new_value_id=:products_new_value_id',[':products_new_value_id'=>$id]);
+//            foreach($list as $key => $option){
+//                Yii::app()->db->createCommand()->insert('products_to_new_options',
+//                    [
+//                        'products_options_values_id'=>$option,
+//                        'products_new_value_id'=>$id,
+//                    ]
+//                );
+//            }
+        }
+    }
 
     public function behaviors(){
         return [
