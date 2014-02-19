@@ -48,6 +48,7 @@
     padding: 10px 30px;
     position: relative;
     /*width: 825px;*/
+    margin: 6px;
 }
 
 .karta-wrap h1 {
@@ -104,10 +105,12 @@ ul#thumblist li a.zoomThumbActive {
 .jqzoom {
     text-decoration: none;
     float: left;
+    margin-right: 40px;
+
 }
 
 .tovar-info {
-    float: left;
+    float: right;
     margin-left: 10px;
     height: auto;
     margin-top: 10px;
@@ -575,7 +578,7 @@ ul.yiiPager a {
 }
 
 .prev_razmer {
-    float: left;
+    float: right;
     width: 360px;
     margin-top: 15px;
     margin-left: 12px;
