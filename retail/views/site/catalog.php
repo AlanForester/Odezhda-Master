@@ -204,11 +204,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
 </div>
 
 <div class="catalog-goods">
-    <?php
-    //print_r($dataProvider->getData());exit;
-    ?>
     <?php foreach ($dataProvider->getData() as $product) { ?>
-
         <div class="goods-var">
             <!--                <img src="/images/kofta.png" alt=""/>-->
 
