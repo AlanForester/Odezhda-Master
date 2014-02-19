@@ -3,6 +3,7 @@
 class ProductOptions extends LegacyActiveRecord {
 
 
+
     public function tableName() {
         return 'products_options_values';
     }
@@ -18,5 +19,7 @@ class ProductOptions extends LegacyActiveRecord {
             'products_options_values_name' =>'old_name'
         ];
     }
+
+
 
 }

@@ -18,25 +18,55 @@
  */
 
 class RecoverModel {
+
+    public $customer;
+    private $tableName='retail_recovery';
+
     /**
-     * Registration
+     * Генрируем хеш восстановления и делаем запись в таблицу восстановления
      * @return bool
      */
     public function recover() {
-        if($user = CustomersHelper::save($this->attributes)){
-            if ($this->_identity === null) {
-                $this->_identity = new CustomerIdentity($user->email, $user->password);
-                $this->_identity->registerAuthenticate($user);
-            }
-            if ($this->_identity->isAuthenticated) {
-                $duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
-                Yii::app()->user->allowAutoLogin=true;
-                Yii::app()->user->login($this->_identity, $duration);
-                return true;
+        $hash=md5($this->customer->email.time());
+        $result = Yii::app()->db->createCommand()
+            ->insert($this->tableName, [
+                'customer_id'=>$this->customer->id,
+                'hash'=>$hash,
+            ]);
+        return $result ? $hash : false;
+    }
+
+    /**
+     * Проверяем существует ли пользователь
+     * да - возвращаем id пользователя
+     * нет - аозвращаем false
+     * @param $email
+     * @return bool
+     */
+    public function isCustomerExist($email){
+        $customer_model = new CustomerModel();
+        $this->customer = $customer_model->getCustomerByEmail($email);
+        return !empty($this->customer)? true : false;
+    }
+
+    public function restoreCustomer($hash){
+        $recoveryInfo = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from($this->tableName)
+            ->where('hash=:hash', array(':hash'=>$hash))
+            ->queryRow();
+        if (!empty($recoveryInfo)){
+            $customer_model = new CustomerModel();
+            $customer = $customer_model->getCustomer($recoveryInfo['customer_id']);
+            $identity = new CustomerIdentity($customer->email, $customer->password);
+            $identity->registerAuthenticate($customer);
+            if ($identity->isAuthenticated) {
+                Yii::app()->user->login($identity);
+                Yii::app()->db->createCommand()
+                    ->delete($this->tableName, 'hash=:hash', array(':hash'=>$hash));
+            return true;
             }
         }
-        $this->addErrors(CustomersHelper::getErrors());
-
         return false;
     }
 }

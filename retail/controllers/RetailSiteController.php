@@ -27,20 +27,19 @@ class RetailSiteController extends RetailController {
         $catalogModel = new CatalogModel();
         $this->catalogData = $catalogModel->frontCatalogData();
 
-
         //выбор товара дня из категории "акции" 1435 или Спецпредложение 590
-        $categoryAcciy=1435;
+        $categoryAcciy = 1435;
         $day_data = $catalogModel->dayProduct($categoryAcciy);
 
         // todo: вынести в настройки?
         // баннеры
         $banners = [
-            0=>RetailBannersHelper::getBanner(1),
-            1=>RetailBannersHelper::getBanner(2),
-            2=>RetailBannersHelper::getBanner(3),
+            0 => RetailBannersHelper::getBanner(1),
+            1 => RetailBannersHelper::getBanner(2),
+            2 => RetailBannersHelper::getBanner(3),
         ];
 
-        $this->render("/site/index",compact('day_data','banners'));
+        $this->render("/site/index", compact('day_data', 'banners'));
     }
 
     /**
@@ -55,12 +54,13 @@ class RetailSiteController extends RetailController {
         $formData = Yii::app()->request->getPost(get_class($model), false);
         if ($formData) {
             $model->setAttributes($formData, false);
-            if (!$model->validate(array('username', 'password')) || !$model->login()){
+            if (!$model->validate(array('username', 'password')) || !$model->login()) {
                 //отдаем виду ошибки для отображения
                 echo json_encode($model->errors);
             }
             //завершаем приложение в любом случае
-            Yii::app()->end();
+            Yii::app()
+               ->end();
         }
         $this->renderPartial('/layouts/parts/login');
     }
@@ -88,7 +88,8 @@ class RetailSiteController extends RetailController {
                 echo json_encode($model->errors);
             }
             //завершаем приложение в любом случае
-            Yii::app()->end();
+            Yii::app()
+               ->end();
         }
         $this->renderPartial('/layouts/parts/register');
     }
@@ -96,37 +97,68 @@ class RetailSiteController extends RetailController {
     /**
      * Восстановление пользователя (забыл пароль)
      */
-    public function actionRecovery(){
+    public function actionRecovery() {
         $user = Yii::app()->user;
         $this->redirectAwayAlreadyAuthenticatedUsers($user);
-        $formData = Yii::app()->request->getPost('email', false);
-        if($formData){
+        $email = Yii::app()->request->getPost('email', false);
+        if ($email) {
             $model = new RecoverModel();
-            if (!$model->registration()) {
-                //отдаем виду ошибки для отображения
-
+            //проверяем, сущесвтует ли пользователь по имейлу
+            if ($model->isCustomerExist($email)) {
+                if ($hash = $model->recover()) {
+                    $message = new YiiMailMessage;
+//                    $message->view = 'registrationFollowup';
+                    $message->setSubject('Восстановление пароля на сайте Lapana');
+                    $body = '
+                    Здравствуйте!
+                    На ваш email было оформлено восстановление пароля.
+                    Если вы действительно хотите восстановить пароль, перейдите, пожалуйста по ссылке '
+                        . $this->createAbsoluteUrl('site/restoreCustomer', ['code' => $hash]) . '.
+                    Если вы не желаете восстанавливать ваш пароль на сайте, проигнорируйте это сообщение.
+                    ';
+                    $message->setBody($body);
+                    $message->setTo($email);
+                    $message->setFrom('dmitriy@maybeworks.com');
+//                    $message->setFrom(Yii::app()->params['adminEmail']);
+                    $ii = Yii::app()->mail->send($message);
+                    //сообщение для отображения
+                    $responce = 'Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
+                } else {
+                    $responce = 'Ошибка. Попытайтесь еще раз';
+                }
+            } else {
+                $responce = 'Указанного пользователя не существует';
             }
+            $this->renderPartial('/layouts/parts/recovery_responce', compact('responce'));
             //завершаем приложение в любом случае
-            Yii::app()->end();
+            Yii::app()
+               ->end();
         }
         $this->renderPartial('/layouts/parts/recovery');
     }
 
-    /**
-     * Обработка запроса на скидку
-     */
-    public function actionDiscountSend() {
-        //        $name = Yii::app()->request->getPost('name');
-        //        $email = Yii::app()->request->getPost('email');
-        //
-        //        $sender = Yii::app()->email;
-        //
-        //        $sender->to = 'admin@example.com';
-        //        $sender->subject = 'Запрос на скидку';
-        //        $sender->message = 'Имя: '.$name."\n".'Email: '.$email;
-        //        $sender->send();
-
-        // todo: добавить увемоление о событии
+    public function actionRestoreCustomer() {
+        $hash = Yii::app()->request->getQuery('code', false);
+        if (!empty($hash)) {
+            $model = new RecoverModel();
+            if ($model->restoreCustomer($hash)) {
+                $this->redirect($this->createUrl('/customer/index'));
+            }
+        }
         $this->redirect('/');
     }
+
+    public function actionTest() {
+        $dataProvider = new CActiveDataProvider(
+            'NewProduct',
+            [
+                'pagination' => ['pageSize' => 12]
+            ]
+        );
+
+        foreach ($dataProvider->getData() as $prod){
+            echo $prod->name.': '.$prod->id.'<br>';
+        }
+    }
+
 }

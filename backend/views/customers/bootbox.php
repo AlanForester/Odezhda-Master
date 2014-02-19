@@ -1,10 +1,21 @@
 <?php
-//todo откорректировать
-// таблица
 $this->widget(
     'backend.widgets.CompactGrid',
     [
         'gridId' => 'customers_grid',
+
+        'order' => [
+            'active' => $criteria['order']['field'],
+            'fields' => [
+                'firstname' => 'Имя',
+                'lastname' => 'Фамилия',
+                'phone' => 'Телефон',
+                'email' => 'E-Mail',
+            ],
+            'direct' => $criteria['order']['direction']
+        ],
+
+        'textSearch' => $criteria['text_search'],
 
         'pageSize' => $criteria['page_size'],
 

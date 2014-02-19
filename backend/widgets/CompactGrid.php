@@ -121,10 +121,10 @@ class CompactGrid extends CWidget {
     }
 
     public function run() {
-        //if ($this->controller->isAjax) {
+        /*if ($this->controller->isAjax) {
             echo $this->renderGrid();
             return;
-        //}
+        }*/
 
         /*
         // определеяем, нужно ли показывать 2 колонки
@@ -136,15 +136,13 @@ class CompactGrid extends CWidget {
             <div class="span2">
                 <div id="sidebar" class="sidebar">' . $this->renderSubmenu() . $this->renderFilter() . '</div>
             </div>';
-        }
+        }*/
 
         // основная колонка
-        echo '
-            <div class="span' . ($twoColumn ? '10' : '12') . '">
-                <div>' . $this->renderTop() . $this->renderGrid() . '</div>
-            </div>
-        ';
-        */
+        echo '<div>' .
+            ($this->textSearch || $this->order ? $this->renderTop() : '') .
+            $this->renderGrid() . '</div>';
+
     }
 
     /**
@@ -223,10 +221,10 @@ class CompactGrid extends CWidget {
      * Генерация html кода
      * @return string
      */
-    /*public function renderTop() {
+    public function renderTop() {
         return
             TbHtml::textField(
-                'text_search',
+                $this->gridId . '_text_search',
                 '',
                 [
                     'rel' => 'tooltip',
@@ -242,10 +240,10 @@ class CompactGrid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "' . $this->gridId . '",
                                     {
                                         data:{
-                                            text_search:$("#text_search").val()
+                                            text_search:$("#' . $this->gridId . '_text_search").val()
                                         }
                                     }
                                 )
@@ -261,14 +259,14 @@ class CompactGrid extends CWidget {
                                 'rel' => 'tooltip',
                                 'onClick' => 'js: (function(){
                                 $.fn.yiiGridView.update(
-                                    "whgrid",
+                                    "' . $this->gridId . '",
                                     {
                                         data:{
                                             text_search:""
                                         }
                                     }
                                 )
-                                $("#text_search").val("");
+                                $("#' . $this->gridId . '_text_search").val("");
                             })()'
                             ]
                         )
@@ -279,7 +277,7 @@ class CompactGrid extends CWidget {
                 <div class="btn-group">
             ' .
             TbHtml::dropDownList(
-                'order_field',
+                $this->gridId . '_order_field',
                 $this->order['active'],
                 array_merge(['' => '- Поле -'], $this->order['fields']),
                 [
@@ -287,10 +285,10 @@ class CompactGrid extends CWidget {
                     'style' => 'width:150px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    order_field:$("#order_field").val()
+                                    order_field:$("#' . $this->gridId . '_order_field").val()
                                 }
                             }
                         )
@@ -301,7 +299,7 @@ class CompactGrid extends CWidget {
             <div class="btn-group">' .
 
             TbHtml::dropDownList(
-                'order_direct',
+                $this->gridId . '_order_direct',
                 $this->order['direct'],
                 [
                     '' => '- Направление -',
@@ -314,10 +312,10 @@ class CompactGrid extends CWidget {
                     'style' => 'width:200px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    order_direct:$("#order_direct").val()
+                                    order_direct:$("#' . $this->gridId . '_order_direct").val()
                                 }
                             }
                         )
@@ -325,11 +323,11 @@ class CompactGrid extends CWidget {
                 ]
             ) .
 
-            '   </div>
+            /*'   </div>
             <div class="btn-group">' .
 
             TbHtml::dropDownList(
-                'page_size',
+                $this->gridId . '_page_size',
                 $this->pageSize,
                 [
                     '5' => '5',
@@ -347,20 +345,20 @@ class CompactGrid extends CWidget {
                     'style' => 'width:70px;margin-left:5px;',
                     'onChange' => 'js: (function(){
                         $.fn.yiiGridView.update(
-                            "whgrid",
+                            "' . $this->gridId . '",
                             {
                                 data:{
-                                    page_size:$("#page_size").val()
+                                    page_size:$("#' . $this->gridId . '_page_size").val()
                                 }
                             }
                         )
                     })()'
                 ]
-            ) .
+            ) .*/
 
             '   </div>
             </div>';
-    }*/
+    }
 
     public function renderGrid() {
 
@@ -394,7 +392,7 @@ class CompactGrid extends CWidget {
                     <div class="table-block">{items}</div>
                     <div class="row pager-block">
                         <div class="span3 pull-right">{summary}</div>
-                        <div class="span9 pull-left">{pager}</div>
+                        <div class="span5 pull-left">{pager}</div>
                     </div>
                     ',
                     'summaryText' => 'Записи: {start}-{end} из {count}',
@@ -412,40 +410,40 @@ class CompactGrid extends CWidget {
                                 'checked' => null,
                             ],
                         ],
+
                         $this->gridColumns,
 
-                        $this->gridButtonsUrl ?
+                        $this->gridButtonsUrl ? [
                             [
-                                [
-                                    'header' => 'Действие',
-                                    'htmlOptions' => [
-                                        'class' => 'action-buttons',
-                                        'width' => '50px'
-                                    ],
-                                    'deleteButtonOptions' => [
-                                        'class' => 'red bigger-130',
-                                        'title' => 'Удалить',
-                                    ],
-                                    'updateButtonOptions' => [
-                                        'class' => 'green bigger-130',
-                                        'title' => 'Изменить',
-                                    ],
-                                    'viewButtonOptions' => [
-                                        'class' => 'bigger-130',
-                                        'title' => 'Просмотр',
-                                        'onClick' => 'js: (function(){
+                                'header' => 'Действие',
+                                'htmlOptions' => [
+                                    'class' => 'action-buttons',
+                                    'width' => '70px'
+                                ],
+                                'class' => 'bootstrap.widgets.TbButtonColumn',
+                                'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+
+                                'deleteButtonOptions' => [
+                                    'class' => 'red bigger-130',
+                                    'title' => 'Удалить',
+                                ],
+                                'updateButtonOptions' => [
+                                    'class' => 'green bigger-130',
+                                    'title' => 'Изменить',
+                                ],
+                                'viewButtonOptions' => [
+                                    'class' => 'bigger-130',
+                                    'title' => 'Просмотр',
+                                    'onClick' => 'js: (function(){
                                             bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
                                         })()'
-                                    ],
-                                    'class' => 'bootstrap.widgets.TbButtonColumn',
-                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                                ],
 
-                                    'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
-                                    'updateButtonUrl' => $this->gridButtonsUrl['edit'],
-                                    'deleteButtonUrl' => $this->gridButtonsUrl['delete'],
-                                ]
-                            ] :
-                            []
+                                'viewButtonUrl' => null, //$this->gridButtonsUrl['show'],
+                                'updateButtonUrl' => isset($this->gridButtonsUrl['edit']) ? $this->gridButtonsUrl['edit'] : null,
+                                'deleteButtonUrl' => isset($this->gridButtonsUrl['delete']) ? $this->gridButtonsUrl['delete'] : null,
+                            ]
+                        ] : []
                     )
                 ]
             ),
