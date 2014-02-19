@@ -196,7 +196,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 $.ajax({
-                                    url: "' . Yii::app()->createUrl($url) . '?ajax=customers_grid",
+                                    url: "' . Yii::app()->createUrl($url) . '",
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         gridBox("customers_grid", data, "Выбор покупателя");

@@ -65,6 +65,7 @@ return [
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                'retail_orders_products/<action:\w+>/<id:\-?\d+>' => 'retail_orders_products/<action>',
             ]
         ],
     ],

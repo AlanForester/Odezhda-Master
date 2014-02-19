@@ -1,7 +1,7 @@
 <?php
 
 class SizeHelper {
-    private static $old_id;
+
     private static $errors = [];
 
     public static function getModel() {
@@ -25,6 +25,7 @@ class SizeHelper {
             ->select('products_options_values_id as id,products_options_values_name as name')
             ->from('products_options_values')
             ->queryAll();
+        $oldSizesList=[];
         foreach($old_sizes  as  $elem){
             $oldSizesList[$elem['id']]=$elem['name'];
         }
@@ -161,8 +162,6 @@ class SizeHelper {
         return false;
     }
 
-
-
     /**
      * Создание или обновление пользователя на основе данных из формы
      * @param array $data исходные данные из формы
@@ -200,8 +199,5 @@ class SizeHelper {
         return $item;
 
     }
-
-
-
 
 }

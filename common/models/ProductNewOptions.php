@@ -3,7 +3,9 @@
 class ProductNewOptions extends LegacyActiveRecord {
 
     public static $oldSizeString;
-    public static $oldSizesList;
+    public static $oldSizesList=[];
+    public static $rel_old_list;
+    protected $_allData = [];
     public function __get($name) {
 
         $relations = $this->relations();
@@ -39,7 +41,6 @@ class ProductNewOptions extends LegacyActiveRecord {
                 }
             }
         }
-
         return parent::__get($this->getFieldMapName($name, false));
     }
 
@@ -88,7 +89,7 @@ class ProductNewOptions extends LegacyActiveRecord {
         return [
             'with' => [
                'products_to_new_options',
-                'products_option_values'
+               'products_option_values'
             ]
         ];
     }
@@ -110,6 +111,25 @@ class ProductNewOptions extends LegacyActiveRecord {
 //        }
 //    }
 
+    public function setAttributes($values,$safeOnly=true)
+    {
+
+        if(!empty($values['rel_old_id'])){
+            $this->oldSizesList=$values['rel_old_id'];
+            unset($values['rel_old_id']);
+        }
+
+        if(!is_array($values))
+            return;
+        $attributes=array_flip($safeOnly ? $this->getSafeAttributeNames() : $this->attributeNames());
+        foreach($values as $name=>$value)
+        {
+            if(isset($attributes[$name]))
+                $this->$name=$value;
+            elseif($safeOnly)
+                $this->onUnsafeAttribute($name,$value);
+        }
+    }
 
     /**
      * Удаление всех связанных таблиц
@@ -129,32 +149,19 @@ class ProductNewOptions extends LegacyActiveRecord {
     }
     protected function afterSave() {
         //    parent::afterSave();
-
-        $new_option_id = $this->rel_old_id;
-        print_r($new_option_id);
-        exit;
-
-//        if(!empty($this->_allData['categories_name'])){
-//            $categories_data=$this->_allData['categories_name'];
-//
-//            /**
-//             * Сохранение категорий
-//             */
-//            CatalogToCategoriesLegacy::model()->deleteAll('products_id=:id', array(':id' => $id));
-//            // todo: переписать через save
-//            foreach($categories_data as $category_id){
-//                if(!empty($category_id)){
-//
-//
-//                    Yii::app()->db->createCommand(->insert('products_to_categories',
-//                        [
-//                            'products_id'=>$id,
-//                            'categories_id'=>$category_id,
-//                        ]
-//                    );
-//                }
+        if(!empty($this->oldSizesList)){ $list = $this->oldSizesList;}
+        $id=$this->id;
+        if(!empty($list)){
+            ProductOldToNewOptions::model()->deleteAll('products_new_value_id=:products_new_value_id',[':products_new_value_id'=>$id]);
+//            foreach($list as $key => $option){
+//                Yii::app()->db->createCommand()->insert('products_to_new_options',
+//                    [
+//                        'products_options_values_id'=>$option,
+//                        'products_new_value_id'=>$id,
+//                    ]
+//                );
 //            }
-//        }
+        }
     }
 
     public function behaviors(){

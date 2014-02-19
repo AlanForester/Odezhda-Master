@@ -173,11 +173,20 @@ class CustomersController extends BackendController {
 
     public function actionBootbox($id = null) {
 
-        $criteria = ['page_size' => 10];
+        $criteria = [
+            'text_search' => [
+                'value' => $this->userStateParam('text_search'),
+            ],
+            'order' => [
+                'field' => $this->userStateParam('order_field'),
+                'direction' => $this->userStateParam('order_direct'),
+            ],
+            'page_size' => 10
+        ];
 
         $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
-        $this->render('bootbox', compact('criteria','gridDataProvider','id'));
+        $this->renderPartial('bootbox', compact('criteria','gridDataProvider','id'));
     }
 }

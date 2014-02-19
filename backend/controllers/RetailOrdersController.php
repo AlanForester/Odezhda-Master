@@ -133,7 +133,7 @@ class RetailOrdersController extends BackendController {
                 $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
                 $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
-                    RetailOrdersProductsHelper::saveProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                    RetailOrdersProductsHelper::saveNewProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
                     true;
 
                 if ($productsResult !== true) {
@@ -181,14 +181,14 @@ class RetailOrdersController extends BackendController {
         ];
         $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
-        $productsGridDataProvider->setSort(false);
+        if($id) {
+            $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
+            $productsGridDataProvider->setSort(false);
 
-        if(!$id) {
-            //прибавляем из сессии товары, подготовленные для сохранения
+        } else {
+            //товары из сессии, подготовленные для сохранения
             $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
                 [
-                    $productsGridDataProvider,
                     Yii::app()->session['RetailOrdersProductsQueue']
                 ],
                 $productsCriteria['page_size']
@@ -196,7 +196,7 @@ class RetailOrdersController extends BackendController {
         }
 
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {
