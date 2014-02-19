@@ -40,6 +40,7 @@ class CatalogController extends RetailController {
         $dataProvider=$data['dataProvider'];
 
         //        $this->renderPartial('/layouts/parts/productPreview', compact('product','dataProvider'));
+//        $this->renderPartial('/layouts/parts/productPreview', compact('product', 'dataProvider'));
         $this->renderPartial('/site/preview', compact('product', 'dataProvider'));
     }
 

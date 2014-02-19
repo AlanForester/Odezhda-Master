@@ -36,11 +36,18 @@
 }
 
 .karta-wrap {
-    width: 100%;
+    /*width: 100%;*/
     float: left;
     height: auto;
     background: #fff;
     /*padding:15px;*/
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-radius: 6px;
+    box-shadow: 0 0 0 6px rgba(153, 153, 153, 0.3);
+    /*height: 690px;*/
+    padding: 10px 30px;
+    position: relative;
+    /*width: 825px;*/
 }
 
 .karta-wrap h1 {
