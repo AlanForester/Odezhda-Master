@@ -29,7 +29,6 @@ function loadGrid(id, url){
         //?ajax=catalog_grid&from=bootbox",
         dataType : "html",
         success: function (data, textStatus) {
-            //gridBox("catalog_grid", data, "Выбор товара");
             $(".bootbox-body").html(data);
             registerGrid(id);
         }
@@ -53,9 +52,6 @@ function selectCustomer(event, orderId, infoPath, editPath) {
             '<table id="yw2" class="detail-view table table-striped table-condensed"><tbody><tr class="odd"><th>ID</th><td>'+customerId+'</td></tr><tr class="even"><th>Имя</th><td>'+json.customer.customers_firstname+'</td></tr><tr class="odd"><th>Фамилия</th><td>'+json.customer.customers_lastname+'</td></tr><tr class="even"><th>E-mail</th><td>'+json.customer.customers_email_address+'</td></tr><tr class="odd"><th>Телефон</th><td>'+json.customer.customers_telephone+'</tbody></table>'
                 + '<a href="' + editPath + customerId + '/?from=retail_order&fromId=' + orderId + '" class="btn-small btn btn-info" buttontype="link"><i class="icon-user"></i> Редактировать</a>'
         );
-        //var button = $(".btn-info").length>0 ? $(".btn-info") : $("button[name=yt2]");
-        //console.log(button);
-        //$(button).before("<table id="yw2" class="detail-view table table-striped table-condensed"><tbody><tr class="odd"><th>ID</th><td>"+customerId+"</td></tr><tr class="even"><th>Имя</th><td>"+json.customer.customers_firstname+"</td></tr><tr class="odd"><th>Фамилия</th><td>"+json.customer.customers_lastname+"</td></tr><tr class="even"><th>E-mail</th><td>"+json.customer.customers_email_address+"</td></tr><tr class="odd"><th>Телефон</th><td>"+json.customer.customers_telephone+"</tbody></table>");
     });
     bootbox.hideAll();
     registerGrid('ropgrid');
@@ -108,13 +104,11 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
         },
         success: function (data, textStatus) {
             registerGrid("ropgrid");
-            jQuery("#ropgrid").yiiGridView("update");
+            $.fn.yiiGridView.update("ropgrid", {url:'', data:{}});
         }
     });
 
     bootbox.hideAll();
-    //registerGrid('ropgrid');
-    //jQuery("#ropgrid").yiiGridView("update");
 }
 
 function registerGrid(id) {
