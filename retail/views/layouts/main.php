@@ -64,7 +64,7 @@ jQuery(document).ready(function($){
     $('#login #reset_pass').live('click',function(){
         $.lightbox().close();
         setTimeout(function() {
-            $.lightbox('" . $this->createUrl('/site/recovery') . "',{'width':480, 'height':325, 'modal': true});
+            $.lightbox('" . $this->createUrl('/site/recovery') . "',{'width':430, 'height':300, 'modal': true});
         }, 500);
 
     });
@@ -72,6 +72,8 @@ jQuery(document).ready(function($){
    //восстановление пароля
     $('#recover_submit').live('click',function(){
         if($('#email').val().length!=0){
+            $('.jquery-lightbox-html').addClass('jquery-lightbox-loading');
+            $('.jquery-lightbox-html').css('z-index','99999999');
             $.ajax({
                           type: 'POST',
                           url: '" . $this->createUrl('/site/recovery') . "',
@@ -87,6 +89,8 @@ jQuery(document).ready(function($){
             $.lightbox().shake();
             $('#email').css('border','1px solid #E2136F');
         }
+        $('.jquery-lightbox-html').removeClass('jquery-lightbox-loading');
+        $('.jquery-lightbox-html').css('z-index','7000');
     });
 
     $('#login #login_submit').live('click',function(){
