@@ -6,7 +6,12 @@
 
 /* Specific to example one */
 
-#example-one { padding: 10px; margin: 20px 0 0px 0; float:left; width:270px;  }
+#example-one {
+    padding: 10px 0;
+    margin: 20px 0 0 22px;
+    float:left;
+    width:270px;
+}
 
 #example-one p {
 	font-size:12px;

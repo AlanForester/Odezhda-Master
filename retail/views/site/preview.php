@@ -5,6 +5,32 @@ $this->breadcrumbs=array(
     $product->name.' ('.$product->model.')',
 );
 ?>
+<script type="text/javascript">
+    $('.nav a').click(function(){
+        var clicked=$(this);
+        $('.nav a').each(function(){
+            if($(this).hasClass('current')){
+                current=$(this);
+            } else{
+                notCurrent=$(this);
+            }
+        });
+        console.log(current);
+        console.log(notCurrent);
+        console.log(clicked);
+        if (!clicked.hasClass('current')){
+            console.log('yes');
+
+            current.removeClass('current');
+            notCurrent.addClass('current');
+            $(notCurrent.attr('href')).removeClass('hide');
+            $(current.attr('href')).addClass('hide');
+//            $('"'+notCurrent.href()+'"').removeClass('hide');
+//            $('"'+current.href()+'"').addClass('hide');
+        }
+        return false;
+    });
+</script>
 <div class="karta-wrap">
    <a href="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" class="jqzoom" rel='gal1' title="triumph">
        <img class='prev_img' src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" title="triumph" alt="">
@@ -14,6 +40,32 @@ $this->breadcrumbs=array(
            <p ><?php echo $product->name ?></p>
            <span>Артикул <?php echo $product->model ?></span>
        </div>
+
+
+    <div id="example-one">
+
+        <ul class="nav">
+            <li class="nav-one"><a href="#featured" class="current">ОПИСАНИЕ</a></li>
+            <li class="nav-two"><a href="#core">ДОСТАВКА</a></li>
+        </ul>
+
+        <div class="list-wrap">
+
+            <ul id="featured">
+                <p><?=$product->description ?></p>
+                <?php if($product->manufacturers_id){ ?>
+                    <p>СТРАНА ПРОИЗВОДСТВА: <?=$product->manufacturers ?> </p>
+                <?php } ?>
+            </ul>
+
+            <ul id="core" class="hide">
+                <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom title close to the jQZoom Window.
+                    PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
+            </ul>
+        </div> <!-- END List Wrap -->
+    </div>
+
+
 
        <div class="razmer prev_razmer">
            <?php if(!empty($product->product_options[0])){ ?>
