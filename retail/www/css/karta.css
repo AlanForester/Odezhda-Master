@@ -110,7 +110,7 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .tovar-info {
-    float: right;
+    float: left;
     margin-left: 10px;
     height: auto;
     margin-top: 10px;
@@ -172,8 +172,9 @@ ul#thumblist li a.zoomThumbActive {
 
 .razmer {
     float: left;
-    width: 360px;
+    margin-left: 10px;
     margin-top: 15px;
+    width: 350px;
 }
 
 .razmer .product_size {
@@ -194,7 +195,7 @@ ul#thumblist li a.zoomThumbActive {
 
 .razmer a {
     text-align: right;
-    margin-top: 15px;
+    margin-top: 3px;
     float: left;
     margin-left: 20px;
 }
@@ -578,7 +579,7 @@ ul.yiiPager a {
 }
 
 .prev_razmer {
-    float: right;
+    float: left;
     width: 360px;
     margin-top: 15px;
     margin-left: 12px;

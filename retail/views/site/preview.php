@@ -40,7 +40,25 @@ $this->breadcrumbs=array(
            <p ><?php echo $product->name ?></p>
            <span>Артикул <?php echo $product->model ?></span>
        </div>
-
+    <div class="razmer">
+        <div class="title">
+            <span>РАЗМЕРЫ</span>
+            <a href="#">Таблица размеров</a>
+        </div>
+        <?php if(!empty($product->product_options[0])){ ?>
+                <?php foreach ($product->product_options as $option) { ?>
+        <a href="<?=$option->products_options_values_id ?>" class="razmer-one"><?=$option->products_options_values_name ?></a>
+                <?php }?>
+        <?php } else {?>
+            <p>Нет размеров</p>
+        <?php }?>
+<!--        <a href="#" class="razmer-one">45</a>-->
+<!--        <a href="#" class="razmer-one">56</a>-->
+<!--        <a href="#" class="razmer-one">41</a>-->
+<!--        <a href="#" class="razmer-one-del">48</a>-->
+<!--        <a href="#" class="razmer-one">32</a>-->
+<!--        <a href="#" class="razmer-one">39</a>-->
+    </div>
 
     <div id="example-one">
 
@@ -68,20 +86,6 @@ $this->breadcrumbs=array(
 
 
        <div class="razmer prev_razmer">
-           <?php if(!empty($product->product_options[0])){ ?>
-           <select id="filter_size">
-               <?php foreach ($product->product_options as $option) { ?>
-                   <option value='<?=$option->products_options_values_id ?>'><?=$option->products_options_values_name ?></option>
-               <?php }?>
-           </select>
-           <?php } ?>
-               <div class='prev_info'>
-                   <p><?=$product->description ?></p>
-                    <?php if($product->manufacturers_id){ ?>
-                       <p>СТРАНА ПРОИЗВОДСТВА: <?=$product->manufacturers ?> </p>
-                   <?php } ?>
-
-               </div>
            <span class='prev_price'>
               <?=FormatHelper::markup($product['price']) ?>
            </span>
