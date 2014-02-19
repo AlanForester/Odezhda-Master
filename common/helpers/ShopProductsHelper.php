@@ -14,6 +14,7 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
+        // поиск тестового значения
         if (!empty($data['text_search'])) {
             $condition_params[] = '[[name]]  LIKE :text_search';
             $condition_params[] = 't.[[model]]  LIKE :text_search';
@@ -22,6 +23,7 @@ class ShopProductsHelper {
             $params[':text_search'] = '%' . $data['text_search'] . '%';
         }
 
+        // родительские категории
         if (!empty($data['category'])) {
             $categories = Yii::app()->db->createCommand()
                                         ->select('categories_id,parent_id')
@@ -44,6 +46,7 @@ class ShopProductsHelper {
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
         $criteria = [];
+
         //Формирование критерии
         if (!empty($condition)) {
             $criteria['condition'] = join(' AND ', $condition);
@@ -58,12 +61,12 @@ class ShopProductsHelper {
         if (!empty($data['filter']['size'])) {
             foreach ($data['filter']['size'] as $size) {
                 $condition_params[] = "products_new_option_values.value='" . $size . "'";
-                //    print_r($size);
             }
             $criteria['condition'] = '( ' . join(' OR ', $condition_params) . ' )';
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
 
+        // максимальная и минимальная цена в выборке
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select = 'MAX([[price]]) as max_price,MIN([[price]]) as min_price';
         $priceLimit = self::getModel()
@@ -77,9 +80,7 @@ class ShopProductsHelper {
             $criteria['order'] = new CDbExpression('RAND()');
         }
 
-//        print_r($criteria);
-//        exit;
-
+        // фильтр по цене
         if (!empty($data['min_price']) && !empty($data['max_price'])) {
             $condition[] = 't.[[price]]>=:min_price';
             $condition[] = 't.[[price]]<=:max_price';
@@ -88,32 +89,26 @@ class ShopProductsHelper {
         }
 
         //Повторное формирование критерии
-        $criteria = ['condition' => join(' AND ', $condition),
-                     'params' => $params,
-                     'order' => $criteria['order']
+        $criteria = [
+            'condition' => join(' AND ', $condition),
+            'params' => $params,
+            'order' => $criteria['order']
         ];
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
-//
-//        print_r($criteria);
-//        exit;
 
         $dataProvider = new CActiveDataProvider(
             'ShopProduct',
             [
-
                 'criteria' => $criteria,
                 // todo: вынести в конфиг pageSize
                 'pagination' => ['pageSize' => 12],
-                //                'pagination' => ['pageSize' => 9, 'currentPage' => $data['page']],
             ]
         );
 
-//        print_r($dataProvider->getData());
-//       exit;
         return [
             'dataProvider' => $dataProvider,
             'priceLimit' => $priceLimit
@@ -126,9 +121,10 @@ class ShopProductsHelper {
 //where p.products_status='1' and p.products_id=p2c.products_id and pd.products_id=p2c.products_id and pd.language_id = '" . (int)$languages_id . "' and p2c.categories_id='	' and p.products_sort_order>0 and products_quantity>0
 //order by p.products_sort_order limit ".MAX_PROD_DAY_ACTION."");
 
-        $criteria = ['condition' => 'category_to_product.categories_id=' . $category,
-                     'limit' => 1,
-                     'order' => new CDbExpression('RAND()')
+        $criteria = [
+            'condition' => 'category_to_product.categories_id=' . $category,
+            'limit' => 1,
+            'order' => new CDbExpression('RAND()')
         ];
 //    $criteria=['condition'=>'category_to_product.categories_id='.$category.' AND products_status=1 AND products_sort_order>0 AND products_quantity>0 ',
 //                'limit'=>1,
