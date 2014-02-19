@@ -14,91 +14,84 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
-
-
-        if(!empty($data['text_search'])){
-            $condition_params[]='[[name]]  LIKE :text_search';
-            $condition_params[]='t.[[model]]  LIKE :text_search';
-            $condition_params[]='[[description]]  LIKE :text_search';
-            $condition[]= '( '.join(' OR ',$condition_params).' )';
-            $params[':text_search'] = '%'.$data['text_search'].'%';
+        if (!empty($data['text_search'])) {
+            $condition_params[] = '[[name]]  LIKE :text_search';
+            $condition_params[] = 't.[[model]]  LIKE :text_search';
+            $condition_params[] = '[[description]]  LIKE :text_search';
+            $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
+            $params[':text_search'] = '%' . $data['text_search'] . '%';
         }
 
-        if(!empty($data['category'])){
+        if (!empty($data['category'])) {
             $categories = Yii::app()->db->createCommand()
-                ->select('categories_id,parent_id')
-                ->from('categories')
-                ->where('parent_id=:id',[':id'=>$data['category']])
-                ->queryAll();
+                                        ->select('categories_id,parent_id')
+                                        ->from('categories')
+                                        ->where('parent_id=:id', [':id' => $data['category']])
+                                        ->queryAll();
         }
 
         // фильтр по категории
-        if (isset($data['category']) && empty($categories)){
+        if (isset($data['category']) && empty($categories)) {
             // todo: решить проблему с подстановкой имени связанной таблицы
             $condition [] = 'categories_description.categories_id =:category';
             $params[':category'] = $data['category'];
-        }
-        elseif(isset($data['category']) && !empty($categories)){
+        } elseif (isset($data['category']) && !empty($categories)) {
 
-            foreach($categories as $category){
-                $condition_params[] ='categories_description.categories_id ='.$category['categories_id'];
+            foreach ($categories as $category) {
+                $condition_params[] = 'categories_description.categories_id =' . $category['categories_id'];
             }
             // $condition_params[] ='categories_description.categories_id ='.$data['category'];
-            $condition[]= '( '.join(' OR ',$condition_params).' )';
+            $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
-        $criteria=[];
+        $criteria = [];
         //Формирование критерии
-        if(!empty($condition)){
-            $criteria['condition']  = join(' AND ', $condition);
+        if (!empty($condition)) {
+            $criteria['condition'] = join(' AND ', $condition);
         }
-        if(!empty($params)){
+        if (!empty($params)) {
             $criteria['params'] = $params;
         }
-        if(!empty($data['limit'])){
+        if (!empty($data['limit'])) {
             $criteria['limit'] = $data['limit'];
         }
 
-        if(!empty($data['filter']['size'])){
-            foreach($data['filter']['size'] as $size){
-                $condition_params[]="products_new_option_values.value='".$size."'";
+        if (!empty($data['filter']['size'])) {
+            foreach ($data['filter']['size'] as $size) {
+                $condition_params[] = "products_new_option_values.value='" . $size . "'";
                 //    print_r($size);
             }
-            $criteria['condition']= '( '.join(' OR ',$condition_params).' )';
-            $condition[]= '( '.join(' OR ',$condition_params).' )';
+            $criteria['condition'] = '( ' . join(' OR ', $condition_params) . ' )';
+            $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
 
-
         $criteria_data = new CDbCriteria($criteria);
-        $criteria_data->select='MAX([[price]]) as max_price,MIN([[price]]) as min_price';
-        $priceLimit = self::getModel()->find($criteria_data);
+        $criteria_data->select = 'MAX([[price]]) as max_price,MIN([[price]]) as min_price';
+        $priceLimit = self::getModel()
+                          ->find($criteria_data);
 
-
-        if(!empty($data['order'])){
+        if (!empty($data['order'])) {
             $criteria ['order'] = $data['order'];
         }
 
-        if(!empty($data['random'])){
+        if (!empty($data['random'])) {
             $criteria['order'] = new CDbExpression('RAND()');
         }
 
 //        print_r($criteria);
 //        exit;
 
-
-
-        if(!empty($data['min_price']) && !empty($data['max_price'])){
-            $condition[]='t.[[price]]>=:min_price';
-            $condition[]='t.[[price]]<=:max_price';
+        if (!empty($data['min_price']) && !empty($data['max_price'])) {
+            $condition[] = 't.[[price]]>=:min_price';
+            $condition[] = 't.[[price]]<=:max_price';
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
 
         //Повторное формирование критерии
         $criteria = ['condition' => join(' AND ', $condition),
-            'params' => $params,
-            'order'=>$criteria['order']
+                     'params' => $params,
+                     'order' => $criteria['order']
         ];
-
 
         // разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
@@ -108,8 +101,7 @@ class ShopProductsHelper {
 //        print_r($criteria);
 //        exit;
 
-
-        $dataProvider=new CActiveDataProvider(
+        $dataProvider = new CActiveDataProvider(
             'ShopProduct',
             [
 
@@ -123,33 +115,37 @@ class ShopProductsHelper {
 //        print_r($dataProvider->getData());
 //       exit;
         return [
-            'dataProvider'=>$dataProvider,
-            'priceLimit'=>$priceLimit
+            'dataProvider' => $dataProvider,
+            'priceLimit' => $priceLimit
         ];
     }
-public static function dayProduct($category){
+
+    public static function dayProduct($category) {
 //    $random_product_query = tep_db_query("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, p.products_old_price, p.products_quantity_order_units, p.products_quantity, pd.products_description, pd.products_info, p.products_date_available
 //from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, products_to_categories p2c
 //where p.products_status='1' and p.products_id=p2c.products_id and pd.products_id=p2c.products_id and pd.language_id = '" . (int)$languages_id . "' and p2c.categories_id='	' and p.products_sort_order>0 and products_quantity>0
 //order by p.products_sort_order limit ".MAX_PROD_DAY_ACTION."");
 
-    $criteria=['condition'=>'category_to_product.categories_id='.$category,
-        'limit'=>1,
-        'order' => new CDbExpression('RAND()')
-    ];
+        $criteria = ['condition' => 'category_to_product.categories_id=' . $category,
+                     'limit' => 1,
+                     'order' => new CDbExpression('RAND()')
+        ];
 //    $criteria=['condition'=>'category_to_product.categories_id='.$category.' AND products_status=1 AND products_sort_order>0 AND products_quantity>0 ',
 //                'limit'=>1,
 //                'order' => new CDbExpression('RAND()')
 //                ];
-    $priceLimit = self::getModel()->find($criteria);
-    return $priceLimit;
-}
+        $priceLimit = self::getModel()
+                          ->find($criteria);
 
+        return $priceLimit;
+    }
 
     public static function getProduct($id = null, $scenario = null) {
         if ($id) {
             // todo: вынести код в АР
-            if (!$page = self::getModel()->findByPk($id)) {
+            if (!$page = self::getModel()
+                             ->findByPk($id)
+            ) {
                 return false;
             }
             $relations = $page->relations();
@@ -175,25 +171,28 @@ public static function dayProduct($category){
     }
 
     public static function pathToSmallImg($image) {
-        return 'preview/w50_'.str_replace("/", "_", $image);
+        return 'preview/w50_' . str_replace("/", "_", $image);
     }
+
     public static function pathToMidImg($image) {
-        return 'preview/w240_h320_'.str_replace("/", "_", $image);
+        return 'preview/w240_h320_' . str_replace("/", "_", $image);
     }
+
     public static function pathToLargeImg($image) {
-        return 'images/'.$image;
+        return 'images/' . $image;
     }
 
     public static function previewListImg($product) {
-        $prev_img=[];
-        for($i=1;$i<=6;$i++){
-            $img='products_image_sm_'.$i;
-            if(!empty($product->{$img})){
-                $prev_img[$i]=['small'=> ShopProductsHelper::pathToSmallImg($product->{$img}),
-                    'large'=> ShopProductsHelper::pathToLargeImg($product->{$img})
+        $prev_img = [];
+        for ($i = 1; $i <= 6; $i++) {
+            $img = 'products_image_sm_' . $i;
+            if (!empty($product->{$img})) {
+                $prev_img[$i] = ['small' => ShopProductsHelper::pathToSmallImg($product->{$img}),
+                                 'large' => ShopProductsHelper::pathToLargeImg($product->{$img})
                 ];
             }
         }
+
         return $prev_img;
     }
 
