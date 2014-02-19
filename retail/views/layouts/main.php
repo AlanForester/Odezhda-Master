@@ -292,13 +292,13 @@ $basket = "
 jQuery(document).ready(function($){
     //корзинка
     $('.addToCart').live('click',function(){
-        var size = $(this).siblings('.product_size');
-        if(size.length==0){
-            size =$('#filter_size');
+        var size = $(this).siblings('.product_size').val();
+        if(!size){
+            size = $('a.razmer-one.selected').attr('href');
         }
-        var params = size[0]?size.val():0;
+        var params = size?size:0;
 
-        if(!size[0] || params) {
+        if(!size || params) {
             $.ajax({
                       type: 'POST',
                       url: '" . $this->createUrl('/cart/add') . "',

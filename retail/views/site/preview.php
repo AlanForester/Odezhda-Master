@@ -6,29 +6,35 @@ $this->breadcrumbs=array(
 );
 ?>
 <script type="text/javascript">
-    $('.nav a').click(function(){
-        var clicked=$(this);
-        $('.nav a').each(function(){
-            if($(this).hasClass('current')){
-                current=$(this);
-            } else{
-                notCurrent=$(this);
-            }
-        });
-        console.log(current);
-        console.log(notCurrent);
-        console.log(clicked);
-        if (!clicked.hasClass('current')){
-            console.log('yes');
+    $(document).ready(function(){
+        $('.nav a').click(function(){
+            var clicked=$(this);
+            $('.nav a').each(function(){
+                if($(this).hasClass('current')){
+                    current=$(this);
+                } else{
+                    notCurrent=$(this);
+                }
+            });
+            console.log(current);
+            console.log(notCurrent);
+            console.log(clicked);
+            if (!clicked.hasClass('current')){
+                console.log('yes');
 
-            current.removeClass('current');
-            notCurrent.addClass('current');
-            $(notCurrent.attr('href')).removeClass('hide');
-            $(current.attr('href')).addClass('hide');
-//            $('"'+notCurrent.href()+'"').removeClass('hide');
-//            $('"'+current.href()+'"').addClass('hide');
-        }
-        return false;
+                current.removeClass('current');
+                notCurrent.addClass('current');
+                $(notCurrent.attr('href')).removeClass('hide');
+                $(current.attr('href')).addClass('hide');
+            }
+            return false;
+        });
+
+        $('a.razmer-one').click(function(){
+            $('a.razmer-one.selected').removeClass('selected');
+            $(this).addClass('selected');
+            return false;
+        });
     });
 </script>
 <div class="karta-wrap">
@@ -40,25 +46,17 @@ $this->breadcrumbs=array(
            <p ><?php echo $product->name ?></p>
            <span>Артикул <?php echo $product->model ?></span>
        </div>
+    <?php if(!empty($product->product_options[0])){ ?>
     <div class="razmer">
         <div class="title">
             <span>РАЗМЕРЫ</span>
             <a href="#">Таблица размеров</a>
         </div>
-        <?php if(!empty($product->product_options[0])){ ?>
                 <?php foreach ($product->product_options as $option) { ?>
         <a href="<?=$option->products_options_values_id ?>" class="razmer-one"><?=$option->products_options_values_name ?></a>
                 <?php }?>
-        <?php } else {?>
-            <p>Нет размеров</p>
-        <?php }?>
-<!--        <a href="#" class="razmer-one">45</a>-->
-<!--        <a href="#" class="razmer-one">56</a>-->
-<!--        <a href="#" class="razmer-one">41</a>-->
-<!--        <a href="#" class="razmer-one-del">48</a>-->
-<!--        <a href="#" class="razmer-one">32</a>-->
-<!--        <a href="#" class="razmer-one">39</a>-->
     </div>
+    <?php } ?>
 
     <div id="example-one">
 
