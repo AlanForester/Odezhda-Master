@@ -236,9 +236,8 @@ class NewProduct extends LegacyActiveRecord {
             'categories' => [self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)', 'together' => true],
             //            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
             //            //связь с опциями
-            'product_attributes' => array(self::MANY_MANY, 'ProductAtributes', 'products_id', 'together' => true),
-            //            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-
+//            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+            'product_options' => array(self::MANY_MANY, 'ProductOptions', 'products_attributes(products_id,options_values_id)', 'together' => true),
         ];
     }
 
@@ -288,9 +287,10 @@ class NewProduct extends LegacyActiveRecord {
         return [
             'with' => [
                 'product_description',
-                'categories'
+                'categories',
+//                'product_attributes',
                 //                'categories_description',
-                //                'product_options',
+                                'product_options',
                 //   'products_new_option_values'
             ]
         ];
