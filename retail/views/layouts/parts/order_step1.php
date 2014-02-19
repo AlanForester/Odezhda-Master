@@ -14,7 +14,7 @@
                          <td width="50%" valign="center">
                                 <select id="pickup_method" style="width: auto; height: 50px"  name="order[pickup_method]" required>
                                     <?php foreach($deliveries as $delivery) {?>
-                                        <option style="text-align: center" value="<?=$delivery->ispoint?>"><?=$delivery->name?></option>
+                                        <option style="text-align: center" value="<?=$delivery->id?>"><?=$delivery->name?></option>
                                     <?php }?>
                                 </select>
                             </td>
