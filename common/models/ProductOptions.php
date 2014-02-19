@@ -3,6 +3,7 @@
 class ProductOptions extends LegacyActiveRecord {
 
 
+
     public function tableName() {
         return 'products_options_values';
     }

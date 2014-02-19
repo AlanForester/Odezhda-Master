@@ -204,11 +204,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
 </div>
 
 <div class="catalog-goods">
-    <?php
-    //print_r($dataProvider->getData());exit;
-    ?>
     <?php foreach ($dataProvider->getData() as $product) { ?>
-
         <div class="goods-var">
             <!--                <img src="/images/kofta.png" alt=""/>-->
 
@@ -227,7 +223,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
             <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
             <!--                </button>-->
             <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>'
-               data-options='{"width":900, "height":450, "modal": true}' class='lightbox quick-view'>Быстрый
+               data-options='{"width":750, "height":535, "modal": true}' class='lightbox quick-view'>Быстрый
                 просмотр</a>
 
             <div class="choice">

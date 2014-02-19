@@ -116,20 +116,12 @@ class ShopProductsHelper {
     }
 
     public static function dayProduct($category) {
-//    $random_product_query = tep_db_query("select p.products_id, pd.products_name, p.products_price, p.products_tax_class_id, p.products_image, p.products_old_price, p.products_quantity_order_units, p.products_quantity, pd.products_description, pd.products_info, p.products_date_available
-//from " . TABLE_PRODUCTS . " p, " . TABLE_PRODUCTS_DESCRIPTION . " pd, products_to_categories p2c
-//where p.products_status='1' and p.products_id=p2c.products_id and pd.products_id=p2c.products_id and pd.language_id = '" . (int)$languages_id . "' and p2c.categories_id='	' and p.products_sort_order>0 and products_quantity>0
-//order by p.products_sort_order limit ".MAX_PROD_DAY_ACTION."");
-
         $criteria = [
             'condition' => 'category_to_product.categories_id=' . $category,
             'limit' => 1,
             'order' => new CDbExpression('RAND()')
         ];
-//    $criteria=['condition'=>'category_to_product.categories_id='.$category.' AND products_status=1 AND products_sort_order>0 AND products_quantity>0 ',
-//                'limit'=>1,
-//                'order' => new CDbExpression('RAND()')
-//                ];
+
         $priceLimit = self::getModel()
                           ->find($criteria);
 

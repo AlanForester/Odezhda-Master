@@ -32,6 +32,8 @@ $this->pageButton = [
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
             echo $form->textAreaControlGroup($item, 'description', []);
+            echo $form->textFieldControlGroup($item, 'ordering', []);
+            echo $form->dropDownListControlGroup($item, 'ispoint', [1 => "Да", 0 => "Нет"]);
             ?>
 
         </fieldset>
