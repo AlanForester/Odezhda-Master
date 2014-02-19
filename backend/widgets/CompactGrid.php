@@ -397,19 +397,16 @@ class CompactGrid extends CWidget {
                     ',
                     'summaryText' => 'Записи: {start}-{end} из {count}',
                     'columns' => array_merge(
-                        [
+                        /*[
                             [
                                 'class' => 'backend.widgets.ace.CheckBoxColumn',
 
                                 'checkBoxHtmlOptions' => [
                                     'name' => 'gridids[]'
                                 ],
-                                // todo: перенести в виджет
-                                'headerTemplate' => '<label>{item}<span class="lbl"></span></label>',
                                 'value' => $this->gridIdData,
-                                'checked' => null,
                             ],
-                        ],
+                        ],*/
 
                         $this->gridColumns,
 

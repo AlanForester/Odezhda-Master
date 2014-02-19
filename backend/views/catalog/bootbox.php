@@ -175,10 +175,8 @@ $this->widget(
                 ],
             ],
             [
-                'header' => 'ID',
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                ],
+                'class' => 'backend.widgets.IDColumn',
+                'name' => 'gridids[]',
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
                         selectRetailOrdersProductOptions(

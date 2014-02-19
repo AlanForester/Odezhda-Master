@@ -64,6 +64,12 @@ $this->widget(
 
         'gridColumns' => [
             [
+                'class' => 'backend.widgets.ace.CheckBoxColumn',
+                'checkBoxHtmlOptions' => [
+                    'name' => 'gridids[]'
+                ],
+            ],
+            [
                 'header' => 'Название',
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
