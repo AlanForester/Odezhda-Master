@@ -15,7 +15,7 @@ $this->widget(
             'direct' => $criteria['order']['direction']
         ],
 
-        'textSearch' => $criteria['text_search'],
+        'textSearch' => $criteria['text_search']['value'],
 
         'pageSize' => $criteria['page_size'],
 

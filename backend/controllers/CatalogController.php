@@ -276,6 +276,7 @@ class CatalogController extends BackendController {
             'page_size' => 10
         ];
 
+        //echo '<pre>'.print_r($criteria,1);exit;
         //todo CformModel => AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);

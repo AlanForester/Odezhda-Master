@@ -1,17 +1,23 @@
 //retail order edit
 
-function gridBox(id, grid, title){
+function showBootbox(title) {
     bootbox.dialog({
-        message: grid,
+        message: '<div></div>',
         title: title,
         buttons: {
-            /*success: {
-             label: "Выбрать",
-             className: "btn-small btn-success",
-             callback: function() {
-
-             }
-             },*/
+            success: {
+                label: "ОК",
+                className: "btn-small btn-success",
+                callback: function() {
+                    /*addRetailOrdersProduct(
+                        productId,
+                        orderId,
+                        $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
+                        $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
+                        queuePath
+                    );*/
+                }
+            },
             cancel: {
                 label: "Отмена",
                 className: "btn-small btn-danger",
@@ -21,12 +27,27 @@ function gridBox(id, grid, title){
             }
         }
     });
-    //todo: сразу не срабатывает. возможно, потому, что grid в этот момент еще не отрисован.
-    //позже переделаю
-    setTimeout(function() {
-        //console.log(jQuery("#"+id));
-        registerGrid(id);
-    }, 1000);
+}
+
+function loadGrid(id, url){
+    $.ajax({
+        url: url,
+        //?ajax=catalog_grid&from=bootbox",
+        dataType : "html",
+        success: function (data, textStatus) {
+            //gridBox("catalog_grid", data, "Выбор товара");
+            $(".bootbox-body").html(data);
+            registerGrid(id);
+
+            /*
+            //todo: сразу не срабатывает. возможно, потому, что grid в этот момент еще не отрисован.
+            //позже переделаю
+            setTimeout(function() {
+                //console.log(jQuery("#"+id));
+                registerGrid(id);
+            }, 1000);*/
+        }
+    });
 }
 
 function selectCustomer(event, orderId, infoPath, editPath) {
@@ -55,7 +76,8 @@ function selectCustomer(event, orderId, infoPath, editPath) {
 }
 
 function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPath, queuePath) {
-    bootbox.hideAll();
+    //bootbox.hideAll();
+
     //var event=event||window.event;
     var target = event.target||event.srcElement,
         productId = $(target).closest("tr").find("input[name='gridids[]']").val();
@@ -79,7 +101,20 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
             //orderId: orderId
         },
         success: function (data, textStatus) {
-            bootbox.dialog({
+            $(".bootbox-body").html(data);
+            //registerGrid(id);
+            $(".bootbox .modal-footer .btn-success").show()
+                .bind( "click", function() {
+                    addRetailOrdersProduct(
+                        productId,
+                        orderId,
+                        $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
+                        $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
+                        queuePath
+                    );
+                });
+
+            /*bootbox.dialog({
                 message: data,
                 title: 'Выбор параметров товара',
                 buttons: {
@@ -104,7 +139,7 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
                         }
                     }
                 }
-            });
+            });*/
         }
     });
 

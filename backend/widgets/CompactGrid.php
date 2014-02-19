@@ -225,7 +225,7 @@ class CompactGrid extends CWidget {
         return
             TbHtml::textField(
                 $this->gridId . '_text_search',
-                '',
+                is_string($this->textSearch) ? $this->textSearch : '',
                 [
                     'rel' => 'tooltip',
                     'title' => 'Поиск по текстовым полям',

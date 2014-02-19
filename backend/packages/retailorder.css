@@ -27,3 +27,7 @@
 .bootbox .modal-body .tableFloatingHeader {
     visibility: hidden !important;
 }
+
+.bootbox .modal-footer .btn-success {
+    display: none;
+}
