@@ -342,15 +342,6 @@ $(document).ready(function() {
         $('.goods-slider ul#items').easyPaginate({
                 step:4
         });
-
-        $('#order_step1 input:radio').live('change',function(){
-            if($('#order_step1 input:radio:checked').val() == 'pickup'){
-               $('#pickup_method').show();
-            } else{
-                $('#pickup_method').hide();
-            }
-
-        });
 });
 ";
 
