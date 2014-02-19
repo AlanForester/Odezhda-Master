@@ -156,8 +156,13 @@ class RetailSiteController extends RetailController {
             ]
         );
 
-        foreach ($dataProvider->getData() as $prod){
-            echo $prod->name.': '.$prod->id.'<br>';
+        foreach ($dataProvider->getData() as $n=>$prod){
+            print_r($prod);exit;
+            $categories = [];
+            foreach ($prod->categories as $cat){
+                $categories[] = $cat->id;
+            }
+            echo ($n+1).' - '.$prod->name.': '.$prod->id.' ('.join(',',$categories).')'.'<br>';
         }
     }
 

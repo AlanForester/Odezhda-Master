@@ -12,7 +12,7 @@
  * @property integer $pages_status
  *
  */
-class NewProduct extends LegacyActiveRecord {
+class NewCategory extends LegacyActiveRecord {
 
 //    public $min_price;
 //    public $max_price;
@@ -32,7 +32,6 @@ class NewProduct extends LegacyActiveRecord {
 
                 $relation = $this->getRelated($relName);
                 if (is_array($relation)) {
-                    // todo: работать будет не правильно
                     foreach ($relation as $rel) {
                         if (method_exists($rel, 'getFieldMapName')) {
                             $rel_name = $rel->getFieldMapName($name, false);
@@ -129,7 +128,7 @@ class NewProduct extends LegacyActiveRecord {
 //    }
 
     public function tableName() {
-        return 'products';
+        return 'categories';
     }
 
     /**
@@ -137,29 +136,29 @@ class NewProduct extends LegacyActiveRecord {
      */
     public function fieldMap() {
         return [
-            'products_id' => 'id',
-            'products_price' => 'price',
-            'products_old_price' => 'price_old',
-            'products_tax_class_id' => 'tax_id',
-            'products_ordered' => 'purchases',
-            'products_quantity' => 'quantity',
-            'products_date_added' => 'created',
-            'products_last_modified' => 'modified',
+            'categories_id' => 'id',
+//            'products_price' => 'price',
+//            'products_old_price' => 'price_old',
+//            'products_tax_class_id' => 'tax_id',
+//            'products_ordered' => 'purchases',
+//            'products_quantity' => 'quantity',
+            'date_added' => 'created',
+            'last_modified' => 'modified',
             // если товар виртуальный - код равняется 0
-            'products_weight' => 'weight',
-            'products_model' => 'model',
+//            'products_weight' => 'weight',
+//            'products_model' => 'model',
             //порядок сортировки
-            'products_sort_order' => 'ordering',
+            'sort_order' => 'ordering',
 
-            'products_quantity_order_min' => 'quantity_min',
+//            'products_quantity_order_min' => 'quantity_min',
             //шаг заказа
-            'products_quantity_order_units' => 'quantity_step',
+//            'products_quantity_order_units' => 'quantity_step',
             //грппа checkbox
-            'products_status' => 'status',
-            'products_to_xml' => 'xml',
+            'categories_status' => 'status',
+            'xml_flag' => 'xml',
 
             //фото
-            'products_image' => 'image'
+            'categories_image' => 'image'
         ];
     }
 
@@ -225,22 +224,22 @@ class NewProduct extends LegacyActiveRecord {
 //        );
     }
 
-    public function relations() {
-        return [
-            'product_description' => [self::HAS_ONE, 'NewProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
-
-            // todo: половина тут лишнее
-//            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
+//    public function relations() {
+//        return [
+//            'product_description' => [self::HAS_ONE, 'NewProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
 //
-//            //связь с категориями many to many
-            'categories' => array(self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)','together'=>true),
-//            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
-//            //связь с опциями
-//            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
-//            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-//
-        ];
-    }
+//            // todo: половина тут лишнее
+////            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
+////
+////            //связь с категориями many to many
+//            'category_to_product' => array(self::MANY_MANY, 'NewProductsToCategories', 'products_id', 'together' => true),
+////            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
+////            //связь с опциями
+////            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+////            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
+////
+//        ];
+//    }
 
     /**
      * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР
@@ -284,17 +283,16 @@ class NewProduct extends LegacyActiveRecord {
         ];
     }
 
-    public function defaultScope() {
-        return [
-            'with' => [
-                'product_description',
-                'categories'
-//                'categories_description',
-//                'product_options',
-                //   'products_new_option_values'
-            ]
-        ];
-    }
+//    public function defaultScope() {
+//        return [
+//            'with' => [
+//                'product_description',
+////                'categories_description',
+////                'product_options',
+//                //   'products_new_option_values'
+//            ]
+//        ];
+//    }
 
     /**
      * Returns the static model of the specified AR class.
