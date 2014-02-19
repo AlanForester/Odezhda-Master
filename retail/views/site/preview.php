@@ -85,7 +85,7 @@ $this->breadcrumbs=array(
 
 
 
-       <div class="razmer prev_razmer">
+       <div class="prev_razmer">
            <span class='prev_price'>
               <?=FormatHelper::markup($product['price']) ?>
            </span>

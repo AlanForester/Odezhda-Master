@@ -47,8 +47,8 @@
     /*height: 690px;*/
     padding: 10px 30px;
     position: relative;
-    /*width: 825px;*/
     margin: 6px;
+    width:713px;
 }
 
 .karta-wrap h1 {
@@ -305,23 +305,20 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .prev_basket, a.prev_basket {
-    font-size: 24px;
-    color: #fff;
-    text-transform: uppercase;
-    text-align: center;
-    /*border: none;*/
-    border: solid 1px #fff;
-    width: 220px;
-    height: 50px;
-    background: #E1156F;
+    background: none repeat scroll 0 0 #E1156F;
+    border: 1px solid #FFFFFF;
     border-radius: 7px;
-    -moz-border-radius: 7px;
-    -webkit-border-radius: 7px;
-    line-height: 50px;
-    margin-top: 10px;
+    color: #FFFFFF;
     display: block;
-    float: none;
-    margin-left: 0;
+    float: left;
+    font-size: 24px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 85px;
+    margin-top: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 220px;
 }
 
 a.prev_basket:hover {
@@ -570,19 +567,21 @@ ul.yiiPager a {
 }
 
 .prev_price {
-    font-size: 36px;
     color: #E1156F;
-    font-weight: bold;
     display: block;
-    width: 100% !important;
-    float: none !important;
+    float: left;
+    font-size: 36px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 15px;
 }
 
 .prev_razmer {
-    float: left;
-    width: 360px;
+    /*float: left;*/
+    /*width: 360px;*/
     margin-top: 15px;
     margin-left: 12px;
+    clear: both;
 }
 
 .prev_info {
