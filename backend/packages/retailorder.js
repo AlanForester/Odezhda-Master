@@ -9,13 +9,7 @@ function showBootbox(title) {
                 label: "ОК",
                 className: "btn-small btn-success",
                 callback: function() {
-                    /*addRetailOrdersProduct(
-                        productId,
-                        orderId,
-                        $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
-                        $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
-                        queuePath
-                    );*/
+
                 }
             },
             cancel: {
@@ -38,14 +32,6 @@ function loadGrid(id, url){
             //gridBox("catalog_grid", data, "Выбор товара");
             $(".bootbox-body").html(data);
             registerGrid(id);
-
-            /*
-            //todo: сразу не срабатывает. возможно, потому, что grid в этот момент еще не отрисован.
-            //позже переделаю
-            setTimeout(function() {
-                //console.log(jQuery("#"+id));
-                registerGrid(id);
-            }, 1000);*/
         }
     });
 }
@@ -82,16 +68,6 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
     var target = event.target||event.srcElement,
         productId = $(target).closest("tr").find("input[name='gridids[]']").val();
 
-    /*$.getJSON(infoPath, {
-        id: productId
-    }, function(json){
-        if(json.catalog.products_options_values_id != null) {
-            $.each(json.catalog.products_options_values_id, function( index, value ) {
-
-            });
-        }
-    });*/
-
     $.ajax({
         url: optionsSelectionViewPath + productId,
         type: 'GET',
@@ -114,32 +90,6 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
                     );
                 });
 
-            /*bootbox.dialog({
-                message: data,
-                title: 'Выбор параметров товара',
-                buttons: {
-                    success: {
-                        label: "ОК",
-                        className: "btn-small btn-success",
-                        callback: function() {
-                            addRetailOrdersProduct(
-                                productId,
-                                orderId,
-                                $(".bootbox-body input[name='ShopProduct[quantity]']").val(),  //quantity,
-                                $(".bootbox-body select[name='ShopProduct[size]']").val(),  //size,
-                                queuePath
-                            );
-                        }
-                    },
-                    cancel: {
-                        label: "Отмена",
-                        className: "btn-small btn-danger",
-                        callback: function() {
-
-                        }
-                    }
-                }
-            });*/
         }
     });
 
@@ -157,40 +107,11 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
             'RetailOrdersProducts[size]': size
         },
         success: function (data, textStatus) {
-            //$("#ropgrid").html(data);
             registerGrid("ropgrid");
             jQuery("#ropgrid").yiiGridView("update");
         }
     });
 
-
-
-    /*$.getJSON(infoPath, {
-        id: productId
-    }, function(json){
-        var newRowClass = $("#ropgrid table tbody tr:last-child").hasClass("even") ? 'odd' : 'even';
-        var emptyRow = $("#ropgrid table tbody tr td.empty");
-        if(emptyRow.length>0)
-            $(emptyRow).remove();
-
-        //виртуальные (не сохраненные) товары обозначаются отрицательными ид до тех пор, пока не получат реальный ид
-        var newRowId = -1;
-        $("#ropgrid table tbody tr").each(function( index, element ) {
-            var currentId = $(element).find("input[name='gridids[]']").val();
-            newRowId = currentId <= newRowId ? currentId-1 : newRowId;
-        });
-
-        $("#ropgrid table tbody").append(
-            '<tr class="'+newRowClass+'"><td class="checkbox-column">'
-                + '<label><input type="checkbox" name="gridids[]" value="'+newRowId+'" class="select-on-check"><span class="lbl"></span></label>'
-                + '</td><td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][products_id]" value="'+json.catalog.id+'"><input type="hidden" name="RetailOrdersProducts['+newRowId+'][name]" value="'+json.catalog.name+'">'+json.catalog.name+'</td>'
-                + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][model]" value="'+json.catalog.model+'">'+json.catalog.model+'</td>'
-                + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][attributes][size]" value=""><a href="#" onclick="return false;" class="editable editable-click editable-empty">не задано</a></td>'
-                + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][quantity]" value="1"><a href="#" onclick="return false;" class="editable editable-click editable-empty">не задано</a></td>'
-                + '<td><input type="hidden" name="RetailOrdersProducts['+newRowId+'][price]" value="'+json.catalog.price+'">'+json.catalog.price+'</td>'
-                + '<td width="50px" class="action-buttons"><a href="#" onclick="$(this).closest(\'tr\').remove(); return false;" rel="tooltip" title="" class="red bigger-130" data-original-title="Удалить"><i class="icon-trash"></i></a></td></tr>'
-        );
-    });*/
     bootbox.hideAll();
     //registerGrid('ropgrid');
     //jQuery("#ropgrid").yiiGridView("update");

@@ -254,12 +254,13 @@ class CatalogController extends BackendController {
 
     public function actionSelectOptions($id) {
         $productOptions = [];
-        $product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        //$product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        $product = ShopProduct::model()->with('product_options')->findByPk($id);
         //echo '<pre>'.print_r($product,1);exit;
 
-        if(!empty($product->products_new_option_values)) {
-            foreach ($product->products_new_option_values as $option) {
-                $productOptions[$option['id']] = $option['value'];
+        if(!empty($product->product_options)) {
+            foreach ($product->product_options as $option) {
+                $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
             }
         }
         $this->renderPartial('select_options', compact('product','productOptions','id'));

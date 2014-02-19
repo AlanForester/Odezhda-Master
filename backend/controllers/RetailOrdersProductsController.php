@@ -179,12 +179,10 @@ class RetailOrdersProductsController extends BackendController {
                     //saving error
                 }
             } else {
-                $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
-                $lastSavedRetailProduct = $retailProducts === null ? false : end($retailProducts);
-                $retailProduct['id'] = $lastSavedRetailProduct === false ? -1 : $lastSavedRetailProduct['id']-1;  //(count($retailProducts) + 1) * -1;
-                $retailProducts[] = $retailProduct;
-                Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
-                //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
+                $productsResult = RetailOrdersProductsHelper::queueProduct($retailProduct);
+                if($productsResult !== true) {
+                    //saving error
+                }
             }
         }
     }
