@@ -31,9 +31,10 @@ class RetailDelivery extends LegacyActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return [
-            ['name', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['name', 'required', 'on' => 'add', 'message' => Yii::t('validation', 'Поле "{attribute}" является обязательным')],
             ['name', 'length', 'min'=>1, 'max'=>64, 'encoding' => 'utf-8', 'message' => Yii::t('validation', 'Длина поля {attribute} - не более 64 символов')],
-            ['description', 'length', 'min'=>0, 'max'=>128, 'encoding' => 'utf-8', 'message' => Yii::t('validation', 'Длина поля {attribute} - не более 128 символов')],
+            ['description', 'length', 'min'=>1, 'max'=>64, 'encoding' => 'utf-8', 'message' => Yii::t('validation', 'Длина поля {attribute} - не более 64 символов')],
+            ['ordering', 'numerical', 'message' => Yii::t('validation', 'Поле "{attribute}" должно быть целым числом')],
         ];
     }
 
@@ -42,6 +43,9 @@ class RetailDelivery extends LegacyActiveRecord {
             'id' => Yii::t('labels', 'ID'),
             'name' => Yii::t('labels', 'Название'),
             'description' => Yii::t('labels', 'Описание'),
+            'ispoint' => Yii::t('labels', 'Самовывоз'),
+            'ordering' => Yii::t('labels', 'Позиция'),
+
         ];
     }
 
