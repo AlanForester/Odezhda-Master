@@ -227,18 +227,18 @@ class NewProduct extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            'product_description' => [self::HAS_ONE, 'NewProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
+            'product_description' => [self::HAS_ONE, 'NewProductDescription', 'products_id', 'together' => true],
 
             // todo: половина тут лишнее
-//            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
-//
-//            //связь с категориями many to many
-            'categories' => array(self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)','together'=>true),
-//            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
-//            //связь с опциями
-//            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
-//            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-//
+            //            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
+            //
+            //            //связь с категориями many to many
+            'categories' => [self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)', 'together' => true],
+            //            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
+            //            //связь с опциями
+            'product_attributes' => array(self::MANY_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+            //            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
+
         ];
     }
 
@@ -289,8 +289,8 @@ class NewProduct extends LegacyActiveRecord {
             'with' => [
                 'product_description',
                 'categories'
-//                'categories_description',
-//                'product_options',
+                //                'categories_description',
+                //                'product_options',
                 //   'products_new_option_values'
             ]
         ];
