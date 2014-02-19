@@ -157,7 +157,7 @@ class RetailSiteController extends RetailController {
         );
 
         foreach ($dataProvider->getData() as $n=>$prod){
-            print_r($prod);exit;
+//            print_r($prod);exit;
             $categories = [];
             foreach ($prod->categories as $cat){
                 $categories[] = $cat->id;
