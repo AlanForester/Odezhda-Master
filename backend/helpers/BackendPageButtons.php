@@ -197,13 +197,6 @@ class BackendPageButtons {
                         'onClick' => 'js: (function(){
                                 showBootbox("Выбор покупателя");
                                 loadGrid("customers_grid", "' . Yii::app()->createUrl($url) . '");
-                                /*$.ajax({
-                                    url: "' . Yii::app()->createUrl($url) . '",
-                                    dataType : "html",
-                                    success: function (data, textStatus) {
-                                        gridBox("customers_grid", data, "Выбор покупателя");
-                                    }
-                                });*/
                             })()'
                     ], $option
                 )
@@ -223,14 +216,6 @@ class BackendPageButtons {
                         'onClick' => 'js: (function(){
                                 showBootbox("Выбор товара");
                                 loadGrid("catalog_grid", "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '");
-                                /*$.ajax({
-                                    url: "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '",
-                                        //?ajax=catalog_grid&from=bootbox",
-                                    dataType : "html",
-                                    success: function (data, textStatus) {
-                                        gridBox("catalog_grid", data, "Выбор товара");
-                                    }
-                                });*/
                             })()'
                     ], $option
                 )
@@ -250,7 +235,6 @@ class BackendPageButtons {
                         'onClick' => 'js: (function(){
                             var cb = $("#ropgrid input[name=\'gridids[]\']:checked");
                             var ids = [];
-                            //var formValues = $("#yw0").serialize();
 
                             if (cb.length==0){
                                 bootbox.alert({message:"Выберите минимум один обьект в списке",title:"Ошибка"});
@@ -272,29 +256,6 @@ class BackendPageButtons {
                                                     }
                                                 }
                                             );
-
-                                            /*$.ajax({
-                                                url: "' . Yii::app()->createUrl($url) . $orderId . '",
-                                                    //?ajax=catalog_grid&from=bootbox",
-                                                dataType : "html",
-                                                data: $("#yw0").serialize()
-                                                        + "&mass_action=delete"
-                                                        + "&ajax=ropgrid",
-                                                success: function (data, textStatus) {
-                                                    //$("#ropgrid").html(data);
-                                                    registerGrid("ropgrid");
-                                                    jQuery("#ropgrid").yiiGridView("update");
-                                                }
-                                            });*/
-                                            /*$.fn.yiiGridView.update(
-                                                "ropgrid",
-                                                {
-                                                    url:"' . Yii::app()->createUrl($url) . $orderId . '",
-                                                    data: $("#yw0").serialize()
-                                                        + "&mass_action=delete"
-                                                        //+ "&ids=" + ids
-                                                }
-                                            )*/
                                         }
                                     }
                                 );

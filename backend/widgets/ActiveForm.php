@@ -15,7 +15,8 @@ class ActiveForm extends TbActiveForm {
 
     public function dateTimePickerControlGroup($model, $attribute, $htmlOptions = []) {
         $dateTimePicker = $this->owner->widget(
-            'yiiwheels.widgets.datetimepicker.WhDateTimePicker',
+            //'yiiwheels.widgets.datetimepicker.WhDateTimePicker',
+            'backend.widgets.DateTimePicker',    //исправление подгрузки рус.языка
             $this->processDateTimePickerOptions($model, $attribute, $htmlOptions),
             true
         );
