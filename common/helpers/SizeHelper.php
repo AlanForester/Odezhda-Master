@@ -68,7 +68,7 @@ class SizeHelper {
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
-            'order' => $order_field . ($order_direct ? : ''),
+          //  'order' => $order_field . ($order_direct ? : ''),
         ];
 
         // разрешаем перезаписать любые параметры критерии
@@ -86,6 +86,8 @@ class SizeHelper {
             ]
         );
 
+//                print_r($dataProvider->getData());
+//        exit;
         foreach($dataProvider->getData() as $string){
             $string->oldSizeString=1;
             $data='';

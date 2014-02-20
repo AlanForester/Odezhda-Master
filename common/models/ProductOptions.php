@@ -1,7 +1,7 @@
 <?php
 
 class ProductOptions extends LegacyActiveRecord {
-
+    public static $products_options_values_id;
 
 
     public function tableName() {
@@ -15,7 +15,7 @@ class ProductOptions extends LegacyActiveRecord {
 
     public function fieldMap() {
         return [
-            'products_options_values_id' => 'old_id',
+           // 'products_options_values_id' => 'old_id',
             'products_options_values_name' =>'old_name'
         ];
     }
