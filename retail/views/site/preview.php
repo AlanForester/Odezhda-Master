@@ -7,6 +7,8 @@ $this->breadcrumbs=array(
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
+        $('.razmer-one:first-of-type').addClass('selected');
+
         $('.nav a').click(function(){
             var clicked=$(this);
             $('.nav a').each(function(){
@@ -38,7 +40,7 @@ $this->breadcrumbs=array(
     });
 </script>
 <div class="karta-wrap">
-   <a href="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" class="jqzoom" rel='gal1' title="triumph">
+   <a class="jqzoom" rel='gal1' title="triumph">
        <img class='prev_img' src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" title="triumph" alt="">
    </a>
 
