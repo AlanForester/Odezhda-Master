@@ -21,6 +21,7 @@ a {
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
+    outline-style: none;
 }
 
 a.b {
@@ -1787,7 +1788,7 @@ a#reset_pass {
     margin: 6px 0;
 }
 #karta-product{
-    width: auto;
+    width: 1057px;
     border-radius: 0;
     box-shadow: none;
     margin: 6px 0;
@@ -1805,6 +1806,9 @@ a#reset_pass {
     left: -9999px;
     position: absolute;
     top: -9999px;
+}
+.example-one-add{
+    padding: 0 !important;
 }
 
 
