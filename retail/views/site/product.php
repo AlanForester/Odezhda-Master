@@ -1,5 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
+Yii::app()->clientScript->registerPackage('catalog');
 
 $this->breadcrumbs = array(
     $product->categories_name => $this->createUrl('catalog/list', ['id' => $product->categories_id]),
@@ -28,8 +29,8 @@ $this->breadcrumbs = array(
 
                 current.removeClass('current');
                 notCurrent.addClass('current');
-                $(notCurrent.attr('href')).removeClass('hide');
-                $(current.attr('href')).addClass('hide');
+                $(notCurrent.attr('href')).removeClass('hidden');
+                $(current.attr('href')).addClass('hidden');
             }
             return false;
         });
@@ -106,33 +107,12 @@ $this->breadcrumbs = array(
                             <?php } ?>
                         </ul>
 
-                        <ul id="core" class="hide">
+                        <ul id="core" class="hidden">
                             <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom title close to the jQZoom Window.
                                 PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
                         </ul>
                     </div> <!-- END List Wrap -->
                 </div>
-
-
-
-                <div class="tovar-more-info">
-                    ОПИСАНИЕ
-                    <?= $product->description ?>
-                    <?php if ($product->manufacturers_id) { ?>
-                        <br>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?>
-                    <?php } ?>
-                </div>
-                <?php if(!empty($product->product_options[0]) && !empty($product->product_options[0]->products_new_options_values_name)){ ?>
-                <select id="filter_size">
-                    <?php foreach ($product->product_options as $option) {
-                            if(!empty($option->products_new_options_values_name)){
-                        ?>
-                        <option
-                            value='<?= $option->products_options_values_id ?>'><?= $option->products_new_options_values_name ?></option>
-                        <?php } ?>
-                    <?php } ?>
-                </select>
-                <?php } ?>
             </div>
 
             <div class='inner_price  bottom-price'>

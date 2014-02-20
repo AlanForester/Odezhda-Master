@@ -1801,6 +1801,11 @@ a#reset_pass {
 .inProduct .razmer-one {
     margin-top: 0 !important;
 }
+.hidden{
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
 
 
 
