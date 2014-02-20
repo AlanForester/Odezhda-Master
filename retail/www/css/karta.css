@@ -343,7 +343,7 @@ a.prev_basket:hover {
 }
 
 .bottom-price .btn {
-    float: right;
+    float: left;
     margin-right: 10px;
 }
 
