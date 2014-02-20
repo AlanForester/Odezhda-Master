@@ -104,7 +104,8 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
         },
         success: function (data, textStatus) {
             registerGrid("ropgrid");
-            $.fn.yiiGridView.update("ropgrid", {url:'', data:{}});
+            //$.fn.yiiGridView.update("ropgrid", {url:'', data:{}});
+            $.fn.yiiGridView.update("ropgrid");
         }
     });
 
@@ -126,6 +127,8 @@ function registerGrid(id) {
         "pageVar":"Customer_page",
         "afterAjaxUpdate": function(id, data) {
             $("#"+id).trigger("ajaxUpdate.editable");
+            if(id == 'ropgrid')
+                $("#ropgrid div.keys").attr("title", "");    //очистить параметры предыдущего запроса
             /*(function(){
              $("#"+id).trigger("ajaxUpdateTree");
              }).apply(this, arguments);*/
