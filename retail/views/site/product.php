@@ -1,40 +1,50 @@
 <?php
 Yii::app()->clientScript->registerPackage('product');
+Yii::app()->clientScript->registerPackage('catalog');
 
 $this->breadcrumbs = array(
     $product->categories_name => $this->createUrl('catalog/list', ['id' => $product->categories_id]),
     $product->name . ' (' . $product->model . ')',
 );
 
-$cart = "
-jQuery(document).ready(function($){
-    //корзинка
-    $('#addToCart').live('click',function(){
-        $.ajax({
-                  type: 'POST',
-                  url: '" . $this->createUrl('/cart/add') . "',
-                  data: ({
-                        product_id : '" . $product->id . "',
-                        params : '',
-                  }),
-                  success: function(data) {
-                        if (data){
-                              $('#panel').html(data);
-                              $('.bottom-panel').effect('highlight', {}, 2000);
-                        }
-
-                  }
-              });
-    });
-});
-";
-
-Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_END);
 ?>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.razmer-one:first-of-type').addClass('selected');
 
+        $('.nav a').click(function(){
+            var clicked=$(this);
+            $('.nav a').each(function(){
+                if($(this).hasClass('current')){
+                    current=$(this);
+                } else{
+                    notCurrent=$(this);
+                }
+            });
+            console.log(current);
+            console.log(notCurrent);
+            console.log(clicked);
+            if (!clicked.hasClass('current')){
+                console.log('yes');
+
+                current.removeClass('current');
+                notCurrent.addClass('current');
+                $(notCurrent.attr('href')).removeClass('hidden');
+                $(current.attr('href')).addClass('hidden');
+            }
+            return false;
+        });
+
+        $('a.razmer-one').click(function(){
+            $('a.razmer-one.selected').removeClass('selected');
+            $(this).addClass('selected');
+            return false;
+        });
+    });
+</script>
 <div class="wrapper">
 
-    <div class="karta-wrap">
+    <div class="karta-wrap" id="karta-product">
         <div class="karta-box">
 
             <div class="tovar-slider">
@@ -67,24 +77,42 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
             <div class="tovar-info">
                 <p><?php echo $product->name ?></p>
                 <span>Артикул <?php echo $product->model ?></span>
-                <div class="tovar-more-info">
-                    ОПИСАНИЕ
-                    <?= $product->description ?>
-                    <?php if ($product->manufacturers_id) { ?>
-                        <br>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?>
-                    <?php } ?>
-                </div>
-                <?php if(!empty($product->product_options[0]) && !empty($product->product_options[0]->products_new_options_values_name)){ ?>
-                <select id="filter_size">
-                    <?php foreach ($product->product_options as $option) {
-                            if(!empty($option->products_new_options_values_name)){
-                        ?>
-                        <option
-                            value='<?= $option->products_options_values_id ?>'><?= $option->products_new_options_values_name ?></option>
-                        <?php } ?>
-                    <?php } ?>
-                </select>
+
+                <?php if(!empty($product->product_options[0])){ ?>
+                    <div class="razmer inProduct">
+                        <div class="title">
+                            <span>РАЗМЕРЫ</span>
+                            <a href="#">Таблица размеров</a>
+                        </div>
+                        <?php foreach ($product->product_options as $option) { ?>
+                            <a href="<?=$option->products_options_values_id ?>" class="razmer-one"><?=$option->products_options_values_name ?></a>
+                        <?php }?>
+                    </div>
                 <?php } ?>
+
+
+                <div id="example-one">
+
+                    <ul class="nav">
+                        <li class="nav-one"><a href="#featured" class="current">ОПИСАНИЕ</a></li>
+                        <li class="nav-two"><a href="#core">ДОСТАВКА</a></li>
+                    </ul>
+
+                    <div class="list-wrap">
+
+                        <ul id="featured">
+                            <p><?=$product->description ?></p>
+                            <?php if($product->manufacturers_id){ ?>
+                                <p>СТРАНА ПРОИЗВОДСТВА: <?=$product->manufacturers ?> </p>
+                            <?php } ?>
+                        </ul>
+
+                        <ul id="core" class="hidden">
+                            <p>MYTITLE/IMAGE TITLE: Anchor title and/or image title that will be used to show the zoom title close to the jQZoom Window.
+                                PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
+                        </ul>
+                    </div> <!-- END List Wrap -->
+                </div>
             </div>
 
             <div class='inner_price  bottom-price'>

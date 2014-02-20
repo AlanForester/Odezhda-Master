@@ -1786,6 +1786,26 @@ a#reset_pass {
     box-shadow: none;
     margin: 6px 0;
 }
+#karta-product{
+    width: auto;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 6px 0;
+}
+.inProduct{
+    margin: 0 !important;
+}
+.inProduct .title a{
+    margin-top: 15px;
+}
+.inProduct .razmer-one {
+    margin-top: 0 !important;
+}
+.hidden{
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
 
 
 
