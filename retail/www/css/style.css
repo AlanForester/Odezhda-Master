@@ -1596,7 +1596,7 @@ button.desable {
     border: 1px solid #ccc;
     float: left;
     font-size: 14px;
-    margin-top: 15px;
+    margin-top: 5px;
     /*padding: 3px 5px;*/
     width: 20px;
     color: #9D9D9C;
@@ -1627,7 +1627,7 @@ button.desable {
     /*line-height: 42px;*/
     position: relative;
     left: -85px;
-    margin-top: 15px;
+    margin-top: 5px;
 }
 
 .row {
