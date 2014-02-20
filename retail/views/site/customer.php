@@ -7,7 +7,7 @@ $genders = [''=>'Не указан', 'm'=>'Мужчина', 'f'=>'Женщина
 $yesNo = ['1'=>'Да', '0'=>'Нет'];
 ?>
 <div class="wrapper">
-    <div class="karta-wrap">
+    <div class="karta-wrap" id="profile">
 <?php
 $form = $this->beginWidget(
     'CActiveForm',
