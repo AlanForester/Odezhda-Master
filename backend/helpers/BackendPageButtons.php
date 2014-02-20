@@ -195,13 +195,15 @@ class BackendPageButtons {
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
-                                $.ajax({
+                                showBootbox("Выбор покупателя");
+                                loadGrid("customers_grid", "' . Yii::app()->createUrl($url) . '");
+                                /*$.ajax({
                                     url: "' . Yii::app()->createUrl($url) . '",
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         gridBox("customers_grid", data, "Выбор покупателя");
                                     }
-                                });
+                                });*/
                             })()'
                     ], $option
                 )
@@ -219,14 +221,16 @@ class BackendPageButtons {
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
-                                $.ajax({
+                                showBootbox("Выбор товара");
+                                loadGrid("catalog_grid", "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '");
+                                /*$.ajax({
                                     url: "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '",
                                         //?ajax=catalog_grid&from=bootbox",
                                     dataType : "html",
                                     success: function (data, textStatus) {
                                         gridBox("catalog_grid", data, "Выбор товара");
                                     }
-                                });
+                                });*/
                             })()'
                     ], $option
                 )

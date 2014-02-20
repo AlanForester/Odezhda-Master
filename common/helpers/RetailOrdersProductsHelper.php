@@ -51,4 +51,44 @@ class RetailOrdersProductsHelper extends CommonHelper {
         }
         return true;
     }
+
+    public static function queueProduct($retailProduct) {
+        $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+        $lastSavedRetailProduct = $retailProducts === null ? false : end($retailProducts);
+        $retailProduct['id'] = $lastSavedRetailProduct === false ? -1 : $lastSavedRetailProduct['id']-1;  //(count($retailProducts) + 1) * -1;
+        $retailProducts[] = $retailProduct;
+        Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+        //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
+        return true;
+    }
+
+    public static function deleteQueuedProduct($id) {
+        $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+        foreach($retailProducts as $key => $product) {
+            if($product['id'] == $id) {
+                unset($retailProducts[$key]);
+                Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function updateQueuedProductField($data) {
+        $field = TbArray::getValue('field', $data, false);
+        $rowId = TbArray::getValue('id', $data, false);
+        $value = TbArray::getValue('value', $data, false);
+
+        if ($rowId && $field && $value !== false) {
+            $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+            foreach($retailProducts as $key => $product) {
+                if($product['id'] == $rowId) {
+                    $retailProducts[$key][$field] = $value;
+                    Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

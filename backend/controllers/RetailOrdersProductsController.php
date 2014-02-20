@@ -51,9 +51,16 @@ class RetailOrdersProductsController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        $this->model = new RetailOrdersProducts('update');
-        if (!RetailOrdersProductsHelper::updateField($params)) {
-            $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
+        if($params['id'] > 0) {
+            $this->model = new RetailOrdersProducts('update');
+            if (!RetailOrdersProductsHelper::updateField($params)) {
+                $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
+            }
+
+        } else {
+            if (!RetailOrdersProductsHelper::updateQueuedProductField($params)) {
+                $this->error('Ошибка изменения данных товара');
+            }
         }
     }
 
@@ -121,19 +128,11 @@ class RetailOrdersProductsController extends BackendController {
             }
 
         } else {
-            $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
-            foreach($retailProducts as $key => $product) {
-                //echo $product['id'].'='.$id.'<br>';
-                if($product['id'] == $id) {
-                    unset($retailProducts[$key]);
-                    Yii::app()->user->setFlash(
-                        TbHtml::ALERT_COLOR_INFO,
-                        'Товар удален из заказа'
-                    );
-                    break;
-                }
-            }
-            Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+            if (RetailOrdersProductsHelper::deleteQueuedProduct($id))
+                Yii::app()->user->setFlash(
+                    TbHtml::ALERT_COLOR_INFO,
+                    'Товар удален из заказа'
+                );
         }
     }
 
@@ -179,12 +178,10 @@ class RetailOrdersProductsController extends BackendController {
                     //saving error
                 }
             } else {
-                $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
-                $lastSavedRetailProduct = $retailProducts === null ? false : end($retailProducts);
-                $retailProduct['id'] = $lastSavedRetailProduct === false ? -1 : $lastSavedRetailProduct['id']-1;  //(count($retailProducts) + 1) * -1;
-                $retailProducts[] = $retailProduct;
-                Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
-                //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
+                $productsResult = RetailOrdersProductsHelper::queueProduct($retailProduct);
+                if($productsResult !== true) {
+                    //saving error
+                }
             }
         }
     }

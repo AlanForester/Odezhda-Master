@@ -15,7 +15,7 @@ $this->widget(
             'direct' => $criteria['order']['direction']
         ],
 
-        'textSearch' => $criteria['text_search'],
+        'textSearch' => $criteria['text_search']['value'],
 
         'pageSize' => $criteria['page_size'],
 
@@ -83,9 +83,8 @@ $this->widget(
                 ],
             ],
             [
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                ],
+                'class' => 'backend.widgets.IDColumn',
+                'name' => 'gridids[]',
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
                         selectCustomer(

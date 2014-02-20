@@ -6,6 +6,10 @@
  */
 class CheckBoxColumn extends CCheckBoxColumn {
 
+    public $value = '$data["id"]';
+    public $checked = null;
+    public $headerTemplate='<label>{item}<span class="lbl"></span></label>';
+
     protected function renderDataCellContent($row, $data) {
         ob_start();
         parent::renderDataCellContent($row, $data);

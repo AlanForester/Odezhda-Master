@@ -218,7 +218,7 @@ class Grid extends CWidget {
         return
             TbHtml::textField(
                 'text_search',
-                '',
+                is_string($this->textSearch) ? $this->textSearch : '',  //'',
                 [
                     'rel' => 'tooltip',
                     'title' => 'Поиск по текстовым полям',
