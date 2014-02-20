@@ -152,7 +152,11 @@ class RetailSiteController extends RetailController {
         $dataProvider = new CActiveDataProvider(
             'NewProduct',
             [
-                'pagination' => ['pageSize' => 12]
+                'pagination' => ['pageSize' => 12],
+                'criteria'=>[
+                    'condition'=>'categories.categories_id = 429'
+//                    'group'=>'t0_c0'
+                ]
             ]
         );
 
