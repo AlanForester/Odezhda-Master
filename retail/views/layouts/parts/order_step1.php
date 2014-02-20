@@ -1,5 +1,4 @@
-
-    <div class="box-modal" id="order">
+ <div class="box-modal" id="order">
         <div class="modal-login-left modal-reg">
             <p style="text-align: center">Перепроверьте, пожалуйста, ваш телефон и выберите способ доставки</p>
             <form id="order_step1" method="post" action="javascript:void(null);">
@@ -12,9 +11,9 @@
                     </tr>
                     <tr>
                          <td width="50%" valign="center">
-                                <select id="pickup_method" style="width: auto; height: 50px"  name="order[pickup_method]" required>
+                                 <select id="pickup_method" class="wrapper-dropdown-1"  name="order[pickup_method]" required>
                                     <?php foreach($deliveries as $delivery) {?>
-                                        <option style="text-align: center" value="<?=$delivery->id?>"><?=$delivery->name?></option>
+                                        <option style="text-align: left" value="<?=$delivery->id?>"><?=$delivery->name?></option>
                                     <?php }?>
                                 </select>
                             </td>
