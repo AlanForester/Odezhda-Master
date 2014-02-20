@@ -242,7 +242,7 @@ class CartModel {
                         ->insert($this->orderTables[1], [
                             'retail_orders_id'=>$order_id,
                             'products_id'=>$product['product_id'],
-                            'products_quantity'=>$product['count'],
+                            'quantity'=>$product['count'],
                         ]);
                 }
                 return Yii::app()->db->createCommand()
