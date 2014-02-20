@@ -2,7 +2,7 @@
 
 function showBootbox(title) {
     bootbox.dialog({
-        message: '<div></div>',
+        message: '<div class="ajax-loading"></div>',
         title: title,
         buttons: {
             success: {
@@ -64,6 +64,8 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
     var target = event.target||event.srcElement,
         productId = $(target).closest("tr").find("input[name='gridids[]']").val();
 
+    $(".bootbox-body").html('<div class="ajax-loading"></div>');
+
     $.ajax({
         url: optionsSelectionViewPath + productId,
         type: 'GET',
@@ -73,7 +75,8 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
             //orderId: orderId
         },
         success: function (data, textStatus) {
-            $(".bootbox-body").html(data);
+            $(".bootbox.modal").css({width:'620px',top:'10%',left:'50%'});
+            $(".bootbox.modal .bootbox-body").css({height:'200px'}).html(data);
             //registerGrid(id);
             $(".bootbox .modal-footer .btn-success").show()
                 .bind( "click", function() {
@@ -104,7 +107,8 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
         },
         success: function (data, textStatus) {
             registerGrid("ropgrid");
-            $.fn.yiiGridView.update("ropgrid", {url:'', data:{}});
+            //$.fn.yiiGridView.update("ropgrid", {url:'', data:{}});
+            $.fn.yiiGridView.update("ropgrid");
         }
     });
 
@@ -126,6 +130,8 @@ function registerGrid(id) {
         "pageVar":"Customer_page",
         "afterAjaxUpdate": function(id, data) {
             $("#"+id).trigger("ajaxUpdate.editable");
+            if(id == 'ropgrid')
+                $("#ropgrid div.keys").attr("title", "");    //очистить параметры предыдущего запроса
             /*(function(){
              $("#"+id).trigger("ajaxUpdateTree");
              }).apply(this, arguments);*/

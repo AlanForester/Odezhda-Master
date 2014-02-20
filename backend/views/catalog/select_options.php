@@ -1,4 +1,4 @@
-<div class="span12">
+<div class="span6">
     <?php
     /**
      * @var TbActiveForm $form
@@ -19,7 +19,6 @@
     ?>
     <fieldset>
         <?php
-        //$item = null;
         echo $form->dropDownListControlGroup($product, 'size', $productOptions, ['label'=>'Размер', 'value'=>'']);
         echo $form->numberFieldControlGroup($product, 'quantity', ['label'=>'Количество', 'value'=>'1']);
         ?>
