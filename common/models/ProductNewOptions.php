@@ -73,6 +73,7 @@ class ProductNewOptions extends LegacyActiveRecord {
 
     public function fieldMap() {
         return [
+            'products_new_value_id'=>'id',
             'value' =>'name'
         ];
     }
@@ -82,13 +83,14 @@ class ProductNewOptions extends LegacyActiveRecord {
 //            связь с опциями
            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_new_value_id', 'together' => true),
            'products_option_values' => array(self::HAS_MANY, 'ProductOptions', 'products_options_values_id', 'through' => 'products_to_new_options', 'together' => true)
+//               'products_option_values' => array(self::MANY_MANY, 'ProductOptions', 'products_to_new_options(products_options_values_id,products_new_value_id)', 'together' => false)
         ];
     }
 
     public function defaultScope() {
         return [
             'with' => [
-               'products_to_new_options',
+           //    'products_to_new_options',
                'products_option_values'
             ]
         ];
