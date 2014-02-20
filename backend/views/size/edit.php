@@ -39,6 +39,7 @@ $this->pageButton = [
 
             echo $form->hiddenField($item, 'id', []);
             echo $form->textFieldControlGroup($item, 'name', []);
+//            $mod = (isset($item->rel_old_list)?$item->rel_old_list:null);
             echo $form->dropDownListControlGroup($item,'rel_old_list', $oldOptionList,[
                 'options' =>$selectOldOptions,
                 'multiple'=>'multiple',

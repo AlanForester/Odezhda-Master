@@ -74,7 +74,7 @@ Yii::app()->getClientScript()->registerScript('cart', $cart, CClientScript::POS_
                         <br>СТРАНА ПРОИЗВОДСТВА:   <?= $product->manufacturers ?>
                     <?php } ?>
                 </div>
-                <?php if(!empty($product->product_options[0])){ ?>
+                <?php if(!empty($product->product_options[0]) && !empty($product->product_options[0]->products_new_options_values_name)){ ?>
                 <select id="filter_size">
                     <?php foreach ($product->product_options as $option) {
                             if(!empty($option->products_new_options_values_name)){
