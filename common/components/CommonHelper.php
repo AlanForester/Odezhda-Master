@@ -16,7 +16,7 @@ class CommonHelper {
 
             if(is_array($data['text_search']['columns']))
                 foreach($data['text_search']['columns'] as $column) {
-                    $columnConditions[] = '[['.$column.']] LIKE :text_search';
+                    $columnConditions[] = 't.[['.$column.']] LIKE :text_search';
                 }
             
             $condition[] = '(' . join(

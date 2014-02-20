@@ -1,12 +1,31 @@
 <?php
-//todo откорректировать
-// таблица
 $this->widget(
     'backend.widgets.CompactGrid',
     [
         'gridId' => 'catalog_grid',
 
+        'order' => [
+            'active' => $criteria['order_field'],
+            'fields' => [
+                //'order'=>'Сортировка',
+                //'id' => 'ID',
+                'name' => 'Название',
+                'model' => 'Код товара',
+                //'date_add' => 'Дата добавления',
+                'manufacturers'=>'Производитель',
+                'price' => 'Цена',
+                //'quantity' => 'Кол-во',
+                //'weight' => 'Вес',
+                //'status'=>'Наличие',
+                //'xml'=>'XML',
+
+            ],
+            'direct' => $criteria['order_direct']
+        ],
+
         'pageSize' => $criteria['page_size'],
+
+        'textSearch' => $criteria['text_search'],
 
         'dataProvider' => $gridDataProvider,
 
@@ -156,10 +175,8 @@ $this->widget(
                 ],
             ],
             [
-                'header' => 'ID',
-                'name' => 'id',
-                'headerHtmlOptions' => [
-                ],
+                'class' => 'backend.widgets.IDColumn',
+                'name' => 'gridids[]',
                 'htmlOptions' => [
                     'onClick' => 'js: (function(){
                         selectRetailOrdersProductOptions(

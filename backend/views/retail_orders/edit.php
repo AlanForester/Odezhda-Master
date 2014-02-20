@@ -48,7 +48,7 @@ $this->pageButton = [
                 echo $form->hiddenField($item, 'id', []);
                 echo $form->hiddenField($item, 'customers_id', []);
                 echo $form->dropDownListControlGroup($item, 'retail_orders_statuses_id', $statuses, []);
-                //echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
+                echo $form->dropDownListControlGroup($item, 'delivery_points_id', $deliveryPoints, []);
                 //echo $form->dateFieldControlGroup($item, 'date_purchased', ['value' => $item->date_purchased ? : date("Y-m-d H:i:s")]);
                 //echo $form->dropDownListControlGroup($item, 'default_provider', $defaultProviders, []);
                 echo $form->numberFieldControlGroup($item, 'booker_orders_id', []);
@@ -220,6 +220,12 @@ $this->pageButton = [
 
                             'gridColumns' => [
                                 [
+                                    'class' => 'backend.widgets.ace.CheckBoxColumn',
+                                    'checkBoxHtmlOptions' => [
+                                        'name' => 'gridids[]'
+                                    ],
+                                ],
+                                [
                                     'header' => 'Название',
                                     'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                                     'type' => 'text',
@@ -306,9 +312,11 @@ $this->pageButton = [
 
                             ],
 
-                            'gridButtonsUrl' => [
+                            'gridButtonsUrl' => $item->id ? [
                                 'edit' => 'Yii::app()->createUrl("/retail_orders_products/edit", array("id"=>$data["id"]))',
                                 'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
+                            ] : [
+                                'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))'
                             ]
                         ]
                     );
@@ -321,19 +329,3 @@ $this->pageButton = [
     <input type="hidden" name="form_action" value="save">
     <?php $this->endWidget(); ?>
 </div>
-<script type="text/javascript">
-    //todo: перенести в более подходящее место
-    /*$(document).ready(function() {
-        var ropGrid = $("#rop_grid");
-        if(ropGrid.length>0) {
-            $.ajax({
-                url: "<?= Yii::app()->createUrl('/retail_orders_products/index/').($item->id ? : 0) ?>?ajax=rop_grid",
-                dataType : "html",
-                success: function (data, textStatus) {
-                    $(ropGrid).html(data);
-                }
-            });
-        }
-
-    });*/
-</script>

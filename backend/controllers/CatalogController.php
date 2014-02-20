@@ -254,12 +254,13 @@ class CatalogController extends BackendController {
 
     public function actionSelectOptions($id) {
         $productOptions = [];
-        $product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        //$product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
+        $product = ShopProduct::model()->with('product_options')->findByPk($id);
         //echo '<pre>'.print_r($product,1);exit;
 
-        if(!empty($product->products_new_option_values)) {
-            foreach ($product->products_new_option_values as $option) {
-                $productOptions[$option['id']] = $option['value'];
+        if(!empty($product->product_options)) {
+            foreach ($product->product_options as $option) {
+                $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
             }
         }
         $this->renderPartial('select_options', compact('product','productOptions','id'));
@@ -268,9 +269,15 @@ class CatalogController extends BackendController {
 
     //todo: возможно, стоит совместить с index (скопировано оттуда)
     public function actionBootbox($id = null) {
+        $criteria = [
+            'text_search' => $this->userStateParam('text_search'),
+            'order_field' => $this->userStateParam('order_field'),
+            'order_direct' => $this->userStateParam('order_direct'),
+            //'filter_category' => $this->userStateParam('filter_category'),
+            'page_size' => 10
+        ];
 
-        $criteria = ['page_size' => 10];
-
+        //echo '<pre>'.print_r($criteria,1);exit;
         //todo CformModel => AR
         $this->model = new CatalogModel();
         $catalog = $this->model->getListAndParams($criteria);
@@ -282,12 +289,12 @@ class CatalogController extends BackendController {
             ],
         ]);
         //todo CformModel => AR
-        $categories_model = new ShopCategoriesModel();
+        /*$categories_model = new ShopCategoriesModel();
         $this->categories[''] = '- По категории -';
 
         foreach ($categories_model->getCategoriesList() as $g) {
             $this->categories[$g['id']] = $g['name'];
-        }
+        }*/
 
         $this->renderPartial('bootbox', compact('criteria','gridDataProvider','id'));
     }

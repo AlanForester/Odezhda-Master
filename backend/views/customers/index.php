@@ -46,7 +46,7 @@ $this->widget(
 
         'pageSize' => $criteria['page_size'],
 
-        'textSearch' => $criteria['text_search'],
+        'textSearch' => $criteria['text_search']['value'],
 
         'dataProvider' => $gridDataProvider,
 

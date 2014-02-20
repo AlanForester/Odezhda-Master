@@ -214,21 +214,21 @@ class CartModel {
      * @param $params параметры из формы подтверждения
      */
     public function makeOrder($customer_id, $params){
-//        print_r($params);exit;
         $customerModel=new CustomerModel();
         $customer=$customerModel->getCustomer($customer_id);
         $customer->setAttributes(['phone'=>$params['phone']],false);
-        if(!$customer->save()){
+        if(!$customer->save(false)){
             return false;
         }
 
-        //todo переделать 5 foreign key
-        $delivery=($params['delivery']=='post'? 5 :$params['pickup_method']);
+        $delivery=$params['pickup_method'];
+        
         $products = Yii::app()->db->createCommand()
             ->select('*')
             ->from($this->tableName)
             ->where('customer_id=:id', array(':id'=>$customer_id))
             ->queryAll();
+
         if(!empty($products)){
             Yii::app()->db->createCommand()
                 ->insert($this->orderTables[0], [

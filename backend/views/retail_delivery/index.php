@@ -18,7 +18,9 @@ $this->widget(
             'active' => $criteria['order_field'],
             'fields' => [
                 'name' => 'Название',
+                'description' => 'Описание',
                 'id' => 'ID',
+                'ordering' => 'По позиции',
             ],
             'direct' => $criteria['order_direct']
         ],
@@ -45,11 +47,34 @@ $this->widget(
                 ]
             ],
             [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'name' => 'description',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retail_delivery/update"),
+                ]
+            ],
+            [
                 'name' => 'id',
                 'headerHtmlOptions' => [
                     'width'=>'50'
                 ],
                 'htmlOptions' => [
+                    'style'=>'text-align: center'
+                ],
+            ],[
+                'name' => 'ordering',
+                'headerHtmlOptions' => [
+                    'width'=>'50'
+                ],
+                'htmlOptions' => [
+                    'style'=>'text-align: center'
                 ],
             ],
         ],

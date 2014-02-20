@@ -80,7 +80,9 @@ class ShopProduct extends LegacyActiveRecord {
 
     /**
      * Замена имени поля в подстроке по маске "[[new]]" => "old"
+     *
      * @param mixed $data исходные данные. может быть массивом, обьектом или строкой
+     *
      * @return mixed
      */
 
@@ -108,12 +110,14 @@ class ShopProduct extends LegacyActiveRecord {
                         if (!empty($relations)) {
                             foreach ($relations as $relName => $relData) {
                                 $relClass = $relData[1];
-                                $result = $relClass::model()->getFieldMapName($m[2], false);
+                                $result = $relClass::model()
+                                                   ->getFieldMapName($m[2], false);
                                 if ($result != $m[2]) {
                                     return $alias . $result;
                                 }
                             }
                         }
+
                         return $alias . $this->getFieldMapName($m[2], false);
                     },
                     $data
@@ -173,9 +177,12 @@ class ShopProduct extends LegacyActiveRecord {
                 //                    continue;
                 $relClass = $relData[1];
                 //                $result = array_merge($result,$this->getRelated($relName)->getRules());
-                $result = array_merge($result, $relClass::model()->getRules());
+                $result = array_merge($result, $relClass::model()
+                                                        ->getRules()
+                );
             }
         }
+
         return array_merge(
             $result, [
                        ['status', 'boolean', 'message' => Yii::t('validation', 'Неверное значение поля')],
@@ -205,36 +212,40 @@ class ShopProduct extends LegacyActiveRecord {
         }
 
         return array_merge(
-            $result, [
-                       'id' => Yii::t('labels', 'ID'),
-                       'sort_order' => Yii::t('labels', 'Порядок сортирвки'),
-                       'status' => Yii::t('labels', 'Статус'),
-                       'modified' => Yii::t('labels', 'Изменена'),
-                       'added' => Yii::t('labels', 'Создана'),
-                       'image' => Yii::t('labels', 'Изображение'),
-                   ]
+            $result,
+            [
+                'id' => Yii::t('labels', 'ID'),
+                'sort_order' => Yii::t('labels', 'Порядок сортирвки'),
+                'status' => Yii::t('labels', 'Статус'),
+                'modified' => Yii::t('labels', 'Изменена'),
+                'added' => Yii::t('labels', 'Создана'),
+                'image' => Yii::t('labels', 'Изображение'),
+            ]
         );
     }
 
     public function relations() {
         return [
-            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true,'joinType'=>'INNER JOIN'],
+            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
 
             // todo: половина тут лишнее
-            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true,'joinType'=>'INNER JOIN'),
+            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
+
             //связь с категориями many to many
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
-            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true,'joinType'=>'INNER JOIN'),
+            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
             //связь с опциями
             'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+//            'product_options' => array(self::MANY_MANY, 'ProductOptions', 'products_options_values(products_options_values_id,products_id)', 'through' => 'product_attributes', 'together' => true),
             'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-      //      'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
-       //     'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
+            //      'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
+            //     'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
         ];
     }
 
     /**
      * Перекрываем родительский метод. Устанавливаем атрибуты еще и в связанных АР
+     *
      * @param array $values массив данных для установки
      * @param bool $safeOnly только безопасные атрибуты
      */
@@ -260,11 +271,11 @@ class ShopProduct extends LegacyActiveRecord {
                 //                $relClass::model()->deleteAll('id=:id', array(':id' => $this->id));
                 if (!$this->hasRelated($relName))
                     continue;
-                $this->getRelated($relName)->delete();
+                $this->getRelated($relName)
+                     ->delete();
             }
         }
     }
-
 
     public function behaviors() {
         return [
@@ -280,7 +291,7 @@ class ShopProduct extends LegacyActiveRecord {
                 'product_description',
                 'categories_description',
                 'product_options',
-             //   'products_new_option_values'
+                //   'products_new_option_values'
             ]
         ];
     }
@@ -288,7 +299,9 @@ class ShopProduct extends LegacyActiveRecord {
     /**
      * Returns the static model of the specified AR class.
      * Mandatory method for ActiveRecord descendants.
+     *
      * @param string $className
+     *
      * @return User the static model class
      */
     public static function model($className = __CLASS__) {

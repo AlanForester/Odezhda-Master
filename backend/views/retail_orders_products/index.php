@@ -36,13 +36,12 @@ $this->pageButton = [
     BackendPageButtons::mass("/retail_orders_products/mass/".$id)
 ];
 
-// таблица
 $this->widget(
-    'backend.widgets.Grid',
+    'backend.widgets.CompactGrid',
     [
         'gridId' => 'ropgrid',
 
-        //'submenu' => $submenu,
+        'selectableRows' => 2,
 
         'filter' => $filter,
 
@@ -65,6 +64,13 @@ $this->widget(
 
         'gridColumns' => [
             [
+                'class' => 'backend.widgets.ace.CheckBoxColumn',
+                'checkBoxHtmlOptions' => [
+                    'name' => 'gridids[]'
+                ],
+            ],
+            [
+                'header' => 'Название',
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'name',
@@ -79,6 +85,7 @@ $this->widget(
                 ]
             ],
             [
+                'header' => 'Код модели',
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'model',
@@ -93,6 +100,23 @@ $this->widget(
                 ]
             ],
             [
+                'header' => 'Размер',
+                'value' => '',
+                /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+                'name' => 'size',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/retail_orders_products/update"),
+                ]*/
+            ],
+            [
+                'header' => 'Количество',
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'quantity',
@@ -107,6 +131,7 @@ $this->widget(
                 ]
             ],
             [
+                'header' => 'Цена (за единицу)',
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'name' => 'price',
@@ -120,13 +145,14 @@ $this->widget(
                     'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                 ]
             ],
-            /*[
+            [
+                'header' => 'ID',
                 'name' => 'id',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                 ],
-            ],*/
+            ],
 
         ],
 
