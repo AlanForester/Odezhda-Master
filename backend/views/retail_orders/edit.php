@@ -223,7 +223,7 @@ $this->pageButton = [
                                 [
                                     'class' => 'backend.widgets.ace.CheckBoxColumn',
                                     'checkBoxHtmlOptions' => [
-                                        'name' => 'gridids[]'
+                                        'name' => 'product_ids[]'
                                     ],
                                 ],
                                 [
@@ -322,13 +322,13 @@ $this->pageButton = [
                                         'width' => '70px'
                                     ],
                                     'class' => 'bootstrap.widgets.TbButtonColumn',
-                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                                    //'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
                                     'deleteButtonOptions' => [
                                         'class' => 'red bigger-130',
                                         'title' => 'Удалить товар из заказа',
                                         'onClick' => 'js: (function(){
-                                            removeProduct(event);
+                                            removeRetailOrdersProduct(event);
                                         })()'
                                     ],
                                     'updateButtonOptions' => [

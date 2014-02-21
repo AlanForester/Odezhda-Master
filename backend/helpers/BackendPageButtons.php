@@ -233,7 +233,7 @@ class BackendPageButtons {
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
-                            var cb = $("#ropgrid input[name=\'gridids[]\']:checked");
+                            var cb = $("#ropgrid input[name=\'product_ids[]\']:checked");
                             var ids = [];
 
                             if (cb.length==0){

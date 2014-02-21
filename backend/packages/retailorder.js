@@ -94,11 +94,6 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
 
 }
 
-function removeProduct(event) {
-    //var event=event||window.event;
-    var target = event.target||event.srcElement;
-}
-
 function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
     $.ajax({
         url: queuePath,
@@ -118,6 +113,28 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
     });
 
     bootbox.hideAll();
+}
+
+function removeRetailOrdersProduct(event) {
+    //var event=event||window.event;
+    var target = event.target||event.srcElement;
+    //console.log(target);
+    $(target).closest("tr").remove();
+    regenerateReferrerInfo("#customer_info a.btn-small.btn.btn-info");
+}
+
+function regenerateReferrerInfo(anchorSelector) {
+    var productIds = [],
+        url = $(anchorSelector).attr('href'),
+        updatedUrl = url.substring(0, url.indexOf('?') > 0 ? url.indexOf('?') : url.length) +
+            '?referrer[name]=retail_order&referrer[id]=' + $("input[name='RetailOrders[id]']").val();
+
+    $("#ropgrid input[name=\'product_ids[]\']").each(function(){
+        updatedUrl += '&referrer[product_ids][]=' + $(this).val();
+    });
+
+    $(anchorSelector).attr('href', updatedUrl);
+    //console.log(updatedUrl);
 }
 
 function registerGrid(id) {
