@@ -133,7 +133,7 @@
   padding:0;
 }
 
-/*.jquery-lightbox-mode-html .jquery-lightbox-background*/
+/*..jquery-lightbox-mode-image .jquery-lightbox-button-close .jquery-lightbox-background*/
 /*{*/
   /*background:#FFFFFF;*/
 /*}*/
@@ -190,7 +190,7 @@
 
 .jquery-lightbox-mode-image .jquery-lightbox-button-close
 {
-  right:14px;
+  /*right:14px;*/
   z-index:7002;
 }
 
