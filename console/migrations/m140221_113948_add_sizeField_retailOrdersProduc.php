@@ -15,7 +15,7 @@ class m140221_113948_add_sizeField_retailOrdersProduc extends CDbMigration
 
 	public function down() 
 	{
-        $this->execute("ALTER TABLE  `retail_orders_products` DROP  `size`;");
+        $this->execute("ALTER TABLE  `retail_orders_products` DROP  `params`;");
 	}
 
 }
