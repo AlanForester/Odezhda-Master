@@ -7,6 +7,7 @@ class CartModel {
     private $tableName='retail_customer_cart';
     private $orderTables=['retail_orders','retail_orders_products','retail_orders_statuses'];
     private static  $tblName='retail_customer_cart';
+    private static $sizeTable='products_options_values';
     /**
      * Метод для добавления или обновелния товара в корзине
      * @param $data - массив данных для добавления
@@ -18,11 +19,6 @@ class CartModel {
                 $this->updateProduct($data['customer_id'],$data['product_id'],'plus',$data['params']) :
                 $this->insertProduct($data)
             );
-//            if($this->hasProduct($data['customer_id'],$data['product_id'])){
-//                $this->updateProduct($data['customer_id'],$data['product_id']);
-//            } else {
-//                $this->insertProduct($data);
-//            }
         }
         return false;
     }
@@ -262,5 +258,13 @@ class CartModel {
             }
         }
         return false;
+    }
+
+    public static function getSizeById($id){
+        return Yii::app()->db->createCommand()
+            ->select('products_options_values_name AS name')
+            ->from(self::$sizeTable)
+            ->where('products_options_values_id=:id', array(':id'=>$id))
+            ->queryRow()['name'];
     }
 }
