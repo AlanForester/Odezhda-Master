@@ -36,7 +36,7 @@ class ProductHelper {
     public static function getDataProvider($data = null) {
         $condition = [];
         $params = [];
-
+/*
         // фильтр по тексту
         if (!empty($data['text_search'])) {
             $condition[] = '(' . join(
@@ -48,11 +48,11 @@ class ProductHelper {
                 ) . ')';
 
             $params[':text'] = '%' . $data['text_search'] . '%';
-        }
+        }*/
 
         // поле и направление сортировки
         $order_direct = null;
-        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
+      //  $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
@@ -65,38 +65,38 @@ class ProductHelper {
             }
         }
 
-        $page_Product = TbArray::getValue('page_Product', $data, CPagination::DEFAULT_PAGE_Product);
+        $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
         $criteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
-            'order' => $order_field . ($order_direct ? : ''),
+           // 'condition' => join(' AND ', $condition),
+          //  'params' => $params,
+           // 'order' => $order_field . ($order_direct ? : ''),
         ];
 
         // разрешаем перезаписать любые параметры критерии
-        if (isset($data['criteria'])) {
-            $criteria = array_merge($criteria, $data['criteria']);
-        }
+//        if (isset($data['criteria'])) {
+//            $criteria = array_merge($criteria, $data['criteria']);
+//        }
 
 
 
         $dataProvider=new CActiveDataProvider(
-            'Product',
+            'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ($page_Product == 'all' ? false : ['pageProduct' => $page_Product]),
+                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
 
 
-        foreach($dataProvider->getData() as $string){
-            $string->oldProductString=1;
-            $data='';
-            foreach($string->products_option_values as $key => $products_old){
-                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
-
-            }
-            $string->oldProductString=$data;
-        }
+//        foreach($dataProvider->getData() as $string){
+//            $string->oldProductString=1;
+//            $data='';
+//            foreach($string->products_option_values as $key => $products_old){
+//                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+//
+//            }
+//            $string->oldProductString=$data;
+//        }
 
         return $dataProvider;
     }

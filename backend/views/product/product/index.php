@@ -34,25 +34,25 @@ $this->widget(
     [
         'submenu' => BackendSubMenu::shop(),
 
-        'filter' => [
-            TbHtml::dropDownList(
-                'filter_category',
-                $criteria['filter_category'],
-                $this->categories,
-                [
-                    'onChange' => 'js: (function(){
-                    $.fn.yiiGridView.update(
-                        "whgrid",
-                        {
-                            data:{
-                                filter_category:$("#filter_category").val()
-                            }
-                        }
-                    )
-                })()',
-                ]
-            )/*,$treeView*/
-        ],
+//        'filter' => [
+//            TbHtml::dropDownList(
+//                'filter_category',
+//                $criteria['filter_category'],
+//                $this->categories,
+//                [
+//                    'onChange' => 'js: (function(){
+//                    $.fn.yiiGridView.update(
+//                        "whgrid",
+//                        {
+//                            data:{
+//                                filter_category:$("#filter_category").val()
+//                            }
+//                        }
+//                    )
+//                })()',
+//                ]
+//            )/*,$treeView*/
+//        ],
 
         'order' => [
             'active' => $criteria['order_field'],
@@ -73,11 +73,11 @@ $this->widget(
             'direct' => $criteria['order_direct']
         ],
 
-        'pageSize' => $page_size,
+        //'pageSize' => $page_size,
 
         'textSearch' => $criteria['text_search'],
 
-        'dataProvider'=>$this->gridDataProvider,
+        'dataProvider'=>$gridDataProvider,
 
         'gridColumns' => [
             [
