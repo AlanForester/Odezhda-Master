@@ -8,7 +8,29 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
 //print_r($currentCategoryNumber);exit;
 ?>
 <script>
+
     $(document).ready(function () {
+        //открытие превьюшки товара
+        $('.quick-view').live('click',function(){
+            $.lightbox($(this).attr('href'),{
+                'width':743, 'height':535, 'modal': true,
+                'onOpen': function() {
+                    if (window.pluso)if (typeof window.pluso.start == "function") return;
+                    if (window.ifpluso == undefined) {
+                        window.ifpluso = 1;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('body')[0];
+                        h.appendChild(s);
+                    }
+                }
+            });
+            return false;
+        });
+
         $("#accordion").accordion({
             heightStyle: "content",
             active: <?= $currentCategoryNumber!==false?$currentCategoryNumber:999 ?>
@@ -222,9 +244,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
             <!--                <button class="m-dotted fixed-info quick-view" id="#example5"-->
             <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
             <!--                </button>-->
-            <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>'
-               data-options='{"width":743, "height":535, "modal": true}' class='lightbox quick-view' rel="group1">Быстрый
-                просмотр</a>
+            <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>' class='quick-view' rel="group1">Быстрый просмотр</a>
 
             <div class="choice">
                 <?php if (!empty($product->product_options)) { ?>

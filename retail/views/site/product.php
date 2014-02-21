@@ -21,12 +21,7 @@ $this->breadcrumbs = array(
                     notCurrent=$(this);
                 }
             });
-            console.log(current);
-            console.log(notCurrent);
-            console.log(clicked);
             if (!clicked.hasClass('current')){
-                console.log('yes');
-
                 current.removeClass('current');
                 notCurrent.addClass('current');
                 $(notCurrent.attr('href')).removeClass('hidden');
@@ -35,7 +30,7 @@ $this->breadcrumbs = array(
             return false;
         });
 
-        $('a.razmer-one').click(function(){
+        $('a.razmer-one').live('click',function(){
             $('a.razmer-one.selected').removeClass('selected');
             $(this).addClass('selected');
             return false;

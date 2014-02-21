@@ -18,12 +18,7 @@ $this->breadcrumbs=array(
                     notCurrent=$(this);
                 }
             });
-            console.log(current);
-            console.log(notCurrent);
-            console.log(clicked);
             if (!clicked.hasClass('current')){
-                console.log('yes');
-
                 current.removeClass('current');
                 notCurrent.addClass('current');
                 $(notCurrent.attr('href')).removeClass('hide');
@@ -88,6 +83,26 @@ $this->breadcrumbs=array(
                     PAY ATTENTION: The SMALLIMAGE must be a scaled versione of the BIGIMAGE.</p>
             </ul>
         </div> <!-- END List Wrap -->
+        <div class="footer-social">
+            <script type="text/javascript">(function () {
+                    if (window.pluso)if (typeof window.pluso.start == "function") return;
+                    if (window.ifpluso == undefined) {
+                        window.ifpluso = 1;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('body')[0];
+                        h.appendChild(s);
+                    }
+                })();
+            </script>
+            <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06"
+                 data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/"
+                 data-title="<?= Yii::app()->params['title'] ?>" data-description="">
+            </div>
+        </div>
     </div>
 
 
