@@ -37,12 +37,19 @@ $this->breadcrumbs=array(
             $(this).addClass('selected');
             return false;
         });
+
+        var clientHeight = document.getElementsByClassName('jquery-lightbox-html')[0].clientHeight
+        var scrollHeight = document.getElementsByClassName('jquery-lightbox-html')[0].scrollHeight
+        if(clientHeight!=scrollHeight){
+            $('.jquery-lightbox-html .prev_img').css({'width' : '100%', 'height' : '100%'})
+        }
+
     });
 </script>
 <div class="karta-wrap">
-   <a class="jqzoom" rel='gal1' title="triumph">
+   <div class="jqzoom">
        <img class='prev_img' src="<?= Yii::app()->params['staticUrl'] ?><?=ShopProductsHelper::pathToLargeImg($product->image); ?>" title="triumph" alt="">
-   </a>
+   </div>
 
        <div class='tovar-info'>
            <p ><?php echo $product->name ?></p>
