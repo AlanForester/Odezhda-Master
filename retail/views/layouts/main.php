@@ -150,6 +150,7 @@ jQuery(document).ready(function($){
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
                                 change : 'plus',
+                                params : $(this).nextAll('.prod_params').val(),
                           }),
                           success: function(data) {
                                 if (data){
@@ -178,6 +179,7 @@ jQuery(document).ready(function($){
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
                                 change : 'minus',
+                                params : $(this).nextAll('.prod_params').val(),
                           }),
                           success: function(data) {
                                 if (data){
@@ -202,6 +204,7 @@ jQuery(document).ready(function($){
                           url: '" . $this->createUrl('/cart/deleteProduct') . "',
                           data: ({
                                 product_id : $(this).nextAll('.prod_id').val(),
+                                params : $(this).nextAll('.prod_params').val(),
                           }),
                           success: function(data) {
                                 if (data){

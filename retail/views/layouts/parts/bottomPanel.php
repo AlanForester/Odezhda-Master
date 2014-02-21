@@ -65,7 +65,7 @@ if (!empty($customer_id)){
                         </p>
                         <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?=$product->name ?></a></h3>
                         <span class="artikul"><?= $product->model ?></span>
-                        <span class="params"><?= $values['params'] ?></span>
+                        <span class="artikul">Размер <?= $values['params'] ?></span>
                         <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
                         <span class="price-b"><?=FormatHelper::markupSummary($product->price,$values['count']) ?></span>
                         <button class="changeCount left minus">-</button>
@@ -73,6 +73,7 @@ if (!empty($customer_id)){
                         <button class="changeCount right plus">+</button>
                         <span class="del-good">x</span>
                         <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
+                        <input type="hidden" class="prod_params" value="<?=$values['params'] ?>"/>
                     </li>
                     <?php $sum+=$product->price*$values['count']; }} ?>
             </ul>

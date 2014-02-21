@@ -92,7 +92,6 @@ class CartModel {
      */
     public static function countProducts(){
         $customer_id=Yii::app()->user->id;
-//        $count=0;
         if (!empty($customer_id)){
             $count = Yii::app()->db->createCommand()
                 ->select('SUM(count) AS c')
@@ -131,14 +130,13 @@ class CartModel {
      * Метод для нахождения общей суммы единицы товара в корзине текущего пользователя
      * @return int
      */
-    public function countPriceOfProduct($product_id){
+    public function countPriceOfProduct($product_id, $params){
         $customer_id=Yii::app()->user->id;
         $sum=0;
         if (!empty($customer_id)){
             $catalogModel = new CatalogModel();
-            $count=$this->countItemsOfProduct($product_id);
+            $count=$this->countItemsOfProduct($product_id, $params);
                 if ($product = $catalogModel->productById($product_id)) {
-//                    print_r($product);exit;
                     $sum=$product->price*$count;
         }
         }
@@ -150,14 +148,14 @@ class CartModel {
      * @param $product_id идентификатор товара
      * @return int
      */
-    public function countItemsOfProduct($product_id){
+    public function countItemsOfProduct($product_id, $params){
         $customer_id=Yii::app()->user->id;
 //        $count=0;
         if (!empty($customer_id)){
             $count = Yii::app()->db->createCommand()
                 ->select('count AS c')
                 ->from($this->tableName)
-                ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+                ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
                 ->queryRow()['c'];
         }
         return $count;
@@ -206,9 +204,9 @@ class CartModel {
      * @param $customer_id
      * @param $product_id
      */
-    public function deleteProduct($customer_id, $product_id){
+    public function deleteProduct($customer_id, $product_id,$params){
         return Yii::app()->db->createCommand()
-            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
