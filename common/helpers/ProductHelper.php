@@ -1,6 +1,6 @@
 <?php
 
-class SizeHelper {
+class ProductHelper {
 
     private static $errors = [];
 
@@ -12,7 +12,7 @@ class SizeHelper {
      * Модель точки доставки
      * @param int $id [опционально] id точки. если не указан, вернет массив пустых данных
      * @param string $scenario [опционально] сценарий модели
-     * @return Size
+     * @return Product
      */
     public static function getId($id = null, $scenario = null) {
         $model = self::getModel();
@@ -21,16 +21,16 @@ class SizeHelper {
     }
 
     public static function getOldOptionsList(){
-        $old_sizes = Yii::app()->db->createCommand()
+        $old_Products = Yii::app()->db->createCommand()
             ->select('products_options_values_id as id,products_options_values_name as name')
             ->from('products_options_values')
             ->queryAll();
-        $oldSizesList=[];
-        foreach($old_sizes  as  $elem){
-            $oldSizesList[$elem['id']]=$elem['name'];
+        $oldProductsList=[];
+        foreach($old_Products  as  $elem){
+            $oldProductsList[$elem['id']]=$elem['name'];
         }
 
-        return $oldSizesList;
+        return $oldProductsList;
     }
 
     public static function getDataProvider($data = null) {
@@ -65,7 +65,7 @@ class SizeHelper {
             }
         }
 
-        $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
+        $page_Product = TbArray::getValue('page_Product', $data, CPagination::DEFAULT_PAGE_Product);
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
@@ -80,29 +80,23 @@ class SizeHelper {
 
 
         $dataProvider=new CActiveDataProvider(
-            'ProductNewOptions',
+            'Product',
             [
                 'criteria' => $criteria,
-                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
+                'pagination' => ($page_Product == 'all' ? false : ['pageProduct' => $page_Product]),
             ]
         );
 
 
         foreach($dataProvider->getData() as $string){
-            $string->oldSizeString=1;
+            $string->oldProductString=1;
             $data='';
             foreach($string->products_option_values as $key => $products_old){
                 $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
 
             }
-            $string->oldSizeString=$data;
+            $string->oldProductString=$data;
         }
-
-
-       // $dataProvider->getData()->oldSizesList=$old_sizes;
-
-//        print_r($old_sizes);
-//        exit;
 
         return $dataProvider;
     }
@@ -117,7 +111,7 @@ class SizeHelper {
      * данные для валидации для внешнего использования
      */
     public static function rules() {
-        return Size::model()->getRules();
+        return Product::model()->getRules();
 //        $rules = array_merge(InfoPage::model()->getRules(),InfoPageDescription::model()->getRules());
 //        foreach ($rules as &$r) {
 //            $r[0] = join(',', array_map(function ($el) {
