@@ -80,7 +80,7 @@ class ProductHelper {
 
 
         $dataProvider=new CActiveDataProvider(
-            'ProductNewOptions',
+            'Product',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_Product == 'all' ? false : ['pageProduct' => $page_Product]),
@@ -97,12 +97,6 @@ class ProductHelper {
             }
             $string->oldProductString=$data;
         }
-
-
-       // $dataProvider->getData()->oldProductsList=$old_Products;
-
-//        print_r($old_Products);
-//        exit;
 
         return $dataProvider;
     }

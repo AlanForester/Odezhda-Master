@@ -13,15 +13,14 @@ class ProductController extends BackendController {
             'text_search' => $this->userStateParam('text_search'),
             'order_field' => $this->userStateParam('order_field'),
             'order_direct' => $this->userStateParam('order_direct'),
-            'page_size' => $this->userStateParam('page_Product', CPagination::DEFAULT_PAGE_Product)
+            'page_size' => $this->userStateParam('page_size')
         ];
 
         // получение данных
         $model = new ProductModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-//        print_r($gridDataProvider->getData());
-//        exit;
-        $this->render('index', compact('criteria', 'gridDataProvider'));
+
+        $this->render('product/index', compact('criteria', 'gridDataProvider'));
     }
 
     /**
