@@ -115,19 +115,15 @@ class CartModel {
             $sum = 0;
             if($product_ids){
                 $catalogModel = new CatalogModel();
-                foreach($product_ids as $id=>$count){
-                    if ($product = $catalogModel->productById($id)) {
-                        $sum+=$product->price*$count;
+                foreach($product_ids as $id=>$items){
+                    foreach($items as $value){
+                        if ($product = $catalogModel->productById($id)) {
+                            $sum+=$product->price*$value['count'];
+                        }
                     }
                 }
             }
-//            $count = Yii::app()->db->createCommand()
-//                ->select('SUM(count) AS c')
-//                ->from(self::$tblName)
-//                ->where('customer_id=:id', array(':id'=>$customer_id))
-//                ->queryRow()['c'];
         }
-//        return (isset($count) ? $count : 0);
         return FormatHelper::markup($sum);
     }
 
@@ -184,7 +180,7 @@ class CartModel {
                 [params] => 106
                 [count] => 1
                 )
-    )
+            )
      * если в корзине товаров нет - false
      * @param $customer_id
      * @return bool
@@ -197,13 +193,9 @@ class CartModel {
             ->queryAll();
         if(!empty($product_ids)){
             foreach($product_ids as $val){
-//                $ids[$val['product_id']]=[$val['count']];
-//                $ids[$val['product_id']]['params']=$val['params'];
-//                $ids[$val['product_id']]['count']=$val['count'];
                   $ids[$val['product_id']][]=['params'=>$val['params'], 'count'=>$val['count']];
 
             }
-//            print_r($ids);exit;
             return $ids;
         }
         return false;
