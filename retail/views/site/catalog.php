@@ -223,7 +223,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
             <!--                        onclick="$('#exampleModalmore-goods').arcticmodal()">Быстрый просмотр-->
             <!--                </button>-->
             <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>'
-               data-options='{"width":750, "height":535, "modal": true}' class='lightbox quick-view'>Быстрый
+               data-options='{"width":743, "height":535, "modal": true}' class='lightbox quick-view' rel="group1">Быстрый
                 просмотр</a>
 
             <div class="choice">
@@ -239,7 +239,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
                     <a class="in-basket addToCart">в корзину</a>
                 <?php else: ?>
                     <a href="<?php echo $this->createUrl('site/login') ?>"
-                       data-options='{"width":900, "height":355, "modal": true}' class="in-basket lightbox">в
+                       data-options='{"width":900, "height":355, "modal": true}' class="in-basket lightbox" >в
                         корзину</a>
                 <?php endif; ?>
                 <input type="hidden" class="product_id" value="<?= $product->id ?>"/>

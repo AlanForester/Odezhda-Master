@@ -110,7 +110,7 @@ class RetailOrdersController extends BackendController {
             if($fromId) {
                 $item->customers_id = $fromId;
                 $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
-                $item->customers_city = $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
+                $item->customers_city = $item->customer->default_address==null || $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
                 $item->customers_telephone = $item->customer->customers_telephone;
             }
         } else {
