@@ -315,14 +315,47 @@ $this->pageButton = [
                                     ],
                                 ],
 
+                                [
+                                    'header' => 'Действие',
+                                    'htmlOptions' => [
+                                        'class' => 'action-buttons',
+                                        'width' => '70px'
+                                    ],
+                                    'class' => 'bootstrap.widgets.TbButtonColumn',
+                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+
+                                    'deleteButtonOptions' => [
+                                        'class' => 'red bigger-130',
+                                        'title' => 'Удалить товар из заказа',
+                                        'onClick' => 'js: (function(){
+                                            removeProduct(event);
+                                        })()'
+                                    ],
+                                    'updateButtonOptions' => [
+                                        'class' => 'green bigger-130',
+                                        'title' => 'Изменить товар',
+                                    ],
+                                    'viewButtonOptions' => [
+                                        'class' => 'bigger-130',
+                                        'title' => 'Просмотр',
+                                        'onClick' => 'js: (function(){
+                                            bootbox.alert("Здесь должно быть модальное окно с просмотром всей информации записи, без возможности редактирования");
+                                        })()'
+                                    ],
+
+                                    'viewButtonUrl' => null,
+                                    'updateButtonUrl' => $item->id ? 'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))' : null,
+                                    'deleteButtonUrl' => null,  //'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
+                                ]
+
                             ],
 
-                            'gridButtonsUrl' => $item->id ? [
+                            /*'gridButtonsUrl' => $item->id ? [
                                 'edit' => 'Yii::app()->createUrl("/retail_orders_products/edit", array("id"=>$data["id"]))',
                                 'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
                             ] : [
                                 'delete' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))'
-                            ]
+                            ]*/
                         ]
                     );
                     ?>

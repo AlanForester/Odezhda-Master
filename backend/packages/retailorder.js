@@ -23,7 +23,7 @@ function showBootbox(title) {
     });
 }
 
-function loadGrid(id, url){
+function loadGridIntoBootbox(id, url){
     $.ajax({
         url: url,
         //?ajax=catalog_grid&from=bootbox",
@@ -92,6 +92,11 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
         }
     });
 
+}
+
+function removeProduct(event) {
+    //var event=event||window.event;
+    var target = event.target||event.srcElement;
 }
 
 function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
