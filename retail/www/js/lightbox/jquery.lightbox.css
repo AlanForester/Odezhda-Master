@@ -109,7 +109,7 @@
 {
   position:absolute;
   top:7px;
-  left:7px;
+  left:6px;
   z-index:6999;
   float:left;
   padding:0;
@@ -181,7 +181,9 @@
 }
 
 .jquery-lightbox-button-close span,
-.jquery-lightbox-buttons span
+.jquery-lightbox-buttons span,
+.jquery-lightbox-button-left span,
+.jquery-lightbox-button-right span
 {
   display:none;
 }
@@ -223,35 +225,53 @@
   margin:7px 0 0 0;
 }
 
-.jquery-lightbox-buttons .jquery-lightbox-button-left
+.jquery-lightbox-button-left
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -156px -153px;
-  width:24px;
-  height:39px;
-  float:left;
-  display:inline;
-  margin:7px 0 0 0;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -156px -153px;*/
+    background: url("../slider-clothes/left-c.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 40px;
+    margin-top: 100px;
+    opacity: 0.7;
+    position: absolute;
+    top: 30%;
+    width: 20px;
+    z-index: 99999999;
+    left: 6px;
+  /*width:24px;*/
+  /*height:39px;*/
+  /*float:left;*/
+  /*display:inline;*/
+  /*margin:7px 0 0 0;*/
 }
 
-.jquery-lightbox-buttons .jquery-lightbox-button-left:hover
+.jquery-lightbox-button-left:hover
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -156px -194px;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -156px -194px;*/
 }
 
 
-.jquery-lightbox-buttons .jquery-lightbox-button-right
+.jquery-lightbox-button-right
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -220px -153px;
-  width:24px;
-  height:39px;
-  float:left;
-  display:inline;
-  margin:7px 0 0 0;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -220px -153px;*/
+    background: url("../slider-clothes/right-c.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 40px;
+    margin-top: 100px;
+    opacity: 0.7;
+    position: absolute;
+    top: 30%;
+    width: 20px;
+    z-index: 99999999;
+    right: 8px;
+  /*width:24px;*/
+  /*height:39px;*/
+  /*float:left;*/
+  /*display:inline;*/
+  /*margin:7px 0 0 0;*/
 }
 
-.jquery-lightbox-buttons .jquery-lightbox-button-right:hover
+.jquery-lightbox-button-right:hover
 {
-  background: url(images/jquery-lightbox-theme.png) no-repeat -220px -194px;
+  /*background: url(images/jquery-lightbox-theme.png) no-repeat -220px -194px;*/
 }
 
 
