@@ -421,7 +421,7 @@ a.prev_basket:hover {
     text-align: center;
     width: 280px;
     /*margin-left: 0px;*/
-    margin-left: 10px;
+    margin-left: -6px;
     margin-top: 20px;
 }
 
