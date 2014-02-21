@@ -9,7 +9,7 @@ class m140221_113948_add_sizeField_retailOrdersProduc extends CDbMigration
 
 	public function up() 
 	{
-        $this->execute("ALTER TABLE `retail_orders_products` ADD `size` INT NOT NULL COMMENT 'Размер товара';");
+        $this->execute("ALTER TABLE `retail_orders_products` ADD `params` varchar(255) NOT NULL COMMENT 'Размер товара';");
 
 	}
 
