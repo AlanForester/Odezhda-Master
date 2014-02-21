@@ -14,8 +14,8 @@ class CartModel {
      */
     public function addToCart($data){
         if(!empty($data['product_id'])){
-            return ($this->hasProduct($data['customer_id'],$data['product_id']) ?
-                $this->updateProduct($data['customer_id'],$data['product_id']) :
+            return ($this->hasProduct($data['customer_id'],$data['product_id'],$data['params']) ?
+                $this->updateProduct($data['customer_id'],$data['product_id'],'plus',$data['params']) :
                 $this->insertProduct($data)
             );
 //            if($this->hasProduct($data['customer_id'],$data['product_id'])){
@@ -34,11 +34,12 @@ class CartModel {
      * @param $product_id товар
      * @return bool
      */
-    public function hasProduct($customer_id, $product_id){
+    public function hasProduct($customer_id, $product_id, $params){
         $result = Yii::app()->db->createCommand()
             ->select('*')
             ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+            ->where('customer_id=:customer_id and product_id=:product_id and params=:params',
+                array(':customer_id'=>$customer_id, ':product_id'=>$product_id,':params'=>$params))
             ->queryRow();
         return !empty($result) ? true : false;
     }
@@ -50,11 +51,11 @@ class CartModel {
      * @param $change как изменять(увеличивать или уменьшать)
      * по-умолчанию - увеличиваем
      */
-    public function updateProduct($customer_id, $product_id, $change='plus'){
+    public function updateProduct($customer_id, $product_id, $change='plus',$params){
         $count= Yii::app()->db->createCommand()
             ->select('count')
             ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
             ->queryRow()
             ['count'];
         switch ($change) {
@@ -67,7 +68,7 @@ class CartModel {
         }
         return Yii::app()->db->createCommand()->update($this->tableName, array(
             'count'=> $count,
-        ), 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
@@ -168,21 +169,41 @@ class CartModel {
 
     /**
      * Метод нахождения товаров в корзине пользователя
-     * если в корзине есть товары возвращает ассоциативный массив id_товара => количество
+     * если в корзине есть товары возвращает ассоциативный массив id_товара => [0] =>[размер, количество]
+     * Пример
+     *     [124163] => Array
+                (
+                [0] => Array
+                (
+                [params] => 103
+                [count] => 3
+                )
+
+                [1] => Array
+                (
+                [params] => 106
+                [count] => 1
+                )
+    )
      * если в корзине товаров нет - false
      * @param $customer_id
      * @return bool
      */
     public function getUserProducts($customer_id){
         $product_ids = Yii::app()->db->createCommand()
-            ->select('product_id, count')
+            ->select('product_id, count, params')
             ->from($this->tableName)
             ->where('customer_id=:id', array(':id'=>$customer_id))
             ->queryAll();
         if(!empty($product_ids)){
             foreach($product_ids as $val){
-                $ids[$val['product_id']]=$val['count'];
+//                $ids[$val['product_id']]=[$val['count']];
+//                $ids[$val['product_id']]['params']=$val['params'];
+//                $ids[$val['product_id']]['count']=$val['count'];
+                  $ids[$val['product_id']][]=['params'=>$val['params'], 'count'=>$val['count']];
+
             }
+//            print_r($ids);exit;
             return $ids;
         }
         return false;

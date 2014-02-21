@@ -15,6 +15,7 @@ if (!empty($customer_id)){
             }
         }
     }
+    print_r($product_ids);exit;
 }
 ?>
 
