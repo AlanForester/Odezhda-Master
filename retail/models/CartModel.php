@@ -7,6 +7,7 @@ class CartModel {
     private $tableName='retail_customer_cart';
     private $orderTables=['retail_orders','retail_orders_products','retail_orders_statuses'];
     private static  $tblName='retail_customer_cart';
+    private static $sizeTable='products_options_values';
     /**
      * Метод для добавления или обновелния товара в корзине
      * @param $data - массив данных для добавления
@@ -14,15 +15,10 @@ class CartModel {
      */
     public function addToCart($data){
         if(!empty($data['product_id'])){
-            return ($this->hasProduct($data['customer_id'],$data['product_id']) ?
-                $this->updateProduct($data['customer_id'],$data['product_id']) :
+            return ($this->hasProduct($data['customer_id'],$data['product_id'],$data['params']) ?
+                $this->updateProduct($data['customer_id'],$data['product_id'],'plus',$data['params']) :
                 $this->insertProduct($data)
             );
-//            if($this->hasProduct($data['customer_id'],$data['product_id'])){
-//                $this->updateProduct($data['customer_id'],$data['product_id']);
-//            } else {
-//                $this->insertProduct($data);
-//            }
         }
         return false;
     }
@@ -34,11 +30,12 @@ class CartModel {
      * @param $product_id товар
      * @return bool
      */
-    public function hasProduct($customer_id, $product_id){
+    public function hasProduct($customer_id, $product_id, $params){
         $result = Yii::app()->db->createCommand()
             ->select('*')
             ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+            ->where('customer_id=:customer_id and product_id=:product_id and params=:params',
+                array(':customer_id'=>$customer_id, ':product_id'=>$product_id,':params'=>$params))
             ->queryRow();
         return !empty($result) ? true : false;
     }
@@ -50,11 +47,11 @@ class CartModel {
      * @param $change как изменять(увеличивать или уменьшать)
      * по-умолчанию - увеличиваем
      */
-    public function updateProduct($customer_id, $product_id, $change='plus'){
+    public function updateProduct($customer_id, $product_id, $change='plus',$params){
         $count= Yii::app()->db->createCommand()
             ->select('count')
             ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
             ->queryRow()
             ['count'];
         switch ($change) {
@@ -67,7 +64,7 @@ class CartModel {
         }
         return Yii::app()->db->createCommand()->update($this->tableName, array(
             'count'=> $count,
-        ), 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
@@ -91,7 +88,6 @@ class CartModel {
      */
     public static function countProducts(){
         $customer_id=Yii::app()->user->id;
-//        $count=0;
         if (!empty($customer_id)){
             $count = Yii::app()->db->createCommand()
                 ->select('SUM(count) AS c')
@@ -114,19 +110,15 @@ class CartModel {
             $sum = 0;
             if($product_ids){
                 $catalogModel = new CatalogModel();
-                foreach($product_ids as $id=>$count){
-                    if ($product = $catalogModel->productById($id)) {
-                        $sum+=$product->price*$count;
+                foreach($product_ids as $id=>$items){
+                    foreach($items as $value){
+                        if ($product = $catalogModel->productById($id)) {
+                            $sum+=$product->price*$value['count'];
+                        }
                     }
                 }
             }
-//            $count = Yii::app()->db->createCommand()
-//                ->select('SUM(count) AS c')
-//                ->from(self::$tblName)
-//                ->where('customer_id=:id', array(':id'=>$customer_id))
-//                ->queryRow()['c'];
         }
-//        return (isset($count) ? $count : 0);
         return FormatHelper::markup($sum);
     }
 
@@ -134,14 +126,13 @@ class CartModel {
      * Метод для нахождения общей суммы единицы товара в корзине текущего пользователя
      * @return int
      */
-    public function countPriceOfProduct($product_id){
+    public function countPriceOfProduct($product_id, $params){
         $customer_id=Yii::app()->user->id;
         $sum=0;
         if (!empty($customer_id)){
             $catalogModel = new CatalogModel();
-            $count=$this->countItemsOfProduct($product_id);
+            $count=$this->countItemsOfProduct($product_id, $params);
                 if ($product = $catalogModel->productById($product_id)) {
-//                    print_r($product);exit;
                     $sum=$product->price*$count;
         }
         }
@@ -153,14 +144,14 @@ class CartModel {
      * @param $product_id идентификатор товара
      * @return int
      */
-    public function countItemsOfProduct($product_id){
+    public function countItemsOfProduct($product_id, $params){
         $customer_id=Yii::app()->user->id;
 //        $count=0;
         if (!empty($customer_id)){
             $count = Yii::app()->db->createCommand()
                 ->select('count AS c')
                 ->from($this->tableName)
-                ->where('customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id))
+                ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
                 ->queryRow()['c'];
         }
         return $count;
@@ -168,20 +159,36 @@ class CartModel {
 
     /**
      * Метод нахождения товаров в корзине пользователя
-     * если в корзине есть товары возвращает ассоциативный массив id_товара => количество
+     * если в корзине есть товары возвращает ассоциативный массив id_товара => [0] =>[размер, количество]
+     * Пример
+     *     [124163] => Array
+                (
+                [0] => Array
+                (
+                [params] => 103
+                [count] => 3
+                )
+
+                [1] => Array
+                (
+                [params] => 106
+                [count] => 1
+                )
+            )
      * если в корзине товаров нет - false
      * @param $customer_id
      * @return bool
      */
     public function getUserProducts($customer_id){
         $product_ids = Yii::app()->db->createCommand()
-            ->select('product_id, count')
+            ->select('product_id, count, params')
             ->from($this->tableName)
             ->where('customer_id=:id', array(':id'=>$customer_id))
             ->queryAll();
         if(!empty($product_ids)){
             foreach($product_ids as $val){
-                $ids[$val['product_id']]=$val['count'];
+                  $ids[$val['product_id']][]=['params'=>$val['params'], 'count'=>$val['count']];
+
             }
             return $ids;
         }
@@ -193,9 +200,9 @@ class CartModel {
      * @param $customer_id
      * @param $product_id
      */
-    public function deleteProduct($customer_id, $product_id){
+    public function deleteProduct($customer_id, $product_id,$params){
         return Yii::app()->db->createCommand()
-            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id', array(':customer_id'=>$customer_id, ':product_id'=>$product_id));
+            ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
@@ -251,5 +258,13 @@ class CartModel {
             }
         }
         return false;
+    }
+
+    public static function getSizeById($id){
+        return Yii::app()->db->createCommand()
+            ->select('products_options_values_name AS name')
+            ->from(self::$sizeTable)
+            ->where('products_options_values_id=:id', array(':id'=>$id))
+            ->queryRow()['name'];
     }
 }

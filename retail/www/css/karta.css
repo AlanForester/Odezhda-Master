@@ -103,10 +103,11 @@ ul#thumblist li a.zoomThumbActive {
 }
 
 .jqzoom {
-    text-decoration: none;
     float: left;
+    height: 425px;
     margin-right: 60px;
-
+    text-decoration: none;
+    width: 280px;
 }
 
 .tovar-info {
@@ -343,7 +344,7 @@ a.prev_basket:hover {
 }
 
 .bottom-price .btn {
-    float: right;
+    float: left;
     margin-right: 10px;
 }
 
@@ -534,7 +535,7 @@ a.prev_basket:hover {
 
 .slider-clothes .jcarousel li .info {
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     left: 0;
     width: 100%;
     text-align: center;
@@ -574,6 +575,8 @@ ul.yiiPager a {
 .prev_img {
     width: 280px;
     border-radius: 10px;
+    /*height: 100%;*/
+    /*width: 100%;*/
 }
 
 .prev_price {

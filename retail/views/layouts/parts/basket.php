@@ -27,6 +27,7 @@
                         <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?= $product->name ?></a>
                         </h3>
                         <span class="artikul"><?= $product->model ?></span>
+                        <span class="size"><?= $product->model ?></span>
                         <span class="price-g"><?= FormatHelper::markup($product->price) ?></span>
                         <span
                             class="price-b"><?= FormatHelper::markupSummary($product->price, $product_ids[$product->id]) ?></span>

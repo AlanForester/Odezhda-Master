@@ -652,7 +652,7 @@
 .bottom-price .price-main {
     float: left;
     margin-top: 10px;
-    width: 200px;
+    width: auto;
     margin-left: 60px;
 }
 
@@ -713,13 +713,13 @@
     margin-top: 3px;
 }
 
-.footer-social {
-    margin-top: 50px;
-    float: left;
-    text-align: center;
-    width: 120%;
-    margin-left: -30px;
-}
+/*.footer-social {*/
+    /*margin-top: 50px;*/
+    /*float: left;*/
+    /*text-align: center;*/
+    /*width: 120%;*/
+    /*margin-left: -30px;*/
+/*}*/
 
 .footer-social a {
     text-align: center;

@@ -60,12 +60,12 @@
 }
 
 .jcarousel-control-prev {
-    left: 8px;
+    left: 0;
 	background:url(left.png) no-repeat;
 }
 
 .jcarousel-control-next {
-    right: 5px;
+    right: 0;
 	background:url(right.png) no-repeat;
 }
 

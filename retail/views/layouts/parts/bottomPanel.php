@@ -15,6 +15,7 @@ if (!empty($customer_id)){
             }
         }
     }
+//    print_r($product_ids);exit;
 }
 ?>
 
@@ -53,32 +54,28 @@ if (!empty($customer_id)){
     <div class="goods-slider">
         <div id="container">
             <ul id="items">
-                <?php $sum=0; foreach($products as $product) { ?>
+                <?php $sum=0; foreach($products as $product) {
+                    foreach($product_ids[$product->id] as $values){
+                    ?>
                     <li>
                         <p class="image"><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>">
                                 <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
                             </a>
-<!--                            <select class="goods-count">-->
-<!--                                --><?php //for($i=1;$i<100;$i++){
-//                                    if($i==$product_ids[$product->id]){?>
-<!--                                        <option selected="selected">--><?//=$i?><!--</option>-->
-<!--                                    --><?php //continue;}?>
-<!--                                <option>--><?//=$i?><!--</option>-->
-<!--                                --><?php //}?>
-<!--                            </select>-->
 
                         </p>
                         <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?=$product->name ?></a></h3>
                         <span class="artikul"><?= $product->model ?></span>
+                        <span class="artikul">Размер <?= CartModel::getSizeById($values['params']) ?></span>
                         <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
-                        <span class="price-b"><?=FormatHelper::markupSummary($product->price,$product_ids[$product->id]) ?></span>
+                        <span class="price-b"><?=FormatHelper::markupSummary($product->price,$values['count']) ?></span>
                         <button class="changeCount left minus">-</button>
-                        <span class="sel-count count"><?=$product_ids[$product->id] ?></span>
+                        <span class="sel-count count"><?=$values['count'] ?></span>
                         <button class="changeCount right plus">+</button>
                         <span class="del-good">x</span>
                         <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
+                        <input type="hidden" class="prod_params" value="<?=$values['params'] ?>"/>
                     </li>
-                    <?php $sum+=$product->price*$product_ids[$product->id]; } ?>
+                    <?php $sum+=$product->price*$values['count']; }} ?>
             </ul>
 
         </div>

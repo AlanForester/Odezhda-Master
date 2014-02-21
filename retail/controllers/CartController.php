@@ -51,12 +51,13 @@ class CartController extends RetailController {
         if (!empty($customer_id)){
             $product_id = Yii::app()->request->getParam('product_id');
             $change = Yii::app()->request->getParam('change');
+            $params = Yii::app()->request->getParam('params');
             $model = new CartModel();
-            if($model->updateProduct($customer_id,$product_id,$change)){
-                $data['items'] = $model->countItemsOfProduct($product_id);
+            if($model->updateProduct($customer_id,$product_id,$change,$params)){
+                $data['items'] = $model->countItemsOfProduct($product_id, $params);
                 $data['products'] = CartModel::countProducts();
                 $data['total_price']=CartModel::countPrices();
-                $data['price']=$model->countPriceOfProduct($product_id);
+                $data['price']=$model->countPriceOfProduct($product_id, $params);
                 echo json_encode($data);
                 Yii::app()->end();
             }
@@ -67,8 +68,9 @@ class CartController extends RetailController {
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
             $product_id = Yii::app()->request->getParam('product_id');
+            $params = Yii::app()->request->getParam('params');
             $model = new CartModel();
-            if($model->deleteProduct($customer_id,$product_id)){
+            if($model->deleteProduct($customer_id,$product_id,$params)){
 //                $this->actionShow(true);
                 $this->renderPartial("/layouts/parts/bottomPanel");
             }

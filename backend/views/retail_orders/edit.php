@@ -207,6 +207,7 @@ $this->pageButton = [
             <div>
                 <div class="span12">
                     <?php
+                    $modelName = Yii::app()->controller->action->id == 'edit' ? 'RetailOrdersProducts' : '';
                     $this->widget(
                         'backend.widgets.CompactGrid',
                         [
@@ -227,8 +228,9 @@ $this->pageButton = [
                                 ],
                                 [
                                     'header' => 'Название',
-                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
+                                    'modelName' => $modelName,
                                     'name' => 'name',
                                     'headerHtmlOptions' => [
                                     ],
@@ -242,8 +244,9 @@ $this->pageButton = [
                                 ],
                                 [
                                     'header' => 'Код модели',
-                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
+                                    'modelName' => $modelName,
                                     'name' => 'model',
                                     'headerHtmlOptions' => [
                                     ],
@@ -273,8 +276,9 @@ $this->pageButton = [
                                 ],
                                 [
                                     'header' => 'Количество',
-                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
+                                    'modelName' => $modelName,
                                     'name' => 'quantity',
                                     'headerHtmlOptions' => [
                                     ],
@@ -288,8 +292,9 @@ $this->pageButton = [
                                 ],
                                 [
                                     'header' => 'Цена (за единицу)',
-                                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                                    'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
+                                    'modelName' => $modelName,
                                     'name' => 'price',
                                     'headerHtmlOptions' => [
                                     ],
@@ -327,5 +332,17 @@ $this->pageButton = [
     </div>
     <br><br>
     <input type="hidden" name="form_action" value="save">
-    <?php $this->endWidget(); ?>
+    <?php $this->endWidget();
+
+    /*if(empty($productsGridDataProvider->data)) {
+        //исправление для строк, динамически добавляемых в пустой список,
+        //без которого в таких случаях редактирование параметров не работало
+        Yii::app()->clientScript->registerScriptFile(
+            Yii::app()->assetManager->publish(
+                Yii::getPathOfAlias('yiiwheels.widgets.editable.assets.bootstrap-editable.js') . DIRECTORY_SEPARATOR . 'bootstrap-editable.js'
+            ),
+            CClientScript::POS_END
+        );
+    }*/
+    ?>
 </div>

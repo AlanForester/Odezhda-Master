@@ -31,3 +31,8 @@
 .bootbox .modal-footer .btn-success {
     display: none;
 }
+
+.ajax-loading {
+    height: 502px;
+    background: transparent url(images/loading-bar.gif) no-repeat center;
+}
