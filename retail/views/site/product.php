@@ -115,7 +115,7 @@ $this->breadcrumbs = array(
     </div>
 
     <div class="bottom-price">
-        <div class="footer-social">
+        <div class="footer-social product">
             <script type="text/javascript">(function () {
                     if (window.pluso)if (typeof window.pluso.start == "function") return;
                     if (window.ifpluso == undefined) {
