@@ -306,14 +306,14 @@ $this->pageButton = [
                                         'url' => Yii::app()->createUrl("/retail_orders_products/update"),
                                     ]
                                 ],
-                                [
+                                /*[
                                     'header' => 'ID',
                                     'name' => 'id',
                                     'headerHtmlOptions' => [
                                     ],
                                     'htmlOptions' => [
                                     ],
-                                ],
+                                ],*/
 
                                 [
                                     'header' => 'Действие',

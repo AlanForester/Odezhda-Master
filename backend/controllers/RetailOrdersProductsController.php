@@ -58,7 +58,7 @@ class RetailOrdersProductsController extends BackendController {
             }
 
         } else {
-            if (!RetailOrdersProductsHelper::updateQueuedProductField($params)) {
+            if (!RetailOrdersProductsHelper::updateProductStorageField($params, 'RetailOrdersProductsQueue')) {
                 $this->error('Ошибка изменения данных товара');
             }
         }

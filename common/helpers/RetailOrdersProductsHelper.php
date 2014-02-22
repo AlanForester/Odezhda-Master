@@ -74,17 +74,17 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }
 
-    public static function updateQueuedProductField($data) {
+    public static function updateProductStorageField($data, $storageName) {
         $field = TbArray::getValue('field', $data, false);
         $rowId = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);
 
         if ($rowId && $field && $value !== false) {
-            $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
+            $retailProducts = Yii::app()->session[$storageName];
             foreach($retailProducts as $key => $product) {
                 if($product['id'] == $rowId) {
                     $retailProducts[$key][$field] = $value;
-                    Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+                    Yii::app()->session[$storageName] = $retailProducts;
                     return true;
                 }
             }
@@ -93,14 +93,29 @@ class RetailOrdersProductsHelper extends CommonHelper {
     }
 
     public static function createProductEditingStorage($orderId) {
-        $retailProducts = RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId));
+        $retailProducts = [];
+        foreach(RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId)) as $product) {
+            $retailProducts[$product->id] = $product->attributes;
+        }
         Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
         echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
-        return true;
     }
 
     public static function applyProductEditingStorage($a, $orderId) {
-        $retailProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        foreach($storageProducts as $storageProduct) {
+            if(!empty($storageProduct['deleted'])) {
+                if($storageProduct['id'] > 0)
+                    RetailOrdersProducts::model()->deleteByPk($storageProduct['id']);
+            } else {
+                $product = $storageProduct['id'] > 0 ? RetailOrdersProducts::model()->findByPk($storageProduct['id'])
+                    : new RetailOrdersProducts();
+                $product->setAttributes($storageProduct);
+                if(!$product->save())
+                    return false;
 
+            }
+        }
+        return true;
     }
 }
