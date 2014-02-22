@@ -37,7 +37,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return isset($_POST[$name]) ? $_POST[$name] : [];
     }
 
-    public static function saveNewProducts($products, $orderId) {
+    public static function insertProducts($products, $orderId) {
         if($products && $orderId) {
             //echo '<pre>'.print_r($products,1);exit;
             foreach($products as $product) {
@@ -90,5 +90,17 @@ class RetailOrdersProductsHelper extends CommonHelper {
             }
         }
         return false;
+    }
+
+    public static function createProductEditingStorage($orderId) {
+        $retailProducts = RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId));
+        Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
+        echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
+        return true;
+    }
+
+    public static function applyProductEditingStorage($a, $orderId) {
+        $retailProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+
     }
 }

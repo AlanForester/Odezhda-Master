@@ -133,7 +133,7 @@ class RetailOrdersController extends BackendController {
                 $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
                 $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
-                    RetailOrdersProductsHelper::saveNewProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                    RetailOrdersProductsHelper::insertProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
                     true;
 
                 if ($productsResult !== true) {
@@ -165,6 +165,15 @@ class RetailOrdersController extends BackendController {
                     CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' розничного заказа')
                 );
             }
+
+        } else {
+            //открытие страницы редактирования.
+            //создаем временное хранилище товаров заказа,
+            //изменения в котором будут сохранены в бд
+            //при сохранении заказа
+            if($id)
+                RetailOrdersProductsHelper::createProductEditingStorage($id);
+
         }
 
 

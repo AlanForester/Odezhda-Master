@@ -173,7 +173,7 @@ class RetailOrdersProductsController extends BackendController {
             ];
 
             if(!empty($input['orderId'])) {
-                $productsResult = RetailOrdersProductsHelper::saveNewProducts([$retailProduct], $input['orderId']);
+                $productsResult = RetailOrdersProductsHelper::insertProducts([$retailProduct], $input['orderId']);
                 if($productsResult !== true) {
                     //saving error
                 }
