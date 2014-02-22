@@ -445,11 +445,11 @@ a.prev_basket:hover {
     background-image: url("../images/odnoklassniki.png")!important;
 }
 .pluso-wrap a{
-    background-size: 37px 37px !important;
+    background-size: 36px 36px !important;
     background-position: 0!important;
     width: 37px!important;
     height: 37px!important;
-    margin: 0 5px !important;
+    margin: 0 4px !important;
     opacity: 0.7;
     -webkit-transition: all 400ms;
     -moz-transition: all 400ms;
