@@ -1749,6 +1749,9 @@ a#reset_pass {
 .example-one-add{
     padding: 0 !important;
 }
+.pluso-more{
+    display: none !important;
+}
 
 
 

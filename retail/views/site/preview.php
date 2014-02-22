@@ -39,6 +39,23 @@ $this->breadcrumbs=array(
             $('.jquery-lightbox-html .prev_img').css({'width' : '100%', 'height' : '100%'})
         }
 
+        (function () {
+            delete window.pluso;
+            delete window.ifpluso;
+            if (window.pluso)if (typeof window.pluso.start == "function") return;
+            if (window.ifpluso == undefined) {
+                console.log(2222);
+                window.ifpluso = 1;
+                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                s.type = 'text/javascript';
+                s.charset = 'UTF-8';
+                s.async = true;
+                s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                var h = d[g]('body')[0];
+                h.appendChild(s);
+            }
+        })();
+
     });
 </script>
 <div class="karta-wrap">
@@ -84,20 +101,7 @@ $this->breadcrumbs=array(
             </ul>
         </div> <!-- END List Wrap -->
         <div class="footer-social">
-            <script type="text/javascript">(function () {
-                    if (window.pluso)if (typeof window.pluso.start == "function") return;
-                    if (window.ifpluso == undefined) {
-                        window.ifpluso = 1;
-                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
-                        s.type = 'text/javascript';
-                        s.charset = 'UTF-8';
-                        s.async = true;
-                        s.src = ('https:' == window.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
-                        var h = d[g]('body')[0];
-                        h.appendChild(s);
-                    }
-                })();
-            </script>
+
             <div class="pluso" data-background="transparent" data-options="medium,round,line,horizontal,nocounter,theme=06"
                  data-services="vkontakte,facebook,google,twitter,odnoklassniki" data-url="odezhda-master.ru/"
                  data-title="<?= Yii::app()->params['title'] ?>" data-description="">
