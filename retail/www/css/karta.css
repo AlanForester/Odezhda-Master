@@ -445,10 +445,10 @@ a.prev_basket:hover {
     background-image: url("../images/odnoklassniki.png")!important;
 }
 .pluso-wrap a{
-    background-size: 36px 36px !important;
+    background-size: 37px 37px !important;
     background-position: 0!important;
-    width: 36px!important;
-    height: 36px!important;
+    width: 37px!important;
+    height: 37px!important;
     margin: 0 5px !important;
     opacity: 0.7;
     -webkit-transition: all 400ms;
@@ -463,6 +463,7 @@ a.prev_basket:hover {
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /* Internet Explorer */
     -o-transform: rotate(30deg); /* Opera */
     transform: rotate(30deg);
+    -webkit-transform: rotate(30deg); /*Chrome*/
     opacity: 1;
 }
 
