@@ -172,7 +172,7 @@ class RetailOrdersController extends BackendController {
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
             if($id)
-                RetailOrdersProductsHelper::createProductEditingStorage($id);
+                RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }
 

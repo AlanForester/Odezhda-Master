@@ -52,12 +52,13 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return true;
     }
 
-    public static function queueProduct($retailProduct) {
-        $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
-        $lastSavedRetailProduct = $retailProducts === null ? false : end($retailProducts);
-        $retailProduct['id'] = $lastSavedRetailProduct === false ? -1 : $lastSavedRetailProduct['id']-1;  //(count($retailProducts) + 1) * -1;
+    public static function addProductToStorage($retailProduct, $storageName) {
+        $retailProducts = Yii::app()->session[$storageName];
+        $lastAddedRetailProduct = $retailProducts === null ? false : end($retailProducts);
+        $retailProduct['id'] = $lastAddedRetailProduct === false || $lastAddedRetailProduct['id'] > 0 ? -1
+            : $lastAddedRetailProduct['id']-1;
         $retailProducts[] = $retailProduct;
-        Yii::app()->session['RetailOrdersProductsQueue'] = $retailProducts;
+        Yii::app()->session[$storageName] = $retailProducts;
         //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
         return true;
     }
@@ -92,19 +93,31 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }
 
-    public static function createProductEditingStorage($orderId) {
+    public static function createProductsEditingStorage($orderId) {
         $retailProducts = [];
         foreach(RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId)) as $product) {
             $retailProducts[$product->id] = $product->attributes;
         }
         Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
-        echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
+        //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
     }
 
-    public static function applyProductEditingStorage($a, $orderId) {
+    public static function removeProductFromEditingStorage($id) {
+        $retailProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        foreach($retailProducts as $key => $product) {
+            if($product['id'] == $id) {
+                $retailProducts[$key]['removed'] = 1;
+                Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static function applyProductsEditingStorage($a, $orderId) {
         $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
         foreach($storageProducts as $storageProduct) {
-            if(!empty($storageProduct['deleted'])) {
+            if(!empty($storageProduct['removed'])) {
                 if($storageProduct['id'] > 0)
                     RetailOrdersProducts::model()->deleteByPk($storageProduct['id']);
             } else {

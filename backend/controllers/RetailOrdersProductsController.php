@@ -178,7 +178,7 @@ class RetailOrdersProductsController extends BackendController {
                     //saving error
                 }
             } else {
-                $productsResult = RetailOrdersProductsHelper::queueProduct($retailProduct);
+                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct, 'RetailOrdersProductsQueue');
                 if($productsResult !== true) {
                     //saving error
                 }
