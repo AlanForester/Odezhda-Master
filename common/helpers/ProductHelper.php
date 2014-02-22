@@ -1,6 +1,6 @@
 <?php
 
-class SizeHelper {
+class ProductHelper {
 
     private static $errors = [];
 
@@ -12,7 +12,7 @@ class SizeHelper {
      * Модель точки доставки
      * @param int $id [опционально] id точки. если не указан, вернет массив пустых данных
      * @param string $scenario [опционально] сценарий модели
-     * @return Size
+     * @return Product
      */
     public static function getId($id = null, $scenario = null) {
         $model = self::getModel();
@@ -21,22 +21,22 @@ class SizeHelper {
     }
 
     public static function getOldOptionsList(){
-        $old_sizes = Yii::app()->db->createCommand()
+        $old_Products = Yii::app()->db->createCommand()
             ->select('products_options_values_id as id,products_options_values_name as name')
             ->from('products_options_values')
             ->queryAll();
-        $oldSizesList=[];
-        foreach($old_sizes  as  $elem){
-            $oldSizesList[$elem['id']]=$elem['name'];
+        $oldProductsList=[];
+        foreach($old_Products  as  $elem){
+            $oldProductsList[$elem['id']]=$elem['name'];
         }
 
-        return $oldSizesList;
+        return $oldProductsList;
     }
 
     public static function getDataProvider($data = null) {
         $condition = [];
         $params = [];
-
+/*
         // фильтр по тексту
         if (!empty($data['text_search'])) {
             $condition[] = '(' . join(
@@ -48,11 +48,11 @@ class SizeHelper {
                 ) . ')';
 
             $params[':text'] = '%' . $data['text_search'] . '%';
-        }
+        }*/
 
         // поле и направление сортировки
         $order_direct = null;
-        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
+      //  $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
@@ -67,20 +67,20 @@ class SizeHelper {
 
         $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
         $criteria = [
-            'condition' => join(' AND ', $condition),
-            'params' => $params,
-            'order' => $order_field . ($order_direct ? : ''),
+           // 'condition' => join(' AND ', $condition),
+          //  'params' => $params,
+           // 'order' => $order_field . ($order_direct ? : ''),
         ];
 
         // разрешаем перезаписать любые параметры критерии
-        if (isset($data['criteria'])) {
-            $criteria = array_merge($criteria, $data['criteria']);
-        }
+//        if (isset($data['criteria'])) {
+//            $criteria = array_merge($criteria, $data['criteria']);
+//        }
 
 
 
         $dataProvider=new CActiveDataProvider(
-            'ProductNewOptions',
+            'ShopProduct',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
@@ -88,21 +88,15 @@ class SizeHelper {
         );
 
 
-        foreach($dataProvider->getData() as $string){
-            $string->oldSizeString=1;
-            $data='';
-            foreach($string->products_option_values as $key => $products_old){
-                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
-
-            }
-            $string->oldSizeString=$data;
-        }
-
-
-       // $dataProvider->getData()->oldSizesList=$old_sizes;
-
-//        print_r($old_sizes);
-//        exit;
+//        foreach($dataProvider->getData() as $string){
+//            $string->oldProductString=1;
+//            $data='';
+//            foreach($string->products_option_values as $key => $products_old){
+//                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+//
+//            }
+//            $string->oldProductString=$data;
+//        }
 
         return $dataProvider;
     }
@@ -117,7 +111,7 @@ class SizeHelper {
      * данные для валидации для внешнего использования
      */
     public static function rules() {
-        return Size::model()->getRules();
+        return Product::model()->getRules();
 //        $rules = array_merge(InfoPage::model()->getRules(),InfoPageDescription::model()->getRules());
 //        foreach ($rules as &$r) {
 //            $r[0] = join(',', array_map(function ($el) {

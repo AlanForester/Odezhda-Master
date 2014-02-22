@@ -321,12 +321,14 @@ ul#thumblist li a.zoomThumbActive {
     border-radius: 7px;
     color: #FFFFFF;
     display: block;
-    float: left;
+    float: right;
     font-size: 24px;
     height: 50px;
     line-height: 50px;
     margin-left: 85px;
-    margin-top: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
     text-align: center;
     text-transform: uppercase;
     width: 220px;
@@ -344,7 +346,7 @@ a.prev_basket:hover {
 }
 
 .bottom-price .btn {
-    float: left;
+    float: right;
     margin-right: 10px;
 }
 
@@ -419,39 +421,49 @@ a.prev_basket:hover {
 .footer-social {
     float: left;
     text-align: center;
-    width: 280px;
+    /*width: 280px;*/
     /*margin-left: 0px;*/
-    margin-left: 10px;
+    margin-left: -6px;
     margin-top: 20px;
 }
-
-.footer-social a {
-    text-align: center;
-    margin-left: 0;
-    -webkit-transition: all 400ms;
-    -moz-transition: all 400ms;
-    -o-transition: all 400ms;
-    transition: all 400ms;
+.footer-social.product{
+    margin-left: 20px;
 }
-
-.footer-social a img {
-    width: 36px;
-    height: 36px;
+.pluso-vkontakte{
+    background-image: url("../images/vk.png")!important;
 }
-
-.footer-social a img {
+.pluso-facebook{
+    background-image: url("../images/facebook.png")!important;
+}
+.pluso-google{
+    background-image: url("../images/google.png")!important;
+}
+.pluso-twitter{
+    background-image: url("../images/twitter.png")!important;
+}
+.pluso-odnoklassniki{
+    background-image: url("../images/odnoklassniki.png")!important;
+}
+.pluso-wrap a{
+    background-size: 36px 36px !important;
+    background-position: 0!important;
+    width: 37px!important;
+    height: 37px!important;
+    margin: 0 4px !important;
     opacity: 0.7;
     -webkit-transition: all 400ms;
     -moz-transition: all 400ms;
     -o-transition: all 400ms;
     transition: all 400ms;
+    text-align: center;
 }
 
-.footer-social a img:hover {
+.footer-social a:hover {
     -moz-transform: rotate(30deg); /* Firefox */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1); /* Internet Explorer */
     -o-transform: rotate(30deg); /* Opera */
     transform: rotate(30deg);
+    -webkit-transform: rotate(30deg); /*Chrome*/
     opacity: 1;
 }
 
@@ -563,10 +575,6 @@ a.prev_basket:hover {
     float: left;
 }
 
-.pluso-wrap a {
-    margin: 0 8px !important;
-}
-
 ul.yiiPager a {
     font-weight: normal;
     border-radius: 8px;
@@ -595,6 +603,10 @@ ul.yiiPager a {
     margin-top: 15px;
     margin-left: 12px;
     clear: both;
+
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .prev_info {

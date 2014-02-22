@@ -21,6 +21,7 @@ a {
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
     text-decoration: none;
+    outline-style: none;
 }
 
 a.b {
@@ -1748,6 +1749,10 @@ a#reset_pass {
 .example-one-add{
     padding: 0 !important;
 }
+.pluso-more{
+    display: none !important;
+}
+
 
 
 

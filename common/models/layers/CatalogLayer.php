@@ -268,7 +268,6 @@ class CatalogLayer {
 
         if ($id) {
             // обновление группы
-
         } else {
             // если есть пустой id в параметрах - удаяем
             if (array_key_exists('id', $data)) {
