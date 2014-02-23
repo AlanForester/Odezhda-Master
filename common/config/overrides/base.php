@@ -38,11 +38,20 @@ return [
  			'logging' => true,
  			'dryRun' => false
  		],
-
-        // http://www.yiiframework.com/extension/email/
-//        'email'=> [
-//            'class'=>'application.extensions.email.Email',
-//            'delivery'=>'php',
+        // Example for smtp
+//        'mail' => [
+//            'class' => 'ext.mail.YiiMail',
+//            'transportType' => 'smtp',
+//            'transportOptions'=>[
+//                'host'=>'smtp.gmail.com',
+//                'username'=>'yourmail@gmail.com',
+//                'password'=>'yourpass',
+//                'port'=>'465',
+//                'encryption'=>'ssl'
+//            ],
+//            'viewPath' => 'application.views.mail',
+//            'logging' => true,
+//            'dryRun' => false
 //        ],
 
         'db' => [ 
