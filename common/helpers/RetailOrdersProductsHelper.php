@@ -37,7 +37,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return isset($_POST[$name]) ? $_POST[$name] : [];
     }
 
-    public static function insertProducts($products, $orderId) {
+    /*public static function insertProducts($products, $orderId) {
         if($products && $orderId) {
             //echo '<pre>'.print_r($products,1);exit;
             foreach($products as $product) {
@@ -50,7 +50,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
             }
         }
         return true;
-    }
+    }*/
 
     public static function addProductToStorage($retailProduct, $storageName) {
         $retailProducts = Yii::app()->session[$storageName];
@@ -114,18 +114,26 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }
 
-    public static function applyProductsEditingStorage($a, $orderId) {
+    public static function applyProductsEditingStorage($orderId) {
         $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
         foreach($storageProducts as $storageProduct) {
             if(!empty($storageProduct['removed'])) {
-                if($storageProduct['id'] > 0)
-                    RetailOrdersProducts::model()->deleteByPk($storageProduct['id']);
+                if($storageProduct['id'] > 0) {
+                    $model = RetailOrdersProducts::model();
+                    if(!$model->deleteByPk($storageProduct['id']))
+                        return $model;
+                }
             } else {
-                $product = $storageProduct['id'] > 0 ? RetailOrdersProducts::model()->findByPk($storageProduct['id'])
-                    : new RetailOrdersProducts();
-                $product->setAttributes($storageProduct);
-                if(!$product->save())
-                    return false;
+                if($orderId) {
+                    $model = $storageProduct['id'] > 0 ? RetailOrdersProducts::model()->findByPk($storageProduct['id'])
+                        : new RetailOrdersProducts('add');
+                    unset($storageProduct['id']);
+                    //echo '<pre>'.print_r($storageProduct,1);exit;
+                    $model->setAttributes($storageProduct);
+                    $model->retail_orders_id = $orderId;
+                    if(!$model->save())
+                        return $model;
+                }
 
             }
         }

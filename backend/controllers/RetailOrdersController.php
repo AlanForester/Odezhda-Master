@@ -130,10 +130,10 @@ class RetailOrdersController extends BackendController {
             $result = $item->save();
 
             if ($result) {
-                $id = $id ? $id : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
+                $id = $id ? : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-                $productsResult = Yii::app()->session['RetailOrdersProductsQueue'] ?
-                    RetailOrdersProductsHelper::insertProducts(Yii::app()->session['RetailOrdersProductsQueue'], $id) :
+                $productsResult = Yii::app()->session['RetailOrdersProductsEditingStorage'] ?
+                    RetailOrdersProductsHelper::applyProductsEditingStorage($id) :
                     true;
 
                 if ($productsResult !== true) {
@@ -143,7 +143,7 @@ class RetailOrdersController extends BackendController {
                         CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
                     );
                 } else {
-                    unset(Yii::app()->session['RetailOrdersProductsQueue']);
+                    //unset(Yii::app()->session['RetailOrdersProductsEditingStorage']);
                     // выкидываем сообщение
                     Yii::app()->user->setFlash(
                         TbHtml::ALERT_COLOR_INFO,
@@ -171,38 +171,30 @@ class RetailOrdersController extends BackendController {
             //создаем временное хранилище товаров заказа,
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
-            if($id)
+            //if($id)
                 RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }
 
 
         $productsCriteria = [
-            /*'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],*/
-            'page_size' => 10,  //$this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
+            'page_size' => 10,
         ];
         $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        if($id) {
+        /*if($id) {
             $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
             $productsGridDataProvider->setSort(false);
 
-        } else {
+        } else {*/
             //товары из сессии, подготовленные для сохранения
             $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
                 [
-                    Yii::app()->session['RetailOrdersProductsQueue']
+                    Yii::app()->session['RetailOrdersProductsEditingStorage']
                 ],
                 $productsCriteria['page_size']
             );
-        }
+        //}
 
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
