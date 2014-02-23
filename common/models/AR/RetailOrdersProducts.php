@@ -28,7 +28,7 @@ class RetailOrdersProducts extends LegacyActiveRecord {
         // will receive user inputs.
         return [
             ['retail_orders_id, products_id, quantity', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
-            ['name, model, quantity, price, products_id, retail_orders_id', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
+            ['name, model, quantity, price, params, products_id, retail_orders_id', 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
         ];
     }
 
@@ -46,6 +46,7 @@ class RetailOrdersProducts extends LegacyActiveRecord {
             'name' => Yii::t('labels', 'Название'),
             'quantity' => Yii::t('labels', 'Количество'),
             'price' => Yii::t('labels', 'Цена (за единицу)'),
+            'params' => Yii::t('labels', 'Параметры'),
             /*'final_price' => Yii::t('labels', 'Полная цена (без налога)'),
             'products_tax' => Yii::t('labels', 'Налог'),
             'products_av' => Yii::t('labels', 'Наличие товара'),

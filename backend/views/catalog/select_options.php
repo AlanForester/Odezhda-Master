@@ -19,9 +19,9 @@
     ?>
     <fieldset>
         <?php
-        echo $form->dropDownListControlGroup($product, 'params[size]', $productOptions, ['label'=>'Размер', 'value'=>'']);
-        //echo $form->dropDownListControlGroup($product, 'params[color]', $colorOptions, ['label'=>'Цвет', 'value'=>'']);
-        echo $form->numberFieldControlGroup($product, 'quantity', ['label'=>'Количество', 'value'=>'1']);
+        echo $form->dropDownListControlGroup($retailOrdersProduct, 'params[size]', $sizes, ['label'=>'Размер', 'value'=>'']);
+        //echo $form->dropDownListControlGroup($retailOrdersProduct, 'params[color]', $colors, ['label'=>'Цвет', 'value'=>'']);
+        echo $form->numberFieldControlGroup($retailOrdersProduct, 'quantity', ['label'=>'Количество', 'value'=>'1']);
         ?>
     </fieldset>
     <?php $this->endWidget(); ?>

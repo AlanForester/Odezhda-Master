@@ -63,7 +63,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return true;
     }
 
-    public static function deleteQueuedProduct($id) {
+    /*public static function deleteQueuedProduct($id) {
         $retailProducts = Yii::app()->session['RetailOrdersProductsQueue'];
         foreach($retailProducts as $key => $product) {
             if($product['id'] == $id) {
@@ -73,7 +73,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
             }
         }
         return false;
-    }
+    }*/
 
     public static function updateProductStorageField($data, $storageName) {
         $field = TbArray::getValue('field', $data, false);
@@ -95,9 +95,10 @@ class RetailOrdersProductsHelper extends CommonHelper {
 
     public static function createProductsEditingStorage($orderId) {
         $retailProducts = [];
-        foreach(RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId)) as $product) {
-            $retailProducts[$product->id] = $product->attributes;
-        }
+        if($orderId)
+            foreach(RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId)) as $product) {
+                $retailProducts[$product->id] = $product->attributes;
+            }
         Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
         //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
     }
@@ -127,7 +128,8 @@ class RetailOrdersProductsHelper extends CommonHelper {
 
     public static function applyProductsEditingStorage($orderId) {
         $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
-        echo '<pre>'.print_r($storageProducts,1);exit;
+        //var_dump($storageProducts);exit;
+        //echo '<pre>'.print_r($storageProducts,1);exit;
         foreach($storageProducts as $storageProduct) {
             if(!empty($storageProduct['removed'])) {
                 if($storageProduct['id'] > 0) {
@@ -136,7 +138,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
                         return $model;
                 }
             } else {
-                if($orderId) {
+                //if($orderId) {
                     $model = $storageProduct['id'] > 0 ? RetailOrdersProducts::model()->findByPk($storageProduct['id'])
                         : new RetailOrdersProducts('add');
                     unset($storageProduct['id']);
@@ -144,7 +146,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
                     $model->retail_orders_id = $model->retail_orders_id ? : $orderId;
                     if(!$model->save())
                         return $model;
-                }
+                //}
 
             }
         }

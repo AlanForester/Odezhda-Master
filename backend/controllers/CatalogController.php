@@ -253,17 +253,18 @@ class CatalogController extends BackendController {
     }*/
 
     public function actionSelectOptions($id) {
-        $productOptions = [];
+        $retailOrdersProduct = RetailOrdersProducts::model();
+        $sizes = $colors = [];
         //$product = ShopProduct::model()->with('products_new_option_values')->findByPk($id);
         $product = ShopProduct::model()->with('product_options')->findByPk($id);
         //echo '<pre>'.print_r($product,1);exit;
 
         if(!empty($product->product_options)) {
             foreach ($product->product_options as $option) {
-                $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
+                $sizes[$option['products_options_values_id']] = $option['products_options_values_name'];
             }
         }
-        $this->renderPartial('select_options', compact('product','productOptions','id'));
+        $this->renderPartial('select_options', compact('retailOrdersProduct','sizes','colors','id'));
         Yii::app()->end();
     }
 
