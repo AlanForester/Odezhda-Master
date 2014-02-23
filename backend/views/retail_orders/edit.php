@@ -322,14 +322,14 @@ $this->pageButton = [
                                         'width' => '70px'
                                     ],
                                     'class' => 'bootstrap.widgets.TbButtonColumn',
-                                    //'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
+                                    'afterDelete' => 'function(link,success,data){ if(success) $("#statusMsg").html(data); }',
 
                                     'deleteButtonOptions' => [
                                         'class' => 'red bigger-130',
                                         'title' => 'Удалить товар из заказа',
-                                        'onClick' => 'js: (function(){
+                                        /*'onClick' => 'js: (function(){
                                             removeRetailOrdersProduct(event);
-                                        })()'
+                                        })()'*/
                                     ],
                                     'updateButtonOptions' => [
                                         'class' => 'green bigger-130',
@@ -345,7 +345,7 @@ $this->pageButton = [
 
                                     'viewButtonUrl' => null,
                                     'updateButtonUrl' => $item->id ? 'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))' : null,
-                                    'deleteButtonUrl' => null,  //'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
+                                    'deleteButtonUrl' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
                                 ]
 
                             ],

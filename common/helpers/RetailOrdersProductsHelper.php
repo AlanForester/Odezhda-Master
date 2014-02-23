@@ -114,13 +114,25 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }
 
+    public static function getExistingProductsFromEditingStorage() {
+        $resultProducts = [];
+        $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        foreach($storageProducts as $storageProduct) {
+            if(empty($storageProduct['removed'])) {
+                $resultProducts[] = $storageProduct;
+            }
+        }
+        return $resultProducts;
+    }
+
     public static function applyProductsEditingStorage($orderId) {
         $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        echo '<pre>'.print_r($storageProducts,1);exit;
         foreach($storageProducts as $storageProduct) {
             if(!empty($storageProduct['removed'])) {
                 if($storageProduct['id'] > 0) {
-                    $model = RetailOrdersProducts::model();
-                    if(!$model->deleteByPk($storageProduct['id']))
+                    $model = RetailOrdersProducts::model()->findByPk($storageProduct['id']);
+                    if(!$model->delete())
                         return $model;
                 }
             } else {
@@ -128,9 +140,8 @@ class RetailOrdersProductsHelper extends CommonHelper {
                     $model = $storageProduct['id'] > 0 ? RetailOrdersProducts::model()->findByPk($storageProduct['id'])
                         : new RetailOrdersProducts('add');
                     unset($storageProduct['id']);
-                    //echo '<pre>'.print_r($storageProduct,1);exit;
                     $model->setAttributes($storageProduct);
-                    $model->retail_orders_id = $orderId;
+                    $model->retail_orders_id = $model->retail_orders_id ? : $orderId;
                     if(!$model->save())
                         return $model;
                 }

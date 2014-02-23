@@ -171,7 +171,7 @@ class RetailOrdersController extends BackendController {
             //создаем временное хранилище товаров заказа,
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
-            //if($id)
+            if (!$this->isAjax)
                 RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }
@@ -190,7 +190,7 @@ class RetailOrdersController extends BackendController {
             //товары из сессии, подготовленные для сохранения
             $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
                 [
-                    Yii::app()->session['RetailOrdersProductsEditingStorage']
+                    RetailOrdersProductsHelper::getExistingProductsFromEditingStorage()
                 ],
                 $productsCriteria['page_size']
             );

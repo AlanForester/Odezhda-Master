@@ -115,13 +115,13 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, queuePath) {
     bootbox.hideAll();
 }
 
-function removeRetailOrdersProduct(event) {
+/*function removeRetailOrdersProduct(event) {
     //var event=event||window.event;
     var target = event.target||event.srcElement;
     //console.log(target);
     $(target).closest("tr").remove();
     regenerateReferrerInfo("#customer_info a.btn-small.btn.btn-info");
-}
+}*/
 
 function regenerateReferrerInfo(anchorSelector) {
     var productIds = [],

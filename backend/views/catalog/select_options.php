@@ -19,7 +19,8 @@
     ?>
     <fieldset>
         <?php
-        echo $form->dropDownListControlGroup($product, 'size', $productOptions, ['label'=>'Размер', 'value'=>'']);
+        echo $form->dropDownListControlGroup($product, 'params[size]', $productOptions, ['label'=>'Размер', 'value'=>'']);
+        //echo $form->dropDownListControlGroup($product, 'params[color]', $colorOptions, ['label'=>'Цвет', 'value'=>'']);
         echo $form->numberFieldControlGroup($product, 'quantity', ['label'=>'Количество', 'value'=>'1']);
         ?>
     </fieldset>

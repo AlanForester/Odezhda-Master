@@ -19,7 +19,7 @@ class ShopProduct extends LegacyActiveRecord {
 
     //    public $primaryKey = 'id';
 
-    public $size;
+    public $params;
 
     public function __get($name) {
 
