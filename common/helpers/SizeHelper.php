@@ -37,7 +37,7 @@ class SizeHelper {
         $condition = [];
         $params = [];
 
-        // фильтр по тексту
+        // ильтр по тексту
         if (!empty($data['text_search'])) {
             $condition[] = '(' . join(
                     ' OR ',
@@ -50,7 +50,7 @@ class SizeHelper {
             $params[':text'] = '%' . $data['text_search'] . '%';
         }
 
-        // поле и направление сортировки
+        // Поле и направление сортировки
         $order_direct = null;
         $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
 
@@ -72,7 +72,7 @@ class SizeHelper {
             'order' => $order_field . ($order_direct ? : ''),
         ];
 
-        // разрешаем перезаписать любые параметры критерии
+        // Разрешаем перезаписать любые параметры критерии
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
@@ -87,7 +87,6 @@ class SizeHelper {
             ]
         );
 
-
         foreach($dataProvider->getData() as $string){
             $string->oldSizeString=1;
             $data='';
@@ -97,13 +96,6 @@ class SizeHelper {
             }
             $string->oldSizeString=$data;
         }
-
-
-       // $dataProvider->getData()->oldSizesList=$old_sizes;
-
-//        print_r($old_sizes);
-//        exit;
-
         return $dataProvider;
     }
 

@@ -19,8 +19,6 @@ class SizeController extends BackendController {
         // получение данных
         $model = new SizeModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-//        print_r($gridDataProvider->getData());
-//        exit;
         $this->render('index', compact('criteria', 'gridDataProvider'));
     }
 
