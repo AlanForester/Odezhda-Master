@@ -3,7 +3,7 @@ Yii::app()->clientScript->registerPackage('catalog');
 
 $colors = ['grey', 'violet', 'green', 'magent', 'yellow', 'blue', 'white', 'black', 'l-magent', 'red', 'orange', 'purple'];
 $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52'];
-
+$curCategory=$currentCetegory->rel_description->categories_id
 //print_r($dataProvider->getData());
 //print_r($currentCategoryNumber);exit;
 //print_r(FormatHelper::markupNumber($limitPrice['min_price']));
@@ -80,6 +80,22 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
         <!--            <h6>размер</h6>-->
         <!--            <button  id='clear_size'>сбросить х</button>-->
         <!--        </div>-->
+        <?php
+$hideCategiries=[478,477,479, 543, 691, 692, 835, 865, 873, 938, 939, 940, 982, 988, 998, 999, 1002, 1034, 1111, 1112, 1113, 1114, 1163,
+1275, 1302, 1305, 1306, 1310, 1313, 1347, 1422, 1424, 1425, 932,712, 833, 834, 967, 972, 1098, 1115, 1314, 1315, 1316, 1323,
+1331, 1355, 1372 ,1411 ,1412 ,1413 ,1416 ,935 ,1130, 1341, 1324, 1326, 1327, 1328, 1329, 1430, 1433, 1304, 1357, 1358, 1359,
+1360, 1361, 1362, 1429, 1408, 1410, 1336, 1406, 1421, 1431, 1432, 1420];
+        $showOptions=true;
+foreach($hideCategiries as $curActiveCategory){
+   if($curActiveCategory==$curCategory){
+       $showOptions=false;
+       break;
+   }
+}
+
+        ?>
+
+        <?php if($showOptions){ ?>
                 <div class="razmer">
         <!--            --><?php
                     foreach($sizes as $size){
@@ -93,6 +109,7 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
         //
         ?>
                 </div>
+        <?php } ?>
         <div class="title">
             <h6>цена</h6>
         </div>
