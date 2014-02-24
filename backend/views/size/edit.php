@@ -7,9 +7,6 @@ $this->pageButton = [
     BackendPageButtons::apply(),
     BackendPageButtons::cancel("/size/index")
 ];
-
-//print_r($item->products_option_values);
-//exit;
 ?>
     <div class="span6">
         <?php
@@ -34,7 +31,7 @@ $this->pageButton = [
             <?php
             $selectOldOptions=[];
             foreach($item->products_option_values as $elem){
-                $selectOldOptions[$elem->old_id]=['selected'=>'selected'];
+                $selectOldOptions[$elem->products_options_values_id]=['selected'=>'selected'];
             }
 
             echo $form->hiddenField($item, 'id', []);
