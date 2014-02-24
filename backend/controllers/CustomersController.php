@@ -52,10 +52,10 @@ class CustomersController extends BackendController {
     }
 
     public function actionAdd() {
-        $this->actionEdit(null, 'customers', 0, 'add');
+        $this->actionEdit(null, 'add');
     }
 
-    public function actionEdit($id, $from = 'customers', $fromId = 0, $scenario = 'edit') {
+    public function actionEdit($id, $scenario = 'edit') {
         $groups = [];
         $genders = [''=>'Не указан', 'm'=>'Мужчина', 'f'=>'Женщина'];
         $yesNo = ['1'=>'Да', '0'=>'Нет'];
@@ -69,6 +69,8 @@ class CustomersController extends BackendController {
             $this->error('Ошибка получения данных клиента');
         }
         //echo '<pre>'.print_r($item,1);exit;
+
+        $referrer = Yii::app()->request->getQuery('referrer', '#');
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
@@ -109,7 +111,20 @@ class CustomersController extends BackendController {
                         TbHtml::ALERT_COLOR_INFO,
                         'Клиент ' . ($id ? 'сохранен' : 'добавлен')
                     );
-                    if($from == 'customers') {
+
+                    if(is_array($referrer)) {
+                        if ($form_action == 'save') {
+                            if($referrer['id'])
+                                $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'customers/edit', 'referrer[id]'=>$item['id']]);
+                            else
+                                $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'customers/edit', 'referrer[id]'=>$item['id']]);
+                            return;
+                        } else {
+                            $this->redirect(['edit', 'id' => $item['id'], 'referrer[url]'=>$referrer['url'], 'referrer[id]'=>$referrer['id']]);
+                            return;
+                        }
+
+                    } else {
                         if ($form_action == 'save') {
                             $this->redirect(['index']);
                             return;
@@ -118,23 +133,16 @@ class CustomersController extends BackendController {
                             return;
                         }
 
-                    } elseif($from == 'retail_order') {
-                        if ($form_action == 'save') {
-                            if($fromId == 0)
-                                $this->redirect(['retail_orders/add', 'id' => $fromId, 'from'=>'customer', 'fromId'=>$item['id']]);
-                            else
-                                $this->redirect(['retail_orders/edit', 'id' => $fromId, 'from'=>'customer', 'fromId'=>$item['id']]);
-                            return;
-                        } else {
-                            $this->redirect(['edit', 'id' => $item['id'], 'from'=>$from, 'fromId'=>$fromId]);
-                            return;
-                        }
                     }
                 }
             }
         }
 
-        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo', 'from', 'fromId'));
+        if(is_array($referrer)) {
+            $referrer = Yii::app()->createUrl($referrer['url'], array('id'=>$referrer['id']));
+        }
+
+        $this->render('edit', compact('item', 'groups', 'genders', 'yesNo', 'referrer'));
     }
 
     public function actionDelete($id) {

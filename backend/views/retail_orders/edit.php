@@ -121,7 +121,7 @@ $this->pageButton = [
                                 ],
                             ]
                         );
-                        echo BackendPageButtons::editCustomer("/customers/edit/".$item->customer->id, '?from=retail_order&fromId='.$item->id);
+                        echo BackendPageButtons::editCustomer("/customers/edit/".$item->customer->id, '?referrer[url]=retail_orders/edit&referrer[id]='.$item->id);
                     }
                     ?>
 

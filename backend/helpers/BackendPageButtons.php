@@ -85,7 +85,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function save($option = [], $title = 'Сохранить', $referrer = '#') {
+    public static function save($option = [], $title = 'Сохранить') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -93,7 +93,7 @@ class BackendPageButtons {
                     [
                         'icon' => TbHtml::ICON_PENCIL,
                         'buttonType' => 'link',
-                        'url' => $referrer, //'/users/add',
+                        'url' => '#', //'/users/add',
                         //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
                         'color' => TbHtml::BUTTON_COLOR_SUCCESS,
                         'class' => 'btn-small',
