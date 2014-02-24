@@ -11,7 +11,8 @@ return [
         'contactTel'=>'222-962, +7 (4932) 343-588',
         'contactAddress'=>'г. Иваново, Проспект Ленина д.98',
 //        'staticUrl'=>'http://odezhda-master.ru/'
-            'markup'=>10
+        'markup'=>10,
+        'frontPageSize'=>12
         //наценка
     ],
     // So our relative path aliases will resolve against the `/frontend` subdirectory and not nonexistent `/protected`

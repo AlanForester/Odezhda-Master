@@ -127,7 +127,7 @@ class CatalogController extends RetailController {
 
         // пагинация
         $pages = new CPagination($totalCount);
-        $pages->pageSize = 12;
+        $pages->pageSize = Yii::app()->params['frontPageSize'];
         $dataProvider->setPagination($pages);
 
         // todo: название категории получаем через костыль - исправить
