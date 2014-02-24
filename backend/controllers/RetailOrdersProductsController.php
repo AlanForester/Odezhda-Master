@@ -58,7 +58,7 @@ class RetailOrdersProductsController extends BackendController {
             }
 
         } else {
-            if (!RetailOrdersProductsHelper::updateQueuedProductField($params)) {
+            if (!RetailOrdersProductsHelper::updateProductStorageField($params, 'RetailOrdersProductsQueue')) {
                 $this->error('Ошибка изменения данных товара');
             }
         }
@@ -116,7 +116,7 @@ class RetailOrdersProductsController extends BackendController {
     }
 
     public function actionDelete($id) {
-        if($id > 0) {
+        /*if($id > 0) {
             $model = RetailOrdersProducts::model()->findByPk($id);
             if (!$model->delete()) {
                 $this->error();
@@ -127,13 +127,14 @@ class RetailOrdersProductsController extends BackendController {
                 );
             }
 
-        } else {
-            if (RetailOrdersProductsHelper::deleteQueuedProduct($id))
-                Yii::app()->user->setFlash(
+        } else {*/
+            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id))
+                /*Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
                     'Товар удален из заказа'
-                );
-        }
+                );*/
+                echo 'Товар удален из заказа';
+        //}
     }
 
     public function actionMass($id = null) {
@@ -163,26 +164,26 @@ class RetailOrdersProductsController extends BackendController {
             $product = $model->getCatalogData($input['productId'],'edit');
             $retailProduct = [
                 'id' => null,
-                'retail_orders_id' => null,
+                'retail_orders_id' => !empty($input['orderId']) ? $input['orderId'] : null,
                 'products_id' => $input['productId'],
                 'model' => $product['model'],
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'quantity' => $input['quantity'],
-                //'size' => $input['size'],
+                'params' => CJSON::encode($input['params']),
             ];
 
-            if(!empty($input['orderId'])) {
-                $productsResult = RetailOrdersProductsHelper::saveNewProducts([$retailProduct], $input['orderId']);
+            /*if(!empty($input['orderId'])) {
+                $productsResult = RetailOrdersProductsHelper::insertProducts([$retailProduct], $input['orderId']);
                 if($productsResult !== true) {
                     //saving error
                 }
-            } else {
-                $productsResult = RetailOrdersProductsHelper::queueProduct($retailProduct);
+            } else {*/
+                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct, 'RetailOrdersProductsEditingStorage');
                 if($productsResult !== true) {
                     //saving error
                 }
-            }
+            //}
         }
     }
 

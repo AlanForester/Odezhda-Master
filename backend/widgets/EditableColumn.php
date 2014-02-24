@@ -14,9 +14,7 @@ class EditableColumn extends WhEditableColumn
 
     public function init()
     {
-        parent::init();
-
-        //инициализирует скрипты, даже если список пустой
+        //инициализирует скрипты, даже если список пустой,
         //для того, чтобы впоследствии добавленные строки
         //имели редактируемые поля
         $options = CMap::mergeArray($this->editable, [
@@ -30,6 +28,8 @@ class EditableColumn extends WhEditableColumn
         ob_start();
         $this->grid->controller->widget('WhEditable', $options);
         ob_get_clean();
+
+        parent::init();
     }
 
 }

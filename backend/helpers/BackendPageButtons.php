@@ -196,7 +196,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 showBootbox("Выбор покупателя");
-                                loadGrid("customers_grid", "' . Yii::app()->createUrl($url) . '");
+                                loadGridIntoBootbox("customers_grid", "' . Yii::app()->createUrl($url) . '");
                             })()'
                     ], $option
                 )
@@ -215,7 +215,7 @@ class BackendPageButtons {
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
                                 showBootbox("Выбор товара");
-                                loadGrid("catalog_grid", "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '");
+                                loadGridIntoBootbox("catalog_grid", "' . Yii::app()->createUrl('/catalog/bootbox/') . $orderId . '");
                             })()'
                     ], $option
                 )
@@ -233,7 +233,7 @@ class BackendPageButtons {
                         'url' => '#',
                         'class' => 'btn-small',
                         'onClick' => 'js: (function(){
-                            var cb = $("#ropgrid input[name=\'gridids[]\']:checked");
+                            var cb = $("#ropgrid input[name=\'product_ids[]\']:checked");
                             var ids = [];
 
                             if (cb.length==0){

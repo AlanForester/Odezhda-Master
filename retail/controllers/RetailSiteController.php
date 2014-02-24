@@ -118,8 +118,8 @@ class RetailSiteController extends RetailController {
                     ';
                     $message->setBody($body);
                     $message->setTo($email);
-                    $message->setFrom('dmitriy@maybeworks.com');
-//                    $message->setFrom(Yii::app()->params['adminEmail']);
+//                    $message->setFrom('noreply@lapana.ru');
+                    $message->setFrom(Yii::app()->params['contactEmail']);
                     $ii = Yii::app()->mail->send($message);
                     //сообщение для отображения
                     $responce = 'Сообщение с рекоендациями по восстановлению пароля выслано вам на email.';
