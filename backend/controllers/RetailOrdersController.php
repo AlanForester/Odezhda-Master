@@ -55,11 +55,12 @@ class RetailOrdersController extends BackendController {
         }
     }
 
-    public function actionAdd($from = 'retail_orders', $fromId = 0) {
-        $this->actionEdit(null, $from, $fromId, 'add');
+    public function actionAdd($id = null) {
+        //$referrer = Yii::app()->request->getQuery('referrer', '#');
+        $this->actionEdit(null, 'add');
     }
 
-    public function actionEdit($id, $from = 'retail_orders', $fromId = 0, $scenario = 'edit') {
+    public function actionEdit($id, $scenario = 'edit'/*, $referrer = '#'*/) {
         $customers = $statuses = $deliveryPoints = $productOptions = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
@@ -107,12 +108,13 @@ class RetailOrdersController extends BackendController {
 
         $currencies = ['RUR'=>'RUR'];
 
+        $referrer = Yii::app()->request->getQuery('referrer', '#');
 
-        if($from == 'customer') {
+        if(is_array($referrer) && $referrer['id'] && $referrer['url'] == 'customers/edit') {
             $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
-            $item->customer = CustomersHelper::getCustomerWithInfo($fromId, $scenario);
-            if($fromId) {
-                $item->customers_id = $fromId;
+            $item->customer = CustomersHelper::getCustomerWithInfo($referrer['id'], $scenario);
+            if($referrer['id']) {
+                $item->customers_id = $referrer['id'];
                 $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
                 $item->customers_city = $item->customer->default_address==null || $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
                 $item->customers_telephone = $item->customer->customers_telephone;
@@ -175,7 +177,7 @@ class RetailOrdersController extends BackendController {
             //создаем временное хранилище товаров заказа,
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
-            if (!$this->isAjax)
+            if (!$this->isAjax && !is_array($referrer))
                 RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }

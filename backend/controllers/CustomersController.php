@@ -29,7 +29,7 @@ class CustomersController extends BackendController {
 
         $gridDataProvider = CustomersHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
-        //echo '<pre>'.print_r($gridDataProvider,1);exit;
+
         $groups = [];
 
         foreach (CustomerGroups::model()->findAll() as $group) {
@@ -139,7 +139,8 @@ class CustomersController extends BackendController {
         }
 
         if(is_array($referrer)) {
-            $referrer = Yii::app()->createUrl($referrer['url'], array('id'=>$referrer['id']));
+            $referrer = Yii::app()->createUrl($referrer['url'], array('id'=>$referrer['id'])) .
+                '?referrer[url]=customers/edit&referrer[id]='.$item['id'];
         }
 
         $this->render('edit', compact('item', 'groups', 'genders', 'yesNo', 'referrer'));
