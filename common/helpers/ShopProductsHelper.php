@@ -96,6 +96,7 @@ class ShopProductsHelper {
             $params[':max_price'] = $data['max_price'];
         }
         if(!empty($dataOptions)){
+            if(empty($dataOptions['group_data'])){$dataOptions['group_data']=0;}
             $condition[]="
                     (
                     SELECT GROUP_CONCAT( options_values_id )
