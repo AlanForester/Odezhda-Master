@@ -19,8 +19,6 @@ class SizeController extends BackendController {
         // получение данных
         $model = new SizeModel();
         $gridDataProvider = $model->getDataProvider($criteria);
-//        print_r($gridDataProvider->getData());
-//        exit;
         $this->render('index', compact('criteria', 'gridDataProvider'));
     }
 
@@ -43,11 +41,13 @@ class SizeController extends BackendController {
         if (!$item = $model->getId($id, $scenario)) {
             $this->error('Ошибка получения данных баннера');
         }
-//        print_r($model->getPostData());
+//        print_r($_POST);
 //        exit;
-        $form_action = Yii::app()->request->getPost('form_action');
+//        unset($_POST['name1']);
 
-//        print_r($model->getPostData());
+        $form_action = Yii::app()->request->getPost('form_action');
+//
+//        print_r($_POST);
 //        exit;
 
         if (!empty($form_action)) {

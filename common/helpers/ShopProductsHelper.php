@@ -14,7 +14,7 @@ class ShopProductsHelper {
         $condition = [];
         $params = [];
 
-        // поиск тестового значения
+        // Поиск тестового значения
         if (!empty($data['text_search'])) {
             $condition_params[] = '[[name]]  LIKE :text_search';
             $condition_params[] = 't.[[model]]  LIKE :text_search';
@@ -23,7 +23,7 @@ class ShopProductsHelper {
             $params[':text_search'] = '%' . $data['text_search'] . '%';
         }
 
-        // родительские категории
+        // Родительские категории
         if (!empty($data['category'])) {
             $categories = Yii::app()->db->createCommand()
                                         ->select('categories_id,parent_id')
@@ -32,7 +32,7 @@ class ShopProductsHelper {
                                         ->queryAll();
         }
 
-        // фильтр по категории
+        // Фильтрация по категориям
         if (isset($data['category']) && empty($categories)) {
             // todo: решить проблему с подстановкой имени связанной таблицы
             $condition [] = 'categories_description.categories_id =:category';
@@ -45,11 +45,10 @@ class ShopProductsHelper {
             $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
+
         $criteria = [];
-
-        //Фильтрация
-        if (!empty($data['filter']['size'])) {
-
+        //Фильтрация по ценам
+        if (!empty($data['filter']['size'])){
             foreach ($data['filter']['size'] as $size) {
                 $sizes[]='products_new_option_values.value ="'.$size.'"';
             }
@@ -82,9 +81,7 @@ class ShopProductsHelper {
             $criteria['limit'] = $data['limit'];
         }
 
-
-
-        // максимальная и минимальная цена в выборке
+        // Максимальная и минимальная цена в выборке
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select = 'MAX([[price]]) as max_price,MIN([[price]]) as min_price';
         $priceLimit = self::getModel()->find($criteria_data);
@@ -97,7 +94,7 @@ class ShopProductsHelper {
             $criteria['order'] = new CDbExpression('RAND()');
         }
 
-        // фильтр по цене
+        // Фильтр по цене
         if (!empty($data['min_price']) && !empty($data['max_price'])) {
             $condition[] = 't.[[price]]>=:min_price';
             $condition[] = 't.[[price]]<=:max_price';
@@ -105,8 +102,7 @@ class ShopProductsHelper {
             $params[':max_price'] = $data['max_price'];
         }
 
-        //Повторное формирование критерии
-
+        // Повторное формирование критерии
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
@@ -122,8 +118,7 @@ class ShopProductsHelper {
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                // todo: вынести в конфиг pageSize
-                'pagination' => ['pageSize' => 12],
+                'pagination' => ['pageSize' => Yii::app()->params['frontPageSize']],
             ]
         );
 
