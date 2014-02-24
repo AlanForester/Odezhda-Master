@@ -13,7 +13,16 @@ class RetailOrdersProductsController extends BackendController {
 
 
     public function actionIndex($id = null) {
-        $criteria = [
+        if(!$id)
+            $this->redirect(array('retail_orders/index'));
+
+        else {
+            //$GET['id'] = $id;
+            $this->forward('retail_orders/edit');
+        }
+
+
+        /*$criteria = [
             'text_search' => [
                 'value' => $this->userStateParam('text_search'),
             ],
@@ -39,12 +48,8 @@ class RetailOrdersProductsController extends BackendController {
         $gridDataProvider = RetailOrdersProductsHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
-        $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
+        $this->render('retailOrders/index', compact('id','criteria','gridDataProvider', 'retailOrders'));*/
     }
-
-    /*public function actionOrder($id) {
-        $this->actionIndex($id);
-    }*/
 
     public function actionUpdate() {
         $params['field'] = Yii::app()->request->getPost('name');
