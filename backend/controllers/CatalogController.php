@@ -118,6 +118,8 @@ class CatalogController extends BackendController {
 
         $model = new CatalogModel($scenario);
 
+        $referrer = Yii::app()->request->getQuery('referrer', '#');
+
         $form_action = Yii::app()->request->getPost('form_action');
 
 //       print_r($_FILES['CatalogModel']);
@@ -167,12 +169,33 @@ class CatalogController extends BackendController {
                     TbHtml::ALERT_COLOR_INFO,
                     'Товар ' . ($id ? 'сохранен' : 'добавлен')
                 );
-                if ($form_action == 'save') {
+
+                /*if ($form_action == 'save') {
                     $this->redirect(['index']);
                     return;
                 } else {
                     $this->redirect(['edit', 'id' => $result['id']]);
                     return;
+                }*/
+
+                if(is_array($referrer)) {
+                    if ($form_action == 'save') {
+                        $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'catalog/edit', 'referrer[id]'=>$result['id']]);
+                        return;
+                    } else {
+                        $this->redirect(['edit', 'id' => $result['id'], 'referrer[url]'=>$referrer['url'], 'referrer[id]'=>$referrer['id']]);
+                        return;
+                    }
+
+                } else {
+                    if ($form_action == 'save') {
+                        $this->redirect(['index']);
+                        return;
+                    } else {
+                        $this->redirect(['edit', 'id' => $result['id']]);
+                        return;
+                    }
+
                 }
             }
         }
@@ -187,7 +210,6 @@ class CatalogController extends BackendController {
         }
 
 
-        $referrer = Yii::app()->request->getQuery('referrer', '#');
         if(is_array($referrer)) {
             $referrer = Yii::app()->createUrl($referrer['url'], array('id'=>$referrer['id'])) .
                 '?referrer[url]=catalog/edit&referrer[id]='.$id;

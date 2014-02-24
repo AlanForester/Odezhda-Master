@@ -114,10 +114,10 @@ class CustomersController extends BackendController {
 
                     if(is_array($referrer)) {
                         if ($form_action == 'save') {
-                            if($referrer['id'])
+                            //if($referrer['id'])
                                 $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'customers/edit', 'referrer[id]'=>$item['id']]);
-                            else
-                                $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'customers/edit', 'referrer[id]'=>$item['id']]);
+                            //else
+                            //    $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'customers/edit', 'referrer[id]'=>$item['id']]);
                             return;
                         } else {
                             $this->redirect(['edit', 'id' => $item['id'], 'referrer[url]'=>$referrer['url'], 'referrer[id]'=>$referrer['id']]);
