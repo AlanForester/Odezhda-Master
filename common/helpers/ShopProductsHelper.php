@@ -95,8 +95,16 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
-
+        if(!empty($dataOptions)){
+            $condition[]="
+                    (
+                    SELECT GROUP_CONCAT( options_values_id )
+                    FROM products_attributes AS attr
+                    WHERE t.products_id = attr.products_id
+                    ) IN (".$dataOptions['group_data'].")" ;
+        }
         //Повторное формирование критерии
+
         $criteria = [
             'condition' => join(' AND ', $condition),
             'params' => $params,
@@ -117,10 +125,12 @@ class ShopProductsHelper {
             ]
         );
 
+//        print_r($dataProvider->getData());
+//        exit;
         return [
-            'dataProvider' => $dataProvider,
-            'priceLimit' => $priceLimit
-        ];
+                    'dataProvider' => $dataProvider,
+                    'priceLimit' => $priceLimit
+               ];
     }
 
     public static function dayProduct($category) {
