@@ -170,17 +170,13 @@ class ProductNewOptions extends LegacyActiveRecord {
         if(!empty($list)){
             ProductOldToNewOptions::model()->deleteAll('products_new_value_id=:products_new_value_id',[':products_new_value_id'=>$id]);
             foreach($list as $key => $option){
-//                print_r($option);
-//                echo '<br>';
-
+                Yii::app()->db->createCommand()->insert('products_to_new_options',
+                    [
+                        'products_options_values_id'=>$option,
+                        'products_new_value_id'=>$id,
+                    ]
+                );
             }
-            Yii::app()->db->createCommand()->insert('products_to_new_options',
-                [
-                    'products_options_values_id'=>9,
-                    'products_new_value_id'=>$id
-                ]
-            );
-         //   exit;
         }
     }
 
