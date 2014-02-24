@@ -6,6 +6,8 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
 
 //print_r($dataProvider->getData());
 //print_r($currentCategoryNumber);exit;
+//print_r(FormatHelper::markupNumber($limitPrice['min_price']));
+//exit;
 ?>
 <script>
     $(document).ready(function () {
@@ -30,8 +32,8 @@ $sizes = ['XXXL', 'XXL', 'XL', 'M', 'S', '40', '42', '44', '46', '48', '50', '52
 
         $("#slider-range").slider({
             range: true,
-            min: <?=$limitPrice['min_price']?:10?>,
-            max: <?=$limitPrice['max_price']?:10000?>,
+            min: <?=FormatHelper::markupNumber($limitPrice['min_price'])?:10?>,
+            max: <?=FormatHelper::markupNumber($limitPrice['max_price'])?:10000?>,
             values: [ <?=Yii::app()->request->getQuery('min_price')?:$limitPrice['min_price']?:10?>, <?=Yii::app()->request->getQuery('max_price')?:$limitPrice['max_price']?:10000?> ],
             slide: function (event, ui) {
                 $("#amount").html(ui.values[ 0 ] + "р. - " + ui.values[ 1 ] + " р.");

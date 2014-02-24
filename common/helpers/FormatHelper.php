@@ -28,6 +28,14 @@ class FormatHelper {
     }
 
     /**
+     * Определение цены с наценкой, округление до целых
+     * @param $price
+     */
+    public static function markupNumber($price) {
+        return round($price*(1+Yii::app()->params['markup']/100));
+    }
+
+    /**
      * Определение общей(умножение на количество товаров) цены с наценкой, округление до целых
      * @param $price
      */
