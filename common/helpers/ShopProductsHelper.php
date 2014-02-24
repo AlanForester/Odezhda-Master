@@ -58,16 +58,22 @@ class ShopProductsHelper {
             $criteria['limit'] = $data['limit'];
         }
 
-/*        if (!empty($data['filter']['size'])) {
-           $condition_params=[];
+
+        if (!empty($data['filter']['size'])) {
+
             foreach ($data['filter']['size'] as $size) {
-               $condition_params[] = "products_new_option_values.value='" . $size . "'";
-
+                $sizes[]='products_new_option_values.value ="'.$size.'"';
             }
-            $criteria['condition'] = '( ' . join(' OR ', $condition_params) . ' )';
+            $sizes_params='( ' . join(' OR ', $sizes) . ' )';
+        //получить все размеры
+        $dataOptions = Yii::app()->db->createCommand("SELECT GROUP_CONCAT( pr_opt.products_options_values_id ) group_data
+                                 FROM  `products_options_values` AS pr_opt
+                                 LEFT JOIN products_to_new_options ON products_to_new_options.products_options_values_id = pr_opt.products_options_values_id
+                                 LEFT JOIN products_new_option_values ON products_new_option_values.products_new_value_id = products_to_new_options.products_new_value_id
+                                 WHERE ".$sizes_params." ")->queryRow();
+//print_r($dataOptions);exit;
 
-            $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
-        }*/
+        }
 
         // максимальная и минимальная цена в выборке
         $criteria_data = new CDbCriteria($criteria);
