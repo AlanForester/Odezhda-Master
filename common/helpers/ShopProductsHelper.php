@@ -47,6 +47,30 @@ class ShopProductsHelper {
         }
         $criteria = [];
 
+        //Фильтрация
+        if (!empty($data['filter']['size'])) {
+
+            foreach ($data['filter']['size'] as $size) {
+                $sizes[]='products_new_option_values.value ="'.$size.'"';
+            }
+            $sizes_params='( ' . join(' OR ', $sizes) . ' )';
+            //получить все размеры
+            $dataOptions = Yii::app()->db->createCommand("SELECT GROUP_CONCAT( pr_opt.products_options_values_id ) group_data
+                                     FROM  `products_options_values` AS pr_opt
+                                     LEFT JOIN products_to_new_options ON products_to_new_options.products_options_values_id = pr_opt.products_options_values_id
+                                     LEFT JOIN products_new_option_values ON products_new_option_values.products_new_value_id = products_to_new_options.products_new_value_id
+                                     WHERE ".$sizes_params." ")->queryRow();
+            if(!empty($dataOptions)){
+                if(empty($dataOptions['group_data'])){$dataOptions['group_data']=0;}
+                $condition[]="
+                    (
+                    SELECT GROUP_CONCAT( options_values_id )
+                    FROM products_attributes AS attr
+                    WHERE t.products_id = attr.products_id
+                    ) IN (".$dataOptions['group_data'].")" ;
+            }
+        }
+
         //Формирование критерии
         if (!empty($condition)) {
             $criteria['condition'] = join(' AND ', $condition);
@@ -59,21 +83,6 @@ class ShopProductsHelper {
         }
 
 
-        if (!empty($data['filter']['size'])) {
-
-            foreach ($data['filter']['size'] as $size) {
-                $sizes[]='products_new_option_values.value ="'.$size.'"';
-            }
-            $sizes_params='( ' . join(' OR ', $sizes) . ' )';
-        //получить все размеры
-        $dataOptions = Yii::app()->db->createCommand("SELECT GROUP_CONCAT( pr_opt.products_options_values_id ) group_data
-                                 FROM  `products_options_values` AS pr_opt
-                                 LEFT JOIN products_to_new_options ON products_to_new_options.products_options_values_id = pr_opt.products_options_values_id
-                                 LEFT JOIN products_new_option_values ON products_new_option_values.products_new_value_id = products_to_new_options.products_new_value_id
-                                 WHERE ".$sizes_params." ")->queryRow();
-//print_r($dataOptions);exit;
-
-        }
 
         // максимальная и минимальная цена в выборке
         $criteria_data = new CDbCriteria($criteria);
@@ -95,15 +104,7 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
-        if(!empty($dataOptions)){
-            if(empty($dataOptions['group_data'])){$dataOptions['group_data']=0;}
-            $condition[]="
-                    (
-                    SELECT GROUP_CONCAT( options_values_id )
-                    FROM products_attributes AS attr
-                    WHERE t.products_id = attr.products_id
-                    ) IN (".$dataOptions['group_data'].")" ;
-        }
+
         //Повторное формирование критерии
 
         $criteria = [
