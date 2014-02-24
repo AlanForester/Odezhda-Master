@@ -12,8 +12,7 @@ class m140217_093821_create_new_options extends CDbMigration
 	$this->execute("CREATE TABLE IF NOT EXISTS `products_new_option_values` (
     `products_new_value_id` int(11) NOT NULL AUTO_INCREMENT,
   `value` varchar(255) NOT NULL,
-  PRIMARY KEY (`products_new_value_id`),
-  UNIQUE KEY `products_new_value_id` (`products_new_value_id`)
+  PRIMARY KEY (`products_new_value_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
