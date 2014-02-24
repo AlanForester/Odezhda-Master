@@ -20,7 +20,7 @@ class m140217_093821_create_new_options extends CDbMigration
 -- Дамп данных таблицы `products_new_option_values`
     --
 
-INSERT INTO `products_new_option_values` (`id`, `value`) VALUES
+INSERT INTO `products_new_option_values` (`products_new_value_id`, `value`) VALUES
     (1, '40'),
 (2, '42'),
 (3, '44'),
