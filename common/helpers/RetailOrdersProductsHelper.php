@@ -144,6 +144,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
                     unset($storageProduct['id']);
                     $model->setAttributes($storageProduct);
                     $model->retail_orders_id = $model->retail_orders_id ? : $orderId;
+                    $model->params = $model->params === '' ? 0 : $model->params;
                     if(!$model->save())
                         return $model;
                 //}

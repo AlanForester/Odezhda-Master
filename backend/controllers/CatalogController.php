@@ -170,14 +170,6 @@ class CatalogController extends BackendController {
                     'Товар ' . ($id ? 'сохранен' : 'добавлен')
                 );
 
-                /*if ($form_action == 'save') {
-                    $this->redirect(['index']);
-                    return;
-                } else {
-                    $this->redirect(['edit', 'id' => $result['id']]);
-                    return;
-                }*/
-
                 if(is_array($referrer)) {
                     if ($form_action == 'save') {
                         $this->redirect([$referrer['url'], 'id' => $referrer['id'], 'referrer[url]'=>'catalog/edit', 'referrer[id]'=>$result['id']]);

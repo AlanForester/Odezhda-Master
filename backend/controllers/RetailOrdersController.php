@@ -47,7 +47,6 @@ class RetailOrdersController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
-        //var_dump($params);exit;
 
         //$this->model = new RetailOrders('update');
         if (!RetailOrdersHelper::updateField($params)) {
@@ -56,11 +55,10 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionAdd($id = null) {
-        //$referrer = Yii::app()->request->getQuery('referrer', '#');
         $this->actionEdit(null, 'add');
     }
 
-    public function actionEdit($id, $scenario = 'edit'/*, $referrer = '#'*/) {
+    public function actionEdit($id, $scenario = 'edit') {
         $customers = $statuses = $deliveryPoints = $productOptions = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
@@ -148,8 +146,13 @@ class RetailOrdersController extends BackendController {
                         TbHtml::ALERT_COLOR_ERROR,
                         CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
                     );
+
+                    //если после создания заказа не сохранились его товары,
+                    //то удаляем созданный заказ, чтобы не плодить клонов при данной ошибке
+                    if($this->action->id == 'add')
+                        RetailOrders::model()->deleteByPk($id);
+
                 } else {
-                    //unset(Yii::app()->session['RetailOrdersProductsEditingStorage']);
                     // выкидываем сообщение
                     Yii::app()->user->setFlash(
                         TbHtml::ALERT_COLOR_INFO,

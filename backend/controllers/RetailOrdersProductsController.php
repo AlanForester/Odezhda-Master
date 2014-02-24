@@ -11,44 +11,14 @@ class RetailOrdersProductsController extends BackendController {
     public $pageButton = [];
     public $model;
 
-
     public function actionIndex($id = null) {
         if(!$id)
             $this->redirect(array('retail_orders/index'));
 
         else {
-            //$GET['id'] = $id;
             $this->forward('retail_orders/edit');
         }
 
-
-        /*$criteria = [
-            'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],
-            'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
-        ];
-
-        $retailOrders = [];
-
-        if($id !== null) {
-            $criteria['filters']['retail_orders_id'] = $id;
-
-        } else {
-            foreach (RetailOrdersLayer::model()->findAll() as $order) {
-                $retailOrders[$order['id'].'&'] = $order['id'] . ' (' . $order['customers_name'] . ')';
-            }
-        }
-
-        $gridDataProvider = RetailOrdersProductsHelper::getDataProvider($criteria);
-        $gridDataProvider->setSort(false);
-
-        $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));*/
     }
 
     public function actionUpdate() {
@@ -69,7 +39,7 @@ class RetailOrdersProductsController extends BackendController {
         //}
     }
 
-    public function actionAdd($id) {
+    /*public function actionAdd($id) {
         $this->actionEdit(null, 'add', $id);
     }
 
@@ -118,7 +88,7 @@ class RetailOrdersProductsController extends BackendController {
         }
 
         $this->render('edit', compact('orderId', 'item', 'products'));
-    }
+    }*/
 
     public function actionDelete($id) {
         /*if($id > 0) {
@@ -133,12 +103,14 @@ class RetailOrdersProductsController extends BackendController {
             }
 
         } else {*/
-            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id))
+            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id)) {
                 /*Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
                     'Товар удален из заказа'
                 );*/
-                echo 'Товар удален из заказа';
+
+                //echo 'Товар удален из заказа';
+            }
         //}
     }
 
