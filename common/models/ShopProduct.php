@@ -235,11 +235,11 @@ class ShopProduct extends LegacyActiveRecord {
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
             'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
             //связь с опциями
-            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
+            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => false),
 //            'product_options' => array(self::MANY_MANY, 'ProductOptions', 'products_options_values(products_options_values_id,products_id)', 'through' => 'product_attributes', 'together' => true),
-            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'together' => true),
-            //      'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => true),
-            //     'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => true)
+            'product_options' => array(self::HAS_MANY, 'ProductOptions', 'options_values_id', 'through' => 'product_attributes', 'joinType' => 'INNER JOIN', 'together' => false),
+            'products_to_new_options' => array(self::HAS_MANY, 'ProductOldToNewOptions', 'products_options_values_id','through' => 'product_options', 'together' => false),
+            'products_new_option_values' => array(self::HAS_MANY, 'ProductNewOptions', 'products_new_value_id', 'through' => 'products_to_new_options', 'together' => false)
         ];
     }
 
@@ -291,7 +291,7 @@ class ShopProduct extends LegacyActiveRecord {
                 'product_description',
                 'categories_description',
                 'product_options',
-                //   'products_new_option_values'
+                'products_new_option_values'
             ]
         ];
     }

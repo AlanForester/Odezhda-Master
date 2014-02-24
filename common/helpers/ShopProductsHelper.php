@@ -42,7 +42,7 @@ class ShopProductsHelper {
             foreach ($categories as $category) {
                 $condition_params[] = 'categories_description.categories_id =' . $category['categories_id'];
             }
-            // $condition_params[] ='categories_description.categories_id ='.$data['category'];
+            $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
         $criteria = [];
@@ -59,18 +59,20 @@ class ShopProductsHelper {
         }
 
         if (!empty($data['filter']['size'])) {
+           $condition_params=[];
             foreach ($data['filter']['size'] as $size) {
-                $condition_params[] = "products_new_option_values.value='" . $size . "'";
+               $condition_params[] = "products_new_option_values.value='" . $size . "'";
+
             }
             $criteria['condition'] = '( ' . join(' OR ', $condition_params) . ' )';
+
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
 
         // максимальная и минимальная цена в выборке
         $criteria_data = new CDbCriteria($criteria);
         $criteria_data->select = 'MAX([[price]]) as max_price,MIN([[price]]) as min_price';
-        $priceLimit = self::getModel()
-                          ->find($criteria_data);
+        $priceLimit = self::getModel()->find($criteria_data);
 
         if (!empty($data['order'])) {
             $criteria ['order'] = $data['order'];
@@ -122,8 +124,7 @@ class ShopProductsHelper {
             'order' => new CDbExpression('RAND()')
         ];
 
-        $priceLimit = self::getModel()
-                          ->find($criteria);
+        $priceLimit = self::getModel()->find($criteria);
 
         return $priceLimit;
     }

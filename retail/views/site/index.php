@@ -190,7 +190,7 @@ Yii::app()->clientScript->registerPackage('index');
 </div>
 <div class="tovar-day">
     <p>товар дня</p>
-    <img src="<?= Yii::app()->params['staticUrl'] ?><?= ShopProductsHelper::pathToMidImg($day_data->image); ?>" alt="Товар дня">
+    <img src="<?= Yii::app()->params['staticUrl'] ?>" alt="Товар дня">
     <a href="/catalog/product/<?php echo $day_data->id; ?>"><?php echo $day_data->name . ' (' . $day_data->model . ')'; ?></a>
     <span><?=FormatHelper::markup($day_data->price) ?></span>
     <h5><?=FormatHelper::markup($day_data->old_price) ?></h5>
