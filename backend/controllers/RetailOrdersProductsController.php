@@ -56,17 +56,17 @@ class RetailOrdersProductsController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        if($params['id'] > 0) {
+        /*if($params['id'] > 0) {
             $this->model = new RetailOrdersProducts('update');
             if (!RetailOrdersProductsHelper::updateField($params)) {
                 $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
             }
 
-        } else {
-            if (!RetailOrdersProductsHelper::updateProductStorageField($params, 'RetailOrdersProductsQueue')) {
+        } else {*/
+            if (!RetailOrdersProductsHelper::updateProductStorageField($params)) {
                 $this->error('Ошибка изменения данных товара');
             }
-        }
+        //}
     }
 
     public function actionAdd($id) {
@@ -175,7 +175,7 @@ class RetailOrdersProductsController extends BackendController {
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'quantity' => $input['quantity'],
-                'params' => CJSON::encode($input['params']),
+                'params' => $input['params']['size'],    //CJSON::encode($input['params']),
             ];
 
             /*if(!empty($input['orderId'])) {
@@ -184,7 +184,7 @@ class RetailOrdersProductsController extends BackendController {
                     //saving error
                 }
             } else {*/
-                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct, 'RetailOrdersProductsEditingStorage');
+                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct);
                 if($productsResult !== true) {
                     //saving error
                 }

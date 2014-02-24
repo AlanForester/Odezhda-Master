@@ -60,14 +60,14 @@ class RetailOrdersController extends BackendController {
     }
 
     public function actionEdit($id, $from = 'retail_orders', $fromId = 0, $scenario = 'edit') {
-        $customers = $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
+        $customers = $statuses = $deliveryPoints = $productOptions = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
         foreach ($customersModel->findAll() as $customer) {
             $customers[$customer['id']] = $customer['firstname'].' '.$customer['lastname'].' ('.$customer['email'].')';
         }*/
 
-        foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
+        foreach (RetailOrdersStatuses::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
 
@@ -75,21 +75,25 @@ class RetailOrdersController extends BackendController {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }
 
-        /*foreach (DefaultProvidersLayer::model()->findAll() as $provider) {
+        /*foreach (DefaultProviders::model()->findAll() as $provider) {
             $defaultProviders[$provider['id']] = $provider['name'];
         }
 
-        foreach (SellersLayer::model()->findAll() as $seller) {
+        foreach (Sellers::model()->findAll() as $seller) {
             $sellers[$seller['id']] = $seller['ur'];
         }
 
-        foreach (CurrenciesLayer::model()->findAll() as $currency) {
+        foreach (Currencies::model()->findAll() as $currency) {
             $currencies[$currency['id']] = $currency['name'];
         }
 
-        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
+        foreach (PaymentMethods::model()->findAll() as $method) {
             $paymentMethods[$method['id']] = $method['name'];
         }*/
+
+        foreach (ProductOptions::model()->findAll() as $option) {
+            $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
+        }
 
         //todo: временно оставляю данные здесь, но лучше создать для PaymentMethods и Currencies таблицы в бд (как и для стран и областей)
         foreach([
@@ -197,7 +201,7 @@ class RetailOrdersController extends BackendController {
         //}
 
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productOptions', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {
