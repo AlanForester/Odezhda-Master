@@ -233,7 +233,7 @@ class NewProduct extends LegacyActiveRecord {
             //            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
             //
             //            //связь с категориями many to many
-            'categories' => [self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)', 'together' => false],
+            'categories' => [self::MANY_MANY, 'NewCategory', 'products_to_categories(products_id, categories_id)', 'together' => true],
             //            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
             //            //связь с опциями
 //            'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => true),
