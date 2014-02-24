@@ -187,8 +187,12 @@ class CatalogController extends BackendController {
         }
 
 
+        $referrer = Yii::app()->request->getQuery('referrer', '#');
+        if(is_array($referrer)) {
+            $referrer = Yii::app()->createUrl($referrer['url'], array('id'=>$referrer['id']));
+        }
 
-        $this->render('edit', compact('model', 'catalog'));
+        $this->render('edit', compact('model', 'catalog', 'referrer'));
     }
 
 

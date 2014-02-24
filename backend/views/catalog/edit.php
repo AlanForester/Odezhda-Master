@@ -3,9 +3,9 @@
 $this->pageTitle = 'Управление товарами: ' . ($model->id ? 'редактирование' : 'создать товар');
 
 $this->pageButton = [
-    BackendPageButtons::save(),
+    BackendPageButtons::save([], 'Сохранить', $referrer),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/catalog/index")
+    BackendPageButtons::cancel("/catalog/index", [], 'Отмена', $referrer)
 ];
 ?>
     <div class="span6">

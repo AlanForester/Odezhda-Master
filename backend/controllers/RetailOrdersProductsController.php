@@ -48,7 +48,7 @@ class RetailOrdersProductsController extends BackendController {
         $gridDataProvider = RetailOrdersProductsHelper::getDataProvider($criteria);
         $gridDataProvider->setSort(false);
 
-        $this->render('retailOrders/index', compact('id','criteria','gridDataProvider', 'retailOrders'));*/
+        $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));*/
     }
 
     public function actionUpdate() {

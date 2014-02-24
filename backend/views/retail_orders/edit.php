@@ -344,7 +344,8 @@ $this->pageButton = [
                                     ],
 
                                     'viewButtonUrl' => null,
-                                    'updateButtonUrl' => $item->id ? 'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))' : null,
+                                    'updateButtonUrl' => $item->id ?
+                                        'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))."?referrer[url]=retail_orders/edit&referrer[id]='.$item->id.'"' : null,
                                     'deleteButtonUrl' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
                                 ]
 

@@ -85,7 +85,7 @@ class BackendPageButtons {
             );
     }
 
-    public static function save($option = [], $title = 'Сохранить') {
+    public static function save($option = [], $title = 'Сохранить', $referrer = '#') {
         return
             TbHtml::htmlButton(
                 $title,
@@ -93,7 +93,7 @@ class BackendPageButtons {
                     [
                         'icon' => TbHtml::ICON_PENCIL,
                         'buttonType' => 'link',
-                        'url' => '#', //'/users/add',
+                        'url' => $referrer, //'/users/add',
                         //            'type'=>TbHtml::BUTTON_TYPE_SUBMIT,
                         'color' => TbHtml::BUTTON_COLOR_SUCCESS,
                         'class' => 'btn-small',
@@ -132,7 +132,7 @@ class BackendPageButtons {
 
     }
 
-    public static function cancel($url = '', $option = [], $title = 'Отмена') {
+    public static function cancel($url = '', $option = [], $title = 'Отмена', $referrer = '#') {
         return
             TbHtml::linkButton(
                 $title,
@@ -140,8 +140,8 @@ class BackendPageButtons {
                     [
                         'icon' => TbHtml::ICON_REMOVE,
                         'buttonType' => 'link',
-                        'url' => Yii::app()
-                                ->createUrl($url),
+                        'url' => $referrer != '#' ? $referrer :
+                            Yii::app()->createUrl($url),
                         //            'type'=>TbHtml::BUTTON_TYPE_LINK,
                         'class' => 'btn-small',
                         'color' => TbHtml::BUTTON_COLOR_DANGER,
