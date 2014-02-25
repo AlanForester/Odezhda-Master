@@ -16,9 +16,6 @@ Yii::app()->clientScript->registerPackage('social');
                 <?php if ($product->old_price != 0) { ?>
                     <h5><?= FormatHelper::markup($product->old_price) ?></h5>
                 <?php } ?>
-                <a href='<?php echo $this->createUrl('catalog/preview', ['id' => $product->id]) ?>'
-                   data-options='{"width":743, "height":535, "modal": true}' class='lightbox quick-view' rel="group1">Быстрый
-                    просмотр</a>
 
                 <div class="choice">
                     <?php if (!empty($product->product_options)) { ?>
