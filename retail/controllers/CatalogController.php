@@ -120,10 +120,12 @@ class CatalogController extends RetailController {
         $data = $model->getDataProvider($criteria);
         $dataProvider=$data['dataProvider'];
         $limitPrice=$data['priceLimit'];
-//        print_r($limitPrice);
-//        exit;
+
         // общее кол-во доступных товаров
+        // не считает товары если нет опций
+
         $totalCount = $dataProvider->getTotalItemCount();
+
 
         // пагинация
         $pages = new CPagination($totalCount);
@@ -135,7 +137,6 @@ class CatalogController extends RetailController {
 
         // титл страницы
         $this->pageTitle = $catName;
-      //  print_r($dataProvider->getData());
             $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria','currentCategoryNumber'));
     }
 }

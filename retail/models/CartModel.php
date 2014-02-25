@@ -13,6 +13,20 @@ class CartModel {
      * @param $data - массив данных для добавления
      * @return bool результат добавления
      */
+    public function addToSession($data){
+
+        if(!empty($data['product_id'])){
+            $session=new CHttpSession;
+            $session->open() ;
+            $session->setSessionName('Cart') ;
+            $session[$data['product_id']]=$data['product_id'];
+            $session[$data['product_id']]=$data['params'];
+            $session->writeSession('sleep','1000');
+            print_r($session->toArray());
+        }
+        return false;
+    }
+
     public function addToCart($data){
         if(!empty($data['product_id'])){
             return ($this->hasProduct($data['customer_id'],$data['product_id'],$data['params']) ?
@@ -22,7 +36,6 @@ class CartModel {
         }
         return false;
     }
-
     /**
      * Метод для проверки, есть ли у пользователя customer_id в корзине товар product_id
      * Используется для определения: вставить или обновить запись в бд

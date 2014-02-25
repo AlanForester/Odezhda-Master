@@ -40,7 +40,18 @@ class CartController extends RetailController {
             }
             $error='Ошибка добавления товара в корзину';
         } else {
-            $error='Ошибка добавления в корзину : неизвестный пользователь. Пожалуйста, авторизируйтесь.';
+            $data['product_id'] = Yii::app()->request->getParam('product_id');
+            $data['params'] = Yii::app()->request->getParam('params');
+            $data['added'] = new CDbExpression('NOW()');
+            $model = new CartModel();
+            if($model->addToSession($data)){
+
+                $this->renderPartial("/layouts/parts/bottomPanel");
+                Yii::app()->end();
+            }
+            $error='Ошибка добавления товара в корзину';
+
+
         }
         $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));
 

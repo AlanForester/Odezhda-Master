@@ -131,8 +131,7 @@ class RetailSiteController extends RetailController {
             }
             $this->renderPartial('/layouts/parts/recovery_responce', compact('responce'));
             //завершаем приложение в любом случае
-            Yii::app()
-               ->end();
+            Yii::app()->end();
         }
         $this->renderPartial('/layouts/parts/recovery');
     }

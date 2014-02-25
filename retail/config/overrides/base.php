@@ -38,8 +38,13 @@ return [
         'site' => 'RetailSiteController',
         'info' => 'InfoPagesController',
         'cart' => 'CartController',
+        'social' => 'SocialController'
     ],
     'components' => [
+        'session'=>[
+            'autoStart' => true,
+            'timeout' => 10000,
+        ],
         'errorHandler' => [
             // Installing our own error page.
             'errorAction' => 'site/error'
