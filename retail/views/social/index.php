@@ -1,10 +1,9 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
+Yii::app()->clientScript->registerPackage('social');
 ?>
 
 <div class="wrapper">
-<div class="main-tabs">
-    <div id="tabs">
         <div id="fragment_holder">
             <?php
             $i=1;
@@ -32,6 +31,4 @@ Yii::app()->clientScript->registerPackage('index');
                 </div>
             <?php } ?>
         </div>
-    </div>
-</div>
 </div>
