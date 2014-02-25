@@ -152,6 +152,9 @@ return [
 
                     ],
                     'css' => [
+                        'css/karta.css',
+                        'js/slider-clothes/jcarousel.responsive.css',
+                        'js/tabs/style.css',
                         'css/social.css',
                     ],
                     'depends' => ['core']
