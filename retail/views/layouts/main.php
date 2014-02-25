@@ -497,13 +497,13 @@ Yii::app()->getClientScript()->registerScript('lightbox', $js, CClientScript::PO
 
 <?php
 
-if (!Yii::app()->user->isGuest) {
+//if (!Yii::app()->user->isGuest) {
     ?>
     <div id="panel">
         <?php $this->renderPartial('/layouts/parts/bottomPanel'); ?>
     </div>
 <?php
-}
+//}
 
 //$this->renderPartial('/layouts/parts/login');
 //$this->renderPartial('/layouts/parts/register');

@@ -45,13 +45,10 @@ class CartController extends RetailController {
             $data['added'] = new CDbExpression('NOW()');
             $model = new CartModel();
             if($model->addToSession($data)){
-
                 $this->renderPartial("/layouts/parts/bottomPanel");
                 Yii::app()->end();
             }
             $error='Ошибка добавления товара в корзину';
-
-
         }
         $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));
 
