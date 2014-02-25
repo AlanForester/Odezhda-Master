@@ -14,7 +14,7 @@ class SocialController extends RetailController {
 
             $catalogModel = new CatalogModel();
             $this->catalogData = $catalogModel->frontCatalogData();
-            /*todo обращение к модели. сейчас просто выдаем вид*/
+
             $this->layout = '//layouts/main_social';
             $this->render('/social/index');
         }

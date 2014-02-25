@@ -142,6 +142,16 @@ return [
                     ],
                     'depends' => ['core']
                 ],
+                'social' => [
+                    'baseUrl' => '/',
+                    'js' => [
+
+                    ],
+                    'css' => [
+                        'css/social.css',
+                    ],
+                    'depends' => ['core']
+                ],
             ]
         ],
         'urlManager' => [
