@@ -1,0 +1,10 @@
+.wrapper {
+    height: auto;
+    margin: 0 auto;
+    width: 1000px;
+}
+.main-tabs {
+    float: left;
+    height: auto;
+    width: 100%;
+}
