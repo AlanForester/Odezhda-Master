@@ -52,7 +52,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return true;
     }*/
 
-    public static function addProductToStorage($retailProduct, $storageName) {
+    public static function addProductToStorage($retailProduct, $storageName = 'RetailOrdersProductsEditingStorage') {
         $retailProducts = Yii::app()->session[$storageName];
         $lastAddedRetailProduct = $retailProducts === null ? false : end($retailProducts);
         $retailProduct['id'] = $lastAddedRetailProduct === false || $lastAddedRetailProduct['id'] > 0 ? -1
@@ -75,7 +75,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }*/
 
-    public static function updateProductStorageField($data, $storageName) {
+    public static function updateProductStorageField($data, $storageName = 'RetailOrdersProductsEditingStorage') {
         $field = TbArray::getValue('field', $data, false);
         $rowId = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);
@@ -144,6 +144,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
                     unset($storageProduct['id']);
                     $model->setAttributes($storageProduct);
                     $model->retail_orders_id = $model->retail_orders_id ? : $orderId;
+                    $model->params = $model->params === '' ? 0 : $model->params;
                     if(!$model->save())
                         return $model;
                 //}

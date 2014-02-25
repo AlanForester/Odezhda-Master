@@ -46,7 +46,7 @@ class RetailOrdersProducts extends LegacyActiveRecord {
             'name' => Yii::t('labels', 'Название'),
             'quantity' => Yii::t('labels', 'Количество'),
             'price' => Yii::t('labels', 'Цена (за единицу)'),
-            'params' => Yii::t('labels', 'Параметры'),
+            'params' => Yii::t('labels', 'Параметры (Размер)'),
             /*'final_price' => Yii::t('labels', 'Полная цена (без налога)'),
             'products_tax' => Yii::t('labels', 'Налог'),
             'products_av' => Yii::t('labels', 'Наличие товара'),

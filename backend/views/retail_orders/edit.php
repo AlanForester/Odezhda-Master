@@ -121,7 +121,7 @@ $this->pageButton = [
                                 ],
                             ]
                         );
-                        echo BackendPageButtons::editCustomer("/customers/edit/".$item->customer->id, '?from=retail_order&fromId='.$item->id);
+                        echo BackendPageButtons::editCustomer("/customers/edit/".$item->customer->id, '?referrer[url]=retail_orders/edit&referrer[id]='.$item->id);
                     }
                     ?>
 
@@ -260,19 +260,20 @@ $this->pageButton = [
                                 ],
                                 [
                                     'header' => 'Размер',
-                                    'value' => '',
-                                    /*'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                                    'type' => 'text',
-                                    'name' => 'size',
+                                    'class' => 'backend.widgets.EditableColumn',
+                                    'name' => 'params',
+                                    'modelName' => $modelName,
                                     'headerHtmlOptions' => [
                                     ],
                                     'htmlOptions' => [
                                     ],
                                     'editable' => [
+                                        'type' => 'select',
                                         'placement' => 'right',
                                         'emptytext' => 'не задано',
                                         'url' => Yii::app()->createUrl("/retail_orders_products/update"),
-                                    ]*/
+                                        'source' => $productOptions,
+                                    ]
                                 ],
                                 [
                                     'header' => 'Количество',
@@ -344,7 +345,8 @@ $this->pageButton = [
                                     ],
 
                                     'viewButtonUrl' => null,
-                                    'updateButtonUrl' => $item->id ? 'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))' : null,
+                                    'updateButtonUrl' => $item->id ?
+                                        'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["products_id"]))."?referrer[url]=retail_orders/edit&referrer[id]='.$item->id.'"' : null,
                                     'deleteButtonUrl' => 'Yii::app()->createUrl("/retail_orders_products/delete", array("id"=>$data["id"]))',
                                 ]
 

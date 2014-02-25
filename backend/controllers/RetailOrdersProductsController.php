@@ -11,60 +11,35 @@ class RetailOrdersProductsController extends BackendController {
     public $pageButton = [];
     public $model;
 
-
     public function actionIndex($id = null) {
-        $criteria = [
-            'text_search' => [
-                'value' => $this->userStateParam('text_search'),
-            ],
-            'filters' => $this->userStateParam('filters'),
-            'order' => [
-                'field' => $this->userStateParam('order_field'),
-                'direction' => $this->userStateParam('order_direct'),
-            ],
-            'page_size' => $this->userStateParam('page_size', CPagination::DEFAULT_PAGE_SIZE)
-        ];
+        if(!$id)
+            $this->redirect(array('retail_orders/index'));
 
-        $retailOrders = [];
-
-        if($id !== null) {
-            $criteria['filters']['retail_orders_id'] = $id;
-
-        } else {
-            foreach (RetailOrdersLayer::model()->findAll() as $order) {
-                $retailOrders[$order['id'].'&'] = $order['id'] . ' (' . $order['customers_name'] . ')';
-            }
+        else {
+            $this->forward('retail_orders/edit');
         }
 
-        $gridDataProvider = RetailOrdersProductsHelper::getDataProvider($criteria);
-        $gridDataProvider->setSort(false);
-
-        $this->render('index', compact('id','criteria','gridDataProvider', 'retailOrders'));
     }
-
-    /*public function actionOrder($id) {
-        $this->actionIndex($id);
-    }*/
 
     public function actionUpdate() {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        if($params['id'] > 0) {
+        /*if($params['id'] > 0) {
             $this->model = new RetailOrdersProducts('update');
             if (!RetailOrdersProductsHelper::updateField($params)) {
                 $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
             }
 
-        } else {
-            if (!RetailOrdersProductsHelper::updateProductStorageField($params, 'RetailOrdersProductsQueue')) {
+        } else {*/
+            if (!RetailOrdersProductsHelper::updateProductStorageField($params)) {
                 $this->error('Ошибка изменения данных товара');
             }
-        }
+        //}
     }
 
-    public function actionAdd($id) {
+    /*public function actionAdd($id) {
         $this->actionEdit(null, 'add', $id);
     }
 
@@ -113,7 +88,7 @@ class RetailOrdersProductsController extends BackendController {
         }
 
         $this->render('edit', compact('orderId', 'item', 'products'));
-    }
+    }*/
 
     public function actionDelete($id) {
         /*if($id > 0) {
@@ -128,12 +103,14 @@ class RetailOrdersProductsController extends BackendController {
             }
 
         } else {*/
-            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id))
+            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id)) {
                 /*Yii::app()->user->setFlash(
                     TbHtml::ALERT_COLOR_INFO,
                     'Товар удален из заказа'
                 );*/
-                echo 'Товар удален из заказа';
+
+                //echo 'Товар удален из заказа';
+            }
         //}
     }
 
@@ -170,7 +147,7 @@ class RetailOrdersProductsController extends BackendController {
                 'name' => $product['name'],
                 'price' => $product['price'],
                 'quantity' => $input['quantity'],
-                'params' => CJSON::encode($input['params']),
+                'params' => $input['params']['size'],    //CJSON::encode($input['params']),
             ];
 
             /*if(!empty($input['orderId'])) {
@@ -179,7 +156,7 @@ class RetailOrdersProductsController extends BackendController {
                     //saving error
                 }
             } else {*/
-                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct, 'RetailOrdersProductsEditingStorage');
+                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct);
                 if($productsResult !== true) {
                     //saving error
                 }

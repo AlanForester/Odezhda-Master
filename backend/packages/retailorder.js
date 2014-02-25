@@ -50,7 +50,7 @@ function selectCustomer(event, orderId, infoPath, editPath) {
         $("table#yw2").remove();
         $("#customer_info").html(
             '<table id="yw2" class="detail-view table table-striped table-condensed"><tbody><tr class="odd"><th>ID</th><td>'+customerId+'</td></tr><tr class="even"><th>Имя</th><td>'+json.customer.customers_firstname+'</td></tr><tr class="odd"><th>Фамилия</th><td>'+json.customer.customers_lastname+'</td></tr><tr class="even"><th>E-mail</th><td>'+json.customer.customers_email_address+'</td></tr><tr class="odd"><th>Телефон</th><td>'+json.customer.customers_telephone+'</tbody></table>'
-                + '<a href="' + editPath + customerId + '/?from=retail_order&fromId=' + orderId + '" class="btn-small btn btn-info" buttontype="link"><i class="icon-user"></i> Редактировать</a>'
+                + '<a href="' + editPath + customerId + '/?referrer[url]=retail_orders/' + (orderId ? 'edit' : 'add') + '&referrer[id]=' + orderId + '" class="btn-small btn btn-info" buttontype="link"><i class="icon-user"></i> Редактировать</a>'
         );
     });
     bootbox.hideAll();
@@ -118,27 +118,18 @@ function addRetailOrdersProduct(productId, orderId, quantity, size, color, queue
     bootbox.hideAll();
 }
 
-/*function removeRetailOrdersProduct(event) {
-    //var event=event||window.event;
-    var target = event.target||event.srcElement;
-    //console.log(target);
-    $(target).closest("tr").remove();
-    regenerateReferrerInfo("#customer_info a.btn-small.btn.btn-info");
-}*/
-
-function regenerateReferrerInfo(anchorSelector) {
+/*function regenerateReferrerInfo(anchorSelector) {
     var productIds = [],
         url = $(anchorSelector).attr('href'),
         updatedUrl = url.substring(0, url.indexOf('?') > 0 ? url.indexOf('?') : url.length) +
-            '?referrer[name]=retail_order&referrer[id]=' + $("input[name='RetailOrders[id]']").val();
+            '?referrer[name]=retail_orders/edit&referrer[id]=' + $("input[name='RetailOrders[id]']").val();
 
     $("#ropgrid input[name=\'product_ids[]\']").each(function(){
         updatedUrl += '&referrer[product_ids][]=' + $(this).val();
     });
 
     $(anchorSelector).attr('href', updatedUrl);
-    //console.log(updatedUrl);
-}
+}*/
 
 function registerGrid(id) {
     jQuery("#"+id).yiiGridView({

@@ -47,7 +47,6 @@ class RetailOrdersController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
-        //var_dump($params);exit;
 
         //$this->model = new RetailOrders('update');
         if (!RetailOrdersHelper::updateField($params)) {
@@ -55,19 +54,19 @@ class RetailOrdersController extends BackendController {
         }
     }
 
-    public function actionAdd($from = 'retail_orders', $fromId = 0) {
-        $this->actionEdit(null, $from, $fromId, 'add');
+    public function actionAdd($id = null) {
+        $this->actionEdit(null, 'add');
     }
 
-    public function actionEdit($id, $from = 'retail_orders', $fromId = 0, $scenario = 'edit') {
-        $customers = $statuses = $deliveryPoints = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
+    public function actionEdit($id, $scenario = 'edit') {
+        $customers = $statuses = $deliveryPoints = $productOptions = /*$defaultProviders = $sellers =*/ $paymentMethods = $currencies = [];
 
         /*$customersModel = new Customer();
         foreach ($customersModel->findAll() as $customer) {
             $customers[$customer['id']] = $customer['firstname'].' '.$customer['lastname'].' ('.$customer['email'].')';
         }*/
 
-        foreach (RetailOrdersStatusesLayer::model()->findAll() as $status) {
+        foreach (RetailOrdersStatuses::model()->findAll() as $status) {
             $statuses[$status['id']] = $status['name'];
         }
 
@@ -75,21 +74,25 @@ class RetailOrdersController extends BackendController {
             $deliveryPoints[$deliveryPoint['id']] = $deliveryPoint['name'];
         }
 
-        /*foreach (DefaultProvidersLayer::model()->findAll() as $provider) {
+        /*foreach (DefaultProviders::model()->findAll() as $provider) {
             $defaultProviders[$provider['id']] = $provider['name'];
         }
 
-        foreach (SellersLayer::model()->findAll() as $seller) {
+        foreach (Sellers::model()->findAll() as $seller) {
             $sellers[$seller['id']] = $seller['ur'];
         }
 
-        foreach (CurrenciesLayer::model()->findAll() as $currency) {
+        foreach (Currencies::model()->findAll() as $currency) {
             $currencies[$currency['id']] = $currency['name'];
         }
 
-        foreach (PaymentMethodsLayer::model()->findAll() as $method) {
+        foreach (PaymentMethods::model()->findAll() as $method) {
             $paymentMethods[$method['id']] = $method['name'];
         }*/
+
+        foreach (ProductOptions::model()->findAll() as $option) {
+            $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
+        }
 
         //todo: временно оставляю данные здесь, но лучше создать для PaymentMethods и Currencies таблицы в бд (как и для стран и областей)
         foreach([
@@ -103,12 +106,13 @@ class RetailOrdersController extends BackendController {
 
         $currencies = ['RUR'=>'RUR'];
 
+        $referrer = Yii::app()->request->getQuery('referrer', '#');
 
-        if($from == 'customer') {
+        if(is_array($referrer) && $referrer['id'] && $referrer['url'] == 'customers/edit') {
             $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
-            $item->customer = CustomersHelper::getCustomerWithInfo($fromId, $scenario);
-            if($fromId) {
-                $item->customers_id = $fromId;
+            $item->customer = CustomersHelper::getCustomerWithInfo($referrer['id'], $scenario);
+            if($referrer['id']) {
+                $item->customers_id = $referrer['id'];
                 $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
                 $item->customers_city = $item->customer->default_address==null || $item->customer->default_address->entry_city==null ? "-" : $item->customer->default_address->entry_city;
                 $item->customers_telephone = $item->customer->customers_telephone;
@@ -142,8 +146,13 @@ class RetailOrdersController extends BackendController {
                         TbHtml::ALERT_COLOR_ERROR,
                         CHtml::errorSummary($productsResult, 'Ошибка сохранения товаров розничного заказа')
                     );
+
+                    //если после создания заказа не сохранились его товары,
+                    //то удаляем созданный заказ, чтобы не плодить клонов при данной ошибке
+                    if($this->action->id == 'add')
+                        RetailOrders::model()->deleteByPk($id);
+
                 } else {
-                    //unset(Yii::app()->session['RetailOrdersProductsEditingStorage']);
                     // выкидываем сообщение
                     Yii::app()->user->setFlash(
                         TbHtml::ALERT_COLOR_INFO,
@@ -171,7 +180,7 @@ class RetailOrdersController extends BackendController {
             //создаем временное хранилище товаров заказа,
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
-            if (!$this->isAjax)
+            if (!$this->isAjax && !is_array($referrer))
                 RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }
@@ -197,7 +206,7 @@ class RetailOrdersController extends BackendController {
         //}
 
 
-        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productsGridDataProvider'));
+        $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productOptions', 'productsGridDataProvider'));
     }
 
     public function actionDelete($id) {

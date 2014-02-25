@@ -1,8 +1,8 @@
 <?php
 
-class RetailOrdersLayer extends RetailOrders {
+/*class RetailOrdersLayer extends RetailOrders {
 
-    /*public function getDataProvider($criteria = null) {
+    public function getDataProvider($criteria = null) {
         return RetailOrdersHelper::getDataProvider($criteria);
     }
 
@@ -17,7 +17,7 @@ class RetailOrdersLayer extends RetailOrders {
 
     public function getRetailOrder($id, $scenario = null) {
         return RetailOrdersHelper::getRetailOrder($id, $scenario);
-    }*/
-}
+    }
+}*/
 
 ?>

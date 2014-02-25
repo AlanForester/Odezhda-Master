@@ -5,7 +5,7 @@ $this->pageTitle = 'Управление товарами: ' . ($model->id ? 'р
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/catalog/index")
+    BackendPageButtons::cancel("/catalog/index", [], 'Отмена', $referrer)
 ];
 ?>
     <div class="span6">
