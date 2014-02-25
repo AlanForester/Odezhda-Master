@@ -13,14 +13,21 @@ class CartModel {
      * @param $data - массив данных для добавления
      * @return bool результат добавления
      */
-    public function addToCart($data){
-        if(!empty($data['product_id'])){
+    public function addToSession($data){
 
+        if(!empty($data['product_id'])){
+            $session=new CHttpSession;
+            $session->open() ;
+            $session->setSessionName('Cart') ;
+            $session[$data['product_id']]=$data['product_id'];
+            $session[$data['product_id']]=$data['params'];
+            $session->writeSession('sleep','1000');
+            print_r($session->toArray());
         }
         return false;
     }
 
-    public function addToSession($data){
+    public function addToCart($data){
         if(!empty($data['product_id'])){
             return ($this->hasProduct($data['customer_id'],$data['product_id'],$data['params']) ?
                 $this->updateProduct($data['customer_id'],$data['product_id'],'plus',$data['params']) :
