@@ -17,14 +17,17 @@ class CartModel {
 
         if(!empty($data['product_id'])){
             $session=new CHttpSession;
-            $session->open() ;
-            $session->setSessionName('Cart') ;
-            $session[$data['product_id']]=$data['product_id'];
-            $session[$data['product_id']]=$data['params'];
-            $session->writeSession('sleep','1000');
-            print_r($session->toArray());
+            $session->open();
+            $session['prod_'.$data['product_id']]=[];
+            $session['prod_'.$data['product_id']]+=['params'=>$data['params']];
+            $session['prod_'.$data['product_id']]+=['product_id'=>$data['product_id']];
+//            print_r($_SESSION);
+//            exit;
+            return true;
         }
+
         return false;
+
     }
 
     public function addToCart($data){
@@ -100,15 +103,19 @@ class CartModel {
      * @return int
      */
     public static function countProducts(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $count = Yii::app()->db->createCommand()
-                ->select('SUM(count) AS c')
-                ->from(self::$tblName)
-                ->where('customer_id=:id', array(':id'=>$customer_id))
-                ->queryRow()['c'];
+        if(Yii::app()->user->id){
+            $customer_id=Yii::app()->user->id;
+            if (!empty($customer_id)){
+                $count = Yii::app()->db->createCommand()
+                    ->select('SUM(count) AS c')
+                    ->from(self::$tblName)
+                    ->where('customer_id=:id', array(':id'=>$customer_id))
+                    ->queryRow()['c'];
+            }
+            return (isset($count) ? $count : 0);
+        }else{
+            return count($_SESSION);
         }
-        return (isset($count) ? $count : 0);
     }
 
     /**
@@ -116,25 +123,38 @@ class CartModel {
      * @return int
      */
     public static function countPrices(){
+        if(Yii::app()->user->id){
         $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $cartModel = new CartModel();
-            $product_ids=$cartModel->getUserProducts($customer_id);
-            $sum = 0;
-            if($product_ids){
-                $catalogModel = new CatalogModel();
-                foreach($product_ids as $id=>$items){
-                    foreach($items as $value){
-                        if ($product = $catalogModel->productById($id)) {
-                            $sum+=$product->price*$value['count'];
+            if (!empty($customer_id)){
+                $cartModel = new CartModel();
+                $product_ids=$cartModel->getUserProducts($customer_id);
+                $sum = 0;
+                if($product_ids){
+                    $catalogModel = new CatalogModel();
+                    foreach($product_ids as $id=>$items){
+                        foreach($items as $value){
+                            if ($product = $catalogModel->productById($id)) {
+                                $sum+=$product->price*$value['count'];
+                            }
                         }
                     }
                 }
             }
-        }
-        return FormatHelper::markup($sum);
-    }
 
+            return FormatHelper::markup($sum);
+        }else{
+            $catalogModel = new CatalogModel();
+            $sum= 100 ;
+            foreach($_SESSION as $value){
+                if ($product = $catalogModel->productById($value['product_id'])) {
+                    //количество
+                    $sum+=$product->price;
+                }
+            }
+            return FormatHelper::markup($sum);
+        }
+
+    }
     /**
      * Метод для нахождения общей суммы единицы товара в корзине текущего пользователя
      * @return int

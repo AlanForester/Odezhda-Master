@@ -42,8 +42,11 @@ return [
     ],
     'components' => [
         'session'=>[
-            'autoStart' => true,
-            'timeout' => 10000,
+                'autoStart' => true,
+                'timeout' => 60,
+                'cookieMode' =>'only',
+                'cookieParams' => array('secure' => false, 'httponly' => false),
+
         ],
         'errorHandler' => [
             // Installing our own error page.

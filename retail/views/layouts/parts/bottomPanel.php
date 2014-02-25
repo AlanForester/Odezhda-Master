@@ -1,21 +1,26 @@
 <?php $count=isset($count) ? $count :0;
 //todo что-то с этим решить
 //$products=CartHelper::getCart();
-$customer_id=Yii::app()->user->id;
-$products=[];
-if (!empty($customer_id)){
-    $model = new CartModel();
-    $product_ids=$model->getUserProducts($customer_id);
-    if($product_ids){
-        $catalogModel = new CatalogModel();
-        foreach($product_ids as $id=>$count){
-            if ($product = $catalogModel->productById($id)) {
+if(Yii::app()->user->id){
+    $reg=true;
+    $customer_id=Yii::app()->user->id;
+    $products=[];
+    if (!empty($customer_id)){
+        $model = new CartModel();
+        $product_ids=$model->getUserProducts($customer_id);
+        if($product_ids){
+            $catalogModel = new CatalogModel();
+            foreach($product_ids as $id=>$count){
+                if ($product = $catalogModel->productById($id)) {
 
-                $products[]=$product;
+                    $products[]=$product;
+                }
             }
         }
+    //    print_r($product_ids);exit;
     }
-//    print_r($product_ids);exit;
+}else{
+    $reg=false;
 }
 ?>
 
@@ -25,8 +30,8 @@ if (!empty($customer_id)){
         <img src="../../../images/bottom-basket-icon.png" alt="" />
 
         <p>корзина</p>
-        <span class="col"><?php echo(CartModel::countProducts());?></span>
-        <p class="sum"><?php echo(CartModel::countPrices());?></p>
+        <span class="col"><?php echo CartModel::countProducts();?></span>
+        <p class="sum"><?php echo CartModel::countPrices();?></p>
 
     </a>
     <a href="#" class="close" style="display: none;">
