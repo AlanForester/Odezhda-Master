@@ -120,10 +120,15 @@ class CatalogController extends RetailController {
         $data = $model->getDataProvider($criteria);
         $dataProvider=$data['dataProvider'];
         $limitPrice=$data['priceLimit'];
-//        print_r($limitPrice);
-//        exit;
+
         // общее кол-во доступных товаров
+        // не считает товары если нет опций
+
+//        todo: пагинация не работает если нет опций
         $totalCount = $dataProvider->getTotalItemCount();
+        if($totalCount==0){
+            $totalCount=count($dataProvider->getData());
+        }
 
         // пагинация
         $pages = new CPagination($totalCount);

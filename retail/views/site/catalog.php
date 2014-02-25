@@ -8,6 +8,7 @@ $curCategory=$currentCetegory->rel_description->categories_id
 //print_r($currentCategoryNumber);exit;
 //print_r(FormatHelper::markupNumber($limitPrice['min_price']));
 //exit;
+
 ?>
 <script>
     $(document).ready(function () {
@@ -17,10 +18,10 @@ $curCategory=$currentCetegory->rel_description->categories_id
         });
 
         $('#catalog_order').change(function () {
-            //$(this).val();
-            //  location.href=location.href+'?sort='+$(this).val();
-            //location.href =
-//                $('#filter_order').val($(this).val());
+//            $(this).val();
+//              location.href=location.href+'?sort='+$(this).val();
+//            location.href =
+//          $('#filter_order').val($(this).val());
             $('#left_options').submit();
         });
 
