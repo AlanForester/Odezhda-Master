@@ -12,13 +12,12 @@ class RetailOrdersProductsController extends BackendController {
     public $model;
 
     public function actionIndex($id = null) {
-        if(!$id)
+        //if(!$id)
             $this->redirect(array('retail_orders/index'));
 
-        else {
+        /*else {
             $this->forward('retail_orders/edit');
-        }
-
+        }*/
     }
 
     public function actionUpdate() {
@@ -126,7 +125,8 @@ class RetailOrdersProductsController extends BackendController {
         }
 
         if($id) {
-            $this->actionIndex($id);
+            $this->forward('retail_orders/edit');
+            //$this->actionIndex($id);
         } else
             $this->forward('retail_orders/add');
     }

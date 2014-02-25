@@ -100,7 +100,6 @@ class RetailOrdersProductsHelper extends CommonHelper {
                 $retailProducts[$product->id] = $product->attributes;
             }
         Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
-        //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
     }
 
     public static function removeProductFromEditingStorage($id) {

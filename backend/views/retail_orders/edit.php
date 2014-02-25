@@ -207,7 +207,7 @@ $this->pageButton = [
             <div>
                 <div class="span12">
                     <?php
-                    $modelName = Yii::app()->controller->action->id == 'edit' ? 'RetailOrdersProducts' : '';
+                    //$modelName = Yii::app()->controller->action->id == 'edit' ? 'RetailOrdersProducts' : '';
                     $this->widget(
                         'backend.widgets.CompactGrid',
                         [
@@ -230,7 +230,7 @@ $this->pageButton = [
                                     'header' => 'Название',
                                     'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
-                                    'modelName' => $modelName,
+                                    //'modelName' => $modelName,
                                     'name' => 'name',
                                     'headerHtmlOptions' => [
                                     ],
@@ -246,7 +246,7 @@ $this->pageButton = [
                                     'header' => 'Код модели',
                                     'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
-                                    'modelName' => $modelName,
+                                    //'modelName' => $modelName,
                                     'name' => 'model',
                                     'headerHtmlOptions' => [
                                     ],
@@ -262,7 +262,7 @@ $this->pageButton = [
                                     'header' => 'Размер',
                                     'class' => 'backend.widgets.EditableColumn',
                                     'name' => 'params',
-                                    'modelName' => $modelName,
+                                    //'modelName' => $modelName,
                                     'headerHtmlOptions' => [
                                     ],
                                     'htmlOptions' => [
@@ -279,7 +279,7 @@ $this->pageButton = [
                                     'header' => 'Количество',
                                     'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
-                                    'modelName' => $modelName,
+                                    //'modelName' => $modelName,
                                     'name' => 'quantity',
                                     'headerHtmlOptions' => [
                                     ],
@@ -295,7 +295,7 @@ $this->pageButton = [
                                     'header' => 'Цена (за единицу)',
                                     'class' => 'backend.widgets.EditableColumn',
                                     'type' => 'text',
-                                    'modelName' => $modelName,
+                                    //'modelName' => $modelName,
                                     'name' => 'price',
                                     'headerHtmlOptions' => [
                                     ],
