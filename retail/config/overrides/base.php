@@ -38,6 +38,7 @@ return [
         'site' => 'RetailSiteController',
         'info' => 'InfoPagesController',
         'cart' => 'CartController',
+        'social' => 'SocialController'
     ],
     'components' => [
         'errorHandler' => [
