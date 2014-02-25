@@ -11,15 +11,6 @@ $this->pageButton = [
     BackendPageButtons::cancel("/retail_orders/index")
 ];
 
-/*if($item->id) {
-    $this->widget(
-        'backend.widgets.SubMenu',
-        [
-            'id' => 'submenu',
-            'submenu' => BackendSubMenu::retailOrder($item->id),
-        ]
-    );
-}*/
 ?>
 <div class="span12">
     <?php
@@ -367,17 +358,5 @@ $this->pageButton = [
     </div>
     <br><br>
     <input type="hidden" name="form_action" value="save">
-    <?php $this->endWidget();
-
-    /*if(empty($productsGridDataProvider->data)) {
-        //исправление для строк, динамически добавляемых в пустой список,
-        //без которого в таких случаях редактирование параметров не работало
-        Yii::app()->clientScript->registerScriptFile(
-            Yii::app()->assetManager->publish(
-                Yii::getPathOfAlias('yiiwheels.widgets.editable.assets.bootstrap-editable.js') . DIRECTORY_SEPARATOR . 'bootstrap-editable.js'
-            ),
-            CClientScript::POS_END
-        );
-    }*/
-    ?>
+    <?php $this->endWidget(); ?>
 </div>

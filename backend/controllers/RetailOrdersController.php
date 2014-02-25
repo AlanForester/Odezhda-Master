@@ -191,20 +191,13 @@ class RetailOrdersController extends BackendController {
         ];
         $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        /*if($id) {
-            $productsGridDataProvider = RetailOrdersProductsHelper::getDataProvider($productsCriteria);
-            $productsGridDataProvider->setSort(false);
-
-        } else {*/
-            //товары из сессии, подготовленные для сохранения
-            $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
-                [
-                    RetailOrdersProductsHelper::getExistingProductsFromEditingStorage()
-                ],
-                $productsCriteria['page_size']
-            );
-        //}
-
+        //товары из сессии, подготовленные для сохранения
+        $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
+            [
+                RetailOrdersProductsHelper::getExistingProductsFromEditingStorage()
+            ],
+            $productsCriteria['page_size']
+        );
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productOptions', 'productsGridDataProvider'));
     }

@@ -25,92 +25,20 @@ class RetailOrdersProductsController extends BackendController {
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
 
-        /*if($params['id'] > 0) {
-            $this->model = new RetailOrdersProducts('update');
-            if (!RetailOrdersProductsHelper::updateField($params)) {
-                $this->error(CHtml::errorSummary($this->model, 'Ошибка изменения данных товара'));
-            }
-
-        } else {*/
-            if (!RetailOrdersProductsHelper::updateProductStorageField($params)) {
-                $this->error('Ошибка изменения данных товара');
-            }
-        //}
+        if (!RetailOrdersProductsHelper::updateProductEditingStorageField($params)) {
+            $this->error('Ошибка изменения данных товара');
+        }
     }
-
-    /*public function actionAdd($id) {
-        $this->actionEdit(null, 'add', $id);
-    }
-
-    public function actionEdit($id, $scenario = 'edit', $orderId = null) {
-
-        $model = new RetailOrdersProducts($scenario);
-        if (!$item = RetailOrdersProductsHelper::getRetailOrdersProduct($id, $scenario)){
-            $this->error('Ошибка получения данных товара');
-        }
-
-        $item->retail_orders_id = $item->retail_orders_id ? : $orderId;
-
-        $products = [];
-        $productsModel = new CatalogModel();
-        foreach ($productsModel->getListAndParams([]) as $product) {
-            $products[$product['id']] = $product['name'] . ' (' . $product['model'] . ')';
-        }
-
-        $form_action = Yii::app()->request->getPost('form_action');
-        if (!empty($form_action)) {
-            // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes(RetailOrdersProductsHelper::getPostData(),false);
-            // записываем данные
-            $result = $item->save();
-
-            if (!$result) {
-                // ошибка записи
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_ERROR,
-                    CHtml::errorSummary($item, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' товара')
-                );
-            } else {
-                // выкидываем сообщение
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Товар ' . ($id ? 'сохранен' : 'добавлен')
-                );
-                if ($form_action == 'save') {
-                    $this->redirect(['retail_orders/edit', 'id' => $item['retail_orders_id']]);
-                    return;
-                } else {
-                    $this->redirect(['edit', 'id' => $item['id']]);
-                    return;
-                }
-            }
-        }
-
-        $this->render('edit', compact('orderId', 'item', 'products'));
-    }*/
 
     public function actionDelete($id) {
-        /*if($id > 0) {
-            $model = RetailOrdersProducts::model()->findByPk($id);
-            if (!$model->delete()) {
-                $this->error();
-            } else {
-                Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Товар удален из заказа'
-                );
-            }
+        if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id)) {
+            /*Yii::app()->user->setFlash(
+                TbHtml::ALERT_COLOR_INFO,
+                'Товар удален из заказа'
+            );*/
 
-        } else {*/
-            if (RetailOrdersProductsHelper::removeProductFromEditingStorage($id)) {
-                /*Yii::app()->user->setFlash(
-                    TbHtml::ALERT_COLOR_INFO,
-                    'Товар удален из заказа'
-                );*/
-
-                //echo 'Товар удален из заказа';
-            }
-        //}
+            //echo 'Товар удален из заказа';
+        }
     }
 
     public function actionMass($id = null) {
@@ -131,8 +59,8 @@ class RetailOrdersProductsController extends BackendController {
             $this->forward('retail_orders/add');
     }
 
-    //добавляет товар для создаваемого заказа (который еще не имеет id) в очередь на сохранение.
-    //товары в очереди будут сохранены при сохранении создаваемого заказа
+    //добавляет товар для заказа в очередь на сохранение.
+    //товары в очереди будут сохранены при сохранении заказа
     public function actionQueue() {
         $input = RetailOrdersProductsHelper::getPostData();
         if(!empty($input['productId'])) {
@@ -150,17 +78,10 @@ class RetailOrdersProductsController extends BackendController {
                 'params' => $input['params']['size'],    //CJSON::encode($input['params']),
             ];
 
-            /*if(!empty($input['orderId'])) {
-                $productsResult = RetailOrdersProductsHelper::insertProducts([$retailProduct], $input['orderId']);
-                if($productsResult !== true) {
-                    //saving error
-                }
-            } else {*/
-                $productsResult = RetailOrdersProductsHelper::addProductToStorage($retailProduct);
-                if($productsResult !== true) {
-                    //saving error
-                }
-            //}
+            $productsResult = RetailOrdersProductsHelper::addProductToEditingStorage($retailProduct);
+            if($productsResult !== true) {
+                //saving error
+            }
         }
     }
 
