@@ -32,3 +32,12 @@ Yii::app()->clientScript->registerPackage('social');
             <?php } ?>
         </div>
 </div>
+<?php
+$this->widget(
+    'retail.widgets.LinkPager',
+    [
+        'pages' => $pages,
+    ]
+)
+
+?>

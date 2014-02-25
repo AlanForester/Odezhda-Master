@@ -200,8 +200,8 @@ class CatalogModel extends CFormModel {
 //        return ($catalog ? CatalogLayer::fieldMapConvert($result) : false);
 //    }
 
-    public function getDataProvider($criteria = null) {
-        return ShopProductsHelper::getDataProvider($criteria);
+    public function getDataProvider($criteria = null,$pageSize=12) {
+        return ShopProductsHelper::getDataProvider($criteria,$pageSize);
     }
 
     public function dayProduct($category) {

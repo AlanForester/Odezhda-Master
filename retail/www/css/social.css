@@ -8,3 +8,9 @@
     height: auto;
     width: 100%;
 }
+#fragment_holder {
+    float: none;
+    height: auto;
+    margin: 0 auto;
+    width: 840px;
+}
