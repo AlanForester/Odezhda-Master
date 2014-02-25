@@ -260,9 +260,10 @@ $curCategory=$currentCetegory->rel_description->categories_id
                 <?php if (!Yii::app()->user->isGuest): ?>
                     <a class="in-basket addToCart">в корзину</a>
                 <?php else: ?>
-                    <a href="<?php echo $this->createUrl('site/login') ?>"
-                       data-options='{"width":900, "height":355, "modal": true}' class="in-basket lightbox" >в
-                        корзину</a>
+                    <a class="in-basket addToCart">в корзину</a>
+<!--                    <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
+<!--                       data-options='{"width":900, "height":355, "modal": true}' class="in-basket lightbox" >в-->
+<!--                        корзину</a>-->
                 <?php endif; ?>
                 <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
             </div>

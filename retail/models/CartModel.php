@@ -15,6 +15,13 @@ class CartModel {
      */
     public function addToCart($data){
         if(!empty($data['product_id'])){
+
+        }
+        return false;
+    }
+
+    public function addToSession($data){
+        if(!empty($data['product_id'])){
             return ($this->hasProduct($data['customer_id'],$data['product_id'],$data['params']) ?
                 $this->updateProduct($data['customer_id'],$data['product_id'],'plus',$data['params']) :
                 $this->insertProduct($data)
@@ -22,7 +29,6 @@ class CartModel {
         }
         return false;
     }
-
     /**
      * Метод для проверки, есть ли у пользователя customer_id в корзине товар product_id
      * Используется для определения: вставить или обновить запись в бд

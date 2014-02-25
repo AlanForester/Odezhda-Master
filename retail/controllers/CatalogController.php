@@ -124,11 +124,8 @@ class CatalogController extends RetailController {
         // общее кол-во доступных товаров
         // не считает товары если нет опций
 
-//        todo: пагинация не работает если нет опций
         $totalCount = $dataProvider->getTotalItemCount();
-        if($totalCount==0){
-            $totalCount=count($dataProvider->getData());
-        }
+
 
         // пагинация
         $pages = new CPagination($totalCount);
@@ -140,7 +137,6 @@ class CatalogController extends RetailController {
 
         // титл страницы
         $this->pageTitle = $catName;
-      //  print_r($dataProvider->getData());
             $this->render('/site/catalog', compact('categories', 'catName', 'currentCetegory', 'pages', 'dataProvider', 'totalCount','limitPrice','criteria','currentCategoryNumber'));
     }
 }
