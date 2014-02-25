@@ -17,14 +17,17 @@ class CartModel {
 
         if(!empty($data['product_id'])){
             $session=new CHttpSession;
-            $session->open() ;
-            $session->setSessionName('Cart') ;
-            $session[$data['product_id']]=$data['product_id'];
-            $session[$data['product_id']]=$data['params'];
-            $session->writeSession('sleep','1000');
-            print_r($session->toArray());
+            $session->open();
+            $session['prod_'.$data['product_id']]=[];
+            $session['prod_'.$data['product_id']]+=['params'=>$data['params']];
+            $session['prod_'.$data['product_id']]+=['product_id'=>$data['product_id']];
+//            print_r($_SESSION);
+//            exit;
+            return true;
         }
+
         return false;
+
     }
 
     public function addToCart($data){
