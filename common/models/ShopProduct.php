@@ -290,7 +290,7 @@ class ShopProduct extends LegacyActiveRecord {
             'with' => [
                 'product_description',
                 'categories_description',
-                'product_options',
+//                'product_options',
 //                'products_new_option_values'
             ]
         ];
