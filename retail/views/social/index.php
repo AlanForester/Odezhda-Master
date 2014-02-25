@@ -1,9 +1,5 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
-
-
-//    echo(Yii::app()->user->identityCookie);
-//exit;
 ?>
 
 <div class="wrapper">
