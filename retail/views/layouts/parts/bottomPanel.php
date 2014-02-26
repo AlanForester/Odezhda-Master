@@ -12,7 +12,6 @@ if(Yii::app()->user->id){
             $catalogModel = new CatalogModel();
             foreach($product_ids as $id=>$count){
                 if ($product = $catalogModel->productById($id)) {
-
                     $products[]=$product;
                 }
             }
@@ -23,13 +22,14 @@ if(Yii::app()->user->id){
     $catalogModel = new CatalogModel();
     foreach($_SESSION as $value){
         if ($product = $catalogModel->productById($value['product_id'])) {
-            $products[$value['product_id']][]=$product;
-            $products[$value['product_id']][]=$value;
+            $products[$value['product_id'].'_'.$value['params']][]=$product;
+            $products[$value['product_id'].'_'.$value['params']][]=$value;
         }
     }
-//    print_r($products);
-//    exit;
+
 }
+//$session=new CHttpSession;
+//$session->clear();
 ?>
 
 <div id="jqeasytrigger" class="bottom bottom-panel">
@@ -130,8 +130,15 @@ if(Yii::app()->user->id){
             <a href="#" class="close">x</a>
         </div>
         <p class="title-price">Стоимость заказа</p>
-<!--        <span class="end-price">--><?php //echo FormatHelper::markup($sum) ?><!--</span>-->
-        <a href="<?php echo $this->createUrl('cart/orderStep1')?>"
+        <span class="end-price"><?php echo FormatHelper::markup($sum) ?></span>
+        <a href="<?php
+        if(!empty(Yii::app()->user->id)){
+            echo $this->createUrl('cart/orderStep1');
+        }
+        else{
+            echo $this->createUrl('site/login');
+        }
+        ?>"
                        data-options='{"width":860, "height":380, "modal": true}'
                        class="lightbox zakaz" id="makeOrder" onclick="$('.close').trigger('click')">
                         Оформить заказ
