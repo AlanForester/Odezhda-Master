@@ -56,7 +56,6 @@ class CartController extends RetailController {
     }
 
     public function actionChangeCounter() {
-
          if($customer_id=Yii::app()->user->id){
             if (!empty($customer_id)){
                 $product_id = Yii::app()->request->getParam('product_id');
@@ -77,7 +76,7 @@ class CartController extends RetailController {
              $change = Yii::app()->request->getParam('change');
              $params = Yii::app()->request->getParam('params');
              $model = new CartModel();
-             if($model->updateProductSession($customer_id,$product_id,$change,$params)){
+             if($model->updateProduct($customer_id,$product_id,$change,$params)){
                  $data['items'] = $model->countItemsOfProduct($product_id, $params);
                  $data['products'] = CartModel::countProducts();
                  $data['total_price']=CartModel::countPrices();
