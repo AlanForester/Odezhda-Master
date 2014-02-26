@@ -535,6 +535,15 @@ ul.yiiPager {
     display: block;
     margin-top: 5px;
 }
+.goods-var span {
+    text-align: center;
+    color: #9C9B9B;
+    text-decoration: underline;
+    font-size: 14px;
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+}
 
 .goods-var a img {
     float: right;

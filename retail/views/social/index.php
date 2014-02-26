@@ -6,11 +6,9 @@ Yii::app()->clientScript->registerPackage('social');
     <div class="catalog-goods">
         <?php foreach ($dataProvider->getData() as $product) { ?>
             <div class="goods-var">
-                <a href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><img
-                        class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
-                        alt=""/></a>
-                <a class='good-var-name'
-                   href="<?php echo $this->createUrl('catalog/product', ['id' => $product->id]) ?>"><?php echo $product->name . ' ' . $product->model; ?></a>
+                <img class="goods-var-image" src="<?= Yii::app()->params['staticUrl'] ?>images/<?= $product['image'] ?>"
+                        alt=""/>
+                <a class='good-var-name'><?php echo $product->name . ' ' . $product->model; ?></a>
 
                 <span><?= FormatHelper::markup($product->price) ?></span>
                 <?php if ($product->old_price != 0) { ?>

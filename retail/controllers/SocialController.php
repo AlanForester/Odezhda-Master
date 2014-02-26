@@ -28,8 +28,9 @@ class SocialController extends RetailController {
 
             $this->layout = '//layouts/main_social';
             $this->render('/social/index',compact('pages','dataProvider','totalCount','limitPrice'));
+        } else{
+            $this->error();
         }
-        $this->error('Не найдено',404);
 
     }
 }
