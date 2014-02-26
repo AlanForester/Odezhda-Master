@@ -49,6 +49,9 @@ class CartModel {
 
     public function addGoodsFromSession(){
         $customer_id=Yii::app()->user->id;
+        Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+
             foreach($_SESSION['products'] as $value){
 //                 $this->insertProduct(['customer_id'=>$customer_id,'product_id'=>$value['product_id'],'params'=>$value['params']]);
                 Yii::app()->db->createCommand()
@@ -60,7 +63,7 @@ class CartModel {
                         'count'=>$value['count']
                     ]);
             }
-         unset($_SESSION['products']);
+        unset($_SESSION['products']);
         return true;
     }
     /**
