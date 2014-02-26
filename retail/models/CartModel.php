@@ -16,15 +16,20 @@ class CartModel {
     public function addToSession($data){
 
         if(!empty($data['product_id'])){
-            $session=new CHttpSession;
-            $session->open();
-            $session['prod_'.$data['product_id'].'_'.$data['params']]=[];
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['params'=>$data['params']];
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['product_id'=>$data['product_id']];
             if(empty($data['count'])){
                 $data['count']=1;
             }
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['count'=>$data['count']];
+            $session=new CHttpSession;
+            $session->open();
+            if(empty($session['products'])){
+                 $session['products']=[];
+            }
+            $session['products']+=['prod_'.$data['product_id'].'_'.$data['params']=>[
+                                   'params'=>$data['params'],
+                                   'product_id'=>$data['product_id'],
+                                   'count'=>$data['count']]];
+
+//            $session['products']['prod_'.$data['product_id'].'_'.$data['params']]+=[];
             return true;
         }
 
@@ -136,7 +141,7 @@ class CartModel {
             }
             return (isset($count) ? $count : 0);
         }else{
-            return count($_SESSION);
+            return !empty($_SESSION['products'])?count($_SESSION['products']):0;
         }
     }
 
@@ -166,13 +171,16 @@ class CartModel {
             return FormatHelper::markup($sum);
         }else{
             $catalogModel = new CatalogModel();
-            $sum= 100 ;
-            foreach($_SESSION as $value){
-                if ($product = $catalogModel->productById($value['product_id'])) {
-                    //количество
-                    $sum+=$product->price;
+            $sum= 0 ;
+            if(!empty($_SESSION['products'])){
+                foreach($_SESSION['products'] as $value){
+                    if ($product = $catalogModel->productById($value['product_id'])) {
+                        //количество
+                        $sum+=$product->price;
+                    }
                 }
             }
+
             return FormatHelper::markup($sum);
         }
 
@@ -256,8 +264,14 @@ class CartModel {
      * @param $product_id
      */
     public function deleteProduct($customer_id, $product_id,$params){
-        return Yii::app()->db->createCommand()
+        if($customer_id!=0){
+            return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+        }else{
+            unset($_SESSION['products']['prod_'.$product_id.'_'.$params]);
+            return true;
+
+        }
     }
 
     /**
@@ -269,8 +283,7 @@ class CartModel {
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
         }else{
-            $session=new CHttpSession;
-            $session->clear();
+            unset($_SESSION['products']);
             return true;
         }
     }
