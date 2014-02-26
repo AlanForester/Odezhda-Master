@@ -119,7 +119,7 @@ $this->widget(
                             TbHtml::menuHeader('Отптовый&nbsp;магазин'),
                             [
                                 'label' => 'Оптовые заказы',
-                                'url' => ['/wholesale_delivery/index']
+                                'url' => ['/order/index']
                             ],
                             TbHtml::menuDivider(),
                             TbHtml::menuHeader('Дополнительно'),
