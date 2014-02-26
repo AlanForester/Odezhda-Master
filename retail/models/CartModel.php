@@ -168,7 +168,7 @@ class CartModel {
                 foreach($_SESSION['products'] as $value){
                     if ($product = $catalogModel->productById($value['product_id'])) {
                         //количество
-                        $sum+=$product->price;
+                        $sum+=$product->price*$value['count'];
                     }
                 }
             }
@@ -262,14 +262,13 @@ class CartModel {
      * @param $customer_id
      * @param $product_id
      */
-    public function deleteProduct($customer_id, $product_id,$params){
+    public function deleteProduct($customer_id=0, $product_id,$params){
         if($customer_id!=0){
             return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
         }else{
             unset($_SESSION['products']['prod_'.$product_id.'_'.$params]);
             return true;
-
         }
     }
 

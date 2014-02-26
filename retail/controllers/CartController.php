@@ -88,14 +88,14 @@ class CartController extends RetailController {
     }
 
     public function actionDeleteProduct(){
-        $customer_id=Yii::app()->user->id=0;
+        $customer_id=Yii::app()->user->id?:Yii::app()->user->id;
         $product_id = Yii::app()->request->getParam('product_id');
         $params = Yii::app()->request->getParam('params');
         $model = new CartModel();
         if($model->deleteProduct($customer_id,$product_id,$params)){
 //      $this->actionShow(true);
         $this->renderPartial("/layouts/parts/bottomPanel");
-            }
+        }
     }
 
     public function actionDeleteAll(){
