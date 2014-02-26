@@ -45,6 +45,8 @@ class CatalogController extends RetailController {
     }
 
     public function actionList($id = 0) {
+
+        //todo: выкинуть неиспользуемые категории private static $exceptedIds = [327,1435,1354,1333,590];
         $criteria['filter']= [
             'color'=>Yii::app()->request->getQuery('color',[]),
             'size'=>Yii::app()->request->getQuery('size',[]),

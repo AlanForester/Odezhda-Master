@@ -289,7 +289,8 @@ ul.panelbuttons li a img {
 ul#items {
     margin: 1em 0;
     width: 900px;
-    height: 155px;
+    /*height: 155px;*/
+    height: 165px;
     overflow: hidden;
     margin-left: 30px;
 }
@@ -298,7 +299,8 @@ ul#items li {
     list-style: none;
     width: 215px;
     float: left;
-    height: 155px;
+    /*height: 155px;*/
+    height: 165px;
     overflow: hidden;
     margin: 0 4px;
     color: #fff;
@@ -311,7 +313,8 @@ ul#items li:hover {
 }
 
 ul#items li .image {
-    margin: 20px 20px 10px 20px;
+    /*margin: 20px 20px 10px 20px;*/
+    margin: 20px 20px 20px 20px;
     width: 65px;
     height: auto;
     overflow: hidden;

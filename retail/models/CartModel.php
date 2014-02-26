@@ -46,6 +46,23 @@ class CartModel {
         }
         return false;
     }
+
+    public function addGoodsFromSession(){
+        $customer_id=Yii::app()->user->id;
+            foreach($_SESSION['products'] as $value){
+//                 $this->insertProduct(['customer_id'=>$customer_id,'product_id'=>$value['product_id'],'params'=>$value['params']]);
+                Yii::app()->db->createCommand()
+                    ->insert($this->tableName, [
+                        'customer_id'=>$customer_id,
+                        'product_id'=>$value['product_id'],
+                        'params'=>$value['params'],
+                        'added'=>new CDbExpression('NOW()'),
+                        'count'=>$value['count']
+                    ]);
+            }
+         unset($_SESSION['products']);
+        return true;
+    }
     /**
      * Метод для проверки, есть ли у пользователя customer_id в корзине товар product_id
      * Используется для определения: вставить или обновить запись в бд
