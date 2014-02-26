@@ -1,11 +1,5 @@
 <?php
 Yii::app()->clientScript->registerPackage('index');
-
-
-//    echo(Yii::app()->user->identityCookie);
-//exit;
-//print_r($day_data);
-//exit;
 ?>
 
 <div class="wrapper">

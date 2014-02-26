@@ -116,6 +116,12 @@ $this->widget(
                                 'url' => ['/retail_delivery/index']
                             ],
                             TbHtml::menuDivider(),
+                            TbHtml::menuHeader('Отптовый&nbsp;магазин'),
+                            [
+                                'label' => 'Оптовые заказы',
+                                'url' => ['/order/index']
+                            ],
+                            TbHtml::menuDivider(),
                             TbHtml::menuHeader('Дополнительно'),
                             [
                                 'label' => 'Бухгалтерия',

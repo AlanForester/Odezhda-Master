@@ -5,15 +5,15 @@ class ShopProductsHelper {
     //    private static $dataProvider;
 
     //    private static $errors = [];
+    private static $exceptedIds = [327,1435,1354,1333,590];
 
     public static function getModel() {
         return ShopProduct::model();
     }
 
-    public static function getDataProvider($data = null) {
+    public static function getDataProvider($data = null,$pageSize) {
         $condition = [];
         $params = [];
-
         // Поиск тестового значения
         if (!empty($data['text_search'])) {
             $condition_params[] = '[[name]]  LIKE :text_search';
@@ -45,6 +45,17 @@ class ShopProductsHelper {
             $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
+        // добавляем в условие ids категорий, которые не надо выводить
+        $res_ids='categories_description.categories_id  NOT IN (';
+        foreach (self::$exceptedIds as $i=>$id){
+            $res_ids.=$id;
+            if ($i!=count(self::$exceptedIds)-1){
+                $res_ids.=",";
+            }
+        }
+        $res_ids.=')';
+        $condition [] = $res_ids;//  'categories_description.categories_id  NOT IN (:exceptedCategories)';
+//        $params[':exceptedCategories'] = $res_ids;
 
         $criteria = [];
         //Фильтрация по ценам
@@ -88,6 +99,8 @@ class ShopProductsHelper {
 
         if (!empty($data['order'])) {
             $criteria ['order'] = $data['order'];
+        }else{
+            $criteria ['order']='';
         }
 
         if (!empty($data['random'])) {
@@ -113,17 +126,16 @@ class ShopProductsHelper {
         if (isset($data['criteria'])) {
             $criteria = array_merge($criteria, $data['criteria']);
         }
+//        print_r($criteria);exit;
 
         $dataProvider = new CActiveDataProvider(
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ['pageSize' => Yii::app()->params['frontPageSize']],
+                'pagination' => ['pageSize' => $pageSize],
             ]
         );
 
-//        print_r($dataProvider->getData());
-//        exit;
         return [
                     'dataProvider' => $dataProvider,
                     'priceLimit' => $priceLimit

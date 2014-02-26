@@ -3,6 +3,7 @@
 class CartController extends RetailController {
 
     public function actionShow($showBottomPanel=false) {
+
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
             $model = new CartModel();
@@ -45,68 +46,79 @@ class CartController extends RetailController {
             $data['added'] = new CDbExpression('NOW()');
             $model = new CartModel();
             if($model->addToSession($data)){
-
                 $this->renderPartial("/layouts/parts/bottomPanel");
                 Yii::app()->end();
             }
             $error='Ошибка добавления товара в корзину';
-
-
         }
         $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));
 
     }
 
     public function actionChangeCounter() {
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $product_id = Yii::app()->request->getParam('product_id');
-            $change = Yii::app()->request->getParam('change');
-            $params = Yii::app()->request->getParam('params');
-            $model = new CartModel();
-            if($model->updateProduct($customer_id,$product_id,$change,$params)){
-                $data['items'] = $model->countItemsOfProduct($product_id, $params);
-                $data['products'] = CartModel::countProducts();
-                $data['total_price']=CartModel::countPrices();
-                $data['price']=$model->countPriceOfProduct($product_id, $params);
-                echo json_encode($data);
-                Yii::app()->end();
+         if($customer_id=Yii::app()->user->id){
+            if (!empty($customer_id)){
+                $product_id = Yii::app()->request->getParam('product_id');
+                $change = Yii::app()->request->getParam('change');
+                $params = Yii::app()->request->getParam('params');
+                $model = new CartModel();
+                if($model->updateProduct($customer_id,$product_id,$change,$params)){
+                    $data['items'] = $model->countItemsOfProduct($product_id, $params);
+                    $data['products'] = CartModel::countProducts();
+                    $data['total_price']=CartModel::countPrices();
+                    $data['price']=$model->countPriceOfProduct($product_id, $params);
+                    echo json_encode($data);
+                    Yii::app()->end();
+                }
             }
-        }
+         }else{
+             $product_id = Yii::app()->request->getParam('product_id');
+             $change = Yii::app()->request->getParam('change');
+             $params = Yii::app()->request->getParam('params');
+             $model = new CartModel();
+             if($model->updateProduct($customer_id,$product_id,$change,$params)){
+                 $data['items'] = $model->countItemsOfProduct($product_id, $params);
+                 $data['products'] = CartModel::countProducts();
+                 $data['total_price']=CartModel::countPrices();
+                 $data['price']=$model->countPriceOfProduct($product_id, $params);
+                 echo json_encode($data);
+                 Yii::app()->end();
+             }
+         }
     }
 
     public function actionDeleteProduct(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $product_id = Yii::app()->request->getParam('product_id');
-            $params = Yii::app()->request->getParam('params');
-            $model = new CartModel();
-            if($model->deleteProduct($customer_id,$product_id,$params)){
-//                $this->actionShow(true);
-                $this->renderPartial("/layouts/parts/bottomPanel");
-            }
+        $customer_id=Yii::app()->user->id?:Yii::app()->user->id;
+        $product_id = Yii::app()->request->getParam('product_id');
+        $params = Yii::app()->request->getParam('params');
+        $model = new CartModel();
+        if($model->deleteProduct($customer_id,$product_id,$params)){
+//      $this->actionShow(true);
+        $this->renderPartial("/layouts/parts/bottomPanel");
         }
     }
 
     public function actionDeleteAll(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
+        $customer_id=Yii::app()->user->id=0;
             $model = new CartModel();
             if($model->deleteAll($customer_id)){
 //                $this->actionShow(true);
                 $this->renderPartial("/layouts/parts/bottomPanel");
             }
-        }
     }
 
     public function actionOrderStep1(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $model = new CustomerModel();
-            $customer = $model->getCustomer($customer_id);
-            $deliveries =RetailDeliveryHelper:: getAllDeliveries();
+        if(!empty(Yii::app()->user->id)){
+            $customer_id=Yii::app()->user->id;
+            if (!empty($customer_id)){
+                $model = new CustomerModel();
+                $customer = $model->getCustomer($customer_id);
+                $deliveries =RetailDeliveryHelper:: getAllDeliveries();
+                $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
+            }
+        }
+        else{
             $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
-
         }
     }
 

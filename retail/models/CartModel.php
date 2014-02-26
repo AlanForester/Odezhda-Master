@@ -16,15 +16,25 @@ class CartModel {
     public function addToSession($data){
 
         if(!empty($data['product_id'])){
+            if(empty($data['count'])){
+                $data['count']=1;
+            }
             $session=new CHttpSession;
-            $session->open() ;
-            $session->setSessionName('Cart') ;
-            $session[$data['product_id']]=$data['product_id'];
-            $session[$data['product_id']]=$data['params'];
-            $session->writeSession('sleep','1000');
-            print_r($session->toArray());
+            $session->open();
+            if(empty($session['products'])){
+                 $session['products']=[];
+            }
+            $session['products']+=['prod_'.$data['product_id'].'_'.$data['params']=>[
+                                   'params'=>$data['params'],
+                                   'product_id'=>$data['product_id'],
+                                   'count'=>$data['count']]];
+
+//            $session['products']['prod_'.$data['product_id'].'_'.$data['params']]+=[];
+            return true;
         }
+
         return false;
+
     }
 
     public function addToCart($data){
@@ -35,6 +45,26 @@ class CartModel {
             );
         }
         return false;
+    }
+
+    public function addGoodsFromSession(){
+        $customer_id=Yii::app()->user->id;
+        Yii::app()->db->createCommand()
+            ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+
+            foreach($_SESSION['products'] as $value){
+//                 $this->insertProduct(['customer_id'=>$customer_id,'product_id'=>$value['product_id'],'params'=>$value['params']]);
+                Yii::app()->db->createCommand()
+                    ->insert($this->tableName, [
+                        'customer_id'=>$customer_id,
+                        'product_id'=>$value['product_id'],
+                        'params'=>$value['params'],
+                        'added'=>new CDbExpression('NOW()'),
+                        'count'=>$value['count']
+                    ]);
+            }
+        unset($_SESSION['products']);
+        return true;
     }
     /**
      * Метод для проверки, есть ли у пользователя customer_id в корзине товар product_id
@@ -61,23 +91,35 @@ class CartModel {
      * по-умолчанию - увеличиваем
      */
     public function updateProduct($customer_id, $product_id, $change='plus',$params){
-        $count= Yii::app()->db->createCommand()
-            ->select('count')
-            ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
-            ->queryRow()
-            ['count'];
-        switch ($change) {
-            case 'plus':
-                $count++;
-                break;
-            case 'minus':
-                $count--;
-                break;
+        if(Yii::app()->user->id){
+            $count= Yii::app()->db->createCommand()
+                ->select('count')
+                ->from($this->tableName)
+                ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
+                ->queryRow()
+                ['count'];
+            switch ($change) {
+                case 'plus':
+                    $count++;
+                    break;
+                case 'minus':
+                    $count--;
+                    break;
+            }
+            return Yii::app()->db->createCommand()->update($this->tableName, array(
+                'count'=> $count,
+            ),  'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+        }else{
+            switch ($change) {
+                case 'plus':
+                    $_SESSION['products']['prod_'.$product_id.'_'.$params]['count']++;
+                    break;
+                case 'minus':
+                    $_SESSION['products']['prod_'.$product_id.'_'.$params]['count']--;
+                    break;
+            }
+            return true;
         }
-        return Yii::app()->db->createCommand()->update($this->tableName, array(
-            'count'=> $count,
-        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
@@ -100,15 +142,19 @@ class CartModel {
      * @return int
      */
     public static function countProducts(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $count = Yii::app()->db->createCommand()
-                ->select('SUM(count) AS c')
-                ->from(self::$tblName)
-                ->where('customer_id=:id', array(':id'=>$customer_id))
-                ->queryRow()['c'];
+        if(Yii::app()->user->id){
+            $customer_id=Yii::app()->user->id;
+            if (!empty($customer_id)){
+                $count = Yii::app()->db->createCommand()
+                    ->select('SUM(count) AS c')
+                    ->from(self::$tblName)
+                    ->where('customer_id=:id', array(':id'=>$customer_id))
+                    ->queryRow()['c'];
+            }
+            return (isset($count) ? $count : 0);
+        }else{
+            return !empty($_SESSION['products'])?count($_SESSION['products']):0;
         }
-        return (isset($count) ? $count : 0);
     }
 
     /**
@@ -116,25 +162,41 @@ class CartModel {
      * @return int
      */
     public static function countPrices(){
+        if(Yii::app()->user->id){
         $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $cartModel = new CartModel();
-            $product_ids=$cartModel->getUserProducts($customer_id);
-            $sum = 0;
-            if($product_ids){
-                $catalogModel = new CatalogModel();
-                foreach($product_ids as $id=>$items){
-                    foreach($items as $value){
-                        if ($product = $catalogModel->productById($id)) {
-                            $sum+=$product->price*$value['count'];
+            if (!empty($customer_id)){
+                $cartModel = new CartModel();
+                $product_ids=$cartModel->getUserProducts($customer_id);
+                $sum = 0;
+                if($product_ids){
+                    $catalogModel = new CatalogModel();
+                    foreach($product_ids as $id=>$items){
+                        foreach($items as $value){
+                            if ($product = $catalogModel->productById($id)) {
+                                $sum+=$product->price*$value['count'];
+                            }
                         }
                     }
                 }
             }
-        }
-        return FormatHelper::markup($sum);
-    }
 
+            return FormatHelper::markup($sum);
+        }else{
+            $catalogModel = new CatalogModel();
+            $sum= 0 ;
+            if(!empty($_SESSION['products'])){
+                foreach($_SESSION['products'] as $value){
+                    if ($product = $catalogModel->productById($value['product_id'])) {
+                        //количество
+                        $sum+=$product->price*$value['count'];
+                    }
+                }
+            }
+
+            return FormatHelper::markup($sum);
+        }
+
+    }
     /**
      * Метод для нахождения общей суммы единицы товара в корзине текущего пользователя
      * @return int
@@ -158,14 +220,21 @@ class CartModel {
      * @return int
      */
     public function countItemsOfProduct($product_id, $params){
-        $customer_id=Yii::app()->user->id;
-//        $count=0;
-        if (!empty($customer_id)){
-            $count = Yii::app()->db->createCommand()
-                ->select('count AS c')
-                ->from($this->tableName)
-                ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
-                ->queryRow()['c'];
+        if($customer_id=Yii::app()->user->id){
+    //        $count=0;
+            if (!empty($customer_id)){
+                $count = Yii::app()->db->createCommand()
+                    ->select('count AS c')
+                    ->from($this->tableName)
+                    ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
+                    ->queryRow()['c'];
+            }
+
+        }else{
+            $count=0;
+            $count= $_SESSION['products']['prod_'.$product_id.'_'.$params]['count'];
+
+
         }
         return $count;
     }
@@ -213,18 +282,28 @@ class CartModel {
      * @param $customer_id
      * @param $product_id
      */
-    public function deleteProduct($customer_id, $product_id,$params){
-        return Yii::app()->db->createCommand()
+    public function deleteProduct($customer_id=0, $product_id,$params){
+        if($customer_id!=0){
+            return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+        }else{
+            unset($_SESSION['products']['prod_'.$product_id.'_'.$params]);
+            return true;
+        }
     }
 
     /**
      * Метод для удаления всех товаров из корзины
      * @param $customer_id
      */
-    public function deleteAll($customer_id){
+    public function deleteAll($customer_id=0){
+        if($customer_id!=0){
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+        }else{
+            unset($_SESSION['products']);
+            return true;
+        }
     }
 
     /**
