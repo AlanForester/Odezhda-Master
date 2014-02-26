@@ -3,6 +3,7 @@
 class CartController extends RetailController {
 
     public function actionShow($showBottomPanel=false) {
+
         $customer_id=Yii::app()->user->id;
         if (!empty($customer_id)){
             $model = new CartModel();
@@ -88,27 +89,23 @@ class CartController extends RetailController {
     }
 
     public function actionDeleteProduct(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $product_id = Yii::app()->request->getParam('product_id');
-            $params = Yii::app()->request->getParam('params');
-            $model = new CartModel();
-            if($model->deleteProduct($customer_id,$product_id,$params)){
-//                $this->actionShow(true);
-                $this->renderPartial("/layouts/parts/bottomPanel");
+        $customer_id=Yii::app()->user->id=0;
+        $product_id = Yii::app()->request->getParam('product_id');
+        $params = Yii::app()->request->getParam('params');
+        $model = new CartModel();
+        if($model->deleteProduct($customer_id,$product_id,$params)){
+//      $this->actionShow(true);
+        $this->renderPartial("/layouts/parts/bottomPanel");
             }
-        }
     }
 
     public function actionDeleteAll(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
+        $customer_id=Yii::app()->user->id=0;
             $model = new CartModel();
             if($model->deleteAll($customer_id)){
 //                $this->actionShow(true);
                 $this->renderPartial("/layouts/parts/bottomPanel");
             }
-        }
     }
 
     public function actionOrderStep1(){

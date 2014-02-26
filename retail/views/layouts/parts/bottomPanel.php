@@ -1,6 +1,8 @@
 <?php $count=isset($count) ? $count :0;
 //todo что-то с этим решить
 //$products=CartHelper::getCart();
+//$session=new CHttpSession;
+//$session->clear();
 if(Yii::app()->user->id){
     $reg=true;
     $customer_id=Yii::app()->user->id;
@@ -20,16 +22,16 @@ if(Yii::app()->user->id){
     }
 }else{
     $catalogModel = new CatalogModel();
-    foreach($_SESSION as $value){
-        if ($product = $catalogModel->productById($value['product_id'])) {
-            $products[$value['product_id'].'_'.$value['params']][]=$product;
-            $products[$value['product_id'].'_'.$value['params']][]=$value;
+    if(!empty($_SESSION['products'])){
+        foreach($_SESSION['products'] as $value){
+            if ($product = $catalogModel->productById($value['product_id'])) {
+                $products[$value['product_id'].'_'.$value['params']][]=$product;
+                $products[$value['product_id'].'_'.$value['params']][]=$value;
+            }
         }
     }
-
 }
-//$session=new CHttpSession;
-//$session->clear();
+
 ?>
 
 <div id="jqeasytrigger" class="bottom bottom-panel">
