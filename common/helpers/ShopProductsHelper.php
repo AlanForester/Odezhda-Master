@@ -10,7 +10,7 @@ class ShopProductsHelper {
         return ShopProduct::model();
     }
 
-    public static function getDataProvider($data = null) {
+    public static function getDataProvider($data = null,$pageSize) {
         $condition = [];
         $params = [];
 
@@ -88,6 +88,8 @@ class ShopProductsHelper {
 
         if (!empty($data['order'])) {
             $criteria ['order'] = $data['order'];
+        }else{
+            $criteria ['order']='';
         }
 
         if (!empty($data['random'])) {
@@ -118,7 +120,7 @@ class ShopProductsHelper {
             'ShopProduct',
             [
                 'criteria' => $criteria,
-                'pagination' => ['pageSize' => Yii::app()->params['frontPageSize']],
+                'pagination' => ['pageSize' => $pageSize],
             ]
         );
 

@@ -103,7 +103,6 @@ class CartController extends RetailController {
             $customer = $model->getCustomer($customer_id);
             $deliveries =RetailDeliveryHelper:: getAllDeliveries();
             $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
-
         }
     }
 

@@ -12,7 +12,8 @@ return [
         'contactAddress'=>'г. Иваново, Проспект Ленина д.98',
 //        'staticUrl'=>'http://odezhda-master.ru/'
         'markup'=>10,
-        'frontPageSize'=>12
+        'frontPageSize'=>12,
+        'socialPageSize'=>6
         //наценка
     ],
     // So our relative path aliases will resolve against the `/frontend` subdirectory and not nonexistent `/protected`
@@ -151,6 +152,9 @@ return [
 
                     ],
                     'css' => [
+                        'css/karta.css',
+                        'js/slider-clothes/jcarousel.responsive.css',
+                        'js/tabs/style.css',
                         'css/social.css',
                     ],
                     'depends' => ['core']
