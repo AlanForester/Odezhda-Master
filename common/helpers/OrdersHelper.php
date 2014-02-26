@@ -15,7 +15,7 @@ class OrdersHelper {
         $params = [];
         // поле и направление сортировки
         $order_direct = null;
-        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'firstname') . ']]';
+        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'id') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
@@ -42,7 +42,7 @@ class OrdersHelper {
         }
 
         return new CActiveDataProvider(
-            'User',
+            'Orders',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
