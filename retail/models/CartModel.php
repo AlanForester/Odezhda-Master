@@ -21,8 +21,10 @@ class CartModel {
             $session['prod_'.$data['product_id']]=[];
             $session['prod_'.$data['product_id']]+=['params'=>$data['params']];
             $session['prod_'.$data['product_id']]+=['product_id'=>$data['product_id']];
-//            print_r($_SESSION);
-//            exit;
+            if(empty($data['count'])){
+                $data['count']=1;
+            }
+            $session['prod_'.$data['product_id']]+=['count'=>$data['count']];
             return true;
         }
 
