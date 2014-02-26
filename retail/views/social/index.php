@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerPackage('social');
             <?php
             echo CHtml::dropDownList(
                 'order',
-                Yii::app()->request->getQuery('order'),
+                Yii::app()->request->getParam('order'),
                 [
                     'hits' => 'По популярности',
                     'date' => 'По дате добавления',

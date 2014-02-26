@@ -6,7 +6,7 @@
     <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#catalog_order').change(function () {
+            $('#catalog_order').live('change',function () {
                 $.post("<?php $this->createUrl('/social/index') ?>", {order: $('#catalog_order').val()}, function( data ) {
                     $('body').html(data);
                 });

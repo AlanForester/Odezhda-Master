@@ -77,7 +77,7 @@ class CatalogController extends RetailController {
                 $criteria['order'] = '[[price]] DESC';
                 break;
             default:
-                $criteria['order'] = '[[date_add]] DESC';
+                $criteria['order'] = '[[count_orders]] DESC';
         }
 
         $model = new CatalogModel();
