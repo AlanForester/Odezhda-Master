@@ -264,9 +264,15 @@ class CartModel {
      * Метод для удаления всех товаров из корзины
      * @param $customer_id
      */
-    public function deleteAll($customer_id){
+    public function deleteAll($customer_id=0){
+        if($customer_id!=0){
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+        }else{
+            $session=new CHttpSession;
+            $session->clear();
+            return true;
+        }
     }
 
     /**

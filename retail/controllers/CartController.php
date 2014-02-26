@@ -101,14 +101,12 @@ class CartController extends RetailController {
     }
 
     public function actionDeleteAll(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
+        $customer_id=Yii::app()->user->id=0;
             $model = new CartModel();
             if($model->deleteAll($customer_id)){
 //                $this->actionShow(true);
                 $this->renderPartial("/layouts/parts/bottomPanel");
             }
-        }
     }
 
     public function actionOrderStep1(){
