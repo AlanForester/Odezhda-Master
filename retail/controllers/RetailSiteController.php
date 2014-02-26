@@ -90,10 +90,15 @@ class RetailSiteController extends RetailController {
             if (!$model->registration()) {
                 //отдаем виду ошибки для отображения
                 echo json_encode($model->errors);
+            }else{
+                if(!empty($_SESSION['products'])){
+                    $cartModel = new CartModel();
+                    $cartModel->addGoodsFromSession();
+                }
             }
+
             //завершаем приложение в любом случае
-            Yii::app()
-               ->end();
+            Yii::app()->end();
         }
         $this->renderPartial('/layouts/parts/register');
     }

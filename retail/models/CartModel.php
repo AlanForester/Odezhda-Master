@@ -48,9 +48,9 @@ class CartModel {
     }
 
     public function addGoodsFromSession(){
-        $customer_id=Yii::app()->user->id();
-            foreach($_SESSION as $value){
-                 $this->insertProduct(['customer_id'=>$customer_id,'product_id'=>$value['product_id'],'params'=>$value['params']]);
+        $customer_id=Yii::app()->user->id;
+            foreach($_SESSION['products'] as $value){
+//                 $this->insertProduct(['customer_id'=>$customer_id,'product_id'=>$value['product_id'],'params'=>$value['params']]);
                 Yii::app()->db->createCommand()
                     ->insert($this->tableName, [
                         'customer_id'=>$customer_id,
@@ -59,10 +59,9 @@ class CartModel {
                         'added'=>new CDbExpression('NOW()'),
                         'count'=>$value['count']
                     ]);
-
             }
-
-
+         unset($_SESSION['products']);
+        return true;
     }
     /**
      * Метод для проверки, есть ли у пользователя customer_id в корзине товар product_id
