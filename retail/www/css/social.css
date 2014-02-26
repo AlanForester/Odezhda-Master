@@ -442,11 +442,12 @@ ul.yiiPager {
 }
 
 .sort-goods-catalog {
-    float: left;
+    float: none;
     height: 40px;
     line-height: 40px;
-    width: 100%;
-    margin-top: 10px;
+    width: 840px;
+    margin: 15px auto 0;
+    padding-left: 23px;
 }
 
 .sort-goods-catalog p {
@@ -527,15 +528,6 @@ ul.yiiPager {
 }
 
 .goods-var a {
-    text-align: center;
-    color: #9C9B9B;
-    text-decoration: underline;
-    font-size: 14px;
-    width: 100%;
-    display: block;
-    margin-top: 5px;
-}
-.goods-var span {
     text-align: center;
     color: #9C9B9B;
     text-decoration: underline;
