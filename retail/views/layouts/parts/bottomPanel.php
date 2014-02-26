@@ -12,7 +12,6 @@ if(Yii::app()->user->id){
             $catalogModel = new CatalogModel();
             foreach($product_ids as $id=>$count){
                 if ($product = $catalogModel->productById($id)) {
-
                     $products[]=$product;
                 }
             }
@@ -20,8 +19,17 @@ if(Yii::app()->user->id){
     //    print_r($product_ids);exit;
     }
 }else{
-    $reg=false;
+    $catalogModel = new CatalogModel();
+    foreach($_SESSION as $value){
+        if ($product = $catalogModel->productById($value['product_id'])) {
+            $products[$value['product_id'].'_'.$value['params']][]=$product;
+            $products[$value['product_id'].'_'.$value['params']][]=$value;
+        }
+    }
+
 }
+//$session=new CHttpSession;
+//$session->clear();
 ?>
 
 <div id="jqeasytrigger" class="bottom bottom-panel">
@@ -59,28 +67,59 @@ if(Yii::app()->user->id){
     <div class="goods-slider">
         <div id="container">
             <ul id="items">
-                <?php $sum=0; foreach($products as $product) {
-                    foreach($product_ids[$product->id] as $values){
+                <?php
+                if(Yii::app()->user->id){
+                    $sum=0; foreach($products as $product) {
+                        foreach($product_ids[$product->id] as $values){
+                        ?>
+                        <li>
+                            <p class="image"><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>">
+                                    <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
+                                </a>
+
+                            </p>
+                            <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?=$product->name ?></a></h3>
+                            <span class="artikul"><?= $product->model ?></span>
+                            <span class="artikul">Размер <?= CartModel::getSizeById($values['params']) ?></span>
+                            <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
+                            <span class="price-b"><?=FormatHelper::markupSummary($product->price,$values['count']) ?></span>
+                            <button class="changeCount left minus">-</button>
+                            <span class="sel-count count"><?=$values['count'] ?></span>
+                            <button class="changeCount right plus">+</button>
+                            <span class="del-good">x</span>
+                            <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
+                            <input type="hidden" class="prod_params" value="<?=$values['params'] ?>"/>
+                        </li>
+                        <?php $sum+=$product->price*$values['count']; }
+                    }
+                }else{ ?>
+
+                   <?php foreach($products as $values){
+                        $sum=0;
                     ?>
                     <li>
-                        <p class="image"><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>">
-                                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($product->image) ?>" alt="<?=$product->name ?>" />
+                        <p class="image"><a href="<?= $this->createUrl('catalog/product', ['id' => $values[0]->id]) ?>">
+                                <img src="<?=Yii::app()->params['staticUrl'].ShopProductsHelper::pathToLargeImg($values[0]->image) ?>" alt="<?=$product->name ?>" />
                             </a>
 
                         </p>
-                        <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $product->id]) ?>" class="name-goods"><?=$product->name ?></a></h3>
-                        <span class="artikul"><?= $product->model ?></span>
-                        <span class="artikul">Размер <?= CartModel::getSizeById($values['params']) ?></span>
-                        <span class="price-g"><?=FormatHelper::markup($product->price) ?></span>
-                        <span class="price-b"><?=FormatHelper::markupSummary($product->price,$values['count']) ?></span>
+                        <h3><a href="<?= $this->createUrl('catalog/product', ['id' => $values[0]->products_id]) ?>" class="name-goods"><?=$values[0]->products_name ?></a></h3>
+                        <span class="artikul"><?= $values[0]->model ?></span>
+                        <span class="artikul">Размер <?php echo CartModel::getSizeById($values[1]['params']) ?></span>
+                        <span class="price-g"><?=FormatHelper::markup($values[0]->price) ?></span>
+                        <span class="price-b"><?php echo FormatHelper::markupSummary($values[0]->price,$values[1]['count']) ?></span>
                         <button class="changeCount left minus">-</button>
-                        <span class="sel-count count"><?=$values['count'] ?></span>
+                        <span class="sel-count count"><?php echo $values[1]['count'] ?></span>
                         <button class="changeCount right plus">+</button>
                         <span class="del-good">x</span>
-                        <input type="hidden" class="prod_id" value="<?=$product->id ?>"/>
-                        <input type="hidden" class="prod_params" value="<?=$values['params'] ?>"/>
+                        <input type="hidden" class="prod_id" value="<?=$values[0]->id ?>"/>
+                        <input type="hidden" class="prod_params" value="<?php echo $values[1]['params'] ?>"/>
                     </li>
-                    <?php $sum+=$product->price*$values['count']; }} ?>
+                <?php $sum+=$values[0]->price*$values[1]['count'];
+                    } ?>
+
+               <?php }
+                ?>
             </ul>
 
         </div>
@@ -91,8 +130,15 @@ if(Yii::app()->user->id){
             <a href="#" class="close">x</a>
         </div>
         <p class="title-price">Стоимость заказа</p>
-        <span class="end-price"><?=FormatHelper::markup($sum) ?></span>
-        <a href="<?php echo $this->createUrl('cart/orderStep1')?>"
+        <span class="end-price"><?php echo FormatHelper::markup($sum) ?></span>
+        <a href="<?php
+        if(!empty(Yii::app()->user->id)){
+            echo $this->createUrl('cart/orderStep1');
+        }
+        else{
+            echo $this->createUrl('site/login');
+        }
+        ?>"
                        data-options='{"width":860, "height":380, "modal": true}'
                        class="lightbox zakaz" id="makeOrder" onclick="$('.close').trigger('click')">
                         Оформить заказ

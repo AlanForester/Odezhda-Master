@@ -18,9 +18,9 @@ class Orders extends LegacyActiveRecord {
         return [
             'orders_id' => 'id',
             'ur_or_fiz' => 'person_type',
-            /*'customers_id' => 'customers_id',
-            'customers_groups_id' => 'customers_groups_id',
+            'customers_id' => 'customers_id',
             'customers_name' => 'customers_name',
+            /*'customers_groups_id' => 'customers_groups_id',
             'customers_company' => 'customers_company',
             'customers_street_address' => 'customers_street_address',
             'customers_suburb' => 'customers_suburb',
@@ -62,8 +62,8 @@ class Orders extends LegacyActiveRecord {
             'cc_owner' => 'cc_owner',
             'cc_number' => 'cc_number',
             'cc_expires' => 'cc_expires',
-            'last_modified' => 'last_modified',
-            'date_purchased' => 'date_purchased',*/
+            'last_modified' => 'last_modified',*/
+            'date_purchased' => 'date_purchased',
             'date_akt' => 'act_date',
             'buh_orders_id' => 'booker_orders_id',
             'nomer_akt' => 'act_number',

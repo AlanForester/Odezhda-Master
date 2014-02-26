@@ -55,21 +55,36 @@ class CartController extends RetailController {
     }
 
     public function actionChangeCounter() {
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $product_id = Yii::app()->request->getParam('product_id');
-            $change = Yii::app()->request->getParam('change');
-            $params = Yii::app()->request->getParam('params');
-            $model = new CartModel();
-            if($model->updateProduct($customer_id,$product_id,$change,$params)){
-                $data['items'] = $model->countItemsOfProduct($product_id, $params);
-                $data['products'] = CartModel::countProducts();
-                $data['total_price']=CartModel::countPrices();
-                $data['price']=$model->countPriceOfProduct($product_id, $params);
-                echo json_encode($data);
-                Yii::app()->end();
+
+         if($customer_id=Yii::app()->user->id){
+            if (!empty($customer_id)){
+                $product_id = Yii::app()->request->getParam('product_id');
+                $change = Yii::app()->request->getParam('change');
+                $params = Yii::app()->request->getParam('params');
+                $model = new CartModel();
+                if($model->updateProduct($customer_id,$product_id,$change,$params)){
+                    $data['items'] = $model->countItemsOfProduct($product_id, $params);
+                    $data['products'] = CartModel::countProducts();
+                    $data['total_price']=CartModel::countPrices();
+                    $data['price']=$model->countPriceOfProduct($product_id, $params);
+                    echo json_encode($data);
+                    Yii::app()->end();
+                }
             }
-        }
+         }else{
+             $product_id = Yii::app()->request->getParam('product_id');
+             $change = Yii::app()->request->getParam('change');
+             $params = Yii::app()->request->getParam('params');
+             $model = new CartModel();
+             if($model->updateProductSession($customer_id,$product_id,$change,$params)){
+                 $data['items'] = $model->countItemsOfProduct($product_id, $params);
+                 $data['products'] = CartModel::countProducts();
+                 $data['total_price']=CartModel::countPrices();
+                 $data['price']=$model->countPriceOfProduct($product_id, $params);
+                 echo json_encode($data);
+                 Yii::app()->end();
+             }
+         }
     }
 
     public function actionDeleteProduct(){
@@ -97,13 +112,17 @@ class CartController extends RetailController {
     }
 
     public function actionOrderStep1(){
-        $customer_id=Yii::app()->user->id;
-        if (!empty($customer_id)){
-            $model = new CustomerModel();
-            $customer = $model->getCustomer($customer_id);
-            $deliveries =RetailDeliveryHelper:: getAllDeliveries();
+        if(!empty(Yii::app()->user->id)){
+            $customer_id=Yii::app()->user->id;
+            if (!empty($customer_id)){
+                $model = new CustomerModel();
+                $customer = $model->getCustomer($customer_id);
+                $deliveries =RetailDeliveryHelper:: getAllDeliveries();
+                $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
+            }
+        }
+        else{
             $this->renderPartial("/layouts/parts/order_step1",compact('customer','deliveries'));
-
         }
     }
 

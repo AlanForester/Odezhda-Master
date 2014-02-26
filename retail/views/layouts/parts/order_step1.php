@@ -1,4 +1,6 @@
- <div class="box-modal" id="order">
+<?php
+if(!empty(Yii::app()->user->id)){ ?>
+<div class="box-modal" id="order">
         <div class="modal-login-left modal-reg">
             <p style="text-align: center">Перепроверьте, пожалуйста, ваш телефон и выберите способ доставки</p>
             <form id="order_step1" method="post" action="javascript:void(null);">
@@ -22,4 +24,6 @@
                 <button type="submit" id="order_submit">Продолжить</button>
             </form>
          </div>
+
+<?php }?>
 
