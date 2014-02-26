@@ -18,13 +18,13 @@ class CartModel {
         if(!empty($data['product_id'])){
             $session=new CHttpSession;
             $session->open();
-            $session['prod_'.$data['product_id']]=[];
-            $session['prod_'.$data['product_id']]+=['params'=>$data['params']];
-            $session['prod_'.$data['product_id']]+=['product_id'=>$data['product_id']];
+            $session['prod_'.$data['product_id'].'_'.$data['params']]=[];
+            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['params'=>$data['params']];
+            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['product_id'=>$data['product_id']];
             if(empty($data['count'])){
                 $data['count']=1;
             }
-            $session['prod_'.$data['product_id']]+=['count'=>$data['count']];
+            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['count'=>$data['count']];
             return true;
         }
 
@@ -72,6 +72,26 @@ class CartModel {
             ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
             ->queryRow()
             ['count'];
+        switch ($change) {
+            case 'plus':
+                $count++;
+                break;
+            case 'minus':
+                $count--;
+                break;
+        }
+        return Yii::app()->db->createCommand()->update($this->tableName, array(
+            'count'=> $count,
+        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+    }
+
+    public function updateProductSession($customer_id, $product_id, $change='plus',$params){
+        $count= Yii::app()->db->createCommand()
+            ->select('count')
+            ->from($this->tableName)
+            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
+            ->queryRow()
+        ['count'];
         switch ($change) {
             case 'plus':
                 $count++;
