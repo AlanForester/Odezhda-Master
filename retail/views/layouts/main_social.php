@@ -4,7 +4,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?= CHtml::encode($this->pageTitle); ?></title>
     <link rel="shortcut icon" href="<?php echo Yii::app()->request->baseUrl; ?>/favicon.ico" type="image/x-icon"/>
-
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#catalog_order').change(function () {
+                $.post("<?php $this->createUrl('/social/index') ?>", {order: $('#catalog_order').val()}, function( data ) {
+                    $('body').html(data);
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <?php echo $content ?>
