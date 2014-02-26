@@ -10,7 +10,8 @@ class SocialController extends RetailController {
         $params['user_id']=Yii::app()->request->getQuery('user_id');
         if ($params['access_token']){
             //порядок сортировки
-            switch (Yii::app()->request->getQuery('order')) {
+            $order = Yii::app()->request->getParam('order');
+            switch ($order) {
                 case 'hits':
                     $criteria['order'] = '[[count_orders]] DESC';
                     break;
@@ -44,7 +45,7 @@ class SocialController extends RetailController {
             $pages->pageSize = Yii::app()->params['socialPageSize'];
             $dataProvider->setPagination($pages);
 
-            if(!Yii::app()->request->getQuery('order')){
+            if(!$order){
                 $this->layout = '//layouts/main_social';
                 $this->render('/social/index',compact('pages','dataProvider','totalCount','limitPrice'));
             }

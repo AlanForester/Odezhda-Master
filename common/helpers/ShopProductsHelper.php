@@ -13,7 +13,6 @@ class ShopProductsHelper {
     public static function getDataProvider($data = null,$pageSize) {
         $condition = [];
         $params = [];
-
         // Поиск тестового значения
         if (!empty($data['text_search'])) {
             $condition_params[] = '[[name]]  LIKE :text_search';
