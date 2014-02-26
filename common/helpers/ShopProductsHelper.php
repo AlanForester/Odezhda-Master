@@ -46,7 +46,7 @@ class ShopProductsHelper {
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
         // добавляем в условие ids категорий, которые не надо выводить
-        $res_ids='categories_desiption.categories_id  NOT IN (';
+        $res_ids='categories_description.categories_id  NOT IN (';
         foreach (self::$exceptedIds as $i=>$id){
             $res_ids.=$id;
             if ($i!=count(self::$exceptedIds)-1){
