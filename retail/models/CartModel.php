@@ -16,15 +16,20 @@ class CartModel {
     public function addToSession($data){
 
         if(!empty($data['product_id'])){
-            $session=new CHttpSession;
-            $session->open();
-            $session['prod_'.$data['product_id'].'_'.$data['params']]=[];
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['params'=>$data['params']];
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['product_id'=>$data['product_id']];
             if(empty($data['count'])){
                 $data['count']=1;
             }
-            $session['prod_'.$data['product_id'].'_'.$data['params']]+=['count'=>$data['count']];
+            $session=new CHttpSession;
+            $session->open();
+            if(empty($session['products'])){
+                 $session['products']=[];
+            }
+            $session['products']+=['prod_'.$data['product_id'].'_'.$data['params']=>[
+                                   'params'=>$data['params'],
+                                   'product_id'=>$data['product_id'],
+                                   'count'=>$data['count']]];
+
+//            $session['products']['prod_'.$data['product_id'].'_'.$data['params']]+=[];
             return true;
         }
 
@@ -66,43 +71,35 @@ class CartModel {
      * по-умолчанию - увеличиваем
      */
     public function updateProduct($customer_id, $product_id, $change='plus',$params){
-        $count= Yii::app()->db->createCommand()
-            ->select('count')
-            ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
-            ->queryRow()
-            ['count'];
-        switch ($change) {
-            case 'plus':
-                $count++;
-                break;
-            case 'minus':
-                $count--;
-                break;
+        if(Yii::app()->user->id){
+            $count= Yii::app()->db->createCommand()
+                ->select('count')
+                ->from($this->tableName)
+                ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
+                ->queryRow()
+                ['count'];
+            switch ($change) {
+                case 'plus':
+                    $count++;
+                    break;
+                case 'minus':
+                    $count--;
+                    break;
+            }
+            return Yii::app()->db->createCommand()->update($this->tableName, array(
+                'count'=> $count,
+            ),  'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+        }else{
+            switch ($change) {
+                case 'plus':
+                    $_SESSION['products']['prod_'.$product_id.'_'.$params]['count']++;
+                    break;
+                case 'minus':
+                    $_SESSION['products']['prod_'.$product_id.'_'.$params]['count']--;
+                    break;
+            }
+            return true;
         }
-        return Yii::app()->db->createCommand()->update($this->tableName, array(
-            'count'=> $count,
-        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
-    }
-
-    public function updateProductSession($customer_id, $product_id, $change='plus',$params){
-        $count= Yii::app()->db->createCommand()
-            ->select('count')
-            ->from($this->tableName)
-            ->where('customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
-            ->queryRow()
-        ['count'];
-        switch ($change) {
-            case 'plus':
-                $count++;
-                break;
-            case 'minus':
-                $count--;
-                break;
-        }
-        return Yii::app()->db->createCommand()->update($this->tableName, array(
-            'count'=> $count,
-        ), 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
     }
 
     /**
@@ -136,7 +133,7 @@ class CartModel {
             }
             return (isset($count) ? $count : 0);
         }else{
-            return count($_SESSION);
+            return !empty($_SESSION['products'])?count($_SESSION['products']):0;
         }
     }
 
@@ -166,13 +163,16 @@ class CartModel {
             return FormatHelper::markup($sum);
         }else{
             $catalogModel = new CatalogModel();
-            $sum= 100 ;
-            foreach($_SESSION as $value){
-                if ($product = $catalogModel->productById($value['product_id'])) {
-                    //количество
-                    $sum+=$product->price;
+            $sum= 0 ;
+            if(!empty($_SESSION['products'])){
+                foreach($_SESSION['products'] as $value){
+                    if ($product = $catalogModel->productById($value['product_id'])) {
+                        //количество
+                        $sum+=$product->price;
+                    }
                 }
             }
+
             return FormatHelper::markup($sum);
         }
 
@@ -200,14 +200,21 @@ class CartModel {
      * @return int
      */
     public function countItemsOfProduct($product_id, $params){
-        $customer_id=Yii::app()->user->id;
-//        $count=0;
-        if (!empty($customer_id)){
-            $count = Yii::app()->db->createCommand()
-                ->select('count AS c')
-                ->from($this->tableName)
-                ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
-                ->queryRow()['c'];
+        if($customer_id=Yii::app()->user->id){
+    //        $count=0;
+            if (!empty($customer_id)){
+                $count = Yii::app()->db->createCommand()
+                    ->select('count AS c')
+                    ->from($this->tableName)
+                    ->where('customer_id=:customer_id and product_id=:product_id and params=:params ', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params))
+                    ->queryRow()['c'];
+            }
+
+        }else{
+            $count=0;
+            $count= $_SESSION['products']['prod_'.$product_id.'_'.$params]['count'];
+
+
         }
         return $count;
     }
@@ -256,17 +263,28 @@ class CartModel {
      * @param $product_id
      */
     public function deleteProduct($customer_id, $product_id,$params){
-        return Yii::app()->db->createCommand()
+        if($customer_id!=0){
+            return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id and product_id=:product_id and params=:params', array(':customer_id'=>$customer_id, ':product_id'=>$product_id, ':params'=>$params));
+        }else{
+            unset($_SESSION['products']['prod_'.$product_id.'_'.$params]);
+            return true;
+
+        }
     }
 
     /**
      * Метод для удаления всех товаров из корзины
      * @param $customer_id
      */
-    public function deleteAll($customer_id){
+    public function deleteAll($customer_id=0){
+        if($customer_id!=0){
         return Yii::app()->db->createCommand()
             ->delete($this->tableName, 'customer_id=:customer_id', array(':customer_id'=>$customer_id));
+        }else{
+            unset($_SESSION['products']);
+            return true;
+        }
     }
 
     /**
