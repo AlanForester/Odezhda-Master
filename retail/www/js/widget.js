@@ -4,25 +4,8 @@ var LapanaWidget = {
 
     init: function (params) {
 
-        var url = this.baseURL + 'index/?callback=LapanaWidget.initCallback';
-
         if(params.id != undefined) {
-            //ajax();
-
-            /*var r = new XMLHttpRequest();
-            r.open('GET', url, true);
-            r.onreadystatechange = function () {
-                if (r.readyState != 4 || r.status != 200) return;
-                //console.log(r.responseText);
-                document.getElementById(params.id).innerHTML = r.responseText;
-            };
-            //r.send("a=1&b=2&c=3");
-            r.send("");*/
-
-            var script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = url;
-            document.body.appendChild(script);
+            this.load('main', 'LapanaWidget.initCallback');
 
         } else {
             alert('Идентификатор контейнера для загрузки виджета Lapana не указан');
@@ -31,6 +14,7 @@ var LapanaWidget = {
     },
 
     initCallback: function (response) {
+        //alert(response);
 
     },
 
@@ -44,5 +28,29 @@ var LapanaWidget = {
 
     addToCart: function (id) {
 
+    },
+
+    load: function (action, callback) {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.loaded = 0;
+        document.body.appendChild(script);
+        /*script.onload = script.onerror = function() {
+            LapanaWidget.checkLoaded(this);
+        };
+        script.onreadystatechange = function () {
+            if (this.readyState == 'complete' || this.readyState == 'loaded') {
+                setTimeout(LapanaWidget.checkLoaded(this), 100);
+            }
+        };*/
+        script.src = this.baseURL + action + '/?callback=' + callback;
+    },
+
+    checkLoaded: function (element) {
+        return (element.loaded == 1);
+    },
+
+    setLoaded: function (element) {
+        element.loaded = 1;
     }
 };
