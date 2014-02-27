@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerPackage('social');
             <a href="#" id="openCart" class="m-dotted">
                 <img src="/images/basket_social.png" alt="" />
                 <small>В корзине</small>
-                <span>0</span>
+                <span class="count">0</span>
             </a>
         </div>
     </div>

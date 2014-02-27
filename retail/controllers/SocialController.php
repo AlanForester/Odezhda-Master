@@ -58,6 +58,6 @@ class SocialController extends RetailController {
     }
 
     public function actionAddToCart(){
-
+        echo 5;exit;
     }
 }
