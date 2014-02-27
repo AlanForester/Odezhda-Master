@@ -162,6 +162,7 @@ class ShopProductsHelper {
             'order' => new CDbExpression('RAND()')
         ];
 
+
         $priceLimit = self::getModel()->find($criteria);
 
         return $priceLimit;

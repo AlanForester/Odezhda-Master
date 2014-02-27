@@ -119,7 +119,7 @@ class CatalogController extends RetailController {
         }
 
         // получение товаров в категории
-        $data = $model->getDataProvider($criteria);
+            $data = $model->getDataProvider($criteria);
         $dataProvider=$data['dataProvider'];
         $limitPrice=$data['priceLimit'];
 

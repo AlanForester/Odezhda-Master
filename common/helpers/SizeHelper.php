@@ -96,6 +96,7 @@ class SizeHelper {
             }
             $string->oldSizeString=$data;
         }
+
         return $dataProvider;
     }
 

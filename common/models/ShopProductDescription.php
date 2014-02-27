@@ -12,7 +12,7 @@
  *
  */
 class ShopProductDescription extends LegacyActiveRecord {
-
+//    public $name;
 //    public $primaryKey = 'id';
 
 //    public $pages_name = '';
