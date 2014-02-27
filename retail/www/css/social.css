@@ -1041,3 +1041,60 @@ ul.yiiPager .selected a {
     padding: 0 10px;
 }
 
+.reg-basket {
+    float:right;
+    position:relative;
+    width:205px;
+    height:40px;
+    margin-top:30px;
+}
+
+.basket {
+    width:150px;
+    height:42px;
+    border-radius:50px;
+    -moz-border-radius:50px;
+    -webkit-border-radius:50px;
+    line-height:35px;
+    background: #F39A22;
+    z-index:99;
+    border:solid 1px #F39A22;
+    margin: 4px 0 -4px 50px;
+    float: left;
+}
+
+.basket img {
+    float:left;
+    padding-top:10px;
+    padding-left:15px;
+}
+
+.basket span {
+    float:left;
+    height:30px;
+    width:20px;
+    text-align:center;
+    color:#E1156F;
+    line-height:30px;
+    font-size:14px;
+    line-height:42px;
+}
+
+.basket small {
+    line-height:42px;
+    padding-left:15px;
+    color:#fff;
+    font-size:14px;
+    float:left;
+}
+
+.basket a {
+    width:100%;
+    height:70px;
+    float:left;
+}
+
+.basket h6 {
+    float:left;
+}
+
