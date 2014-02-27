@@ -11,12 +11,4 @@ class OrdersStatuses extends LegacyActiveRecord {
         return 'orders_status';
     }
 
-    public function relations()
-    {
-        return[
-            'orders_status_name' => [self::BELONGS_TO, 'Orders', 'orders_status_name', 'together' => true]
-        ];
-    }
-
-
 }
