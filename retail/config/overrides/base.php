@@ -62,6 +62,49 @@ return [
                 'bootstrap-yii.css' => false,
             ],
             'packages' => [
+
+                'coreSocial' => [
+                    'baseUrl' => '/',
+                    'js' => [
+                        //Slider
+                        'js/slider/jquery.themepunch.plugins.min.js',
+                        'js/slider/jquery.themepunch.revolution.min.js',
+                        'js/slider-clothes/jquery.jcarousel.min.js',
+                        'js/slider-clothes/jcarousel.responsive.js',
+                        //bottom-panel
+                        'js/bottom-panel/jquery.jqEasyPanel.min.js',
+                        'js/bottom-panel/easypaginate.js',
+
+                        //lightbox
+                        'js/jquery.easing.1.3.js',
+                        'js/lightbox/jquery.lightbox.js',
+
+                        'js/karta-slider/jquery.jqzoom-core-pack.js',
+                        'js/main.js'
+                    ],
+                    'css' => [
+                        'css/reset.css',
+                        'css/flick/jquery-ui-1.10.3.custom.css',
+                        'css/style.css',
+
+                        //bottom-panel
+                        'js/bottom-panel/jqeasypanel.css',
+
+                        // Slider
+                        'js/slider/captions.css',
+                        'js/slider/settings.css',
+                        'js/slider/style.css',
+                        //lightbox
+                        'js/lightbox/jquery.lightbox.css',
+
+                        // Modal
+                        'js/modal/themes/simple.css',
+
+                        'js/karta-slider/jquery.jqzoom.css',
+                    ],
+                    'depends' => ['jquery', 'jquery.ui']
+                ],
+
                 'core' => [
                     'baseUrl' => '/',
                     'js' => [
@@ -148,6 +191,7 @@ return [
                 ],
                 'social' => [
                     'baseUrl' => '/',
+                    'depends' => ['coreSocial'],
                     'js' => [
 
                     ],
@@ -157,7 +201,7 @@ return [
                         'js/tabs/style.css',
                         'css/social.css',
                     ],
-                    'depends' => ['core']
+
                 ],
             ]
         ],
