@@ -14,8 +14,11 @@ var LapanaWidget = {
     },
 
     initCallback: function (response) {
-        //alert(response);
-
+        //alert(response.html);
+        var div = document.createElement("div");
+        div.className = 'lapana-widget';
+        div.innerHTML = response.html;
+        document.body.appendChild(div);
     },
 
     slideUp: function () {
@@ -33,8 +36,8 @@ var LapanaWidget = {
     load: function (action, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";
-        script.loaded = 0;
         document.body.appendChild(script);
+        script.loaded = 0;
         /*script.onload = script.onerror = function() {
             LapanaWidget.checkLoaded(this);
         };
