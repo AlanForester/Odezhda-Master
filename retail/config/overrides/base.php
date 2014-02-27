@@ -88,7 +88,7 @@ return [
                         'css/style.css',
 
                         //bottom-panel
-                        'js/bottom-panel/jqeasypanel.css',
+//                        'js/bottom-panel/jqeasypanel.css',
 
                         // Slider
                         'js/slider/captions.css',
