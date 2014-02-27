@@ -96,8 +96,18 @@ class ProductHelper {
             }
             $string->categories_name_list=$data;
         }
-//        print_r($dataProvider->getData());
-//        exit;
+
+//        foreach($dataProvider->getData() as $string){
+//            $string->sizesString=1;
+//            $data='';
+//            foreach($string->products_option_values as $key => $products_old){
+//                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+//
+//            }
+//            $string->oldSizeString=$data;
+//        }
+        print_r($dataProvider->getData());
+        exit;
 
         return $dataProvider;
     }

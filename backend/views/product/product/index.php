@@ -84,7 +84,7 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Название',
-                'name' => 'product_description.products_name',
+                'name' => 'name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
