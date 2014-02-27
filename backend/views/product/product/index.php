@@ -121,7 +121,7 @@ $this->widget(
             [
                 'type' => 'text',
                 'header' => 'Размеры',
-                'name' => '',
+                'name' => 'newSizeString',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [

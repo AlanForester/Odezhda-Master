@@ -18,6 +18,7 @@ class ShopProduct extends LegacyActiveRecord {
     public $max_price;
     public $categories_name_list;
     public $products_name;
+    public $newSizeString;
 
     //    public $primaryKey = 'id';
 
