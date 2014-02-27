@@ -14,6 +14,13 @@ class Orders extends LegacyActiveRecord {
         return 'orders';
     }
 
+//    public function relations()
+//    {
+//        return [
+//            'orders_status' => [self::BELONGS_TO, 'OrdersStatuses', 'orders_status_id', 'together' => true]
+//        ];
+//    }
+
     public function fieldMap() {
         return [
             'orders_id' => 'id',
@@ -39,9 +46,9 @@ class Orders extends LegacyActiveRecord {
             'delivery_pasport_nomer' => 'delivery_passport_number',
             'delivery_pasport_kem_vidan' => 'delivery_passport_issue_organization',
             'delivery_pasport_kogda_vidan' => 'delivery_passport_issue_date',
-            /*'delivery_company' => 'delivery_company',
+            'delivery_company' => 'delivery_company',
             'delivery_street_address' => 'delivery_street_address',
-            'delivery_suburb' => 'delivery_suburb',
+            /*'delivery_suburb' => 'delivery_suburb',
             'delivery_city' => 'delivery_city',
             'delivery_postcode' => 'delivery_postcode',
             'delivery_state' => 'delivery_state',
@@ -67,8 +74,8 @@ class Orders extends LegacyActiveRecord {
             'date_akt' => 'act_date',
             'buh_orders_id' => 'booker_orders_id',
             'nomer_akt' => 'act_number',
-            /*'orders_status' => 'orders_status',
-            'orders_date_finished' => 'orders_date_finished',
+            'orders_status' => 'orders_status_id',
+          /*'orders_date_finished' => 'orders_date_finished',
             'currency' => 'currency',
             'currency_value' => 'currency_value',
             'customers_fax' => 'customers_fax',
@@ -95,7 +102,8 @@ class Orders extends LegacyActiveRecord {
                 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
             ['customers_id, customers_groups_id, customers_address_format_id, delivery_adress_id, delivery_address_format_id, billing_address_format_id, buh_orders_id, orders_status, default_provider, seller_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
             ['last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'update'],
-            ['date_purchased, last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'add']
+            ['date_purchased, last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'add'],
+            ['orders_status_id', 'required', 'message' => Yii::t('validation', 'Статус является обязательной')]
         ];
     }
 
@@ -107,6 +115,7 @@ class Orders extends LegacyActiveRecord {
     public function attributeLabels() {
         return [
             'id' => Yii::t('labels', 'ID'),
+            'customers_name' => Yii::t('labels', 'Имя'),
         ];
     }
 

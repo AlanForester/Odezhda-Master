@@ -32,7 +32,7 @@ class ShopManufacturersDescription extends LegacyActiveRecord {
 //            ['language_id', 'numerical', 'integerOnly' => true, 'message' => Yii::t('validation', 'Поле должно быть числовым')],
 //            ['language_id', 'exist', 'allowEmpty' => false, 'className' => 'Language', 'attributeName' => 'languages_id', 'message' => Yii::t('validation', 'Неверное значение для поля')],
 //            ['name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
-//            ['description', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
+            ['manufacturers ', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
         ];
     }
 

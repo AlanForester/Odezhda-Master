@@ -48,18 +48,12 @@ class ShopProductDescription extends LegacyActiveRecord {
      */
     public function getRules() {
         return [
-//            ['language_id', 'numerical', 'integerOnly' => true, 'message' => Yii::t('validation', 'Поле должно быть числовым')],
-//            ['language_id', 'exist', 'allowEmpty' => false, 'className' => 'Language', 'attributeName' => 'languages_id', 'message' => Yii::t('validation', 'Неверное значение для поля')],
-//            ['name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
-//            ['description', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
+            ['language_id', 'numerical', 'integerOnly' => true, 'message' => Yii::t('validation', 'Поле должно быть числовым')],
+            ['language_id', 'exist', 'allowEmpty' => false, 'className' => 'Language', 'attributeName' => 'languages_id', 'message' => Yii::t('validation', 'Неверное значение для поля')],
+            ['name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
+            ['description', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
         ];
     }
-
-//    public function relations() {
-//        return [
-//            'description' => [self::HAS_ONE, 'InfoPage', 'pages_id'],
-//        ];
-//    }
 
     /**
      * Заголовки полей (поле=>заголовок)
@@ -74,6 +68,9 @@ class ShopProductDescription extends LegacyActiveRecord {
             'viewed' => Yii::t('labels', 'Количество просмотров'),
         ];
     }
+
+
+
 
     /**
      * Returns the static model of the specified AR class.
