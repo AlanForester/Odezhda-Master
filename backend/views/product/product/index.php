@@ -84,7 +84,7 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Название',
-                'name' => 'product_description.products_name',
+                'name' => 'name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -118,15 +118,15 @@ $this->widget(
                 'htmlOptions' => [
                 ],
             ],
-            [
-                'type' => 'text',
-                'header' => 'Размеры',
-                'name' => '',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
+//            [
+//                'type' => 'text',
+//                'header' => 'Размеры',
+//                'name' => 'newSizeString',
+//                'headerHtmlOptions' => [
+//                ],
+//                'htmlOptions' => [
+//                ],
+//            ],
             [
                 'type' => 'text',
                 'header' => 'Производитель',
@@ -145,7 +145,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'url' => Yii::app()->createUrl("/product/update")
                 ]
             ],
             [
@@ -157,7 +157,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'url' => Yii::app()->createUrl("/product/update")
                 ]
             ],
             [
@@ -174,7 +174,7 @@ $this->widget(
 //                'editable' => [
 //                    'placement' => 'top',
 //                    'emptytext' => 'не задано',
-//                    'url' => Yii::app()->createUrl("/catalog/update")
+//                    'url' => Yii::app()->createUrl("/product/update")
 //                ]
 //            ],
 //            [
@@ -194,7 +194,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update")
+                    'url' => Yii::app()->createUrl("/product/update")
                 ]
             ],
             [
@@ -210,7 +210,7 @@ $this->widget(
                     'placement' => 'top',
                     'emptytext' => 'не задано',
                     'source' => [1 => "Да", 0 => "Нет"],
-                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    'url' => Yii::app()->createUrl("/product/update"),
                 ]
             ],
             [
@@ -227,7 +227,7 @@ $this->widget(
                     'placement' => 'top',
                     'emptytext' => 'не задано',
                     'source' => [1 => "Да", 0 => "Нет"],
-                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    'url' => Yii::app()->createUrl("/product/update"),
                 ]
             ],
             [
@@ -241,8 +241,8 @@ $this->widget(
         ],
 
         'gridButtonsUrl' => [
-            'edit' => 'Yii::app()->createUrl("/catalog/edit", array("id"=>$data["id"]))',
-            'delete' => 'Yii::app()->createUrl("/catalog/delete", array("id"=>$data["id"]))',
+            'edit' => 'Yii::app()->createUrl("/product/edit", array("id"=>$data["id"]))',
+            'delete' => 'Yii::app()->createUrl("/product/delete", array("id"=>$data["id"]))',
         ]
     ]
 );

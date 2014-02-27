@@ -17,7 +17,7 @@ class ProductHelper {
     public static function getId($id = null, $scenario = null) {
         $model = self::getModel();
         // todo: завернуть название модели
-        return ($id ? $model->findByPk($id) : new ProductNewOptions($scenario));
+        return ($id ? $model->findByPk($id): new ProductNewOptions($scenario));
     }
 
     public static function getOldOptionsList(){
@@ -95,6 +95,15 @@ class ProductHelper {
 
             }
             $string->categories_name_list=$data;
+        }
+
+        foreach($dataProvider->getData() as $string){
+            $data='';
+            foreach($string->product_options as $key => $products_old){
+                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+
+            }
+           $string->newSizeString=$data;
         }
 //        print_r($dataProvider->getData());
 //        exit;

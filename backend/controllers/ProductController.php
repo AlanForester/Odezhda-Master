@@ -33,15 +33,17 @@ class ProductController extends BackendController {
 
         $model = new ProductModel();
         if (!$model->updateField($params)){
-            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных баннера'));
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных продуктов'));
         }
     }
 
     public function actionEdit($id, $scenario = 'edit') {
+
         $model = new ProductModel($scenario);
         if (!$item = $model->getId($id, $scenario)) {
-            $this->error('Ошибка получения данных баннера');
+            $this->error('Ошибка получения данных продуктов');
         }
+
 //        print_r($model->getPostData());
 //        exit;
         $form_action = Yii::app()->request->getPost('form_action');
@@ -78,8 +80,7 @@ class ProductController extends BackendController {
                 }
             }
         }
-
-        $oldOptionList=$model->getOldOptionsList();
+        //$oldOptionList=$model->getOldOptionsList();
         $this->render('edit', compact('item','model','oldOptionList'));
     }
 
