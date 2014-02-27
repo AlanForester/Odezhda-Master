@@ -89,12 +89,6 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/orders/update"),
-                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],
             [
@@ -113,6 +107,22 @@ $this->widget(
                     //'source'   => $this->createUrl('users/update'),
                 ]
             ],
+                [
+                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                    'type' => 'text',
+                    'header' => 'Статус',
+                    'name' => 'orders_status_name',
+                    'headerHtmlOptions' => [
+                    ],
+                    'htmlOptions' => [
+                    ],
+                    'editable' => [
+                        'placement' => 'right',
+                        'emptytext' => 'не задано',
+                        'url' => Yii::app()->createUrl("/orders/update"),
+                        //'source'   => $this->createUrl('users/update'),
+                    ]
+                ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
