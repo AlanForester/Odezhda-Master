@@ -32,7 +32,7 @@ class ShopProductDescription extends LegacyActiveRecord {
         return [
             //таблица описание товара
             'products_id' => 'id',
-            'products_name' => 'name',
+           // 'products_name' => 'name',
             'products_description' => 'description',
             //meta
             'products_head_title_tag' => 'meta_title',
@@ -46,18 +46,12 @@ class ShopProductDescription extends LegacyActiveRecord {
      * @see http://www.yiiframework.com/wiki/56/
      * @return array
      */
-    public function getRules() {
-        return [
+//    public function getRules() {
+//        return [
 //            ['language_id', 'numerical', 'integerOnly' => true, 'message' => Yii::t('validation', 'Поле должно быть числовым')],
 //            ['language_id', 'exist', 'allowEmpty' => false, 'className' => 'Language', 'attributeName' => 'languages_id', 'message' => Yii::t('validation', 'Неверное значение для поля')],
 //            ['name', 'required', 'message' => Yii::t('validation', 'Название является обязательным')],
 //            ['description', 'required', 'message' => Yii::t('validation', 'Описание является обязательным')],
-        ];
-    }
-
-//    public function relations() {
-//        return [
-//            'description' => [self::HAS_ONE, 'InfoPage', 'pages_id'],
 //        ];
 //    }
 
@@ -65,15 +59,18 @@ class ShopProductDescription extends LegacyActiveRecord {
      * Заголовки полей (поле=>заголовок)
      * @return array
      */
-    public function attributeLabels() {
-        return [
-            'id' => Yii::t('labels', 'ID'),
-            'language_id' => Yii::t('labels', 'Язык'),
-            'name' => Yii::t('labels', 'Название'),
-            'description' => Yii::t('labels', 'Описание'),
-            'viewed' => Yii::t('labels', 'Количество просмотров'),
-        ];
-    }
+//    public function attributeLabels() {
+//        return [
+//            'id' => Yii::t('labels', 'ID'),
+//            'language_id' => Yii::t('labels', 'Язык'),
+//            'name' => Yii::t('labels', 'Название'),
+//            'description' => Yii::t('labels', 'Описание'),
+//            'viewed' => Yii::t('labels', 'Количество просмотров'),
+//        ];
+//    }
+
+
+
 
     /**
      * Returns the static model of the specified AR class.

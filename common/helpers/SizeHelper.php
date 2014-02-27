@@ -135,7 +135,7 @@ class SizeHelper {
             if (!$item = self::getId($id)) {
                 return false;
             }
-            $item->setAttributes([$field=>$value],false);
+            $item   ->setAttributes([$field=>$value],false);
             return $item->save(true,[$field]);
         }
 

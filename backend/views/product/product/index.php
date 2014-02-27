@@ -84,7 +84,7 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
                 'header' => 'Название',
-                'name' => 'name',
+                'name' => 'product_description.products_name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
@@ -112,21 +112,21 @@ $this->widget(
             [
                 'type' => 'text',
                 'header' => 'Категории',
-                'name' => 'categories_list',
+                'name' => 'categories_name_list',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
                 ],
             ],
-//            [
-//                'type' => 'text',
-//                'header' => 'Размеры',
-//                'name' => 'catalog_options_values',
-//                'headerHtmlOptions' => [
-//                ],
-//                'htmlOptions' => [
-//                ],
-//            ],
+            [
+                'type' => 'text',
+                'header' => 'Размеры',
+                'name' => '',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+            ],
             [
                 'type' => 'text',
                 'header' => 'Производитель',

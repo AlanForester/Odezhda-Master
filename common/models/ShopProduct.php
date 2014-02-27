@@ -16,6 +16,7 @@ class ShopProduct extends LegacyActiveRecord {
 
     public $min_price;
     public $max_price;
+    public $categories_name_list;
 
     //    public $primaryKey = 'id';
 
@@ -229,14 +230,14 @@ class ShopProduct extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
+            'product_description' => [self::HAS_MANY, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
 
             // todo: половина тут лишнее
             'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
 
             //связь с категориями many to many
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
-            'categories_description' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
+            'categories_description_table' => array(self::HAS_MANY, 'ShopCategoriesDescription', 'categories_id', 'through' => 'category_to_product', 'together' => true, 'joinType' => 'INNER JOIN'),
             //связь с опциями
             'product_attributes' => array(self::HAS_MANY, 'ProductAtributes', 'products_id', 'together' => false),
 //            'product_options' => array(self::MANY_MANY, 'ProductOptions', 'products_options_values(products_options_values_id,products_id)', 'through' => 'product_attributes', 'together' => true),
@@ -292,7 +293,8 @@ class ShopProduct extends LegacyActiveRecord {
         return [
             'with' => [
                 'product_description',
-                'categories_description',
+                'categories_description_table',
+                'manufacturers_description'
 //                'product_options',
 //                'products_new_option_values'
             ]

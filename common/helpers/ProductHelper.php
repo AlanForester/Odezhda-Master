@@ -88,16 +88,16 @@ class ProductHelper {
         );
 
 
-//        foreach($dataProvider->getData() as $string){
-//            $string->oldProductString=1;
-//            $data='';
-//            foreach($string->products_option_values as $key => $products_old){
-//                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
-//
-//            }
-//            $string->oldProductString=$data;
-//        }
-        print_r($dataProvider->getData());
+        foreach($dataProvider->getData() as $string){
+            $data='';
+            foreach($string->categories_description_table as $key => $value){
+                $data.=($key==0)?$value->category:', '.$value->category;
+
+            }
+            $string->categories_name_list=$data;
+        }
+//        print_r($dataProvider->getData());
+//        exit;
 
         return $dataProvider;
     }

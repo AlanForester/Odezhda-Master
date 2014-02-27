@@ -35,14 +35,14 @@ class ShopProductsHelper {
         // Фильтрация по категориям
         if (isset($data['category']) && empty($categories)) {
             // todo: решить проблему с подстановкой имени связанной таблицы
-            $condition [] = 'categories_description.categories_id =:category';
+            $condition [] = 'categories_description_table.categories_id =:category';
             $params[':category'] = $data['category'];
         } elseif (isset($data['category']) && !empty($categories)) {
 
             foreach ($categories as $category) {
-                $condition_params[] = 'categories_description.categories_id =' . $category['categories_id'];
+                $condition_params[] = 'categories_description_table.categories_id =' . $category['categories_id'];
             }
-            $condition_params[] ='categories_description.categories_id ='.$data['category'];
+            $condition_params[] ='categories_description_table.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
 
@@ -57,7 +57,7 @@ class ShopProductsHelper {
         }
 
         // добавляем в условие ids категорий, которые не надо выводить
-        $notInCondition='categories_description.categories_id  NOT IN (';
+        $notInCondition='categories_description_table.categories_id  NOT IN (';
         foreach (self::$exceptedIds as $i=>$id){
             $notInCondition.=$id;
             if ($i!=count(self::$exceptedIds)-1){
@@ -87,7 +87,7 @@ class ShopProductsHelper {
                     SELECT GROUP_CONCAT( options_values_id )
                     FROM products_attributes AS attr
                     WHERE t.products_id = attr.products_id
-                    ) IN (".$dataOptions['group_data'].")" ;
+                    ) IN (".$dataOptions['group_data'].")";
             }
         }
 
