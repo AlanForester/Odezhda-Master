@@ -45,17 +45,23 @@ class ShopProductsHelper {
             $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
+
+        $in_ids = Yii::app()->db->createCommand()
+            ->select(self::getFieldName('id',false))
+            ->from(ShopCategoriesLegacy::model()->tableName())
+            ->where(['and',self::getFieldName('parent_id',false).'=0',['not in', self::getFieldName('id',false), $excepted_ids]])
+            //->where(self::getFieldName('parent_id',false).'=0 and ',['not in', self::getFieldName('id',false), $excepted_ids])
+            ->queryALL();
         // добавляем в условие ids категорий, которые не надо выводить
-        $res_ids='categories_description.categories_id  NOT IN (';
+        $notInCriteria='categories_description.categories_id  NOT IN (';
         foreach (self::$exceptedIds as $i=>$id){
-            $res_ids.=$id;
+            $notInCriteria.=$id;
             if ($i!=count(self::$exceptedIds)-1){
-                $res_ids.=",";
+                $notInCriteria.=",";
             }
         }
-        $res_ids.=')';
-        $condition [] = $res_ids;//  'categories_description.categories_id  NOT IN (:exceptedCategories)';
-//        $params[':exceptedCategories'] = $res_ids;
+        $notInCriteria.=')';
+        $condition [] = $notInCriteria;
 
         $criteria = [];
         //Фильтрация по ценам
