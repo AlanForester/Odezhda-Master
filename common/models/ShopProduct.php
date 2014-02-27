@@ -188,6 +188,9 @@ class ShopProduct extends LegacyActiveRecord {
                        ['status', 'boolean', 'message' => Yii::t('validation', 'Неверное значение поля')],
                        ['sort_order', 'numerical', 'message' => Yii::t('validation', "Поле должно быть числовым")],
                        ['sort_order', 'length', 'max' => 3, 'message' => Yii::t('validation', 'Слишком большое число (максимум 999)')],
+                       ['xml', 'boolean', 'message' => Yii::t('validation', 'Неверное значение полe')],
+                       ['price,order,quantity', 'numerical', 'message' => Yii::t('validation', 'Поле должно быть числовым')],
+                       ['model', 'required', 'message' => Yii::t('validation', 'Поле должно быть числовым')],
                    ]
         );
     }

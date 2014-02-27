@@ -97,6 +97,7 @@ class ProductHelper {
 //            }
 //            $string->oldProductString=$data;
 //        }
+        print_r($dataProvider->getData());
 
         return $dataProvider;
     }
