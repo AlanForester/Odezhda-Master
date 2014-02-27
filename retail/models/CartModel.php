@@ -17,6 +17,7 @@ class CartModel {
 
         if(!empty($data['product_id'])){
             if(empty($data['count'])){
+                //todo доделать!!
                 $data['count']=1;
             }
             $session=new CHttpSession;
@@ -153,6 +154,7 @@ class CartModel {
             }
             return (isset($count) ? $count : 0);
         }else{
+            //todo доделать!!
             return !empty($_SESSION['products'])?count($_SESSION['products']):0;
         }
     }
