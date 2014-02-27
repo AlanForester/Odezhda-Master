@@ -95,6 +95,16 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
 //                'header' => 'Имя',
+                'name' => 'sum',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                'type' => 'text',
+//                'header' => 'Имя',
                 'name' => 'customers_name',
                 'headerHtmlOptions' => [
                 ],
@@ -107,29 +117,52 @@ $this->widget(
                     //'source'   => $this->createUrl('users/update'),
                 ]
             ],
-
-                [
-                    'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
-                    //                'header' => 'Группа',
-                    'name' => 'orders_status_id',
-                    'headerHtmlOptions' => [
-                    ],
-                    'htmlOptions' => [
-                    ],
-                    'editable' => [
-                        'type' => 'select',
-                        'placement' => 'right',
-                        'emptytext' => 'не задано',
-                        'url' => Yii::app()->createUrl("/users/update"),
-                        'source' => [
-                            '5'=>'Тестовый статус'
-                        ]
-                    ]
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                //                'header' => 'Группа',
+                'name' => 'default_provider',
+                'headerHtmlOptions' => [
                 ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'type' => 'select',
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/orders/update"),
+                    'source' => [
+                        '1' => 'ИП Гаврилин А. А.',
+                        '2' => 'ИП Шепелев Д. Н.'
+                    ]
+                ]
+            ],
+            [
+                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+                //                'header' => 'Группа',
+                'name' => 'orders_status_id',
+                'headerHtmlOptions' => [
+                ],
+                'htmlOptions' => [
+                ],
+                'editable' => [
+                    'type' => 'select',
+                    'placement' => 'right',
+                    'emptytext' => 'не задано',
+                    'url' => Yii::app()->createUrl("/orders/update"),
+                    'source' => [
+                        '1' => 'Ожидает проверки',
+                        '2' => 'Ждём оплаты',
+                        '3' => 'Оплачен',
+                        '4' => 'Оплачен - Доставляется',
+                        '5' => 'Оплачен - Доставлен',
+                        '6' => 'Отменён'
+                    ]
+                ]
+            ],
             [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
-                'header' => 'Дата покупки',
+//                'header' => 'Дата покупки',
                 'name' => 'date_purchased',
                 'headerHtmlOptions' => [
                 ],
