@@ -1,3 +1,41 @@
+<?php
+$basket = "
+jQuery(document).ready(function($){
+    //добавление товара в корзину
+    $('.addToCart').live('click',function(){
+        var size = $(this).siblings('.product_size').val();
+        if(!size){
+            size = $('a.razmer-one.selected').attr('href');
+        }
+        var params = size?size:0;
+
+        if(!size || params) {
+            $.ajax({
+                      type: 'POST',
+                      url: '" . $this->createUrl('/social/addToCart') . "',
+                      data: ({
+                            product_id : $(this).next('.product_id').val(),
+                            params : params,
+                      }),
+                      success: function(data) {
+                            if (data){
+                                $('#openCart .col').text(data);
+                                $('.basket').stop(true,true).effect('highlight', {}, 2000);
+                            }
+
+                      }
+                  });
+        }
+        else{
+            alert ('Выберите, пожалуйста, размер товара.');
+        }
+    });
+});
+";
+Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
+?>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
