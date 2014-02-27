@@ -118,15 +118,15 @@ $this->widget(
                 'htmlOptions' => [
                 ],
             ],
-            [
-                'type' => 'text',
-                'header' => 'Размеры',
-                'name' => 'newSizeString',
-                'headerHtmlOptions' => [
-                ],
-                'htmlOptions' => [
-                ],
-            ],
+//            [
+//                'type' => 'text',
+//                'header' => 'Размеры',
+//                'name' => 'newSizeString',
+//                'headerHtmlOptions' => [
+//                ],
+//                'htmlOptions' => [
+//                ],
+//            ],
             [
                 'type' => 'text',
                 'header' => 'Производитель',

@@ -17,7 +17,7 @@ class ShopProduct extends LegacyActiveRecord {
     public $min_price;
     public $max_price;
     public $categories_name_list;
-    public $products_name;
+//    public $products_name;
     public $newSizeString;
 
     //    public $primaryKey = 'id';
@@ -232,7 +232,7 @@ class ShopProduct extends LegacyActiveRecord {
 
     public function relations() {
         return [
-            'product_description' => [self::HAS_MANY, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
+            'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
 
             // todo: половина тут лишнее
             'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
