@@ -55,6 +55,9 @@ class SocialController extends RetailController {
         } else{
             $this->error();
         }
+    }
+
+    public function actionAddToCart(){
 
     }
 }

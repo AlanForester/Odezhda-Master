@@ -25,23 +25,13 @@ Yii::app()->clientScript->registerPackage('social');
             ?>
         </div>
         <div class="basket">
-            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">
+            <a href="#" id="openCart" class="m-dotted">
                 <img src="/images/basket_social.png" alt="" />
                 <small>В корзине</small>
-                <span>4</span>
+                <span>0</span>
             </a>
         </div>
     </div>
-
-<!--    <div class="reg-basket">-->
-<!--        <div class="basket">-->
-<!--            <a href="#" id="#example3" onclick="$('#exampleModal3').arcticmodal()" class="m-dotted">-->
-<!--                <img src="/images/basket_social.png" alt="" />-->
-<!--                <small>В корзине</small>-->
-<!--                <span>4</span>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--    </div>-->
 
     <div class="catalog-goods">
         <?php foreach ($dataProvider->getData() as $product) { ?>

@@ -1050,7 +1050,7 @@ ul.yiiPager .selected a {
 }
 
 .basket {
-    width:150px;
+    width:180px;
     height:42px;
     border-radius:50px;
     -moz-border-radius:50px;
@@ -1059,8 +1059,8 @@ ul.yiiPager .selected a {
     background: #F39A22;
     z-index:99;
     border:solid 1px #F39A22;
-    margin: 4px 0 -4px 50px;
-    float: left;
+    margin: 4px 15px -4px 0;
+    float: right;
 }
 
 .basket img {
@@ -1078,6 +1078,7 @@ ul.yiiPager .selected a {
     line-height:30px;
     font-size:14px;
     line-height:42px;
+    margin-left: 5px;
 }
 
 .basket small {
