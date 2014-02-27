@@ -58,6 +58,31 @@ class SocialController extends RetailController {
     }
 
     public function actionAddToCart(){
-        echo 5;exit;
+        //todo сделать получение данных пользователя из вк
+        $customer_id=Yii::app()->user->id;
+        if (!empty($customer_id)){
+            $data['customer_id'] = $customer_id;
+            $data['product_id'] = Yii::app()->request->getParam('product_id');
+            $data['params'] = Yii::app()->request->getParam('params');
+            $data['added'] = new CDbExpression('NOW()');
+            $model = new CartModel();
+            if($model->addToCart($data)){
+                echo CartModel::countProducts();
+                Yii::app()->end();
+            }
+            $error='Ошибка добавления товара в корзину';
+        } else {
+            $data['product_id'] = Yii::app()->request->getParam('product_id');
+            $data['params'] = Yii::app()->request->getParam('params');
+            $data['added'] = new CDbExpression('NOW()');
+            $model = new CartModel();
+            if($model->addToSession($data)){
+                echo CartModel::countProducts();
+                Yii::app()->end();
+            }
+            $error='Ошибка добавления товара в корзину';
+        }
+//        $this->renderPartial("/layouts/parts/bottomPanelError", compact('error'));
+
     }
 }

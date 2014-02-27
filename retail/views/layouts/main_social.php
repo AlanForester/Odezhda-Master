@@ -19,8 +19,8 @@ jQuery(document).ready(function($){
                       }),
                       success: function(data) {
                             if (data){
-                                $('#openCart .count').text(data);
-                                $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+                                $('#openCart .col').text(data);
+                                $('.basket').stop(true,true).effect('highlight', {}, 2000);
                             }
 
                       }
