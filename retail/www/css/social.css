@@ -531,7 +531,7 @@ ul.yiiPager {
 .goods-var a {
     text-align: center;
     color: #9C9B9B;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     font-size: 14px;
     width: 100%;
     display: block;
