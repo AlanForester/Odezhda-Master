@@ -35,30 +35,40 @@ class ShopProductsHelper {
         // Фильтрация по категориям
         if (isset($data['category']) && empty($categories)) {
             // todo: решить проблему с подстановкой имени связанной таблицы
-            $condition [] = 'categories_description.categories_id =:category';
+            $condition [] = 'categories_description_table.categories_id =:category';
             $params[':category'] = $data['category'];
         } elseif (isset($data['category']) && !empty($categories)) {
 
             foreach ($categories as $category) {
-                $condition_params[] = 'categories_description.categories_id =' . $category['categories_id'];
+                $condition_params[] = 'categories_description_table.categories_id =' . $category['categories_id'];
             }
-            $condition_params[] ='categories_description.categories_id ='.$data['category'];
+            $condition_params[] ='categories_description_table.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
+
+        $not_in_child_ids = Yii::app()->db->createCommand()
+            ->select('categories_id AS id')
+            ->from('categories')
+            ->where(['in', 'parent_id', self::$exceptedIds])
+            //->where(self::getFieldName('parent_id',false).'=0 and ',['not in', self::getFieldName('id',false), $excepted_ids])
+            ->queryALL();
+        foreach($not_in_child_ids as $k=>$v){
+            self::$exceptedIds[]=$v['id'];
+        }
+
         // добавляем в условие ids категорий, которые не надо выводить
-        $res_ids='categories_description.categories_id  NOT IN (';
+        $notInCondition='categories_description_table.categories_id  NOT IN (';
         foreach (self::$exceptedIds as $i=>$id){
-            $res_ids.=$id;
+            $notInCondition.=$id;
             if ($i!=count(self::$exceptedIds)-1){
-                $res_ids.=",";
+                $notInCondition.=",";
             }
         }
-        $res_ids.=')';
-        $condition [] = $res_ids;//  'categories_description.categories_id  NOT IN (:exceptedCategories)';
-//        $params[':exceptedCategories'] = $res_ids;
+        $notInCondition.=')';
+        $condition [] = $notInCondition;
 
         $criteria = [];
-        //Фильтрация по ценам
+        //Фильтрация по размерам
         if (!empty($data['filter']['size'])){
             foreach ($data['filter']['size'] as $size) {
                 $sizes[]='products_new_option_values.value ="'.$size.'"';
@@ -77,7 +87,7 @@ class ShopProductsHelper {
                     SELECT GROUP_CONCAT( options_values_id )
                     FROM products_attributes AS attr
                     WHERE t.products_id = attr.products_id
-                    ) IN (".$dataOptions['group_data'].")" ;
+                    ) IN (".$dataOptions['group_data'].")";
             }
         }
 
@@ -114,6 +124,9 @@ class ShopProductsHelper {
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
         }
+        else{
+            $condition[]='t.[[price]]<>0.0000';
+        }
 
         // Повторное формирование критерии
         $criteria = [
@@ -148,6 +161,7 @@ class ShopProductsHelper {
             'limit' => 1,
             'order' => new CDbExpression('RAND()')
         ];
+
 
         $priceLimit = self::getModel()->find($criteria);
 

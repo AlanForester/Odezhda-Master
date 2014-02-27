@@ -33,4 +33,17 @@ class OrdersController extends BackendController
 
         $this->render('index', compact('page_size', 'criteria', 'gridDataProvider'));
     }
+    /**
+     * Метод для редактирования одного поля в оптовых заказах
+     */
+    public function actionUpdate() {
+        $params['field'] = Yii::app()->request->getPost('name');
+        $params['id'] = Yii::app()->request->getPost('pk');
+        $params['value'] = Yii::app()->request->getPost('value');
+
+        $model = new OrdersModel();
+        if (!$model->updateField($params)) {
+            $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных пользователя'));
+        }
+    }
 }

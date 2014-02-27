@@ -105,6 +105,24 @@ class BackendSubMenu {
                 ]
             ];
     }
+    /**
+     * Разделы розничного магазина
+     * @return array
+     */
+    public static function orders() {
+        return
+            [
+                [
+                    'label' => 'Оптовые заказы',
+                    'url' => ['/order/index']
+                ],
+                [
+                    'label' => 'Отделения доставки',
+                    'url' => ['/orders_delivery/index'],
+
+                ]
+            ];
+    }
 
 //    public static function retailOrder($id) {
 //        return
