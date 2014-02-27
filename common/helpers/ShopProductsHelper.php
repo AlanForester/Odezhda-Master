@@ -45,20 +45,30 @@ class ShopProductsHelper {
             $condition_params[] ='categories_description.categories_id ='.$data['category'];
             $condition[] = '( ' . join(' OR ', $condition_params) . ' )';
         }
+
+        $not_in_child_ids = Yii::app()->db->createCommand()
+            ->select('categories_id AS id')
+            ->from('categories')
+            ->where(['in', 'parent_id', self::$exceptedIds])
+            //->where(self::getFieldName('parent_id',false).'=0 and ',['not in', self::getFieldName('id',false), $excepted_ids])
+            ->queryALL();
+        foreach($not_in_child_ids as $k=>$v){
+            self::$exceptedIds[]=$v['id'];
+        }
+
         // добавляем в условие ids категорий, которые не надо выводить
-        $res_ids='categories_description.categories_id  NOT IN (';
+        $notInCondition='categories_description.categories_id  NOT IN (';
         foreach (self::$exceptedIds as $i=>$id){
-            $res_ids.=$id;
+            $notInCondition.=$id;
             if ($i!=count(self::$exceptedIds)-1){
-                $res_ids.=",";
+                $notInCondition.=",";
             }
         }
-        $res_ids.=')';
-        $condition [] = $res_ids;//  'categories_description.categories_id  NOT IN (:exceptedCategories)';
-//        $params[':exceptedCategories'] = $res_ids;
+        $notInCondition.=')';
+        $condition [] = $notInCondition;
 
         $criteria = [];
-        //Фильтрация по ценам
+        //Фильтрация по размерам
         if (!empty($data['filter']['size'])){
             foreach ($data['filter']['size'] as $size) {
                 $sizes[]='products_new_option_values.value ="'.$size.'"';
@@ -113,6 +123,9 @@ class ShopProductsHelper {
             $condition[] = 't.[[price]]<=:max_price';
             $params[':min_price'] = $data['min_price'];
             $params[':max_price'] = $data['max_price'];
+        }
+        else{
+            $condition[]='t.[[price]]<>0.0000';
         }
 
         // Повторное формирование критерии
