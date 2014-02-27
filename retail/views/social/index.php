@@ -1,8 +1,31 @@
 <?php
 Yii::app()->clientScript->registerPackage('social');
 ?>
-
 <div class="wrapper">
+
+    <div class="sort-goods-catalog">
+        <p>Всего <?php echo $totalCount . ' ' . FormatHelper::plural($totalCount, 'товар', 'товара', 'товаров'); ?></p>
+
+        <div class="sort">
+            <span>Сортировать:</span>
+            <?php
+            echo CHtml::dropDownList(
+                'order',
+                Yii::app()->request->getParam('order'),
+                [
+                    'hits' => 'По популярности',
+                    'date' => 'По дате добавления',
+                    'price_down' => 'От дешевых к дорогим',
+                    'price_up' => 'От дорогих к дешевым'
+                ],
+                [
+                    'id' => 'catalog_order'
+                ]
+            );
+            ?>
+        </div>
+    </div>
+
     <div class="catalog-goods">
         <?php foreach ($dataProvider->getData() as $product) { ?>
             <div class="goods-var">
