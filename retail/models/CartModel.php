@@ -200,7 +200,6 @@ class CartModel {
                     }
                 }
             }
-
             return FormatHelper::markup($sum);
         }
 
@@ -220,14 +219,13 @@ class CartModel {
                         $sum=$product->price*$count;
                      }
             }
-            return $sum;
+            return FormatHelper::markup($sum);
         }else{
             $catalogModel = new CatalogModel();
             if ($product = $catalogModel->productById($product_id)) {
                 $sum=$product->price*$_SESSION['products']['prod_'.$product_id.'_'.$params]['count'];
-                return $sum;
+                return FormatHelper::markup($sum);
             }
-
         }
     }
 
