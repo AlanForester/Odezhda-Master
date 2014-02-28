@@ -17,7 +17,6 @@ class CartModel {
 
         if(!empty($data['product_id'])){
             if(empty($data['count'])){
-                //todo доделать!!
                 $data['count']=1;
             }
             $session=new CHttpSession;
@@ -25,12 +24,14 @@ class CartModel {
             if(empty($session['products'])){
                  $session['products']=[];
             }
-            $session['products']+=['prod_'.$data['product_id'].'_'.$data['params']=>[
+            if(empty($session['products']['prod_'.$data['product_id'].'_'.$data['params']])){
+                  $session['products']+=['prod_'.$data['product_id'].'_'.$data['params']=>[
                                    'params'=>$data['params'],
                                    'product_id'=>$data['product_id'],
                                    'count'=>$data['count']]];
-
-//            $session['products']['prod_'.$data['product_id'].'_'.$data['params']]+=[];
+            }else{
+              $_SESSION['products']['prod_'.$data['product_id'].'_'.$data['params']]['count']++;
+            }
             return true;
         }
 
@@ -154,8 +155,13 @@ class CartModel {
             }
             return (isset($count) ? $count : 0);
         }else{
-            //todo доделать!!
-            return !empty($_SESSION['products'])?count($_SESSION['products']):0;
+            $count=0;
+            if(!empty($_SESSION['products'])){
+                foreach($_SESSION['products'] as $value){
+                    $count+=$value['count'];
+                }
+            }
+            return $count;
         }
     }
 
@@ -194,7 +200,6 @@ class CartModel {
                     }
                 }
             }
-
             return FormatHelper::markup($sum);
         }
 
@@ -204,16 +209,24 @@ class CartModel {
      * @return int
      */
     public function countPriceOfProduct($product_id, $params){
-        $customer_id=Yii::app()->user->id;
-        $sum=0;
-        if (!empty($customer_id)){
+        if($customer_id=Yii::app()->user->id){
+            $sum=0;
+            if (!empty($customer_id)){
+
+                $count=$this->countItemsOfProduct($product_id, $params);
+                $catalogModel = new CatalogModel();
+                    if ($product = $catalogModel->productById($product_id)) {
+                        $sum=$product->price*$count;
+                     }
+            }
+            return FormatHelper::markup($sum);
+        }else{
             $catalogModel = new CatalogModel();
-            $count=$this->countItemsOfProduct($product_id, $params);
-                if ($product = $catalogModel->productById($product_id)) {
-                    $sum=$product->price*$count;
+            if ($product = $catalogModel->productById($product_id)) {
+                $sum=$product->price*$_SESSION['products']['prod_'.$product_id.'_'.$params]['count'];
+                return FormatHelper::markup($sum);
+            }
         }
-        }
-        return $sum;
     }
 
     /**

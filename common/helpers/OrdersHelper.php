@@ -42,12 +42,33 @@ class OrdersHelper {
             $criteria = array_merge($criteria, $data['criteria']);
         }
 
-        return new CActiveDataProvider(
+//        return new CActiveDataProvider(
+//            'Orders',
+//            [
+//                'criteria' => $criteria,
+//                'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
+//            ]
+//        );
+        $dataProvider=new CActiveDataProvider(
             'Orders',
             [
                 'criteria' => $criteria,
                 'pagination' => ($page_size == 'all' ? false : ['pageSize' => $page_size]),
             ]
         );
+
+        foreach($dataProvider->getData() as $string){
+
+                 $query = Yii::app()->db->createCommand()
+                    ->select(array('SUM(  `final_price` *  `products_quantity` ) AS sum'))
+                    ->from('orders_products')
+                    ->where('orders_id=:id', array(':id'=>$string->id))
+                    ->queryRow();
+
+            $string->final_price=$query['sum'];
+            //print_r($query);exit;
+        }
+
+        return $dataProvider;
     }
 } 

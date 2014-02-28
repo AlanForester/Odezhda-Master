@@ -149,6 +149,7 @@ class ShopProductsHelper {
             ]
         );
 
+
         return [
                     'dataProvider' => $dataProvider,
                     'priceLimit' => $priceLimit

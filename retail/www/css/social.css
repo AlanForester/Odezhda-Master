@@ -16,7 +16,7 @@
 }
 .catalog-goods {
     float: none;
-    width: 840px;
+    width: 845px;
     margin: 0 auto;
     clear: both;
 }
@@ -26,7 +26,7 @@ ul.yiiPager {
     display: block !important;
     font-size: 11px !important;
     margin-left: 13px !important;
-    padding-top: 25px !important;
+    padding-top: 18px !important;
     padding-bottom: 15px !important;
 }
 
@@ -513,7 +513,8 @@ ul.yiiPager {
     border: solid 1px #ccc;
     text-align: center;
     margin-top: 10px;
-    margin-left: 13px;
+    margin-left: 7px;
+    margin-right: 7px;
     position: relative;
 }
 
@@ -1001,46 +1002,6 @@ ul.yiiPager .selected a {
 }
 
 /*корзинка*/
-#jqeasytrigger a {
-    color: #FFFFFF;
-    float: left;
-    height: 45px;
-    width: 245px;
-}
-#jqeasytrigger a.open img, #jqeasytrigger a.close img {
-    float: left;
-    margin-left: 3px;
-    margin-top: 7px;
-}
-#jqeasytrigger a.open {
-    display: block;
-    line-height: 45px;
-}
-
-#jqeasytrigger {
-    background-color: #FE9302;
-    font-size: 14px;
-    height: 45px;
-    position: fixed;
-    right: 0;
-    text-align: center;
-    width: 75px;
-    z-index: 105;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    top: 10%;
-}
-#jqeasytrigger a span {
-    background: none repeat scroll 0 0 #E72679;
-    border-radius: 10px;
-    float: left;
-    height: 25px;
-    line-height: 25px;
-    margin-left: 10px;
-    margin-top: 12px;
-    padding: 0 10px;
-}
-
 .reg-basket {
     float:right;
     position:relative;
@@ -1052,14 +1013,14 @@ ul.yiiPager .selected a {
 .basket {
     width:180px;
     height:42px;
-    border-radius:50px;
+    border-radius:7px;
     -moz-border-radius:50px;
     -webkit-border-radius:50px;
     line-height:35px;
     background: #F39A22;
     z-index:99;
     border:solid 1px #F39A22;
-    margin: 4px 15px -4px 0;
+    margin: 4px 19px -4px 0;
     float: right;
 }
 

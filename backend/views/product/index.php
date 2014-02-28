@@ -1,8 +1,8 @@
 <?php
 $this->pageButton = [
-    BackendPageButtons::add("/catalog/add"),
-    BackendPageButtons::remove("/catalog/mass"),
-    BackendPageButtons::mass("/catalog/mass")
+    BackendPageButtons::add("/product/add"),
+    BackendPageButtons::remove("/product/mass"),
+    BackendPageButtons::mass("/product/mass")
 ];
 
 $my_data = array(
@@ -92,7 +92,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    'url' => Yii::app()->createUrl("/product/update"),
                 ]
             ], [
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
@@ -106,7 +106,7 @@ $this->widget(
                 'editable' => [
                     'placement' => 'top',
                     'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/catalog/update"),
+                    'url' => Yii::app()->createUrl("/product/update"),
                 ]
             ],
             [

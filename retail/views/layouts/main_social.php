@@ -1,4 +1,9 @@
 <?php
+$lghtbox="
+jQuery(document).ready(function($){
+    $('.lightbox').lightbox();
+});
+";
 $basket = "
 jQuery(document).ready(function($){
     //добавление товара в корзину
@@ -19,8 +24,8 @@ jQuery(document).ready(function($){
                       }),
                       success: function(data) {
                             if (data){
-                                $('#openCart .col').text(data);
-                                $('.basket').stop(true,true).effect('highlight', {}, 2000);
+                                $('.open .col').text(data);
+                                $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                             }
 
                       }
@@ -33,6 +38,7 @@ jQuery(document).ready(function($){
 });
 ";
 Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScript('lghtbox', $lghtbox, CClientScript::POS_END);
 ?>
 
 
