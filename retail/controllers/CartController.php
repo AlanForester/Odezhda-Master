@@ -94,7 +94,11 @@ class CartController extends RetailController {
         $model = new CartModel();
         if($model->deleteProduct($customer_id,$product_id,$params)){
 //      $this->actionShow(true);
-        $this->renderPartial("/layouts/parts/bottomPanel");
+        //$this->renderPartial("/layouts/parts/bottomPanel");
+            $data['countPrices']=CartModel::countPrices();
+            $data['countProducts']=CartModel::countProducts();
+            echo json_encode($data);
+            Yii::app()->end();
         }
 
     }

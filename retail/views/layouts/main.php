@@ -199,6 +199,8 @@ jQuery(document).ready(function($){
 
     //удаление товара из корзины
     $('.del-good').live('click',function(){
+    me=$(this);
+
             $.ajax({
                           type: 'POST',
                           url: '" . $this->createUrl('/cart/deleteProduct') . "',
@@ -206,23 +208,28 @@ jQuery(document).ready(function($){
                                 product_id : $(this).nextAll('.prod_id').val(),
                                 params : $(this).nextAll('.prod_params').val(),
                           }),
+                          dataType:'json',
                           success: function(data) {
+                                console.log(data);
                                 if (data){
-                                      $('#panel').html(data);
-                                      $('#jqeasypanel').jqEasyPanel({
-                                            position: 'bottom'
-                                      });
-                                      $('.open').click(function(){
-                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
-                                      });
-                                      $('.close').click(function(){
-                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
-                                      });
-                                      $('.goods-slider ul#items').easyPaginate({
-                                             step:4
-                                      });
-                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
-                                      $('.open').trigger('click');
+                                //делаю подмену
+
+                                       me.parent().remove();
+                                   //   $('#panel').html(data);
+//                                      $('#jqeasypanel').jqEasyPanel({
+//                                            position: 'bottom'
+//                                      });
+//                                      $('.open').click(function(){
+//                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+//                                      });
+//                                      $('.close').click(function(){
+//                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+//                                      });
+//                                      $('.goods-slider ul#items').easyPaginate({
+//                                             step:4
+//                                      });
+//                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+//                                      $('.open').trigger('click');
                                 }
 
                           }
