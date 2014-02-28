@@ -7,6 +7,7 @@ $this->pageButton = [
     BackendPageButtons::apply(),
     BackendPageButtons::cancel("/product/index")
 ];
+//print_r($item);exit;
 ?>
     <div class="span6">
         <?php
@@ -49,13 +50,13 @@ $this->pageButton = [
             echo $form->hiddenField($model, 'id', ['value' => $item->id]);
             echo $form->textFieldControlGroup($model, 'name', ['value' => $item->name, 'label' => 'Название *']);
             echo $form->textAreaControlGroup($model, 'description', ['value' => $item->description, 'label' => 'Описание']);
-            echo $form->textFieldControlGroup($model, 'model', ['value' => $item->model, 'label' => 'Код товара']);
+            echo $form->textFieldControlGroup($model, 'model', ['value' => $item->model?:0, 'label' => 'Код товара']);
             echo '<br/>';
-            echo $form->textFieldControlGroup($model, 'quantity', ['value' => $item->quantity, 'label' => 'Количество']);
-            echo $form->textFieldControlGroup($model, 'weight', ['value' => $item->weight, 'label' => 'Вес']);
+            echo $form->textFieldControlGroup($model, 'quantity', ['value' => $item->quantity?:0, 'label' => 'Количество']);
+            echo $form->textFieldControlGroup($model, 'weight', ['value' => $item->weight?:0, 'label' => 'Вес']);
             echo '<br/>';
-            echo $form->textFieldControlGroup($model, 'price', ['value' => $item->price, 'label' => 'Цена, руб.']);
-            echo $form->textFieldControlGroup($model, 'old_price', ['value' => $item->old_price, 'label' => 'Старая цена, руб.']);
+            echo $form->textFieldControlGroup($model, 'price', ['value' => $item->price?:0, 'label' => 'Цена, руб.']);
+            echo $form->textFieldControlGroup($model, 'old_price', ['value' => $item->old_price?:0, 'label' => 'Старая цена, руб.']);
 //            echo $form->dropDownListControlGroup($model, 'status', [1 => "НДС", 0 => "Нет"], ['label' => 'Налог']);
             echo '<br/>';
 

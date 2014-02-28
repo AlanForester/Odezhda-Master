@@ -149,8 +149,9 @@ $this->breadcrumbs = array(
             <?php if (!Yii::app()->user->isGuest): ?>
                 <a class="basket addToCart">В КОРЗИНУ</a>
             <?php else: ?>
-                <a href="<?php echo $this->createUrl('site/login') ?>"
-                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>
+                <a class="basket addToCart">В КОРЗИНУ</a>
+<!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
+<!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
             <?php endif; ?>
             <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
         </div>
