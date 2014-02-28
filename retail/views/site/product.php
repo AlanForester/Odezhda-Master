@@ -149,15 +149,17 @@ $this->breadcrumbs = array(
             <?php if (!Yii::app()->user->isGuest): ?>
                 <a class="basket addToCart">В КОРЗИНУ</a>
             <?php else: ?>
-                <a href="<?php echo $this->createUrl('site/login') ?>"
-                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>
+                <a class="basket addToCart">В КОРЗИНУ</a>
+<!--                <a href="--><?php //echo $this->createUrl('site/login') ?><!--"-->
+<!--                   data-options='{"width":900, "height":355, "modal": true}' class="basket lightbox">В КОРЗИНУ</a>-->
             <?php endif; ?>
             <input type="hidden" class="product_id" value="<?= $product->id ?>"/>
         </div>
     </div>
 
 
-    <p class="title-cart-like-tovar">Популярные товары</p>
+    <?php if(count($dataProvider->getData())>   0){ ?>
+    <p class="title-cart-like-tovar">Похожие товары</p>
 
     <div class="slider-clothes">
         <div class="jcarousel-wrapper">
@@ -184,4 +186,5 @@ $this->breadcrumbs = array(
             <a href="#" class="jcarousel-control-next"></a>
         </div>
     </div>
+    <?php } ?>
 </div>

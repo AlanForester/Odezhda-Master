@@ -15,6 +15,7 @@ class CatalogController extends RetailController {
             $criteria['category'] = $product->categories_id;
         }
         //getTopList
+
         $data = $model->getDataProvider($criteria);
         $dataProvider=$data['dataProvider'];
         $this->pageTitle = $product->name.' ('.$product->model.')';

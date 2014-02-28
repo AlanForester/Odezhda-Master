@@ -72,8 +72,8 @@ return [
                         'js/slider-clothes/jquery.jcarousel.min.js',
                         'js/slider-clothes/jcarousel.responsive.js',
                         //bottom-panel
-                        'js/bottom-panel/jquery.jqEasyPanel.min.js',
-                        'js/bottom-panel/easypaginate.js',
+                        'js/social-panel/jquery.jqEasyPanel.min.js',
+                        'js/social-panel/easypaginate.js',
 
                         //lightbox
                         'js/jquery.easing.1.3.js',
@@ -88,7 +88,7 @@ return [
                         'css/style.css',
 
                         //bottom-panel
-//                        'js/bottom-panel/jqeasypanel.css',
+                        'js/social-panel/jqeasypanel.css',
 
                         // Slider
                         'js/slider/captions.css',
