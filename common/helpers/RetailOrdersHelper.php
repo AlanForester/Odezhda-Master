@@ -43,7 +43,7 @@ class RetailOrdersHelper extends CommonHelper {
             'orders_id IS NULL'
         ];
 
-        //$modelClass = RetailOrdersHelper::getRetailOrderWithInfo();
+        //$modelClass = RetailOrdersHelper::customerWithInfo();
         return parent::getDataProvider($data,$modelClass);
     }
 

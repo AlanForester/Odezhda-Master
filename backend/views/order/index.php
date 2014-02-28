@@ -92,7 +92,7 @@ $this->widget(
                 ]
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+//                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
 //                'header' => 'Имя',
                 'name' => 'final_price',
@@ -102,19 +102,13 @@ $this->widget(
                 ]
             ],
             [
-                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
+//                'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
 //                'header' => 'Имя',
                 'name' => 'customers_name',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/orders/update"),
-                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],
             [
@@ -167,12 +161,6 @@ $this->widget(
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
-                ],
-                'editable' => [
-                    'placement' => 'right',
-                    'emptytext' => 'не задано',
-                    'url' => Yii::app()->createUrl("/orders/update"),
-                    //'source'   => $this->createUrl('users/update'),
                 ]
             ],
         ],
