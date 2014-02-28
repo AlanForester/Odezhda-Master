@@ -60,7 +60,7 @@ class OrdersHelper {
         foreach($dataProvider->getData() as $string){
 
                  $query = Yii::app()->db->createCommand()
-                    ->select(array('SUM(  `final_price` *  `products_quantity` ) AS sum'))
+                    ->select(array('ROUND (SUM(  `final_price` *  `products_quantity` ), 2) AS sum'))
                     ->from('orders_products')
                     ->where('orders_id=:id', array(':id'=>$string->id))
                     ->queryRow();
@@ -70,5 +70,20 @@ class OrdersHelper {
         }
 
         return $dataProvider;
+    }
+    public static function getOrder($id = null, $scenario = null) {
+        $model = self::getModel();
+        return ($id ? $model->findByPk($id) : new $model($scenario));
+    }
+
+    public static function getOrderWithInfo($id = null, $scenario = null) {
+        $model = self::getModel();
+        if($id)
+            return $model->with('customer')->findByPk($id);
+        else {
+            $result = new $model($scenario);
+            $result->customer = new Customer($scenario);
+            return $result;
+        }
     }
 } 

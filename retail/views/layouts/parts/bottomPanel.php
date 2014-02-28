@@ -132,7 +132,8 @@ if(Yii::app()->user->id){
             <a href="#" class="close">x</a>
         </div>
         <p class="title-price">Стоимость заказа</p>
-        <span class="end-price"><?php echo FormatHelper::markup($sum) ?></span>
+        <span class="end-price"><?php //echo FormatHelper::markup($sum)
+            echo CartModel::countPrices();?></span>
         <a href="<?php
         if(!empty(Yii::app()->user->id)){
             echo $this->createUrl('cart/orderStep1');
