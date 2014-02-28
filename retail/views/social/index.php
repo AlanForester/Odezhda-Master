@@ -1,6 +1,6 @@
 <?php
 Yii::app()->clientScript->registerPackage('social');
-Yii::app()->clientScript->registerPackage('index');
+//Yii::app()->clientScript->registerPackage('index');
 ?>
 <div class="wrapper">
 
@@ -25,14 +25,14 @@ Yii::app()->clientScript->registerPackage('index');
             );
             ?>
         </div>
-        <div class="basket">
-            <a href="<?php echo $this->createUrl('site/login') ?>" data-options='{"width":860, "height":355, "modal": true}'
-              id="openCart" class="lightbox">
-                <img src="/images/basket_social.png" alt="" />
-                <small>В корзине</small>
-                <span class="col"><?php echo CartModel::countProducts();?></span>
-            </a>
-        </div>
+<!--        <div class="basket">-->
+<!--            <a href="--><?php //echo $this->createUrl('site/login') ?><!--" data-options='{"width":860, "height":355, "modal": true}'-->
+<!--              id="openCart" class="lightbox">-->
+<!--                <img src="/images/basket_social.png" alt="" />-->
+<!--                <small>В корзине</small>-->
+<!--                <span class="col">--><?php //echo CartModel::countProducts();?><!--</span>-->
+<!--            </a>-->
+<!--        </div>-->
     </div>
 
     <div class="catalog-goods">

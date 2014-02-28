@@ -24,8 +24,8 @@ jQuery(document).ready(function($){
                       }),
                       success: function(data) {
                             if (data){
-                                $('#openCart .col').text(data);
-                                $('.basket').stop(true,true).effect('highlight', {}, 2000);
+                                $('.open .col').text(data);
+                                $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                             }
 
                       }
@@ -60,5 +60,8 @@ Yii::app()->getClientScript()->registerScript('lghtbox', $lghtbox, CClientScript
 </head>
 <body>
 <?php echo $content ?>
+<div id="panel">
+    <?php $this->renderPartial('/layouts/socialParts/cart'); ?>
+</div>
 </body>
 </html>
