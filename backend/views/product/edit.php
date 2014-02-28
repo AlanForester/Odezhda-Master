@@ -1,11 +1,11 @@
 <?php
 
-$this->pageTitle = 'Управление товарами: ' . ($model->id ? 'редактирование' : 'создать товар');
+$this->pageTitle = 'Управление товарами: ' . ($item->id ? 'редактирование' : 'создать товар');
 
 $this->pageButton = [
     BackendPageButtons::save(),
     BackendPageButtons::apply(),
-    BackendPageButtons::cancel("/catalog/index")
+    BackendPageButtons::cancel("/product/index")
 ];
 ?>
     <div class="span6">
@@ -46,44 +46,44 @@ $this->pageButton = [
         <fieldset>
             <legend>Товар</legend>
             <?php
-            echo $form->hiddenField($model, 'id', ['value' => $model->id]);
-            echo $form->textFieldControlGroup($model, 'name', ['value' => $model->name, 'label' => 'Название *']);
-            echo $form->textAreaControlGroup($model, 'description', ['value' => $model->description, 'label' => 'Описание']);
-            echo $form->textFieldControlGroup($model, 'model', ['value' => $model->model, 'label' => 'Код товара']);
+            echo $form->hiddenField($model, 'id', ['value' => $item->id]);
+            echo $form->textFieldControlGroup($model, 'name', ['value' => $item->name, 'label' => 'Название *']);
+            echo $form->textAreaControlGroup($model, 'description', ['value' => $item->description, 'label' => 'Описание']);
+            echo $form->textFieldControlGroup($model, 'model', ['value' => $item->model, 'label' => 'Код товара']);
             echo '<br/>';
-            echo $form->textFieldControlGroup($model, 'quantity', ['value' => $model->quantity, 'label' => 'Количество']);
-            echo $form->textFieldControlGroup($model, 'weight', ['value' => $model->weight, 'label' => 'Вес']);
+            echo $form->textFieldControlGroup($model, 'quantity', ['value' => $item->quantity, 'label' => 'Количество']);
+            echo $form->textFieldControlGroup($model, 'weight', ['value' => $item->weight, 'label' => 'Вес']);
             echo '<br/>';
-            echo $form->textFieldControlGroup($model, 'price', ['value' => $model->price, 'label' => 'Цена, руб.']);
-            echo $form->textFieldControlGroup($model, 'old_price', ['value' => $model->old_price, 'label' => 'Старая цена, руб.']);
-            echo $form->dropDownListControlGroup($model, 'status', [1 => "НДС", 0 => "Нет"], ['label' => 'Налог']);
+            echo $form->textFieldControlGroup($model, 'price', ['value' => $item->price, 'label' => 'Цена, руб.']);
+            echo $form->textFieldControlGroup($model, 'old_price', ['value' => $item->old_price, 'label' => 'Старая цена, руб.']);
+//            echo $form->dropDownListControlGroup($model, 'status', [1 => "НДС", 0 => "Нет"], ['label' => 'Налог']);
             echo '<br/>';
 
-            echo $form->textFieldControlGroup($model, 'min_quantity', ['value' => $model->min_quantity, 'label' => 'Минимальный заказ']);
-            echo $form->textFieldControlGroup($model, 'step', ['value' => $model->step, 'label' => 'Шаг заказа']);
+//            echo $form->textFieldControlGroup($model, 'min_quantity', ['value' => $item->min_quantity, 'label' => 'Минимальный заказ']);
+//            echo $form->textFieldControlGroup($model, 'step', ['value' => $item->step, 'label' => 'Шаг заказа']);
             echo '<br/>';
 
             //сделать checkbox
-            echo $form->dropDownListControlGroup($model, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Статус']);
-            echo $form->dropDownListControlGroup($model, 'xml', [1 => "Да", 0 => "Нет"], ['value' => $model->xml, 'label' => 'XML флаг']);
+//            echo $form->dropDownListControlGroup($model, 'status', [1 => "Да", 0 => "Нет"], ['label' => 'Статус']);
+//            echo $form->dropDownListControlGroup($model, 'xml', [1 => "Да", 0 => "Нет"], ['value' => $item->xml, 'label' => 'XML флаг']);
 //            echo $form->textFieldControlGroup($model, 'status', ['value' => $model->status, 'label' => 'Наличие','type'=>'primary']);
 //            echo $form->textFieldControlGroup($model, 'xml', ['value' => $model->xml, 'label' => 'XML' ]);
             echo '<br/>';
 
 
 
-            echo $form->textFieldControlGroup($model, 'order', ['value' => $model->order, 'label' => 'Порядок сортировки']);
+//            echo $form->textFieldControlGroup($model, 'order', ['value' => $item->order, 'label' => 'Порядок сортировки']);
 
 
-            echo $form->dropDownListControlGroup($model, 'languages_id',  $this->languages_list, ['label' => 'Язык']);
-            echo $form->dropDownListControlGroup($model, 'manufacturers_id',  $this->manufacturers_list, ['label' => 'Производитель']);
-            echo $form->dropDownListControlGroup($model,'category', $this->categories,[
-                'options' =>$catalog['categories_id'],
-                'multiple'=>'multiple',
-                'size'=>'10',
-                'label' => 'Категории',
-
-            ])
+//            echo $form->dropDownListControlGroup($model, 'languages_id',  $this->languages_list, ['label' => 'Язык']);
+//            echo $form->dropDownListControlGroup($model, 'manufacturers_id',  $this->manufacturers_list, ['label' => 'Производитель']);
+//            echo $form->dropDownListControlGroup($model,'category', $this->categories,[
+//                'options' =>$catalog['categories_id'],
+//                'multiple'=>'multiple',
+//                'size'=>'10',
+//                'label' => 'Категории',
+//
+//            ])
             ?>
 
         </fieldset>
@@ -92,7 +92,7 @@ $this->pageButton = [
     </div>
     <div class="span6 form-horizontal">
 <?php
-if (!empty($model->id)) {
+if (!empty($item->id)) {
     ?>
 
         <fieldset>
@@ -101,7 +101,7 @@ if (!empty($model->id)) {
             $this->widget(
                 'yiiwheels.widgets.detail.WhDetailView',
                 [
-                    'data' => $model,
+                    'data' => $item,
                     'attributes' => [
                         ['name' => 'id', 'label' => 'ID'],
                         ['name' => 'date_add', 'label' => 'Дата создания'],
@@ -118,16 +118,16 @@ if (!empty($model->id)) {
     <fieldset>
         <legend>Метаданные</legend>
         <?php
-        echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $model->meta_title,'label' => 'Title', 'span' => 8]);
-        echo $form->textAreaControlGroup($model, 'meta_description', ['value' => $model->meta_description,'label' => 'Description', 'span' => 8, 'rows' => 5]);
-        echo $form->textAreaControlGroup($model, 'meta_keywords', ['value' => $model->meta_keywords,'label' => 'Keywords', 'span' => 8, 'rows' => 5]);
+//        echo $form->textFieldControlGroup($model, 'meta_title', ['value' => $item->meta_title,'label' => 'Title', 'span' => 8]);
+//        echo $form->textAreaControlGroup($model, 'meta_description', ['value' => $item->meta_description,'label' => 'Description', 'span' => 8, 'rows' => 5]);
+//        echo $form->textAreaControlGroup($model, 'meta_keywords', ['value' => $item->meta_keywords,'label' => 'Keywords', 'span' => 8, 'rows' => 5]);
         ?>
     </fieldset>
 
         <fieldset>
             <legend>Фотографии</legend>
             <?php
-          echo $form->fileFieldControlGroup($model, 'image', ['accept'=>'image/*','value' => $model->image,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
+          echo $form->fileFieldControlGroup($model, 'image', ['accept'=>'image/*','value' => $item->image,'url'=>'file/index','label' => 'Фото', 'span' => 8]);
 
 
      /*            $this->widget(

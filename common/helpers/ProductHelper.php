@@ -5,7 +5,7 @@ class ProductHelper {
     private static $errors = [];
 
     public static function getModel() {
-        return ProductNewOptions::model();
+        return ShopProduct::model();
     }
 
     /**
@@ -17,7 +17,7 @@ class ProductHelper {
     public static function getId($id = null, $scenario = null) {
         $model = self::getModel();
         // todo: завернуть название модели
-        return ($id ? $model->findByPk($id): new ProductNewOptions($scenario));
+        return ($id ? $model->findByPk($id): new ShopProduct($scenario));
     }
 
     public static function getOldOptionsList(){
@@ -36,23 +36,24 @@ class ProductHelper {
     public static function getDataProvider($data = null) {
         $condition = [];
         $params = [];
-/*
-        // фильтр по тексту
+
+        // Фильтр по тексту
         if (!empty($data['text_search'])) {
             $condition[] = '(' . join(
                     ' OR ',
                     [
                         '[[name]] LIKE :text',
+                        '[[model]] LIKE :text',
                         '[[id]] LIKE :text',
                     ]
                 ) . ')';
 
             $params[':text'] = '%' . $data['text_search'] . '%';
-        }*/
+        }
 
         // поле и направление сортировки
         $order_direct = null;
-      //  $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'name') . ']]';
+        $order_field = '[[' . (!empty($data['order_field']) ? $data['order_field'] : 'id') . ']]';
 
         if (isset($data['order_direct'])) {
             switch ($data['order_direct']) {
@@ -65,17 +66,18 @@ class ProductHelper {
             }
         }
 
-        $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
+        $page_size = $data['order_direct']?$data['order_direct']:TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
+//        $page_size = $data['order_direct'];
         $criteria = [
-           // 'condition' => join(' AND ', $condition),
-          //  'params' => $params,
-           // 'order' => $order_field . ($order_direct ? : ''),
+            'condition' => join(' AND ', $condition),
+            'params' => $params,
+            'order' => $order_field . ($order_direct ? : ''),
         ];
 
-        // разрешаем перезаписать любые параметры критерии
-//        if (isset($data['criteria'])) {
-//            $criteria = array_merge($criteria, $data['criteria']);
-//        }
+  //       разрешаем перезаписать любые параметры критерии
+        if (isset($data['criteria'])) {
+            $criteria = array_merge($criteria, $data['criteria']);
+        }
 
 
 
@@ -97,16 +99,14 @@ class ProductHelper {
             $string->categories_name_list=$data;
         }
 
-        foreach($dataProvider->getData() as $string){
-            $data='';
-            foreach($string->product_options as $key => $products_old){
-                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
-
-            }
-           $string->newSizeString=$data;
-        }
-//        print_r($dataProvider->getData());
-//        exit;
+//        foreach($dataProvider->getData() as $string){
+//            $data='';
+//            foreach($string->product_options as $key => $products_old){
+//                $data.=($key==0)?$products_old->products_options_values_name:', '.$products_old->products_options_values_name;
+//
+//            }
+//           $string->newSizeString=$data;
+//        }
 
         return $dataProvider;
     }
@@ -142,12 +142,14 @@ class ProductHelper {
         $id = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);
 
-        // все все данные верны, сохраняем
+
         if ($id && $field && $value) {
+
             if (!$item = self::getId($id)) {
                 return false;
             }
             $item->setAttributes([$field=>$value],false);
+
             return $item->save(true,[$field]);
         }
 
@@ -174,6 +176,7 @@ class ProductHelper {
      * @return bool|array массив данных пользователя или false
      */
     public static function save($data) {
+
         $id = TbArray::getValue('id', $data);
 
         // модель пользователя
