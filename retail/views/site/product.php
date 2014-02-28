@@ -158,6 +158,7 @@ $this->breadcrumbs = array(
     </div>
 
 
+    <?php if(count($dataProvider->getData())>   0){ ?>
     <p class="title-cart-like-tovar">Похожие товары</p>
 
     <div class="slider-clothes">
@@ -185,4 +186,5 @@ $this->breadcrumbs = array(
             <a href="#" class="jcarousel-control-next"></a>
         </div>
     </div>
+    <?php } ?>
 </div>
