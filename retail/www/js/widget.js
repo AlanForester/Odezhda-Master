@@ -99,6 +99,13 @@ var LapanaWidget = {
             if (window.addEventListener) element.addEventListener(eventName, fn, false);
             else if (window.attachEvent) element.attachEvent('on'+eventName, fn);
         }
+    },
+
+    unbind: function (element, eventName, fn) {
+        if (document.getElementById && document.getElementsByTagName) {
+            if (window.removeEventListener) element.removeEventListener(eventName, fn, false);
+            else if (window.detachEvent) element.detachEvent('on'+eventName, fn);
+        }
     }
 
 };
