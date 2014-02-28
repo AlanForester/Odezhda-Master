@@ -4,8 +4,20 @@
  * @var string $content
  */
 $js = "
+    function plural(n, form1, form2, form5) {
+        n = Math.abs(n) % 100;
+        n1 = n % 10;
+        if (n > 10 && n < 20) return form5;
+        if (n1 > 1 && n1 < 5) return form2;
+        if (n1 == 1) return form1;
+        return form5;
+    }
+
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
+
+
+
 
 //для формы регистрации
     $('#registration #reg_submit').live('click',function(){
@@ -212,9 +224,14 @@ jQuery(document).ready(function($){
                           success: function(data) {
                                 console.log(data);
                                 if (data){
-                                //делаю подмену
+                                    me.parent().remove();
+                                    $('.end-price').html(data['countPrices']);
+                                    $('.sum').html(data['countPrices']);
+                                    $('.null.col').html(data['countProducts']);
+                                    $('.cart_title').html(data['countProducts']+' '+plural(data['countProducts'],'товар','товара','товаров'));
 
-                                       me.parent().remove();
+
+
                                    //   $('#panel').html(data);
 //                                      $('#jqeasypanel').jqEasyPanel({
 //                                            position: 'bottom'
