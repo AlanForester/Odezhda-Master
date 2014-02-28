@@ -233,7 +233,7 @@ class ShopProduct extends LegacyActiveRecord {
             'product_description' => [self::HAS_ONE, 'ShopProductDescription', 'products_id', 'together' => true, 'joinType' => 'INNER JOIN'],
 
             // todo: половина тут лишнее
-            'manufacturers_description' => array(self::BELONGS_TO, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => true, 'joinType' => 'INNER JOIN'),
+            'manufacturers_description' => array(self::HAS_MANY, 'ShopManufacturersDescription', 'manufacturers_id', 'together' => false, 'joinType' => 'INNER JOIN'),
 
             //связь с категориями many to many
             'category_to_product' => array(self::HAS_MANY, 'ShopProductsToCategories', 'products_id', 'together' => true),
