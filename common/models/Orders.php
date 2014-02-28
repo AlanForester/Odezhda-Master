@@ -120,7 +120,7 @@ class Orders extends LegacyActiveRecord {
             'orders_status_id' => Yii::t('labels', 'Статус'),
             'date_purchased' => Yii::t('labels', 'Дата покупки'),
             'default_provider' => Yii::t('labels', 'Поставщик'),
-            'final_price' => Yii::t('labels', 'Сумма'),
+            'final_price' => Yii::t('labels', 'Сумма (руб.)'),
         ];
     }
 
