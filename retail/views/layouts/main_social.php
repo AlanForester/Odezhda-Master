@@ -24,8 +24,8 @@ jQuery(document).ready(function($){
                       }),
                       success: function(data) {
                             if (data){
-                                $('#openCart .col').text(data);
-                                $('.basket').stop(true,true).effect('highlight', {}, 2000);
+                                $('.open .col').text(data);
+                                $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
                             }
 
                       }

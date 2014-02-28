@@ -34,11 +34,11 @@ if(Yii::app()->user->id){
 <div id="jqeasytrigger" class="bottom-panel">
 
     <a href="#" class="open" style="display: block;">
-        <img src="../../../images/bottom-basket-icon.png" alt="" />
+        <img src="../../../images/basket_social.png" alt="" />
         <span class="col"><?php echo CartModel::countProducts();?></span>
     </a>
     <a href="#" class="close" style="display: none;">
-        <img src="../../../images/bottom-basket-icon.png" alt="" />
+        <img src="../../../images/basket_social.png" alt="" />
         <p>корзина</p>
         <!-- Если корзина пустая -->
         <span class="null col"><?php echo(CartModel::countProducts());?></span>
