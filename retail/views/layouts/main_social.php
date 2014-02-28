@@ -1,4 +1,9 @@
 <?php
+$lghtbox="
+jQuery(document).ready(function($){
+    $('.lightbox').lightbox();
+});
+";
 $basket = "
 jQuery(document).ready(function($){
     //добавление товара в корзину
@@ -33,6 +38,7 @@ jQuery(document).ready(function($){
 });
 ";
 Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
+Yii::app()->getClientScript()->registerScript('lghtbox', $lghtbox, CClientScript::POS_END);
 ?>
 
 

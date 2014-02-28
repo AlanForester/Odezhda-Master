@@ -95,7 +95,7 @@ $this->widget(
                 'class' => 'yiiwheels.widgets.editable.WhEditableColumn',
                 'type' => 'text',
 //                'header' => 'Имя',
-                'name' => 'sum',
+                'name' => 'final_price',
                 'headerHtmlOptions' => [
                 ],
                 'htmlOptions' => [
