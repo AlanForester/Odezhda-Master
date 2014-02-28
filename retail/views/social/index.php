@@ -77,3 +77,6 @@ Yii::app()->clientScript->registerPackage('social');
         ?>
     </div>
 </div>
+<div id="panel">
+    <?php $this->renderPartial('/layouts/socialParts/cart'); ?>
+</div>

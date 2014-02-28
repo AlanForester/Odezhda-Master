@@ -60,8 +60,5 @@ Yii::app()->getClientScript()->registerScript('lghtbox', $lghtbox, CClientScript
 </head>
 <body>
 <?php echo $content ?>
-<div id="panel">
-    <?php $this->renderPartial('/layouts/socialParts/cart'); ?>
-</div>
 </body>
 </html>

@@ -138,13 +138,15 @@ ul.panelbuttons li a img {
 #jqeasytrigger a span {
     background: none repeat scroll 0 0 #E72679;
     border-radius: 10px;
+    clear: both;
     float: left;
     height: 25px;
     line-height: 25px;
-    margin-left: 10px;
+    margin-left: 6px;
     margin-top: 7px;
     padding: 0 10px;
-    clear: both
+    text-align: center;
+    width: 20px;
 }
 
 #jqeasytrigger a span.null {
