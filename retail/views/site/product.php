@@ -158,7 +158,7 @@ $this->breadcrumbs = array(
     </div>
 
 
-    <p class="title-cart-like-tovar">Популярные товары</p>
+    <p class="title-cart-like-tovar">Похожие товары</p>
 
     <div class="slider-clothes">
         <div class="jcarousel-wrapper">
