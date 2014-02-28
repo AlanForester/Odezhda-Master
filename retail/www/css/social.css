@@ -16,7 +16,7 @@
 }
 .catalog-goods {
     float: none;
-    width: 840px;
+    width: 845px;
     margin: 0 auto;
     clear: both;
 }
@@ -26,7 +26,7 @@ ul.yiiPager {
     display: block !important;
     font-size: 11px !important;
     margin-left: 13px !important;
-    padding-top: 25px !important;
+    padding-top: 18px !important;
     padding-bottom: 15px !important;
 }
 
@@ -513,7 +513,8 @@ ul.yiiPager {
     border: solid 1px #ccc;
     text-align: center;
     margin-top: 10px;
-    margin-left: 13px;
+    margin-left: 7px;
+    margin-right: 7px;
     position: relative;
 }
 
@@ -1052,14 +1053,14 @@ ul.yiiPager .selected a {
 .basket {
     width:180px;
     height:42px;
-    border-radius:50px;
+    border-radius:7px;
     -moz-border-radius:50px;
     -webkit-border-radius:50px;
     line-height:35px;
     background: #F39A22;
     z-index:99;
     border:solid 1px #F39A22;
-    margin: 4px 15px -4px 0;
+    margin: 4px 19px -4px 0;
     float: right;
 }
 
