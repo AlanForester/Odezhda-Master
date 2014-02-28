@@ -35,6 +35,20 @@ jQuery(document).ready(function($){
             alert ('Выберите, пожалуйста, размер товара.');
         }
     });
+
+    //инициализация выдвигающийся панельки и кнопок
+        $('#jqeasypanel').jqEasyPanel({
+            position: 'bottom'
+        });
+        $('.open').click(function(){
+            $('#jqeasytrigger').animate({bottom:'246px'});
+        });
+        $('.close').click(function(){
+            $('#jqeasytrigger').animate({bottom:'0px'});
+        });
+        $('.goods-slider ul#items').easyPaginate({
+                step:4
+        });
 });
 ";
 Yii::app()->getClientScript()->registerScript('basket', $basket, CClientScript::POS_END);
