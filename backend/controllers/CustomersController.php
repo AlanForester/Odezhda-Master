@@ -105,6 +105,12 @@ class CustomersController extends BackendController {
                         TbHtml::ALERT_COLOR_ERROR,
                         CHtml::errorSummary($item->customers_info, 'Ошибка ' . ($id ? 'сохранения' : 'добавления') . ' информации о клиенте')
                     );
+
+                    //если после создания клиента не сохранилось его customers_info,
+                    //то удаляем созданного клиента, чтобы не плодить клонов при данной ошибке
+                    if($this->action->id == 'add')
+                        Customer::model()->deleteByPk($id);
+
                 } else {
                     // выкидываем сообщение
                     Yii::app()->user->setFlash(

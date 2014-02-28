@@ -31,6 +31,7 @@ class OrdersHelper {
         $page_size = TbArray::getValue('page_size', $data, CPagination::DEFAULT_PAGE_SIZE);
 
         $criteria = [
+            'select' =>" *",
             'condition' => join(' AND ', $condition),
             'params' => $params,
             'order' => $order_field . ($order_direct ? : ''),

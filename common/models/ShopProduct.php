@@ -22,8 +22,6 @@ class ShopProduct extends LegacyActiveRecord {
 
     //    public $primaryKey = 'id';
 
-    //public $params;
-
     public function __get($name) {
 
         $relations = $this->relations();

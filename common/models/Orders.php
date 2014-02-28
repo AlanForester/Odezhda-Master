@@ -17,7 +17,7 @@ class Orders extends LegacyActiveRecord {
 //    public function relations()
 //    {
 //        return [
-//            'orders_status' => [self::BELONGS_TO, 'OrdersStatuses', 'orders_status_id', 'together' => true]
+//            'provider_name' => [self::BELONGS_TO, 'AdminCompanies', 'default_provider', 'together' => true]
 //        ];
 //    }
 
@@ -82,14 +82,22 @@ class Orders extends LegacyActiveRecord {
             'customers_referer_url' => 'customers_referer_url',
             'shipping_module' => 'shipping_module',
             'referer' => 'referer',
-            'print_torg' => 'print_torg',    //?
-            'default_provider' => 'default_provider',
-            'seller_id' => 'seller_id',
+            'print_torg' => 'print_torg',    //? */
+            'default_provider' => 'default_provider_id',
+            /*'seller_id' => 'seller_id',
             'orders_discont' => 'orders_discont',
             'orders_discont_comment' => 'orders_discont_comment',*/
         ];
     }
-
+    public  function total_price($id){
+        $total_price = Yii::app()->db->createCommand()
+            ->select('sum( `final_price` * `products_quantity` )')
+            ->from('orders_products op')
+            ->join('orders o', 'op.orders_id=o.user_id')
+            ->where('orders_id', array(':id'=>$id))
+            ->queryRow();
+        return $total_price;
+    }
     /**
      * Правила проверки полей модели
      *
@@ -100,10 +108,11 @@ class Orders extends LegacyActiveRecord {
         return [
             ['customers_name, customers_street_address, customers_city, customers_postcode, customers_country, customers_telephone, customers_email_address, delivery_name, delivery_lastname, delivery_pasport_kogda_vidan, delivery_street_address, delivery_city, delivery_postcode, delivery_country, billing_name, billing_street_address, billing_city, billing_postcode, billing_country, payment_method, customers_fax',
                 'required', 'on' => 'add, update', 'message' => Yii::t('validation', 'Поле {attribute} является обязательным')],
-            ['customers_id, customers_groups_id, customers_address_format_id, delivery_adress_id, delivery_address_format_id, billing_address_format_id, buh_orders_id, orders_status, default_provider, seller_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
+            ['customers_id, customers_groups_id, customers_address_format_id, delivery_adress_id, delivery_address_format_id, billing_address_format_id, buh_orders_id, orders_status, seller_id', 'numerical', 'integerOnly' => true, 'message'=>Yii::t('validation', 'Поле {attribute} является числовым')],
             ['last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'update'],
             ['date_purchased, last_modified','default','value'=>new CDbExpression('NOW()'),'setOnEmpty'=>false,'on'=>'add'],
-            ['orders_status_id', 'required', 'message' => Yii::t('validation', 'Статус является обязательной')]
+            ['orders_status_id', 'required', 'message' => Yii::t('validation', 'Статус является обязательной')],
+            ['default_provider', 'required', 'message' => Yii::t('validation', 'Выберите поставщика')],
         ];
     }
 
@@ -116,6 +125,9 @@ class Orders extends LegacyActiveRecord {
         return [
             'id' => Yii::t('labels', 'ID'),
             'customers_name' => Yii::t('labels', 'Имя'),
+            'orders_status_id' => Yii::t('labels', 'Статус'),
+            'date_purchased' => Yii::t('labels', 'Дата покупки'),
+            'default_provider' => Yii::t('labels', 'Поставщик'),
         ];
     }
 

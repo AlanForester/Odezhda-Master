@@ -41,7 +41,7 @@ class CommonHelper {
             'condition' => join(' AND ', $condition),
             'params' => $params,
         ];
-        //echo '<pre>'.print_r($data,1);exit;
+
         // поле и направление сортировки
         if (!empty($data['order']['field']) && !empty($data['order']['direction'])) {
             $orderDirection = null;

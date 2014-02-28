@@ -1000,4 +1000,102 @@ ul.yiiPager .selected a {
     bottom: 95px;
 }
 
+/*корзинка*/
+#jqeasytrigger a {
+    color: #FFFFFF;
+    float: left;
+    height: 45px;
+    width: 245px;
+}
+#jqeasytrigger a.open img, #jqeasytrigger a.close img {
+    float: left;
+    margin-left: 3px;
+    margin-top: 7px;
+}
+#jqeasytrigger a.open {
+    display: block;
+    line-height: 45px;
+}
+
+#jqeasytrigger {
+    background-color: #FE9302;
+    font-size: 14px;
+    height: 45px;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    width: 75px;
+    z-index: 105;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    top: 10%;
+}
+#jqeasytrigger a span {
+    background: none repeat scroll 0 0 #E72679;
+    border-radius: 10px;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 10px;
+    margin-top: 12px;
+    padding: 0 10px;
+}
+
+.reg-basket {
+    float:right;
+    position:relative;
+    width:205px;
+    height:40px;
+    margin-top:30px;
+}
+
+.basket {
+    width:180px;
+    height:42px;
+    border-radius:50px;
+    -moz-border-radius:50px;
+    -webkit-border-radius:50px;
+    line-height:35px;
+    background: #F39A22;
+    z-index:99;
+    border:solid 1px #F39A22;
+    margin: 4px 15px -4px 0;
+    float: right;
+}
+
+.basket img {
+    float:left;
+    padding-top:10px;
+    padding-left:15px;
+}
+
+.basket span {
+    float:left;
+    height:30px;
+    width:20px;
+    text-align:center;
+    color:#E1156F;
+    line-height:30px;
+    font-size:14px;
+    line-height:42px;
+    margin-left: 5px;
+}
+
+.basket small {
+    line-height:42px;
+    padding-left:15px;
+    color:#fff;
+    font-size:14px;
+    float:left;
+}
+
+.basket a {
+    width:100%;
+    height:70px;
+    float:left;
+}
+
+.basket h6 {
+    float:left;
+}
 

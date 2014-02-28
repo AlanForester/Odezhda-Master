@@ -10,6 +10,8 @@ Yii::import('yiiwheels.widgets.editable.WhEditableColumn');
 
 class EditableColumn extends WhEditableColumn
 {
+    //используется для изменения селектора поля:
+    //если пусто, то fieldname, иначе ModelName_fieldname
     public $modelName;
 
     public function init()

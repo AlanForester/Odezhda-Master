@@ -2,6 +2,8 @@
 
 class RetailOrdersProductsHelper extends CommonHelper {
 
+    private static $storageName = 'RetailOrdersProductsEditingStorage';
+
     public static function getDataProvider($data = null, $modelClass = 'RetailOrdersProducts') {
 
         if(!empty($data['text_search']))
@@ -52,13 +54,13 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return true;
     }*/
 
-    public static function addProductToStorage($retailProduct, $storageName = 'RetailOrdersProductsEditingStorage') {
-        $retailProducts = Yii::app()->session[$storageName];
+    public static function addProductToEditingStorage($retailProduct) {
+        $retailProducts = Yii::app()->session[self::$storageName];
         $lastAddedRetailProduct = $retailProducts === null ? false : end($retailProducts);
         $retailProduct['id'] = $lastAddedRetailProduct === false || $lastAddedRetailProduct['id'] > 0 ? -1
             : $lastAddedRetailProduct['id']-1;
         $retailProducts[] = $retailProduct;
-        Yii::app()->session[$storageName] = $retailProducts;
+        Yii::app()->session[self::$storageName] = $retailProducts;
         //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsQueue'],1);exit;
         return true;
     }
@@ -75,17 +77,17 @@ class RetailOrdersProductsHelper extends CommonHelper {
         return false;
     }*/
 
-    public static function updateProductStorageField($data, $storageName = 'RetailOrdersProductsEditingStorage') {
+    public static function updateProductEditingStorageField($data) {
         $field = TbArray::getValue('field', $data, false);
         $rowId = TbArray::getValue('id', $data, false);
         $value = TbArray::getValue('value', $data, false);
 
         if ($rowId && $field && $value !== false) {
-            $retailProducts = Yii::app()->session[$storageName];
+            $retailProducts = Yii::app()->session[self::$storageName];
             foreach($retailProducts as $key => $product) {
                 if($product['id'] == $rowId) {
                     $retailProducts[$key][$field] = $value;
-                    Yii::app()->session[$storageName] = $retailProducts;
+                    Yii::app()->session[self::$storageName] = $retailProducts;
                     return true;
                 }
             }
@@ -99,16 +101,15 @@ class RetailOrdersProductsHelper extends CommonHelper {
             foreach(RetailOrdersProducts::model()->findAllByAttributes(array('retail_orders_id'=>$orderId)) as $product) {
                 $retailProducts[$product->id] = $product->attributes;
             }
-        Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
-        //echo '<pre>'.print_r(Yii::app()->session['RetailOrdersProductsEditingStorage'],1);exit;
+        Yii::app()->session[self::$storageName] = $retailProducts;
     }
 
     public static function removeProductFromEditingStorage($id) {
-        $retailProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        $retailProducts = Yii::app()->session[self::$storageName];
         foreach($retailProducts as $key => $product) {
             if($product['id'] == $id) {
                 $retailProducts[$key]['removed'] = 1;
-                Yii::app()->session['RetailOrdersProductsEditingStorage'] = $retailProducts;
+                Yii::app()->session[self::$storageName] = $retailProducts;
                 return true;
             }
         }
@@ -117,7 +118,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
 
     public static function getExistingProductsFromEditingStorage() {
         $resultProducts = [];
-        $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        $storageProducts = Yii::app()->session[self::$storageName];
         foreach($storageProducts as $storageProduct) {
             if(empty($storageProduct['removed'])) {
                 $resultProducts[] = $storageProduct;
@@ -127,7 +128,7 @@ class RetailOrdersProductsHelper extends CommonHelper {
     }
 
     public static function applyProductsEditingStorage($orderId) {
-        $storageProducts = Yii::app()->session['RetailOrdersProductsEditingStorage'];
+        $storageProducts = Yii::app()->session[self::$storageName];
         //var_dump($storageProducts);exit;
         //echo '<pre>'.print_r($storageProducts,1);exit;
         foreach($storageProducts as $storageProduct) {
