@@ -40,20 +40,36 @@ var LapanaWidget = {
     },
 
     slideDown: function () {
-
+        this.slide(
+            document.getElementById('lapana-trigger'),
+            {
+                'bottom': 0
+            },
+            20,20,0.5
+        );
+        this.slide(
+            document.getElementById('lapana-body'),
+            {
+                'height': 0
+            },
+            20,20,0.5
+        );
     },
 
-    slide: function (element,startPos,endPos,steps,time,powr) {
-        if (element.animationInterval) window.clearInterval(element.animationInterval);
+    slide: function (element, properties, steps, time, powr) {
+        if (element.animationInterval)
+            window.clearInterval(element.animationInterval);
+
         var actStep = 0;
+
         element.animationInterval = window.setInterval(
             function() {
-                element.currentPos = [
-                    this.stepPosition(startPos[0],endPos[0],steps,actStep,powr),
-                    this.stepPosition(startPos[1],endPos[1],steps,actStep,powr)
-                ];
-                element.style.left = element.currentPos[0]+"px";
-                element.style.top = element.currentPos[1]+"px";
+                for(var propertyName in properties) {
+                    //if (properties.hasOwnProperty(propertyName)) {
+                        position = this.stepPosition(startPos[0],endPos[0],steps,actStep,powr);
+                        element.style[propertyName] = position+"px";
+                    //}
+                }
                 actStep++;
                 if (actStep > steps) window.clearInterval(element.animationInterval);
             }
@@ -95,17 +111,13 @@ var LapanaWidget = {
     },
 
     bind: function (element, eventName, fn) {
-        if (document.getElementById && document.getElementsByTagName) {
-            if (window.addEventListener) element.addEventListener(eventName, fn, false);
-            else if (window.attachEvent) element.attachEvent('on'+eventName, fn);
-        }
+        if (window.addEventListener) element.addEventListener(eventName, fn, false);
+        else if (window.attachEvent) element.attachEvent('on'+eventName, fn);
     },
 
     unbind: function (element, eventName, fn) {
-        if (document.getElementById && document.getElementsByTagName) {
-            if (window.removeEventListener) element.removeEventListener(eventName, fn, false);
-            else if (window.detachEvent) element.detachEvent('on'+eventName, fn);
-        }
+        if (window.removeEventListener) element.removeEventListener(eventName, fn, false);
+        else if (window.detachEvent) element.detachEvent('on'+eventName, fn);
     }
 
 };
