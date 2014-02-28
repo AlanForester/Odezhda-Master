@@ -13,7 +13,7 @@ class Orders extends LegacyActiveRecord {
     public function tableName() {
         return 'orders';
     }
-
+    public $final_price;
 //    public function relations()
 //    {
 //        return [
@@ -89,15 +89,7 @@ class Orders extends LegacyActiveRecord {
             'orders_discont_comment' => 'orders_discont_comment',*/
         ];
     }
-    public  function total_price($id){
-        $total_price = Yii::app()->db->createCommand()
-            ->select('sum( `final_price` * `products_quantity` )')
-            ->from('orders_products op')
-            ->join('orders o', 'op.orders_id=o.user_id')
-            ->where('orders_id', array(':id'=>$id))
-            ->queryRow();
-        return $total_price;
-    }
+
     /**
      * Правила проверки полей модели
      *
@@ -128,6 +120,7 @@ class Orders extends LegacyActiveRecord {
             'orders_status_id' => Yii::t('labels', 'Статус'),
             'date_purchased' => Yii::t('labels', 'Дата покупки'),
             'default_provider' => Yii::t('labels', 'Поставщик'),
+            'final_price' => Yii::t('labels', 'Сумма'),
         ];
     }
 
