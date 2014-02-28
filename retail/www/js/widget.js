@@ -1,9 +1,9 @@
 var LapanaWidget = {
 
-    baseURL: '/widget/',    //'http://lapana.ru/widget/',
+    baseURL: '/',    //'http://lapana.ru/',
 
     init: function (params) {
-        this.load('index', 'LapanaWidget.initCallback');
+        this.load('widget/index', 'LapanaWidget.initCallback');
 
         /*if(params.id != undefined) {
 
@@ -14,7 +14,7 @@ var LapanaWidget = {
     },
 
     initCallback: function (response) {
-        this.registerStyle();
+        this.registerCSS();
         this.addWidget(response.html);
     },
 
@@ -25,7 +25,7 @@ var LapanaWidget = {
         document.body.appendChild(div);
     },
 
-    registerStyle: function () {
+    registerCSS: function () {
         var headID = document.getElementsByTagName('head')[0];
         var cssNode = document.createElement('link');
         cssNode.type = 'text/css';
@@ -43,11 +43,34 @@ var LapanaWidget = {
 
     },
 
+    slide: function (element,startPos,endPos,steps,time,powr) {
+        if (element.animationInterval) window.clearInterval(element.animationInterval);
+        var actStep = 0;
+        element.animationInterval = window.setInterval(
+            function() {
+                element.currentPos = [
+                    this.stepPosition(startPos[0],endPos[0],steps,actStep,powr),
+                    this.stepPosition(startPos[1],endPos[1],steps,actStep,powr)
+                ];
+                element.style.left = element.currentPos[0]+"px";
+                element.style.top = element.currentPos[1]+"px";
+                actStep++;
+                if (actStep > steps) window.clearInterval(element.animationInterval);
+            }
+            ,time);
+    },
+
+    stepPosition: function (minValue,maxValue,totalSteps,actualStep,powr) {
+        var delta = maxValue - minValue;
+        var step = minValue+(Math.pow(((1 / totalSteps)*actualStep),powr)*delta);
+        return Math.ceil(step);
+    },
+
     addToCart: function (id) {
 
     },
 
-    load: function (action, callback) {
+    load: function (path, callback) {
         var script = document.createElement("script");
         script.type = "text/javascript";
         document.body.appendChild(script);
@@ -60,7 +83,7 @@ var LapanaWidget = {
                 setTimeout(LapanaWidget.checkLoaded(this), 100);
             }
         };*/
-        script.src = this.baseURL + action + '/?callback=' + callback;
+        script.src = this.baseURL + path + '/?callback=' + callback;
     },
 
     checkLoaded: function (element) {
