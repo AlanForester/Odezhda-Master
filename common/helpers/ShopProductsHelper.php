@@ -168,6 +168,18 @@ class ShopProductsHelper {
         return $priceLimit;
     }
 
+    public static function widgetDayProducts($category) {
+        $criteria = [
+            'condition' => 'category_to_product.categories_id=' . $category,
+            'limit' => 4,
+            'order' => new CDbExpression('RAND()')
+        ];
+
+        $dayProducts = self::getModel()->findAll($criteria);
+
+        return $dayProducts;
+    }
+
     public static function getProduct($id = null, $scenario = null) {
         if ($id) {
             // todo: вынести код в АР

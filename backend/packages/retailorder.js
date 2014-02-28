@@ -25,8 +25,7 @@ function showBootbox(title) {
 
 function loadGridIntoBootbox(id, url){
     $.ajax({
-        url: url,
-        //?ajax=catalog_grid&from=bootbox",
+        url: url,   //+"?ajax=catalog_grid&from=bootbox",
         dataType : "html",
         success: function (data, textStatus) {
             $(".bootbox-body").html(data);
@@ -58,8 +57,6 @@ function selectCustomer(event, orderId, infoPath, editPath) {
 }
 
 function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPath, queuePath) {
-    //bootbox.hideAll();
-
     //var event=event||window.event;
     var target = event.target||event.srcElement,
         productId = $(target).closest("tr").find("input[name='gridids[]']").val();
@@ -70,15 +67,10 @@ function selectRetailOrdersProductOptions(event, orderId, optionsSelectionViewPa
         url: optionsSelectionViewPath + productId,
         type: 'GET',
         //dataType : "json",
-        data: {
-            //productId: productId,
-            //orderId: orderId
-        },
         success: function (data, textStatus) {
             $(".bootbox.modal").css({width:'620px',top:'10%',left:'50%'});
             $(".bootbox.modal .bootbox-body").css({height:'200px'}).html(data);
             $(".bootbox.modal .modal-title").html('Выбор параметров товара');
-            //registerGrid(id);
             $(".bootbox .modal-footer .btn-success").show()
                 .bind( "click", function() {
                     addRetailOrdersProduct(
