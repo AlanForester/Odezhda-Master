@@ -16,6 +16,11 @@ var LapanaWidget = {
     initCallback: function (response) {
         this.registerCSS();
         this.addWidget(response.html);
+        this.bind(
+            document.getElementById('lapana-trigger'),
+            'click',
+            this.toggleWidget
+        )
     },
 
     addWidget: function (html) {
@@ -35,24 +40,29 @@ var LapanaWidget = {
         headID.appendChild(cssNode);
     },
 
-    slideUp: function () {
+    toggleWidget: function () {
+        var triggerBottom = LapanaWidget.getPropertyValues(document.getElementById('lapana-trigger'), 'bottom');
+        if(triggerBottom == 0)
+            LapanaWidget.slideUp();
+        else
+            LapanaWidget.slideDown();
+    },
 
+    slideUp: function () {
+        this.slide(
+            document.getElementById('lapana-trigger'), {'bottom': 400}, 20, 20, 0.5
+        );
+        this.slide(
+            document.getElementById('lapana-body'), {'height': 400}, 20, 20, 0.5
+        );
     },
 
     slideDown: function () {
         this.slide(
-            document.getElementById('lapana-trigger'),
-            {
-                'bottom': 0
-            },
-            20,20,0.5
+            document.getElementById('lapana-trigger'), {'bottom': 0}, 20, 20, 0.5
         );
         this.slide(
-            document.getElementById('lapana-body'),
-            {
-                'height': 0
-            },
-            20,20,0.5
+            document.getElementById('lapana-body'), {'height': 0}, 20, 20, 0.5
         );
     },
 
@@ -60,15 +70,14 @@ var LapanaWidget = {
         if (element.animationInterval)
             window.clearInterval(element.animationInterval);
 
-        var actStep = 0;
+        var actStep = 0,
+            startPositions = this.getPropertyValues(element, properties);
 
         element.animationInterval = window.setInterval(
             function() {
                 for(var propertyName in properties) {
-                    //if (properties.hasOwnProperty(propertyName)) {
-                        position = this.stepPosition(startPos[0],endPos[0],steps,actStep,powr);
-                        element.style[propertyName] = position+"px";
-                    //}
+                    position = LapanaWidget.stepPosition(startPositions[propertyName],properties[propertyName],steps,actStep,powr);
+                    element.style[propertyName] = position+"px";
                 }
                 actStep++;
                 if (actStep > steps) window.clearInterval(element.animationInterval);
@@ -82,11 +91,31 @@ var LapanaWidget = {
         return Math.ceil(step);
     },
 
+    getPropertyValues: function (element, properties) {
+        switch (typeof properties){
+            case "string":
+                //одиночный параметр
+                var value = element.style[properties],
+                    result = value=='' ? 0 : parseInt(value, 10);
+                break;
+
+            default:
+                //объект: список параметров
+                var result = [];
+                for(var propertyName in properties) {
+                    var value = element.style[propertyName];
+                    result[propertyName] = value=='' ? 0 : parseInt(value, 10);
+                }
+        }
+        return result;
+    },
+
     addToCart: function (id) {
 
     },
 
     load: function (path, callback) {
+        //метод кросс-доменного запроса данных (JSONP)
         var script = document.createElement("script");
         script.type = "text/javascript";
         document.body.appendChild(script);
