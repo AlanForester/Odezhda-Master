@@ -20,7 +20,7 @@ class ProductController extends BackendController {
         $model = new ProductModel();
         $gridDataProvider = $model->getDataProvider($criteria);
 
-        $this->render('product/index', compact('criteria', 'gridDataProvider'));
+        $this->render('/product/index', compact('criteria', 'gridDataProvider'));
     }
 
     /**
@@ -30,7 +30,6 @@ class ProductController extends BackendController {
         $params['field'] = Yii::app()->request->getPost('name');
         $params['id'] = Yii::app()->request->getPost('pk');
         $params['value'] = Yii::app()->request->getPost('value');
-
         $model = new ProductModel();
         if (!$model->updateField($params)){
             $this->error(CHtml::errorSummary($model, 'Ошибка изменения данных продуктов'));
@@ -44,12 +43,7 @@ class ProductController extends BackendController {
             $this->error('Ошибка получения данных продуктов');
         }
 
-//        print_r($model->getPostData());
-//        exit;
         $form_action = Yii::app()->request->getPost('form_action');
-
-//        print_r($model->getPostData());
-//        exit;
 
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
@@ -80,8 +74,8 @@ class ProductController extends BackendController {
                 }
             }
         }
-        //$oldOptionList=$model->getOldOptionsList();
-        $this->render('edit', compact('item','model','oldOptionList'));
+
+        $this->render('edit', compact('item','model'));
     }
 
     public function actionAdd() {

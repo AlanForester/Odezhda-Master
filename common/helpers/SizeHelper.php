@@ -136,10 +136,11 @@ class SizeHelper {
             if (!$item = self::getId($id)) {
                 return false;
             }
-            $item   ->setAttributes([$field=>$value],false);
+            echo 111;
+            $item->setAttributes([$field=>$value],false);
+
             return $item->save(true,[$field]);
         }
-
         return false;
     }
 
@@ -165,14 +166,14 @@ class SizeHelper {
     public static function save($data) {
         $id = TbArray::getValue('id', $data);
 
-        // модель пользователя
+        // модель данных
         $item = self::getId($id, 'add');
         if (!$item) {
             return false;
         }
 
         if ($id) {
-            // обновление пользователя
+            // обновление данных
 
         } else {
             // если есть пустой id в параметрах - удаляем
