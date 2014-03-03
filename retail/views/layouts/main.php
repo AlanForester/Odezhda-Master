@@ -220,34 +220,46 @@ jQuery(document).ready(function($){
                                     product_id : $(this).nextAll('.prod_id').val(),
                                     params : $(this).nextAll('.prod_params').val(),
                               }),
-                            //  dataType:'json',
+                              dataType:'json',
                               success: function(data) {
-
-                                    //dataJson=$.parseJSON(data);
-                                    //console.log(dataJson);
-                                    if (dataJson=$.parseJSON(data)){
+                                    console.log(data);
+                                    if (data){
                                         me.parent().remove();
                                         $('.end-price').html(data['countPrices']);
                                         $('.sum').html(data['countPrices']);
                                         $('.null.col').html(data['countProducts']);
+                                        $('.col').html(data['countProducts']);
                                         $('.cart_title').html(data['countProducts']+' '+plural(data['countProducts'],'товар','товара','товаров'));
-                                    }else{
-                                          $('#panel').html(data);
+
+                                            if(data['countProducts']==0){
+
+//                                               $('#jqeasypanel').jqEasyPanel({
+//                                                      position: 'bottom'
+//                                                });
+                                                $('#jqeasypanel p').html('Ваша корзина пуста');
+//                                                $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                                $('.all-price,.goods-slider,.clear').remove();
+
+
+                                            }
+
+
+                                       //   $('#panel').html(data);
     //                                      $('#jqeasypanel').jqEasyPanel({
     //                                            position: 'bottom'
     //                                      });
     //                                      $('.open').click(function(){
-    //                                           $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+    //                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
     //                                      });
     //                                      $('.close').click(function(){
-    //                                           $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+    //                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
     //                                      });
     //                                      $('.goods-slider ul#items').easyPaginate({
     //                                             step:4
     //                                      });
     //                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
     //                                      $('.open').trigger('click');
-                                        }
+                                    }
 
                               }
                           });
