@@ -1,0 +1,15 @@
+#lapana-trigger {
+    width: 400px;
+    bottom: 0px;
+    position: fixed;
+    cursor: pointer;
+    background-color: #EEEEEE;
+    text-align: center;
+}
+
+#lapana-body {
+    width: 500px;
+    height: 0px;
+    bottom: 0px;
+    position: fixed;
+}
