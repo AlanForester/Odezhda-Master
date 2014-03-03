@@ -83,7 +83,8 @@ class OrdersController extends BackendController
             $productOptions[$option['products_options_values_id']] = $option['products_options_values_name'];
         }
 
-       foreach([
+        //todo: временно оставляю данные здесь, но лучше создать для PaymentMethods и Currencies таблицы в бд (как и для стран и областей)
+        foreach([
                     'Оплата (Для физических лиц)',
                     'Оплата наличными при получении',
                     'Оплата по квитанции Сбербанка РФ',
@@ -97,8 +98,8 @@ class OrdersController extends BackendController
         $referrer = Yii::app()->request->getQuery('referrer', '#');
 
         if(is_array($referrer) && $referrer['id'] && $referrer['url'] == 'customers/edit') {
-            $item = OrdersHelper::getOrder($id, $scenario);
-//            $item->customer = CustomersHelper::getCustomerWithInfo($referrer['id'], $scenario);
+            $item = RetailOrdersHelper::getRetailOrder($id, $scenario);
+            $item->customer = CustomersHelper::getCustomerWithInfo($referrer['id'], $scenario);
             if($referrer['id']) {
                 $item->customers_id = $referrer['id'];
                 $item->customers_name = $item->customer->customers_firstname . ' ' . $item->customer->customers_lastname;
@@ -106,26 +107,26 @@ class OrdersController extends BackendController
                 $item->customers_telephone = $item->customer->customers_telephone;
             }
         } else {
-            $item = OrdersHelper::getOrderWithInfo($id, $scenario);
+            $item = RetailOrdersHelper::getRetailOrderWithInfo($id, $scenario);
         }
 
         if (!$item){
-            $this->error('Ошибка получения данных оптового заказа');
+            $this->error('Ошибка получения данных розничного заказа');
         }
 
 
         $form_action = Yii::app()->request->getPost('form_action');
         if (!empty($form_action)) {
             // записываем пришедшие с запросом значения в модель, чтобы не сбрасывать уже набранные данные в форме
-            $item->setAttributes(OrdersHelper::getPostData(),false);
+            $item->setAttributes(RetailOrdersHelper::getPostData(),false);
             // записываем данные
             $result = $item->save();
 
             if ($result) {
                 $id = $id ? : Yii::app()->db->lastInsertID;     //$item->getPrimaryKey();
 
-                $productsResult = Yii::app()->session['OrdersProductsEditingStorage'] ?
-                    OrdersProductsHelper::applyProductsEditingStorage($id) :
+                $productsResult = Yii::app()->session['RetailOrdersProductsEditingStorage'] ?
+                    RetailOrdersProductsHelper::applyProductsEditingStorage($id) :
                     true;
 
                 if ($productsResult !== true) {
@@ -138,7 +139,7 @@ class OrdersController extends BackendController
                     //если после создания заказа не сохранились его товары,
                     //то удаляем созданный заказ, чтобы не плодить клонов при данной ошибке
                     if($this->action->id == 'add')
-                        Orders::model()->deleteByPk($id);
+                        RetailOrders::model()->deleteByPk($id);
 
                 } else {
                     // выкидываем сообщение
@@ -169,22 +170,23 @@ class OrdersController extends BackendController
             //изменения в котором будут сохранены в бд
             //при сохранении заказа
             if (!$this->isAjax && !is_array($referrer))
-                OrdersProductsHelper::createProductsEditingStorage($id);
+                RetailOrdersProductsHelper::createProductsEditingStorage($id);
 
         }
+
 
         $productsCriteria = [
             'page_size' => 10,
         ];
-        $productsCriteria['filters']['orders_id'] = $id === null ? -1 : $id;
+//        $productsCriteria['filters']['retail_orders_id'] = $id === null ? -1 : $id;
 
-        //товары из сессии, подготовленные для сохранения
-        $productsGridDataProvider = OrdersProductsHelper::mergeDataProviders(
-            [
-                OrdersProductsHelper::getExistingProductsFromEditingStorage()
-            ],
-            $productsCriteria['page_size']
-        );
+//        //товары из сессии, подготовленные для сохранения
+//        $productsGridDataProvider = RetailOrdersProductsHelper::mergeDataProviders(
+//            [
+//                RetailOrdersProductsHelper::getExistingProductsFromEditingStorage()
+//            ],
+//            $productsCriteria['page_size']
+//        );
 
         $this->render('edit', compact('item', 'customers', 'statuses', 'deliveryPoints', 'paymentMethods', 'currencies', 'productsCriteria', 'productOptions', 'productsGridDataProvider'));
     }
