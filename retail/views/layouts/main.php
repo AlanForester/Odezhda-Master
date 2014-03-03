@@ -4,8 +4,20 @@
  * @var string $content
  */
 $js = "
+    function plural(n, form1, form2, form5) {
+        n = Math.abs(n) % 100;
+        n1 = n % 10;
+        if (n > 10 && n < 20) return form5;
+        if (n1 > 1 && n1 < 5) return form2;
+        if (n1 == 1) return form1;
+        return form5;
+    }
+
 jQuery(document).ready(function($){
     $('.lightbox').lightbox();
+
+
+
 
 //для формы регистрации
     $('#registration #reg_submit').live('click',function(){
@@ -203,45 +215,62 @@ jQuery(document).ready(function($){
 
             $.ajax({
                           type: 'POST',
-                          url: '" . $this->createUrl('/cart/deleteProduct') . "',
-                          data: ({
-                                product_id : $(this).nextAll('.prod_id').val(),
-                                params : $(this).nextAll('.prod_params').val(),
-                          }),
-                          dataType:'json',
-                          success: function(data) {
-                                console.log(data);
-                                if (data){
-                                //делаю подмену
+                              url: '" . $this->createUrl('/cart/deleteProduct') . "',
+                              data: ({
+                                    product_id : $(this).nextAll('.prod_id').val(),
+                                    params : $(this).nextAll('.prod_params').val(),
+                              }),
+                              dataType:'json',
+                              success: function(data) {
+                                    console.log(data);
+                                    if (data){
+                                        me.parent().remove();
+                                        $('.end-price').html(data['countPrices']);
+                                        $('.sum').html(data['countPrices']);
+                                        $('.null.col').html(data['countProducts']);
+                                        $('.col').html(data['countProducts']);
+                                        $('.cart_title').html(data['countProducts']+' '+plural(data['countProducts'],'товар','товара','товаров'));
 
-                                       me.parent().remove();
-                                   //   $('#panel').html(data);
-//                                      $('#jqeasypanel').jqEasyPanel({
-//                                            position: 'bottom'
-//                                      });
-//                                      $('.open').click(function(){
-//                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
-//                                      });
-//                                      $('.close').click(function(){
-//                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
-//                                      });
-//                                      $('.goods-slider ul#items').easyPaginate({
-//                                             step:4
-//                                      });
-//                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
-//                                      $('.open').trigger('click');
-                                }
+                                            if(data['countProducts']==0){
 
-                          }
-                      });
-     });
+//                                               $('#jqeasypanel').jqEasyPanel({
+//                                                      position: 'bottom'
+//                                                });
+                                                $('#jqeasypanel p').html('Ваша корзина пуста');
+//                                                $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                                $('.all-price,.goods-slider,.clear').remove();
 
-     //удаление всех товаров из корзины
-    $('.clear').live('click',function(){
-       if ($(this).next('.count').text()<100){
-            $.ajax({
-                          type: 'POST',
-                          url: '" . $this->createUrl('/cart/deleteAll') . "',
+
+                                            }
+
+
+                                       //   $('#panel').html(data);
+    //                                      $('#jqeasypanel').jqEasyPanel({
+    //                                            position: 'bottom'
+    //                                      });
+    //                                      $('.open').click(function(){
+    //                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+    //                                      });
+    //                                      $('.close').click(function(){
+    //                                            $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+    //                                      });
+    //                                      $('.goods-slider ul#items').easyPaginate({
+    //                                             step:4
+    //                                      });
+    //                                      $('.bottom-panel').stop(true,true).effect('highlight', {}, 2000);
+    //                                      $('.open').trigger('click');
+                                    }
+
+                              }
+                          });
+         });
+
+         //удаление всех товаров из корзины
+        $('.clear').live('click',function(){
+           if ($(this).next('.count').text()<100){
+                $.ajax({
+                              type: 'POST',
+                              url: '" . $this->createUrl('/cart/deleteAll') . "',
                           success: function(data) {
                                 if (data){
                                       $('#panel').html(data);
@@ -282,16 +311,16 @@ jQuery(document).ready(function($){
                                 }
                                 $('#jqeasypanel').jqEasyPanel({
                                         position: 'bottom'
-                                  });
-                                  $('.open').click(function(){
-                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
-                                  });
-                                  $('.close').click(function(){
-                                        $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
-                                  });
-                                  $('.goods-slider ul#items').easyPaginate({
-                                         step:4
-                                  });
+                                });
+                                $('.open').click(function(){
+                                      $('#jqeasytrigger').stop(true,true).animate({bottom:'246px'});
+                                });
+                                $('.close').click(function(){
+                                      $('#jqeasytrigger').stop(true,true).animate({bottom:'0px'});
+                                });
+                                $('.goods-slider ul#items').easyPaginate({
+                                       step:4
+                                });
                           }
                       });
      });
