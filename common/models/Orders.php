@@ -89,7 +89,12 @@ class Orders extends LegacyActiveRecord {
             'orders_discont_comment' => 'orders_discont_comment',*/
         ];
     }
-
+    public function relations() {
+        return [
+            'customer' => [self::BELONGS_TO, 'Customer', 'customers_id', 'together' => true],
+            //'products' => [self::HAS_MANY, 'RetailOrdersProducts', 'retail_orders_id', 'together' => true],
+        ];
+    }
     /**
      * Правила проверки полей модели
      *
